@@ -1,5 +1,3 @@
-# world-of-hex
-
 ## Backend
 
 ### Entities/Models
@@ -17,3 +15,8 @@ Run migrations: `knex migrate:up`
 
 Create seed: `knex seed:make users`
 Run seeds: `knex seed:run`
+
+### Development
+
+1. Run `docker-compose up` to run the postgres database
+2. Run `yarn dev` to run the express app
