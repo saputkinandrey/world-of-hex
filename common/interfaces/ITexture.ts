@@ -29,3 +29,12 @@ export const TextureTypeSize =  {
         Height: 2*R,
     },
 }
+
+export enum TextureTags {
+    CLEAN = "CLEAN",
+    GRASS = "GRASS",
+    DIRT = "DIRT",
+    STONE = "STONE",
+    WATER = "WATER",
+    SAND = "SAND",
+}

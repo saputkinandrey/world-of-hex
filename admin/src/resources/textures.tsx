@@ -41,7 +41,6 @@ export const TexturesDataCreate = (params: CreateParams) => {
 }
 
 export const TexturesDataUpdate = (params: UpdateParams) => {
-    console.log('DATA UPDATE', params)
     const httpClient = async (url: string, options: Options = {}) => {
         if (!options.headers) {
             options.headers = new Headers({ Accept: 'application/json' })
