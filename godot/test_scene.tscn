@@ -1,0 +1,37 @@
+[gd_scene load_steps=5 format=4 uid="uid://dxvudajhevayb"]
+
+[ext_resource type="Script" path="res://test_scene.gd" id="1_g2mgc"]
+[ext_resource type="Texture2D" uid="uid://bqlhmnxqwqy34" path="res://hex_grid.png" id="2_53dk0"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_bb0w8"]
+texture = ExtResource("2_53dk0")
+margins = Vector2i(9, 8)
+separation = Vector2i(18, 0)
+texture_region_size = Vector2i(110, 96)
+0:0/next_alternative_id = 2
+0:0/0 = 0
+0:0/1 = 1
+0:0/1/modulate = Color(0.650907, 0.995665, 7.70092e-07, 1)
+1:0/0 = 0
+2:0/next_alternative_id = 4
+2:0/0 = 0
+2:0/1 = 1
+2:0/1/modulate = Color(1, 0.278431, 1, 1)
+2:0/2 = 2
+2:0/2/modulate = Color(0.595313, 0.954307, 0.944775, 1)
+2:0/3 = 3
+2:0/3/modulate = Color(1, 1, 0.0627451, 1)
+2:1/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_o6qof"]
+tile_shape = 3
+tile_offset_axis = 1
+tile_size = Vector2i(110, 96)
+sources/0 = SubResource("TileSetAtlasSource_bb0w8")
+
+[node name="Test Scene" type="Node2D"]
+
+[node name="TileMapLayer" type="TileMapLayer" parent="."]
+tile_map_data = PackedByteArray("AAAAAAAAAAABAAAAAAABAAAAAAABAAAAAAACAAAAAAACAAAAAAACAAEAAAABAAAAAAABAAEAAAAAAAAAAAAAAAEAAAAAAAAAAAADAAAAAAACAAAAAAADAAEAAAACAAAAAAACAAIAAAAAAAAAAAABAAIAAAACAAAAAAAAAAIAAAACAAAAAAADAAIAAAACAAAAAAACAAMAAAACAAAAAAABAAMAAAAAAAAAAAAAAAMAAAAAAAAAAAAFAAIAAAACAAEAAAA=")
+tile_set = SubResource("TileSet_o6qof")
+script = ExtResource("1_g2mgc")
