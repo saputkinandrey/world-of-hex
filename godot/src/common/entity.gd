@@ -1,2 +1,2 @@
-class_name Entity
-extends Node
+class_name Entity2D
+extends Node2D
