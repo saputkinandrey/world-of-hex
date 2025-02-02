@@ -1,0 +1,16 @@
+[gd_scene load_steps=4 format=3 uid="uid://c48fx076wlat1"]
+
+[ext_resource type="Script" path="res://src/Ship/ship.entity.gd" id="1_busbl"]
+[ext_resource type="Texture2D" uid="uid://bcn0l81oxow6v" path="res://tokens/Drakkar.tres" id="2_2whh0"]
+[ext_resource type="Script" path="res://src/Ship/sprite.gd" id="3_fqtqn"]
+
+[node name="Drakkar" type="Node2D"]
+script = ExtResource("1_busbl")
+speed = 5
+direction = 5
+
+[node name="sprite" type="Sprite2D" parent="." node_paths=PackedStringArray("parent")]
+texture = ExtResource("2_2whh0")
+hframes = 6
+script = ExtResource("3_fqtqn")
+parent = NodePath("..")
