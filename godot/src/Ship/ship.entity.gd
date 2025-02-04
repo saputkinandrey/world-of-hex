@@ -1,10 +1,46 @@
 class_name ShipEntity
-extends TileNode2D
+extends ShipSprite
 
-enum Type {DRAKKAR=1}
+var Type2Texture = {
+	types.ShipType.DRAKKAR: load("res://tokens/Drakkar.tres")
+}
 
 @export var speed: int = 0
-@export var type: Type = Type.DRAKKAR
+@export var type: types.ShipType = types.ShipType.DRAKKAR
+#CREW
+@export var skillSailor = 12
+# OFFICERS
+@export var skillShiphandling: int = 12
+@export var skillGunnery: int = 12
+@export var skillLeadership: int = 12
+
+func _ready() -> void:
+	super()
+	self.updateTexture(Type2Texture[self.type])
+	self.updateVelocity(self.speed)
 
 func moveForward():
-	super.move(Direction2Vector2i[self.direction] * self.speed)
+	#self.move(helpers.Direction2Vector2i[self.direction])
+
+	if(self.currentPosition.x % 2 == 1):
+		self.move(helpers.Direction2Vector2i[self.direction])
+	else:
+		self.move(helpers.Direction2Vector2iOdd[self.direction])
+	
+	pass
+	#super.move(Direction2Vector2i[self.direction] * self.speed)
+
+
+func _on_left_pressed() -> void:
+	self.turnLeft()
+	pass # Replace with function body.
+
+
+func _on_right_pressed() -> void:
+	self.turnRight()
+	pass # Replace with function body.
+
+
+func _on_move_pressed() -> void:
+	self.moveForward()
+	pass # Replace with function body.
