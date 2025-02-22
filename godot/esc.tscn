@@ -1,0 +1,63 @@
+[gd_scene load_steps=2 format=3 uid="uid://ceiddnee04aau"]
+
+[ext_resource type="Script" path="res://menu.gd" id="1_1aijx"]
+
+[node name="Menu" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_1aijx")
+
+[node name="Restart" type="Button" parent="."]
+layout_mode = 0
+offset_left = 747.0
+offset_top = 268.0
+offset_right = 1115.0
+offset_bottom = 328.0
+text = "Restart"
+
+[node name="Save" type="Button" parent="."]
+layout_mode = 0
+offset_left = 749.0
+offset_top = 366.0
+offset_right = 1117.0
+offset_bottom = 426.0
+text = "Save"
+
+[node name="Load" type="Button" parent="."]
+layout_mode = 0
+offset_left = 749.0
+offset_top = 460.0
+offset_right = 1117.0
+offset_bottom = 520.0
+text = "Load
+"
+
+[node name="Exit" type="Button" parent="."]
+layout_mode = 0
+offset_left = 751.0
+offset_top = 553.0
+offset_right = 1119.0
+offset_bottom = 613.0
+text = "Exit
+"
+
+[node name="Sea_Combat" type="Button" parent="."]
+offset_left = 1329.0
+offset_top = 153.0
+offset_right = 1697.0
+offset_bottom = 213.0
+text = "Sea Combat
+"
+
+[node name="Ship_Constructor" type="Button" parent="."]
+offset_left = 1331.0
+offset_top = 234.0
+offset_right = 1699.0
+offset_bottom = 294.0
+text = "Ship Constructor
+"
+
+[connection signal="pressed" from="Exit" to="." method="_on_exit_pressed"]
+[connection signal="pressed" from="Sea_Combat" to="." method="_on_sea_combat_pressed"]

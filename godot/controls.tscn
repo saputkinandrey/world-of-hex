@@ -1,0 +1,36 @@
+[gd_scene load_steps=2 format=3 uid="uid://cvyagdh1igxng"]
+
+[ext_resource type="Script" path="res://controls.gd" id="1_2httq"]
+
+[node name="Controls" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_2httq")
+
+[node name="Left" type="Button" parent="."]
+layout_mode = 2
+offset_left = 53.0
+offset_top = 920.0
+offset_right = 487.0
+offset_bottom = 1046.0
+text = "LEFT"
+
+[node name="Right" type="Button" parent="."]
+layout_mode = 2
+offset_left = 1434.0
+offset_top = 920.0
+offset_right = 1868.0
+offset_bottom = 1046.0
+text = "RIGHT"
+
+[node name="Move" type="Button" parent="."]
+layout_mode = 2
+offset_left = 773.0
+offset_top = 924.0
+offset_right = 1207.0
+offset_bottom = 1050.0
+text = "MOVE"
+
+[connection signal="pressed" from="Left" to="." method="_on_left_pressed"]
+[connection signal="pressed" from="Right" to="." method="_on_right_pressed"]
+[connection signal="pressed" from="Move" to="." method="_on_move_pressed"]
