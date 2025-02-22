@@ -12,4 +12,13 @@ func _process(delta: float) -> void:
 
 
 func _on_exit_pressed() -> void:
+	print('EXIT PRESSED')
 	get_tree().quit()
+
+func _input(event):
+	if event.is_action_pressed("ui_cancel"):
+		if(self.visible):
+			self.hide()
+		else:
+			self.show()
+		#get_tree().quit()

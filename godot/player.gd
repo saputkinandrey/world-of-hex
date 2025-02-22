@@ -1,4 +1,6 @@
-extends Node2D
+extends Node
+
+@export var select: ShipEntity
 
 
 # Called when the node enters the scene tree for the first time.

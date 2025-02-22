@@ -6,7 +6,7 @@ var Type2Texture = {
 
 @export var speed: int = 0
 @export var type: types.ShipType = types.ShipType.DRAKKAR
-#CREW
+# CREW
 @export var skillSailor = 12
 # OFFICERS
 @export var skillShiphandling: int = 12
@@ -28,18 +28,3 @@ func moveForward():
 	
 	pass
 	#super.move(Direction2Vector2i[self.direction] * self.speed)
-
-
-func _on_left_pressed() -> void:
-	self.turnLeft()
-	pass # Replace with function body.
-
-
-func _on_right_pressed() -> void:
-	self.turnRight()
-	pass # Replace with function body.
-
-
-func _on_move_pressed() -> void:
-	self.moveForward()
-	pass # Replace with function body.
