@@ -43,4 +43,21 @@ offset_bottom = 613.0
 text = "Exit
 "
 
+[node name="Sea_Combat" type="Button" parent="."]
+offset_left = 1329.0
+offset_top = 153.0
+offset_right = 1697.0
+offset_bottom = 213.0
+text = "Sea Combat
+"
+
+[node name="Ship_Constructor" type="Button" parent="."]
+offset_left = 1331.0
+offset_top = 234.0
+offset_right = 1699.0
+offset_bottom = 294.0
+text = "Ship Constructor
+"
+
 [connection signal="pressed" from="Exit" to="." method="_on_exit_pressed"]
+[connection signal="pressed" from="Sea_Combat" to="." method="_on_sea_combat_pressed"]

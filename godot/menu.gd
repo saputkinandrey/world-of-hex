@@ -1,5 +1,8 @@
 extends Control
 
+@export var seaCombatScene: Node2D
+@export var shipConstructorScene: Node2D
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -22,3 +25,8 @@ func _input(event):
 		else:
 			self.show()
 		#get_tree().quit()
+
+
+func _on_sea_combat_pressed() -> void:
+	self.seaCombatScene.activate()
+	pass # Replace with function body.

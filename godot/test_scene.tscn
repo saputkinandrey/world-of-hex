@@ -1,11 +1,22 @@
-[gd_scene load_steps=3 format=3 uid="uid://dxvudajhevayb"]
+[gd_scene load_steps=6 format=3 uid="uid://dxvudajhevayb"]
 
 [ext_resource type="PackedScene" uid="uid://u7kkbp6vpf1b" path="res://sea_combat.tscn" id="1_2s51p"]
+[ext_resource type="Script" path="res://main_scene.gd" id="1_jjpdp"]
+[ext_resource type="Script" path="res://sea_combat.gd" id="3_qfpb5"]
+[ext_resource type="PackedScene" uid="uid://cmcwccg2n6hbr" path="res://ship_constructor.tscn" id="4_fcmkb"]
 [ext_resource type="PackedScene" uid="uid://ceiddnee04aau" path="res://esc.tscn" id="6_ysdxk"]
 
-[node name="Main Scene" type="Node2D"]
+[node name="Main Scene" type="Node2D" node_paths=PackedStringArray("scenes", "activeScene")]
+script = ExtResource("1_jjpdp")
+scenes = [NodePath("Sea Combat")]
+activeScene = NodePath("Sea Combat")
 
-[node name="Sea Combat" parent="." instance=ExtResource("1_2s51p")]
+[node name="Sea Combat" parent="." node_paths=PackedStringArray("mainScene") instance=ExtResource("1_2s51p")]
+script = ExtResource("3_qfpb5")
+mainScene = NodePath("..")
 
-[node name="menu" parent="." instance=ExtResource("6_ysdxk")]
+[node name="Ship Constructor" parent="." instance=ExtResource("4_fcmkb")]
+
+[node name="menu" parent="." node_paths=PackedStringArray("seaCombatScene") instance=ExtResource("6_ysdxk")]
 visible = false
+seaCombatScene = NodePath("../Sea Combat")
