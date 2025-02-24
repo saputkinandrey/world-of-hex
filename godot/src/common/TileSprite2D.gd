@@ -15,8 +15,9 @@ func updateTexture(texture):
 	self.texture = texture
 
 func updateVelocity(speed:int):
-	self.velocityX = self.tilemap.tile_set.tile_size.x * speed
-	self.velocityY = self.tilemap.tile_set.tile_size.y * speed
+	pass
+	#self.velocityX = self.tilemap.tile_set.tile_size.x * speed
+	#self.velocityY = self.tilemap.tile_set.tile_size.y * speed
 
 func turnLeft():
 	self.direction = helpers.TurnLeftDict[self.direction]

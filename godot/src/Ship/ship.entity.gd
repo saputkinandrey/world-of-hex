@@ -1,4 +1,5 @@
-class_name ShipEntity extends ShipSprite
+class_name ShipEntity 
+extends ShipSprite
 
 var Type2Texture = {
 	types.ShipType.DRAKKAR: load("res://tokens/Drakkar.tres")

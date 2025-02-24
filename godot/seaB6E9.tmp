@@ -19,13 +19,11 @@ script = ExtResource("3_vhow0")
 select = NodePath("Tokens/Drakkar")
 
 [node name="Controls" parent="Player" node_paths=PackedStringArray("player") instance=ExtResource("6_mocpk")]
-visible = false
 player = NodePath("..")
 
 [node name="Tokens" type="Node" parent="Player"]
 
 [node name="Drakkar" parent="Player/Tokens" node_paths=PackedStringArray("tilemap") groups=["persist"] instance=ExtResource("4_jrdyq")]
-visible = false
 position = Vector2(913, 474)
 texture = ExtResource("5_wshw7")
 frame = 5
