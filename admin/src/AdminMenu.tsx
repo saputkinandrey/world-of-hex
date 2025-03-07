@@ -4,13 +4,20 @@ import { MenuItemLink, Menu } from 'react-admin'
 type Links = {
   label: string
   path: string
+    color: string
 }[]
 
 const navItems: Links = [
   {
     label: 'Textures',
     path: '/textures',
+      color: 'lightgreen',
   },
+    {
+        label: 'CANVAS',
+        path: '/canvas',
+        color: 'pink'
+    },
 ]
 
 const AdminMenu = () => {
@@ -28,13 +35,13 @@ const AdminMenu = () => {
     >
       <div>
         <div >
-          {navItems.map(({ label, path }) => {
+          {navItems.map(({ label, path, color }) => {
             return (
               <MenuItemLink
                 key={label}
                 primaryText={label}
                 sx={{
-                    backgroundColor: 'lightgreen',
+                    backgroundColor: `${color}`,
                   width: '100%',
                   fontSize: '18px',
                   cursor: 'pointer',

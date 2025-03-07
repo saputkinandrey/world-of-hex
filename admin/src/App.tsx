@@ -1,8 +1,11 @@
 import React from 'react'
-import {Admin, Resource} from "react-admin";
+import {Admin, CustomRoutes, Resource} from "react-admin";
+import { Route } from 'react-router-dom'
+
 import AdminLayout from "./AdminLayout";
 import {useDataProvider} from "./providers/dataProvider";
 import {TexturesCreate, TexturesEdit, TexturesList, TexturesShow} from "./resources/textures";
+import {CanvasPage} from "./pages/CanvasPage";
 function App() {
   const dataProvider = useDataProvider()
 
@@ -22,6 +25,9 @@ function App() {
           edit={TexturesEdit}
           create={TexturesCreate}
         />
+          <CustomRoutes>
+              <Route path="/canvas" element={<CanvasPage />} />
+          </CustomRoutes>
       </Admin>
   )}
 

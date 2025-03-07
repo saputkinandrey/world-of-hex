@@ -12,21 +12,26 @@ export class TexturesController extends CRUDController<TextureEntity> {
         return TextureEntity
     }
 
+    processTexture(textureEntity: TextureEntity) {
+        return {
+            ...textureEntity,
+            imageb64: 'data:image/png;charset=utf-8;base64,'+textureEntity.image?.toString('base64'),
+            image: undefined
+        }
+    }
+
     @Get()
-    async getList(@Request() request: express.Request): Promise<TextureEntity[]> {
+    async getList(@Request() request: express.Request): Promise<any[]> {
         return this._getList(request)
+            .then(texturesList => {
+                return texturesList.map(texture => this.processTexture(texture))
+            })
     }
 
     @Get('{id}')
     async getOne(id: string): Promise<any> {
         return await this._getOne(id)
-            .then(textureEntity => {
-                return {
-                    ...textureEntity,
-                    imageb64: 'data:image/png;charset=utf-8;base64,'+textureEntity.image?.toString('base64'),
-                    image: undefined
-                }
-            })
+            .then(textureEntity => this.processTexture(textureEntity))
     }
 
     @Post()
