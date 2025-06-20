@@ -1,6 +1,6 @@
 extends Control
 
-@export var player: Node
+@onready var player: Player = Global.player
 
 
 # Called when the node enters the scene tree for the first time.
@@ -13,15 +13,15 @@ func _process(delta: float) -> void:
 	pass
 
 func _on_left_pressed() -> void:
-	player.select.turnLeft()
+	player.select.faced.turnLeft()
 	pass # Replace with function body.
 
 
 func _on_right_pressed() -> void:
-	player.select.turnRight()
+	player.select.faced.turnRight()
 	pass # Replace with function body.
 
 
 func _on_move_pressed() -> void:
-	player.select.moveForward()
+	player.select.faced.moveForward()
 	pass # Replace with function body.

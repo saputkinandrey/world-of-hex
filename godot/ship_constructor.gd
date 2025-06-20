@@ -4,6 +4,7 @@ extends Node2D
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	$Drakkar2.shipData.type = Global.ship2.type;
 	pass # Replace with function body.
 
 

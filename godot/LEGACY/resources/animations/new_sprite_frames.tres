@@ -1,0 +1,68 @@
+[gd_resource type="SpriteFrames" load_steps=13 format=3 uid="uid://c5teuc846ltj0"]
+
+[ext_resource type="Texture2D" uid="uid://dd0nju5yj2l8k" path="res://assets/animations/Cannon-shot_n_l/cannon-shot_n_l_09.png" id="1_66ope"]
+[ext_resource type="Texture2D" uid="uid://cgqd0k3gec5bt" path="res://assets/animations/Cannon-shot_n_l/cannon-shot_n_l_10.png" id="2_fmyuq"]
+[ext_resource type="Texture2D" uid="uid://df5rdj7xmj572" path="res://assets/animations/Cannon-shot_n_l/cannon-shot_n_l_11.png" id="3_px4mk"]
+[ext_resource type="Texture2D" uid="uid://625sqjldeils" path="res://assets/animations/Cannon-shot_n_l/cannon-shot_n_l_12.png" id="4_dpj0a"]
+[ext_resource type="Texture2D" uid="uid://dj0xio1uno7gj" path="res://assets/animations/Cannon-shot_n_l/cannon-shot_n_l_05.png" id="5_uty5w"]
+[ext_resource type="Texture2D" uid="uid://crcxhwq3r2uu6" path="res://assets/animations/Cannon-shot_n_l/cannon-shot_n_l_06.png" id="6_yu6y1"]
+[ext_resource type="Texture2D" uid="uid://bk2p7pymylw8h" path="res://assets/animations/Cannon-shot_n_l/cannon-shot_n_l_07.png" id="7_j20sn"]
+[ext_resource type="Texture2D" uid="uid://bvx4l6pedoae" path="res://assets/animations/Cannon-shot_n_l/cannon-shot_n_l_08.png" id="8_uc4lf"]
+[ext_resource type="Texture2D" uid="uid://c4x5v8ex0aeyh" path="res://assets/animations/Cannon-shot_n_l/cannon-shot_n_l_01.png" id="9_1pjbf"]
+[ext_resource type="Texture2D" uid="uid://cfiicsrn0ugik" path="res://assets/animations/Cannon-shot_n_l/cannon-shot_n_l_02.png" id="10_4dktd"]
+[ext_resource type="Texture2D" uid="uid://06ue07yjeot2" path="res://assets/animations/Cannon-shot_n_l/cannon-shot_n_l_03.png" id="11_re33w"]
+[ext_resource type="Texture2D" uid="uid://dg4al6gm8qm8r" path="res://assets/animations/Cannon-shot_n_l/cannon-shot_n_l_04.png" id="12_kp2f0"]
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_66ope")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_fmyuq")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_px4mk")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_dpj0a")
+}],
+"loop": false,
+"name": &"hit",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("5_uty5w")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_yu6y1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_j20sn")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_uc4lf")
+}],
+"loop": true,
+"name": &"projectile",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("9_1pjbf")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_4dktd")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_re33w")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_kp2f0")
+}],
+"loop": true,
+"name": &"shot",
+"speed": 5.0
+}]

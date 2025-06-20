@@ -1,0 +1,81 @@
+[gd_scene load_steps=18 format=3 uid="uid://c48fx076wlat1"]
+
+[ext_resource type="Script" uid="uid://dyherbih810xi" path="res://objects/ship/ship.object.gd" id="1_hy5k6"]
+[ext_resource type="Resource" uid="uid://ckfihv8wlnd1r" path="res://prefabs/officers/bosun.tres" id="2_f6dl3"]
+[ext_resource type="Resource" uid="uid://bu22v1m150n6r" path="res://prefabs/officers/gunner.tres" id="2_o1gol"]
+[ext_resource type="Resource" uid="uid://bdhepx4d8fi7o" path="res://prefabs/officers/captain.tres" id="3_lx1b1"]
+[ext_resource type="Script" uid="uid://dcc7n8hre02bg" path="res://objects/ship/traits/ship-sprite/ship-sprite.trait.gd" id="3_ui8mw"]
+[ext_resource type="Resource" uid="uid://34chsokcatsn" path="res://prefabs/officers/sailor.tres" id="4_f6dl3"]
+[ext_resource type="Script" uid="uid://duc5ycgutytb3" path="res://entities/ship.entity.gd" id="5_lcgme"]
+[ext_resource type="Script" uid="uid://f7wr4g3ndncf" path="res://objects/ship/traits/faced/faced.data.gd" id="8_ienkl"]
+[ext_resource type="Script" uid="uid://cw7xhyte0cclj" path="res://objects/ship/traits/movable/states/idle.state.gd" id="10_dhnsx"]
+[ext_resource type="Script" uid="uid://c2iwltg3il24t" path="res://objects/ship/traits/faced/faced.trait.gd" id="10_ienkl"]
+[ext_resource type="Script" uid="uid://byah6l0q1ipxp" path="res://objects/ship/traits/roll/roll.trait.gd" id="11_21p16"]
+[ext_resource type="Script" uid="uid://dtq6uio5okjq5" path="res://objects/ship/traits/movable/states/moving.state.gd" id="11_66gry"]
+[ext_resource type="Script" uid="uid://bc2xh7b1wpy28" path="res://objects/ship/traits/movable/movable.trait.gd" id="11_lcgme"]
+
+[sub_resource type="Resource" id="Resource_ienkl"]
+script = ExtResource("5_lcgme")
+speed = 0
+type = 1
+Sailor = ExtResource("4_f6dl3")
+Bosun = ExtResource("2_f6dl3")
+Gunner = ExtResource("2_o1gol")
+Leader = ExtResource("3_lx1b1")
+metadata/_custom_type_script = "uid://duc5ycgutytb3"
+
+[sub_resource type="GDScript" id="GDScript_21p16"]
+script/source = "class_name MovableData1
+extends Resource
+
+var desiredPosition: Vector2i
+var currentPosition: Vector2i
+
+@export var velocityX: int = 0
+@export var velocityY: int = 0
+@export var timePeriod: int = 1000
+"
+
+[sub_resource type="Resource" id="Resource_21p16"]
+script = SubResource("GDScript_21p16")
+velocityX = 0
+velocityY = 0
+timePeriod = 1000
+metadata/_custom_type_script = "uid://dxoscvoir0hir"
+
+[sub_resource type="Resource" id="Resource_dhnsx"]
+script = ExtResource("8_ienkl")
+direction = 0
+metadata/_custom_type_script = "uid://f7wr4g3ndncf"
+
+[node name="Ship" type="Node2D"]
+script = ExtResource("1_hy5k6")
+shipData = SubResource("Resource_ienkl")
+movableData = SubResource("Resource_21p16")
+facedData = SubResource("Resource_dhnsx")
+metadata/_custom_type_script = "uid://dfnw4ax0yjxry"
+
+[node name="MovableTrait" type="Node" parent="." node_paths=PackedStringArray("state")]
+script = ExtResource("11_lcgme")
+state = NodePath("IdleState")
+metadata/_custom_type_script = "uid://bc2xh7b1wpy28"
+
+[node name="IdleState" type="Node" parent="MovableTrait"]
+script = ExtResource("10_dhnsx")
+metadata/_custom_type_script = "uid://cw7xhyte0cclj"
+
+[node name="MovingState" type="Node" parent="MovableTrait"]
+script = ExtResource("11_66gry")
+metadata/_custom_type_script = "uid://dtq6uio5okjq5"
+
+[node name="FacedTrait" type="Node" parent="."]
+script = ExtResource("10_ienkl")
+metadata/_custom_type_script = "uid://c2iwltg3il24t"
+
+[node name="RollTrait" type="Node" parent="."]
+script = ExtResource("11_21p16")
+metadata/_custom_type_script = "uid://byah6l0q1ipxp"
+
+[node name="ShipSpriteTrait" type="Sprite2D" parent="."]
+script = ExtResource("3_ui8mw")
+metadata/_custom_type_script = "uid://dcc7n8hre02bg"

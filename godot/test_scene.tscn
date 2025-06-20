@@ -1,9 +1,9 @@
 [gd_scene load_steps=6 format=3 uid="uid://dxvudajhevayb"]
 
 [ext_resource type="PackedScene" uid="uid://u7kkbp6vpf1b" path="res://sea_combat.tscn" id="1_2s51p"]
-[ext_resource type="Script" path="res://main_scene.gd" id="1_jjpdp"]
-[ext_resource type="Script" path="res://sea_combat.gd" id="3_qfpb5"]
+[ext_resource type="Script" uid="uid://dian81loik6t8" path="res://main_scene.gd" id="1_jjpdp"]
 [ext_resource type="PackedScene" uid="uid://cmcwccg2n6hbr" path="res://ship_constructor.tscn" id="4_fcmkb"]
+[ext_resource type="SpriteFrames" uid="uid://c5teuc846ltj0" path="res://LEGACY/resources/animations/new_sprite_frames.tres" id="6_7cbxl"]
 [ext_resource type="PackedScene" uid="uid://ceiddnee04aau" path="res://esc.tscn" id="6_ysdxk"]
 
 [node name="Main Scene" type="Node2D" node_paths=PackedStringArray("scenes", "activeScene")]
@@ -12,12 +12,17 @@ scenes = [NodePath("Sea Combat")]
 activeScene = NodePath("Sea Combat")
 
 [node name="Sea Combat" parent="." node_paths=PackedStringArray("mainScene") instance=ExtResource("1_2s51p")]
-visible = false
-script = ExtResource("3_qfpb5")
 mainScene = NodePath("..")
 
 [node name="Ship Constructor" parent="." instance=ExtResource("4_fcmkb")]
+visible = false
 
 [node name="menu" parent="." node_paths=PackedStringArray("seaCombatScene") instance=ExtResource("6_ysdxk")]
 visible = false
 seaCombatScene = NodePath("../Sea Combat")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+visible = false
+position = Vector2(904, 478)
+sprite_frames = ExtResource("6_7cbxl")
+animation = &"shot"
