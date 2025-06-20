@@ -30,8 +30,6 @@ func _process(delta: float) -> void:
 	move_and_collide(velocity * delta)
 	pass
 
-
-
 func _on_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
 	var input_dir = Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
 	if event.is_pressed() and event.button_index == MOUSE_BUTTON_LEFT:

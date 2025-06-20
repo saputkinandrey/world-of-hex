@@ -3,7 +3,7 @@ extends Resource
 
 enum ShipType {DRAKKAR=1, GALLEON=2, STEAMSHIP=3, TRIREME=4}
 
-@export var speed: int = 0
+@export var speed: int = 3
 @export var type: ShipType = ShipType.DRAKKAR
 # CREW
 @export var Sailor: OfficerEntity = OfficerEntity.new()

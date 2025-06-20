@@ -1,11 +1,10 @@
-[gd_scene load_steps=19 format=3 uid="uid://c48fx076wlat1"]
+[gd_scene load_steps=18 format=3 uid="uid://c48fx076wlat1"]
 
 [ext_resource type="Script" uid="uid://dyherbih810xi" path="res://objects/ship/ship.object.gd" id="1_hy5k6"]
 [ext_resource type="Resource" uid="uid://ckfihv8wlnd1r" path="res://prefabs/officers/bosun.tres" id="2_f6dl3"]
 [ext_resource type="Resource" uid="uid://bu22v1m150n6r" path="res://prefabs/officers/gunner.tres" id="2_o1gol"]
 [ext_resource type="Resource" uid="uid://bdhepx4d8fi7o" path="res://prefabs/officers/captain.tres" id="3_lx1b1"]
 [ext_resource type="Script" uid="uid://dcc7n8hre02bg" path="res://objects/ship/traits/ship-sprite/ship-sprite.trait.gd" id="3_ui8mw"]
-[ext_resource type="Resource" uid="uid://34chsokcatsn" path="res://prefabs/officers/sailor.tres" id="4_f6dl3"]
 [ext_resource type="Script" uid="uid://duc5ycgutytb3" path="res://entities/ship.entity.gd" id="5_lcgme"]
 [ext_resource type="Script" uid="uid://cw7xhyte0cclj" path="res://objects/ship/traits/movable/states/idle.state.gd" id="10_dhnsx"]
 [ext_resource type="Script" uid="uid://c2iwltg3il24t" path="res://objects/ship/traits/faced/faced.trait.gd" id="10_ienkl"]
@@ -15,9 +14,8 @@
 
 [sub_resource type="Resource" id="Resource_ienkl"]
 script = ExtResource("5_lcgme")
-speed = 0
+speed = 3
 type = 1
-Sailor = ExtResource("4_f6dl3")
 Bosun = ExtResource("2_f6dl3")
 Gunner = ExtResource("2_o1gol")
 Leader = ExtResource("3_lx1b1")
