@@ -1,11 +1,18 @@
-[gd_scene load_steps=7 format=4 uid="uid://u7kkbp6vpf1b"]
+[gd_scene load_steps=9 format=4 uid="uid://u7kkbp6vpf1b"]
 
 [ext_resource type="Script" uid="uid://cmnfpcxtq6l0t" path="res://sea_combat.gd" id="1_2hsuw"]
 [ext_resource type="TileSet" uid="uid://fer8ghlqsx4n" path="res://LEGACY/resources/tile-sets/test_scene.tres" id="1_yoqrb"]
 [ext_resource type="Script" uid="uid://blwe1repwen8o" path="res://LEGACY/src/test_scene.gd" id="2_jf78e"]
 [ext_resource type="PackedScene" uid="uid://c48fx076wlat1" path="res://LEGACY/prefabs/ship.tscn" id="4_jrdyq"]
+[ext_resource type="Script" uid="uid://duc5ycgutytb3" path="res://entities/ship.entity.gd" id="5_2hsuw"]
 [ext_resource type="Script" uid="uid://cibl37mfmtuy7" path="res://controls.gd" id="6_mmtd1"]
 [ext_resource type="Resource" uid="uid://b3h1byupco486" path="res://prefabs/galleon.tres" id="7_x85ev"]
+
+[sub_resource type="Resource" id="Resource_x85ev"]
+script = ExtResource("5_2hsuw")
+speed = 6
+type = 3
+metadata/_custom_type_script = "uid://duc5ycgutytb3"
 
 [node name="Sea Combat" type="Node2D"]
 script = ExtResource("1_2hsuw")
@@ -16,6 +23,11 @@ tile_set = ExtResource("1_yoqrb")
 script = ExtResource("2_jf78e")
 
 [node name="Tokens" type="Node2D" parent="."]
+
+[node name="Ship3" parent="Tokens" node_paths=PackedStringArray("tileMapLayer") instance=ExtResource("4_jrdyq")]
+position = Vector2(130, 189)
+shipData = SubResource("Resource_x85ev")
+tileMapLayer = NodePath("../../Map")
 
 [node name="Drakkar" parent="Tokens" node_paths=PackedStringArray("tileMapLayer") groups=["persist"] instance=ExtResource("4_jrdyq")]
 position = Vector2(237, 293)

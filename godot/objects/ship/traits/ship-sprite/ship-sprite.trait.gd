@@ -2,10 +2,10 @@ class_name ShipSpriteTrait
 extends TileSprite2D
 
 var Type2Texture = {
-	ShipEntity.ShipType.DRAKKAR: load("res://objects/ship/traits/ship-sprite/textures/Drakkar.tres"),
-	ShipEntity.ShipType.GALLEON: load("res://objects/ship/traits/ship-sprite/textures/Galleon.tres"),
-	ShipEntity.ShipType.TRIREME: load("res://objects/ship/traits/ship-sprite/textures/Drakkar.tres"),
-	ShipEntity.ShipType.STEAMSHIP: load("res://objects/ship/traits/ship-sprite/textures/Drakkar.tres")
+	ShipEntity.ShipType.DRAKKAR: load("res://assets/drakkar 1-6.png"),
+	ShipEntity.ShipType.GALLEON: load("res://assets/galleon 1-6.png"),
+	ShipEntity.ShipType.TRIREME: load("res://assets/greek-ship 1-6.png"),
+	ShipEntity.ShipType.STEAMSHIP: load("res://assets/steamship 1-6.png")
 }
 
 var Direction2Frame = {
