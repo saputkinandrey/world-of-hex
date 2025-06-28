@@ -4,8 +4,7 @@ async function deepResolvePromises(input) {
   }
 
   if (Array.isArray(input)) {
-    const resolvedArray = await Promise.all(input.map(deepResolvePromises));
-    return resolvedArray;
+    return await Promise.all(input.map(deepResolvePromises));
   }
 
   if (input instanceof Date) {
@@ -17,8 +16,7 @@ async function deepResolvePromises(input) {
     const resolvedObject = {};
 
     for (const key of keys) {
-      const resolvedValue = await deepResolvePromises(input[key]);
-      resolvedObject[key] = resolvedValue;
+      resolvedObject[key] = await deepResolvePromises(input[key]);;
     }
 
     return resolvedObject;
