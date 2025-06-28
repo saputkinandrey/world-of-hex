@@ -1,46 +1,22 @@
-ARG NODE_ENV=production
+FROM node:22.16.0-alpine
 
-# Builder image.
-FROM node:18-alpine AS builder
+RUN apk add --no-cache bash
+RUN npm i -g @nestjs/cli typescript ts-node
 
-ENV NODE_ENV=${NODE_ENV}
+COPY package*.json /tmp/app/
+RUN cd /tmp/app && npm install
 
-WORKDIR /usr/src/app
-
-# Enable yarn.
-RUN corepack enable
-
-# Add monorepo.
 COPY . /usr/src/app
-
-# Build.
-WORKDIR /usr/src/app
-RUN yarn install --immutable
-RUN yarn build
-
-
-# Setup runner image.
-FROM node:18-alpine AS crm
-
-ENV CHROME_BIN="/usr/bin/chromium-browser"
-RUN set -x \
-    && apk update \
-    && apk upgrade \
-    && apk add --no-cache \
-    udev \
-    ttf-freefont \
-    chromium \
-    tzdata && \
-    cp /usr/share/zoneinfo/Europe/Berlin /etc/localtime && \
-    echo "Europe/Stockholm" > /etc/timezone
-
-ENV NODE_ENV=${NODE_ENV}
+RUN cp -a /tmp/app/node_modules /usr/src/app
+COPY ./wait-for-it.sh /opt/wait-for-it.sh
+RUN chmod +x /opt/wait-for-it.sh
+COPY ./startup.document.dev.sh /opt/startup.document.dev.sh
+RUN chmod +x /opt/startup.document.dev.sh
+RUN sed -i 's/\r//g' /opt/wait-for-it.sh
+RUN sed -i 's/\r//g' /opt/startup.document.dev.sh
 
 WORKDIR /usr/src/app
+RUN if [ ! -f .env ]; then cp env-example-relational .env; fi
+RUN npm run build
 
-# NOTE: For now we copy everything but the resulting image is huge!
-COPY --from=builder /usr/src/app /usr/src/app
-
-# Runtime.
-EXPOSE 4000
-ENTRYPOINT ["yarn", "start:migrate"]
+CMD ["/opt/startup.document.dev.sh"]
