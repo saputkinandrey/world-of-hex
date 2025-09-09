@@ -16,7 +16,7 @@ For serialization boilerplate use [class-transformer](https://www.npmjs.com/pack
 If you need to hide some property in the entity you can use `@Exclude({ toPlainOnly: true })` on the column.
 
 ```ts
-// /src/users/entities/user.entity.ts
+// /src/users/__entities/user.entity.ts
 
 import { Exclude } from 'class-transformer';
 
@@ -69,7 +69,7 @@ export class User extends EntityRelationalHelper {
 1. In the entity add `@Expose({ groups: ['admin'] })` to the column that should be exposed for admin:
 
    ```ts
-   // /src/users/entities/user.entity.ts
+   // /src/users/__entities/user.entity.ts
 
    // Some code here...
 
