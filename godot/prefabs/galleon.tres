@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="ShipEntity" load_steps=6 format=3 uid="uid://b3h1byupco486"]
+
+[ext_resource type="Resource" uid="uid://ckfihv8wlnd1r" path="res://prefabs/officers/bosun.tres" id="1_jgpdv"]
+[ext_resource type="Resource" uid="uid://bu22v1m150n6r" path="res://prefabs/officers/gunner.tres" id="2_ydea7"]
+[ext_resource type="Resource" uid="uid://bdhepx4d8fi7o" path="res://prefabs/officers/captain.tres" id="3_6g34t"]
+[ext_resource type="Resource" uid="uid://34chsokcatsn" path="res://prefabs/officers/sailor.tres" id="4_c4643"]
+[ext_resource type="Script" uid="uid://duc5ycgutytb3" path="res://entities/ship.entity.gd" id="5_n7sx6"]
+
+[resource]
+script = ExtResource("5_n7sx6")
+speed = 0
+type = 2
+Sailor = ExtResource("4_c4643")
+Bosun = ExtResource("1_jgpdv")
+Gunner = ExtResource("2_ydea7")
+Leader = ExtResource("3_6g34t")
+metadata/_custom_type_script = "uid://duc5ycgutytb3"

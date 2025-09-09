@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="ShipEntity" load_steps=3 format=3 uid="uid://btekqa51qp2w"]
+
+[ext_resource type="Resource" uid="uid://bdhepx4d8fi7o" path="res://prefabs/officers/captain.tres" id="3_cvas7"]
+[ext_resource type="Script" uid="uid://duc5ycgutytb3" path="res://entities/ship.entity.gd" id="5_vp8r7"]
+
+[resource]
+script = ExtResource("5_vp8r7")
+speed = 0
+type = 2
+Sailor = ExtResource("3_cvas7")
+metadata/_custom_type_script = "uid://duc5ycgutytb3"

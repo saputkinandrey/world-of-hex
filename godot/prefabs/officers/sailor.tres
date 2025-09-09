@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="OfficerEntity" load_steps=4 format=3 uid="uid://34chsokcatsn"]
+
+[ext_resource type="Script" uid="uid://b44nqxkqrw1co" path="res://entities/skill.entity.gd" id="1_x6oln"]
+[ext_resource type="Script" uid="uid://lvhuybw64gkq" path="res://entities/officer.entity.gd" id="2_y0xdr"]
+
+[sub_resource type="Resource" id="Resource_50yc4"]
+script = ExtResource("1_x6oln")
+skillName = "Sailing"
+skillLevel = 12
+metadata/_custom_type_script = "uid://b44nqxkqrw1co"
+
+[resource]
+script = ExtResource("2_y0xdr")
+officerName = "Wretanian Sailor"
+mainSkill = SubResource("Resource_50yc4")
+metadata/_custom_type_script = "uid://lvhuybw64gkq"

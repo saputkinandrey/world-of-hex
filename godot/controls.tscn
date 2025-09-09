@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://cvyagdh1igxng"]
 
-[ext_resource type="Script" uid="uid://bnt8igfnwuek6" path="res://controls.gd" id="1_2httq"]
+[ext_resource type="Script" uid="uid://cibl37mfmtuy7" path="res://controls.gd" id="1_2httq"]
 
 [node name="Controls" type="Control"]
 layout_mode = 3
@@ -31,6 +31,5 @@ offset_right = 1207.0
 offset_bottom = 1050.0
 text = "MOVE"
 
-[connection signal="pressed" from="Left" to="." method="_on_left_pressed"]
 [connection signal="pressed" from="Right" to="." method="_on_right_pressed"]
 [connection signal="pressed" from="Move" to="." method="_on_move_pressed"]

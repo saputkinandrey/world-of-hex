@@ -11,6 +11,8 @@ func activate() -> void:
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	Global.player.select = $Tokens/Drakkar
+	Global.player.select.facedData.direction = FacedData.Direction.SE
 	pass # Replace with function body.
 
 
