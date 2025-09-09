@@ -1,18 +1,27 @@
 import { Transform } from 'class-transformer';
+import { Prop } from '@nestjs/mongoose';
+import { now, Types } from 'mongoose';
 
 export class EntityDocumentHelper {
+  @Prop({
+    type: String,
+    default: () => new Types.ObjectId(),
+    required: true,
+  })
   @Transform(
-    (value) => {
-      if ('value' in value) {
-        // https://github.com/typestack/class-transformer/issues/879
-        return value.obj[value.key].toString();
-      }
-
-      return 'unknown value';
-    },
+    ({ value }) => (value?.toHexString ? value.toHexString() : 'unknown'),
     {
-      toPlainOnly: true,
+      toClassOnly: true,
     },
   )
   public _id: string;
+
+  @Prop({ default: now })
+  createdAt?: Date;
+
+  @Prop({ default: now })
+  updatedAt?: Date;
+
+  @Prop()
+  deletedAt?: Date;
 }

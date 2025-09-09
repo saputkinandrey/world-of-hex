@@ -83,14 +83,14 @@ Don't try to create universal methods in the repository because they are difficu
 
 ```typescript
 // ❌
-export class UsersRelationalRepository implements UserRepository {
+export class UsersRelationalRepository implements UserRepositoryAbstract {
   async find(condition: UniversalConditionInterface): Promise<User> {
     // ...
   }
 }
 
 // ✅
-export class UsersRelationalRepository implements UserRepository {
+export class UsersRelationalRepository implements UserRepositoryAbstract {
   async findByEmail(email: string): Promise<User> {
     // ...
   }

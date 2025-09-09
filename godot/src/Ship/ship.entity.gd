@@ -18,14 +18,24 @@ func _ready() -> void:
 	super()
 	self.updateTexture(Type2Texture[self.type])
 	self.updateVelocity(self.speed)
+	
+func moveForward(velocity: int = 1):
+	var dir: Vector2i
+	for i in range(velocity):
+		if self.currentPosition.x % 2 == 1:
+			dir = helpers.Direction2Vector2i[self.direction]
+		else:
+			dir = helpers.Direction2Vector2iOdd[self.direction]
 
-func moveForward():
+		self.move(dir)
+		await get_tree().create_timer(0.1).timeout
+	
 	#self.move(helpers.Direction2Vector2i[self.direction])
 
-	if(self.currentPosition.x % 2 == 1):
-		self.move(helpers.Direction2Vector2i[self.direction])
-	else:
-		self.move(helpers.Direction2Vector2iOdd[self.direction])
+	#if(self.currentPosition.x % 2 == 1):
+		#self.move(helpers.Direction2Vector2i[self.direction])
+	#else:
+		#self.move(helpers.Direction2Vector2iOdd[self.direction])
 	
 	pass
 	#super.move(Direction2Vector2i[self.direction] * self.speed)
