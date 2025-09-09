@@ -132,7 +132,7 @@ Endpoint `/api/v1/files/upload` is used for uploading files. In this case `/api/
      {
        "AllowedHeaders": ["*"],
        "AllowedMethods": ["PUT"],
-       "AllowedOrigins": ["https://your-domain.com"],
+       "AllowedOrigins": ["https://your-__domain.com"],
        "ExposeHeaders": []
      },
       {

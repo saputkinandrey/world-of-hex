@@ -23,5 +23,5 @@ func _on_right_pressed() -> void:
 
 
 func _on_move_pressed() -> void:
-	player.select.moveForward()
+	player.select.moveForward(2)
 	pass # Replace with function body.

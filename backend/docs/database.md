@@ -39,7 +39,7 @@ For support of both databases used [Hexagonal Architecture](architecture.md#hexa
 1. Create entity file with extension `.entity.ts`. For example `post.entity.ts`:
 
    ```ts
-   // /src/posts/infrastructure/persistence/relational/entities/post.entity.ts
+   // /src/posts/infrastructure/persistence/relational/__entities/post.entity.ts
 
    import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
    import { EntityRelationalHelper } from '../../../../../utils/relational-entity-helper';
@@ -94,7 +94,7 @@ npm run schema:drop
 1. Create entity file with extension `.schema.ts`. For example `post.schema.ts`:
 
    ```ts
-   // /src/posts/infrastructure/persistence/document/entities/post.schema.ts
+   // /src/posts/infrastructure/persistence/document/__entities/post.schema.ts
 
    import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
    import { HydratedDocument } from 'mongoose';
@@ -155,9 +155,9 @@ npm run seed:run:relational
     import { Injectable } from '@nestjs/common';
     import { InjectRepository } from '@nestjs/typeorm';
     import { Repository } from 'typeorm';
-    import { RoleEntity } from '../../../../roles/infrastructure/persistence/relational/entities/role.entity';
-    import { UserEntity } from '../../../../users/infrastructure/persistence/relational/entities/user.entity';
-    import { StatusEntity } from '../../../../statuses/infrastructure/persistence/relational/entities/status.entity';
+    import { RoleEntity } from '../../../../roles/infrastructure/persistence/relational/__entities/role.entity';
+    import { UserEntity } from '../../../../users/infrastructure/persistence/relational/__entities/user.entity';
+    import { StatusEntity } from '../../../../statuses/infrastructure/persistence/relational/__entities/status.entity';
 
     @Injectable()
     export class UserFactory {
@@ -227,9 +227,9 @@ npm run seed:run:relational
     import { UserSeedService } from './user-seed.service';
     import { UserFactory } from './user.factory';
 
-    import { UserEntity } from '../../../../users/infrastructure/persistence/relational/entities/user.entity';
-    import { RoleEntity } from '../../../../roles/infrastructure/persistence/relational/entities/role.entity';
-    import { StatusEntity } from '../../../../statuses/infrastructure/persistence/relational/entities/status.entity';
+    import { UserEntity } from '../../../../users/infrastructure/persistence/relational/__entities/user.entity';
+    import { RoleEntity } from '../../../../roles/infrastructure/persistence/relational/__entities/role.entity';
+    import { StatusEntity } from '../../../../statuses/infrastructure/persistence/relational/__entities/status.entity';
 
     @Module({
       imports: [TypeOrmModule.forFeature([UserEntity, Role, Status])],
