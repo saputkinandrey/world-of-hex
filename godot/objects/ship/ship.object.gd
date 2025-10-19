@@ -26,19 +26,19 @@ func setShip(shipToEnc: ShipToEncounterEntity) -> ShipObject:
 	return self
 
 func _ready() -> void:
-        var name = self.name
-        print(name)
-        #self.position = Vector2i(0,0)
-        $Labels/Name.text = self.shipData.name
-        $Labels/Position.text = JSON.stringify(self.movableData.currentPosition)
+	var name = self.name
+	print(name)
+	#self.position = Vector2i(0,0)
+	$Labels/Name.text = self.shipData.name
+	$Labels/Position.text = JSON.stringify(self.movableData.currentPosition)
 
-        if speed <= 0:
-                speed = shipData.speed
+	if speed <= 0:
+		speed = shipData.speed
 
-        self.sprite.updateTexture(self.shipData.type)
-        self.sprite._ready()
-        self.movable._ready()
-        pass
+	self.sprite.updateTexture(self.shipData.type)
+	self.sprite._ready()
+	self.movable._ready()
+	pass
 	
 func _process(delta: float) -> void:
 	self.movable._process(delta)
