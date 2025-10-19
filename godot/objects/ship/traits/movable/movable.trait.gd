@@ -14,7 +14,7 @@ extends Node
 var timePassed: float = 0
 var _tween: Tween
 
-func move(movement: Variant, duration_per_step: float = -1.0) -> void:
+func move(movement: Variant, total_duration: float = -1.0) -> void:
     if is_moving():
         return
 
@@ -35,17 +35,17 @@ func move(movement: Variant, duration_per_step: float = -1.0) -> void:
         position_cursor += offset
         target_positions.append(position_cursor)
 
-    _start_move(target_positions, duration_per_step)
+    _start_move(target_positions, total_duration)
 
 func is_moving() -> bool:
     return _tween != null and _tween.is_running()
 
-func _start_move(target_positions: Array[Vector2i], duration_per_step: float) -> void:
+func _start_move(target_positions: Array[Vector2i], total_duration: float) -> void:
     if target_positions.is_empty():
         return
 
-    if duration_per_step <= 0.0:
-        duration_per_step = float(movableData.timePeriod) / 1000.0
+    if total_duration <= 0.0:
+        total_duration = float(movableData.timePeriod) / 1000.0
 
     var world_targets: Array[Vector2] = []
     for pos in target_positions:
@@ -54,7 +54,7 @@ func _start_move(target_positions: Array[Vector2i], duration_per_step: float) ->
     movableData.desiredPosition = target_positions[target_positions.size() - 1]
 
     state = $MovingState
-    state.reset(duration_per_step * target_positions.size())
+    state.reset(total_duration)
 
     if _tween:
         _tween.kill()
@@ -63,7 +63,10 @@ func _start_move(target_positions: Array[Vector2i], duration_per_step: float) ->
     _tween.set_trans(Tween.TRANS_SINE)
     _tween.set_ease(Tween.EASE_IN_OUT)
 
-    for i in range(world_targets.size()):
+    var step_count: int = world_targets.size()
+    var duration_per_step: float = total_duration / float(step_count)
+
+    for i in range(step_count):
         _tween.tween_property(parent, "position", world_targets[i], duration_per_step)
         _tween.tween_callback(Callable(self, "_on_step_reached").bind(target_positions[i]))
 

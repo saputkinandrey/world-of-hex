@@ -14,7 +14,7 @@ extends CharacterBody2D
 @onready var roll: RollTrait = $RollTrait
 @onready var sprite: ShipSpriteTrait = $ShipSpriteTrait
 
-var speed = 0
+var speed: int = 0
 
 func setShip(shipToEnc: ShipToEncounterEntity) -> ShipObject:
     self.shipData = shipToEnc.ship
@@ -26,7 +26,7 @@ func setShip(shipToEnc: ShipToEncounterEntity) -> ShipObject:
     return self
 
 func _ready() -> void:
-    var name = self.name
+    var name: String = self.name
     print(name)
     #self.position = Vector2i(0,0)
     $Labels/Name.text = self.shipData.name
@@ -54,7 +54,6 @@ func _process(delta: float) -> void:
     pass
 
 func _on_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
-    var input_dir = Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
     if event.is_pressed() and event.button_index == MOUSE_BUTTON_LEFT:
         player.select = self
     pass # Replace with function body.

@@ -2,50 +2,51 @@ extends TileMapLayer
 
 const main_layer = 0
 const main_atlas_id = 0
-var rng = RandomNumberGenerator.new()
+var rng: RandomNumberGenerator = RandomNumberGenerator.new()
 
 
 func centerMap() -> void:
-	var screenSize: Vector2i = DisplayServer.screen_get_size()
-	print('half screen size ', screenSize * 0.5)
-	self.position = screenSize * 0.5
-	pass
+    var screenSize: Vector2i = DisplayServer.screen_get_size()
+    print('half screen size ', screenSize * 0.5)
+    self.position = screenSize * 0.5
+    pass
 	
 func set_circle_tiles(center_tile_coords: Vector2i, circle_radius: int):
-	# Determine the bounding box for the circle to reduce iterations
-	var radius_vec = Vector2i(circle_radius, circle_radius)
-	var min_pos = (center_tile_coords - radius_vec)
-	var max_pos = (center_tile_coords + radius_vec)
-	var tile_source_id = 1 # ID of the TileSet source (e.g., 0 for the first atlas)
+    # Determine the bounding box for the circle to reduce iterations
+    var radius_vec: Vector2i = Vector2i(circle_radius, circle_radius)
+    var min_pos: Vector2i = center_tile_coords - radius_vec
+    var max_pos: Vector2i = center_tile_coords + radius_vec
+    var center_point: Vector2 = center_tile_coords.to_vector2()
+    var tile_source_id: int = 1 # ID of the TileSet source (e.g., 0 for the first atlas)
 
-	for x in range(int(min_pos.x), int(max_pos.x)):
-		for y in range(int(min_pos.y), int(max_pos.y)):
-			var tile_coords = Vector2(x, y)
-			var tile_atlas_coords = Vector2i(rng.randi_range(0, 2), 0) # Coordinates of the tile in your TileSet's atlas
+    for x in range(int(min_pos.x), int(max_pos.x)):
+        for y in range(int(min_pos.y), int(max_pos.y)):
+            var tile_coords: Vector2 = Vector2(x, y)
+            var tile_atlas_coords: Vector2i = Vector2i(rng.randi_range(0, 2), 0) # Coordinates of the tile in your TileSet's atlas
 
-			# Check if the tile is within the circle's radius
-			if tile_coords.distance_to(center_tile_coords) <= circle_radius:
-				# Set the tile in the TileMap
-				set_cell( Vector2i(x, y), tile_source_id ,tile_atlas_coords, 0) # Last argument is alternative tile index (0 for default)
+            # Check if the tile is within the circle's radius
+            if tile_coords.distance_to(center_point) <= circle_radius:
+                # Set the tile in the TileMap
+                set_cell(Vector2i(x, y), tile_source_id, tile_atlas_coords, 0) # Last argument is alternative tile index (0 for default)
 	
 func setRect(size: int) -> void:
-	# Example: Set a 5x5 rectangle of tiles starting at (0,0)
-	var start_x = -size
-	var start_y = -size
-	var width = size * 2 +1
-	var height = size * 2 +1
-	var tile_source_id = 1 # ID of the TileSet source (e.g., 0 for the first atlas)
-	for x in range(start_x, start_x + width):
-		for y in range(start_y, start_y + height):
-			var tile_atlas_coords = Vector2i(rng.randi_range(0, 2), 0) # Coordinates of the tile in your TileSet's atlas
-			set_cell( Vector2i(x, y), tile_source_id ,tile_atlas_coords, 0) # Last argument is alternative tile index (0 for default)
-	pass
+    # Example: Set a 5x5 rectangle of tiles starting at (0,0)
+    var start_x: int = -size
+    var start_y: int = -size
+    var width: int = size * 2 + 1
+    var height: int = size * 2 + 1
+    var tile_source_id: int = 1 # ID of the TileSet source (e.g., 0 for the first atlas)
+    for x in range(start_x, start_x + width):
+        for y in range(start_y, start_y + height):
+            var tile_atlas_coords: Vector2i = Vector2i(rng.randi_range(0, 2), 0) # Coordinates of the tile in your TileSet's atlas
+            set_cell(Vector2i(x, y), tile_source_id, tile_atlas_coords, 0) # Last argument is alternative tile index (0 for default)
+    pass
 
 func _ready() -> void:
-	centerMap()
-	#self.set_cell(Vector2i(-1,-1),)
-	# FILL IT WITH RANDOM TILE FOR rect DOUBLE RADIUS OF ENCOUNTER
-	pass
+    centerMap()
+    #self.set_cell(Vector2i(-1,-1),)
+    # FILL IT WITH RANDOM TILE FOR rect DOUBLE RADIUS OF ENCOUNTER
+    pass
 
 #func _input(event: InputEvent) -> void:
 	#if event is InputEventMouseButton:
