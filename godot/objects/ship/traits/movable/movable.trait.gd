@@ -66,9 +66,12 @@ func _start_move(target_positions: Array[Vector2i], total_duration: float) -> vo
     var step_count: int = world_targets.size()
     var duration_per_step: float = total_duration / float(step_count)
 
+    _tween.tween_property(parent, "position", world_targets[step_count - 1], total_duration)
+
     for i in range(step_count):
-        _tween.tween_property(parent, "position", world_targets[i], duration_per_step)
-        _tween.tween_callback(Callable(self, "_on_step_reached").bind(target_positions[i]))
+        var step_callback: Tween = _tween.parallel().tween_callback(Callable(self, "_on_step_reached").bind(target_positions[i]))
+        step_callback.set_delay(duration_per_step * float(i + 1))
+        _tween.chain()
 
     _tween.tween_callback(Callable(self, "_on_movement_finished"))
 
