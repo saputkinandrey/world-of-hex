@@ -20,7 +20,7 @@ export function processTribute(subject: CharacterEntity) {
   if (!tributePolicy) return;
 
   const tribute = subject.inventory.extractFraction(tributePolicy);
-  subject.inventory.communal.push(...tribute);
+  subject.inventory.shared.push(...tribute);
 }
 
 export function performRespectRitual(
