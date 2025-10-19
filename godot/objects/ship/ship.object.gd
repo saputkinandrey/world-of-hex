@@ -14,7 +14,7 @@ extends CharacterBody2D
 @onready var roll: RollTrait = $RollTrait
 @onready var sprite: ShipSpriteTrait = $ShipSpriteTrait
 
-var speed = 0
+var speed: int = 0
 
 func setShip(shipToEnc: ShipToEncounterEntity) -> ShipObject:
 	self.shipData = shipToEnc.ship
@@ -29,8 +29,11 @@ func _ready() -> void:
 	var name = self.name
 	print(name)
 	#self.position = Vector2i(0,0)
-	$Labels/Name.text = self.shipData.name	
+	$Labels/Name.text = self.shipData.name
 	$Labels/Position.text = JSON.stringify(self.movableData.currentPosition)
+
+	if speed <= 0:
+		speed = shipData.speed
 
 	self.sprite.updateTexture(self.shipData.type)
 	self.sprite._ready()

@@ -13,15 +13,18 @@ func _process(delta: float) -> void:
 	pass
 
 func _on_left_pressed() -> void:
-	player.select.faced.turnLeft()
+	if player and player.select:
+		player.select.faced.turnLeft()
 	pass # Replace with function body.
 
 
 func _on_right_pressed() -> void:
-	player.select.faced.turnRight()
+	if player and player.select:
+		player.select.faced.turnRight()
 	pass # Replace with function body.
 
 
 func _on_move_pressed() -> void:
-	player.select.faced.moveForward()
+	if player and player.select:
+		player.select.faced.moveForward()
 	pass # Replace with function body.
