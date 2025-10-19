@@ -9,12 +9,12 @@ var Type2Texture = {
 }
 
 var Direction2Frame = {
-	FacedData.Direction.SW: 0,
-	FacedData.Direction.NW: 1,
-	FacedData.Direction.N: 2,
-	FacedData.Direction.NE: 3,
-	FacedData.Direction.SE: 4,
-	FacedData.Direction.S: 5,
+	ShipToEncounterEntity.Direction.SW: 0,
+	ShipToEncounterEntity.Direction.NW: 1,
+	ShipToEncounterEntity.Direction.N: 2,
+	ShipToEncounterEntity.Direction.NE: 3,
+	ShipToEncounterEntity.Direction.SE: 4,
+	ShipToEncounterEntity.Direction.S: 5,
 }
 
 @onready var parent: ShipObject = get_parent()
@@ -24,7 +24,10 @@ func updateTexture(type: ShipEntity.ShipType):
 	pass
 
 func updateFrame():
-	self.frame = Direction2Frame[parent.facedData.direction]
+	var name = parent.name
+	var direction = parent.facedData.direction
+	var frame = Direction2Frame[direction]
+	self.frame = frame
 	pass
 
 # Called when the node enters the scene tree for the first time.

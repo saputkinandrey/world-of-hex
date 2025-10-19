@@ -20,7 +20,7 @@ import { PlayerService } from '../services/player.service';
 // @UseGuards(AuthGuard('jwt'), RolesGuard)
 @ApiTags('Sea-Combat-Player')
 @Controller({
-  path: 'sea-combat/encounter/:encounterId/player/:playerId',
+  path: 'sea-combat/user-connected/:playerId',
   // version: '1',
 })
 export class PlayerController {
@@ -33,7 +33,6 @@ export class PlayerController {
 
   @Post('join-encounter')
   async postJoinEncounter(
-    @Param('encounterId') encounterId: string,
     @Param('playerId') playerId: string,
     @Body() body: PostJoinEncounterBodyDto,
   ) {

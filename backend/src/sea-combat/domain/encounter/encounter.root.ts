@@ -9,7 +9,7 @@ import {
   WindroseTurnLeftEvent,
   WindroseTurnRightEvent,
 } from './events/events';
-import { randomChoice } from '../../../utils/roll';
+import { randomChoice } from '../../../rps/utils/roll';
 import { AllDirections } from '../../types/direction.type';
 import { ShipEntity } from '../../__entities/ship.entity';
 import { WindroseEntity } from './entities/windrose.model';

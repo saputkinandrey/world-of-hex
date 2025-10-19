@@ -32,9 +32,10 @@ func updateVelocity(speed:int):
 
 
 func _ready() -> void:
+	print(self.parent.name, ' tileMapLayer', tileMapLayer)
 	if tileMapLayer && tileMapLayer.tile_set:
-		movableData.currentPosition = tileMapLayer.local_to_map(parent.position)
-	#parent.position = tileMapLayer.map_to_local(movableData.currentPosition)
+		#movableData.currentPosition = tileMapLayer.local_to_map(parent.position)
+		parent.position = tileMapLayer.map_to_local(movableData.currentPosition)
 	pass
 
 

@@ -1,5 +1,5 @@
 import { AllDirections, DirectionToVectorOdd } from '../types/direction.type';
-import { randomChoice, rollXd } from '../../utils/roll';
+import { randomChoice, rollXd } from '../../rps/utils/roll';
 
 export const spawnShipAtEncounter = (radius: number) => {
   return DirectionToVectorOdd[randomChoice(AllDirections)]

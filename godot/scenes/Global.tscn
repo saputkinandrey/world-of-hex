@@ -1,0 +1,13 @@
+[gd_scene load_steps=4 format=3 uid="uid://dg1gjkr45jnxr"]
+
+[ext_resource type="Script" uid="uid://ijws20eb0mlr" path="res://Global.gd" id="1_cfqmh"]
+[ext_resource type="Script" uid="uid://7m2bntyljj2o" path="res://player.gd" id="2_5ao6o"]
+[ext_resource type="Resource" uid="uid://bngq45726m3i6" path="res://resources/player/einarr.tres" id="3_0jisx"]
+
+[node name="Node" type="Node2D"]
+script = ExtResource("1_cfqmh")
+
+[node name="Player" type="Node" parent="."]
+script = ExtResource("2_5ao6o")
+player = ExtResource("3_0jisx")
+metadata/_custom_type_script = "uid://7m2bntyljj2o"

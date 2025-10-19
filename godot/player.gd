@@ -2,6 +2,7 @@ class_name Player
 extends Node
 
 @export var select: ShipObject
+@export var player: PlayerEntity
 
 
 # Called when the node enters the scene tree for the first time.

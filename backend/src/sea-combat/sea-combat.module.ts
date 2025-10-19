@@ -13,6 +13,7 @@ import { EncountersController } from './controller/encounters.controller';
 import { ShipsController } from './controller/ships.controller';
 import { Encounter, EncounterSchema } from './schemas/encounter.schema';
 import { ShipController } from './controller/ship.controller';
+import { SeaCombatGateway } from './services/sea-combat.gateway';
 
 @Module({
   imports: [
@@ -36,6 +37,7 @@ import { ShipController } from './controller/ship.controller';
     PlayerRepository,
     PlayerService,
     ShipRepository,
+    SeaCombatGateway,
   ],
   exports: [EncounterService, PlayerService],
 })

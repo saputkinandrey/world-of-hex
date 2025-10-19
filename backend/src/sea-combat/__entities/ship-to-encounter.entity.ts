@@ -6,7 +6,7 @@ import {
 } from '../types/direction.type';
 import { ShipEntity } from './ship.entity';
 import { ModifierBucketEntity } from './modifier-bucket.entity';
-import { roll3d6Under } from '../../utils/roll';
+import { roll3d6Under } from '../../rps/utils/roll';
 import { ShipSkillsEntity } from './ship-skills.entity';
 import Vector from 'vector2js';
 

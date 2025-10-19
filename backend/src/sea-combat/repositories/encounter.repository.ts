@@ -17,7 +17,7 @@ export class EncounterRepository {
     ) as Promise<EncounterDocument>;
   }
 
-  create(ship: Encounter) {
+  create(ship: Partial<Encounter>) {
     return this.encounterModel.create(ship);
   }
 

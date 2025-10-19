@@ -8,7 +8,7 @@ import {
   PlayerToEncounter,
   ShipToEncounter,
 } from '../schemas/encounter.schema';
-import { Player } from '../schemas/player.schema';
+import { Player, PlayerDocument } from '../schemas/player.schema';
 import { Ship, ShipDocument } from '../schemas/ship.schema';
 import {
   DirectionToVectorEven,
@@ -177,6 +177,13 @@ export class EncounterService {
       return shp.ship._id !== ship._id;
     });
     return encounter.save();
+  }
+
+  isPlayerJoinedToEncounter(player: Player, encounter: EncounterDocument) {
+    const joinedPlayer = encounter.players.find(
+      (plr) => plr._id === player._id,
+    );
+    return !!joinedPlayer;
   }
 
   async playerJoinsEncounter(player: Player, encounterId: string) {

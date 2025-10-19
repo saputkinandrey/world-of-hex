@@ -1,24 +1,18 @@
-[gd_scene load_steps=18 format=3 uid="uid://c48fx076wlat1"]
+[gd_scene load_steps=17 format=3 uid="uid://c48fx076wlat1"]
 
 [ext_resource type="Script" uid="uid://dyherbih810xi" path="res://objects/ship/ship.object.gd" id="1_hy5k6"]
-[ext_resource type="Resource" uid="uid://ckfihv8wlnd1r" path="res://prefabs/officers/bosun.tres" id="2_f6dl3"]
-[ext_resource type="Resource" uid="uid://bu22v1m150n6r" path="res://prefabs/officers/gunner.tres" id="2_o1gol"]
-[ext_resource type="Resource" uid="uid://bdhepx4d8fi7o" path="res://prefabs/officers/captain.tres" id="3_lx1b1"]
 [ext_resource type="Script" uid="uid://dcc7n8hre02bg" path="res://objects/ship/traits/ship-sprite/ship-sprite.trait.gd" id="3_ui8mw"]
 [ext_resource type="Script" uid="uid://duc5ycgutytb3" path="res://entities/ship.entity.gd" id="5_lcgme"]
+[ext_resource type="LabelSettings" uid="uid://d4lnbip5paiu6" path="res://settings/labels/green.tres" id="9_bseor"]
 [ext_resource type="Script" uid="uid://cw7xhyte0cclj" path="res://objects/ship/traits/movable/states/idle.state.gd" id="10_dhnsx"]
 [ext_resource type="Script" uid="uid://c2iwltg3il24t" path="res://objects/ship/traits/faced/faced.trait.gd" id="10_ienkl"]
+[ext_resource type="LabelSettings" uid="uid://dofyxmyhlyavv" path="res://settings/labels/red.tres" id="10_tlr80"]
 [ext_resource type="Script" uid="uid://byah6l0q1ipxp" path="res://objects/ship/traits/roll/roll.trait.gd" id="11_21p16"]
 [ext_resource type="Script" uid="uid://dtq6uio5okjq5" path="res://objects/ship/traits/movable/states/moving.state.gd" id="11_66gry"]
 [ext_resource type="Script" uid="uid://bc2xh7b1wpy28" path="res://objects/ship/traits/movable/movable.trait.gd" id="11_lcgme"]
 
 [sub_resource type="Resource" id="Resource_ienkl"]
 script = ExtResource("5_lcgme")
-speed = 3
-type = 1
-Bosun = ExtResource("2_f6dl3")
-Gunner = ExtResource("2_o1gol")
-Leader = ExtResource("3_lx1b1")
 metadata/_custom_type_script = "uid://duc5ycgutytb3"
 
 [sub_resource type="GDScript" id="GDScript_21p16"]
@@ -35,9 +29,6 @@ var currentPosition: Vector2i
 
 [sub_resource type="Resource" id="Resource_21p16"]
 script = SubResource("GDScript_21p16")
-velocityX = 0
-velocityY = 0
-timePeriod = 1000
 metadata/_custom_type_script = "uid://dxoscvoir0hir"
 
 [sub_resource type="GDScript" id="GDScript_ienkl"]
@@ -86,7 +77,6 @@ const TurnRightDict = {
 
 [sub_resource type="Resource" id="Resource_dhnsx"]
 script = SubResource("GDScript_ienkl")
-direction = 0
 metadata/_custom_type_script = "uid://f7wr4g3ndncf"
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ienkl"]
@@ -99,7 +89,6 @@ script = ExtResource("1_hy5k6")
 shipData = SubResource("Resource_ienkl")
 movableData = SubResource("Resource_21p16")
 facedData = SubResource("Resource_dhnsx")
-metadata/_custom_type_script = "uid://dfnw4ax0yjxry"
 
 [node name="MovableTrait" type="Node" parent="." node_paths=PackedStringArray("state")]
 script = ExtResource("11_lcgme")
@@ -129,5 +118,28 @@ metadata/_custom_type_script = "uid://dcc7n8hre02bg"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_ienkl")
+
+[node name="Labels" type="Node2D" parent="."]
+scale = Vector2(2, 2)
+
+[node name="Name" type="Label" parent="Labels"]
+offset_left = -59.0
+offset_top = 39.0
+offset_right = 59.0
+offset_bottom = 56.0
+text = "Label"
+label_settings = ExtResource("9_bseor")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Position" type="Label" parent="Labels"]
+offset_left = -57.5
+offset_top = 20.0
+offset_right = 60.5
+offset_bottom = 40.0
+text = "Label"
+label_settings = ExtResource("10_tlr80")
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [connection signal="input_event" from="." to="." method="_on_input_event"]

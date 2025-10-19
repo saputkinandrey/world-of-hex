@@ -1,6 +1,6 @@
 extends Control
 
-@export var seaCombatScene: Node2D
+@export var seaCombatScene: SeaCombatScene
 @export var shipConstructorScene: Node2D
 
 
@@ -29,4 +29,16 @@ func _input(event):
 
 func _on_sea_combat_pressed() -> void:
 	self.seaCombatScene.activate()
+	pass # Replace with function body.
+
+
+func _on_battle_for_nothing_pressed() -> void:
+	var battleForNothingId = '6873743de19a720b371cac5e'
+	self.seaCombatScene.connectToEncounter(battleForNothingId)
+	pass # Replace with function body.
+
+
+func _on_sort_of_pressed() -> void:	
+	var sortOfId = '68c987fe2c58ea7363e4e19a'
+	self.seaCombatScene.connectToEncounter(sortOfId)
 	pass # Replace with function body.

@@ -7,7 +7,7 @@ import {
 import { ShipEntity } from './ship.entity';
 import { EncounterEntity } from './encounter.entity';
 import { ModifierBucketEntity } from './modifier-bucket.entity';
-import { roll3d6Under } from '../../utils/roll';
+import { roll3d6Under } from '../../rps/utils/roll';
 import { ShipSkillsEntity } from './ship-skills.entity';
 
 const idType = String;

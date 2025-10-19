@@ -24,7 +24,7 @@ export class PlayerRepository {
     >;
   }
 
-  create(player: Player) {
+  create(player: Partial<Player>) {
     return this.playerModel.create(player);
   }
 }

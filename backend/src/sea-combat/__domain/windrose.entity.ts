@@ -4,7 +4,7 @@ import {
   DirectionTurnLeft,
   DirectionTurnRight,
 } from '../types/direction.type';
-import { randomChoice } from '../../utils/roll';
+import { randomChoice } from '../../rps/utils/roll';
 
 export class WindroseEntity {
   direction: Direction = randomChoice(AllDirections);

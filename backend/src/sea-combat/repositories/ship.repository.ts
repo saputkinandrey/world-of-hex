@@ -13,7 +13,7 @@ export class ShipRepository {
   findOneById(id: string) {
     return this.shipModel.findById(id) as Promise<ShipDocument>;
   }
-  create(ship: Ship) {
+  create(ship: Partial<Ship>) {
     return this.shipModel.create(ship);
   }
 
