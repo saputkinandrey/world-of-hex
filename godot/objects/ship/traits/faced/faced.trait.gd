@@ -6,19 +6,43 @@ extends Node
 @onready var movableData: MovableData = parent.movableData
 
 func turnLeft():
-	facedData.direction = FacedData.TurnLeftDict[facedData.direction]
-	pass
-	
+    facedData.direction = FacedData.TurnLeftDict[facedData.direction]
+    pass
+    
 func turnRight():
-	facedData.direction = FacedData.TurnRightDict[facedData.direction]
-	pass
+    facedData.direction = FacedData.TurnRightDict[facedData.direction]
+    pass
 
 func moveForward():
-	var movement
-	if(movableData.currentPosition.x % 2 == 1):
-		movement = FacedData.Direction2Vector2i[facedData.direction]
-	else:
-		movement = FacedData.Direction2Vector2iOdd[facedData.direction]	
-	
-	parent.movable.move(movement)
-	pass
+    if parent.movable.is_moving():
+        return
+
+    var steps: int = parent.speed
+    if steps <= 0:
+        steps = parent.shipData.speed
+    steps = max(steps, 1)
+
+    var target_positions: Array[Vector2i] = _build_path(movableData.currentPosition, facedData.direction, steps)
+    if target_positions.is_empty():
+        return
+
+    var movement_sequence: Array[Vector2i] = []
+    var previous_position: Vector2i = movableData.currentPosition
+    for target_position in target_positions:
+        movement_sequence.append(target_position - previous_position)
+        previous_position = target_position
+
+    parent.movable.move(movement_sequence)
+
+func _build_path(start: Vector2i, direction: ShipToEncounterEntity.Direction, length: int) -> Array[Vector2i]:
+    var result: Array[Vector2i] = []
+    var cursor: Vector2i = start
+    for i in range(length):
+        cursor += _direction_to_offset(cursor.x, direction)
+        result.append(cursor)
+    return result
+
+func _direction_to_offset(column: int, direction: ShipToEncounterEntity.Direction) -> Vector2i:
+    if abs(column) % 2 == 0:
+        return FacedData.Direction2Vector2iOdd[direction]
+    return FacedData.Direction2Vector2i[direction]
