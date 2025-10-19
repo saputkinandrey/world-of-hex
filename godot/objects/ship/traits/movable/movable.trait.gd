@@ -45,7 +45,7 @@ func _start_move(target_positions: Array[Vector2i], duration_per_step: float) ->
 		return
 
 	if duration_per_step <= 0.0:
-		duration_per_step = float(movableData.timePeriod) / 1000.0
+		duration_per_step = 1
 
 	var world_targets: Array[Vector2] = []
 	for pos in target_positions:
@@ -62,10 +62,9 @@ func _start_move(target_positions: Array[Vector2i], duration_per_step: float) ->
 	_tween = create_tween()
 	_tween.set_trans(Tween.TRANS_SINE)
 	_tween.set_ease(Tween.EASE_IN_OUT)
-
-	for i in range(world_targets.size()):
-		_tween.tween_property(parent, "position", world_targets[i], duration_per_step)
-		_tween.tween_callback(Callable(self, "_on_step_reached").bind(target_positions[i]))
+	
+	_tween.tween_property(parent, "position", world_targets[world_targets.size()-1], duration_per_step)
+	_tween.tween_callback(Callable(self, "_on_step_reached").bind(target_positions[world_targets.size()-1]))
 
 	_tween.tween_callback(Callable(self, "_on_movement_finished"))
 

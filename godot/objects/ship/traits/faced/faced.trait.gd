@@ -17,7 +17,7 @@ func moveForward():
 	if parent.movable.is_moving():
 		return
 
-	var steps := parent.speed
+	var steps :int = parent.speed
 	if steps <= 0:
 		steps = parent.shipData.speed
 	steps = max(steps, 1)

@@ -14,7 +14,7 @@ extends CharacterBody2D
 @onready var roll: RollTrait = $RollTrait
 @onready var sprite: ShipSpriteTrait = $ShipSpriteTrait
 
-var speed = 0
+var speed: int = 0
 
 func setShip(shipToEnc: ShipToEncounterEntity) -> ShipObject:
 	self.shipData = shipToEnc.ship

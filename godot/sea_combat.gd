@@ -32,8 +32,8 @@ func activate() -> void:
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	ws_node.connect("encounterLoaded", Callable(self, "_on_encounter_loaded"))
-	Global.player.select = $Map/Tokens/Drakkar
-	Global.player.select.facedData.direction = ShipToEncounterEntity.Direction.SE
+	#Global.player.select = $Map/Tokens/Drakkar
+	#Global.player.select.facedData.direction = ShipToEncounterEntity.Direction.SE
 	pass # Replace with function body.
 	
 func _on_encounter_loaded(encounter: EncounterEntity):
