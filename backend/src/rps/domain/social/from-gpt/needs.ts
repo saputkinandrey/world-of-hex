@@ -5,6 +5,16 @@ interface Need {
 }
 
 export enum NeedTag {
+
+
+    STRESS = 'STRESS',
+    ENERGY = 'ENERGY',
+    ACCOUNTABILITY = 'ACCOUNTABILITY',
+    HOPE = 'HOPE',
+    READINESS = 'READINESS',
+    SAFETY = 'SAFETY',
+    WASTE = 'WASTE',
+
     MOOD = 'MOOD',
     SOCIAL = 'SOCIAL',
     FOCUS = 'FOCUS',
@@ -28,6 +38,7 @@ export enum NeedTag {
     CLARITY = 'CLARITY',
     RESILIENCE = 'RESILIENCE',
     JOY = 'JOY',
+
     INNOVATION_REP = 'INNOVATION_REP',
     NETWORK = 'NETWORK',
 

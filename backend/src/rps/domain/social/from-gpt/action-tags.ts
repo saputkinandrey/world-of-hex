@@ -672,6 +672,595 @@ export enum CreativityActionTag {
     REGISTER_ART_MARK = 'REGISTER_ART_MARK', // зарегистрировать знак/клеймо автора
 }
 
+export enum MoodActionTag {
+    LISTEN_MUSIC = 'LISTEN_MUSIC', // послушать музыку/песни
+    TELL_JOKES = 'TELL_JOKES', // рассказать шутки/остроумие
+    SHARE_MEAL = 'SHARE_MEAL', // разделить простую трапезу
+    LIGHT_HEARTH = 'LIGHT_HEARTH', // развести очаг/согреть очаг
+    DECORATE_SPACE = 'DECORATE_SPACE', // украсить жилище/общий зал
+    CELEBRATE_SMALL_WIN = 'CELEBRATE_SMALL_WIN', // отметить небольшой успех
+    GRATITUDE_RITUAL = 'GRATITUDE_RITUAL', // ритуал благодарности
+    MINDFUL_BREATHING = 'MINDFUL_BREATHING', // спокойное дыхание/созерцание
+    STROLL_SCENIC = 'STROLL_SCENIC', // прогулка по красивому маршруту
+    PLAY_GAMES = 'PLAY_GAMES', // простые игры/забавы
+    DANCE_GATHERING = 'DANCE_GATHERING', // танцы/небольшая вечеринка
+    STORYTELL_FIRESIDE = 'STORYTELL_FIRESIDE', // сказание у костра
+    CLEAN_LIVING_SPACE = 'CLEAN_LIVING_SPACE', // навести порядок в доме
+    SUNLIGHT_EXPOSURE = 'SUNLIGHT_EXPOSURE', // побыть на солнце/свету
+    PET_INTERACTION = 'PET_INTERACTION', // общение с животными/питомцами
+    GIFT_SMALL_TOKEN = 'GIFT_SMALL_TOKEN', // маленький подарок/знак внимания
+}
+
+// social.actions.enum.ts
+export enum SocialNeedActionTag {
+    GREET_NEIGHBORS = 'GREET_NEIGHBORS', // приветствовать соседей
+    SMALL_TALK_MARKET = 'SMALL_TALK_MARKET', // светская беседа на рынке
+    SHARE_NEWS_BULLETIN = 'SHARE_NEWS_BULLETIN', // поделиться новостями/объявлениями
+    VISIT_RELATIVES = 'VISIT_RELATIVES', // навещать родственников
+    HOST_TEAHOUSE_TABLE = 'HOST_TEAHOUSE_TABLE', // столик в чайной/трактире для общения
+    HELP_WITH_CHORES = 'HELP_WITH_CHORES', // помочь с делами по дому/двору
+    INTRODUCE_CONTACTS = 'INTRODUCE_CONTACTS', // представить знакомых друг другу
+    MEDIATE_DISPUTE = 'MEDIATE_DISPUTE', // посредничать в споре
+    JOIN_COMMON_WORK = 'JOIN_COMMON_WORK', // совместная работа (субботник)
+    SING_ALONG_EVENING = 'SING_ALONG_EVENING', // совместные песнопения/вечёрка
+    EXCHANGE_GIFTS = 'EXCHANGE_GIFTS', // обмен небольшими подарками
+    VISIT_SICK = 'VISIT_SICK', // визит к больному/поддержка
+    CELEBRATE_NAME_DAY = 'CELEBRATE_NAME_DAY', // отметить именины/личный праздник
+    FORM_INTEREST_CIRCLE = 'FORM_INTEREST_CIRCLE', // кружок по интересам
+    MENTOR_JUNIOR = 'MENTOR_JUNIOR', // наставничество младшего
+    NEIGHBORHOOD_WATCH = 'NEIGHBORHOOD_WATCH', // соседский дозор/наблюдение
+}
+
+// focus.actions.enum.ts
+export enum FocusActionTag {
+    SET_QUIET_HOURS = 'SET_QUIET_HOURS', // установить «тихие часы»
+    RESERVE_WORK_NOOK = 'RESERVE_WORK_NOOK', // забронировать рабочий закуток/стол
+    PREP_TOOLS_AND_MATERIALS = 'PREP_TOOLS_AND_MATERIALS', // заранее подготовить инструменты/материалы
+    SINGLE_TASK_SPRINT = 'SINGLE_TASK_SPRINT', // спринт одной задачей (без переключений)
+    BATCH_SIMILAR_TASKS = 'BATCH_SIMILAR_TASKS', // батчинг однотипных задач
+    USE_CHECKLIST = 'USE_CHECKLIST', // чеклист шагов
+    TIMEBOX_WITH_TIMER = 'TIMEBOX_WITH_TIMER', // таймбокс с песочными часами/колоколом
+    BLOCK_DISTRACTIONS = 'BLOCK_DISTRACTIONS', // убрать отвлекающие стимулы
+    FOCUS_BREATH_DRILL = 'FOCUS_BREATH_DRILL', // короткая дыхательная фокусировка
+    POSTURE_AND_LIGHTING = 'POSTURE_AND_LIGHTING', // выправить осанку/свет
+    MICRO_BREAK_PROTOCOL = 'MICRO_BREAK_PROTOCOL', // протокол микро-перерывов
+    CAFFEINATE_OR_TEA = 'CAFFEINATE_OR_TEA', // кофеин/травяной чай для бодрости
+    MORNING_PLANNING_RITUAL = 'MORNING_PLANNING_RITUAL', // утренний ритуал планирования
+    END_OF_DAY_REVIEW = 'END_OF_DAY_REVIEW', // вечерний разбор/ретроспектива
+    ASSIGN_TASK_BUDDIES = 'ASSIGN_TASK_BUDDIES', // назначить «бадди» для взаимоконтроля
+    QUIET_ZONE_ENFORCEMENT = 'QUIET_ZONE_ENFORCEMENT', // обеспечить соблюдение тишины в зоне
+}
+
+// inspiration.actions.enum.ts
+export enum InspirationActionTag {
+    SEEK_MUSE_IN_NATURE = 'SEEK_MUSE_IN_NATURE', // поиск «музы» на природе
+    VISIT_MASTERWORKS = 'VISIT_MASTERWORKS', // посещение выдающихся работ/залов
+    CREATIVE_JAM_SESSION = 'CREATIVE_JAM_SESSION', // джем-сессия с другими творцами
+    RITUAL_OF_SPARK = 'RITUAL_OF_SPARK', // личный ритуал «искра» перед работой
+    COLLECT_MOTIFS_FIELD = 'COLLECT_MOTIFS_FIELD', // сбор мотивов/узоров/образцов в поле
+    DREAM_NOTEBOOK = 'DREAM_NOTEBOOK', // записная книжка сновидений/озарений
+    CHANCE_CONSTRAINTS = 'CHANCE_CONSTRAINTS', // метод случайных ограничений
+    CROSS_DISCIPLINE_EXPOSURE = 'CROSS_DISCIPLINE_EXPOSURE', // экспозиция к другой дисциплине
+    PROMPT_CARD_DRAW = 'PROMPT_CARD_DRAW', // вытянуть карточку-подсказку/задачу
+    STORY_PROMPT_EXCHANGE = 'STORY_PROMPT_EXCHANGE', // обмен сюжетными подсказками
+    ONE_HOUR_PROTOTYPE = 'ONE_HOUR_PROTOTYPE', // прототип за один час
+    INSPIRATION_WALKABOUT = 'INSPIRATION_WALKABOUT', // «бродилка» по новым кварталам/рынку
+    PATRON_BRIEF_SESSION = 'PATRON_BRIEF_SESSION', // краткий бриф с покровителем/заказчиком
+    FAILURE_GALLERY = 'FAILURE_GALLERY', // «галерея неудач» (обсуждение ошибок)
+    MENTOR_CRITIQUE = 'MENTOR_CRITIQUE', // критика наставника/ревью
+    ARCHIVE_REFERENCE_BOARD = 'ARCHIVE_REFERENCE_BOARD', // собрать референс-доску/коллаж
+}
+
+// faith.actions.enum.ts
+export enum FaithActionTag {
+    PRIVATE_DEVOTION = 'PRIVATE_DEVOTION', // личная молитва/созерцание веры
+    LIGHT_VOTIVE_CANDLE = 'LIGHT_VOTIVE_CANDLE', // зажечь свечу/обетную лампаду
+    ATTEND_SERVICE = 'ATTEND_SERVICE', // присутствовать на службе/собрании
+    CONFESS_TRANSGRESSION = 'CONFESS_TRANSGRESSION', // исповедать проступок/раскаяние
+    MAKE_VOW = 'MAKE_VOW', // дать обет перед алтарём
+    FULFILL_VOW = 'FULFILL_VOW', // исполнить обет
+    DONATE_ALMS = 'DONATE_ALMS', // пожертвовать милостыню/на храм
+    CARE_FOR_SHRINE = 'CARE_FOR_SHRINE', // ухаживать за святилищем
+    STUDY_SACRED_TEXTS = 'STUDY_SACRED_TEXTS', // чтение/разбор священных текстов
+    CONSULT_PRIEST = 'CONSULT_PRIEST', // беседа со священнослужителем
+    FASTING_OBSERVANCE = 'FASTING_OBSERVANCE', // соблюдение поста
+    PROCESSION_PARTICIPATE = 'PROCESSION_PARTICIPATE', // участие в религиозной процессии
+    BLESS_HOME = 'BLESS_HOME', // благословение жилища/хозяйства
+    PRAYER_CHAIN_COMMUNITY = 'PRAYER_CHAIN_COMMUNITY', // общинная «цепочка молитвы»
+    TESTIMONY_SHARE = 'TESTIMONY_SHARE', // поделиться свидетельством/чудом
+    PILGRIMAGE_STEP_FAITH = 'PILGRIMAGE_STEP_FAITH', // этап паломничества (вероусиление)
+}
+
+// love.actions.enum.ts
+export enum LoveActionTag {
+    COURTSHIP_VISIT = 'COURTSHIP_VISIT', // визит ухаживания
+    EXCHANGE_TOKENS = 'EXCHANGE_TOKENS', // обмен символическими дарами
+    WRITE_POEM_OR_SONG = 'WRITE_POEM_OR_SONG', // стих/песня для возлюбленного
+    PROTECTIVE_GESTURE = 'PROTECTIVE_GESTURE', // заботливый/защитный жест
+    SHARED_TASK_HELP = 'SHARED_TASK_HELP', // помощь в повседневном деле
+    CARE_WHEN_ILL = 'CARE_WHEN_ILL', // уход во время болезни
+    RESOLVE_QUARREL = 'RESOLVE_QUARREL', // примирение после ссоры
+    PLEDGE_PARTNERSHIP = 'PLEDGE_PARTNERSHIP', // клятва партнёрства/обручение
+    PLAN_FUTURE_HOME = 'PLAN_FUTURE_HOME', // планирование общего жилища
+    MEET_EACH_OTHERS_FAMILY = 'MEET_EACH_OTHERS_FAMILY', // знакомство с семьями
+    DANCE_PAIR_GATHERING = 'DANCE_PAIR_GATHERING', // парные танцы на празднике
+    PRIVATE_WALK_CHAPERONED = 'PRIVATE_WALK_CHAPERONED', // прогулка с «свидетелем»
+    SUPPORT_PERSONAL_GOAL = 'SUPPORT_PERSONAL_GOAL', // поддержать цель/мечту
+    DEFEND_REPUTATION = 'DEFEND_REPUTATION', // защитить репутацию партнёра
+    REMEMBER_ANNIVERSARY = 'REMEMBER_ANNIVERSARY', // отметить дату/годовщину
+    SURPRISE_KIND_ACT = 'SURPRISE_KIND_ACT', // неожиданный добрый поступок
+}
+
+// honor.actions.enum.ts
+export enum HonorActionTag {
+    KEEP_WORD = 'KEEP_WORD', // сдержать данное слово
+    RETURN_FOUND_PROPERTY = 'RETURN_FOUND_PROPERTY', // вернуть найденное имущество
+    DECLINE_UNFAIR_ADVANTAGE = 'DECLINE_UNFAIR_ADVANTAGE', // отказаться от нечестного преимущества
+    STAND_WITNESS_TRUTH = 'STAND_WITNESS_TRUTH', // выступить свидетелем правды
+    ACCEPT_DUEL_FORMAL = 'ACCEPT_DUEL_FORMAL', // принять формальный поединок
+    ISSUE_FORMAL_APOLOGY = 'ISSUE_FORMAL_APOLOGY', // официально извиниться
+    DEFEND_WEAK = 'DEFEND_WEAK', // заступиться за слабого
+    UPHOLD_OATH_GUILD = 'UPHOLD_OATH_GUILD', // соблюдать гильдейскую клятву
+    PAY_DEBT_PROMPTLY = 'PAY_DEBT_PROMPTLY', // выплатить долг без просрочки
+    REFUSE_BRIBE = 'REFUSE_BRIBE', // отказ от взятки
+    PUBLIC_CODE_DECLARATION = 'PUBLIC_CODE_DECLARATION', // публично заявить кодекс
+    HONOR_FAIR_CONTRACT = 'HONOR_FAIR_CONTRACT', // исполнить справедливый контракт
+    RETURN_LOOT_TO_RIGHTFUL = 'RETURN_LOOT_TO_RIGHTFUL', // вернуть добычу законному владельцу
+    SHARE_CREDIT = 'SHARE_CREDIT', // разделить заслуги с участниками
+    ACCEPT_JUST_PENALTY = 'ACCEPT_JUST_PENALTY', // принять заслуженное наказание
+    MEDIATE_WITHOUT_FAVOR = 'MEDIATE_WITHOUT_FAVOR', // беспристрастное посредничество
+}
+
+export enum FearActionTag {
+    LIGHT_TORCHES = 'LIGHT_TORCHES', // зажечь факелы/фонари в ключевых местах
+    HOLD_FORMATION_DRILL = 'HOLD_FORMATION_DRILL', // строевая и удержание строя под угрозой
+    REASSURE_PUBLIC_SPEECH = 'REASSURE_PUBLIC_SPEECH', // публичное заверение/брифинг о безопасности
+    ESCORT_VULNERABLE = 'ESCORT_VULNERABLE', // сопровождение уязвимых (дети/старики)
+    MAP_SAFE_ROUTE = 'MAP_SAFE_ROUTE', // разметить безопасный маршрут/коридор
+    WARD_SIGNS_PLACEMENT = 'WARD_SIGNS_PLACEMENT', // разместить охранные знаки/обереги
+    SET_TRAPS_EARLY_WARNING = 'SET_TRAPS_EARLY_WARNING', // поставить ловушки/раннее оповещение
+    NIGHT_WATCH_ROTATION = 'NIGHT_WATCH_ROTATION', // ночной дозор по графику
+    FORTIFY_DOORS_WINDOWS = 'FORTIFY_DOORS_WINDOWS', // усилить двери/окна/засовы
+    EVACUATION_DRILL = 'EVACUATION_DRILL', // учения по эвакуации
+    COUNSELING_SESSION = 'COUNSELING_SESSION', // беседа-поддержка/утешение
+    SHARE_THREAT_INTEL = 'SHARE_THREAT_INTEL', // распространить сведения об угрозе
+    MONSTER_LORE_SESSION = 'MONSTER_LORE_SESSION', // разбор «лора» монстра/опасности
+    ISSUE_CLEAR_RULES_CURFEW = 'ISSUE_CLEAR_RULES_CURFEW', // ввести ясные правила/комендантский час
+    DISTRIBUTE_TALISMANS = 'DISTRIBUTE_TALISMANS', // выдать амулеты/символические защиты
+    EXORCISM_RITE = 'EXORCISM_RITE', // обряд изгнания/очищения места
+}
+
+// productivity.actions.enum.ts
+export enum ProductivityActionTag {
+    MORNING_TALLY_AND_BRIEF = 'MORNING_TALLY_AND_BRIEF', // утренний подсчёт/бриф у стола старшего
+    TASK_BOARD_PULL_TOKENS = 'TASK_BOARD_PULL_TOKENS', // «тянем фишку» со стола задач (пул)
+    SET_WIP_LIMITS = 'SET_WIP_LIMITS', // лимиты незавершёнки (WIP)
+    STANDARDIZE_WORK_STEPS = 'STANDARDIZE_WORK_STEPS', // описать стандарт шагов (стандарт-ряд)
+    TOOLS_MAINTENANCE_ROTA = 'TOOLS_MAINTENANCE_ROTA', // рота на обслуживание инструмента
+    BENCH_LAYOUT_STREAMLINE = 'BENCH_LAYOUT_STREAMLINE', // перестройка лавок/верстаков под поток
+    BATCH_PREP_MATERIALS = 'BATCH_PREP_MATERIALS', // батч-подготовка сырья/заготовок
+    CROSS_TRAIN_PAIRING = 'CROSS_TRAIN_PAIRING', // взаимное обучение в парах
+    PRIORITIZE_HIGH_IMPACT = 'PRIORITIZE_HIGH_IMPACT', // расставить приоритеты по ценности
+    REMOVE_BOTTLENECK = 'REMOVE_BOTTLENECK', // снять узкое место (перекинуть людей)
+    MEASURE_THROUGHPUT_TALLY = 'MEASURE_THROUGHPUT_TALLY', // мерить выработку/пропускную способность
+    QUALITY_CHECK_AT_SOURCE = 'QUALITY_CHECK_AT_SOURCE', // проверка качества на месте
+    MIDDAY_SYNCH_AND_REALLOC = 'MIDDAY_SYNCH_AND_REALLOC', // полуденный синхрон и перераспределение
+    BUFFER_STOCK_ESTABLISH = 'BUFFER_STOCK_ESTABLISH', // завести буфер заготовок/дров/угля
+    SHIFT_HANDOFF_RITUAL = 'SHIFT_HANDOFF_RITUAL', // ритуал передачи смены/журнала
+    FAIR_REWARD_DISTRIBUTION = 'FAIR_REWARD_DISTRIBUTION', // честная раздача вознаграждений по вкладу
+}
+
+// quality.actions.enum.ts
+export enum QualityActionTag {
+    SPEC_DEFINE_ACCEPTANCE = 'SPEC_DEFINE_ACCEPTANCE', // задать критерии приёмки (spec)
+    SELECT_PROPER_MATERIAL = 'SELECT_PROPER_MATERIAL', // отбор годного сырья
+    CALIBRATE_TOOLS = 'CALIBRATE_TOOLS', // калибровка инструмента/мер
+    FIRST_ARTICLE_CHECK = 'FIRST_ARTICLE_CHECK', // проверка первого изделия (эталон)
+    IN_PROCESS_INSPECTION = 'IN_PROCESS_INSPECTION', // проверка в процессе
+    STOP_AND_FIX_RULE = 'STOP_AND_FIX_RULE', // правило «остановись и исправь»
+    SCRAP_AND_REWORK = 'SCRAP_AND_REWORK', // брак → в лом/переделку
+    POKA_YOKE_GUARDS = 'POKA_YOKE_GUARDS', // защита от ошибки (покаяоке)
+    CLEAN_WORK_SURFACES = 'CLEAN_WORK_SURFACES', // чистота места работ
+    TOOL_EDGE_MAINTENANCE = 'TOOL_EDGE_MAINTENANCE', // правка кромок/заточка
+    FINAL_INSPECTION_STAMP = 'FINAL_INSPECTION_STAMP', // финальная инспекция/клеймо
+    DEFECT_LOG_LEDGER = 'DEFECT_LOG_LEDGER', // журнал дефектов/повторяемости
+    ROOT_CAUSE_CIRCLE = 'ROOT_CAUSE_CIRCLE', // круговая разборка причины (5 почему)
+    TRAIN_ON_STANDARD = 'TRAIN_ON_STANDARD', // обучение стандарту/приёмам
+    SUPPLIER_AUDIT_VISIT = 'SUPPLIER_AUDIT_VISIT', // аудит поставщика/рынка сырья
+    CUSTOMER_FEEDBACK_LOOP = 'CUSTOMER_FEEDBACK_LOOP', // обратная связь заказчика
+}
+
+// order.actions.enum.ts
+export enum OrderActionTag {
+    POST_HOUSE_RULES = 'POST_HOUSE_RULES', // вывесить свод правил
+    LAY_FLOOR_MARKS = 'LAY_FLOOR_MARKS', // нанести разметку/маркеры зон
+    APPOINT_STEWARD = 'APPOINT_STEWARD', // назначить распорядителя/завхоза
+    DAILY_TIDY_PASS = 'DAILY_TIDY_PASS', // ежедневный проход на наведение порядка
+    INVENTORY_SHELVING = 'INVENTORY_SHELVING', // рассортировать склад на стеллажи
+    QUEUE_LINE_FORMATION = 'QUEUE_LINE_FORMATION', // организовать очереди/порядок обслуживания
+    STANDARD_BOX_LABELS = 'STANDARD_BOX_LABELS', // стандарт этикеток/ярлыков
+    SCHEDULE_BELLS = 'SCHEDULE_BELLS', // колокола/сигналы расписания
+    SORT_INBOX_OUTBOX = 'SORT_INBOX_OUTBOX', // отделить «входящее/исходящее»
+    MAP_TERRITORY_PLOTS = 'MAP_TERRITORY_PLOTS', // карта участков/границ и их нумерация
+    ROTATION_ROTA_BOARD = 'ROTATION_ROTA_BOARD', // доска дежурств/ротаций
+    LOST_FOUND_STATION = 'LOST_FOUND_STATION', // пункт «потерянное и найденное»
+    DISPUTE_QUEUE_TOKENS = 'DISPUTE_QUEUE_TOKENS', // жетоны очереди на разбор споров
+    CLEAN_RECORDS_ARCHIVE = 'CLEAN_RECORDS_ARCHIVE', // чистка реестров/архива
+    ONE_WAY_WALKWAYS = 'ONE_WAY_WALKWAYS', // односторонние проходы для потока
+    WASTE_SEPARATION_POINTS = 'WASTE_SEPARATION_POINTS', // точки раздельного сбора отходов
+}
+
+// efficiency.actions.enum.ts
+export enum EfficiencyActionTag {
+    VALUE_STREAM_WALK = 'VALUE_STREAM_WALK', // пройти весь поток ценности «от двери до двери»
+    SHADOW_TIME_STUDY = 'SHADOW_TIME_STUDY', // «тени» — замер времени руками наблюдателя
+    S_SORT_SET_SHINE = 'S_SORT_SET_SHINE', // 5S: сортировка, расстановка, уборка
+    REDUCE_MOTION_WASTE = 'REDUCE_MOTION_WASTE', // сократить лишние перемещения
+    KANBAN_CARD_FLOW = 'KANBAN_CARD_FLOW', // карточный канбан-поток
+    QUICK_CHANGEOVER = 'QUICK_CHANGEOVER', // быстрое переналадка/перестройка (SMED-стайл)
+    STANDARD_CONTAINER_SIZES = 'STANDARD_CONTAINER_SIZES', // стандартизованные ёмкости/лотки
+    POINT_OF_USE_STORES = 'POINT_OF_USE_STORES', // мини-склады «у места использования»
+    TACT_RHYTHM_SIGNAL = 'TACT_RHYTHM_SIGNAL', // такт/ритм работы (звонок/барабан)
+    WORK_BALANCING = 'WORK_BALANCING', // выравнивание загрузки рабочих мест
+    ERROR_BURNDOWN_HOUR = 'ERROR_BURNDOWN_HOUR', // час исправления мелких ошибок/задолженностей
+    MAINT_PREVENTIVE_CYCLE = 'MAINT_PREVENTIVE_CYCLE', // цикл превентивного обслуживания
+    PATH_OPTIMIZATION_MAP = 'PATH_OPTIMIZATION_MAP', // карта оптимизации путей (логистика)
+    HEAT_AND_LIGHT_TUNING = 'HEAT_AND_LIGHT_TUNING', // настройка освещения/тепла под работу
+    REUSABLE_FIXTURE_PROGRAM = 'REUSABLE_FIXTURE_PROGRAM', // программа многоразовых приспособлений
+    PULL_SUPPLY_REPLENISH = 'PULL_SUPPLY_REPLENISH', // пополнение запасов «по вытягиванию»
+}
+
+// fairness.actions.enum.ts
+export enum FairnessActionTag {
+    POST_CLEAR_TARIFFS = 'POST_CLEAR_TARIFFS', // вывесить прозрачные тарифы/ставки
+    WEIGH_WITH_PUBLIC_SCALES = 'WEIGH_WITH_PUBLIC_SCALES', // взвешивание на публичных весах
+    RANDOM_AUDIT_DRAW = 'RANDOM_AUDIT_DRAW', // случайный отбор на проверку
+    BLIND_BID_ENVELOPES = 'BLIND_BID_ENVELOPES', // «слепые» конверты для заявок
+    PRO_RATA_REWARD_SPLIT = 'PRO_RATA_REWARD_SPLIT', // делёж вознаграждения по вкладу
+    DISPUTE_PANEL_THREE = 'DISPUTE_PANEL_THREE', // коллегия из трёх посредников
+    TURN_ORDER_LOTTERY = 'TURN_ORDER_LOTTERY', // жеребьёвка порядка очереди
+    EQUAL_ACCESS_NOTICE = 'EQUAL_ACCESS_NOTICE', // объявление равного доступа к ресурсам
+    CAP_FAVOR_EXCEPTIONS = 'CAP_FAVOR_EXCEPTIONS', // лимит «исключений по блату»
+    STANDARD_WAGE_TABLE = 'STANDARD_WAGE_TABLE', // таблица стандартных ставок оплаты
+    PUBLISH_WORK_LOGS = 'PUBLISH_WORK_LOGS', // публиковать трудовые журналы
+    TWO_KEYS_STORES = 'TWO_KEYS_STORES', // «двойной ключ» к складу (двое распорядителей)
+    RESTITUTION_FOR_HARM = 'RESTITUTION_FOR_HARM', // возмещение ущерба пострадавшему
+    APPEALS_WINDOW = 'APPEALS_WINDOW', // окно апелляций/пересмотра
+    ROTATE_FAVORED_TASKS = 'ROTATE_FAVORED_TASKS', // ротация «лакомых» заданий
+    SANCTION_FOR_BIAS = 'SANCTION_FOR_BIAS', // санкция за предвзятость
+}
+
+// integrity.actions.enum.ts
+export enum IntegrityActionTag {
+    TELL_TRUTH_UNDER_OATH = 'TELL_TRUTH_UNDER_OATH', // говорить правду под присягой
+    REFUSE_PLAGIARISM = 'REFUSE_PLAGIARISM', // отказ от плагиата/копирования без ссылки
+    RETURN_OVERPAYMENT = 'RETURN_OVERPAYMENT', // вернуть переплату/лишнее
+    CORRECT_RECORDS_ERROR = 'CORRECT_RECORDS_ERROR', // исправить ошибку в записях
+    REPORT_CONFLICT_OF_INTEREST = 'REPORT_CONFLICT_OF_INTEREST', // задекларировать конфликт интересов
+    DECLARE_GIFTS_HOSPITALITY = 'DECLARE_GIFTS_HOSPITALITY', // задекларировать дары/гостеприимство
+    KEEP_CONFIDENTIALITY = 'KEEP_CONFIDENTIALITY', // хранить тайну/конфиденциальность
+    REFUSE_FALSE_TESTIMONY = 'REFUSE_FALSE_TESTIMONY', // отказ от ложных показаний
+    HONOR_BOUNDARY_CONSENT = 'HONOR_BOUNDARY_CONSENT', // уважать границы/согласие
+    FAIR_WEIGHTS_MAINTAIN = 'FAIR_WEIGHTS_MAINTAIN', // поддерживать «честные» меры/весы
+    AVOID_NEPOTISM_IN_ASSIGNMENT = 'AVOID_NEPOTISM_IN_ASSIGNMENT', // избегать кумовства при назначениях
+    PROPER_ATTRIBUTION = 'PROPER_ATTRIBUTION', // корректная атрибуция заслуг
+    AUDIT_PERSONAL_ACCOUNTS = 'AUDIT_PERSONAL_ACCOUNTS', // аудит личных счетов/ведомостей
+    RECUSE_FROM_DECISION = 'RECUSE_FROM_DECISION', // взять самоотвод из решения
+    ETHICAL_SOURCING = 'ETHICAL_SOURCING', // этичная закупка/источник сырья
+    CODE_OF_CONDUCT_REFRESH = 'CODE_OF_CONDUCT_REFRESH', // освежить кодекс поведения/переобучение
+}
+
+// discipline.actions.enum.ts
+export enum DisciplineActionTag {
+    DAWN_ROLL_CALL = 'DAWN_ROLL_CALL', // рассветная перекличка
+    CODE_RECITAL = 'CODE_RECITAL', // чтение кодекса/обетов
+    PUNCTUALITY_CHECK = 'PUNCTUALITY_CHECK', // проверка пунктуальности
+    UNIFORM_STANDARD_CHECK = 'UNIFORM_STANDARD_CHECK', // проверка внешнего вида/снаряжения
+    DRILL_BASIC_FORMS = 'DRILL_BASIC_FORMS', // ежедневная тренировка базовых форм
+    SILENCE_INTERVALS = 'SILENCE_INTERVALS', // интервалы тишины/без разговоров
+    TASK_START_RITUAL = 'TASK_START_RITUAL', // ритуал начала работы (настрой)
+    CLEAN_AS_YOU_GO = 'CLEAN_AS_YOU_GO', // «убирай по ходу»
+    STRICT_BREAK_WINDOWS = 'STRICT_BREAK_WINDOWS', // строгие окна перерывов
+    CONSEQUENCE_LEDGER = 'CONSEQUENCE_LEDGER', // журнал последствий/замечаний
+    PRAISE_PUBLIC_GOOD = 'PRAISE_PUBLIC_GOOD', // публично хвалить за образцовость
+    SELF_DENIAL_DRILL = 'SELF_DENIAL_DRILL', // упражнение самозапрета (искушение → отказ)
+    CURFEW_OBSERVANCE = 'CURFEW_OBSERVANCE', // соблюдение комендантского часа
+    EQUIPMENT_CHECK_IN_OUT = 'EQUIPMENT_CHECK_IN_OUT', // строгий учёт выдачи/возврата снаряжения
+    TASK_TIME_PLEDGE = 'TASK_TIME_PLEDGE', // обещание времени на задачу (таймбокс-обет)
+    WEEKLY_RETROSPECT = 'WEEKLY_RETROSPECT', // еженедельная ретроспектива дисциплины
+}
+
+// culture.actions.enum.ts
+export enum CultureActionTag {
+    FESTIVAL_ORGANIZE = 'FESTIVAL_ORGANIZE', // организовать фестиваль/ярмарку
+    ORAL_HISTORY_CIRCLE = 'ORAL_HISTORY_CIRCLE', // круг устной истории/сказаний
+    CRAFT_GUILD_EXHIBIT = 'CRAFT_GUILD_EXHIBIT', // выставка гильдейских работ
+    RITES_OF_PASSAGE = 'RITES_OF_PASSAGE', // обряд посвящения/перехода
+    SEASONAL_DECORATIONS = 'SEASONAL_DECORATIONS', // сезонные украшения/символика
+    SONG_DANCE_REHEARSAL = 'SONG_DANCE_REHEARSAL', // репетиция песен/танцев
+    STORYTELLER_NIGHT = 'STORYTELLER_NIGHT', // вечер сказителей/баснописцев
+    HERITAGE_MARKERS = 'HERITAGE_MARKERS', // знаки наследия/памятные стелы
+    SHARED_MEAL_FEAST = 'SHARED_MEAL_FEAST', // общинная трапеза/пир
+    ARTISAN_CONTEST = 'ARTISAN_CONTEST', // состязание ремесленников
+    SYMBOLS_STANDARDIZE = 'SYMBOLS_STANDARDIZE', // стандартизовать гербы/цвета/знаки
+    CULTURAL_EXCHANGE_FAIR = 'CULTURAL_EXCHANGE_FAIR', // ярмарка культурного обмена
+    TEACH_CHILDREN_CUSTOMS = 'TEACH_CHILDREN_CUSTOMS', // обучение детей обычаям
+    MEMORIAL_SERVICE = 'MEMORIAL_SERVICE', // поминальная церемония
+    PATRONAGE_CHARTER = 'PATRONAGE_CHARTER', // хартия покровительства искусствам
+    ARCHIVE_SONGS_AND_PATTERNS = 'ARCHIVE_SONGS_AND_PATTERNS', // архив песен/узоров/орнаментов
+}
+
+// courage.actions.enum.ts
+export enum CourageActionTag {
+    STAND_GUARD_FRONTIER = 'STAND_GUARD_FRONTIER', // встать на опасный пост/границу
+    SCOUT_AHEAD = 'SCOUT_AHEAD', // выдвинуться вперёд в разведку
+    HOLD_LINE_UNDER_THREAT = 'HOLD_LINE_UNDER_THREAT', // удержать строй под угрозой
+    RESCUE_TRAPPED = 'RESCUE_TRAPPED', // спасти застрявшего/запертого
+    FACE_BEAST_NOISE = 'FACE_BEAST_NOISE', // спугнуть зверя/неведомое шумом
+    VOLUNTEER_FIRST_STEP = 'VOLUNTEER_FIRST_STEP', // добровольно сделать первый шаг
+    COVER_RETREAT = 'COVER_RETREAT', // прикрыть отход товарищей
+    SPEAK_TRUTH_TO_POWER = 'SPEAK_TRUTH_TO_POWER', // сказать правду сильному мира
+    CROSS_NIGHT_PATH = 'CROSS_NIGHT_PATH', // пройти по «страшной» тропе ночью
+    ENTER_COLLAPSE_RUBBLE = 'ENTER_COLLAPSE_RUBBLE', // войти в завал/руины на риск
+    DEFY_SUPERSTITION_RITUAL = 'DEFY_SUPERSTITION_RITUAL', // «сломать» дурную примету ритуалом
+    TAKE_BLAME_FOR_TEAM = 'TAKE_BLAME_FOR_TEAM', // взять удар/вину на себя за команду
+    PUBLIC_CHALLENGE_BULLY = 'PUBLIC_CHALLENGE_BULLY', // публично осадить задира/угнетателя
+    STAND_WITNESS_ALONE = 'STAND_WITNESS_ALONE', // выступить свидетелем в одиночку
+    HOLD_VIGIL_DANGEROUS_SITE = 'HOLD_VIGIL_DANGEROUS_SITE', // ночное бдение у опасного места
+    TEST_BOUNDARIES_TRAINING = 'TEST_BOUNDARIES_TRAINING', // тренировочный «стресс-тест» границ
+}
+
+// morale.actions.enum.ts
+export enum MoraleActionTag {
+    RALLY_SPEECH = 'RALLY_SPEECH', // вдохновляющая речь перед задачей
+    CELEBRATE_SMALL_WIN = 'CELEBRATE_SMALL_WIN', // отметить маленькую победу
+    ISSUE_COMMENDATION_TOKEN = 'ISSUE_COMMENDATION_TOKEN', // выдать знак отличия/похвалы
+    BANNER_RAISING = 'BANNER_RAISING', // поднять знамя/тутем отряда
+    SHARED_SONG_AT_WORK = 'SHARED_SONG_AT_WORK', // общая песня в работе/в пути
+    REST_DAY_ROTATION = 'REST_DAY_ROTATION', // ротационный выходной
+    WARM_MEAL_DISTRIBUTION = 'WARM_MEAL_DISTRIBUTION', // раздача горячей пищи
+    FIRE_HEARTH_GATHER = 'FIRE_HEARTH_GATHER', // вечер у очага/костра
+    TEAM_GAME_SPORT = 'TEAM_GAME_SPORT', // командная игра/спорт
+    LETTERS_FROM_HOME_READING = 'LETTERS_FROM_HOME_READING', // чтение писем из дома
+    HONOR_FALLEN_RITES = 'HONOR_FALLEN_RITES', // обряд в честь павших
+    SUCCESS_TALLY_BOARD = 'SUCCESS_TALLY_BOARD', // доска успехов/отметок
+    PAIR_NEW_WITH_VETERAN = 'PAIR_NEW_WITH_VETERAN', // связать новичка с ветераном
+    HOPE_STORIES_SHARING = 'HOPE_STORIES_SHARING', // обмен историями надежды
+    CLEAN_AND_DECORATE_COMMONS = 'CLEAN_AND_DECORATE_COMMONS', // прибрать/украсить общие места
+    SET_SYMBOLIC_GOAL_MARKER = 'SET_SYMBOLIC_GOAL_MARKER', // символическая отметка цели (веха)
+}
+
+// identity.actions.enum.ts
+export enum IdentityActionTag {
+    DECLARE_CLAN_AFFILIATION = 'DECLARE_CLAN_AFFILIATION', // публично объявить клановую принадлежность
+    WEAR_HERALDIC_MARKS = 'WEAR_HERALDIC_MARKS', // носить знаки/цвета/узоры клана
+    GENEALOGY_RECITAL = 'GENEALOGY_RECITAL', // прочитать родословную/линии предков
+    RITE_OF_NAMING_OR_RENAMING = 'RITE_OF_NAMING_OR_RENAMING', // обряд наречения/переим. имени/прозвища
+    PERSONAL_CREST_DESIGN = 'PERSONAL_CREST_DESIGN', // разработать личный знак/тамгу
+    LINEAGE_MARK_TATTOO = 'LINEAGE_MARK_TATTOO', // метка рода (клеймо/тату/шрам-ритуал)
+    SIGNATURE_STYLE_CRAFT = 'SIGNATURE_STYLE_CRAFT', // «фирменный почерк» ремесла/узора
+    OATH_TO_CODE_OR_PATRON = 'OATH_TO_CODE_OR_PATRON', // клятва кодексу/покровителю
+    MENTOR_LINE_ACKNOWLEDGE = 'MENTOR_LINE_ACKNOWLEDGE', // признать наставническую линию
+    PILGRIMAGE_TO_ORIGIN_SITE = 'PILGRIMAGE_TO_ORIGIN_SITE', // паломничество к месту происхождения
+    CLAN_SERVICE_DAY = 'CLAN_SERVICE_DAY', // день служения клану/общине
+    DIALECT_OR_SONG_KEEP = 'DIALECT_OR_SONG_KEEP', // держать диалект/песенную традицию
+    TOTEM_OBJECT_CONSECRATE = 'TOTEM_OBJECT_CONSECRATE', // освятить/узаконить тотемный предмет
+    ROLE_MASTERY_BADGE = 'ROLE_MASTERY_BADGE', // знак мастерства роли/ремесла
+    PERSONAL_CHRONICLE_ENTRY = 'PERSONAL_CHRONICLE_ENTRY', // запись в личной хронике/летописи
+    BOUNDARY_STATEMENT = 'BOUNDARY_STATEMENT', // публично очертить личные границы/табу
+}
+
+// privacy.actions.enum.ts
+export enum PrivacyActionTag {
+    CREATE_PRIVATE_QUARTERS = 'CREATE_PRIVATE_QUARTERS', // обустроить личные покои
+    SET_SCREEN_PARTITIONS = 'SET_SCREEN_PARTITIONS', // поставить ширмы/перегородки
+    SECURE_STORAGE_CHEST = 'SECURE_STORAGE_CHEST', // личный сундук с замком/печатью
+    QUIET_ZONE_DECLARATION = 'QUIET_ZONE_DECLARATION', // зона тишины/без вторжений
+    PRIVATE_COUNSEL_MEET = 'PRIVATE_COUNSEL_MEET', // приватная беседа с советником
+    REDACT_SENSITIVE_RECORDS = 'REDACT_SENSITIVE_RECORDS', // редактировать/защитить записи
+    CONFIDE_TRUSTED_CONFIDANT = 'CONFIDE_TRUSTED_CONFIDANT', // доверить тайну поверенному
+    PERSONAL_TIME_BLOCK = 'PERSONAL_TIME_BLOCK', // личное время/«не беспокоить»
+    MARKET_PRIVACY_CURTAIN = 'MARKET_PRIVACY_CURTAIN', // занавес/будка для сделок
+    SOUND_DAMPENING_MATS = 'SOUND_DAMPENING_MATS', // маты/снопы против слышимости
+    CONTROL_VISITORS_LEDGER = 'CONTROL_VISITORS_LEDGER', // журнал визитов и допусков
+    SEALED_LETTER_SERVICE = 'SEALED_LETTER_SERVICE', // запечатанные письма/доставка
+    MASK_IDENTITY_ATTIRE = 'MASK_IDENTITY_ATTIRE', // закрытая одежда/капюшон
+    BATHING_SCHEDULE_SEPARATE = 'BATHING_SCHEDULE_SEPARATE', // разнести графики купален
+    WINDOW_SHUTTERS_PROTOCOL = 'WINDOW_SHUTTERS_PROTOCOL', // ставни/полог по правилам
+    SECLUDED_PATH_MAPPING = 'SECLUDED_PATH_MAPPING', // маршрут уединённых троп
+}
+
+// clarity.actions.enum.ts
+export enum ClarityActionTag {
+    MORNING_CLARITY_BRIEF = 'MORNING_CLARITY_BRIEF', // утренний бриф «что/зачем/когда»
+    TASK_DEFINITION_CARDS = 'TASK_DEFINITION_CARDS', // карточки задач с критериями «готово»
+    ROLE_CHART_POSTING = 'ROLE_CHART_POSTING', // вывесить матрицу ролей и зон ответственности
+    SIGNAL_FLAGS_PROTOCOL = 'SIGNAL_FLAGS_PROTOCOL', // протокол флажков/сигналов для статусов
+    COMMON_GLOSSARY_CREATE = 'COMMON_GLOSSARY_CREATE', // общий глоссарий терминов/жаргона
+    WAYFINDING_SIGNS = 'WAYFINDING_SIGNS', // указатели/таблички направления
+    SHADOW_BOARD_OUTLINES = 'SHADOW_BOARD_OUTLINES', // «тени» инструментов на стендах
+    SIMPLE_LANGUAGE_TRAINING = 'SIMPLE_LANGUAGE_TRAINING', // обучение простому языку инструкций
+    MEETING_MINUTES_RECORD = 'MEETING_MINUTES_RECORD', // протоколировать встречи (краткие итоги)
+    LEDGER_SUMMARY_WEEK = 'LEDGER_SUMMARY_WEEK', // еженедельные сводки из реестров
+    QUESTIONS_OPEN_HOUR = 'QUESTIONS_OPEN_HOUR', // «час вопросов» для всех
+    RUMOR_DEBUNK_BULLETIN = 'RUMOR_DEBUNK_BULLETIN', // бюллетень «разбор слухов»
+    VISUAL_WORK_INSTRUCTIONS = 'VISUAL_WORK_INSTRUCTIONS', // наглядные инструкции/пиктограммы
+    PROGRESS_MARK_TOTEM = 'PROGRESS_MARK_TOTEM', // тотем/веха видимого прогресса
+    NIGHTLY_STATUS_RUNDOWN = 'NIGHTLY_STATUS_RUNDOWN', // вечерний краткий рандоун статуса
+    MAP_AND_TERRAIN_BRIEF = 'MAP_AND_TERRAIN_BRIEF', // бриф по карте/местности перед выходом
+}
+
+// resilience.actions.enum.ts
+export enum ResilienceActionTag {
+    EMERGENCY_DRILL = 'EMERGENCY_DRILL', // учебная тревога/эвакуация
+    STOCKPILE_ESSENTIALS = ' STOCKPILE_ESSENTIALS', // создать стратегические запасы
+    DIVERSIFY_CROPS_CRAFTS = 'DIVERSIFY_CROPS_CRAFTS', // диверсифицировать посевы/промыслы
+    CROSS_TRAIN_ROLES = 'CROSS_TRAIN_ROLES', // взаимозаменяемость ролей
+    MUTUAL_AID_PACT = 'MUTUAL_AID_PACT', // пакт взаимопомощи с соседями
+    REPAIR_SPRINT = 'REPAIR_SPRINT', // срочный ремонт критичных узлов
+    FIREBREAK_AND_CLEARING = 'FIREBREAK_AND_CLEARING', // минерализованные полосы/расчистка
+    FLOOD_LEVEE_DITCHES = 'FLOOD_LEVEE_DITCHES', // валы/канавы от наводнений
+    QUARANTINE_PROTOCOL = 'QUARANTINE_PROTOCOL', // карантинный протокол при болезни
+    BACKUP_TOOLS_AND_PARTS = 'BACKUP_TOOLS_AND_PARTS', // резервы инструментов/запчастей
+    SAFE_WATER_CACHE = 'SAFE_WATER_CACHE', // закладка безопасной воды
+    RISK_REGISTER_COUNCIL = 'RISK_REGISTER_COUNCIL', // совет по рискам/реестр угроз
+    EVACUATION_ROUTES_MAP = 'EVACUATION_ROUTES_MAP', // карта путей отхода/сборные пункты
+    WORKLOAD_ROTATION_PLAN = 'WORKLOAD_ROTATION_PLAN', // план ротации нагрузок (усталость)
+    COPING_RITUALS_CIRCLE = 'COPING_RITUALS_CIRCLE', // круг поддержки/ритуалы переживания
+    CONTINGENCY_FUND = 'CONTINGENCY_FUND', // резервный фонд/страховой мешок
+}
+
+// joy.actions.enum.ts
+export enum JoyActionTag {
+    PLAY_MUSIC_TOGETHER = 'PLAY_MUSIC_TOGETHER', // сыграть вместе музыку/напевы
+    DANCE_RING = 'DANCE_RING', // общий хоровод/танец
+    JOKE_STORY_SWAP = 'JOKE_STORY_SWAP', // обмен шутками/байками
+    SWEET_TREAT_SHARE = 'SWEET_TREAT_SHARE', // поделиться сладким/лакомством
+    PICNIC_OUTING = 'PICNIC_OUTING', // выход на природу с закусками
+    FIREWORK_SPARK_SHOW = 'FIREWORK_SPARK_SHOW', // огненное шоу/искры (безопасные)
+    CHILDREN_GAMES_HOST = 'CHILDREN_GAMES_HOST', // устроить детские игры
+    HOBBY_CRAFT_HOUR = 'HOBBY_CRAFT_HOUR', // час ремёсел ради удовольствия
+    PRAISE_WITH_LAUGHTER = 'PRAISE_WITH_LAUGHTER', // весёлая похвала/шутливые титулы
+    SURPRISE_GIFT_TOKEN = 'SURPRISE_GIFT_TOKEN', // неожиданный знак/подарок
+    COMMUNITY_THEATRE = 'COMMUNITY_THEATRE', // народный театр/инсценировка
+    FISHING_PLEASURE_TRIP = 'FISHING_PLEASURE_TRIP', // рыбалка ради удовольствия
+    DRESS_UP_FEST_ATTIRE = 'DRESS_UP_FEST_ATTIRE', // нарядиться в праздничные одежды
+    GARDEN_BLOSSOM_WALK = 'GARDEN_BLOSSOM_WALK', // прогулка по саду/цветению
+    FRIENDSHIP_TOAST = 'FRIENDSHIP_TOAST', // тост/чокнуться за дружбу
+    FUN_COMPETITION_FAIR = 'FUN_COMPETITION_FAIR', // лёгкое состязание-ярмарка
+}
+
+// innovation-rep.actions.enum.ts
+export enum InnovationRepActionTag {
+    PROTOTYPE_BENCH_SETUP = 'PROTOTYPE_BENCH_SETUP', // завести «верстак прототипов»
+    CONTROLLED_TRIAL_RUN = 'CONTROLLED_TRIAL_RUN', // контрольный прогон/эксперимент
+    GUILD_COLLOQUIUM = 'GUILD_COLLOQUIUM', // гильдейский коллоквиум/семинар
+    FIELD_DEMONSTRATION = 'FIELD_DEMONSTRATION', // полевой показ новшества
+    IMPROVEMENT_KATA = 'IMPROVEMENT_KATA', // «ката» непрерывных улучшений
+    SUGGESTION_CHEST = 'SUGGESTION_CHEST', // сундук предложений (идеи)
+    INNOVATION_BOUNTY = 'INNOVATION_BOUNTY', // вознаграждение за улучшение
+    CROSS_POLLINATION_VISIT = 'CROSS_POLLINATION_VISIT', // визит для обмена практиками
+    POSTMORTEM_SCROLL = 'POSTMORTEM_SCROLL', // свиток разборов неудач
+    SANDBOX_EXPERIMENT_ZONE = 'SANDBOX_EXPERIMENT_ZONE', // «песочница» для проб без риска
+    STANDARDIZE_SUCCESS = 'STANDARDIZE_SUCCESS', // стандартизовать удачную практику
+    SALVAGE_TO_TOOL_PROGRAM = 'SALVAGE_TO_TOOL_PROGRAM', // программа «лом → инструмент»
+    OPEN_WORKSHOP_DAY = 'OPEN_WORKSHOP_DAY', // день открытых мастерских
+    PATENT_SEAL_REGISTRY = 'PATENT_SEAL_REGISTRY', // реестр печатей/патентов (прототип)
+    APPRENTICE_INNOVATOR_TRACK = 'APPRENTICE_INNOVATOR_TRACK', // трек подмастерьев-новаторов
+    RISK_SHARE_CHARTER = 'RISK_SHARE_CHARTER', // хартия распределения рисков
+}
+
+export enum NetworkActionTag {
+    MARKET_MEET_AND_GREET = 'MARKET_MEET_AND_GREET', // познакомиться на рынке/ярмарке
+    LETTER_OF_INTRODUCTION = 'LETTER_OF_INTRODUCTION', // письмо-представление третьей стороне
+    HOST_GUEST_MERCHANT = 'HOST_GUEST_MERCHANT', // приютить гостя-торговца
+    RECIPROCAL_FAVORS_LEDGER = 'RECIPROCAL_FAVORS_LEDGER', // завести «реестр взаимных услуг»
+    GUILD_GREETING_RITUAL = 'GUILD_GREETING_RITUAL', // гильдейский ритуал приветствия
+    SHARED_TOOLS_LIBRARY = 'SHARED_TOOLS_LIBRARY', // «библиотека инструментов» для членов
+    ESCORT_CARAVAN = 'ESCORT_CARAVAN', // сопроводить караван соседей
+    COUNCIL_OF_NEIGHBORS = 'COUNCIL_OF_NEIGHBORS', // совет соседних поселений
+    HOST_CRAFT_SALON = 'HOST_CRAFT_SALON', // вечер обмена ремесными идеями
+    PATRON_SPONSORSHIP = 'PATRON_SPONSORSHIP', // взять шефство/патронаж над новичком
+    NOTICE_BOARD_INTROS = 'NOTICE_BOARD_INTROS', // доска объявлений «ищу/предлагаю»
+    FESTIVAL_OF_ALLIANCES = 'FESTIVAL_OF_ALLIANCES', // фестиваль/пир союзов и клятв
+    MESSENGER_EXCHANGE = 'MESSENGER_EXCHANGE', // обмен постоянными гонцами
+    SKILL_BARTER_DAY = 'SKILL_BARTER_DAY', // день обмена навыками («час наставника»)
+    MUTUAL_DEFENSE_PLEDGE = 'MUTUAL_DEFENSE_PLEDGE', // взаимная клятва обороны
+    TRADE_ROUTE_MAPPING = 'TRADE_ROUTE_MAPPING', // карта и назначение «узлов контактов»
+}
+
+export enum StressActionTag {
+    BREATHING_DRILL = 'BREATHING_DRILL', // дыхательная практика (короткая)
+    WALK_SHORT_SOLO = 'WALK_SHORT_SOLO', // короткая одиночная прогулка
+    QUIET_TEATIME = 'QUIET_TEATIME', // тихое чаепитие/травяной настой
+    STRETCH_AND_LOOSEN = 'STRETCH_AND_LOOSEN', // разминка/растяжка
+    JOURNAL_UNLOAD = 'JOURNAL_UNLOAD', // «слить в журнал» мысли/переживания
+    POWER_NAP = 'POWER_NAP', // короткий сон/дремота
+    SWITCH_TASK_SIMPLE = 'SWITCH_TASK_SIMPLE', // переключиться на простую рутину
+    DELEGATE_NONCRITICAL = 'DELEGATE_NONCRITICAL', // делегировать некритичное
+    BOUNDARY_SAY_NO = 'BOUNDARY_SAY_NO', // озвучить границы/отказать
+    SOCIAL_VENT_SAFE = 'SOCIAL_VENT_SAFE', // выговориться в безопасном кругу
+    MUSIC_CALM_SESSION = 'MUSIC_CALM_SESSION', // спокойная музыка/ритм
+    TIDY_MICRO_AREA = 'TIDY_MICRO_AREA', // прибрать маленькую зону
+    SUNLIGHT_FRESH_AIR = 'SUNLIGHT_FRESH_AIR', // солнце+воздух (выйти на свет)
+    HOT_BATH_SOAK = 'HOT_BATH_SOAK', // горячая ванна/прогрев
+    AROMA_OR_INCENSE = 'AROMA_OR_INCENSE', // ароматерапия/дымок трав
+    EVENING_UNWIND_RITUAL = 'EVENING_UNWIND_RITUAL', // вечерний «антистресс»-ритуал
+}
+
+// energy.actions.enum.ts
+export enum EnergyActionTag {
+    HIGH_PROTEIN_MEAL = 'HIGH_PROTEIN_MEAL', // плотная белковая трапеза
+    POWER_NAP_20 = 'POWER_NAP_20', // 20-минутная дремота
+    SUNLIGHT_STRETCH = 'SUNLIGHT_STRETCH', // растяжка на солнце/свежем воздухе
+    SHORT_SPRINT_EXERCISE = 'SHORT_SPRINT_EXERCISE', // короткая зарядка/спринт
+    CAFFEINE_HERB_TONIC = 'CAFFEINE_HERB_TONIC', // бодрящий отвар/кофе/матэ-аналог
+    BREATH_OXY_DRILL = 'BREATH_OXY_DRILL', // оксигенационная дыхательная практика
+    WATER_REHYDRATE = 'WATER_REHYDRATE', // восполнить воду/электролиты
+    MICRO_BREAK_EYESTRAIN = 'MICRO_BREAK_EYESTRAIN', // микро-перерыв для глаз/спины
+    POSTURE_RESET = 'POSTURE_RESET', // «сброс» осанки, мобилизация
+    SNACK_TRAIL_MIX = 'SNACK_TRAIL_MIX', // быстрый перекус (орехи/сухофрукты)
+    SOCIAL_ENERGY_CHECKIN = 'SOCIAL_ENERGY_CHECKIN', // короткая «подзарядка» через общение
+    WORKLOAD_REBALANCE = 'WORKLOAD_REBALANCE', // перераспределить нагрузку
+    EARLY_LIGHTS_OUT = 'EARLY_LIGHTS_OUT', // лечь спать пораньше
+    MORNING_COLD_SPLASH = 'MORNING_COLD_SPLASH', // холодное умывание/обливание утром
+    WARMUP_BEFORE_LABOR = 'WARMUP_BEFORE_LABOR', // разогрев перед тяжёлой работой
+    RECOVERY_MASSAGE = 'RECOVERY_MASSAGE', // массаж/растирание для восстановления
+}
+
+export enum AccountabilityActionTag {
+    DUTY_CHART_POST = 'DUTY_CHART_POST', // вывесить карту обязанностей
+    PERSONAL_WEEKLY_REPORT = 'PERSONAL_WEEKLY_REPORT', // личный недельный отчёт
+    TASK_HANDOFF_FORMALIZE = 'TASK_HANDOFF_FORMALIZE', // формализованный «передал-принял»
+    AUDIT_RANDOM_SPOTCHECK = 'AUDIT_RANDOM_SPOTCHECK', // выборочный аудит на месте
+    WITNESS_SIGNATURES = 'WITNESS_SIGNATURES', // подписи свидетелей/соседей
+    PUBLIC_RETROSPECT = 'PUBLIC_RETROSPECT', // открытая ретроспектива результатов
+    INCIDENT_REPORT_FILE = 'INCIDENT_REPORT_FILE', // оформить рапорт о инциденте
+    CHECKLIST_BEFORE_AFTER = 'CHECKLIST_BEFORE_AFTER', // чек-лист «до/после работы»
+    TOOL_COUNTERSIGN = 'TOOL_COUNTERSIGN', // контрподпись на выдачу инструмента
+    WORKLOG_STAMP = 'WORKLOG_STAMP', // штамп/метка в журнале работ
+    PEER_REVIEW_ROTATION = 'PEER_REVIEW_ROTATION', // ротация взаимных проверок
+    ESCALATION_PATH_POST = 'ESCALATION_PATH_POST', // схема эскалации и ответственных
+    KPI_TALLY_MARKS = 'KPI_TALLY_MARKS', // отметки ключевых показателей
+    OATH_OF_OFFICE_RENEW = 'OATH_OF_OFFICE_RENEW', // обновление служебной клятвы
+    BUDGET_POUCH_SEALS = 'BUDGET_POUCH_SEALS', // кошель/мешок с печатями бюджета
+    FEEDBACK_ONE_ON_ONE = 'FEEDBACK_ONE_ON_ONE', // личный разбор «1:1» по обязанностям
+}
+
+export enum HopeActionTag {
+    DAWN_TORCH_RUN = 'DAWN_TORCH_RUN', // рассветный пробег с факелами
+    FOUNDATION_STONE_RITUAL = 'FOUNDATION_STONE_RITUAL', // закладка первого камня
+    FUTURE_MURAL_PAINT = 'FUTURE_MURAL_PAINT', // роспись «Город будущего»
+    SEED_SHARE_FAIR = 'SEED_SHARE_FAIR', // ярмарка обмена семенами
+    APPRENTICE_DAY = 'APPRENTICE_DAY', // день ученичества для детей
+    GOOD_NEWS_CRIER = 'GOOD_NEWS_CRIER', // глашатай хороших вестей
+    LIGHTS_FESTIVAL = 'LIGHTS_FESTIVAL', // праздник огней
+    GREEN_PATCH_START = 'GREEN_PATCH_START', // общий огород «Зелёное пятно»
+    SCOUTS_NEW_HORIZONS = 'SCOUTS_NEW_HORIZONS', // дозор «Новые горизонты»
+    SANCTUARY_VIGIL = 'SANCTUARY_VIGIL', // вечер бдения в святилище
+    PUBLIC_GOAL_TRACKER = 'PUBLIC_GOAL_TRACKER', // публичный трекер целей
+    REPAIR_BLITZ = 'REPAIR_BLITZ', // «десант ремонта» в один день
+    STORY_CIRCLE_HEROES = 'STORY_CIRCLE_HEROES', // круг историй о героях
+    MARKET_STARTER_KITS = 'MARKET_STARTER_KITS', // наборы старта для лавок
+    HEALERS_ROUND = 'HEALERS_ROUND', // обход целителей
+    HOPE_CHEST_PLEDGE = 'HOPE_CHEST_PLEDGE', // общая «сундук надежды»
+}
+
+export enum WasteActionTag {
+    SCRAP_LEDGER_START = 'SCRAP_LEDGER_START', // учёт отходов/обрезков
+    RETURNABLE_CONTAINERS = 'RETURNABLE_CONTAINERS', // возвратная тара/депозит
+    COMPOST_PIT_SETUP = 'COMPOST_PIT_SETUP', // устройство компостной ямы
+    TOOL_REPAIR_BENCH = 'TOOL_REPAIR_BENCH', // верстак ремонта инструмента
+    SPOILAGE_AUDIT = 'SPOILAGE_AUDIT', // аудит порчи/протечек
+    RATION_PORTION_TOKENS = 'RATION_PORTION_TOKENS', // жетоны нормирования порций
+    SALVAGE_RUN = 'SALVAGE_RUN', // вылазка на утилизацию/добычу
+    GREYWATER_REUSE = 'GREYWATER_REUSE', // серые воды — повторное использование
+    SHARED_TOOL_LIBRARY = 'SHARED_TOOL_LIBRARY', // общая библиотека инструментов
+    ASH_BRICK_PRESS = 'ASH_BRICK_PRESS', // кирпичи из золы/шлака
+    MANURE_MANAGEMENT = 'MANURE_MANAGEMENT', // сбор/брожение навоза
+    REPAIR_CAFE_DAY = 'REPAIR_CAFE_DAY', // день «починяй-ка» с наставниками
+}
+
 // Собираем все в один объект
 export const ActionTags = {
     ...FoodActionTag,
@@ -709,6 +1298,36 @@ export const ActionTags = {
     ...KnowledgeActionTag,
     ...CuriosityActionTag,
     ...CreativityActionTag,
+    ...MoodActionTag,
+    ...SocialNeedActionTag,
+    ...FocusActionTag,
+    ...InspirationActionTag,
+    ...FaithActionTag,
+    ...LoveActionTag,
+    ...HonorActionTag,
+    ...FearActionTag,
+    ...ProductivityActionTag,
+    ...QualityActionTag,
+    ...OrderActionTag,
+    ...EfficiencyActionTag,
+    ...FairnessActionTag,
+    ...IntegrityActionTag,
+    ...DisciplineActionTag,
+    ...CultureActionTag,
+    ...CourageActionTag,
+    ...MoraleActionTag,
+    ...IdentityActionTag,
+    ...PrivacyActionTag,
+    ...ClarityActionTag,
+    ...ResilienceActionTag,
+    ...JoyActionTag,
+    ...InnovationRepActionTag,
+    ...NetworkActionTag,
+    ...StressActionTag,
+    ...EnergyActionTag,
+    ...AccountabilityActionTag,
+    ...HopeActionTag,
+    ...WasteActionTag,
 };
 
 // Универсальный тип для всех значений
