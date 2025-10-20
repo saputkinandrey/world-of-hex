@@ -1,13 +1,17 @@
 import { ActionDefinition } from '../action-definition';
-import { BelongingActionTag } from '../action-tags';
-import { NeedTag } from '../needs';
+import { ActionTags, BelongingActionTag } from '../action-tags';
 
 export const BelongingActions: ActionDefinition[] = [
     {
         tag: BelongingActionTag.JOIN_CLAN,
         costEnergy: -0.2,
         costTime: 2,
-        rewardSecondary: { BELONGING: 0.9, STABILITY: 0.4, LOYALTY: 0.4, TRUST: 0.3 },
+        rewardSecondary: {
+            BELONGING: 0.9,
+            STABILITY: 0.4,
+            LOYALTY: 0.4,
+            TRUST: 0.3,
+        },
         socialImpact: { ACCEPTANCE: 0.6 },
     },
     {
@@ -25,7 +29,7 @@ export const BelongingActions: ActionDefinition[] = [
         socialImpact: { COHESION: 0.4 },
     },
     {
-        tag: BelongingActionTag.SHARE_MEAL,
+        tag: ActionTags.SHARE_MEAL,
         costEnergy: -0.05,
         costTime: 1,
         rewardSecondary: { BELONGING: 0.5, AFFECTION: 0.3, TRUST: 0.2 },
@@ -113,7 +117,7 @@ export const BelongingActions: ActionDefinition[] = [
         socialImpact: { TEAMWORK: 0.5 },
     },
     {
-        tag: BelongingActionTag.MEDIATE_DISPUTE,
+        tag: ActionTags.MEDIATE_DISPUTE,
         costEnergy: -0.2,
         costTime: 1.5,
         rewardSecondary: { BELONGING: 0.7, COMMUNITY: 0.5, STABILITY: 0.4 },

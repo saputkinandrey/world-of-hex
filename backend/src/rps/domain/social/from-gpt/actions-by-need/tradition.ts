@@ -1,13 +1,17 @@
 import { ActionDefinition } from '../action-definition';
 import { TraditionActionTag } from '../action-tags';
-import { NeedTag } from '../needs';
 
 export const TraditionActions: ActionDefinition[] = [
     {
         tag: TraditionActionTag.KEEP_SEASONAL_RITE,
         costEnergy: -0.12,
         costTime: 1.4,
-        rewardSecondary: { TRADITION: 0.7, SPIRIT: 0.3, STABILITY: 0.3, COMMUNITY: 0.3 },
+        rewardSecondary: {
+            TRADITION: 0.7,
+            SPIRIT: 0.3,
+            STABILITY: 0.3,
+            COMMUNITY: 0.3,
+        },
         requiresLocation: 'shrine|grove|hall',
         tradeEffect: { offerings: -2, ceremonial_food: -2 },
         socialImpact: { TRADITION: 0.6, COHESION: 0.4, IDENTITY: 0.3 as any },
@@ -17,7 +21,12 @@ export const TraditionActions: ActionDefinition[] = [
         tag: TraditionActionTag.HOST_CLAN_HERITAGE_FEAST,
         costEnergy: -0.25,
         costTime: 2.5,
-        rewardSecondary: { TRADITION: 0.9, COMMUNITY: 0.6, AFFECTION: 0.3, STATUS: 0.2 },
+        rewardSecondary: {
+            TRADITION: 0.9,
+            COMMUNITY: 0.6,
+            AFFECTION: 0.3,
+            STATUS: 0.2,
+        },
         tradeEffect: { spend_food: -10, spend_drink: -5, musicians_fee: -2 },
         socialImpact: { TRADITION: 0.7, COHESION: 0.6, PRIDE: 0.4 },
         ownershipEffect: {
@@ -30,7 +39,12 @@ export const TraditionActions: ActionDefinition[] = [
         tag: TraditionActionTag.TEACH_CUSTOMS_TO_YOUTH,
         costEnergy: -0.2,
         costTime: 2.0,
-        rewardSecondary: { TRADITION: 0.65, KNOWLEDGE: 0.5, FAMILY: 0.3, COMMUNITY: 0.3 },
+        rewardSecondary: {
+            TRADITION: 0.65,
+            KNOWLEDGE: 0.5,
+            FAMILY: 0.3,
+            COMMUNITY: 0.3,
+        },
         socialImpact: {
             TRADITION: 0.55,
             CONTINUITY: 0.6 as any,
@@ -67,7 +81,12 @@ export const TraditionActions: ActionDefinition[] = [
         costEnergy: -0.25,
         costTime: 2.0,
         risk: 0.12,
-        rewardSecondary: { TRADITION: 0.85, COMMUNITY: 0.5, FAMILY: 0.5, STATUS: 0.3 },
+        rewardSecondary: {
+            TRADITION: 0.85,
+            COMMUNITY: 0.5,
+            FAMILY: 0.5,
+            STATUS: 0.3,
+        },
         requiresLocation: 'hall|temple',
         tradeEffect: { garlands: -2, feast: -4 },
         socialImpact: { TRADITION: 0.7, IDENTITY: 0.6, RESPECT: 0.4 },
@@ -85,7 +104,12 @@ export const TraditionActions: ActionDefinition[] = [
         tag: TraditionActionTag.RECITE_ORAL_HISTORY,
         costEnergy: -0.12,
         costTime: 1.2,
-        rewardSecondary: { TRADITION: 0.6, KNOWLEDGE: 0.4, FAMILY: 0.3, COMMUNITY: 0.3 },
+        rewardSecondary: {
+            TRADITION: 0.6,
+            KNOWLEDGE: 0.4,
+            FAMILY: 0.3,
+            COMMUNITY: 0.3,
+        },
         socialImpact: { TRADITION: 0.5, MEMORY: 0.6 as any, UNITY: 0.3 as any },
         lawEffect: { historianRoll: 'acknowledged', enforceable: false },
     },
@@ -93,7 +117,12 @@ export const TraditionActions: ActionDefinition[] = [
         tag: TraditionActionTag.CRAFT_TRADITIONAL_ART,
         costEnergy: -0.3,
         costTime: 2.2,
-        rewardSecondary: { TRADITION: 0.75, CREATIVITY: 0.4, STATUS: 0.3, WEALTH: 0.2 },
+        rewardSecondary: {
+            TRADITION: 0.75,
+            CREATIVITY: 0.4,
+            STATUS: 0.3,
+            WEALTH: 0.2,
+        },
         requiresItem: ['tools', 'dyes|clays|metal'],
         tradeEffect: { spend_materials: -5, sale_value: '+potential' },
         socialImpact: { TRADITION: 0.55, PRIDE: 0.4, AWE: 0.3 },
@@ -122,7 +151,12 @@ export const TraditionActions: ActionDefinition[] = [
         tag: TraditionActionTag.UPHOLD_HOSPITALITY_CODE,
         costEnergy: -0.15,
         costTime: 1.2,
-        rewardSecondary: { TRADITION: 0.65, COMMUNITY: 0.4, RESPECT: 0.3, SECURITY: 0.1 },
+        rewardSecondary: {
+            TRADITION: 0.65,
+            COMMUNITY: 0.4,
+            RESPECT: 0.3,
+            SECURITY: 0.1,
+        },
         tradeEffect: { guest_meal: -2, bedding: -1 },
         socialImpact: { TRADITION: 0.55, TRUST: 0.4, DIPLOMACY: 0.3 as any },
         lawEffect: { hospitalityEdict: 'active', enforceable: true },
@@ -132,7 +166,12 @@ export const TraditionActions: ActionDefinition[] = [
         tag: TraditionActionTag.CLAN_SYMBOL_PROCESSION,
         costEnergy: -0.22,
         costTime: 1.8,
-        rewardSecondary: { TRADITION: 0.8, COMMUNITY: 0.5, STATUS: 0.3, SPIRIT: 0.3 },
+        rewardSecondary: {
+            TRADITION: 0.8,
+            COMMUNITY: 0.5,
+            STATUS: 0.3,
+            SPIRIT: 0.3,
+        },
         tradeEffect: { banners: '-N', drummers_fee: -2 },
         socialImpact: { TRADITION: 0.65, VISIBILITY: 0.5, IDENTITY: 0.5 },
         lawEffect: { processionPermit: 'granted', enforceable: true },
@@ -171,7 +210,12 @@ export const TraditionActions: ActionDefinition[] = [
         tag: TraditionActionTag.INTERCLAN_GIFT_EXCHANGE,
         costEnergy: -0.2,
         costTime: 1.8,
-        rewardSecondary: { TRADITION: 0.75, COMMUNITY: 0.5, LOYALTY: 0.3, STATUS: 0.2 },
+        rewardSecondary: {
+            TRADITION: 0.75,
+            COMMUNITY: 0.5,
+            LOYALTY: 0.3,
+            STATUS: 0.2,
+        },
         tradeEffect: { gifts_out: '-N', gifts_in: '+M' },
         socialImpact: { TRADITION: 0.6, ALLIANCE: 0.5 as any, TRUST: 0.3 },
         lawEffect: { exchangeTreaty: 'witnessed', enforceable: true },

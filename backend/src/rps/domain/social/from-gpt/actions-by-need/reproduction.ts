@@ -1,6 +1,5 @@
 import { ActionDefinition } from '../action-definition';
-import { ReproductionActionTag } from '../action-tags';
-import { NeedTag } from '../needs';
+import { ActionTags, ReproductionActionTag } from '../action-tags';
 
 export const ReproductionActions: ActionDefinition[] = [
     {
@@ -80,7 +79,7 @@ export const ReproductionActions: ActionDefinition[] = [
         targetType: 'OTHER',
     },
     {
-        tag: ReproductionActionTag.CARE_FOR_CHILD,
+        tag: ActionTags.CARE_FOR_CHILD,
         costEnergy: -0.4,
         costTime: 3,
         rewardSecondary: { REPRODUCTION: 0.8, LOVE: 0.6, FAMILY: 0.8 },

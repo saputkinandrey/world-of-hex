@@ -1,6 +1,5 @@
 import { ActionDefinition } from '../action-definition';
 import { PropertyActionTag } from '../action-tags';
-import { NeedTag } from '../needs';
 
 export const PropertyActions: ActionDefinition[] = [
     {

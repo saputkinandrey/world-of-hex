@@ -1,13 +1,17 @@
 import { ActionDefinition } from '../action-definition';
 import { InspirationActionTag } from '../action-tags';
-import { NeedTag } from '../needs';
 
 export const InspirationActions: ActionDefinition[] = [
     {
         tag: InspirationActionTag.SEEK_MUSE_IN_NATURE,
         costEnergy: -0.1,
         costTime: 1.4,
-        rewardSecondary: { INSPIRATION: 0.7, MOOD: 0.3, CREATIVITY: 0.3, FOCUS: 0.15 },
+        rewardSecondary: {
+            INSPIRATION: 0.7,
+            MOOD: 0.3,
+            CREATIVITY: 0.3,
+            FOCUS: 0.15,
+        },
         requiresLocation: 'grove|riverbank|hilltop',
         socialImpact: { CALM: 0.4 as any },
         ownershipEffect: { accessScope: 'greenway', grantAccess: true },
@@ -17,7 +21,12 @@ export const InspirationActions: ActionDefinition[] = [
         tag: InspirationActionTag.VISIT_MASTERWORKS,
         costEnergy: -0.12,
         costTime: 1.6,
-        rewardSecondary: { INSPIRATION: 0.75, CREATIVITY: 0.4, CULTURE: 0.3, QUALITY: 0.2 },
+        rewardSecondary: {
+            INSPIRATION: 0.75,
+            CREATIVITY: 0.4,
+            CULTURE: 0.3,
+            QUALITY: 0.2,
+        },
         requiresLocation: 'gallery|temple|hall_of_crafts',
         tradeEffect: { entry_fee: -1 },
         socialImpact: { REVERENCE: 0.4, AMBITION: 0.2 as any },
@@ -28,7 +37,12 @@ export const InspirationActions: ActionDefinition[] = [
         costEnergy: -0.2,
         costTime: 2.0,
         risk: 0.12,
-        rewardSecondary: { INSPIRATION: 0.9, SOCIAL: 0.4, NETWORK: 0.4, INNOVATION_REP: 0.3 },
+        rewardSecondary: {
+            INSPIRATION: 0.9,
+            SOCIAL: 0.4,
+            NETWORK: 0.4,
+            INNOVATION_REP: 0.3,
+        },
         requiresLocation: 'atelier|hall',
         tradeEffect: { refreshments: -2, materials_shared: -2 },
         socialImpact: { COHESION: 0.3, CONTROVERSY: 0.1 },
@@ -77,7 +91,11 @@ export const InspirationActions: ActionDefinition[] = [
         tag: InspirationActionTag.CROSS_DISCIPLINE_EXPOSURE,
         costEnergy: -0.14,
         costTime: 1.6,
-        rewardSecondary: { INSPIRATION: 0.7, KNOWLEDGE: 0.4, INNOVATION_REP: 0.3 },
+        rewardSecondary: {
+            INSPIRATION: 0.7,
+            KNOWLEDGE: 0.4,
+            INNOVATION_REP: 0.3,
+        },
         requiresLocation: 'guild_workshop|forge|kitchen',
         socialImpact: { NETWORK: 0.3, RESPECT: 0.2 },
         ownershipEffect: { accessScope: 'guest_bench', grantAccess: true },
@@ -107,7 +125,11 @@ export const InspirationActions: ActionDefinition[] = [
         costEnergy: -0.2,
         costTime: 1.0,
         risk: 0.12,
-        rewardSecondary: { INSPIRATION: 0.8, CREATIVITY: 0.5, PRODUCTIVITY: 0.3 },
+        rewardSecondary: {
+            INSPIRATION: 0.8,
+            CREATIVITY: 0.5,
+            PRODUCTIVITY: 0.3,
+        },
         requiresItem: ['tools', 'scrap_materials'],
         tradeEffect: { materials: -2, scrap: '+1' },
         socialImpact: { EFFICIENCY: 0.3, COURAGE: 0.2 },
@@ -139,7 +161,12 @@ export const InspirationActions: ActionDefinition[] = [
         costEnergy: -0.12,
         costTime: 1.2,
         risk: 0.12,
-        rewardSecondary: { INSPIRATION: 0.75, COURAGE: 0.4, RESILIENCE: 0.4, CULTURE: 0.2 },
+        rewardSecondary: {
+            INSPIRATION: 0.75,
+            COURAGE: 0.4,
+            RESILIENCE: 0.4,
+            CULTURE: 0.2,
+        },
         requiresLocation: 'hall|atelier',
         socialImpact: { HUMILITY: 0.4 as any, COHESION: 0.3 },
         lawEffect: { ridiculeBan: 'posted', enforceable: true },

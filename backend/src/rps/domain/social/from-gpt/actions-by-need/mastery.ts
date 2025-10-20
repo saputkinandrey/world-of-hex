@@ -1,6 +1,5 @@
 import { ActionDefinition } from '../action-definition';
-import { MasteryActionTag } from '../action-tags';
-import { NeedTag } from '../needs';
+import { ActionTags, MasteryActionTag } from '../action-tags';
 
 export const MasteryActions: ActionDefinition[] = [
     {
@@ -26,7 +25,12 @@ export const MasteryActions: ActionDefinition[] = [
         tag: MasteryActionTag.APPRENTICE_UNDER_MASTER,
         costEnergy: -0.35,
         costTime: 3.0,
-        rewardSecondary: { MASTERY: 0.8, KNOWLEDGE: 0.6, BELONGING: 0.3, STATUS: 0.2 },
+        rewardSecondary: {
+            MASTERY: 0.8,
+            KNOWLEDGE: 0.6,
+            BELONGING: 0.3,
+            STATUS: 0.2,
+        },
         socialImpact: { RESPECT: 0.2, NETWORK: 0.3, HUMILITY: 0.3 as any },
         lawEffect: { apprenticeshipContract: 'signed', enforceable: true },
         ownershipEffect: { accessScope: 'master_workshop', grantAccess: true },
@@ -43,10 +47,15 @@ export const MasteryActions: ActionDefinition[] = [
         tradeEffect: { materials_used: -2, payment: '+1' },
     },
     {
-        tag: MasteryActionTag.MENTOR_JUNIOR,
+        tag: ActionTags.MENTOR_JUNIOR,
         costEnergy: -0.25,
         costTime: 2.0,
-        rewardSecondary: { MASTERY: 0.65, COMMUNITY: 0.3, KNOWLEDGE: 0.4, STATUS: 0.2 },
+        rewardSecondary: {
+            MASTERY: 0.65,
+            COMMUNITY: 0.3,
+            KNOWLEDGE: 0.4,
+            STATUS: 0.2,
+        },
         socialImpact: { RESPECT: 0.3, LOYALTY: 0.2, TEACHING_REP: 0.4 as any },
         lawEffect: { mentorRegistry: 'updated', enforceable: true },
     },
@@ -82,7 +91,12 @@ export const MasteryActions: ActionDefinition[] = [
         tag: MasteryActionTag.MASTER_CLASS_DEMO,
         costEnergy: -0.2,
         costTime: 1.5,
-        rewardSecondary: { MASTERY: 0.75, STATUS: 0.3, COMMUNITY: 0.3, KNOWLEDGE: 0.3 },
+        rewardSecondary: {
+            MASTERY: 0.75,
+            STATUS: 0.3,
+            COMMUNITY: 0.3,
+            KNOWLEDGE: 0.3,
+        },
         requiresLocation: 'guild_hall',
         socialImpact: { RESPECT: 0.5, FAME: 0.4, INFLUENCE: 0.3 as any },
         lawEffect: { eventPermit: 'demo_ok', enforceable: true },
@@ -128,7 +142,12 @@ export const MasteryActions: ActionDefinition[] = [
         tag: MasteryActionTag.OPTIMIZE_WORKFLOW,
         costEnergy: -0.22,
         costTime: 1.8,
-        rewardSecondary: { MASTERY: 0.65, PRODUCTIVITY: 0.6, WEALTH: 0.2, STABILITY: 0.2 },
+        rewardSecondary: {
+            MASTERY: 0.65,
+            PRODUCTIVITY: 0.6,
+            WEALTH: 0.2,
+            STABILITY: 0.2,
+        },
         socialImpact: { EFFICIENCY_REP: 0.4 as any },
         ownershipEffect: { toolCalibrations: 'updated' },
     },
@@ -155,7 +174,12 @@ export const MasteryActions: ActionDefinition[] = [
         costEnergy: -0.5,
         costTime: 3.5,
         risk: 0.2,
-        rewardSecondary: { MASTERY: 1.0, STATUS: 0.5, REPUTATION: 0.5, WEALTH: 0.3 },
+        rewardSecondary: {
+            MASTERY: 1.0,
+            STATUS: 0.5,
+            REPUTATION: 0.5,
+            WEALTH: 0.3,
+        },
         requiresItem: ['rare_materials?'],
         tradeEffect: { spend_rare: -3, price_potential: '+high' },
         socialImpact: { FAME: 0.6, AWE: 0.5, RESPECT: 0.4 },

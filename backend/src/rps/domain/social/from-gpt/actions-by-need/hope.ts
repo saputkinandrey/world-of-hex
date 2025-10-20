@@ -1,6 +1,5 @@
 import { ActionDefinition } from '../action-definition';
 import { HopeActionTag } from '../action-tags';
-import { NeedTag } from '../needs';
 
 export const HopeActions: ActionDefinition[] = [
     {
@@ -157,7 +156,12 @@ export const HopeActions: ActionDefinition[] = [
         tag: HopeActionTag.PUBLIC_GOAL_TRACKER,
         costEnergy: -0.08,
         costTime: 0.8,
-        rewardSecondary: { HOPE: 0.7, CLARITY: 0.4, FOCUS: 0.3 as any, TRUST: 0.2 },
+        rewardSecondary: {
+            HOPE: 0.7,
+            CLARITY: 0.4,
+            FOCUS: 0.3 as any,
+            TRUST: 0.2,
+        },
         requiresLocation: 'hall|notice_board',
         tradeEffect: { chalk: -1, board_or_tablet: -1 | (0 as any) },
         socialImpact: { TRANSPARENCY: 0.3 as any, COHESION: 0.2 },
@@ -230,7 +234,12 @@ export const HopeActions: ActionDefinition[] = [
         tag: HopeActionTag.HOPE_CHEST_PLEDGE,
         costEnergy: -0.08,
         costTime: 0.9,
-        rewardSecondary: { HOPE: 0.7, RESILIENCE: 0.3 as any, COMMUNITY: 0.3, TRUST: 0.2 },
+        rewardSecondary: {
+            HOPE: 0.7,
+            RESILIENCE: 0.3 as any,
+            COMMUNITY: 0.3,
+            TRUST: 0.2,
+        },
         requiresLocation: 'hall|temple',
         tradeEffect: {
             chest: -1 | (0 as any),

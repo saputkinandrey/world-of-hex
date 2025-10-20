@@ -1,6 +1,5 @@
 import { ActionDefinition } from '../action-definition';
 import { CuriosityActionTag } from '../action-tags';
-import { NeedTag } from '../needs';
 
 export const CuriosityActions: ActionDefinition[] = [
     {
@@ -8,7 +7,12 @@ export const CuriosityActions: ActionDefinition[] = [
         costEnergy: -0.28,
         costTime: 2.4,
         risk: 0.22,
-        rewardSecondary: { CURIOSITY: 0.85, KNOWLEDGE: 0.5, POWER: 0.1, WEALTH: 0.2 },
+        rewardSecondary: {
+            CURIOSITY: 0.85,
+            KNOWLEDGE: 0.5,
+            POWER: 0.1,
+            WEALTH: 0.2,
+        },
         requiresSkill: 'scouting',
         tradeEffect: { travel_supplies: -2, markers: -1 },
         socialImpact: { CURIOSITY: 0.7, DISCOVERY: 0.6 as any, FAME: 0.2 },
@@ -73,7 +77,12 @@ export const CuriosityActions: ActionDefinition[] = [
         costEnergy: -0.35,
         costTime: 2.6,
         risk: 0.3,
-        rewardSecondary: { CURIOSITY: 0.95, WEALTH: 0.3, KNOWLEDGE: 0.5, SPIRIT: 0.1 },
+        rewardSecondary: {
+            CURIOSITY: 0.95,
+            WEALTH: 0.3,
+            KNOWLEDGE: 0.5,
+            SPIRIT: 0.1,
+        },
         requiresItem: ['rope', 'lamp_oil', 'probe_pole'],
         tradeEffect: { rope: -1, oil: -1, findings: '+artifacts?' },
         socialImpact: { CURIOSITY: 0.75, FAME: 0.3, MYSTERY: 0.4 as any },
@@ -99,7 +108,12 @@ export const CuriosityActions: ActionDefinition[] = [
         costEnergy: -0.25,
         costTime: 2.0,
         risk: 0.18,
-        rewardSecondary: { CURIOSITY: 0.8, MASTERY: 0.4, WEALTH: 0.2, KNOWLEDGE: 0.5 },
+        rewardSecondary: {
+            CURIOSITY: 0.8,
+            MASTERY: 0.4,
+            WEALTH: 0.2,
+            KNOWLEDGE: 0.5,
+        },
         requiresItem: ['tools', 'bench'],
         tradeEffect: { tool_wear: '-minor', scrap: '+1' },
         socialImpact: { CURIOSITY: 0.6, INNOVATION_REP: 0.4 },
@@ -121,7 +135,12 @@ export const CuriosityActions: ActionDefinition[] = [
         costEnergy: -0.32,
         costTime: 2.8,
         risk: 0.28,
-        rewardSecondary: { CURIOSITY: 0.9, SECURITY: 0.3, POWER: 0.2, KNOWLEDGE: 0.5 },
+        rewardSecondary: {
+            CURIOSITY: 0.9,
+            SECURITY: 0.3,
+            POWER: 0.2,
+            KNOWLEDGE: 0.5,
+        },
         requiresItem: ['chalk', 'line', 'spare_torch'],
         tradeEffect: { chalk: -1, torches: -2, mapSegments: '+1' },
         socialImpact: { CURIOSITY: 0.7, READINESS: 0.4 as any },
@@ -158,7 +177,12 @@ export const CuriosityActions: ActionDefinition[] = [
         tag: CuriosityActionTag.OPEN_EXPLORERS_BOARD,
         costEnergy: -0.18,
         costTime: 1.6,
-        rewardSecondary: { CURIOSITY: 0.7, COMMUNITY: 0.4, POWER: 0.2, KNOWLEDGE: 0.3 },
+        rewardSecondary: {
+            CURIOSITY: 0.7,
+            COMMUNITY: 0.4,
+            POWER: 0.2,
+            KNOWLEDGE: 0.3,
+        },
         requiresLocation: 'hall|market_square',
         tradeEffect: { board_setup: -1, postings: '+N' },
         socialImpact: {
@@ -174,7 +198,12 @@ export const CuriosityActions: ActionDefinition[] = [
         costEnergy: -0.3,
         costTime: 3.0,
         risk: 0.25,
-        rewardSecondary: { CURIOSITY: 0.95, WEALTH: 0.3, CONTROL: 0.3, KNOWLEDGE: 0.5 },
+        rewardSecondary: {
+            CURIOSITY: 0.95,
+            WEALTH: 0.3,
+            CONTROL: 0.3,
+            KNOWLEDGE: 0.5,
+        },
         requiresSkill: 'pathfinding',
         tradeEffect: { clear_brush: '-labor', markers: -2 },
         socialImpact: { CURIOSITY: 0.75, FAME: 0.3, MOBILITY: 0.5 as any },
@@ -197,7 +226,12 @@ export const CuriosityActions: ActionDefinition[] = [
         tag: CuriosityActionTag.PUBLISH_FINDINGS,
         costEnergy: -0.18,
         costTime: 1.8,
-        rewardSecondary: { CURIOSITY: 0.8, REPUTATION: 0.4, COMMUNITY: 0.3, KNOWLEDGE: 0.5 },
+        rewardSecondary: {
+            CURIOSITY: 0.8,
+            REPUTATION: 0.4,
+            COMMUNITY: 0.3,
+            KNOWLEDGE: 0.5,
+        },
         tradeEffect: { parchment: -2, ink: -1, copies: '+1' },
         socialImpact: { CURIOSITY: 0.6, CREDIBILITY: 0.5, ACCESSIBILITY: 0.5 },
         ownershipEffect: {

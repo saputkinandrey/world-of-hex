@@ -1,13 +1,17 @@
 import { ActionDefinition } from '../action-definition';
 import { EnergyActionTag } from '../action-tags';
-import { NeedTag } from '../needs';
 
 export const EnergyActions: ActionDefinition[] = [
     {
         tag: EnergyActionTag.HIGH_PROTEIN_MEAL,
         costEnergy: +0.35,
         costTime: 1.0,
-        rewardSecondary: { ENERGY: 0.85, HEALTH: 0.4, PRODUCTIVITY: 0.2, RESILIENCE: 0.2 },
+        rewardSecondary: {
+            ENERGY: 0.85,
+            HEALTH: 0.4,
+            PRODUCTIVITY: 0.2,
+            RESILIENCE: 0.2,
+        },
         requiresLocation: 'mess|hall|hearth',
         tradeEffect: {
             meat_or_legumes: '-N' as any,
@@ -20,7 +24,12 @@ export const EnergyActions: ActionDefinition[] = [
         tag: EnergyActionTag.POWER_NAP_20,
         costEnergy: +0.25,
         costTime: 0.5,
-        rewardSecondary: { ENERGY: 0.75, HEALTH: 0.2, FOCUS: 0.2, RESILIENCE: 0.2 },
+        rewardSecondary: {
+            ENERGY: 0.75,
+            HEALTH: 0.2,
+            FOCUS: 0.2,
+            RESILIENCE: 0.2,
+        },
         requiresLocation: 'bunks|hearth',
         ownershipEffect: { berthUse: 'short_rest' },
     },
@@ -28,7 +37,12 @@ export const EnergyActions: ActionDefinition[] = [
         tag: EnergyActionTag.SUNLIGHT_STRETCH,
         costEnergy: +0.12,
         costTime: 0.5,
-        rewardSecondary: { ENERGY: 0.65, HEALTH: 0.2, JOY: 0.2 as any, FOCUS: 0.15 },
+        rewardSecondary: {
+            ENERGY: 0.65,
+            HEALTH: 0.2,
+            JOY: 0.2 as any,
+            FOCUS: 0.15,
+        },
         requiresLocation: 'yard|green|balcony',
         socialImpact: { CALM: 0.2 as any },
     },
@@ -36,7 +50,12 @@ export const EnergyActions: ActionDefinition[] = [
         tag: EnergyActionTag.SHORT_SPRINT_EXERCISE,
         costEnergy: -0.08, // расход сейчас → бодрость позже
         costTime: 0.4,
-        rewardSecondary: { ENERGY: 0.6, HEALTH: 0.2, READINESS: 0.2 as any, MORALE: 0.15 },
+        rewardSecondary: {
+            ENERGY: 0.6,
+            HEALTH: 0.2,
+            READINESS: 0.2 as any,
+            MORALE: 0.15,
+        },
         requiresLocation: 'yard|track|field',
         risk: 0.04, // перетрен
     },
@@ -44,7 +63,12 @@ export const EnergyActions: ActionDefinition[] = [
         tag: EnergyActionTag.CAFFEINE_HERB_TONIC,
         costEnergy: +0.18,
         costTime: 0.4,
-        rewardSecondary: { ENERGY: 0.7, FOCUS: 0.3, PRODUCTIVITY: 0.2, MORALE: 0.15 },
+        rewardSecondary: {
+            ENERGY: 0.7,
+            FOCUS: 0.3,
+            PRODUCTIVITY: 0.2,
+            MORALE: 0.15,
+        },
         tradeEffect: { tonic_herbs_or_coffee: -1, honey: -1 | (0 as any) },
         risk: 0.05, // дрожь/откат
         ownershipEffect: { kettleState: 'brewed' },
@@ -53,14 +77,24 @@ export const EnergyActions: ActionDefinition[] = [
         tag: EnergyActionTag.BREATH_OXY_DRILL,
         costEnergy: +0.1,
         costTime: 0.3,
-        rewardSecondary: { ENERGY: 0.6, FOCUS: 0.2, RESILIENCE: 0.2, CLARITY: 0.2 },
+        rewardSecondary: {
+            ENERGY: 0.6,
+            FOCUS: 0.2,
+            RESILIENCE: 0.2,
+            CLARITY: 0.2,
+        },
         requiresLocation: 'quiet_corner|hearth',
     },
     {
         tag: EnergyActionTag.WATER_REHYDRATE,
         costEnergy: +0.15,
         costTime: 0.2,
-        rewardSecondary: { ENERGY: 0.55, HEALTH: 0.25, STABILITY: 0.15, FOCUS: 0.1 },
+        rewardSecondary: {
+            ENERGY: 0.55,
+            HEALTH: 0.25,
+            STABILITY: 0.15,
+            FOCUS: 0.1,
+        },
         requiresLocation: 'well|canteen',
         tradeEffect: {
             clean_water: -1,
@@ -72,14 +106,24 @@ export const EnergyActions: ActionDefinition[] = [
         tag: EnergyActionTag.MICRO_BREAK_EYESTRAIN,
         costEnergy: +0.06,
         costTime: 0.2,
-        rewardSecondary: { ENERGY: 0.5, PRODUCTIVITY: 0.15, FOCUS: 0.2, HEALTH: 0.1 },
+        rewardSecondary: {
+            ENERGY: 0.5,
+            PRODUCTIVITY: 0.15,
+            FOCUS: 0.2,
+            HEALTH: 0.1,
+        },
         ownershipEffect: { taskState: 'paused_micro' },
     },
     {
         tag: EnergyActionTag.POSTURE_RESET,
         costEnergy: +0.08,
         costTime: 0.25,
-        rewardSecondary: { ENERGY: 0.55, HEALTH: 0.2, FOCUS: 0.15, PRODUCTIVITY: 0.1 },
+        rewardSecondary: {
+            ENERGY: 0.55,
+            HEALTH: 0.2,
+            FOCUS: 0.15,
+            PRODUCTIVITY: 0.1,
+        },
         requiresLocation: 'workroom|yard',
         socialImpact: { DIGNITY: 0.1 as any },
     },
@@ -87,7 +131,12 @@ export const EnergyActions: ActionDefinition[] = [
         tag: EnergyActionTag.SNACK_TRAIL_MIX,
         costEnergy: +0.18,
         costTime: 0.3,
-        rewardSecondary: { ENERGY: 0.65, HEALTH: 0.15, PRODUCTIVITY: 0.15, JOY: 0.1 as any },
+        rewardSecondary: {
+            ENERGY: 0.65,
+            HEALTH: 0.15,
+            PRODUCTIVITY: 0.15,
+            JOY: 0.1 as any,
+        },
         tradeEffect: {
             nuts: -1 | (0 as any),
             dried_fruit: -1 | (0 as any),
@@ -99,7 +148,12 @@ export const EnergyActions: ActionDefinition[] = [
         tag: EnergyActionTag.SOCIAL_ENERGY_CHECKIN,
         costEnergy: +0.1,
         costTime: 0.5,
-        rewardSecondary: { ENERGY: 0.65, MORALE: 0.3, COMMUNITY: 0.2, RESILIENCE: 0.2 },
+        rewardSecondary: {
+            ENERGY: 0.65,
+            MORALE: 0.3,
+            COMMUNITY: 0.2,
+            RESILIENCE: 0.2,
+        },
         requiresLocation: 'hearth|hall|workyard',
         socialImpact: { COHESION: 0.2, STRESS: -0.1 as any },
     },
@@ -107,7 +161,12 @@ export const EnergyActions: ActionDefinition[] = [
         tag: EnergyActionTag.WORKLOAD_REBALANCE,
         costEnergy: +0.08, // снимает перегруз
         costTime: 0.8,
-        rewardSecondary: { ENERGY: 0.7, STABILITY: 0.3, PRODUCTIVITY: 0.2, FAIRNESS: 0.2 },
+        rewardSecondary: {
+            ENERGY: 0.7,
+            STABILITY: 0.3,
+            PRODUCTIVITY: 0.2,
+            FAIRNESS: 0.2,
+        },
         requiresSkill: 'leadership|planning',
         socialImpact: { RESENTMENT: -0.1, TRUST: 0.2 },
         ownershipEffect: { dutyRoster: 'rebalanced' },
@@ -131,7 +190,12 @@ export const EnergyActions: ActionDefinition[] = [
         tag: EnergyActionTag.MORNING_COLD_SPLASH,
         costEnergy: +0.12,
         costTime: 0.3,
-        rewardSecondary: { ENERGY: 0.6, READINESS: 0.2 as any, COURAGE: 0.1, HEALTH: 0.1 },
+        rewardSecondary: {
+            ENERGY: 0.6,
+            READINESS: 0.2 as any,
+            COURAGE: 0.1,
+            HEALTH: 0.1,
+        },
         requiresLocation: 'well|river',
         risk: 0.03, // простуда в плохую погоду
     },
@@ -152,7 +216,12 @@ export const EnergyActions: ActionDefinition[] = [
         tag: EnergyActionTag.RECOVERY_MASSAGE,
         costEnergy: +0.22,
         costTime: 1.0,
-        rewardSecondary: { ENERGY: 0.8, HEALTH: 0.3, RESILIENCE: 0.3, MORALE: 0.2 },
+        rewardSecondary: {
+            ENERGY: 0.8,
+            HEALTH: 0.3,
+            RESILIENCE: 0.3,
+            MORALE: 0.2,
+        },
         requiresLocation: 'baths|hearth',
         requiresSkill: 'massage|healer_craft',
         tradeEffect: { oil: -1 | (0 as any), herbs: -1 | (0 as any) },

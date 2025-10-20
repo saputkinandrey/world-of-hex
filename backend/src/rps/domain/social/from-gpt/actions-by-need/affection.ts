@@ -1,6 +1,5 @@
 import { ActionDefinition } from '../action-definition';
 import { AffectionActionTag } from '../action-tags';
-import { NeedTag } from '../needs';
 
 export const AffectionActions: ActionDefinition[] = [
     {
@@ -142,7 +141,12 @@ export const AffectionActions: ActionDefinition[] = [
         costEnergy: -0.2,
         costTime: 1.8,
         risk: 0.15,
-        rewardSecondary: { AFFECTION: 0.7, FAMILY: 0.5, COMMUNITY: 0.3, STABILITY: 0.3 },
+        rewardSecondary: {
+            AFFECTION: 0.7,
+            FAMILY: 0.5,
+            COMMUNITY: 0.3,
+            STABILITY: 0.3,
+        },
         socialImpact: { AFFECTION: 0.55, HARMONY: 0.5, TRUST: 0.3 },
         lawEffect: { mediationRecord: 'family_pact', enforceable: true },
     },

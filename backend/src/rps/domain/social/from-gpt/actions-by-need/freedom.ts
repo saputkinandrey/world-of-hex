@@ -1,6 +1,5 @@
 import { ActionDefinition } from '../action-definition';
 import { FreedomActionTag } from '../action-tags';
-import { NeedTag } from '../needs';
 
 export const FreedomActions: ActionDefinition[] = [
     {
@@ -8,7 +7,12 @@ export const FreedomActions: ActionDefinition[] = [
         costEnergy: -0.18,
         costTime: 1.6,
         risk: 0.15,
-        rewardSecondary: { FREEDOM: 0.75, CONTROL: 0.4, STATUS: 0.2, STABILITY: 0.2 },
+        rewardSecondary: {
+            FREEDOM: 0.75,
+            CONTROL: 0.4,
+            STATUS: 0.2,
+            STABILITY: 0.2,
+        },
         requiresSkill: 'negotiation',
         socialImpact: { FREEDOM: 0.6, RESPECT: 0.2, TRUST: 0.2 },
         ownershipEffect: { accessScope: 'self_schedule', grantAccess: true },
@@ -70,7 +74,12 @@ export const FreedomActions: ActionDefinition[] = [
         costEnergy: -0.2,
         costTime: 1.6,
         risk: 0.22,
-        rewardSecondary: { FREEDOM: 0.7, WEALTH: 0.2, STATUS: 0.2, MASTERY: 0.2 },
+        rewardSecondary: {
+            FREEDOM: 0.7,
+            WEALTH: 0.2,
+            STATUS: 0.2,
+            MASTERY: 0.2,
+        },
         tradeEffect: { exit_fee: -2, join_fee: -2 },
         socialImpact: { FREEDOM: 0.55, NETWORK: 0.3, LOYALTY: -0.1 },
         lawEffect: { transferNote: 'guild_switch', enforceable: true },

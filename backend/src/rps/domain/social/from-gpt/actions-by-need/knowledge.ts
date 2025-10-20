@@ -1,13 +1,17 @@
 import { ActionDefinition } from '../action-definition';
 import { KnowledgeActionTag } from '../action-tags';
-import { NeedTag } from '../needs';
 
 export const KnowledgeActions: ActionDefinition[] = [
     {
         tag: KnowledgeActionTag.VISIT_LIBRARY,
         costEnergy: -0.08,
         costTime: 1.0,
-        rewardSecondary: { KNOWLEDGE: 0.55, MASTERY: 0.2, TRADITION: 0.1, STABILITY: 0.1 },
+        rewardSecondary: {
+            KNOWLEDGE: 0.55,
+            MASTERY: 0.2,
+            TRADITION: 0.1,
+            STABILITY: 0.1,
+        },
         requiresLocation: 'library|scriptorium',
         socialImpact: { KNOWLEDGE: 0.45, SCHOLARLY: 0.3 as any },
         ownershipEffect: {
@@ -30,7 +34,12 @@ export const KnowledgeActions: ActionDefinition[] = [
         tag: KnowledgeActionTag.COPY_MANUSCRIPT,
         costEnergy: -0.2,
         costTime: 2.5,
-        rewardSecondary: { KNOWLEDGE: 0.7, TRADITION: 0.3, COMMUNITY: 0.2, MASTERY: 0.2 },
+        rewardSecondary: {
+            KNOWLEDGE: 0.7,
+            TRADITION: 0.3,
+            COMMUNITY: 0.2,
+            MASTERY: 0.2,
+        },
         requiresItem: ['parchment', 'ink', 'quill'],
         tradeEffect: { parchment: -2, ink: -1, copy_out: '+1' },
         socialImpact: { KNOWLEDGE: 0.55, ACCESSIBILITY: 0.4 as any },
@@ -141,7 +150,12 @@ export const KnowledgeActions: ActionDefinition[] = [
         tag: KnowledgeActionTag.TEACH_SEMINAR,
         costEnergy: -0.22,
         costTime: 2.0,
-        rewardSecondary: { KNOWLEDGE: 0.75, COMMUNITY: 0.4, STATUS: 0.2, MASTERY: 0.3 },
+        rewardSecondary: {
+            KNOWLEDGE: 0.75,
+            COMMUNITY: 0.4,
+            STATUS: 0.2,
+            MASTERY: 0.3,
+        },
         requiresLocation: 'hall|workshop',
         tradeEffect: { fee_collected: '+X', materials_used: -1 },
         socialImpact: { KNOWLEDGE: 0.6, RESPECT: 0.4, NETWORK: 0.3 },
@@ -166,7 +180,12 @@ export const KnowledgeActions: ActionDefinition[] = [
         tag: KnowledgeActionTag.OPEN_SCHOLARS_CIRCLE,
         costEnergy: -0.22,
         costTime: 2.2,
-        rewardSecondary: { KNOWLEDGE: 0.8, COMMUNITY: 0.5, TRADITION: 0.2, STATUS: 0.2 },
+        rewardSecondary: {
+            KNOWLEDGE: 0.8,
+            COMMUNITY: 0.5,
+            TRADITION: 0.2,
+            STATUS: 0.2,
+        },
         tradeEffect: { tea_and_bread: -2, room_rent: -1 },
         socialImpact: { KNOWLEDGE: 0.65, NETWORK: 0.6, INFLUENCE: 0.3 as any },
         ownershipEffect: { societyRoom: 'reserved', membership: 'initiated' },

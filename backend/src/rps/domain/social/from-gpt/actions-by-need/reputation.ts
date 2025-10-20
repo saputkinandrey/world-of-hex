@@ -1,6 +1,5 @@
 import { ActionDefinition } from '../action-definition';
 import { ReputationActionTag } from '../action-tags';
-import { NeedTag } from '../needs';
 
 export const ReputationActions: ActionDefinition[] = [
     {
@@ -25,7 +24,11 @@ export const ReputationActions: ActionDefinition[] = [
         tag: ReputationActionTag.COMMISSION_BARD,
         costEnergy: -0.1,
         costTime: 1.5,
-        rewardSecondary: { REPUTATION: 0.7, CULTURE: 0.4 as any, TRADITION: 0.3 },
+        rewardSecondary: {
+            REPUTATION: 0.7,
+            CULTURE: 0.4 as any,
+            TRADITION: 0.3,
+        },
         tradeEffect: { pay_silver: -4, song_title: 'Ballad_of_Brave' },
         socialImpact: { REPUTATION: 0.55, FAME: 0.4, AWE: 0.2 },
         lawEffect: { patronageRecord: 'guild_bards', enforceable: true },
@@ -63,7 +66,12 @@ export const ReputationActions: ActionDefinition[] = [
         costEnergy: -0.5,
         costTime: 1.5,
         risk: 0.4,
-        rewardSecondary: { REPUTATION: 1.0, COURAGE: 0.6 as any, COMMUNITY: 0.4, SECURITY: 0.3 },
+        rewardSecondary: {
+            REPUTATION: 1.0,
+            COURAGE: 0.6 as any,
+            COMMUNITY: 0.4,
+            SECURITY: 0.3,
+        },
         socialImpact: { REPUTATION: 0.9, HEROISM: 0.8, GRATITUDE: 0.6 },
     },
     {
@@ -138,7 +146,12 @@ export const ReputationActions: ActionDefinition[] = [
         tag: ReputationActionTag.HONOR_LOCAL_HEROES,
         costEnergy: -0.12,
         costTime: 1.0,
-        rewardSecondary: { REPUTATION: 0.7, STATUS: 0.3, COMMUNITY: 0.4, TRADITION: 0.3 },
+        rewardSecondary: {
+            REPUTATION: 0.7,
+            STATUS: 0.3,
+            COMMUNITY: 0.4,
+            TRADITION: 0.3,
+        },
         tradeEffect: { prize_items: -3, hall_banner: 'new_name' },
         socialImpact: { REPUTATION: 0.65, GRATITUDE: 0.6, COHESION: 0.4 },
         lawEffect: { honorRoll: 'updated', enforceable: true },

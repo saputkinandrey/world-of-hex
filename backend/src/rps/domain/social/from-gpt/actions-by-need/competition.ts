@@ -1,6 +1,5 @@
 import { ActionDefinition } from '../action-definition';
 import { CompetitionActionTag } from '../action-tags';
-import { NeedTag } from '../needs';
 
 export const CompetitionActions: ActionDefinition[] = [
     {
@@ -8,7 +7,12 @@ export const CompetitionActions: ActionDefinition[] = [
         costEnergy: -0.25,
         costTime: 1.5,
         risk: 0.15,
-        rewardSecondary: { COMPETITION: 0.7, MASTERY: 0.5, STATUS: 0.3, REPUTATION: 0.2 },
+        rewardSecondary: {
+            COMPETITION: 0.7,
+            MASTERY: 0.5,
+            STATUS: 0.3,
+            REPUTATION: 0.2,
+        },
         requiresLocation: 'guild_hall',
         socialImpact: { COMPETITION: 0.6, FAME: 0.3, ENVY: 0.15 },
         lawEffect: {
@@ -22,7 +26,12 @@ export const CompetitionActions: ActionDefinition[] = [
         costEnergy: -0.4,
         costTime: 2.5,
         risk: 0.35,
-        rewardSecondary: { COMPETITION: 0.9, WEALTH: 0.3, STATUS: 0.3, COMMUNITY: 0.2 },
+        rewardSecondary: {
+            COMPETITION: 0.9,
+            WEALTH: 0.3,
+            STATUS: 0.3,
+            COMMUNITY: 0.2,
+        },
         requiresItem: ['bow|spear', 'traps?'],
         tradeEffect: { potential_loot: '+game', entry_fee: -1 },
         socialImpact: { COMPETITION: 0.7, HEROISM: 0.4, AWE: 0.3 },
@@ -33,7 +42,12 @@ export const CompetitionActions: ActionDefinition[] = [
         costEnergy: -0.45,
         costTime: 1.5,
         risk: 0.3,
-        rewardSecondary: { COMPETITION: 0.85, POWER: 0.3, STATUS: 0.3, MASTERY: 0.4 },
+        rewardSecondary: {
+            COMPETITION: 0.85,
+            POWER: 0.3,
+            STATUS: 0.3,
+            MASTERY: 0.4,
+        },
         requiresItem: ['practice_weapon'],
         socialImpact: { COMPETITION: 0.65, COURAGE: 0.4, RESPECT: 0.3 },
         lawEffect: { safetyRules: 'nonlethal', enforceable: true },
@@ -43,7 +57,12 @@ export const CompetitionActions: ActionDefinition[] = [
         costEnergy: -0.15,
         costTime: 1.0,
         risk: 0.2,
-        rewardSecondary: { COMPETITION: 0.65, KNOWLEDGE: 0.3, STATUS: 0.25, REPUTATION: 0.25 },
+        rewardSecondary: {
+            COMPETITION: 0.65,
+            KNOWLEDGE: 0.3,
+            STATUS: 0.25,
+            REPUTATION: 0.25,
+        },
         requiresSkill: 'oratory',
         requiresLocation: 'assembly',
         socialImpact: { COMPETITION: 0.5, VISIBILITY: 0.5, SKEPTICISM: 0.1 },
@@ -75,7 +94,12 @@ export const CompetitionActions: ActionDefinition[] = [
         costEnergy: -0.2,
         costTime: 1.2,
         risk: 0.12,
-        rewardSecondary: { COMPETITION: 0.75, STATUS: 0.4, REPUTATION: 0.4, CREATIVITY: 0.3 },
+        rewardSecondary: {
+            COMPETITION: 0.75,
+            STATUS: 0.4,
+            REPUTATION: 0.4,
+            CREATIVITY: 0.3,
+        },
         requiresLocation: 'market_square|guild_hall',
         tradeEffect: { potential_orders: '+N', sample_cost: -1 },
         socialImpact: { COMPETITION: 0.55, FAME: 0.45, AWE: 0.35 },
@@ -86,7 +110,12 @@ export const CompetitionActions: ActionDefinition[] = [
         costEnergy: -0.25,
         costTime: 1.6,
         risk: 0.18,
-        rewardSecondary: { COMPETITION: 0.8, KNOWLEDGE: 0.5, WEALTH: 0.3, STATUS: 0.3 },
+        rewardSecondary: {
+            COMPETITION: 0.8,
+            KNOWLEDGE: 0.5,
+            WEALTH: 0.3,
+            STATUS: 0.3,
+        },
         tradeEffect: { patent_fee: -2, blueprint: 'filed' },
         socialImpact: { COMPETITION: 0.6, FAME: 0.35, SKEPTICISM: 0.1 },
         lawEffect: { guildPatent: 'pending', enforceable: true },
@@ -107,7 +136,12 @@ export const CompetitionActions: ActionDefinition[] = [
         costEnergy: -0.35,
         costTime: 2.0,
         risk: 0.08,
-        rewardSecondary: { COMPETITION: 0.7, MASTERY: 0.6, HEALTH: 0.2, STATUS: 0.2 },
+        rewardSecondary: {
+            COMPETITION: 0.7,
+            MASTERY: 0.6,
+            HEALTH: 0.2,
+            STATUS: 0.2,
+        },
         socialImpact: { COMPETITION: 0.45, DISCIPLINE: 0.4 },
         lawEffect: { trainingPermit: 'range_access', enforceable: true },
     },
@@ -145,7 +179,11 @@ export const CompetitionActions: ActionDefinition[] = [
         costEnergy: -0.05,
         costTime: 0.4,
         risk: 0.15,
-        rewardSecondary: { COMPETITION: 0.55, COMMUNITY: 0.15, MOOD: 0.2 as any },
+        rewardSecondary: {
+            COMPETITION: 0.55,
+            COMMUNITY: 0.15,
+            MOOD: 0.2 as any,
+        },
         tradeEffect: { stake: '-X', escrow: 'trusted_holder' },
         socialImpact: { COMPETITION: 0.4, FUN: 0.35 as any, TENSION: 0.1 },
         lawEffect: { wagerNote: 'private', enforceable: false },

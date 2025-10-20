@@ -1,13 +1,17 @@
 import { ActionDefinition } from '../action-definition';
 import { RespectActionTag } from '../action-tags';
-import { NeedTag } from '../needs';
 
 export const RespectActions: ActionDefinition[] = [
     {
         tag: RespectActionTag.FORMAL_GREETING,
         costEnergy: -0.01,
         costTime: 0.2,
-        rewardSecondary: { RESPECT: 0.35, BELONGING: 0.1, STATUS: 0.1, STABILITY: 0.05 },
+        rewardSecondary: {
+            RESPECT: 0.35,
+            BELONGING: 0.1,
+            STATUS: 0.1,
+            STABILITY: 0.05,
+        },
         socialImpact: { RESPECT: 0.35, COURTESY: 0.2 },
         lawEffect: {
             protocol: 'greet_v1',
@@ -105,7 +109,11 @@ export const RespectActions: ActionDefinition[] = [
         tag: RespectActionTag.MAINTAIN_SILENCE,
         costEnergy: -0.01,
         costTime: 0.4,
-        rewardSecondary: { RESPECT: 0.3, DISCIPLINE: 0.25 as any, STABILITY: 0.1 },
+        rewardSecondary: {
+            RESPECT: 0.3,
+            DISCIPLINE: 0.25 as any,
+            STABILITY: 0.1,
+        },
         socialImpact: { RESPECT: 0.35, SELF_CONTROL: 0.25 as any },
         lawEffect: { etiquetteRule: 'no_interruptions', enforceable: true },
     },
@@ -113,7 +121,12 @@ export const RespectActions: ActionDefinition[] = [
         tag: RespectActionTag.ESCORT_ELDER,
         costEnergy: -0.2,
         costTime: 1.5,
-        rewardSecondary: { RESPECT: 0.55, FAMILY: 0.2, COMMUNITY: 0.2, SECURITY: 0.15 },
+        rewardSecondary: {
+            RESPECT: 0.55,
+            FAMILY: 0.2,
+            COMMUNITY: 0.2,
+            SECURITY: 0.15,
+        },
         socialImpact: { RESPECT: 0.45, GRATITUDE: 0.35, CARE: 0.3 },
         ownershipEffect: { accessScope: 'inner_quarters', grantAccess: true },
     },

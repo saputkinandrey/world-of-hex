@@ -1,13 +1,17 @@
 import { ActionDefinition } from '../action-definition';
 import { PurposeActionTag } from '../action-tags';
-import { NeedTag } from '../needs';
 
 export const PurposeActions: ActionDefinition[] = [
     {
         tag: PurposeActionTag.DEFINE_PERSONAL_VOW,
         costEnergy: -0.08,
         costTime: 0.8,
-        rewardSecondary: { PURPOSE: 0.7, SPIRIT: 0.3, STABILITY: 0.2, IDENTITY: 0.3 as any },
+        rewardSecondary: {
+            PURPOSE: 0.7,
+            SPIRIT: 0.3,
+            STABILITY: 0.2,
+            IDENTITY: 0.3 as any,
+        },
         requiresLocation: 'shrine|quiet_room',
         socialImpact: {
             PURPOSE: 0.7,
@@ -32,7 +36,12 @@ export const PurposeActions: ActionDefinition[] = [
         costEnergy: -0.12,
         costTime: 1.2,
         risk: 0.15,
-        rewardSecondary: { PURPOSE: 0.65, STATUS: 0.2, WEALTH: 0.2, COMMUNITY: 0.2 },
+        rewardSecondary: {
+            PURPOSE: 0.65,
+            STATUS: 0.2,
+            WEALTH: 0.2,
+            COMMUNITY: 0.2,
+        },
         requiresSkill: 'negotiation',
         socialImpact: { NETWORK: 0.4 as any, PURPOSE: 0.4 },
         tradeEffect: { patron_offer: '+funds|+access' },
@@ -60,7 +69,11 @@ export const PurposeActions: ActionDefinition[] = [
         tag: PurposeActionTag.ALLOCATE_TIME_BLOCKS,
         costEnergy: -0.08,
         costTime: 0.8,
-        rewardSecondary: { PURPOSE: 0.55, DISCIPLINE: 0.4 as any, STABILITY: 0.2 },
+        rewardSecondary: {
+            PURPOSE: 0.55,
+            DISCIPLINE: 0.4 as any,
+            STABILITY: 0.2,
+        },
         socialImpact: { PURPOSE: 0.35, RELIABILITY: 0.3 as any },
         lawEffect: { rotaPolicy: 'mission_time_reserved', enforceable: true },
         ownershipEffect: { timeBlocks: 'reserved' },
@@ -102,7 +115,12 @@ export const PurposeActions: ActionDefinition[] = [
         tag: PurposeActionTag.CONDUCT_PROGRESS_RITUAL,
         costEnergy: -0.1,
         costTime: 0.8,
-        rewardSecondary: { PURPOSE: 0.6, SPIRIT: 0.3, TRADITION: 0.2, MORALE: 0.3 as any },
+        rewardSecondary: {
+            PURPOSE: 0.6,
+            SPIRIT: 0.3,
+            TRADITION: 0.2,
+            MORALE: 0.3 as any,
+        },
         requiresLocation: 'shrine|hall',
         socialImpact: { PURPOSE: 0.5, COHESION: 0.3, HOPE: 0.3 as any },
         lawEffect: { ritualNote: 'progress_obs', enforceable: false },
@@ -120,7 +138,11 @@ export const PurposeActions: ActionDefinition[] = [
         tag: PurposeActionTag.ADJUST_MISSION_SCOPE,
         costEnergy: -0.12,
         costTime: 0.8,
-        rewardSecondary: { PURPOSE: 0.55, CONTROL: 0.3, EFFICIENCY: 0.3 as any },
+        rewardSecondary: {
+            PURPOSE: 0.55,
+            CONTROL: 0.3,
+            EFFICIENCY: 0.3 as any,
+        },
         socialImpact: { PURPOSE: 0.35, CLARITY: 0.3 },
         lawEffect: { charterAmendment: 'filed', enforceable: true },
         ownershipEffect: { backlogUpdated: true },
@@ -129,7 +151,12 @@ export const PurposeActions: ActionDefinition[] = [
         tag: PurposeActionTag.HANDLE_SETBACK_POSTMORTEM,
         costEnergy: -0.15,
         costTime: 1.2,
-        rewardSecondary: { PURPOSE: 0.55, KNOWLEDGE: 0.4, STABILITY: 0.2, TRUST: 0.2 },
+        rewardSecondary: {
+            PURPOSE: 0.55,
+            KNOWLEDGE: 0.4,
+            STABILITY: 0.2,
+            TRUST: 0.2,
+        },
         socialImpact: { RESILIENCE: 0.4 as any, PURPOSE: 0.35 },
         lawEffect: { incidentReport: 'logged', enforceable: true },
     },
@@ -145,7 +172,12 @@ export const PurposeActions: ActionDefinition[] = [
         tag: PurposeActionTag.HANDOFF_OR_LEGACY_PLAN,
         costEnergy: -0.2,
         costTime: 1.6,
-        rewardSecondary: { PURPOSE: 0.7, LEGACY: 0.6, STABILITY: 0.4, COMMUNITY: 0.3 },
+        rewardSecondary: {
+            PURPOSE: 0.7,
+            LEGACY: 0.6,
+            STABILITY: 0.4,
+            COMMUNITY: 0.3,
+        },
         socialImpact: { PURPOSE: 0.45, TRUST: 0.3, CONTINUITY: 0.5 as any },
         ownershipEffect: { missionAssets: 'transferred_to_successor' },
         lawEffect: { successionPlan: 'registered', enforceable: true },
@@ -154,7 +186,12 @@ export const PurposeActions: ActionDefinition[] = [
         tag: PurposeActionTag.COMPLETE_MISSION_CEREMONY,
         costEnergy: -0.18,
         costTime: 1.4,
-        rewardSecondary: { PURPOSE: 1.0, STATUS: 0.4, REPUTATION: 0.5, SPIRIT: 0.4 },
+        rewardSecondary: {
+            PURPOSE: 1.0,
+            STATUS: 0.4,
+            REPUTATION: 0.5,
+            SPIRIT: 0.4,
+        },
         requiresLocation: 'hall|temple',
         socialImpact: { PURPOSE: 0.8, COHESION: 0.5, JOY: 0.5 as any },
         tradeEffect: { spend_food: -4, spend_drink: -2 },

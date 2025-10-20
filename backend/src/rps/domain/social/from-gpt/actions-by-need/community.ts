@@ -1,6 +1,5 @@
 import { ActionDefinition } from '../action-definition';
 import { CommunityActionTag } from '../action-tags';
-import { NeedTag } from '../needs';
 
 export const CommunityActions: ActionDefinition[] = [
     {
@@ -8,7 +7,12 @@ export const CommunityActions: ActionDefinition[] = [
         costEnergy: -0.25,
         costTime: 2.0,
         risk: 0.08,
-        rewardSecondary: { COMMUNITY: 0.75, BELONGING: 0.5, STABILITY: 0.3, TRUST: 0.3 },
+        rewardSecondary: {
+            COMMUNITY: 0.75,
+            BELONGING: 0.5,
+            STABILITY: 0.3,
+            TRUST: 0.3,
+        },
         requiresSkill: 'leadership',
         targetType: 'GROUP',
         tradeEffect: { gather_volunteers: '+N', tool_pool: 'shared' },
@@ -20,7 +24,12 @@ export const CommunityActions: ActionDefinition[] = [
         tag: CommunityActionTag.BUILD_COMMON_INFRA,
         costEnergy: -0.5,
         costTime: 4.0,
-        rewardSecondary: { COMMUNITY: 0.95, STABILITY: 0.6, SECURITY: 0.3, WEALTH: 0.2 },
+        rewardSecondary: {
+            COMMUNITY: 0.95,
+            STABILITY: 0.6,
+            SECURITY: 0.3,
+            WEALTH: 0.2,
+        },
         requiresItem: ['wood', 'stone', 'tools'],
         tradeEffect: { spend_wood: -10, spend_stone: -8, labor_hours: -40 },
         socialImpact: { COMMUNITY: 0.75, GRATITUDE: 0.6, LEGACY: 0.4 },
@@ -54,7 +63,12 @@ export const CommunityActions: ActionDefinition[] = [
         tag: CommunityActionTag.DISTRIBUTE_COMMON_RATIONS,
         costEnergy: -0.2,
         costTime: 1.5,
-        rewardSecondary: { COMMUNITY: 0.6, BELONGING: 0.35, HYGIENE: 0.15, STABILITY: 0.3 },
+        rewardSecondary: {
+            COMMUNITY: 0.6,
+            BELONGING: 0.35,
+            HYGIENE: 0.15,
+            STABILITY: 0.3,
+        },
         requiresSkill: 'logistics',
         tradeEffect: { grain_out: '-N', seed_out: '-M', note: 'rations' },
         socialImpact: { COMMUNITY: 0.55, GRATITUDE: 0.45, ENVY: 0.1 },
@@ -69,7 +83,12 @@ export const CommunityActions: ActionDefinition[] = [
         tag: CommunityActionTag.HOST_COMMUNITY_FEAST,
         costEnergy: -0.25,
         costTime: 3.0,
-        rewardSecondary: { COMMUNITY: 0.9, BELONGING: 0.6, TRADITION: 0.5, MOOD: 0.4 as any },
+        rewardSecondary: {
+            COMMUNITY: 0.9,
+            BELONGING: 0.6,
+            TRADITION: 0.5,
+            MOOD: 0.4 as any,
+        },
         tradeEffect: { spend_food: -12, spend_drink: -6, music_fee: -2 },
         socialImpact: { COMMUNITY: 0.75, COHESION: 0.6, JOY: 0.5 as any },
         ownershipEffect: { accessScope: 'feast_hall', grantAccess: true },

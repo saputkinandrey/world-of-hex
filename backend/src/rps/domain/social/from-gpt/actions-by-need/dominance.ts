@@ -1,6 +1,5 @@
 import { ActionDefinition } from '../action-definition';
 import { DominanceActionTag } from '../action-tags';
-import { NeedTag } from '../needs';
 
 export const DominanceActions: ActionDefinition[] = [
     {
@@ -8,7 +7,12 @@ export const DominanceActions: ActionDefinition[] = [
         costEnergy: -0.18,
         costTime: 0.8,
         risk: 0.12,
-        rewardSecondary: { DOMINANCE: 0.55, POWER: 0.3, SECURITY: 0.2, STATUS: 0.2 },
+        rewardSecondary: {
+            DOMINANCE: 0.55,
+            POWER: 0.3,
+            SECURITY: 0.2,
+            STATUS: 0.2,
+        },
         requiresItem: ['arms|armor|banners'],
         socialImpact: {
             DOMINANCE: 0.6,
@@ -59,7 +63,12 @@ export const DominanceActions: ActionDefinition[] = [
         costEnergy: -0.18,
         costTime: 1.0,
         risk: 0.22,
-        rewardSecondary: { DOMINANCE: 0.6, CONTROL: 0.4, SECURITY: 0.3, WEALTH: 0.2 },
+        rewardSecondary: {
+            DOMINANCE: 0.6,
+            CONTROL: 0.4,
+            SECURITY: 0.3,
+            WEALTH: 0.2,
+        },
         requiresSkill: 'inspection',
         socialImpact: { DOMINANCE: 0.55, FEAR: 0.25, TRUST: -0.1 },
         lawEffect: { seizureRecord: 'logged', enforceable: true },
@@ -176,7 +185,12 @@ export const DominanceActions: ActionDefinition[] = [
         costEnergy: -0.25,
         costTime: 2.0,
         risk: 0.28,
-        rewardSecondary: { DOMINANCE: 0.75, POWER: 0.5, CONTROL: 0.5, STABILITY: 0.3 },
+        rewardSecondary: {
+            DOMINANCE: 0.75,
+            POWER: 0.5,
+            CONTROL: 0.5,
+            STABILITY: 0.3,
+        },
         requiresSkill: 'investigation',
         socialImpact: { DOMINANCE: 0.65, FEAR: 0.35, RESENTMENT: 0.3 },
         lawEffect: { banOrder: 'rival_guild_disbanded', enforceable: true },

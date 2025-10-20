@@ -1,6 +1,5 @@
 import { ActionDefinition } from '../action-definition';
-import { LawActionTag } from '../action-tags';
-import { NeedTag } from '../needs';
+import { ActionTags, LawActionTag } from '../action-tags';
 
 export const LawActions: ActionDefinition[] = [
     {
@@ -69,7 +68,7 @@ export const LawActions: ActionDefinition[] = [
         requiresLocation: 'temple',
     },
     {
-        tag: LawActionTag.ISSUE_DECREE,
+        tag: ActionTags.ISSUE_DECREE,
         costEnergy: -0.3,
         costTime: 1,
         rewardSecondary: { LAW: 0.6, CONTROL: 0.4, STATUS: 0.3 },

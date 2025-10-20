@@ -1,13 +1,17 @@
 import { ActionDefinition } from '../action-definition';
 import { WasteActionTag } from '../action-tags';
-import { NeedTag } from '../needs';
 
 export const WasteActions: ActionDefinition[] = [
     {
         tag: WasteActionTag.SCRAP_LEDGER_START,
         costEnergy: -0.06,
         costTime: 0.7,
-        rewardSecondary: { WASTE: 0.55, EFFICIENCY: 0.3, ORDER: 0.3, CLARITY: 0.2 },
+        rewardSecondary: {
+            WASTE: 0.55,
+            EFFICIENCY: 0.3,
+            ORDER: 0.3,
+            CLARITY: 0.2,
+        },
         requiresLocation: 'stores|workyard',
         tradeEffect: {
             slate_or_tablet: -1 | (0 as any),
@@ -21,7 +25,12 @@ export const WasteActions: ActionDefinition[] = [
         tag: WasteActionTag.RETURNABLE_CONTAINERS,
         costEnergy: -0.06,
         costTime: 0.6,
-        rewardSecondary: { WASTE: 0.6, ORDER: 0.3, TRUST: 0.2, EFFICIENCY: 0.2 },
+        rewardSecondary: {
+            WASTE: 0.6,
+            ORDER: 0.3,
+            TRUST: 0.2,
+            EFFICIENCY: 0.2,
+        },
         requiresLocation: 'market|stores',
         tradeEffect: { jars_or_pouches: '-N' as any, tokens: '-N' as any },
         socialImpact: { WASTE: -0.25 as any, FAIRNESS: 0.1 },
@@ -33,7 +42,12 @@ export const WasteActions: ActionDefinition[] = [
         tag: WasteActionTag.COMPOST_PIT_SETUP,
         costEnergy: -0.1,
         costTime: 1.1,
-        rewardSecondary: { WASTE: 0.7, HYGIENE: 0.3, HEALTH: 0.3, RESILIENCE: 0.2 },
+        rewardSecondary: {
+            WASTE: 0.7,
+            HYGIENE: 0.3,
+            HEALTH: 0.3,
+            RESILIENCE: 0.2,
+        },
         requiresLocation: 'commons|garden_edge',
         tradeEffect: { spades: -1 | (0 as any), boards: -1 | (0 as any) },
         socialImpact: { WASTE: -0.35 as any, COMMUNITY: 0.1 },
@@ -44,7 +58,12 @@ export const WasteActions: ActionDefinition[] = [
         tag: WasteActionTag.TOOL_REPAIR_BENCH,
         costEnergy: -0.1,
         costTime: 1.0,
-        rewardSecondary: { WASTE: 0.7, PRODUCTIVITY: 0.3, QUALITY: 0.3, EFFICIENCY: 0.2 },
+        rewardSecondary: {
+            WASTE: 0.7,
+            PRODUCTIVITY: 0.3,
+            QUALITY: 0.3,
+            EFFICIENCY: 0.2,
+        },
         requiresLocation: 'workshop',
         tradeEffect: { nails: -1 | (0 as any), resin_or_glue: -1 | (0 as any) },
         socialImpact: { WASTE: -0.3 as any, WEALTH: 0.1 },
@@ -65,7 +84,12 @@ export const WasteActions: ActionDefinition[] = [
         tag: WasteActionTag.RATION_PORTION_TOKENS,
         costEnergy: -0.08,
         costTime: 0.8,
-        rewardSecondary: { WASTE: 0.65, FAIRNESS: 0.3, ORDER: 0.3, STABILITY: 0.2 },
+        rewardSecondary: {
+            WASTE: 0.65,
+            FAIRNESS: 0.3,
+            ORDER: 0.3,
+            STABILITY: 0.2,
+        },
         requiresLocation: 'hall|mess',
         tradeEffect: { tokens: '-N' as any, parchment: -1 | (0 as any) },
         socialImpact: { WASTE: -0.3 as any, TRUST: 0.1 },
@@ -76,7 +100,12 @@ export const WasteActions: ActionDefinition[] = [
         tag: WasteActionTag.SALVAGE_RUN,
         costEnergy: -0.12,
         costTime: 1.2,
-        rewardSecondary: { WASTE: 0.7, WEALTH: 0.3, SECURITY: 0.1, COURAGE: 0.1 },
+        rewardSecondary: {
+            WASTE: 0.7,
+            WEALTH: 0.3,
+            SECURITY: 0.1,
+            COURAGE: 0.1,
+        },
         requiresLocation: 'outskirts|ruins',
         tradeEffect: { rope: -1 | (0 as any), sacks: -1 | (0 as any) },
         socialImpact: { WASTE: -0.2 as any, NETWORK: 0.1 as any },
@@ -87,7 +116,12 @@ export const WasteActions: ActionDefinition[] = [
         tag: WasteActionTag.GREYWATER_REUSE,
         costEnergy: -0.1,
         costTime: 1.0,
-        rewardSecondary: { WASTE: 0.7, EFFICIENCY: 0.3, HEALTH: 0.2, STABILITY: 0.2 },
+        rewardSecondary: {
+            WASTE: 0.7,
+            EFFICIENCY: 0.3,
+            HEALTH: 0.2,
+            STABILITY: 0.2,
+        },
         requiresLocation: 'workyard|bathhouse|garden',
         tradeEffect: { clay_pipes: -1 | (0 as any), filters: -1 | (0 as any) },
         socialImpact: { WASTE: -0.3 as any, WATER: 0.1 as any },
@@ -98,7 +132,12 @@ export const WasteActions: ActionDefinition[] = [
         tag: WasteActionTag.SHARED_TOOL_LIBRARY,
         costEnergy: -0.08,
         costTime: 0.9,
-        rewardSecondary: { WASTE: 0.65, COMMUNITY: 0.2, EFFICIENCY: 0.3, WEALTH: 0.2 },
+        rewardSecondary: {
+            WASTE: 0.65,
+            COMMUNITY: 0.2,
+            EFFICIENCY: 0.3,
+            WEALTH: 0.2,
+        },
         requiresLocation: 'hall|stores',
         tradeEffect: { shelves: -1 | (0 as any), tags: -1 | (0 as any) },
         socialImpact: { WASTE: -0.25 as any, TRUST: 0.1 },
@@ -140,7 +179,12 @@ export const WasteActions: ActionDefinition[] = [
         tag: WasteActionTag.REPAIR_CAFE_DAY,
         costEnergy: -0.12,
         costTime: 1.2,
-        rewardSecondary: { WASTE: 0.75, MASTERY: 0.3, COMMUNITY: 0.2, PRODUCTIVITY: 0.2 },
+        rewardSecondary: {
+            WASTE: 0.75,
+            MASTERY: 0.3,
+            COMMUNITY: 0.2,
+            PRODUCTIVITY: 0.2,
+        },
         requiresLocation: 'hall|workshop',
         tradeEffect: {
             spare_parts: '-N' as any,

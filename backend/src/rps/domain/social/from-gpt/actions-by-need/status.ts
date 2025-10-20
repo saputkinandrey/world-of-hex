@@ -1,6 +1,5 @@
 import { ActionDefinition } from '../action-definition';
 import { StatusActionTag } from '../action-tags';
-import { NeedTag } from '../needs';
 
 export const StatusActions: ActionDefinition[] = [
     {
@@ -55,7 +54,12 @@ export const StatusActions: ActionDefinition[] = [
         costEnergy: -0.35,
         costTime: 4.0,
         risk: 0.1,
-        rewardSecondary: { STATUS: 1.0, POWER: 0.3, COMMUNITY: 0.4, TRADITION: 0.3 },
+        rewardSecondary: {
+            STATUS: 1.0,
+            POWER: 0.3,
+            COMMUNITY: 0.4,
+            TRADITION: 0.3,
+        },
         requiresLocation: 'list_field',
         tradeEffect: { prize_pool: -8, vendor_fees: '+3' },
         socialImpact: { STATUS: 0.8, FAME: 0.6, AWE: 0.4 },
@@ -85,7 +89,12 @@ export const StatusActions: ActionDefinition[] = [
         costEnergy: -0.6,
         costTime: 6.0,
         risk: 0.1,
-        rewardSecondary: { STATUS: 1.2, LEGACY: 0.8, TRADITION: 0.4, COMMUNITY: 0.4 },
+        rewardSecondary: {
+            STATUS: 1.2,
+            LEGACY: 0.8,
+            TRADITION: 0.4,
+            COMMUNITY: 0.4,
+        },
         requiresItem: ['stone', 'labor'],
         socialImpact: { STATUS: 0.9, AWE: 0.6, PRIDE: 0.5 },
         ownershipEffect: { claimLandmark: true, accessScope: 'plaza' },
@@ -95,7 +104,12 @@ export const StatusActions: ActionDefinition[] = [
         tag: StatusActionTag.ENDOW_TEMPLE,
         costEnergy: -0.18,
         costTime: 1.8,
-        rewardSecondary: { STATUS: 0.7, SPIRIT: 0.4, REPUTATION: 0.4, TRADITION: 0.3 },
+        rewardSecondary: {
+            STATUS: 0.7,
+            SPIRIT: 0.4,
+            REPUTATION: 0.4,
+            TRADITION: 0.3,
+        },
         tradeEffect: { donate_gold: -7, endowment_note: 'altar_lamps' },
         socialImpact: { STATUS: 0.6, REVERENCE: 0.5, GRATITUDE: 0.5 },
         lawEffect: { endowmentRecord: 'temple_roll', enforceable: true },
@@ -118,7 +132,12 @@ export const StatusActions: ActionDefinition[] = [
         tag: StatusActionTag.BESTOW_TITLES,
         costEnergy: -0.12,
         costTime: 1.0,
-        rewardSecondary: { STATUS: 0.7, POWER: 0.3, LOYALTY: 0.4, COMMUNITY: 0.2 },
+        rewardSecondary: {
+            STATUS: 0.7,
+            POWER: 0.3,
+            LOYALTY: 0.4,
+            COMMUNITY: 0.2,
+        },
         socialImpact: { STATUS: 0.6, RESPECT: 0.4, FAVOR: 0.4 },
         ownershipEffect: {
             grantAccess: true,
@@ -167,7 +186,12 @@ export const StatusActions: ActionDefinition[] = [
         costEnergy: -0.28,
         costTime: 2.5,
         risk: 0.08,
-        rewardSecondary: { STATUS: 0.85, TRADITION: 0.4, COMMUNITY: 0.4, SPIRIT: 0.2 },
+        rewardSecondary: {
+            STATUS: 0.85,
+            TRADITION: 0.4,
+            COMMUNITY: 0.4,
+            SPIRIT: 0.2,
+        },
         requiresItem: ['musicians', 'banners'],
         socialImpact: { STATUS: 0.7, COHESION: 0.4, REVERENCE: 0.3 },
         lawEffect: {

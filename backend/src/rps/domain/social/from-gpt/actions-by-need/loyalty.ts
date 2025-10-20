@@ -1,13 +1,17 @@
 import { ActionDefinition } from '../action-definition';
-import { LoyaltyActionTag } from '../action-tags';
-import { NeedTag } from '../needs';
+import { ActionTags, LoyaltyActionTag } from '../action-tags';
 
 export const LoyaltyActions: ActionDefinition[] = [
     {
         tag: LoyaltyActionTag.SWEAR_FEALTY,
         costEnergy: -0.05,
         costTime: 0.6,
-        rewardSecondary: { LOYALTY: 0.7, BELONGING: 0.4, LAW: 0.3, STATUS: 0.1 },
+        rewardSecondary: {
+            LOYALTY: 0.7,
+            BELONGING: 0.4,
+            LAW: 0.3,
+            STATUS: 0.1,
+        },
         requiresLocation: 'hall',
         targetType: 'GROUP',
         socialImpact: { LOYALTY: 0.6, TRUST: 0.3, RESPECT: 0.2 },
@@ -41,7 +45,12 @@ export const LoyaltyActions: ActionDefinition[] = [
         costEnergy: -0.55,
         costTime: 1.2,
         risk: 0.35,
-        rewardSecondary: { LOYALTY: 0.9, HONOR: 0.5, SECURITY: 0.4, STATUS: 0.3 },
+        rewardSecondary: {
+            LOYALTY: 0.9,
+            HONOR: 0.5,
+            SECURITY: 0.4,
+            STATUS: 0.3,
+        },
         requiresItem: ['weapon'],
         targetType: 'OTHER',
         socialImpact: { RESPECT: 0.5, COURAGE: 0.4, TRUST: 0.3 },
@@ -70,11 +79,16 @@ export const LoyaltyActions: ActionDefinition[] = [
         socialImpact: { GRATITUDE: 0.4, LOYALTY: 0.4 },
     },
     {
-        tag: LoyaltyActionTag.REFUSE_BRIBE,
+        tag: ActionTags.REFUSE_BRIBE,
         costEnergy: -0.08,
         costTime: 0.3,
         risk: 0.1,
-        rewardSecondary: { LOYALTY: 0.6, JUSTICE: 0.3, LAW: 0.2, INTEGRITY: 0.3 as any },
+        rewardSecondary: {
+            LOYALTY: 0.6,
+            JUSTICE: 0.3,
+            LAW: 0.2,
+            INTEGRITY: 0.3 as any,
+        },
         tradeEffect: { bribe_refused: 'yes', attempted_amount: '+X' },
         socialImpact: { TRUST: 0.5, RESPECT: 0.3, SUSPICION: -0.2 },
         lawEffect: { report: 'bribe_attempt_logged', enforceable: true },
@@ -153,7 +167,12 @@ export const LoyaltyActions: ActionDefinition[] = [
         tag: LoyaltyActionTag.REINFORCE_MORALE,
         costEnergy: -0.15,
         costTime: 1.0,
-        rewardSecondary: { LOYALTY: 0.6, COMMUNITY: 0.4, REST: 0.2, POWER: 0.1 },
+        rewardSecondary: {
+            LOYALTY: 0.6,
+            COMMUNITY: 0.4,
+            REST: 0.2,
+            POWER: 0.1,
+        },
         targetType: 'GROUP',
         socialImpact: { MORALE: 0.6 as any, COHESION: 0.4, HOPE: 0.3 as any },
     },

@@ -1,6 +1,5 @@
 import { ActionDefinition } from '../action-definition';
 import { HygieneActionTag } from '../action-tags';
-import { NeedTag } from '../needs';
 
 export const HygieneActions: ActionDefinition[] = [
     {

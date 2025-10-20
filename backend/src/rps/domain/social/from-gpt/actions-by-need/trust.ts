@@ -1,6 +1,5 @@
 import { ActionDefinition } from '../action-definition';
-import { TrustActionTag } from '../action-tags';
-import { NeedTag } from '../needs';
+import { ActionTags, TrustActionTag } from '../action-tags';
 
 export const TrustActions: ActionDefinition[] = [
     {
@@ -72,7 +71,7 @@ export const TrustActions: ActionDefinition[] = [
         lawEffect: { surety: 'personal_vouch', enforceable: true },
     },
     {
-        tag: TrustActionTag.MUTUAL_AID_PACT,
+        tag: ActionTags.MUTUAL_AID_PACT,
         costEnergy: -0.15,
         costTime: 1.5,
         rewardSecondary: { TRUST: 0.8, BELONGING: 0.5, LOYALTY: 0.3 },

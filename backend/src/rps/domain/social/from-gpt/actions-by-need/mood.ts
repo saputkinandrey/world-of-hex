@@ -1,6 +1,5 @@
 import { ActionDefinition } from '../action-definition';
-import { MoodActionTag } from '../action-tags';
-import { NeedTag } from '../needs';
+import { ActionTags, MoodActionTag } from '../action-tags';
 
 export const MoodActions: ActionDefinition[] = [
     {
@@ -49,7 +48,7 @@ export const MoodActions: ActionDefinition[] = [
         ownershipEffect: { decorState: 'refreshed' },
     },
     {
-        tag: MoodActionTag.CELEBRATE_SMALL_WIN,
+        tag: ActionTags.CELEBRATE_SMALL_WIN,
         costEnergy: -0.1,
         costTime: 1.2,
         rewardSecondary: { MOOD: 0.65, MORALE: 0.4, COMMUNITY: 0.3 },

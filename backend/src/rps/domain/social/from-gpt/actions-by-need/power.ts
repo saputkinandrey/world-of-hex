@@ -1,13 +1,17 @@
 import { ActionDefinition } from '../action-definition';
 import { PowerActionTag } from '../action-tags';
-import { NeedTag } from '../needs';
 
 export const PowerActions: ActionDefinition[] = [
     {
         tag: PowerActionTag.FORMALIZE_CHAIN_OF_COMMAND,
         costEnergy: -0.18,
         costTime: 1.6,
-        rewardSecondary: { POWER: 0.6, CONTROL: 0.6, STABILITY: 0.4, STATUS: 0.2 },
+        rewardSecondary: {
+            POWER: 0.6,
+            CONTROL: 0.6,
+            STABILITY: 0.4,
+            STATUS: 0.2,
+        },
         socialImpact: { POWER: 0.6, ORDER: 0.5, CONFUSION: -0.3 },
         lawEffect: { charter: 'chain_of_command_v1', enforceable: true },
     },
@@ -16,7 +20,12 @@ export const PowerActions: ActionDefinition[] = [
         costEnergy: -0.2,
         costTime: 1.4,
         risk: 0.12,
-        rewardSecondary: { POWER: 0.65, CONTROL: 0.5, LOYALTY: 0.3, STATUS: 0.3 },
+        rewardSecondary: {
+            POWER: 0.65,
+            CONTROL: 0.5,
+            LOYALTY: 0.3,
+            STATUS: 0.3,
+        },
         socialImpact: { POWER: 0.55, FAVOR: 0.4, ENVY: 0.2 },
         lawEffect: { lettersOfOffice: 'issued', enforceable: true },
         ownershipEffect: { accessScope: 'command_rooms', grantAccess: true },
@@ -25,7 +34,12 @@ export const PowerActions: ActionDefinition[] = [
         tag: PowerActionTag.DELEGATE_AUTHORITY,
         costEnergy: -0.12,
         costTime: 0.9,
-        rewardSecondary: { POWER: 0.55, CONTROL: 0.4, PRODUCTIVITY: 0.3, TRUST: 0.2 },
+        rewardSecondary: {
+            POWER: 0.55,
+            CONTROL: 0.4,
+            PRODUCTIVITY: 0.3,
+            TRUST: 0.2,
+        },
         socialImpact: { POWER: 0.4, RESPONSIVENESS: 0.4 as any },
         lawEffect: {
             warrant: 'delegation_writ',
@@ -43,7 +57,12 @@ export const PowerActions: ActionDefinition[] = [
         costEnergy: -0.1,
         costTime: 0.7,
         risk: 0.15,
-        rewardSecondary: { POWER: 0.65, CONTROL: 0.5, LAW: 0.4, STABILITY: 0.2 },
+        rewardSecondary: {
+            POWER: 0.65,
+            CONTROL: 0.5,
+            LAW: 0.4,
+            STABILITY: 0.2,
+        },
         socialImpact: { POWER: 0.55, COMPLIANCE: 0.4 as any, RESENTMENT: 0.15 },
         lawEffect: { decreeId: 'dcr#001', enforceable: true },
         tradeEffect: { notice_posts: '+N', heralds_fee: -1 },
@@ -52,7 +71,12 @@ export const PowerActions: ActionDefinition[] = [
         tag: PowerActionTag.CONVENE_PRIVY_COUNCIL,
         costEnergy: -0.15,
         costTime: 1.2,
-        rewardSecondary: { POWER: 0.6, TRUST: 0.3, CONTROL: 0.3, STABILITY: 0.2 },
+        rewardSecondary: {
+            POWER: 0.6,
+            TRUST: 0.3,
+            CONTROL: 0.3,
+            STABILITY: 0.2,
+        },
         requiresLocation: 'council_chamber',
         socialImpact: { POWER: 0.45, COHESION: 0.35, SECRECY: 0.3 as any },
         lawEffect: { minutes: 'sealed', enforceable: true },
@@ -63,7 +87,12 @@ export const PowerActions: ActionDefinition[] = [
         costEnergy: -0.3,
         costTime: 2.0,
         risk: 0.2,
-        rewardSecondary: { POWER: 0.8, WEALTH: 0.4, CONTROL: 0.6, SECURITY: 0.3 },
+        rewardSecondary: {
+            POWER: 0.8,
+            WEALTH: 0.4,
+            CONTROL: 0.6,
+            SECURITY: 0.3,
+        },
         requiresItem: ['guards'],
         socialImpact: { POWER: 0.7, DEPENDENCE: 0.5 as any, ENVY: 0.25 },
         ownershipEffect: { seize: 'granary|armory|well', steward: 'appointed' },
@@ -104,7 +133,12 @@ export const PowerActions: ActionDefinition[] = [
         costEnergy: -0.25,
         costTime: 1.8,
         risk: 0.2,
-        rewardSecondary: { POWER: 0.7, CONTROL: 0.5, SECURITY: 0.3, KNOWLEDGE: 0.3 },
+        rewardSecondary: {
+            POWER: 0.7,
+            CONTROL: 0.5,
+            SECURITY: 0.3,
+            KNOWLEDGE: 0.3,
+        },
         tradeEffect: { stipends: -3, informants: '+N' },
         socialImpact: { POWER: 0.55, FEAR: 0.15, READINESS: 0.3 as any },
         lawEffect: { secrecyWrit: 'issued', enforceable: true },
@@ -134,7 +168,12 @@ export const PowerActions: ActionDefinition[] = [
         costEnergy: -0.35,
         costTime: 2.5,
         risk: 0.2,
-        rewardSecondary: { POWER: 0.8, SECURITY: 0.6, CONTROL: 0.5, STATUS: 0.3 },
+        rewardSecondary: {
+            POWER: 0.8,
+            SECURITY: 0.6,
+            CONTROL: 0.5,
+            STATUS: 0.3,
+        },
         requiresItem: ['arms', 'armor'],
         tradeEffect: { hire_cost: '-X', upkeep: '-Y/season' },
         socialImpact: { POWER: 0.7, FEAR: 0.3, LOYALTY: 0.2 },
@@ -156,7 +195,12 @@ export const PowerActions: ActionDefinition[] = [
         costEnergy: -0.25,
         costTime: 2.2,
         risk: 0.15,
-        rewardSecondary: { POWER: 0.8, CONTROL: 0.6, WEALTH: 0.3, STABILITY: 0.4 },
+        rewardSecondary: {
+            POWER: 0.8,
+            CONTROL: 0.6,
+            WEALTH: 0.3,
+            STABILITY: 0.4,
+        },
         requiresSkill: 'diplomacy',
         socialImpact: { POWER: 0.65, ALLIANCE: 0.5 as any, LOYALTY: 0.3 },
         lawEffect: {
@@ -171,7 +215,12 @@ export const PowerActions: ActionDefinition[] = [
         costEnergy: -0.2,
         costTime: 1.6,
         risk: 0.25,
-        rewardSecondary: { POWER: 0.6, STABILITY: 0.4, SECURITY: 0.3, TRUST: 0.2 },
+        rewardSecondary: {
+            POWER: 0.6,
+            STABILITY: 0.4,
+            SECURITY: 0.3,
+            TRUST: 0.2,
+        },
         socialImpact: { POWER: 0.5, DETERRENCE: 0.5 as any, RESENTMENT: 0.2 },
         lawEffect: {
             hostageTreaty: 'filed',
