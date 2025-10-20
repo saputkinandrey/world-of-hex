@@ -23,6 +23,13 @@ export enum NeedTag {
     CULTURE = 'CULTURE',
     COURAGE = 'COURAGE',
     MORALE = 'MORALE',
+    IDENTITY = 'IDENTITY',
+    PRIVACY = 'PRIVACY',
+    CLARITY = 'CLARITY',
+    RESILIENCE = 'RESILIENCE',
+    JOY = 'JOY',
+    INNOVATION_REP = 'INNOVATION_REP',
+    NETWORK = 'NETWORK',
 
     // === I. Физиологические ===
     FOOD = 'FOOD', // Пища, голод, вода, охота, собирательство
