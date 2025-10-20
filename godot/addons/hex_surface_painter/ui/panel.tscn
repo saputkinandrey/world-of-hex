@@ -1,0 +1,114 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource path="res://addons/hex_surface_painter/ui/panel.gd" type="Script" id="1"]
+
+[node name="HexSurfacePanel" type="VBoxContainer"]
+script = ExtResource("1")
+custom_minimum_size = Vector2(260, 0)
+size_flags_horizontal = 3
+
+[node name="Header" type="Label" parent="."]
+text = "Hex Surface Painter"
+uppercase = true
+
+[node name="TileFolder" type="HBoxContainer" parent="."]
+
+[node name="FolderLabel" type="Label" parent="TileFolder"]
+text = "Tiles"
+size_flags_horizontal = 1
+
+[node name="FolderPath" type="LineEdit" parent="TileFolder"]
+placeholder_text = "res://tiles"
+size_flags_horizontal = 3
+
+[node name="BrowseButton" type="Button" parent="TileFolder"]
+text = "..."
+size_flags_horizontal = 0
+
+[node name="BuildRow" type="HBoxContainer" parent="."]
+
+[node name="BuildButton" type="Button" parent="BuildRow"]
+text = "Build TileSet"
+size_flags_horizontal = 3
+
+[node name="ReloadButton" type="Button" parent="BuildRow"]
+text = "Reload"
+size_flags_horizontal = 1
+
+[node name="SurfaceRow" type="HBoxContainer" parent="."]
+
+[node name="SurfaceLabel" type="Label" parent="SurfaceRow"]
+text = "Surface"
+
+[node name="SurfaceDropdown" type="OptionButton" parent="SurfaceRow"]
+size_flags_horizontal = 3
+
+[node name="BrushRow" type="HBoxContainer" parent="."]
+
+[node name="BrushLabel" type="Label" parent="BrushRow"]
+text = "Brush"
+
+
+[node name="PaintButton" type="Button" parent="BrushRow"]
+text = "Paint"
+toggle_mode = true
+pressed = true
+
+[node name="FillButton" type="Button" parent="BrushRow"]
+text = "Fill"
+toggle_mode = true
+
+[node name="EraseButton" type="Button" parent="BrushRow"]
+text = "Eraser"
+toggle_mode = true
+
+[node name="PickerButton" type="Button" parent="BrushRow"]
+text = "Picker"
+toggle_mode = true
+
+[node name="SettingsSeparator" type="HSeparator" parent="."]
+
+[node name="SettingsGrid" type="GridContainer" parent="."]
+columns = 2
+
+[node name="RespectLabel" type="Label" parent="SettingsGrid"]
+text = "Respect adjacency"
+
+[node name="RespectToggle" type="CheckBox" parent="SettingsGrid"]
+pressed = true
+text = ""
+
+[node name="RandomnessLabel" type="Label" parent="SettingsGrid"]
+text = "Randomness"
+
+[node name="RandomnessSlider" type="HSlider" parent="SettingsGrid"]
+min_value = 0.0
+max_value = 1.0
+step = 0.01
+size_flags_horizontal = 3
+
+[node name="SeedLabel" type="Label" parent="SettingsGrid"]
+text = "Seed"
+
+[node name="SeedSpin" type="SpinBox" parent="SettingsGrid"]
+min_value = 0
+max_value = 1000000
+step = 1
+size_flags_horizontal = 3
+
+[node name="ReseedButton" type="Button" parent="SettingsGrid"]
+text = "Reseed"
+size_flags_horizontal = 3
+
+[node name="AutoFixLabel" type="Label" parent="SettingsGrid"]
+text = "Auto-fix neighbors"
+
+[node name="AutoFixToggle" type="CheckBox" parent="SettingsGrid"]
+pressed = true
+text = ""
+
+[node name="Status" type="RichTextLabel" parent="."]
+size_flags_vertical = 3
+fit_content = true
+bbcode_enabled = true
+scroll_active = false
