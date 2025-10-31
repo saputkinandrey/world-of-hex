@@ -5,6 +5,11 @@ import { EquipmentGateway } from './services/equipment.gateway';
 import { MongooseModule } from '@nestjs/mongoose';
 import { Encounter, EncounterSchema } from './schemas/encounter.schema';
 import { Equipment, EquipmentSchema } from './schemas/equipment.schema';
+import {
+  TradeEffectCategory,
+  TradeEffectCategorySchema,
+} from './schemas/trade-effect-category.schema';
+import { TradeEffectKey, TradeEffectKeySchema } from './schemas/trade-effect-key.schema';
 
 @Module({
   imports: [
@@ -12,6 +17,8 @@ import { Equipment, EquipmentSchema } from './schemas/equipment.schema';
     MongooseModule.forFeature([
       { name: Encounter.name, schema: EncounterSchema },
       { name: Equipment.name, schema: EquipmentSchema },
+      { name: TradeEffectKey.name, schema: TradeEffectKeySchema },
+      { name: TradeEffectCategory.name, schema: TradeEffectCategorySchema },
     ]),
   ],
   controllers: [],
