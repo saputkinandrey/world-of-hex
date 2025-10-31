@@ -5,10 +5,14 @@ import { createInterface } from 'node:readline';
 import mongoose from 'mongoose';
 import {
   TradeEffectKey,
+  TradeEffectKeySchema,
   TRADE_EFFECT_CATEGORIES,
-  type TradeEffectCategory as TradeEffectCategoryType,
-} from '../db/models/TradeEffectKey';
-import { TradeEffectCategory as TradeEffectCategoryModel } from '../db/models/TradeEffectCategory';
+  type TradeEffectCategoryName,
+} from '../src/rps/schemas/trade-effect-key.schema';
+import {
+  TradeEffectCategory,
+  TradeEffectCategorySchema,
+} from '../src/rps/schemas/trade-effect-category.schema';
 
 type RowKeysByCategory = {
   tradeEffect_key: string;
@@ -22,10 +26,17 @@ type RowCategorySummary = {
   total_occurrences?: string | number;
 };
 
-const SCRIPT_ROOT = path.resolve(__dirname, '..');
-const DATA_DIR = path.resolve(SCRIPT_ROOT, 'data');
+const DATA_DIR = path.resolve(__dirname, 'data', 'trade-effects');
 const KEYS_FILE = path.join(DATA_DIR, 'trade_effect_keys_by_category.csv');
 const SUMMARY_FILE = path.join(DATA_DIR, 'trade_effect_categories_summary.csv');
+
+const TradeEffectKeyModel =
+  mongoose.models[TradeEffectKey.name] ??
+  mongoose.model(TradeEffectKey.name, TradeEffectKeySchema);
+
+const TradeEffectCategoryModel =
+  mongoose.models[TradeEffectCategory.name] ??
+  mongoose.model(TradeEffectCategory.name, TradeEffectCategorySchema);
 
 const args = new Set(process.argv.slice(2));
 const DRY_RUN = args.has('--dry-run');
@@ -79,12 +90,12 @@ function toInt(v: unknown, def = 0): number {
   return Number.isFinite(n) ? n : def;
 }
 
-function normCategory(name: string): TradeEffectCategoryType | string {
+function normCategory(name: string): TradeEffectCategoryName | string {
   return name?.trim();
 }
 
-function assertCategory(name: string): asserts name is TradeEffectCategoryType {
-  if (!TRADE_EFFECT_CATEGORIES.includes(name as TradeEffectCategoryType)) {
+function assertCategory(name: string): asserts name is TradeEffectCategoryName {
+  if (!TRADE_EFFECT_CATEGORIES.includes(name as TradeEffectCategoryName)) {
     throw new Error(`Unknown category: "${name}"`);
   }
 }
@@ -115,7 +126,7 @@ async function upsertKeys(rows: RowKeysByCategory[]) {
       continue;
     }
 
-    await TradeEffectKey.updateOne(
+    await TradeEffectKeyModel.updateOne(
       { key },
       { $set: { key, category: rawCat, occurrences: occ } },
       { upsert: true }
@@ -168,7 +179,7 @@ async function upsertCategories(rows: RowCategorySummary[]) {
 }
 
 async function recomputeCategoryTotalsFromKeys() {
-  const agg = await TradeEffectKey.aggregate([
+  const agg = await TradeEffectKeyModel.aggregate([
     {
       $group: {
         _id: '$category',

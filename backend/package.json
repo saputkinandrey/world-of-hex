@@ -13,7 +13,7 @@
     "add:property:to-document": "hygen property add-to-document",
     "postadd:property:to-document": "npm run lint -- --fix",
     "seed:run:document": "ts-node -r tsconfig-paths/register ./src/database/seeds/document/run-seed.ts",
-    "import:trade-effects": "ts-node -r tsconfig-paths/register ./from-gpt/scripts/import-trade-effects.ts",
+    "import:trade-effects": "ts-node -r tsconfig-paths/register ./scripts/import-trade-effects.ts",
     "import:trade-effects:dry": "npm run import:trade-effects -- --dry-run",
     "import:trade-effects:recompute": "npm run import:trade-effects -- --recompute-category-occurrences",
     "prebuild": "rimraf dist",
