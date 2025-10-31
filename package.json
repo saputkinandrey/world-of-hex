@@ -1,0 +1,18 @@
+{
+  "name": "world-of-hex-imports",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "import:trade-effects": "ts-node from-gpt/scripts/import-trade-effects.ts",
+    "import:trade-effects:dry": "ts-node from-gpt/scripts/import-trade-effects.ts --dry-run",
+    "import:trade-effects:recompute": "ts-node from-gpt/scripts/import-trade-effects.ts --recompute-category-occurrences"
+  },
+  "dependencies": {
+    "dotenv": "^16.5.0",
+    "mongoose": "^8.15.1"
+  },
+  "devDependencies": {
+    "ts-node": "^10.9.2",
+    "typescript": "^5.8.3"
+  }
+}
