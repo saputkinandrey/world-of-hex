@@ -8,11 +8,11 @@ import {
   TradeEffectKeySchema,
   TRADE_EFFECT_CATEGORIES,
   type TradeEffectCategoryName,
-} from '../src/rps/schemas/trade-effect-key.schema';
+} from '../../src/rps/schemas/trade-effect-key.schema';
 import {
   TradeEffectCategory,
   TradeEffectCategorySchema,
-} from '../src/rps/schemas/trade-effect-category.schema';
+} from '../../src/rps/schemas/trade-effect-category.schema';
 
 type RowKeysByCategory = {
   tradeEffect_key: string;
@@ -26,7 +26,7 @@ type RowCategorySummary = {
   total_occurrences?: string | number;
 };
 
-const DATA_DIR = path.resolve(__dirname, 'data', 'trade-effects');
+const DATA_DIR = path.resolve(__dirname, '..', 'data', 'trade-effects');
 const KEYS_FILE = path.join(DATA_DIR, 'trade_effect_keys_by_category.csv');
 const SUMMARY_FILE = path.join(DATA_DIR, 'trade_effect_categories_summary.csv');
 
