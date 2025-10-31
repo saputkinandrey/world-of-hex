@@ -63,13 +63,8 @@ function parseCsvLine(line: string): string[] {
   return parts.map((p) => p.trim());
 }
 
-async function readCsv<T = any>(file: string, label: string): Promise<T[]> {
-  if (!fs.existsSync(file)) {
-    console.warn(
-      `CSV "${label}" was not found at ${file}. Continuing with 0 rows.`
-    );
-    return [];
-  }
+async function readCsv<T = any>(file: string): Promise<T[]> {
+  if (!fs.existsSync(file)) return [];
   const stream = fs.createReadStream(file, { encoding: 'utf-8' });
   const rl = createInterface({ input: stream, crlfDelay: Infinity });
   const rows: T[] = [];
@@ -234,14 +229,8 @@ async function main() {
 
   const connected = await connectIfNeeded();
 
-  const keyRows = await readCsv<RowKeysByCategory>(
-    KEYS_FILE,
-    'trade_effect_keys_by_category.csv'
-  );
-  const catRows = await readCsv<RowCategorySummary>(
-    SUMMARY_FILE,
-    'trade_effect_categories_summary.csv'
-  );
+  const keyRows = await readCsv<RowKeysByCategory>(KEYS_FILE);
+  const catRows = await readCsv<RowCategorySummary>(SUMMARY_FILE);
 
   console.log(`Loaded CSV rows: keys=${keyRows.length}, categories=${catRows.length}`);
 
