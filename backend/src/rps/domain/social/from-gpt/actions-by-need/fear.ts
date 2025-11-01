@@ -1,5 +1,6 @@
 import { ActionDefinition } from '../action-definition';
 import { FearActionTag } from '../action-tags';
+import { fire } from '../memes';
 
 export const FearActions: ActionDefinition[] = [
     {
@@ -13,7 +14,7 @@ export const FearActions: ActionDefinition[] = [
             MOOD: 0.15,
         },
         tradeEffect: { lamp_oil: -1, torches: -1 },
-        requiredMeme: { fire: true },
+        requiredMemes: [fire.control],
         socialImpact: { READINESS: 0.2, COMMUNITY: 0.1 },
         lawEffect: { fireSafety: 'observed', enforceable: true },
         ownershipEffect: { accessScope: 'streets|gates', grantAccess: true },

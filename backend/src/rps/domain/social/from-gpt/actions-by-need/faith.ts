@@ -1,5 +1,6 @@
 import { ActionDefinition } from '../action-definition';
 import { FaithActionTag } from '../action-tags';
+import { fire } from '../memes';
 
 export const FaithActions: ActionDefinition[] = [
     {
@@ -27,7 +28,7 @@ export const FaithActions: ActionDefinition[] = [
             TRADITION: 0.2,
         },
         tradeEffect: { candle: -1, oil: -1 },
-        requiredMeme: { fire: true },
+        requiredMemes: [fire.control],
         socialImpact: { REVERENCE: 0.3, COMMUNITY: 0.1 },
         lawEffect: { fireSafety: 'observed', enforceable: true },
     },

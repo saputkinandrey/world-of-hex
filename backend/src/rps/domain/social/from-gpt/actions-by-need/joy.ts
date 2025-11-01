@@ -1,5 +1,6 @@
 import { ActionDefinition } from '../action-definition';
 import { JoyActionTag } from '../action-tags';
+import { fire } from '../memes';
 
 export const JoyActions: ActionDefinition[] = [
     {
@@ -76,7 +77,7 @@ export const JoyActions: ActionDefinition[] = [
         },
         requiresLocation: 'square|river_bank',
         tradeEffect: { pitch: -1 | (0 as any), powder: -1 | (0 as any) },
-        requiredMeme: { fire: true },
+        requiredMemes: [fire.control],
         socialImpact: { AWE: 0.5 as any, PANIC: -0.05 as any },
         lawEffect: { fireSafety: 'strict', enforceable: true },
     },

@@ -1,5 +1,6 @@
 import { ActionDefinition } from '../action-definition';
 import { MoraleActionTag } from '../action-tags';
+import { fire } from '../memes';
 
 export const MoraleActions: ActionDefinition[] = [
     {
@@ -110,7 +111,7 @@ export const MoraleActions: ActionDefinition[] = [
         },
         requiresLocation: 'hearth|campfire',
         tradeEffect: { firewood: -1, lamp_oil: -1 | (0 as any) },
-        requiredMeme: { fire: true },
+        requiredMemes: [fire.use],
         socialImpact: { STORYTELLING: 0.3 as any, COHESION: 0.3 },
         lawEffect: { fireSafety: 'observed', enforceable: true },
     },

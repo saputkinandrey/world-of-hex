@@ -1,5 +1,6 @@
 import { ActionDefinition } from '../action-definition';
 import { SpiritActionTag } from '../action-tags';
+import { fire } from '../memes';
 
 export const SpiritActions: ActionDefinition[] = [
     {
@@ -26,7 +27,7 @@ export const SpiritActions: ActionDefinition[] = [
         costTime: 0.5,
         rewardSecondary: { SPIRIT: 0.5, TRADITION: 0.2, HYGIENE: 0.05 },
         tradeEffect: { incense: -1, candle: -1 },
-        requiredMeme: { fire: true },
+        requiredMemes: [fire.control],
         socialImpact: { SPIRIT: 0.4, REVERENCE: 0.3, AWE: 0.2 },
         lawEffect: { templeEtiquette: 'observed', enforceable: false },
     },

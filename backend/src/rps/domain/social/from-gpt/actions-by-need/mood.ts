@@ -1,5 +1,6 @@
 import { ActionDefinition } from '../action-definition';
 import { ActionTags, MoodActionTag } from '../action-tags';
+import { fire } from '../memes';
 
 export const MoodActions: ActionDefinition[] = [
     {
@@ -35,7 +36,7 @@ export const MoodActions: ActionDefinition[] = [
         costTime: 0.6,
         rewardSecondary: { MOOD: 0.5, COMFORT: 0.3, SECURITY: 0.1 },
         tradeEffect: { firewood: -1 },
-        requiredMeme: { fire: true },
+        requiredMemes: [fire.control],
         socialImpact: { MOOD: 0.45, COHESION: 0.2 },
         lawEffect: { fireSafety: 'observed', enforceable: true },
     },

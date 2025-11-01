@@ -1,5 +1,6 @@
 import { ActionDefinition } from '../action-definition';
 import { ComfortActionTag } from '../action-tags';
+import { fire } from '../memes';
 
 export const ComfortActions: ActionDefinition[] = [
     {
@@ -9,7 +10,7 @@ export const ComfortActions: ActionDefinition[] = [
         rewardSecondary: { COMFORT: 0.8, SECURITY: 0.3, HEALTH: 0.2 },
         requiresItem: ['wood', 'flint'],
         requiresLocation: 'camp',
-        requiredMeme: { fire: true },
+        requiredMemes: [fire.control],
         temperatureEffect: +10,
     },
     {
@@ -18,7 +19,7 @@ export const ComfortActions: ActionDefinition[] = [
         costTime: 1,
         rewardSecondary: { COMFORT: 0.7, MOOD: 0.4, REST: 0.3 },
         requiresLocation: 'campfire',
-        requiredMeme: { fire: true },
+        requiredMemes: [fire.use],
         temperatureEffect: +5,
     },
     {
@@ -42,7 +43,6 @@ export const ComfortActions: ActionDefinition[] = [
         costTime: 0.5,
         rewardSecondary: { COMFORT: 0.6, MOOD: 0.4, HEALTH: 0.2 },
         requiresItem: ['hot_drink'],
-        requiredMeme: { fire: true },
     },
     {
         tag: ComfortActionTag.BUILD_BED,
