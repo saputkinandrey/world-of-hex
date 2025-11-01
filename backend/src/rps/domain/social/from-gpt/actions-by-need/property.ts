@@ -1,6 +1,6 @@
 import { ActionDefinition } from '../action-definition';
 import { PropertyActionTag } from '../action-tags';
-
+import { comm } from '../memes';
 export const PropertyActions: ActionDefinition[] = [
     {
         tag: PropertyActionTag.CLAIM_LAND,
@@ -10,7 +10,7 @@ export const PropertyActions: ActionDefinition[] = [
         requiresSkill: 'leadership',
         requiresLocation: 'territory',
         ownershipEffect: { gain: 'land' },
-        socialImpact: { respect: +0.3, conflict: +0.2 },
+        socialImpact: { respect: +0.3, conflict: +0.2 }
     },
     {
         tag: PropertyActionTag.BUILD_HOUSE,
@@ -19,7 +19,7 @@ export const PropertyActions: ActionDefinition[] = [
         rewardSecondary: { PROPERTY: 1.0, STABILITY: 0.5, COMFORT: 0.4 },
         requiresItem: ['wood', 'clay'],
         requiresSkill: 'construction',
-        ownershipEffect: { gain: 'house' },
+        ownershipEffect: { gain: 'house' }
     },
     {
         tag: PropertyActionTag.MARK_TERRITORY,
@@ -27,6 +27,7 @@ export const PropertyActions: ActionDefinition[] = [
         costTime: 1,
         rewardSecondary: { PROPERTY: 0.6, CONTROL: 0.3 },
         requiresItem: ['marker', 'paint', 'rope'],
+        requiredMemes: [comm.language.written]
     },
     {
         tag: PropertyActionTag.DEFEND_PROPERTY,
@@ -35,7 +36,7 @@ export const PropertyActions: ActionDefinition[] = [
         rewardSecondary: { PROPERTY: 0.7, SECURITY: 0.6, STATUS: 0.2 },
         requiresItem: ['weapon'],
         requiresSkill: 'combat',
-        risk: 0.4,
+        risk: 0.4
     },
     {
         tag: PropertyActionTag.REPAIR_PROPERTY,
@@ -43,7 +44,7 @@ export const PropertyActions: ActionDefinition[] = [
         costTime: 2,
         rewardSecondary: { PROPERTY: 0.6, STABILITY: 0.5 },
         requiresItem: ['wood', 'tools'],
-        requiresSkill: 'crafting',
+        requiresSkill: 'crafting'
     },
     {
         tag: PropertyActionTag.RENT_PROPERTY,
@@ -52,7 +53,7 @@ export const PropertyActions: ActionDefinition[] = [
         rewardSecondary: { PROPERTY: 0.5, WEALTH: 0.6, STATUS: 0.3 },
         requiresSkill: 'negotiation',
         targetType: 'OTHER',
-        ownershipEffect: { partialControl: true },
+        ownershipEffect: { partialControl: true }
     },
     {
         tag: PropertyActionTag.TRANSFER_OWNERSHIP,
@@ -60,7 +61,7 @@ export const PropertyActions: ActionDefinition[] = [
         costTime: 2,
         rewardSecondary: { PROPERTY: 0.6, TRUST: 0.4, STABILITY: 0.3 },
         targetType: 'OTHER',
-        ownershipEffect: { transfer: true },
+        ownershipEffect: { transfer: true }
     },
     {
         tag: PropertyActionTag.CONTEST_PROPERTY,
@@ -68,7 +69,7 @@ export const PropertyActions: ActionDefinition[] = [
         costTime: 3,
         rewardSecondary: { PROPERTY: 0.8, STATUS: 0.4, CONTROL: 0.5 },
         requiresSkill: 'diplomacy',
-        risk: 0.3,
+        risk: 0.3
     },
     {
         tag: PropertyActionTag.EVICT_INTRUDER,
@@ -77,13 +78,13 @@ export const PropertyActions: ActionDefinition[] = [
         rewardSecondary: { PROPERTY: 0.7, SECURITY: 0.5, CONTROL: 0.4 },
         requiresSkill: 'intimidation',
         targetType: 'OTHER',
-        risk: 0.2,
+        risk: 0.2
     },
     {
         tag: PropertyActionTag.STORE_ITEMS,
         costEnergy: -0.1,
         costTime: 0.5,
         rewardSecondary: { PROPERTY: 0.4, STABILITY: 0.3 },
-        requiresLocation: 'home',
+        requiresLocation: 'home'
     },
 ];

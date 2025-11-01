@@ -1,6 +1,6 @@
 import { ActionDefinition } from '../action-definition';
 import { JusticeActionTag } from '../action-tags';
-
+import { cog, comm, culture, econ, health, record } from '../memes';
 export const JusticeActions: ActionDefinition[] = [
     {
         tag: JusticeActionTag.ACCUSE_OFFENDER,
@@ -11,7 +11,7 @@ export const JusticeActions: ActionDefinition[] = [
         requiresSkill: 'Oratory',
         targetType: 'OTHER',
         socialImpact: { respect: +0.2 },
-        requiresLocation: 'assembly',
+        requiresLocation: 'assembly'
     },
     {
         tag: JusticeActionTag.GATHER_EVIDENCE,
@@ -20,7 +20,7 @@ export const JusticeActions: ActionDefinition[] = [
         risk: 0.15,
         rewardSecondary: { JUSTICE: 0.6, KNOWLEDGE: 0.4, LAW: 0.3 },
         requiresSkill: 'Investigation',
-        locationType: 'any',
+        locationType: 'any'
     },
     {
         tag: JusticeActionTag.TESTIFY,
@@ -30,7 +30,7 @@ export const JusticeActions: ActionDefinition[] = [
         rewardSecondary: { JUSTICE: 0.4, TRUST: 0.3, COMMUNITY: 0.2 },
         requiresSkill: 'Honesty',
         requiresLocation: 'court',
-        visibleToOthers: true,
+        visibleToOthers: true
     },
     {
         tag: JusticeActionTag.DEMAND_RESTITUTION,
@@ -39,7 +39,7 @@ export const JusticeActions: ActionDefinition[] = [
         risk: 0.2,
         rewardSecondary: { JUSTICE: 0.6, CONTROL: 0.2, WEALTH: 0.3 },
         targetType: 'OTHER',
-        socialImpact: { respect: +0.1 },
+        socialImpact: { respect: +0.1 }
     },
     {
         tag: JusticeActionTag.PAY_BLOOD_PRICE,
@@ -48,7 +48,7 @@ export const JusticeActions: ActionDefinition[] = [
         rewardSecondary: { JUSTICE: 0.7, STABILITY: 0.4, COMMUNITY: 0.3 },
         requiresItem: ['valuables'],
         moralWeight: 0.5,
-        socialImpact: { respect: +0.3 },
+        socialImpact: { respect: +0.3 }
     },
     {
         tag: JusticeActionTag.PUBLIC_APOLOGY,
@@ -59,6 +59,11 @@ export const JusticeActions: ActionDefinition[] = [
         moralWeight: 0.4,
         visibleToOthers: true,
         requiresLocation: 'public_square',
+        requiredMemes: [
+            health.sanitation_norms,
+            health.waste_handling,
+            comm.language.written,
+        ]
     },
     {
         tag: JusticeActionTag.REPUTATION_RESTORATION,
@@ -66,7 +71,7 @@ export const JusticeActions: ActionDefinition[] = [
         costTime: 1,
         rewardSecondary: { JUSTICE: 0.8, STATUS: 0.4, RESPECT: 0.5 },
         requiresSkill: 'Diplomacy',
-        socialImpact: { respect: +0.4 },
+        socialImpact: { respect: +0.4 }
     },
     {
         tag: JusticeActionTag.NEGOTIATE_SETTLEMENT,
@@ -75,7 +80,7 @@ export const JusticeActions: ActionDefinition[] = [
         risk: 0.15,
         rewardSecondary: { JUSTICE: 0.7, STABILITY: 0.5, COMMUNITY: 0.4 },
         requiresSkill: 'Negotiation',
-        targetType: 'GROUP',
+        targetType: 'GROUP'
     },
     {
         tag: JusticeActionTag.MEDIATE_REPARATION,
@@ -83,7 +88,7 @@ export const JusticeActions: ActionDefinition[] = [
         costTime: 1.5,
         rewardSecondary: { JUSTICE: 0.6, TRUST: 0.4, LAW: 0.3 },
         requiresSkill: 'Mediation',
-        targetType: 'GROUP',
+        targetType: 'GROUP'
     },
     {
         tag: JusticeActionTag.SHUN_OFFENDER,
@@ -93,7 +98,7 @@ export const JusticeActions: ActionDefinition[] = [
         rewardSecondary: { JUSTICE: 0.5, COMMUNITY: 0.3, CONTROL: 0.2 },
         moralWeight: 0.2,
         socialImpact: { respect: +0.3 },
-        targetType: 'OTHER',
+        targetType: 'OTHER'
     },
     {
         tag: JusticeActionTag.CURSE_OFFENDER,
@@ -103,6 +108,10 @@ export const JusticeActions: ActionDefinition[] = [
         requiresSkill: 'Ritualism',
         requiresLocation: 'temple',
         moralWeight: 0.3,
+        requiredMemes: [
+            culture.vigil_ritual,
+            cog.timekeeping.basic,
+        ]
     },
     {
         tag: JusticeActionTag.DUEL_OF_HONOR,
@@ -112,7 +121,7 @@ export const JusticeActions: ActionDefinition[] = [
         rewardSecondary: { JUSTICE: 0.9, HONOR: 0.6, STATUS: 0.4 },
         requiresItem: ['weapon'],
         requiresSkill: 'Combat',
-        targetType: 'OTHER',
+        targetType: 'OTHER'
     },
     {
         tag: JusticeActionTag.APPEAL_VERDICT,
@@ -122,6 +131,7 @@ export const JusticeActions: ActionDefinition[] = [
         rewardSecondary: { JUSTICE: 0.5, LAW: 0.4, TRUST: 0.2 },
         requiresSkill: 'Rhetoric',
         requiresLocation: 'council_hall',
+        requiredMemes: [comm.language.written]
     },
     {
         tag: JusticeActionTag.REDEEM_OFFENDER,
@@ -129,7 +139,7 @@ export const JusticeActions: ActionDefinition[] = [
         costTime: 2,
         rewardSecondary: { JUSTICE: 0.7, COMMUNITY: 0.4, LOYALTY: 0.3 },
         requiresSkill: 'Leadership',
-        targetType: 'OTHER',
+        targetType: 'OTHER'
     },
     {
         tag: JusticeActionTag.PLEDGE_NO_REVENGE,
@@ -138,6 +148,13 @@ export const JusticeActions: ActionDefinition[] = [
         rewardSecondary: { JUSTICE: 0.4, STABILITY: 0.3, TRUST: 0.3 },
         requiresLocation: 'temple',
         moralWeight: 0.4,
+        requiredMemes: [
+            culture.vigil_ritual,
+            cog.timekeeping.basic,
+            record.ledgerkeeping,
+            econ.pooling_common_fund,
+            econ.deposit_contract,
+        ]
     },
     {
         tag: JusticeActionTag.VOW_REVENGE,
@@ -146,6 +163,6 @@ export const JusticeActions: ActionDefinition[] = [
         risk: 0.4,
         rewardSecondary: { JUSTICE: 0.6, POWER: 0.2 },
         moralWeight: -0.3,
-        emotionalImpact: -0.1,
+        emotionalImpact: -0.1
     },
 ];

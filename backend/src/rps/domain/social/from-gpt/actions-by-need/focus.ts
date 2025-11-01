@@ -1,7 +1,6 @@
 import { ActionDefinition } from '../action-definition';
 import { FocusActionTag } from '../action-tags';
-import { fire } from '../memes';
-
+import { comm, org, tech } from '../memes';
 export const FocusActions: ActionDefinition[] = [
     {
         tag: FocusActionTag.SET_QUIET_HOURS,
@@ -9,7 +8,7 @@ export const FocusActions: ActionDefinition[] = [
         costTime: 0.8,
         rewardSecondary: { FOCUS: 0.6, ORDER: 0.3, PRODUCTIVITY: 0.2 },
         socialImpact: { FOCUS: 0.5, DISCIPLINE: 0.3, RESPECT: 0.1 },
-        lawEffect: { quietHours: 'posted', enforceable: true },
+        lawEffect: { quietHours: 'posted', enforceable: true }
     },
     {
         tag: FocusActionTag.RESERVE_WORK_NOOK,
@@ -21,7 +20,7 @@ export const FocusActions: ActionDefinition[] = [
             grantAccess: true,
             duration: 'slot',
         },
-        lawEffect: { bookingRoll: 'logged', enforceable: true },
+        lawEffect: { bookingRoll: 'logged', enforceable: true }
     },
     {
         tag: FocusActionTag.PREP_TOOLS_AND_MATERIALS,
@@ -31,6 +30,10 @@ export const FocusActions: ActionDefinition[] = [
         tradeEffect: { tools_checked: '+1', materials_sorted: '+1' },
         socialImpact: { FOCUS: 0.45, ORDER: 0.35 },
         ownershipEffect: { kitState: 'staged' },
+        requiredMemes: [
+            comm.language.written,
+            tech.tool.use_basic,
+        ]
     },
     {
         tag: FocusActionTag.SINGLE_TASK_SPRINT,
@@ -38,7 +41,7 @@ export const FocusActions: ActionDefinition[] = [
         costTime: 1.2,
         rewardSecondary: { FOCUS: 0.7, PRODUCTIVITY: 0.5, QUALITY: 0.3 },
         socialImpact: { FOCUS: 0.6, DISCIPLINE: 0.4 },
-        lawEffect: { taskLock: 'no_interrupts', enforceable: true },
+        lawEffect: { taskLock: 'no_interrupts', enforceable: true }
     },
     {
         tag: FocusActionTag.BATCH_SIMILAR_TASKS,
@@ -46,7 +49,7 @@ export const FocusActions: ActionDefinition[] = [
         costTime: 1.2,
         rewardSecondary: { FOCUS: 0.6, EFFICIENCY: 0.5, PRODUCTIVITY: 0.4 },
         socialImpact: { FOCUS: 0.5, ORDER: 0.3 },
-        lawEffect: { queuePolicy: 'batched', enforceable: true },
+        lawEffect: { queuePolicy: 'batched', enforceable: true }
     },
     {
         tag: FocusActionTag.USE_CHECKLIST,
@@ -56,6 +59,7 @@ export const FocusActions: ActionDefinition[] = [
         tradeEffect: { parchment: -1, ink: -1 },
         socialImpact: { FOCUS: 0.45, CLARITY: 0.35, FAIRNESS: 0.1 },
         ownershipEffect: { checklist: 'created', archive: 'yes' },
+        requiredMemes: [comm.language.written]
     },
     {
         tag: FocusActionTag.TIMEBOX_WITH_TIMER,
@@ -64,7 +68,7 @@ export const FocusActions: ActionDefinition[] = [
         rewardSecondary: { FOCUS: 0.6, DISCIPLINE: 0.4, EFFICIENCY: 0.3 },
         requiresItem: ['sand_timer|bell'],
         socialImpact: { FOCUS: 0.5, ORDER: 0.3 },
-        lawEffect: { bellRule: 'signal_breaks', enforceable: true },
+        lawEffect: { bellRule: 'signal_breaks', enforceable: true }
     },
     {
         tag: FocusActionTag.BLOCK_DISTRACTIONS,
@@ -74,7 +78,7 @@ export const FocusActions: ActionDefinition[] = [
         tradeEffect: { effect: 'screens|curtains: -1 as any' },
         socialImpact: { FOCUS: 0.55, RESPECT: 0.2 },
         ownershipEffect: { accessScope: 'door|curtain', accessLevel: 'CLOSED' },
-        lawEffect: { noVisitorsSign: 'posted', enforceable: true },
+        lawEffect: { noVisitorsSign: 'posted', enforceable: true }
     },
     {
         tag: FocusActionTag.FOCUS_BREATH_DRILL,
@@ -82,7 +86,7 @@ export const FocusActions: ActionDefinition[] = [
         costTime: 0.4,
         rewardSecondary: { FOCUS: 0.45, MOOD: 0.2, STRESS: -0.2 as any },
         requiresLocation: 'quiet_spot',
-        socialImpact: { FOCUS: 0.35, CALM: 0.4 as any },
+        socialImpact: { FOCUS: 0.35, CALM: 0.4 as any }
     },
     {
         tag: FocusActionTag.POSTURE_AND_LIGHTING,
@@ -91,9 +95,8 @@ export const FocusActions: ActionDefinition[] = [
         rewardSecondary: { FOCUS: 0.45, HEALTH: 0.2, QUALITY: 0.2 },
         tradeEffect: { lamp_oil: -1 as any },
         needRework: true,
-        requiredMemes: [fire.control],
         socialImpact: { FOCUS: 0.35, DILIGENCE: 0.2 as any },
-        ownershipEffect: { workspaceState: 'ergonomic' },
+        ownershipEffect: { workspaceState: 'ergonomic' }
     },
     {
         tag: FocusActionTag.MICRO_BREAK_PROTOCOL,
@@ -101,7 +104,7 @@ export const FocusActions: ActionDefinition[] = [
         costTime: 0.6,
         rewardSecondary: { FOCUS: 0.5, REST: 0.2, RESILIENCE: 0.2 },
         socialImpact: { FOCUS: 0.45, BURNOUT: -0.2 as any },
-        lawEffect: { breakIntervals: 'posted', enforceable: true },
+        lawEffect: { breakIntervals: 'posted', enforceable: true }
     },
     {
         tag: FocusActionTag.CAFFEINATE_OR_TEA,
@@ -110,7 +113,7 @@ export const FocusActions: ActionDefinition[] = [
         risk: 0.06,
         rewardSecondary: { FOCUS: 0.45, ENERGY: 0.3 as any, MOOD: 0.15 },
         tradeEffect: { tea_leaves: -1 | (0 as any) },
-        socialImpact: { FOCUS: 0.3, HOSPITALITY: 0.1 as any },
+        socialImpact: { FOCUS: 0.3, HOSPITALITY: 0.1 as any }
     },
     {
         tag: FocusActionTag.MORNING_PLANNING_RITUAL,
@@ -120,6 +123,7 @@ export const FocusActions: ActionDefinition[] = [
         tradeEffect: { parchment: -1, ink: -1 },
         socialImpact: { FOCUS: 0.55, ORDER: 0.4, MORALE: 0.2 },
         ownershipEffect: { planSheet: 'created' },
+        requiredMemes: [comm.language.written]
     },
     {
         tag: FocusActionTag.END_OF_DAY_REVIEW,
@@ -127,7 +131,7 @@ export const FocusActions: ActionDefinition[] = [
         costTime: 0.8,
         rewardSecondary: { FOCUS: 0.55, CLARITY: 0.5, QUALITY: 0.3 },
         socialImpact: { FOCUS: 0.5, INTEGRITY: 0.3, DISCIPLINE: 0.3 },
-        ownershipEffect: { logbook: 'updated' },
+        ownershipEffect: { logbook: 'updated' }
     },
     {
         tag: FocusActionTag.ASSIGN_TASK_BUDDIES,
@@ -141,6 +145,10 @@ export const FocusActions: ActionDefinition[] = [
         socialImpact: { FOCUS: 0.55, TRUST: 0.3, NETWORK: 0.2 },
         lawEffect: { buddyRoster: 'posted', enforceable: true },
         ownershipEffect: { accessScope: 'task_board', grantAccess: true },
+        requiredMemes: [
+            comm.language.written,
+            org.duty_roster,
+        ]
     },
     {
         tag: FocusActionTag.QUIET_ZONE_ENFORCEMENT,
@@ -153,6 +161,6 @@ export const FocusActions: ActionDefinition[] = [
             silenceCode: 'active',
             penalties: 'warning|fine',
             enforceable: true,
-        },
+        }
     },
 ];

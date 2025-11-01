@@ -1,6 +1,6 @@
 import { ActionDefinition } from '../action-definition';
 import { PurposeActionTag } from '../action-tags';
-
+import { cog, comm, culture, econ, record, tech } from '../memes';
 export const PurposeActions: ActionDefinition[] = [
     {
         tag: PurposeActionTag.DEFINE_PERSONAL_VOW,
@@ -19,7 +19,7 @@ export const PurposeActions: ActionDefinition[] = [
             DISCIPLINE: 0.3 as any,
         },
         lawEffect: { oathType: 'personal', enforceable: false },
-        ownershipEffect: { personalMission: 'created' },
+        ownershipEffect: { personalMission: 'created' }
     },
     {
         tag: PurposeActionTag.PUBLICLY_DECLARE_VOW,
@@ -30,6 +30,10 @@ export const PurposeActions: ActionDefinition[] = [
         requiresLocation: 'assembly|temple',
         socialImpact: { PURPOSE: 0.6, ACCOUNTABILITY: 0.6 as any, TRUST: 0.2 },
         lawEffect: { record: 'vow_declared_public', enforceable: true },
+        requiredMemes: [
+            culture.vigil_ritual,
+            cog.timekeeping.basic,
+        ]
     },
     {
         tag: PurposeActionTag.SEEK_PATRON_FOR_MISSION,
@@ -46,7 +50,7 @@ export const PurposeActions: ActionDefinition[] = [
         socialImpact: { NETWORK: 0.4 as any, PURPOSE: 0.4 },
         tradeEffect: { patron_offer: '+funds|+access' },
         ownershipEffect: { accessScope: 'patron_resources', grantAccess: true },
-        lawEffect: { patronageContract: 'drafted', enforceable: true },
+        lawEffect: { patronageContract: 'drafted', enforceable: true }
     },
     {
         tag: PurposeActionTag.DRAFT_MISSION_CHARTER,
@@ -56,6 +60,7 @@ export const PurposeActions: ActionDefinition[] = [
         tradeEffect: { use_parchment: -1, charter_doc: 'created' },
         socialImpact: { PURPOSE: 0.6, TRUST: 0.2 },
         lawEffect: { charterFiled: 'council_registry', enforceable: true },
+        requiredMemes: [comm.language.written]
     },
     {
         tag: PurposeActionTag.BREAKDOWN_GOALS,
@@ -63,7 +68,7 @@ export const PurposeActions: ActionDefinition[] = [
         costTime: 1.0,
         rewardSecondary: { PURPOSE: 0.6, PRODUCTIVITY: 0.4, STABILITY: 0.3 },
         socialImpact: { CLARITY: 0.5 as any, PURPOSE: 0.4 },
-        ownershipEffect: { missionBacklog: 'tasks_created' },
+        ownershipEffect: { missionBacklog: 'tasks_created' }
     },
     {
         tag: PurposeActionTag.ALLOCATE_TIME_BLOCKS,
@@ -76,7 +81,7 @@ export const PurposeActions: ActionDefinition[] = [
         },
         socialImpact: { PURPOSE: 0.35, RELIABILITY: 0.3 as any },
         lawEffect: { rotaPolicy: 'mission_time_reserved', enforceable: true },
-        ownershipEffect: { timeBlocks: 'reserved' },
+        ownershipEffect: { timeBlocks: 'reserved' }
     },
     {
         tag: PurposeActionTag.GATHER_MISSION_RESOURCES,
@@ -86,6 +91,10 @@ export const PurposeActions: ActionDefinition[] = [
         tradeEffect: { collect_tools: '+N', collect_supplies: '+M' },
         socialImpact: { PURPOSE: 0.4, READINESS: 0.4 as any },
         ownershipEffect: { missionInventory: 'initialized' },
+        requiredMemes: [
+            comm.language.written,
+            tech.tool.use_basic,
+        ]
     },
     {
         tag: PurposeActionTag.RECRUIT_MISSION_TEAM,
@@ -99,7 +108,7 @@ export const PurposeActions: ActionDefinition[] = [
             teamAccess: 'granted',
             accessScope: 'mission_assets',
         },
-        lawEffect: { roster: 'team_registered', enforceable: true },
+        lawEffect: { roster: 'team_registered', enforceable: true }
     },
     {
         tag: PurposeActionTag.PILOT_MISSION_STEP,
@@ -109,7 +118,7 @@ export const PurposeActions: ActionDefinition[] = [
         rewardSecondary: { PURPOSE: 0.75, KNOWLEDGE: 0.3, STABILITY: 0.2 },
         socialImpact: { PURPOSE: 0.5, LEARNING: 0.5 as any },
         tradeEffect: { consumables_used: -1, prototype: 'built?' },
-        lawEffect: { testPermit: 'granted', enforceable: true },
+        lawEffect: { testPermit: 'granted', enforceable: true }
     },
     {
         tag: PurposeActionTag.CONDUCT_PROGRESS_RITUAL,
@@ -124,6 +133,7 @@ export const PurposeActions: ActionDefinition[] = [
         requiresLocation: 'shrine|hall',
         socialImpact: { PURPOSE: 0.5, COHESION: 0.3, HOPE: 0.3 as any },
         lawEffect: { ritualNote: 'progress_obs', enforceable: false },
+        requiredMemes: [comm.language.written]
     },
     {
         tag: PurposeActionTag.REPORT_PROGRESS_PUBLICLY,
@@ -133,6 +143,11 @@ export const PurposeActions: ActionDefinition[] = [
         socialImpact: { PURPOSE: 0.45, ACCOUNTABILITY: 0.5, VISIBILITY: 0.4 },
         tradeEffect: { ledger_update: 'milestones', spend_parchment: -1 },
         lawEffect: { assemblyRecord: 'progress_logged', enforceable: true },
+        requiredMemes: [
+            comm.language.written,
+            record.ledgerkeeping,
+            econ.pooling_common_fund,
+        ]
     },
     {
         tag: PurposeActionTag.ADJUST_MISSION_SCOPE,
@@ -145,7 +160,7 @@ export const PurposeActions: ActionDefinition[] = [
         },
         socialImpact: { PURPOSE: 0.35, CLARITY: 0.3 },
         lawEffect: { charterAmendment: 'filed', enforceable: true },
-        ownershipEffect: { backlogUpdated: true },
+        ownershipEffect: { backlogUpdated: true }
     },
     {
         tag: PurposeActionTag.HANDLE_SETBACK_POSTMORTEM,
@@ -158,7 +173,7 @@ export const PurposeActions: ActionDefinition[] = [
             TRUST: 0.2,
         },
         socialImpact: { RESILIENCE: 0.4 as any, PURPOSE: 0.35 },
-        lawEffect: { incidentReport: 'logged', enforceable: true },
+        lawEffect: { incidentReport: 'logged', enforceable: true }
     },
     {
         tag: PurposeActionTag.RENEW_VOW_AT_MILESTONE,
@@ -166,7 +181,7 @@ export const PurposeActions: ActionDefinition[] = [
         costTime: 0.8,
         rewardSecondary: { PURPOSE: 0.65, TRADITION: 0.3, SPIRIT: 0.3 },
         socialImpact: { PURPOSE: 0.5, MOTIVATION: 0.4 as any },
-        lawEffect: { oathRenewal: 'milestone', enforceable: true },
+        lawEffect: { oathRenewal: 'milestone', enforceable: true }
     },
     {
         tag: PurposeActionTag.HANDOFF_OR_LEGACY_PLAN,
@@ -180,7 +195,7 @@ export const PurposeActions: ActionDefinition[] = [
         },
         socialImpact: { PURPOSE: 0.45, TRUST: 0.3, CONTINUITY: 0.5 as any },
         ownershipEffect: { missionAssets: 'transferred_to_successor' },
-        lawEffect: { successionPlan: 'registered', enforceable: true },
+        lawEffect: { successionPlan: 'registered', enforceable: true }
     },
     {
         tag: PurposeActionTag.COMPLETE_MISSION_CEREMONY,
@@ -196,5 +211,10 @@ export const PurposeActions: ActionDefinition[] = [
         socialImpact: { PURPOSE: 0.8, COHESION: 0.5, JOY: 0.5 as any },
         tradeEffect: { spend_food: -4, spend_drink: -2 },
         lawEffect: { closureRecord: 'mission_complete', enforceable: true },
+        requiredMemes: [
+            culture.vigil_ritual,
+            cog.timekeeping.basic,
+            comm.language.written,
+        ]
     },
 ];

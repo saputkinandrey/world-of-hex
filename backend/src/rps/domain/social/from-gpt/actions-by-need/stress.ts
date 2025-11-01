@@ -1,6 +1,6 @@
 import { ActionDefinition } from '../action-definition';
 import { StressActionTag } from '../action-tags';
-import { fire } from '../memes';
+import { cog, comm, culture, health, heat } from '../memes';
 export const StressActions: ActionDefinition[] = [
     {
         tag: StressActionTag.BREATHING_DRILL,
@@ -14,6 +14,11 @@ export const StressActions: ActionDefinition[] = [
         },
         requiresLocation: 'quiet_corner|hearth',
         socialImpact: { CALM: 0.3 as any },
+        requiredMemes: [
+            culture.vigil_ritual,
+            cog.timekeeping.basic,
+            heat.space.hearth,
+        ]
     },
     {
         tag: StressActionTag.WALK_SHORT_SOLO,
@@ -27,7 +32,7 @@ export const StressActions: ActionDefinition[] = [
         },
         requiresLocation: 'garden|path|river_bank',
         socialImpact: { CONFLICT: -0.05 as any, MOOD: 0.2 as any },
-        ownershipEffect: { routeUse: 'solo_walk' },
+        ownershipEffect: { routeUse: 'solo_walk' }
     },
     {
         tag: StressActionTag.QUIET_TEATIME,
@@ -41,7 +46,7 @@ export const StressActions: ActionDefinition[] = [
         },
         tradeEffect: { herbs: '-1 | 0' as any, honey: '-1 | 0' as any },
         socialImpact: { CALM: 0.3 as any },
-        ownershipEffect: { kettleState: 'steeped' },
+        ownershipEffect: { kettleState: 'steeped' }
     },
     {
         tag: StressActionTag.STRETCH_AND_LOOSEN,
@@ -55,6 +60,10 @@ export const StressActions: ActionDefinition[] = [
         },
         requiresLocation: 'yard|workroom',
         socialImpact: { TENSION: -0.2 as any },
+        requiredMemes: [
+            health.sanitation_norms,
+            health.waste_handling,
+        ]
     },
     {
         tag: StressActionTag.JOURNAL_UNLOAD,
@@ -69,10 +78,11 @@ export const StressActions: ActionDefinition[] = [
         tradeEffect: { parchment: '-1 | 0' as any, ink: '-1 | 0' as any },
         socialImpact: { RUMORS: -0.05 as any },
         ownershipEffect: { diary: 'entry_added' },
+        requiredMemes: [comm.language.written]
     },
     {
         tag: StressActionTag.POWER_NAP,
-        costEnergy: +0.12, // восстанавливает энергию (см. ENERGY)
+        costEnergy: +0.12,
         costTime: 0.6,
         rewardSecondary: {
             STRESS: 0.7,
@@ -83,6 +93,11 @@ export const StressActions: ActionDefinition[] = [
         requiresLocation: 'bunks|hearth',
         socialImpact: { PRODUCTIVITY: 0.05 },
         ownershipEffect: { berthUse: 'short_rest' },
+        requiredMemes: [
+            culture.vigil_ritual,
+            cog.timekeeping.basic,
+            heat.space.hearth,
+        ]
     },
     {
         tag: StressActionTag.SWITCH_TASK_SIMPLE,
@@ -95,7 +110,7 @@ export const StressActions: ActionDefinition[] = [
             MORALE: 0.2,
         },
         socialImpact: { OVERWHELM: -0.2 as any },
-        ownershipEffect: { taskState: 'context_switched' },
+        ownershipEffect: { taskState: 'context_switched' }
     },
     {
         tag: StressActionTag.DELEGATE_NONCRITICAL,
@@ -109,7 +124,7 @@ export const StressActions: ActionDefinition[] = [
         },
         requiresSkill: 'leadership|negotiation',
         socialImpact: { BURDEN: -0.3 as any, RESPECT: 0.1 },
-        ownershipEffect: { taskOwner: 'reassigned' },
+        ownershipEffect: { taskOwner: 'reassigned' }
     },
     {
         tag: StressActionTag.BOUNDARY_SAY_NO,
@@ -123,7 +138,7 @@ export const StressActions: ActionDefinition[] = [
             RESILIENCE: 0.2,
         },
         socialImpact: { RESPECT: 0.2, CONFLICT: -0.05 as any },
-        lawEffect: { boundaryNote: 'posted', enforceable: true },
+        lawEffect: { boundaryNote: 'posted', enforceable: true }
     },
     {
         tag: StressActionTag.SOCIAL_VENT_SAFE,
@@ -138,6 +153,12 @@ export const StressActions: ActionDefinition[] = [
         requiresLocation: 'hearth|hall',
         socialImpact: { EMPATHY: 0.4 as any, GOSSIP: -0.1 as any },
         ownershipEffect: { circleState: 'vent_done' },
+        requiredMemes: [
+            culture.vigil_ritual,
+            cog.timekeeping.basic,
+            heat.space.hearth,
+            comm.language.written,
+        ]
     },
     {
         tag: StressActionTag.MUSIC_CALM_SESSION,
@@ -150,7 +171,7 @@ export const StressActions: ActionDefinition[] = [
             MORALE: 0.3,
         },
         requiresItem: ['flute|lyre|drum_soft'],
-        socialImpact: { CALM: 0.4 as any },
+        socialImpact: { CALM: 0.4 as any }
     },
     {
         tag: StressActionTag.TIDY_MICRO_AREA,
@@ -163,7 +184,7 @@ export const StressActions: ActionDefinition[] = [
             PRODUCTIVITY: 0.1,
         },
         socialImpact: { DIGNITY: 0.2 as any },
-        ownershipEffect: { workspaceState: 'decluttered' },
+        ownershipEffect: { workspaceState: 'decluttered' }
     },
     {
         tag: StressActionTag.SUNLIGHT_FRESH_AIR,
@@ -177,6 +198,10 @@ export const StressActions: ActionDefinition[] = [
         },
         requiresLocation: 'yard|green|balcony',
         socialImpact: { CALM: 0.2 as any },
+        requiredMemes: [
+            health.sanitation_norms,
+            health.waste_handling,
+        ]
     },
     {
         tag: StressActionTag.HOT_BATH_SOAK,
@@ -194,7 +219,7 @@ export const StressActions: ActionDefinition[] = [
             herbs: -1 | (0 as any),
             oil: -1 | (0 as any),
         },
-        ownershipEffect: { bathSlot: 'booked' },
+        ownershipEffect: { bathSlot: 'booked' }
     },
     {
         tag: StressActionTag.AROMA_OR_INCENSE,
@@ -208,8 +233,7 @@ export const StressActions: ActionDefinition[] = [
         },
         tradeEffect: { incense: -1 | (0 as any), resin: -1 | (0 as any) },
         needRework: true,
-        requiredMemes: [fire.control],
-        socialImpact: { CALM: 0.2 as any },
+        socialImpact: { CALM: 0.2 as any }
     },
     {
         tag: StressActionTag.EVENING_UNWIND_RITUAL,
@@ -224,5 +248,10 @@ export const StressActions: ActionDefinition[] = [
         requiresLocation: 'hearth|bunks',
         socialImpact: { ROUTINE: 0.3 as any, PANIC: -0.1 as any },
         ownershipEffect: { curfewReady: 'true' },
+        requiredMemes: [
+            culture.vigil_ritual,
+            cog.timekeeping.basic,
+            heat.space.hearth,
+        ]
     },
 ];

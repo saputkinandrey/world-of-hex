@@ -1,7 +1,6 @@
 import { ActionDefinition } from '../action-definition';
 import { JoyActionTag } from '../action-tags';
-import { fire } from '../memes';
-
+import { cog, comm, culture, econ, health, heat, record } from '../memes';
 export const JoyActions: ActionDefinition[] = [
     {
         tag: JoyActionTag.PLAY_MUSIC_TOGETHER,
@@ -16,6 +15,12 @@ export const JoyActions: ActionDefinition[] = [
         requiresLocation: 'hearth|hall|green',
         requiresItem: ['flute|drum|lyre'],
         socialImpact: { COHESION: 0.3, RHYTHM: 0.2 as any },
+        requiredMemes: [
+            culture.vigil_ritual,
+            cog.timekeeping.basic,
+            heat.space.hearth,
+            comm.language.written,
+        ]
     },
     {
         tag: JoyActionTag.DANCE_RING,
@@ -26,6 +31,11 @@ export const JoyActions: ActionDefinition[] = [
         requiresLocation: 'square|green|hall',
         socialImpact: { COHESION: 0.4, STATUS: 0.1 },
         ownershipEffect: { floorSpace: 'cleared' },
+        requiredMemes: [
+            health.sanitation_norms,
+            health.waste_handling,
+            comm.language.written,
+        ]
     },
     {
         tag: JoyActionTag.JOKE_STORY_SWAP,
@@ -39,6 +49,11 @@ export const JoyActions: ActionDefinition[] = [
         },
         requiresLocation: 'hearth|mess',
         socialImpact: { EMPATHY: 0.3 as any, RUMORS: -0.1 as any },
+        requiredMemes: [
+            culture.vigil_ritual,
+            cog.timekeeping.basic,
+            heat.space.hearth,
+        ]
     },
     {
         tag: JoyActionTag.SWEET_TREAT_SHARE,
@@ -47,7 +62,7 @@ export const JoyActions: ActionDefinition[] = [
         rewardSecondary: { JOY: 0.8, LOVE: 0.3, COMMUNITY: 0.3, HEALTH: 0.1 },
         tradeEffect: { honey_cakes: '-N' as any, berries: '-N' as any },
         socialImpact: { GRATITUDE: 0.4 as any, TRUST: 0.2 },
-        ownershipEffect: { storesLevel: 'reduced_treat' },
+        ownershipEffect: { storesLevel: 'reduced_treat' }
     },
     {
         tag: JoyActionTag.PICNIC_OUTING,
@@ -62,7 +77,7 @@ export const JoyActions: ActionDefinition[] = [
         },
         requiresLocation: 'meadow|river_bank|grove',
         tradeEffect: { bread: -1, fruit: -1 | (0 as any) },
-        socialImpact: { COHESION: 0.3, STRESS: -0.2 as any },
+        socialImpact: { COHESION: 0.3, STRESS: -0.2 as any }
     },
     {
         tag: JoyActionTag.FIREWORK_SPARK_SHOW,
@@ -77,9 +92,13 @@ export const JoyActions: ActionDefinition[] = [
         },
         requiresLocation: 'square|river_bank',
         tradeEffect: { pitch: -1 | (0 as any), powder: -1 | (0 as any) },
-        requiredMemes: [fire.control],
+        requiredMemes: [
+            health.sanitation_norms,
+            health.waste_handling,
+            comm.language.written,
+        ],
         socialImpact: { AWE: 0.5 as any, PANIC: -0.05 as any },
-        lawEffect: { fireSafety: 'strict', enforceable: true },
+        lawEffect: { fireSafety: 'strict', enforceable: true }
     },
     {
         tag: JoyActionTag.CHILDREN_GAMES_HOST,
@@ -89,6 +108,10 @@ export const JoyActions: ActionDefinition[] = [
         requiresLocation: 'green|yard',
         socialImpact: { FAMILY: 0.4 as any, HOPE: 0.3 as any },
         ownershipEffect: { playArea: 'chalk_marked' },
+        requiredMemes: [
+            health.sanitation_norms,
+            health.waste_handling,
+        ]
     },
     {
         tag: JoyActionTag.HOBBY_CRAFT_HOUR,
@@ -107,7 +130,7 @@ export const JoyActions: ActionDefinition[] = [
             dye: -1 | (0 as any),
         },
         socialImpact: { CREATIVITY: 0.4 as any },
-        ownershipEffect: { trinkets: '+N' },
+        ownershipEffect: { trinkets: '+N' }
     },
     {
         tag: JoyActionTag.PRAISE_WITH_LAUGHTER,
@@ -122,6 +145,11 @@ export const JoyActions: ActionDefinition[] = [
         requiresLocation: 'hall|yard',
         socialImpact: { COHESION: 0.3, RESENTMENT: -0.05 },
         ownershipEffect: { honorRoll: 'fun_titles_added' },
+        requiredMemes: [
+            health.sanitation_norms,
+            health.waste_handling,
+            comm.language.written,
+        ]
     },
     {
         tag: JoyActionTag.SURPRISE_GIFT_TOKEN,
@@ -131,6 +159,10 @@ export const JoyActions: ActionDefinition[] = [
         tradeEffect: { token: -1, ribbon: -1 | (0 as any) },
         socialImpact: { GRATITUDE: 0.5 as any, BOND: 0.3 as any },
         ownershipEffect: { recipientGift: '+1' },
+        requiredMemes: [
+            record.ledgerkeeping,
+            econ.pooling_common_fund,
+        ]
     },
     {
         tag: JoyActionTag.COMMUNITY_THEATRE,
@@ -146,6 +178,11 @@ export const JoyActions: ActionDefinition[] = [
         tradeEffect: { props: '-N' as any, dye: -1 | (0 as any) },
         socialImpact: { COHESION: 0.4, REPUTATION: 0.2 },
         ownershipEffect: { stageState: 'set' },
+        requiredMemes: [
+            health.sanitation_norms,
+            health.waste_handling,
+            comm.language.written,
+        ]
     },
     {
         tag: JoyActionTag.FISHING_PLEASURE_TRIP,
@@ -161,7 +198,7 @@ export const JoyActions: ActionDefinition[] = [
         requiresLocation: 'river|lake',
         requiresItem: ['rod|net|hooks'],
         socialImpact: { CALM: 0.3 as any, NETWORK: 0.1 },
-        ownershipEffect: { catch: '+small' },
+        ownershipEffect: { catch: '+small' }
     },
     {
         tag: JoyActionTag.DRESS_UP_FEST_ATTIRE,
@@ -175,7 +212,7 @@ export const JoyActions: ActionDefinition[] = [
         },
         tradeEffect: { ribbons: '-N' as any, polish: -1 | (0 as any) },
         socialImpact: { VISIBILITY: 0.3 as any, RESPECT: 0.1 },
-        ownershipEffect: { attireState: 'festive' },
+        ownershipEffect: { attireState: 'festive' }
     },
     {
         tag: JoyActionTag.GARDEN_BLOSSOM_WALK,
@@ -189,7 +226,7 @@ export const JoyActions: ActionDefinition[] = [
         },
         requiresLocation: 'garden|orchard|grove',
         socialImpact: { CALM: 0.3 as any },
-        ownershipEffect: { pathUse: 'stroll' },
+        ownershipEffect: { pathUse: 'stroll' }
     },
     {
         tag: JoyActionTag.FRIENDSHIP_TOAST,
@@ -200,6 +237,14 @@ export const JoyActions: ActionDefinition[] = [
         requiresLocation: 'mess|hearth|square',
         tradeEffect: { ale_or_kvass: -1 | (0 as any) },
         socialImpact: { BOND: 0.4 as any, TRUST: 0.2 },
+        requiredMemes: [
+            health.sanitation_norms,
+            health.waste_handling,
+            culture.vigil_ritual,
+            cog.timekeeping.basic,
+            heat.space.hearth,
+            comm.language.written,
+        ]
     },
     {
         tag: JoyActionTag.FUN_COMPETITION_FAIR,
@@ -216,5 +261,10 @@ export const JoyActions: ActionDefinition[] = [
         tradeEffect: { ribbons: '-N' as any, prize_token: -1 | (0 as any) },
         socialImpact: { COHESION: 0.4, COMPETITION: 0.2 },
         ownershipEffect: { fieldState: 'game_lines' },
+        requiredMemes: [
+            health.sanitation_norms,
+            health.waste_handling,
+            comm.language.written,
+        ]
     },
 ];

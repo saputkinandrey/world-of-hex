@@ -1,6 +1,6 @@
 import { ActionDefinition } from '../action-definition';
 import { InspirationActionTag } from '../action-tags';
-
+import { cog, comm, culture, econ, fire, heat, org, record } from '../memes';
 export const InspirationActions: ActionDefinition[] = [
     {
         tag: InspirationActionTag.SEEK_MUSE_IN_NATURE,
@@ -15,7 +15,7 @@ export const InspirationActions: ActionDefinition[] = [
         requiresLocation: 'grove|riverbank|hilltop',
         socialImpact: { CALM: 0.4 as any },
         ownershipEffect: { accessScope: 'greenway', grantAccess: true },
-        lawEffect: { natureReserve: 'respect_paths', enforceable: true },
+        lawEffect: { natureReserve: 'respect_paths', enforceable: true }
     },
     {
         tag: InspirationActionTag.VISIT_MASTERWORKS,
@@ -31,6 +31,11 @@ export const InspirationActions: ActionDefinition[] = [
         tradeEffect: { entry_fee: -1 },
         socialImpact: { REVERENCE: 0.4, AMBITION: 0.2 as any },
         lawEffect: { exhibitEtiquette: 'observed', enforceable: true },
+        requiredMemes: [
+            culture.vigil_ritual,
+            cog.timekeeping.basic,
+            comm.language.written,
+        ]
     },
     {
         tag: InspirationActionTag.CREATIVE_JAM_SESSION,
@@ -48,6 +53,7 @@ export const InspirationActions: ActionDefinition[] = [
         socialImpact: { COHESION: 0.3, CONTROVERSY: 0.1 },
         ownershipEffect: { accessScope: 'atelier', grantAccess: true },
         lawEffect: { gatheringPermit: 'approved', enforceable: true },
+        requiredMemes: [comm.language.written]
     },
     {
         tag: InspirationActionTag.RITUAL_OF_SPARK,
@@ -56,7 +62,7 @@ export const InspirationActions: ActionDefinition[] = [
         rewardSecondary: { INSPIRATION: 0.55, FOCUS: 0.3, DISCIPLINE: 0.2 },
         requiresLocation: 'quiet_spot|shrine',
         socialImpact: { FOCUS: 0.2 },
-        lawEffect: { rite: 'private', enforceable: false },
+        lawEffect: { rite: 'private', enforceable: false }
     },
     {
         tag: InspirationActionTag.COLLECT_MOTIFS_FIELD,
@@ -67,6 +73,7 @@ export const InspirationActions: ActionDefinition[] = [
         tradeEffect: { parchment: -1 },
         socialImpact: { CREDIBILITY: 0.2 },
         ownershipEffect: { motifSheets: '+1', archive: 'yes' },
+        requiredMemes: [comm.language.written]
     },
     {
         tag: InspirationActionTag.DREAM_NOTEBOOK,
@@ -76,6 +83,10 @@ export const InspirationActions: ActionDefinition[] = [
         tradeEffect: { wax_tablet: -1 as any },
         socialImpact: { MEMORY: 0.3 as any },
         ownershipEffect: { dreamLog: 'updated' },
+        requiredMemes: [
+            record.ledgerkeeping,
+            econ.pooling_common_fund,
+        ]
     },
     {
         tag: InspirationActionTag.CHANCE_CONSTRAINTS,
@@ -85,7 +96,7 @@ export const InspirationActions: ActionDefinition[] = [
         rewardSecondary: { INSPIRATION: 0.65, CREATIVITY: 0.4, COURAGE: 0.2 },
         requiresItem: ['dice|cards'],
         socialImpact: { PLAYFULNESS: 0.3 as any },
-        lawEffect: { gamblingBan: 'non_wager_ok', enforceable: true },
+        lawEffect: { gamblingBan: 'non_wager_ok', enforceable: true }
     },
     {
         tag: InspirationActionTag.CROSS_DISCIPLINE_EXPOSURE,
@@ -100,6 +111,12 @@ export const InspirationActions: ActionDefinition[] = [
         socialImpact: { NETWORK: 0.3, RESPECT: 0.2 },
         ownershipEffect: { accessScope: 'guest_bench', grantAccess: true },
         lawEffect: { visitorBadge: 'issued', enforceable: true },
+        requiredMemes: [
+            heat.industrial,
+            fire.control,
+            comm.language.written,
+            org.workshop_practice,
+        ]
     },
     {
         tag: InspirationActionTag.PROMPT_CARD_DRAW,
@@ -108,7 +125,7 @@ export const InspirationActions: ActionDefinition[] = [
         rewardSecondary: { INSPIRATION: 0.55, FOCUS: 0.2, CLARITY: 0.2 },
         requiresItem: ['prompt_cards'],
         socialImpact: { ORGANIZATION: 0.15 as any },
-        ownershipEffect: { promptCard: 'drawn' },
+        ownershipEffect: { promptCard: 'drawn' }
     },
     {
         tag: InspirationActionTag.STORY_PROMPT_EXCHANGE,
@@ -119,6 +136,11 @@ export const InspirationActions: ActionDefinition[] = [
         socialImpact: { TRUST: 0.2, COHESION: 0.2 },
         ownershipEffect: { promptPool: '+1', license: 'open' },
         lawEffect: { authorshipNote: 'logged', enforceable: true },
+        requiredMemes: [
+            comm.language.written,
+            record.ledgerkeeping,
+            econ.pooling_common_fund,
+        ]
     },
     {
         tag: InspirationActionTag.ONE_HOUR_PROTOTYPE,
@@ -134,7 +156,7 @@ export const InspirationActions: ActionDefinition[] = [
         tradeEffect: { materials: -2, scrap: '+1' },
         socialImpact: { EFFICIENCY: 0.3, COURAGE: 0.2 },
         ownershipEffect: { prototype: 'v1', blueprint: 'draft' },
-        lawEffect: { workshopEtiquette: 'observed', enforceable: true },
+        lawEffect: { workshopEtiquette: 'observed', enforceable: true }
     },
     {
         tag: InspirationActionTag.INSPIRATION_WALKABOUT,
@@ -143,7 +165,7 @@ export const InspirationActions: ActionDefinition[] = [
         rewardSecondary: { INSPIRATION: 0.65, CURIOSITY: 0.3, IDENTITY: 0.2 },
         requiresLocation: 'market|docks|foreign_quarter',
         socialImpact: { NETWORK: 0.2, CLARITY: 0.1 },
-        lawEffect: { curfew: 'not_active', enforceable: true },
+        lawEffect: { curfew: 'not_active', enforceable: true }
     },
     {
         tag: InspirationActionTag.PATRON_BRIEF_SESSION,
@@ -155,6 +177,7 @@ export const InspirationActions: ActionDefinition[] = [
         socialImpact: { TRUST: 0.2, ACCOUNTABILITY: 0.3 as any },
         ownershipEffect: { brief: 'captured' },
         lawEffect: { commissionNote: 'filed', enforceable: true },
+        requiredMemes: [comm.language.written]
     },
     {
         tag: InspirationActionTag.FAILURE_GALLERY,
@@ -170,6 +193,7 @@ export const InspirationActions: ActionDefinition[] = [
         requiresLocation: 'hall|atelier',
         socialImpact: { HUMILITY: 0.4 as any, COHESION: 0.3 },
         lawEffect: { ridiculeBan: 'posted', enforceable: true },
+        requiredMemes: [comm.language.written]
     },
     {
         tag: InspirationActionTag.MENTOR_CRITIQUE,
@@ -180,7 +204,7 @@ export const InspirationActions: ActionDefinition[] = [
         tradeEffect: { mentor_fee: -1 as any },
         socialImpact: { RESPECT: 0.3, TRUST: 0.2 },
         ownershipEffect: { notes: 'critique_log' },
-        lawEffect: { mentorshipRoll: 'filed', enforceable: true },
+        lawEffect: { mentorshipRoll: 'filed', enforceable: true }
     },
     {
         tag: InspirationActionTag.ARCHIVE_REFERENCE_BOARD,
@@ -196,5 +220,6 @@ export const InspirationActions: ActionDefinition[] = [
             grantAccess: true,
         },
         lawEffect: { archivePolicy: 'index_required', enforceable: true },
+        requiredMemes: [comm.language.written]
     },
 ];

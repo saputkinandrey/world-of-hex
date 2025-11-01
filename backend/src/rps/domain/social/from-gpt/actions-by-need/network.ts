@@ -1,6 +1,6 @@
 import { ActionDefinition } from '../action-definition';
 import { NetworkActionTag } from '../action-tags';
-
+import { cog, comm, culture, econ, health, heat, org, record } from '../memes';
 export const NetworkActions: ActionDefinition[] = [
     {
         tag: NetworkActionTag.MARKET_MEET_AND_GREET,
@@ -14,7 +14,7 @@ export const NetworkActions: ActionDefinition[] = [
         },
         requiresLocation: 'market|fair',
         socialImpact: { INTRODUCTIONS: 0.5 as any, VISIBILITY: 0.2 as any },
-        ownershipEffect: { contactList: '+N' },
+        ownershipEffect: { contactList: '+N' }
     },
     {
         tag: NetworkActionTag.LETTER_OF_INTRODUCTION,
@@ -30,6 +30,11 @@ export const NetworkActions: ActionDefinition[] = [
         socialImpact: { CREDIBILITY: 0.3, ACCESS: 0.3 as any },
         ownershipEffect: { letterState: 'sealed', chainOfCustody: 'tracked' },
         lawEffect: { sealRight: 'recognized', enforceable: true },
+        requiredMemes: [
+            comm.language.written,
+            record.ledgerkeeping,
+            econ.pooling_common_fund,
+        ]
     },
     {
         tag: NetworkActionTag.HOST_GUEST_MERCHANT,
@@ -47,6 +52,11 @@ export const NetworkActions: ActionDefinition[] = [
         socialImpact: { HOSPITALITY: 0.5 as any, RESPECT: 0.2 },
         ownershipEffect: { guestBook: 'signed' },
         lawEffect: { guestRight: 'declared', enforceable: true },
+        requiredMemes: [
+            culture.vigil_ritual,
+            cog.timekeeping.basic,
+            heat.space.hearth,
+        ]
     },
     {
         tag: NetworkActionTag.RECIPROCAL_FAVORS_LEDGER,
@@ -62,6 +72,10 @@ export const NetworkActions: ActionDefinition[] = [
         socialImpact: { ACCOUNTABILITY: 0.3 as any, RESENTMENT: -0.05 },
         ownershipEffect: { favorsLedger: 'opened' },
         lawEffect: { reciprocityRule: 'posted', enforceable: true },
+        requiredMemes: [
+            comm.language.written,
+            record.ledgerkeeping,
+        ]
     },
     {
         tag: NetworkActionTag.GUILD_GREETING_RITUAL,
@@ -76,6 +90,10 @@ export const NetworkActions: ActionDefinition[] = [
         requiresLocation: 'guild_hall|workshop',
         socialImpact: { BELONGING: 0.4 as any, STATUS: 0.2 },
         lawEffect: { guildEtiquette: 'observed', enforceable: true },
+        requiredMemes: [
+            comm.language.written,
+            org.workshop_practice,
+        ]
     },
     {
         tag: NetworkActionTag.SHARED_TOOLS_LIBRARY,
@@ -90,7 +108,7 @@ export const NetworkActions: ActionDefinition[] = [
         requiresLocation: 'stores|workyard',
         socialImpact: { COOPERATION: 0.4 as any, LOSS: -0.05 as any },
         ownershipEffect: { accessScope: 'members_tools', grantAccess: true },
-        lawEffect: { depositRule: 'posted', enforceable: true },
+        lawEffect: { depositRule: 'posted', enforceable: true }
     },
     {
         tag: NetworkActionTag.ESCORT_CARAVAN,
@@ -106,7 +124,7 @@ export const NetworkActions: ActionDefinition[] = [
         requiresLocation: 'road|pass|bridge',
         socialImpact: { RELIABILITY: 0.4 as any, COMMUNITY: 0.2 },
         ownershipEffect: { escortRecord: 'filed' },
-        lawEffect: { caravanPact: 'sealed', enforceable: true },
+        lawEffect: { caravanPact: 'sealed', enforceable: true }
     },
     {
         tag: NetworkActionTag.COUNCIL_OF_NEIGHBORS,
@@ -122,6 +140,7 @@ export const NetworkActions: ActionDefinition[] = [
         socialImpact: { COHESION: 0.4, RESPECT: 0.2 },
         ownershipEffect: { treaties: 'minutes_posted' },
         lawEffect: { mootRight: 'recognized', enforceable: true },
+        requiredMemes: [comm.language.written]
     },
     {
         tag: NetworkActionTag.HOST_CRAFT_SALON,
@@ -136,6 +155,10 @@ export const NetworkActions: ActionDefinition[] = [
         requiresLocation: 'hall|workshop',
         socialImpact: { INTRODUCTIONS: 0.4 as any, STATUS: 0.2 },
         ownershipEffect: { guestList: '+N' },
+        requiredMemes: [
+            comm.language.written,
+            org.workshop_practice,
+        ]
     },
     {
         tag: NetworkActionTag.PATRON_SPONSORSHIP,
@@ -151,6 +174,7 @@ export const NetworkActions: ActionDefinition[] = [
         socialImpact: { LOYALTY: 0.4, COMMUNITY: 0.3 },
         ownershipEffect: { letterOfMark: 'issued' },
         lawEffect: { sponsorshipRoll: 'filed', enforceable: true },
+        requiredMemes: [comm.language.written]
     },
     {
         tag: NetworkActionTag.NOTICE_BOARD_INTROS,
@@ -166,6 +190,11 @@ export const NetworkActions: ActionDefinition[] = [
         tradeEffect: { parchment: -1, ink: -1 },
         socialImpact: { MATCHING: 0.4 as any, RUMORS: -0.05 as any },
         ownershipEffect: { noticeBoard: 'intros_posted' },
+        requiredMemes: [
+            health.sanitation_norms,
+            health.waste_handling,
+            comm.language.written,
+        ]
     },
     {
         tag: NetworkActionTag.FESTIVAL_OF_ALLIANCES,
@@ -186,6 +215,11 @@ export const NetworkActions: ActionDefinition[] = [
         socialImpact: { COHESION: 0.5, RESPECT: 0.3 },
         ownershipEffect: { alliances: '+ties' },
         lawEffect: { guestRight: 'declared', enforceable: true },
+        requiredMemes: [
+            health.sanitation_norms,
+            health.waste_handling,
+            comm.language.written,
+        ]
     },
     {
         tag: NetworkActionTag.MESSENGER_EXCHANGE,
@@ -200,7 +234,7 @@ export const NetworkActions: ActionDefinition[] = [
         tradeEffect: { retainers: -1 as any, feed: '-1 | 0' as any },
         socialImpact: { RELIABILITY: 0.4 as any, VISIBILITY: 0.2 as any },
         ownershipEffect: { courierLine: 'established' },
-        lawEffect: { sealRight: 'recognized', enforceable: true },
+        lawEffect: { sealRight: 'recognized', enforceable: true }
     },
     {
         tag: NetworkActionTag.SKILL_BARTER_DAY,
@@ -215,6 +249,13 @@ export const NetworkActions: ActionDefinition[] = [
         requiresLocation: 'guild_hall|yard',
         socialImpact: { MENTORING: 0.4 as any, ACCESS: 0.2 as any },
         ownershipEffect: { roster: 'mentors_and_slots' },
+        requiredMemes: [
+            health.sanitation_norms,
+            health.waste_handling,
+            comm.language.written,
+            org.duty_roster,
+            org.workshop_practice,
+        ]
     },
     {
         tag: NetworkActionTag.MUTUAL_DEFENSE_PLEDGE,
@@ -231,6 +272,12 @@ export const NetworkActions: ActionDefinition[] = [
         socialImpact: { LOYALTY: 0.4, COMMUNITY: 0.3 },
         lawEffect: { hornRight: 'mutual_aid_sworn', enforceable: true },
         ownershipEffect: { musterProtocol: 'shared' },
+        requiredMemes: [
+            comm.language.written,
+            record.ledgerkeeping,
+            econ.pooling_common_fund,
+            econ.deposit_contract,
+        ]
     },
     {
         tag: NetworkActionTag.TRADE_ROUTE_MAPPING,
@@ -245,5 +292,6 @@ export const NetworkActions: ActionDefinition[] = [
         tradeEffect: { parchment: -1, ink: -1, markers: '-N' as any },
         socialImpact: { OPPORTUNITY: 0.4 as any, CONFLICT: -0.05 as any },
         ownershipEffect: { routeMap: 'hubs_marked', contactList: '+merchants' },
+        requiredMemes: [comm.language.written]
     },
 ];

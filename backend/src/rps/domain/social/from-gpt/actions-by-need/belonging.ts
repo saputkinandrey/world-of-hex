@@ -1,6 +1,5 @@
 import { ActionDefinition } from '../action-definition';
 import { ActionTags, BelongingActionTag } from '../action-tags';
-
 export const BelongingActions: ActionDefinition[] = [
     {
         tag: BelongingActionTag.JOIN_CLAN,
@@ -12,21 +11,21 @@ export const BelongingActions: ActionDefinition[] = [
             LOYALTY: 0.4,
             TRUST: 0.3,
         },
-        socialImpact: { ACCEPTANCE: 0.6 },
+        socialImpact: { ACCEPTANCE: 0.6 }
     },
     {
         tag: BelongingActionTag.ATTEND_GATHERING,
         costEnergy: -0.1,
         costTime: 1.5,
         rewardSecondary: { BELONGING: 0.6, COMMUNITY: 0.5, TRADITION: 0.3 },
-        socialImpact: { VISIBILITY: 0.2, COHESION: 0.3 },
+        socialImpact: { VISIBILITY: 0.2, COHESION: 0.3 }
     },
     {
         tag: BelongingActionTag.PARTICIPATE_RITUAL,
         costEnergy: -0.2,
         costTime: 2,
         rewardSecondary: { BELONGING: 0.7, SPIRIT: 0.4, TRADITION: 0.5 },
-        socialImpact: { COHESION: 0.4 },
+        socialImpact: { COHESION: 0.4 }
     },
     {
         tag: ActionTags.SHARE_MEAL,
@@ -34,14 +33,14 @@ export const BelongingActions: ActionDefinition[] = [
         costTime: 1,
         rewardSecondary: { BELONGING: 0.5, AFFECTION: 0.3, TRUST: 0.2 },
         tradeEffect: { spend_food: -1, note: 'shared' },
-        socialImpact: { WARMTH: 0.3 },
+        socialImpact: { WARMTH: 0.3 }
     },
     {
         tag: BelongingActionTag.HELP_WITH_TASK,
         costEnergy: -0.3,
         costTime: 2,
         rewardSecondary: { BELONGING: 0.6, LOYALTY: 0.4, RESPECT: 0.2 },
-        socialImpact: { GRATITUDE: 0.4 },
+        socialImpact: { GRATITUDE: 0.4 }
     },
     {
         tag: BelongingActionTag.GIFT_TO_MEMBER,
@@ -49,21 +48,21 @@ export const BelongingActions: ActionDefinition[] = [
         costTime: 0.5,
         rewardSecondary: { BELONGING: 0.5, AFFECTION: 0.4, TRUST: 0.3 },
         tradeEffect: { give_item: 'gift', note: 'bonding' },
-        socialImpact: { RECIPROCITY: 0.3 },
+        socialImpact: { RECIPROCITY: 0.3 }
     },
     {
         tag: BelongingActionTag.WEAR_SYMBOLS,
         costEnergy: -0.02,
         costTime: 0.2,
         rewardSecondary: { BELONGING: 0.3, STATUS: 0.2, TRADITION: 0.2 },
-        socialImpact: { IN_GROUP: 0.3, OUT_GROUP: -0.1 },
+        socialImpact: { IN_GROUP: 0.3, OUT_GROUP: -0.1 }
     },
     {
         tag: BelongingActionTag.SING_CHANT,
         costEnergy: -0.1,
         costTime: 0.8,
         rewardSecondary: { BELONGING: 0.5, MOOD: 0.4, COMMUNITY: 0.4 },
-        socialImpact: { COHESION: 0.4 },
+        socialImpact: { COHESION: 0.4 }
     },
     {
         tag: BelongingActionTag.DEFEND_MEMBER,
@@ -71,7 +70,7 @@ export const BelongingActions: ActionDefinition[] = [
         costTime: 1,
         risk: 0.3,
         rewardSecondary: { BELONGING: 0.8, LOYALTY: 0.6, HONOR: 0.4 },
-        socialImpact: { RESPECT: 0.4, TRUST: 0.3 },
+        socialImpact: { RESPECT: 0.4, TRUST: 0.3 }
     },
     {
         tag: BelongingActionTag.HOST_GUESTS,
@@ -79,48 +78,48 @@ export const BelongingActions: ActionDefinition[] = [
         costTime: 2,
         rewardSecondary: { BELONGING: 0.6, STATUS: 0.2, COMMUNITY: 0.5 },
         tradeEffect: { spend_food: -2, spend_time: 'hospitality' },
-        socialImpact: { GRATITUDE: 0.5 },
+        socialImpact: { GRATITUDE: 0.5 }
     },
     {
         tag: BelongingActionTag.BUILD_COMMON_SPACE,
         costEnergy: -0.6,
         costTime: 4,
         rewardSecondary: { BELONGING: 0.9, COMMUNITY: 0.6, STABILITY: 0.5 },
-        socialImpact: { LEGACY: 0.3 },
+        socialImpact: { LEGACY: 0.3 }
     },
     {
         tag: BelongingActionTag.CELEBRATE_HOLIDAY,
         costEnergy: -0.2,
         costTime: 3,
         rewardSecondary: { BELONGING: 0.7, TRADITION: 0.6, MOOD: 0.5 },
-        socialImpact: { COHESION: 0.5 },
+        socialImpact: { COHESION: 0.5 }
     },
     {
         tag: BelongingActionTag.MOURN_TOGETHER,
         costEnergy: -0.2,
         costTime: 2,
         rewardSecondary: { BELONGING: 0.6, AFFECTION: 0.5, SPIRIT: 0.3 },
-        socialImpact: { EMPATHY: 0.5 },
+        socialImpact: { EMPATHY: 0.5 }
     },
     {
         tag: BelongingActionTag.TELL_STORIES,
         costEnergy: -0.05,
         costTime: 1,
         rewardSecondary: { BELONGING: 0.5, TRADITION: 0.4, KNOWLEDGE: 0.3 },
-        socialImpact: { IDENTITY: 0.4 },
+        socialImpact: { IDENTITY: 0.4 }
     },
     {
         tag: BelongingActionTag.TRAIN_TOGETHER,
         costEnergy: -0.3,
         costTime: 2,
         rewardSecondary: { BELONGING: 0.6, MASTERY: 0.4, TRUST: 0.3 },
-        socialImpact: { TEAMWORK: 0.5 },
+        socialImpact: { TEAMWORK: 0.5 }
     },
     {
         tag: ActionTags.MEDIATE_DISPUTE,
         costEnergy: -0.2,
         costTime: 1.5,
         rewardSecondary: { BELONGING: 0.7, COMMUNITY: 0.5, STABILITY: 0.4 },
-        socialImpact: { HARMONY: 0.5 },
+        socialImpact: { HARMONY: 0.5 }
     },
 ];

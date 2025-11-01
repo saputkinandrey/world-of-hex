@@ -25,7 +25,6 @@ export const memes = {
             spoken:           'comm.language.spoken',
             written:          'comm.language.written',
         },
-        signage:               'comm.signage',        // ← «знаковость/таблички»
     } as const,
 
     // === Cognition / Org ===
@@ -141,8 +140,10 @@ export const cog     = memes.cog;
 export const org     = memes.org;
 export const tech    = memes.tech;
 export const fire    = tech.fire;
+export const heat    = tech.heat;
 export const food    = tech.food;
 export const culinary    = food.culinary;
+export const health  = memes.health;
 export const culture = memes.culture;
 export const record  = memes.record;
 export const law     = memes.law;
@@ -164,7 +165,6 @@ export const memeDeps: Record<MemeId, readonly MemeId[]> = {
     [memes.comm.signaling]:             [memes.soc.shared_attention],
     [memes.comm.language.spoken]:       [memes.comm.signaling],
     [memes.comm.language.written]:      [memes.comm.language.spoken],
-    [memes.comm.signage]:               [memes.comm.language.written],
 
     // === Cognition / Org ===
     [memes.cog.counting.tally]:         [],
@@ -223,9 +223,9 @@ export const memeDeps: Record<MemeId, readonly MemeId[]> = {
     [memes.culture.vigil_ritual]:       [memes.culture.ritual_basic, memes.cog.timekeeping.basic],
 
     [memes.record.ledgerkeeping]:       [memes.cog.number_concept, memes.comm.language.written],
-    [memes.record.boundary_marking]:    [memes.cog.space_mapping, memes.comm.signage],
+    [memes.record.boundary_marking]:    [memes.cog.space_mapping, memes.comm.language.written],
 
-    [memes.law.public_posting]:         [memes.comm.signage],
+    [memes.law.public_posting]:         [memes.comm.language.written],
 
     [memes.econ.exchange_barter]:       [],
     [memes.econ.token_use]:             [memes.econ.exchange_barter, memes.cog.number_concept],

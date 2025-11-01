@@ -1,6 +1,6 @@
 import { ActionDefinition } from '../action-definition';
 import { IntegrityActionTag } from '../action-tags';
-
+import { cog, comm, culture, health, org, record } from '../memes';
 export const IntegrityActions: ActionDefinition[] = [
     {
         tag: IntegrityActionTag.TELL_TRUTH_UNDER_OATH,
@@ -16,6 +16,13 @@ export const IntegrityActions: ActionDefinition[] = [
         requiresLocation: 'hall|court_square|temple',
         socialImpact: { CREDIBILITY: 0.5, RESPECT: 0.3 },
         lawEffect: { oathRecord: 'sworn_truthful', enforceable: true },
+        requiredMemes: [
+            health.sanitation_norms,
+            health.waste_handling,
+            culture.vigil_ritual,
+            cog.timekeeping.basic,
+            comm.language.written,
+        ]
     },
     {
         tag: IntegrityActionTag.REFUSE_PLAGIARISM,
@@ -28,7 +35,7 @@ export const IntegrityActions: ActionDefinition[] = [
             CULTURE: 0.2,
         },
         socialImpact: { RESPECT: 0.2, CORRUPTION: -0.2 as any },
-        lawEffect: { authorshipRule: 'observed', enforceable: true },
+        lawEffect: { authorshipRule: 'observed', enforceable: true }
     },
     {
         tag: IntegrityActionTag.RETURN_OVERPAYMENT,
@@ -37,7 +44,7 @@ export const IntegrityActions: ActionDefinition[] = [
         rewardSecondary: { INTEGRITY: 0.7, TRUST: 0.4, HONOR: 0.3, ORDER: 0.2 },
         tradeEffect: { coin: '-refund' },
         socialImpact: { COMMUNITY: 0.2, GRATITUDE: 0.3 as any },
-        lawEffect: { ledgerCorrection: 'filed', enforceable: true },
+        lawEffect: { ledgerCorrection: 'filed', enforceable: true }
     },
     {
         tag: IntegrityActionTag.CORRECT_RECORDS_ERROR,
@@ -53,6 +60,10 @@ export const IntegrityActions: ActionDefinition[] = [
         socialImpact: { TRANSPARENCY: 0.3 as any, TRUST: 0.2 },
         ownershipEffect: { ledgerState: 'amended' },
         lawEffect: { erratumNote: 'attached', enforceable: true },
+        requiredMemes: [
+            comm.language.written,
+            record.ledgerkeeping,
+        ]
     },
     {
         tag: IntegrityActionTag.REPORT_CONFLICT_OF_INTEREST,
@@ -66,7 +77,7 @@ export const IntegrityActions: ActionDefinition[] = [
             TRUST: 0.3,
         },
         socialImpact: { CORRUPTION: -0.3 as any, RESPECT: 0.2 },
-        lawEffect: { conflictRegistry: 'declared', enforceable: true },
+        lawEffect: { conflictRegistry: 'declared', enforceable: true }
     },
     {
         tag: IntegrityActionTag.DECLARE_GIFTS_HOSPITALITY,
@@ -80,7 +91,7 @@ export const IntegrityActions: ActionDefinition[] = [
         },
         tradeEffect: { gift_value: 'declared' },
         socialImpact: { TRANSPARENCY: 0.3 as any, CORRUPTION: -0.2 as any },
-        lawEffect: { giftLedger: 'updated', enforceable: true },
+        lawEffect: { giftLedger: 'updated', enforceable: true }
     },
     {
         tag: IntegrityActionTag.KEEP_CONFIDENTIALITY,
@@ -93,7 +104,7 @@ export const IntegrityActions: ActionDefinition[] = [
             STABILITY: 0.2,
         },
         socialImpact: { RELIABILITY: 0.3 as any },
-        lawEffect: { privacyRule: 'respected', enforceable: true },
+        lawEffect: { privacyRule: 'respected', enforceable: true }
     },
     {
         tag: IntegrityActionTag.REFUSE_FALSE_TESTIMONY,
@@ -109,6 +120,11 @@ export const IntegrityActions: ActionDefinition[] = [
         requiresLocation: 'hall|court_square',
         socialImpact: { CREDIBILITY: 0.4, FEAR: -0.05 },
         lawEffect: { perjuryAttempt: 'refused', enforceable: true },
+        requiredMemes: [
+            health.sanitation_norms,
+            health.waste_handling,
+            comm.language.written,
+        ]
     },
     {
         tag: IntegrityActionTag.HONOR_BOUNDARY_CONSENT,
@@ -121,7 +137,7 @@ export const IntegrityActions: ActionDefinition[] = [
             COMMUNITY: 0.2,
         },
         socialImpact: { DIGNITY: 0.4 as any, HARM: -0.2 as any },
-        lawEffect: { consentRule: 'affirmed', enforceable: true },
+        lawEffect: { consentRule: 'affirmed', enforceable: true }
     },
     {
         tag: IntegrityActionTag.FAIR_WEIGHTS_MAINTAIN,
@@ -135,7 +151,7 @@ export const IntegrityActions: ActionDefinition[] = [
         },
         tradeEffect: { calibration_weights: -1 | (0 as any) },
         socialImpact: { REPUTATION: 0.2, DISPUTES: -0.1 as any },
-        lawEffect: { measureSeal: 'stamped', enforceable: true },
+        lawEffect: { measureSeal: 'stamped', enforceable: true }
     },
     {
         tag: IntegrityActionTag.AVOID_NEPOTISM_IN_ASSIGNMENT,
@@ -149,7 +165,7 @@ export const IntegrityActions: ActionDefinition[] = [
             ORDER: 0.3,
         },
         socialImpact: { RESENTMENT: -0.2, ACCEPTANCE: 0.2 as any },
-        lawEffect: { assignmentRule: 'merit_first', enforceable: true },
+        lawEffect: { assignmentRule: 'merit_first', enforceable: true }
     },
     {
         tag: IntegrityActionTag.PROPER_ATTRIBUTION,
@@ -163,7 +179,7 @@ export const IntegrityActions: ActionDefinition[] = [
         },
         ownershipEffect: { record: 'co_authorship', rights: 'shared' },
         socialImpact: { TRUST: 0.3, RESENTMENT: -0.1 },
-        lawEffect: { creditNote: 'filed', enforceable: true },
+        lawEffect: { creditNote: 'filed', enforceable: true }
     },
     {
         tag: IntegrityActionTag.AUDIT_PERSONAL_ACCOUNTS,
@@ -180,6 +196,11 @@ export const IntegrityActions: ActionDefinition[] = [
         socialImpact: { TRANSPARENCY: 0.4 as any },
         ownershipEffect: { purseLedger: 'balanced' },
         lawEffect: { auditRoll: 'filed', enforceable: true },
+        requiredMemes: [
+            comm.language.written,
+            record.ledgerkeeping,
+            cog.number_concept,
+        ]
     },
     {
         tag: IntegrityActionTag.RECUSE_FROM_DECISION,
@@ -192,7 +213,7 @@ export const IntegrityActions: ActionDefinition[] = [
             ORDER: 0.3,
         },
         socialImpact: { RESPECT: 0.3, CORRUPTION: -0.3 as any },
-        lawEffect: { recusalNote: 'posted', enforceable: true },
+        lawEffect: { recusalNote: 'posted', enforceable: true }
     },
     {
         tag: IntegrityActionTag.ETHICAL_SOURCING,
@@ -208,7 +229,7 @@ export const IntegrityActions: ActionDefinition[] = [
         },
         tradeEffect: { supplier_blacklist: 'updated' },
         socialImpact: { REPUTATION: 0.3, COMMUNITY: 0.2 },
-        lawEffect: { sourcingCharter: 'ratified', enforceable: true },
+        lawEffect: { sourcingCharter: 'ratified', enforceable: true }
     },
     {
         tag: IntegrityActionTag.CODE_OF_CONDUCT_REFRESH,
@@ -225,5 +246,9 @@ export const IntegrityActions: ActionDefinition[] = [
         socialImpact: { TRUST: 0.2, COHESION: 0.2 },
         ownershipEffect: { accessScope: 'training_room', grantAccess: true },
         lawEffect: { codeCharter: 'reaffirmed', enforceable: true },
+        requiredMemes: [
+            comm.language.written,
+            org.workshop_practice,
+        ]
     },
 ];

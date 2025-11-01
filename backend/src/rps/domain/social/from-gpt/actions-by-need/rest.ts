@@ -1,14 +1,12 @@
 import { ActionDefinition } from '../action-definition';
 import { ActionTags } from '../action-tags';
-import { fire } from '../memes';
-
 export const RestActions: ActionDefinition[] = [
     {
         tag: ActionTags.SIT,
         costEnergy: -0.1,
         costTime: 0.5,
         rewardSecondary: { REST: 0.1, COMFORT: 0.1 },
-        locationType: 'any',
+        locationType: 'any'
     },
     {
         tag: ActionTags.LIE_DOWN,
@@ -16,7 +14,7 @@ export const RestActions: ActionDefinition[] = [
         costTime: 1,
         risk: 0.05,
         rewardSecondary: { REST: 0.2, HEALTH: 0.1 },
-        locationType: 'camp',
+        locationType: 'camp'
     },
     {
         tag: ActionTags.NAP,
@@ -24,7 +22,7 @@ export const RestActions: ActionDefinition[] = [
         costTime: 2,
         risk: 0.05,
         rewardSecondary: { REST: 0.4, MOOD: 0.2 },
-        locationType: 'any',
+        locationType: 'any'
     },
     {
         tag: ActionTags.SLEEP,
@@ -32,7 +30,7 @@ export const RestActions: ActionDefinition[] = [
         costTime: 6,
         risk: 0.1,
         rewardSecondary: { REST: 1.0, HEALTH: 0.5, MOOD: 0.4 },
-        locationType: 'shelter',
+        locationType: 'shelter'
     },
     {
         tag: ActionTags.REST_AT_HOME,
@@ -40,7 +38,7 @@ export const RestActions: ActionDefinition[] = [
         costTime: 8,
         rewardSecondary: { REST: 1.2, HEALTH: 0.6, MOOD: 0.5 },
         locationType: 'home',
-        socialImpact: { communication: 0.1 },
+        socialImpact: { communication: 0.1 }
     },
     {
         tag: ActionTags.REST_FIELD,
@@ -48,7 +46,7 @@ export const RestActions: ActionDefinition[] = [
         costTime: 3,
         risk: 0.4,
         rewardSecondary: { REST: 0.3, HEALTH: -0.1 },
-        locationType: 'field',
+        locationType: 'field'
     },
     {
         tag: ActionTags.REST_BY_FIRE,
@@ -56,8 +54,7 @@ export const RestActions: ActionDefinition[] = [
         costTime: 2,
         risk: 0.05,
         rewardSecondary: { REST: 0.6, COMFORT: 0.4, SOCIAL: 0.2 },
-        locationType: 'campfire',
-        requiredMemes: [fire.use],
+        locationType: 'campfire'
     },
     {
         tag: ActionTags.MEDITATE,
@@ -66,14 +63,14 @@ export const RestActions: ActionDefinition[] = [
         risk: 0,
         rewardSecondary: { REST: 0.5, FOCUS: 0.6 },
         skillRequired: 'Discipline',
-        locationType: 'quiet',
+        locationType: 'quiet'
     },
     {
         tag: ActionTags.RELAX,
         costEnergy: -0.15,
         costTime: 1,
         rewardSecondary: { REST: 0.3, MOOD: 0.3 },
-        locationType: 'any',
+        locationType: 'any'
     },
     {
         tag: ActionTags.SOCIALIZE_FOR_REST,
@@ -81,14 +78,14 @@ export const RestActions: ActionDefinition[] = [
         costTime: 2,
         rewardSecondary: { REST: 0.5, SOCIAL: 0.5, MOOD: 0.3 },
         locationType: 'village',
-        visibleToOthers: true,
+        visibleToOthers: true
     },
     {
         tag: ActionTags.BATHING,
         costEnergy: -0.2,
         costTime: 1.5,
         rewardSecondary: { REST: 0.4, HYGIENE: 0.4, COMFORT: 0.3 },
-        locationType: 'river',
+        locationType: 'river'
     },
     {
         tag: ActionTags.REST_GUARDED,
@@ -97,20 +94,20 @@ export const RestActions: ActionDefinition[] = [
         risk: 0.05,
         rewardSecondary: { REST: 1.1, TRUST: 0.4 },
         locationType: 'camp',
-        groupAffinity: 0.4,
+        groupAffinity: 0.4
     },
     {
         tag: ActionTags.REST_IN_SHADE,
         costEnergy: -0.2,
         costTime: 1.5,
         rewardSecondary: { REST: 0.3, COMFORT: 0.3 },
-        locationType: 'outdoor',
+        locationType: 'outdoor'
     },
     {
         tag: ActionTags.DREAM,
         costEnergy: -0.4,
         costTime: 7,
         rewardSecondary: { REST: 0.9, INSPIRATION: 0.5, FAITH: 0.3 },
-        locationType: 'shelter',
+        locationType: 'shelter'
     },
 ];

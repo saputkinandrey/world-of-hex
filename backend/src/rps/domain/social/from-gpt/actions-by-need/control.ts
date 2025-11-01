@@ -1,6 +1,6 @@
 import { ActionDefinition } from '../action-definition';
 import { ControlActionTag } from '../action-tags';
-
+import { cog, comm, culture, org, tech } from '../memes';
 export const ControlActions: ActionDefinition[] = [
     {
         tag: ControlActionTag.ASSIGN_ROLES,
@@ -18,6 +18,7 @@ export const ControlActions: ActionDefinition[] = [
             accessLevel: 'ROLE_BASED',
         },
         lawEffect: { ruleId: 'role_matrix_v1', enforceable: true },
+        requiredMemes: [comm.language.written]
     },
     {
         tag: ControlActionTag.SET_QUOTAS,
@@ -32,11 +33,11 @@ export const ControlActions: ActionDefinition[] = [
             quotaKey: 'grain_tithe_20%',
             enforceable: true,
         },
-        socialImpact: { FAIRNESS: 0.1, RESENTMENT: 0.1 }, // часть может быть недовольна
+        socialImpact: { FAIRNESS: 0.1, RESENTMENT: 0.1 },
         tradeEffect: {
             expectedInflow_grain: '+20%',
             ledgerNote: 'tithe-updated',
-        },
+        }
     },
     {
         tag: ControlActionTag.INSPECT_OUTPUT,
@@ -49,6 +50,10 @@ export const ControlActions: ActionDefinition[] = [
         requiresLocation: 'workshop',
         socialImpact: { RESPECT: 0.1, PRESSURE: 0.15 },
         lawEffect: { guideline: 'quality_min_a', enforceable: false },
+        requiredMemes: [
+            comm.language.written,
+            org.workshop_practice,
+        ]
     },
     {
         tag: ControlActionTag.AUDIT_STOCKS,
@@ -60,7 +65,7 @@ export const ControlActions: ActionDefinition[] = [
         requiresLocation: 'granary',
         tradeEffect: { recount: 'grain:+12, tools:+2', balanceAdjust: '+3' },
         socialImpact: { TRUST: 0.15, SUSPICION: 0.1 },
-        ownershipEffect: { lockInventory: true, accessScope: 'granary' },
+        ownershipEffect: { lockInventory: true, accessScope: 'granary' }
     },
     {
         tag: ControlActionTag.SET_ACCESS_RULES,
@@ -76,7 +81,7 @@ export const ControlActions: ActionDefinition[] = [
             accessScope: 'armory',
         },
         lawEffect: { ruleId: 'access_armory_02', enforceable: true },
-        socialImpact: { SAFETY: 0.2, RESPECT: 0.1 },
+        socialImpact: { SAFETY: 0.2, RESPECT: 0.1 }
     },
     {
         tag: ControlActionTag.APPOINT_OVERSEER,
@@ -91,7 +96,7 @@ export const ControlActions: ActionDefinition[] = [
             accessScope: 'all_workshops',
             accessLevel: 'OVERSEER',
         },
-        lawEffect: { appointmentWrit: 'overseer_#23', enforceable: true },
+        lawEffect: { appointmentWrit: 'overseer_#23', enforceable: true }
     },
     {
         tag: ControlActionTag.ISSUE_ORDER,
@@ -102,7 +107,7 @@ export const ControlActions: ActionDefinition[] = [
         requiresSkill: 'command',
         targetType: 'OTHER',
         socialImpact: { OBEDIENCE: 0.2, RESENTMENT: 0.05 },
-        lawEffect: { orderRef: 'ord-178', enforceable: true },
+        lawEffect: { orderRef: 'ord-178', enforceable: true }
     },
     {
         tag: ControlActionTag.BROADCAST_DECREE,
@@ -118,7 +123,7 @@ export const ControlActions: ActionDefinition[] = [
             decreeId: 'dec-51',
             text: 'market_open_hours',
             enforceable: true,
-        },
+        }
     },
     {
         tag: ControlActionTag.ENFORCE_COMPLIANCE,
@@ -132,7 +137,7 @@ export const ControlActions: ActionDefinition[] = [
         lawEffect: {
             enforcementAction: 'warning|fine|detain',
             enforceable: true,
-        },
+        }
     },
     {
         tag: ControlActionTag.REWARD_OBEDIENCE,
@@ -144,6 +149,7 @@ export const ControlActions: ActionDefinition[] = [
         targetType: 'OTHER',
         socialImpact: { GRATITUDE: 0.3, LOYALTY: 0.25 },
         tradeEffect: { spend_rations: -1, tokenIssued: 'silver_mark' },
+        requiredMemes: [comm.language.written]
     },
     {
         tag: ControlActionTag.SANCTION_DISOBEDIENCE,
@@ -155,7 +161,7 @@ export const ControlActions: ActionDefinition[] = [
         targetType: 'OTHER',
         moralWeight: -0.1,
         socialImpact: { FEAR: 0.25, RESPECT: 0.1, TRUST: -0.1 },
-        lawEffect: { penalty: 'fine|labor|ban', enforceable: true },
+        lawEffect: { penalty: 'fine|labor|ban', enforceable: true }
     },
     {
         tag: ControlActionTag.REALLOCATE_RESOURCES,
@@ -174,6 +180,10 @@ export const ControlActions: ActionDefinition[] = [
             accessScope: 'warehouse',
             accessLevel: 'MANAGER',
         },
+        requiredMemes: [
+            comm.language.written,
+            tech.tool.use_basic,
+        ]
     },
     {
         tag: ControlActionTag.LOCKDOWN_AREA,
@@ -191,6 +201,10 @@ export const ControlActions: ActionDefinition[] = [
             enforceable: true,
         },
         ownershipEffect: { lockInventory: true, accessScope: 'market_stalls' },
+        requiredMemes: [
+            culture.vigil_ritual,
+            cog.timekeeping.basic,
+        ]
     },
     {
         tag: ControlActionTag.SET_CURFEW,
@@ -201,7 +215,7 @@ export const ControlActions: ActionDefinition[] = [
         requiresSkill: 'administration',
         targetType: 'GROUP',
         lawEffect: { curfew: 'sunset_to_dawn', enforceable: true },
-        socialImpact: { SAFETY: 0.2, FREEDOM: -0.2 },
+        socialImpact: { SAFETY: 0.2, FREEDOM: -0.2 }
     },
     {
         tag: ControlActionTag.ESTABLISH_CHECKPOINT,
@@ -218,7 +232,7 @@ export const ControlActions: ActionDefinition[] = [
             accessLevel: 'GUARD',
         },
         lawEffect: { ruleId: 'id_check_required', enforceable: true },
-        socialImpact: { SAFETY: 0.25, TRUST: 0.1, INCONVENIENCE: 0.2 },
+        socialImpact: { SAFETY: 0.25, TRUST: 0.1, INCONVENIENCE: 0.2 }
     },
     {
         tag: ControlActionTag.ROTATE_DUTIES,
@@ -229,6 +243,6 @@ export const ControlActions: ActionDefinition[] = [
         requiresSkill: 'management',
         targetType: 'GROUP',
         socialImpact: { FAIRNESS: 0.3, LOYALTY: 0.2 },
-        lawEffect: { rotaPolicy: 'weekly', enforceable: true },
+        lawEffect: { rotaPolicy: 'weekly', enforceable: true }
     },
 ];

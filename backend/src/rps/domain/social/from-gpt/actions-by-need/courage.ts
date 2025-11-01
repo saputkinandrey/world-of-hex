@@ -1,7 +1,6 @@
 import { ActionDefinition } from '../action-definition';
 import { CourageActionTag } from '../action-tags';
-import { cog, culture } from '../memes';
-
+import { cog, comm, culture, health } from '../memes';
 export const CourageActions: ActionDefinition[] = [
     {
         tag: CourageActionTag.STAND_GUARD_FRONTIER,
@@ -18,6 +17,10 @@ export const CourageActions: ActionDefinition[] = [
         socialImpact: { RESPECT: 0.3, COMMUNITY: 0.2 },
         lawEffect: { watchDuty: 'logged', enforceable: true },
         ownershipEffect: { accessScope: 'watch_posts', grantAccess: true },
+        requiredMemes: [
+            culture.vigil_ritual,
+            cog.timekeeping.basic,
+        ]
     },
     {
         tag: CourageActionTag.SCOUT_AHEAD,
@@ -32,7 +35,7 @@ export const CourageActions: ActionDefinition[] = [
         },
         requiresSkill: 'tracking|stealth',
         socialImpact: { TRUST: 0.2, REPUTATION: 0.2 },
-        ownershipEffect: { mapIntel: 'updated' },
+        ownershipEffect: { mapIntel: 'updated' }
     },
     {
         tag: CourageActionTag.HOLD_LINE_UNDER_THREAT,
@@ -48,6 +51,10 @@ export const CourageActions: ActionDefinition[] = [
         requiresLocation: 'gate|narrow_pass|bridge',
         socialImpact: { RESPECT: 0.4, FEAR: -0.1 },
         lawEffect: { defenseMandate: 'active', enforceable: true },
+        requiredMemes: [
+            culture.vigil_ritual,
+            cog.timekeeping.basic,
+        ]
     },
     {
         tag: CourageActionTag.RESCUE_TRAPPED,
@@ -63,7 +70,7 @@ export const CourageActions: ActionDefinition[] = [
         requiresItem: ['rope|lever|wedges'],
         socialImpact: { REPUTATION: 0.4, JOY: 0.3 as any },
         ownershipEffect: { casualtyState: 'rescued' },
-        lawEffect: { rescueRecord: 'filed', enforceable: true },
+        lawEffect: { rescueRecord: 'filed', enforceable: true }
     },
     {
         tag: CourageActionTag.FACE_BEAST_NOISE,
@@ -78,9 +85,8 @@ export const CourageActions: ActionDefinition[] = [
         },
         requiresItem: ['drum|pots|torches'],
         needRework: true,
-        requiredMemes: [culture.vigil_ritual, cog.timekeeping.basic],
         socialImpact: { PANIC: -0.2 as any, RESPECT: 0.2 },
-        lawEffect: { fireSafety: 'observed', enforceable: true },
+        lawEffect: { fireSafety: 'observed', enforceable: true }
     },
     {
         tag: CourageActionTag.VOLUNTEER_FIRST_STEP,
@@ -89,7 +95,7 @@ export const CourageActions: ActionDefinition[] = [
         risk: 0.12,
         rewardSecondary: { COURAGE: 0.7, STATUS: 0.3, TRUST: 0.3, MORALE: 0.3 },
         socialImpact: { INFLUENCE: 0.2 as any, RESPECT: 0.2 },
-        lawEffect: { volunteerRoll: 'recorded', enforceable: true },
+        lawEffect: { volunteerRoll: 'recorded', enforceable: true }
     },
     {
         tag: CourageActionTag.COVER_RETREAT,
@@ -104,7 +110,7 @@ export const CourageActions: ActionDefinition[] = [
         },
         requiresSkill: 'ranged|shieldwork',
         socialImpact: { RESPECT: 0.4, FEAR: -0.1 },
-        ownershipEffect: { allySafety: 'improved' },
+        ownershipEffect: { allySafety: 'improved' }
     },
     {
         tag: CourageActionTag.SPEAK_TRUTH_TO_POWER,
@@ -120,6 +126,11 @@ export const CourageActions: ActionDefinition[] = [
         requiresLocation: 'hall|court_square',
         socialImpact: { CREDIBILITY: 0.4, COMMUNITY: 0.2 },
         lawEffect: { speechRule: 'no_defamation', enforceable: true },
+        requiredMemes: [
+            health.sanitation_norms,
+            health.waste_handling,
+            comm.language.written,
+        ]
     },
     {
         tag: CourageActionTag.CROSS_NIGHT_PATH,
@@ -135,6 +146,10 @@ export const CourageActions: ActionDefinition[] = [
         requiresLocation: 'graveyard_path|haunted_road|old_bridge',
         socialImpact: { SUPERSTITION: -0.2 as any, REPUTATION: 0.2 },
         ownershipEffect: { token: 'proof_of_walk' },
+        requiredMemes: [
+            culture.vigil_ritual,
+            cog.timekeeping.basic,
+        ]
     },
     {
         tag: CourageActionTag.ENTER_COLLAPSE_RUBBLE,
@@ -149,9 +164,8 @@ export const CourageActions: ActionDefinition[] = [
         },
         requiresItem: ['rope|struts|lantern'],
         needRework: true,
-        requiredMemes: [culture.vigil_ritual, cog.timekeeping.basic],
         socialImpact: { RESPECT: 0.4, HOPE: 0.3 as any },
-        lawEffect: { rescuePermit: 'granted', enforceable: true },
+        lawEffect: { rescuePermit: 'granted', enforceable: true }
     },
     {
         tag: CourageActionTag.DEFY_SUPERSTITION_RITUAL,
@@ -166,7 +180,7 @@ export const CourageActions: ActionDefinition[] = [
         },
         requiresLocation: 'shrine|haunted_spot',
         socialImpact: { SUPERSTITION: -0.3 as any, RESPECT: 0.2 },
-        lawEffect: { rite: 'public_symbolic', enforceable: true },
+        lawEffect: { rite: 'public_symbolic', enforceable: true }
     },
     {
         tag: CourageActionTag.TAKE_BLAME_FOR_TEAM,
@@ -175,7 +189,7 @@ export const CourageActions: ActionDefinition[] = [
         risk: 0.24,
         rewardSecondary: { COURAGE: 0.8, HONOR: 0.5, LOYALTY: 0.4, TRUST: 0.4 },
         socialImpact: { REPUTATION: 0.3, COMMUNITY: 0.2 },
-        lawEffect: { penalty: 'warning|fine', enforceable: true },
+        lawEffect: { penalty: 'warning|fine', enforceable: true }
     },
     {
         tag: CourageActionTag.PUBLIC_CHALLENGE_BULLY,
@@ -190,7 +204,7 @@ export const CourageActions: ActionDefinition[] = [
         },
         requiresSkill: 'rhetoric|dueling_etiquette',
         socialImpact: { FEAR: -0.1, RESPECT: 0.3 },
-        lawEffect: { conductRule: 'no_escalation', enforceable: true },
+        lawEffect: { conductRule: 'no_escalation', enforceable: true }
     },
     {
         tag: CourageActionTag.STAND_WITNESS_ALONE,
@@ -206,6 +220,11 @@ export const CourageActions: ActionDefinition[] = [
         requiresLocation: 'hall|court_square',
         socialImpact: { CREDIBILITY: 0.4, FEAR: -0.05 },
         lawEffect: { testimony: 'sworn', enforceable: true },
+        requiredMemes: [
+            health.sanitation_norms,
+            health.waste_handling,
+            comm.language.written,
+        ]
     },
     {
         tag: CourageActionTag.HOLD_VIGIL_DANGEROUS_SITE,
@@ -221,9 +240,12 @@ export const CourageActions: ActionDefinition[] = [
         requiresLocation: 'ruins|forest_edge|cave_mouth',
         requiresItem: ['torches|oil'],
         needRework: true,
-        requiredMemes: [culture.vigil_ritual, cog.timekeeping.basic],
+        requiredMemes: [
+            culture.vigil_ritual,
+            cog.timekeeping.basic,
+        ],
         socialImpact: { TRUST: 0.3, RESPECT: 0.2 },
-        ownershipEffect: { siteState: 'watched' },
+        ownershipEffect: { siteState: 'watched' }
     },
     {
         tag: CourageActionTag.TEST_BOUNDARIES_TRAINING,
@@ -239,5 +261,9 @@ export const CourageActions: ActionDefinition[] = [
         requiresLocation: 'yard|field',
         socialImpact: { COHESION: 0.3, REPUTATION: 0.2 },
         ownershipEffect: { drillLog: 'stress_scenarios' },
+        requiredMemes: [
+            health.sanitation_norms,
+            health.waste_handling,
+        ]
     },
 ];

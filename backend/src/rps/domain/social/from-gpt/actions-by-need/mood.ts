@@ -1,7 +1,6 @@
 import { ActionDefinition } from '../action-definition';
 import { ActionTags, MoodActionTag } from '../action-tags';
-import { fire } from '../memes';
-
+import { cog, comm, culture, health, heat } from '../memes';
 export const MoodActions: ActionDefinition[] = [
     {
         tag: MoodActionTag.LISTEN_MUSIC,
@@ -12,6 +11,12 @@ export const MoodActions: ActionDefinition[] = [
         tradeEffect: { musician_fee: -1 as any },
         socialImpact: { MOOD: 0.5, COMMUNITY: 0.2 },
         lawEffect: { noiseCode: 'observed', enforceable: false },
+        requiredMemes: [
+            culture.vigil_ritual,
+            cog.timekeeping.basic,
+            heat.space.hearth,
+            comm.language.written,
+        ]
     },
     {
         tag: MoodActionTag.TELL_JOKES,
@@ -19,7 +24,7 @@ export const MoodActions: ActionDefinition[] = [
         costTime: 0.5,
         risk: 0.05,
         rewardSecondary: { MOOD: 0.55, SOCIAL: 0.25 },
-        socialImpact: { MOOD: 0.45, REPUTATION: 0.1, CONTROVERSY: 0.05 as any },
+        socialImpact: { MOOD: 0.45, REPUTATION: 0.1, CONTROVERSY: 0.05 as any }
     },
     {
         tag: MoodActionTag.SHARE_MEAL,
@@ -28,7 +33,7 @@ export const MoodActions: ActionDefinition[] = [
         rewardSecondary: { MOOD: 0.6, COMMUNITY: 0.3, AFFECTION: 0.2 },
         tradeEffect: { food: -2, drink: -1 },
         socialImpact: { MOOD: 0.6, TRUST: 0.2, BELONGING: 0.3 },
-        ownershipEffect: { accessScope: 'feast_table', grantAccess: true },
+        ownershipEffect: { accessScope: 'feast_table', grantAccess: true }
     },
     {
         tag: MoodActionTag.LIGHT_HEARTH,
@@ -36,9 +41,8 @@ export const MoodActions: ActionDefinition[] = [
         costTime: 0.6,
         rewardSecondary: { MOOD: 0.5, COMFORT: 0.3, SECURITY: 0.1 },
         tradeEffect: { firewood: -1 },
-        requiredMemes: [fire.control],
         socialImpact: { MOOD: 0.45, COHESION: 0.2 },
-        lawEffect: { fireSafety: 'observed', enforceable: true },
+        lawEffect: { fireSafety: 'observed', enforceable: true }
     },
     {
         tag: MoodActionTag.DECORATE_SPACE,
@@ -47,7 +51,7 @@ export const MoodActions: ActionDefinition[] = [
         rewardSecondary: { MOOD: 0.6, IDENTITY: 0.2, TRADITION: 0.2 },
         tradeEffect: { garlands: -1, dyes: -1 },
         socialImpact: { MOOD: 0.5, AESTHETICS: 0.5 as any },
-        ownershipEffect: { decorState: 'refreshed' },
+        ownershipEffect: { decorState: 'refreshed' }
     },
     {
         tag: ActionTags.CELEBRATE_SMALL_WIN,
@@ -56,7 +60,7 @@ export const MoodActions: ActionDefinition[] = [
         rewardSecondary: { MOOD: 0.65, MORALE: 0.4, COMMUNITY: 0.3 },
         tradeEffect: { treats: -2, music: '-time' },
         socialImpact: { MOOD: 0.6, COHESION: 0.4, PRIDE: 0.2 },
-        lawEffect: { gatheringPermit: 'not_required', enforceable: false },
+        lawEffect: { gatheringPermit: 'not_required', enforceable: false }
     },
     {
         tag: MoodActionTag.GRATITUDE_RITUAL,
@@ -64,7 +68,7 @@ export const MoodActions: ActionDefinition[] = [
         costTime: 0.8,
         rewardSecondary: { MOOD: 0.6, SPIRIT: 0.2, RESILIENCE: 0.2 },
         socialImpact: { MOOD: 0.55, HOPE: 0.3 as any },
-        lawEffect: { rite: 'gratitude', enforceable: false },
+        lawEffect: { rite: 'gratitude', enforceable: false }
     },
     {
         tag: MoodActionTag.MINDFUL_BREATHING,
@@ -72,7 +76,7 @@ export const MoodActions: ActionDefinition[] = [
         costTime: 0.5,
         rewardSecondary: { MOOD: 0.45, REST: 0.15, FOCUS: 0.2 },
         requiresLocation: 'quiet_spot',
-        socialImpact: { MOOD: 0.35, CALM: 0.4 as any },
+        socialImpact: { MOOD: 0.35, CALM: 0.4 as any }
     },
     {
         tag: MoodActionTag.STROLL_SCENIC,
@@ -83,7 +87,7 @@ export const MoodActions: ActionDefinition[] = [
         ownershipEffect: {
             accessScope: 'greenway|riverbank',
             grantAccess: true,
-        },
+        }
     },
     {
         tag: MoodActionTag.PLAY_GAMES,
@@ -93,7 +97,7 @@ export const MoodActions: ActionDefinition[] = [
         rewardSecondary: { MOOD: 0.6, SOCIAL: 0.3, COMPETITION: 0.2 },
         tradeEffect: { game_set: '-wear' },
         socialImpact: { MOOD: 0.55, UNITY: 0.2 as any, RESENTMENT: 0.05 },
-        lawEffect: { gamblingBan: 'observe_limit', enforceable: true },
+        lawEffect: { gamblingBan: 'observe_limit', enforceable: true }
     },
     {
         tag: MoodActionTag.DANCE_GATHERING,
@@ -104,13 +108,18 @@ export const MoodActions: ActionDefinition[] = [
         tradeEffect: { musicians_fee: -2 },
         socialImpact: { MOOD: 0.8, COHESION: 0.5, VISIBILITY: 0.3 },
         lawEffect: { gatheringPermit: 'approved', enforceable: true },
+        requiredMemes: [
+            health.sanitation_norms,
+            health.waste_handling,
+            comm.language.written,
+        ]
     },
     {
         tag: MoodActionTag.STORYTELL_FIRESIDE,
         costEnergy: -0.08,
         costTime: 1.0,
         rewardSecondary: { MOOD: 0.55, TRADITION: 0.3, FAMILY: 0.2 },
-        socialImpact: { MOOD: 0.55, MEMORY: 0.4 as any },
+        socialImpact: { MOOD: 0.55, MEMORY: 0.4 as any }
     },
     {
         tag: MoodActionTag.CLEAN_LIVING_SPACE,
@@ -119,6 +128,10 @@ export const MoodActions: ActionDefinition[] = [
         rewardSecondary: { MOOD: 0.5, HYGIENE: 0.4, ORDER: 0.4 },
         socialImpact: { MOOD: 0.45, DIGNITY: 0.2 as any },
         ownershipEffect: { homeState: 'tidy' },
+        requiredMemes: [
+            health.sanitation_norms,
+            health.waste_handling,
+        ]
     },
     {
         tag: MoodActionTag.SUNLIGHT_EXPOSURE,
@@ -127,7 +140,7 @@ export const MoodActions: ActionDefinition[] = [
         rewardSecondary: { MOOD: 0.45, HEALTH: 0.1, REST: 0.05 },
         requiresLocation: 'sunny_spot',
         socialImpact: { MOOD: 0.35 },
-        lawEffect: { curfew: 'not_active', enforceable: true },
+        lawEffect: { curfew: 'not_active', enforceable: true }
     },
     {
         tag: MoodActionTag.PET_INTERACTION,
@@ -135,7 +148,7 @@ export const MoodActions: ActionDefinition[] = [
         costTime: 0.8,
         rewardSecondary: { MOOD: 0.55, AFFECTION: 0.3, STRESS: -0.2 as any },
         socialImpact: { MOOD: 0.5, TENDERNESS: 0.4 as any },
-        ownershipEffect: { accessScope: 'animal_pen', grantAccess: true },
+        ownershipEffect: { accessScope: 'animal_pen', grantAccess: true }
     },
     {
         tag: MoodActionTag.GIFT_SMALL_TOKEN,
@@ -144,6 +157,6 @@ export const MoodActions: ActionDefinition[] = [
         rewardSecondary: { MOOD: 0.55, SOCIAL: 0.3, AFFECTION: 0.4 },
         tradeEffect: { trinket: -1 },
         socialImpact: { MOOD: 0.55, GRATITUDE: 0.4 },
-        lawEffect: { giftPolicy: 'no_bribe', enforceable: true },
+        lawEffect: { giftPolicy: 'no_bribe', enforceable: true }
     },
 ];
