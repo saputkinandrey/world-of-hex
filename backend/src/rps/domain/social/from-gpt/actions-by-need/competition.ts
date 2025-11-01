@@ -1,6 +1,6 @@
 import { ActionDefinition } from '../action-definition';
 import { CompetitionActionTag } from '../action-tags';
-import { comm, health, org } from '../memes';
+import { comm, health, memes, org, tech } from '../memes';
 export const CompetitionActions: ActionDefinition[] = [
     {
         tag: CompetitionActionTag.ENTER_SKILL_CONTEST,
@@ -20,9 +20,9 @@ export const CompetitionActions: ActionDefinition[] = [
             enforceable: true,
             bracket: 'open',
         },
+        needMemes: true,
         requiredMemes: [
-            comm.language.written,
-            org.workshop_practice,
+            // нужен мем, отвечающий за саму идею соревновательности
         ]
     },
     {
@@ -39,7 +39,12 @@ export const CompetitionActions: ActionDefinition[] = [
         requiresItem: ['bow|spear', 'traps?'],
         tradeEffect: { potential_loot: '+game', entry_fee: -1 },
         socialImpact: { COMPETITION: 0.7, HEROISM: 0.4, AWE: 0.3 },
-        lawEffect: { huntingRules: 'seasonal_quota', enforceable: true }
+        lawEffect: { huntingRules: 'seasonal_quota', enforceable: true },
+        needMemes: true,
+        requiredMemes: [
+            // нужен мем, отвечающий за саму идею соревновательности
+            // нужен мем, отвечающий за охоту
+        ]
     },
     {
         tag: CompetitionActionTag.ENTER_COMBAT_SPAR,
@@ -54,6 +59,11 @@ export const CompetitionActions: ActionDefinition[] = [
         },
         requiresItem: ['practice_weapon'],
         socialImpact: { COMPETITION: 0.65, COURAGE: 0.4, RESPECT: 0.3 },
+        needMemes: true,
+        requiredMemes: [
+            // нужен мем, отвечающий за саму идею соревновательности
+            // нужен мем, отвечающий за идею боя
+        ],
         lawEffect: { safetyRules: 'nonlethal', enforceable: true }
     },
     {
@@ -70,6 +80,11 @@ export const CompetitionActions: ActionDefinition[] = [
         requiresSkill: 'oratory',
         requiresLocation: 'assembly',
         socialImpact: { COMPETITION: 0.5, VISIBILITY: 0.5, SKEPTICISM: 0.1 },
+        needMemes: true,
+        requiredMemes: [
+            memes.comm.language.spoken
+            // нужен мем, отвечающий за саму идею соревновательности
+        ],
         lawEffect: { debateDocket: 'scheduled', enforceable: true }
     },
     {
@@ -81,17 +96,13 @@ export const CompetitionActions: ActionDefinition[] = [
         requiresSkill: 'negotiation',
         tradeEffect: { bid_price: '-X', materials_plan: 'submitted' },
         socialImpact: { COMPETITION: 0.55, TRUST: 0.2 },
+        needMemes: true,
+        requiredMemes: [
+            // нужен мем, отвечающий за саму идею соревновательности
+            // нужен мем, отвечающий за саму идею договора
+            // нужен мем, отвечающий за саму идею денег
+        ],
         lawEffect: { tenderId: 'public_work_v1', enforceable: true }
-    },
-    {
-        tag: CompetitionActionTag.OUTBID_RIVAL,
-        costEnergy: -0.05,
-        costTime: 0.3,
-        risk: 0.1,
-        rewardSecondary: { COMPETITION: 0.5, WEALTH: 0.2, STATUS: 0.2 },
-        tradeEffect: { bid_adjust: '-Δ', escrow_deposit: -1 },
-        socialImpact: { COMPETITION: 0.5, ENVY: 0.2, RESENTMENT: 0.15 },
-        lawEffect: { tenderUpdate: 'offer_replaced', enforceable: true }
     },
     {
         tag: CompetitionActionTag.SHOWCASE_MASTERPIECE,
@@ -108,12 +119,7 @@ export const CompetitionActions: ActionDefinition[] = [
         tradeEffect: { potential_orders: '+N', sample_cost: -1 },
         socialImpact: { COMPETITION: 0.55, FAME: 0.45, AWE: 0.35 },
         ownershipEffect: { claimAuthorship: true, displayRight: 'granted' },
-        requiredMemes: [
-            health.sanitation_norms,
-            health.waste_handling,
-            comm.language.written,
-            org.workshop_practice,
-        ]
+        needMemes: true,
     },
     {
         tag: CompetitionActionTag.SUBMIT_INNOVATION,
@@ -129,6 +135,10 @@ export const CompetitionActions: ActionDefinition[] = [
         tradeEffect: { patent_fee: -2, blueprint: 'filed' },
         socialImpact: { COMPETITION: 0.6, FAME: 0.35, SKEPTICISM: 0.1 },
         lawEffect: { guildPatent: 'pending', enforceable: true },
+        needMemes: true,
+        requiredMemes: [
+            // нужен мем, отвечающий за саму идею инноваций
+        ],
         ownershipEffect: { ipClaim: 'innovation#id', exclusive: true }
     },
     {
@@ -139,6 +149,10 @@ export const CompetitionActions: ActionDefinition[] = [
         rewardSecondary: { COMPETITION: 0.6, POWER: 0.3, COMMUNITY: 0.2 },
         requiresSkill: 'leadership',
         socialImpact: { COMPETITION: 0.5, NETWORK: 0.5, LOYALTY: 0.2 },
+        needMemes: true,
+        requiredMemes: [
+            // нужен мем, отвечающий за саму идею социальности
+        ],
         ownershipEffect: { accessScope: 'team_assets', grantAccess: true }
     },
     {
@@ -152,6 +166,10 @@ export const CompetitionActions: ActionDefinition[] = [
             HEALTH: 0.2,
             STATUS: 0.2,
         },
+        needMemes: true,
+        requiredMemes: [
+            // нужен мем, отвечающий за саму идею обучения
+        ],
         socialImpact: { COMPETITION: 0.45, DISCIPLINE: 0.4 },
         lawEffect: { trainingPermit: 'range_access', enforceable: true }
     },
@@ -163,6 +181,7 @@ export const CompetitionActions: ActionDefinition[] = [
         rewardSecondary: { COMPETITION: 0.55, CONTROL: 0.25, POWER: 0.2 },
         requiresSkill: 'observation',
         socialImpact: { COMPETITION: 0.45, INFORMATIONAL_ADV: 0.5 as any },
+        needMemes: true,
         lawEffect: { codeOfConduct: 'no_sabotage', enforceable: true }
     },
     {
@@ -172,6 +191,8 @@ export const CompetitionActions: ActionDefinition[] = [
         rewardSecondary: { COMPETITION: 0.55, LAW: 0.3, FAIRNESS: 0.3 as any },
         requiresSkill: 'diplomacy',
         socialImpact: { COMPETITION: 0.45, TRUST: 0.25 },
+        needMemes: true,
+
         lawEffect: { ruleset: 'ratified', enforceable: true }
     },
     {

@@ -1,6 +1,6 @@
 import { ActionDefinition } from '../action-definition';
 import { ComfortActionTag } from '../action-tags';
-import { fire } from '../memes';
+import { culinary, fire, memes } from '../memes';
 export const ComfortActions: ActionDefinition[] = [
     {
         tag: ComfortActionTag.LIGHT_FIRE,
@@ -17,7 +17,7 @@ export const ComfortActions: ActionDefinition[] = [
         costEnergy: -0.05,
         costTime: 1,
         rewardSecondary: { COMFORT: 0.7, MOOD: 0.4, REST: 0.3 },
-        requiresLocation: 'campfire',
+        requiredMemes: [fire.use],
         temperatureEffect: +5
     },
     {
@@ -33,6 +33,7 @@ export const ComfortActions: ActionDefinition[] = [
         costTime: 0.2,
         rewardSecondary: { COMFORT: 0.4, HEALTH: 0.2 },
         requiresItem: ['fur'],
+        unclearAction: true,
         temperatureEffect: +3
     },
     {
@@ -40,6 +41,7 @@ export const ComfortActions: ActionDefinition[] = [
         costEnergy: -0.05,
         costTime: 0.5,
         rewardSecondary: { COMFORT: 0.6, MOOD: 0.4, HEALTH: 0.2 },
+        requiredMemes: [culinary.boil],
         requiresItem: ['hot_drink']
     },
     {

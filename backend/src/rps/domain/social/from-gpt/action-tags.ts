@@ -450,7 +450,6 @@ export enum CompetitionActionTag {
     ENTER_COMBAT_SPAR = 'ENTER_COMBAT_SPAR', // учебный поединок/спарринг
     CHALLENGE_PUBLIC_DEBATE = 'CHALLENGE_PUBLIC_DEBATE', // публичные прения/диспут
     BID_FOR_CONTRACT = 'BID_FOR_CONTRACT', // торги за общинный заказ
-    OUTBID_RIVAL = 'OUTBID_RIVAL', // перебить ставку соперника
     SHOWCASE_MASTERPIECE = 'SHOWCASE_MASTERPIECE', // выставить шедевр/новинку
     SUBMIT_INNOVATION = 'SUBMIT_INNOVATION', // предложить новшество (патент/гильдия)
     RECRUIT_ALLIES = 'RECRUIT_ALLIES', // вербовка союзников для соревнования
@@ -1080,6 +1079,7 @@ export enum ClarityActionTag {
     WAYFINDING_SIGNS = 'WAYFINDING_SIGNS', // указатели/таблички направления
     SHADOW_BOARD_OUTLINES = 'SHADOW_BOARD_OUTLINES', // «тени» инструментов на стендах
     SIMPLE_LANGUAGE_TRAINING = 'SIMPLE_LANGUAGE_TRAINING', // обучение простому языку инструкций
+    WRITTEN_LANGUAGE_TRAINING = 'WRITTEN_LANGUAGE_TRAINING', // обучение письму
     MEETING_MINUTES_RECORD = 'MEETING_MINUTES_RECORD', // протоколировать встречи (краткие итоги)
     LEDGER_SUMMARY_WEEK = 'LEDGER_SUMMARY_WEEK', // еженедельные сводки из реестров
     QUESTIONS_OPEN_HOUR = 'QUESTIONS_OPEN_HOUR', // «час вопросов» для всех

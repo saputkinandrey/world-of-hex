@@ -15,6 +15,7 @@ export const AccountabilityActions: ActionDefinition[] = [
         tradeEffect: { parchment: -1, ink: -1 },
         ownershipEffect: { roleMatrix: 'posted_named_owners' },
         lawEffect: { dutyCharter: 'ratified', enforceable: true },
+        needRework: true,
         requiredMemes: [
             comm.language.written,
             org.duty_roster,
@@ -32,6 +33,8 @@ export const AccountabilityActions: ActionDefinition[] = [
         },
         tradeEffect: { parchment: -1, ink: -1 },
         ownershipEffect: { worklog: 'weekly_summary_posted' },
+        needRework: true,
+
         requiredMemes: [
             comm.language.written,
             record.ledgerkeeping,
@@ -47,6 +50,8 @@ export const AccountabilityActions: ActionDefinition[] = [
             TRUST: 0.3,
             STABILITY: 0.3,
         },
+        needRework: true,
+
         ownershipEffect: { taskOwner: 'reassigned_with_receipt' },
         lawEffect: { handoffRule: 'required', enforceable: true }
     },
@@ -64,6 +69,8 @@ export const AccountabilityActions: ActionDefinition[] = [
         requiresLocation: 'workyard|stores|gate',
         socialImpact: { TRANSPARENCY: 0.3 as any, RESENTMENT: -0.05 },
         ownershipEffect: { auditNotes: 'logged' },
+        needRework: true,
+
         requiredMemes: [
             culture.vigil_ritual,
             cog.timekeeping.basic,
@@ -82,6 +89,8 @@ export const AccountabilityActions: ActionDefinition[] = [
         tradeEffect: { wax: -1 | (0 as any) },
         socialImpact: { CREDIBILITY: 0.3, COMMUNITY: 0.2 },
         ownershipEffect: { document: 'witness_countersigned' },
+        needRework: true,
+
         requiredMemes: [
             record.ledgerkeeping,
             econ.pooling_common_fund,
@@ -100,6 +109,8 @@ export const AccountabilityActions: ActionDefinition[] = [
         requiresLocation: 'hall|yard',
         socialImpact: { COHESION: 0.3, TRANSPARENCY: 0.4 as any },
         ownershipEffect: { actionItems: 'issued_named_owners' },
+        needRework: true,
+
         requiredMemes: [
             health.sanitation_norms,
             health.waste_handling,
@@ -120,6 +131,8 @@ export const AccountabilityActions: ActionDefinition[] = [
         tradeEffect: { parchment: -1, ink: -1 },
         ownershipEffect: { incidentLog: 'filed', mitigation: 'assigned' },
         lawEffect: { reportRule: 'mandatory', enforceable: true },
+        needRework: true,
+
         requiredMemes: [
             comm.language.written,
             record.ledgerkeeping,
@@ -151,6 +164,8 @@ export const AccountabilityActions: ActionDefinition[] = [
         },
         requiresLocation: 'stores|tool_wall',
         ownershipEffect: { toolLedger: 'countersigned_in_out' },
+        needRework: true,
+
         lawEffect: { depositRule: 'posted', enforceable: true }
     },
     {
@@ -165,6 +180,8 @@ export const AccountabilityActions: ActionDefinition[] = [
         },
         tradeEffect: { stamp_wax: -1 | (0 as any) },
         ownershipEffect: { worklog: 'time_stamped' },
+        needRework: true,
+
         requiredMemes: [
             record.ledgerkeeping,
             econ.pooling_common_fund,
@@ -183,6 +200,8 @@ export const AccountabilityActions: ActionDefinition[] = [
         requiresLocation: 'workshop|guild_hall',
         socialImpact: { RESPECT: 0.2, COMPETITION: 0.1 },
         ownershipEffect: { reviewRoster: 'rotating_pairs' },
+        needRework: true,
+
         requiredMemes: [
             comm.language.written,
             org.duty_roster,
@@ -201,6 +220,8 @@ export const AccountabilityActions: ActionDefinition[] = [
         },
         tradeEffect: { parchment: -1, ink: -1 },
         ownershipEffect: { noticeBoard: 'escalation_tree_posted' },
+        needRework: true,
+
         requiredMemes: [
             comm.language.written,
             org.duty_roster,
@@ -218,6 +239,8 @@ export const AccountabilityActions: ActionDefinition[] = [
         },
         tradeEffect: { chalk: -1, tokens: '-N' as any },
         ownershipEffect: { boardState: 'kpi_marks_visible' },
+        needRework: true,
+
         requiredMemes: [
             comm.language.written,
             record.ledgerkeeping,
@@ -238,6 +261,8 @@ export const AccountabilityActions: ActionDefinition[] = [
         requiresLocation: 'hall|temple',
         socialImpact: { RESPECT: 0.3, DIGNITY: 0.3 as any },
         lawEffect: { oathRecord: 'renewed', enforceable: true },
+        needRework: true,
+
         requiredMemes: [
             culture.vigil_ritual,
             cog.timekeeping.basic,
@@ -262,6 +287,8 @@ export const AccountabilityActions: ActionDefinition[] = [
         socialImpact: { THEFT: -0.1 as any, CREDIBILITY: 0.2 },
         ownershipEffect: { treasuryPouches: 'sealed_with_countersign' },
         lawEffect: { tamperPenalty: 'severe', enforceable: true },
+        needRework: true,
+
         requiredMemes: [
             record.ledgerkeeping,
             econ.pooling_common_fund,
@@ -279,6 +306,8 @@ export const AccountabilityActions: ActionDefinition[] = [
         },
         requiresLocation: 'side_room|workbench',
         socialImpact: { LOYALTY: 0.2, RESENTMENT: -0.05 },
+        needRework: true,
+
         ownershipEffect: { improvementPlan: 'agreed_named_actions' }
     },
 ];

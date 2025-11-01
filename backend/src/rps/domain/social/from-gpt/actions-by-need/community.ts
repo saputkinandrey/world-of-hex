@@ -19,11 +19,7 @@ export const CommunityActions: ActionDefinition[] = [
         socialImpact: { COHESION: 0.6, COMMUNITY: 0.6, VISIBILITY: 0.3 },
         ownershipEffect: { accessScope: 'public_worksite', grantAccess: true },
         lawEffect: { notice: 'work_bee_called', enforceable: false },
-        requiredMemes: [
-            record.ledgerkeeping,
-            econ.pooling_common_fund,
-            comm.language.written,
-        ]
+        needRework: true,
     },
     {
         tag: CommunityActionTag.BUILD_COMMON_INFRA,
@@ -155,10 +151,7 @@ export const CommunityActions: ActionDefinition[] = [
         socialImpact: { COMMUNITY: 0.65, SAFETY_NET: 0.6 as any },
         ownershipEffect: { fundAccessPolicy: 'need_based', grantAccess: true },
         lawEffect: { mutualAidCharter: 'ratified', enforceable: true },
-        requiredMemes: [
-            record.ledgerkeeping,
-            econ.pooling_common_fund,
-        ]
+        needRework: true,
     },
     {
         tag: CommunityActionTag.SET_COMMUNITY_NORMS,
@@ -179,11 +172,7 @@ export const CommunityActions: ActionDefinition[] = [
         socialImpact: { COMMUNITY: 0.6, VIBRANCY: 0.5 as any, NETWORK: 0.4 },
         ownershipEffect: { accessScope: 'market_stalls', grantAccess: true },
         lawEffect: { marketRules: 'v1', enforceable: true },
-        requiredMemes: [
-            health.sanitation_norms,
-            health.waste_handling,
-            comm.language.written,
-        ]
+        needRework: true,
     },
     {
         tag: CommunityActionTag.CLEAN_PUBLIC_SPACES,

@@ -1,5 +1,6 @@
 import { ActionTag } from './action-tags';
 import { NeedTag } from './needs';
+import { MemeId } from './memes';
 
 export interface ActionDefinition {
     tag?: ActionTag; // Тип действия
@@ -59,8 +60,9 @@ export interface ActionDefinition {
     lawEffect?: {
         [k: string]: string | boolean; // указы/правила/флаги исполнимости
     };
-    requiredMeme?: {
-        fire?: boolean;
-    };
+    requiredMemes?: readonly MemeId[];
+
+    needMemes?: boolean;
     needRework?: boolean;
+    unclearAction?: boolean;
 }

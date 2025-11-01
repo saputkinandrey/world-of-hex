@@ -7,7 +7,10 @@ export const AffectionActions: ActionDefinition[] = [
         costTime: 1.2,
         rewardSecondary: { AFFECTION: 0.7, BELONGING: 0.3, MOOD: 0.35 as any },
         socialImpact: { AFFECTION: 0.6, INTIMACY: 0.4, TRUST: 0.2 },
+        needMemes: true,
+
         ownershipEffect: { accessScope: 'home_space', grantAccess: true }
+
     },
     {
         tag: AffectionActionTag.GIVE_PERSONAL_GIFT,
@@ -16,6 +19,8 @@ export const AffectionActions: ActionDefinition[] = [
         rewardSecondary: { AFFECTION: 0.6, RESPECT: 0.15, COMMUNITY: 0.1 },
         tradeEffect: { give_item: 'keepsake', note: 'personal_meaning' },
         socialImpact: { AFFECTION: 0.55, RECIPROCITY: 0.35, GRATITUDE: 0.35 },
+        needMemes: true,
+
         ownershipEffect: { sentimentalLink: 'created' }
     },
     {
@@ -24,6 +29,8 @@ export const AffectionActions: ActionDefinition[] = [
         costTime: 1.0,
         rewardSecondary: { AFFECTION: 0.55, BELONGING: 0.25, COMFORT: 0.2 },
         tradeEffect: { spend_food: -2, spend_drink: -1, note: 'private_meal' },
+        needMemes: true,
+
         socialImpact: { AFFECTION: 0.45, WARMTH: 0.35 }
     },
     {
@@ -33,6 +40,8 @@ export const AffectionActions: ActionDefinition[] = [
         rewardSecondary: { AFFECTION: 0.85, HEALTH: 0.5, BELONGING: 0.4 },
         socialImpact: { AFFECTION: 0.7, TRUST: 0.4, GRATITUDE: 0.6 },
         tradeEffect: { use_herbs: -1, use_bandages: -1 },
+        needMemes: true,
+
         ownershipEffect: { accessScope: 'sickbed', grantAccess: true }
     },
     {
@@ -42,6 +51,8 @@ export const AffectionActions: ActionDefinition[] = [
         risk: 0.1,
         rewardSecondary: { AFFECTION: 0.6, RESPECT: 0.25, JUSTICE: 0.2 },
         socialImpact: { AFFECTION: 0.5, SAFETY: 0.2, DIGNITY: 0.3 as any },
+        needMemes: true,
+
         lawEffect: { complaintLogged: 'insult_mitigated', enforceable: false }
     },
     {
@@ -50,6 +61,8 @@ export const AffectionActions: ActionDefinition[] = [
         costTime: 0.5,
         rewardSecondary: { AFFECTION: 0.5, TRADITION: 0.15, MOOD: 0.25 as any },
         tradeEffect: { use_paper: -1, token_attached: 'ribbon' },
+        needMemes: true,
+
         socialImpact: { AFFECTION: 0.45, NOSTALGIA: 0.3 as any }
     },
     {
@@ -58,6 +71,8 @@ export const AffectionActions: ActionDefinition[] = [
         costTime: 1.5,
         rewardSecondary: { AFFECTION: 0.7, STABILITY: 0.3, TRADITION: 0.3 },
         tradeEffect: { spend_food: -3, gift_value: -2 },
+        needMemes: true,
+
         socialImpact: {
             AFFECTION: 0.6,
             COMMITMENT: 0.45 as any,
@@ -70,6 +85,8 @@ export const AffectionActions: ActionDefinition[] = [
         costEnergy: -0.2,
         costTime: 2.0,
         rewardSecondary: { AFFECTION: 0.65, MASTERY: 0.35, KNOWLEDGE: 0.35 },
+        needMemes: true,
+
         socialImpact: { AFFECTION: 0.5, TRUST: 0.3, RESPECT: 0.2 }
     },
     {
@@ -77,6 +94,8 @@ export const AffectionActions: ActionDefinition[] = [
         costEnergy: -0.04,
         costTime: 1.0,
         rewardSecondary: { AFFECTION: 0.55, REST: 0.1, MOOD: 0.2 as any },
+        needMemes: true,
+
         socialImpact: { AFFECTION: 0.55, TRUST: 0.35, EMPATHY: 0.45 as any }
     },
     {
@@ -84,6 +103,8 @@ export const AffectionActions: ActionDefinition[] = [
         costEnergy: -0.06,
         costTime: 0.8,
         rewardSecondary: { AFFECTION: 0.6, MORALE: 0.4 as any, STABILITY: 0.2 },
+        needMemes: true,
+
         socialImpact: {
             AFFECTION: 0.55,
             HOPE: 0.4 as any,
@@ -98,6 +119,8 @@ export const AffectionActions: ActionDefinition[] = [
         rewardSecondary: { AFFECTION: 0.7, TRUST: 0.4, CURIOSITY: 0.2 },
         socialImpact: { AFFECTION: 0.6, INTIMACY: 0.5, TRUST: 0.3 },
         ownershipEffect: { sharedAccess: true, accessScope: 'hideaway' },
+        needMemes: true,
+
         lawEffect: { confidentialityOath: 'verbal', enforceable: false }
     },
     {
@@ -116,6 +139,8 @@ export const AffectionActions: ActionDefinition[] = [
         risk: 0.1,
         rewardSecondary: { AFFECTION: 0.6, REPUTATION: 0.3, STATUS: 0.2 },
         socialImpact: { AFFECTION: 0.5, TRUST: 0.3, VISIBILITY: 0.3 },
+        needMemes: true,
+
         lawEffect: { statementFiled: 'support_declared', enforceable: false }
     },
     {
@@ -125,6 +150,8 @@ export const AffectionActions: ActionDefinition[] = [
         rewardSecondary: { AFFECTION: 0.65, STABILITY: 0.4, PURPOSE: 0.35 },
         socialImpact: { AFFECTION: 0.55, COMMITMENT: 0.5, TRUST: 0.3 },
         ownershipEffect: { sharedGoals: 'created' },
+        needMemes: true,
+
         lawEffect: { pact: 'informal_life_plans', enforceable: false }
     },
     {
@@ -133,6 +160,8 @@ export const AffectionActions: ActionDefinition[] = [
         costTime: 2.0,
         rewardSecondary: { AFFECTION: 0.6, SECURITY: 0.4, BELONGING: 0.3 },
         socialImpact: { AFFECTION: 0.5, TRUST: 0.4, CARE: 0.35 as any },
+        needMemes: true,
+
         ownershipEffect: { accessScope: 'private_quarters', grantAccess: true }
     },
     {
@@ -147,6 +176,8 @@ export const AffectionActions: ActionDefinition[] = [
             STABILITY: 0.3,
         },
         socialImpact: { AFFECTION: 0.55, HARMONY: 0.5, TRUST: 0.3 },
+        needMemes: true,
+
         lawEffect: { mediationRecord: 'family_pact', enforceable: true }
     },
 ];
