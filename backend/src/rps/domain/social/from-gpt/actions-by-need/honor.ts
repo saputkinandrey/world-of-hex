@@ -1,6 +1,6 @@
 import { ActionDefinition } from '../action-definition';
 import { HonorActionTag } from '../action-tags';
-
+import { comm, health } from '../memes';
 export const HonorActions: ActionDefinition[] = [
     {
         tag: HonorActionTag.KEEP_WORD,
@@ -14,7 +14,7 @@ export const HonorActions: ActionDefinition[] = [
             HONOR: 0.75,
         },
         socialImpact: { CREDIBILITY: 0.5, FAIRNESS: 0.2 },
-        lawEffect: { oathRecord: 'fulfilled', enforceable: true },
+        lawEffect: { oathRecord: 'fulfilled', enforceable: true }
     },
     {
         tag: HonorActionTag.RETURN_FOUND_PROPERTY,
@@ -23,7 +23,7 @@ export const HonorActions: ActionDefinition[] = [
         rewardSecondary: { HONOR: 0.6, INTEGRITY: 0.5, TRUST: 0.3, ORDER: 0.2 },
         tradeEffect: { found_item: 'returned' },
         socialImpact: { COMMUNITY: 0.2, RESPECT: 0.2 },
-        lawEffect: { lostAndFoundLedger: 'updated', enforceable: true },
+        lawEffect: { lostAndFoundLedger: 'updated', enforceable: true }
     },
     {
         tag: HonorActionTag.DECLINE_UNFAIR_ADVANTAGE,
@@ -37,7 +37,7 @@ export const HonorActions: ActionDefinition[] = [
             DISCIPLINE: 0.2,
         },
         socialImpact: { RESPECT: 0.3, TRUST: 0.2 },
-        lawEffect: { cheatingAttempt: 'refused', enforceable: true },
+        lawEffect: { cheatingAttempt: 'refused', enforceable: true }
     },
     {
         tag: HonorActionTag.STAND_WITNESS_TRUTH,
@@ -53,6 +53,11 @@ export const HonorActions: ActionDefinition[] = [
         requiresLocation: 'hall|court_square',
         socialImpact: { CREDIBILITY: 0.5, ORDER: 0.3 },
         lawEffect: { testimony: 'sworn', enforceable: true },
+        requiredMemes: [
+            health.sanitation_norms,
+            health.waste_handling,
+            comm.language.written,
+        ]
     },
     {
         tag: HonorActionTag.ACCEPT_DUEL_FORMAL,
@@ -68,7 +73,7 @@ export const HonorActions: ActionDefinition[] = [
         requiresSkill: 'dueling|arms',
         requiresLocation: 'duel_ground',
         socialImpact: { RESPECT: 0.4, CONTROVERSY: 0.2 },
-        lawEffect: { duelCode: 'observed', enforceable: true },
+        lawEffect: { duelCode: 'observed', enforceable: true }
     },
     {
         tag: HonorActionTag.ISSUE_FORMAL_APOLOGY,
@@ -84,6 +89,11 @@ export const HonorActions: ActionDefinition[] = [
         requiresLocation: 'hall|square',
         socialImpact: { TRUST: 0.3, RESENTMENT: -0.2 },
         lawEffect: { apologyRecord: 'filed', enforceable: true },
+        requiredMemes: [
+            health.sanitation_norms,
+            health.waste_handling,
+            comm.language.written,
+        ]
     },
     {
         tag: HonorActionTag.DEFEND_WEAK,
@@ -97,7 +107,7 @@ export const HonorActions: ActionDefinition[] = [
             SECURITY: 0.3,
         },
         socialImpact: { RESPECT: 0.4, FEAR: -0.1 },
-        lawEffect: { assaultPrevention: 'intervened', enforceable: true },
+        lawEffect: { assaultPrevention: 'intervened', enforceable: true }
     },
     {
         tag: HonorActionTag.UPHOLD_OATH_GUILD,
@@ -110,7 +120,7 @@ export const HonorActions: ActionDefinition[] = [
             TRUST: 0.3,
         },
         socialImpact: { LOYALTY: 0.3, STABILITY: 0.3 },
-        lawEffect: { guildOath: 'compliant', enforceable: true },
+        lawEffect: { guildOath: 'compliant', enforceable: true }
     },
     {
         tag: HonorActionTag.PAY_DEBT_PROMPTLY,
@@ -124,7 +134,7 @@ export const HonorActions: ActionDefinition[] = [
         },
         tradeEffect: { coin: '-X' as any },
         socialImpact: { REPUTATION: 0.3, NETWORK: 0.1 },
-        lawEffect: { debtLedger: 'cleared', enforceable: true },
+        lawEffect: { debtLedger: 'cleared', enforceable: true }
     },
     {
         tag: HonorActionTag.REFUSE_BRIBE,
@@ -138,7 +148,7 @@ export const HonorActions: ActionDefinition[] = [
             COURAGE: 0.2,
         },
         socialImpact: { RESPECT: 0.3, CORRUPTION: -0.3 as any },
-        lawEffect: { briberyCase: 'reported|refused', enforceable: true },
+        lawEffect: { briberyCase: 'reported|refused', enforceable: true }
     },
     {
         tag: HonorActionTag.PUBLIC_CODE_DECLARATION,
@@ -153,6 +163,11 @@ export const HonorActions: ActionDefinition[] = [
         requiresLocation: 'square|hall',
         socialImpact: { VISIBILITY: 0.3, TRUST: 0.2 },
         lawEffect: { codePosted: 'yes', enforceable: true },
+        requiredMemes: [
+            health.sanitation_norms,
+            health.waste_handling,
+            comm.language.written,
+        ]
     },
     {
         tag: HonorActionTag.HONOR_FAIR_CONTRACT,
@@ -161,7 +176,7 @@ export const HonorActions: ActionDefinition[] = [
         rewardSecondary: { HONOR: 0.8, FAIRNESS: 0.5, TRUST: 0.4, ORDER: 0.3 },
         tradeEffect: { deliverables: 'provided', payment: 'released' },
         socialImpact: { CREDIBILITY: 0.4, NETWORK: 0.2 },
-        lawEffect: { contract: 'fulfilled', enforceable: true },
+        lawEffect: { contract: 'fulfilled', enforceable: true }
     },
     {
         tag: HonorActionTag.RETURN_LOOT_TO_RIGHTFUL,
@@ -176,7 +191,7 @@ export const HonorActions: ActionDefinition[] = [
         },
         tradeEffect: { loot_out: '-N' as any },
         socialImpact: { RESPECT: 0.3, FEAR: -0.05 },
-        lawEffect: { propertyRestitution: 'completed', enforceable: true },
+        lawEffect: { propertyRestitution: 'completed', enforceable: true }
     },
     {
         tag: HonorActionTag.SHARE_CREDIT,
@@ -190,7 +205,7 @@ export const HonorActions: ActionDefinition[] = [
         },
         socialImpact: { TRUST: 0.3, RESENTMENT: -0.1 },
         ownershipEffect: { record: 'co_authorship', rights: 'shared' },
-        lawEffect: { creditNote: 'filed', enforceable: true },
+        lawEffect: { creditNote: 'filed', enforceable: true }
     },
     {
         tag: HonorActionTag.ACCEPT_JUST_PENALTY,
@@ -204,7 +219,7 @@ export const HonorActions: ActionDefinition[] = [
             CLARITY: 0.3,
         },
         socialImpact: { TRUST: 0.3, RESENTMENT: -0.1 },
-        lawEffect: { sentence: 'accepted', enforceable: true },
+        lawEffect: { sentence: 'accepted', enforceable: true }
     },
     {
         tag: HonorActionTag.MEDIATE_WITHOUT_FAVOR,
@@ -219,6 +234,6 @@ export const HonorActions: ActionDefinition[] = [
         },
         requiresSkill: 'mediation|custom_law',
         socialImpact: { TRUST: 0.4, COMMUNITY: 0.3 },
-        lawEffect: { mediationRecord: 'impartial', enforceable: true },
+        lawEffect: { mediationRecord: 'impartial', enforceable: true }
     },
 ];

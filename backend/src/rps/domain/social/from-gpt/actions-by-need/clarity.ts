@@ -1,6 +1,6 @@
 import { ActionDefinition } from '../action-definition';
 import { ClarityActionTag } from '../action-tags';
-
+import { cog, comm, culture, econ, fire, health, heat, org, record } from '../memes';
 export const ClarityActions: ActionDefinition[] = [
     {
         tag: ClarityActionTag.MORNING_CLARITY_BRIEF,
@@ -11,6 +11,11 @@ export const ClarityActions: ActionDefinition[] = [
         socialImpact: { TRANSPARENCY: 0.4 as any, TRUST: 0.3 },
         ownershipEffect: { accessScope: 'notice_board', grantAccess: true },
         lawEffect: { briefRule: 'daily_required', enforceable: true },
+        requiredMemes: [
+            health.sanitation_norms,
+            health.waste_handling,
+            comm.language.written,
+        ]
     },
     {
         tag: ClarityActionTag.TASK_DEFINITION_CARDS,
@@ -25,6 +30,7 @@ export const ClarityActions: ActionDefinition[] = [
         tradeEffect: { cards: '-N' as any, ink: -1 },
         socialImpact: { ACCOUNTABILITY: 0.3 as any },
         ownershipEffect: { boardState: 'cards_with_done_criteria' },
+        requiredMemes: [comm.language.written]
     },
     {
         tag: ClarityActionTag.ROLE_CHART_POSTING,
@@ -40,6 +46,10 @@ export const ClarityActions: ActionDefinition[] = [
         socialImpact: { CONFLICT: -0.15 as any, RESPECT: 0.2 },
         ownershipEffect: { roleMatrix: 'posted' },
         lawEffect: { dutyCharter: 'ratified', enforceable: true },
+        requiredMemes: [
+            comm.language.written,
+            org.duty_roster,
+        ]
     },
     {
         tag: ClarityActionTag.SIGNAL_FLAGS_PROTOCOL,
@@ -54,7 +64,7 @@ export const ClarityActions: ActionDefinition[] = [
         tradeEffect: { flags: '-N' as any, dye: -1 | (0 as any) },
         socialImpact: { COORDINATION: 0.3 as any },
         lawEffect: { signalCode: 'posted', enforceable: true },
-        ownershipEffect: { campSignals: 'active' },
+        ownershipEffect: { campSignals: 'active' }
     },
     {
         tag: ClarityActionTag.COMMON_GLOSSARY_CREATE,
@@ -73,6 +83,7 @@ export const ClarityActions: ActionDefinition[] = [
             accessScope: 'library',
             grantAccess: true,
         },
+        requiredMemes: [comm.language.written]
     },
     {
         tag: ClarityActionTag.WAYFINDING_SIGNS,
@@ -86,7 +97,7 @@ export const ClarityActions: ActionDefinition[] = [
         },
         tradeEffect: { boards: '-N' as any, paint: -1 | (0 as any) },
         socialImpact: { LOST: -0.3 as any, FLOW: 0.2 as any },
-        ownershipEffect: { paths: 'signed' },
+        ownershipEffect: { paths: 'signed' }
     },
     {
         tag: ClarityActionTag.SHADOW_BOARD_OUTLINES,
@@ -101,6 +112,7 @@ export const ClarityActions: ActionDefinition[] = [
         tradeEffect: { boards: -1 | (0 as any), paint: -1 | (0 as any) },
         socialImpact: { RESPONSIBILITY: 0.2 as any, THEFT: -0.05 as any },
         ownershipEffect: { toolWall: 'shadow_outlined' },
+        requiredMemes: [comm.language.written]
     },
     {
         tag: ClarityActionTag.SIMPLE_LANGUAGE_TRAINING,
@@ -115,6 +127,10 @@ export const ClarityActions: ActionDefinition[] = [
         requiresLocation: 'hall|workshop',
         socialImpact: { COHESION: 0.2, RESPECT: 0.2 },
         ownershipEffect: { primer: 'issued' },
+        requiredMemes: [
+            comm.language.written,
+            org.workshop_practice,
+        ]
     },
     {
         tag: ClarityActionTag.MEETING_MINUTES_RECORD,
@@ -130,6 +146,10 @@ export const ClarityActions: ActionDefinition[] = [
         socialImpact: { TRANSPARENCY: 0.4 as any, RUMORS: -0.2 as any },
         ownershipEffect: { minutes: 'posted_summary' },
         lawEffect: { minutesRule: 'required', enforceable: true },
+        requiredMemes: [
+            comm.language.written,
+            record.ledgerkeeping,
+        ]
     },
     {
         tag: ClarityActionTag.LEDGER_SUMMARY_WEEK,
@@ -144,6 +164,10 @@ export const ClarityActions: ActionDefinition[] = [
         requiresLocation: 'clerk_desk|hall',
         socialImpact: { TRANSPARENCY: 0.4 as any },
         ownershipEffect: { summaryScroll: 'posted' },
+        requiredMemes: [
+            comm.language.written,
+            record.ledgerkeeping,
+        ]
     },
     {
         tag: ClarityActionTag.QUESTIONS_OPEN_HOUR,
@@ -158,6 +182,11 @@ export const ClarityActions: ActionDefinition[] = [
         requiresLocation: 'hall|square',
         socialImpact: { RESENTMENT: -0.1, COHESION: 0.2 },
         lawEffect: { audienceRight: 'announced', enforceable: true },
+        requiredMemes: [
+            health.sanitation_norms,
+            health.waste_handling,
+            comm.language.written,
+        ]
     },
     {
         tag: ClarityActionTag.RUMOR_DEBUNK_BULLETIN,
@@ -173,6 +202,7 @@ export const ClarityActions: ActionDefinition[] = [
         tradeEffect: { parchment: -1, ink: -1 },
         socialImpact: { RUMORS: -0.4 as any, CREDIBILITY: 0.3 },
         ownershipEffect: { noticeBoard: 'debunk_posted' },
+        requiredMemes: [comm.language.written]
     },
     {
         tag: ClarityActionTag.VISUAL_WORK_INSTRUCTIONS,
@@ -188,6 +218,10 @@ export const ClarityActions: ActionDefinition[] = [
         tradeEffect: { boards: -1 | (0 as any), paint: -1 | (0 as any) },
         socialImpact: { TRAINING: 0.3 as any },
         ownershipEffect: { poster: 'mounted' },
+        requiredMemes: [
+            heat.industrial,
+            fire.control,
+        ]
     },
     {
         tag: ClarityActionTag.PROGRESS_MARK_TOTEM,
@@ -207,6 +241,11 @@ export const ClarityActions: ActionDefinition[] = [
         },
         socialImpact: { MOTIVATION: 0.3 as any, PANIC: -0.1 as any },
         ownershipEffect: { milestone: 'visible_scale' },
+        requiredMemes: [
+            health.sanitation_norms,
+            health.waste_handling,
+            comm.language.written,
+        ]
     },
     {
         tag: ClarityActionTag.NIGHTLY_STATUS_RUNDOWN,
@@ -221,6 +260,12 @@ export const ClarityActions: ActionDefinition[] = [
         requiresLocation: 'hall|hearth',
         socialImpact: { COHESION: 0.2, ACCOUNTABILITY: 0.2 as any },
         ownershipEffect: { logbook: 'end_of_day_update' },
+        requiredMemes: [
+            culture.vigil_ritual,
+            cog.timekeeping.basic,
+            heat.space.hearth,
+            comm.language.written,
+        ]
     },
     {
         tag: ClarityActionTag.MAP_AND_TERRAIN_BRIEF,
@@ -236,5 +281,10 @@ export const ClarityActions: ActionDefinition[] = [
         tradeEffect: { parchment: -1, ink: -1, tokens: '-N' as any },
         socialImpact: { TRUST: 0.2, COURAGE: 0.2 },
         ownershipEffect: { mapState: 'annotated' },
+        requiredMemes: [
+            comm.language.written,
+            record.ledgerkeeping,
+            econ.pooling_common_fund,
+        ]
     },
 ];

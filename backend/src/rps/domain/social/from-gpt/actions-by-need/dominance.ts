@@ -1,6 +1,5 @@
 import { ActionDefinition } from '../action-definition';
 import { DominanceActionTag } from '../action-tags';
-
 export const DominanceActions: ActionDefinition[] = [
     {
         tag: DominanceActionTag.INTIMIDATING_DISPLAY,
@@ -20,7 +19,7 @@ export const DominanceActions: ActionDefinition[] = [
             COMPLIANCE: 0.25 as any,
             RESENTMENT: 0.15,
         },
-        lawEffect: { code: 'display_allowed', enforceable: true },
+        lawEffect: { code: 'display_allowed', enforceable: true }
     },
     {
         tag: DominanceActionTag.SUMMON_SUBORDINATE,
@@ -33,7 +32,7 @@ export const DominanceActions: ActionDefinition[] = [
             RESENTMENT: 0.1,
         },
         lawEffect: { writ: 'summons_issued', enforceable: true },
-        ownershipEffect: { accessScope: 'audience_chamber', grantAccess: true },
+        ownershipEffect: { accessScope: 'audience_chamber', grantAccess: true }
     },
     {
         tag: DominanceActionTag.ISSUE_NONNEGOTIABLE_ORDER,
@@ -42,7 +41,7 @@ export const DominanceActions: ActionDefinition[] = [
         risk: 0.18,
         rewardSecondary: { DOMINANCE: 0.55, CONTROL: 0.5, STABILITY: 0.2 },
         socialImpact: { DOMINANCE: 0.6, COMPLIANCE: 0.45, MORALE: -0.1 as any },
-        lawEffect: { decree: 'nonnegotiable', enforceable: true },
+        lawEffect: { decree: 'nonnegotiable', enforceable: true }
     },
     {
         tag: DominanceActionTag.ENFORCE_CURFEW,
@@ -56,7 +55,7 @@ export const DominanceActions: ActionDefinition[] = [
             hours: 'sunset->dawn',
             enforceable: true,
         },
-        ownershipEffect: { accessScope: 'streets', accessLevel: 'RESTRICTED' },
+        ownershipEffect: { accessScope: 'streets', accessLevel: 'RESTRICTED' }
     },
     {
         tag: DominanceActionTag.CONFISCATE_CONTRABAND,
@@ -73,7 +72,7 @@ export const DominanceActions: ActionDefinition[] = [
         socialImpact: { DOMINANCE: 0.55, FEAR: 0.25, TRUST: -0.1 },
         lawEffect: { seizureRecord: 'logged', enforceable: true },
         ownershipEffect: { seizeItems: true, toInventory: 'treasury|armory' },
-        tradeEffect: { blackmarket: '-Δ', fines_collected: '+X' },
+        tradeEffect: { blackmarket: '-Δ', fines_collected: '+X' }
     },
     {
         tag: DominanceActionTag.STRIP_PRIVILEGE,
@@ -83,7 +82,7 @@ export const DominanceActions: ActionDefinition[] = [
         rewardSecondary: { DOMINANCE: 0.55, CONTROL: 0.4, JUSTICE: 0.2 },
         socialImpact: { DOMINANCE: 0.55, FEAR: 0.2, RESENTMENT: 0.3 },
         lawEffect: { revocation: 'privilege_removed', enforceable: true },
-        ownershipEffect: { accessRevoked: true, accessScope: 'licence|office' },
+        ownershipEffect: { accessRevoked: true, accessScope: 'licence|office' }
     },
     {
         tag: DominanceActionTag.IMPOSE_FINE_OR_LEVY,
@@ -94,7 +93,7 @@ export const DominanceActions: ActionDefinition[] = [
         socialImpact: { DOMINANCE: 0.5, FEAR: 0.2, FAIRNESS: 0.1 },
         lawEffect: { fineOrder: 'served', enforceable: true },
         tradeEffect: { collect_silver: '+X', arrears: '-Y' },
-        ownershipEffect: { treasury: 'credited' },
+        ownershipEffect: { treasury: 'credited' }
     },
     {
         tag: DominanceActionTag.DEMAND_PUBLIC_SUBMISSION,
@@ -107,7 +106,7 @@ export const DominanceActions: ActionDefinition[] = [
             HUMILIATION: 0.5 as any,
             RESENTMENT: 0.35,
         },
-        lawEffect: { protocol: 'public_apology', enforceable: true },
+        lawEffect: { protocol: 'public_apology', enforceable: true }
     },
     {
         tag: DominanceActionTag.ASSERT_TERRITORIAL_MARKER,
@@ -125,7 +124,7 @@ export const DominanceActions: ActionDefinition[] = [
             territoryFlag: 'claimed',
             accessScope: 'area',
             accessLevel: 'OWNER',
-        },
+        }
     },
     {
         tag: DominanceActionTag.DEMONSTRATE_PUNISHMENT,
@@ -137,7 +136,7 @@ export const DominanceActions: ActionDefinition[] = [
         lawEffect: {
             sentencePublic: 'due_process_required',
             enforceable: true,
-        },
+        }
     },
     {
         tag: DominanceActionTag.FORCE_LABOR_ROTATION,
@@ -147,7 +146,7 @@ export const DominanceActions: ActionDefinition[] = [
         rewardSecondary: { DOMINANCE: 0.6, PRODUCTIVITY: 0.4, CONTROL: 0.4 },
         socialImpact: { DOMINANCE: 0.55, RESENTMENT: 0.35, COMPLIANCE: 0.3 },
         lawEffect: { rota: 'labor_compulsory', enforceable: true },
-        ownershipEffect: { accessScope: 'worksites', grantAccess: true },
+        ownershipEffect: { accessScope: 'worksites', grantAccess: true }
     },
     {
         tag: DominanceActionTag.IMPOSE_QUOTA,
@@ -161,7 +160,7 @@ export const DominanceActions: ActionDefinition[] = [
             MORALE: -0.2 as any,
         },
         lawEffect: { quota: 'per_day|per_season', enforceable: true },
-        tradeEffect: { output_target: '+N', penalties: 'defined' },
+        tradeEffect: { output_target: '+N', penalties: 'defined' }
     },
     {
         tag: DominanceActionTag.TAKE_HOSTAGE_AS_SURETY,
@@ -178,7 +177,7 @@ export const DominanceActions: ActionDefinition[] = [
         ownershipEffect: {
             custodyRights: 'holder',
             accessScope: 'hostage_quarters',
-        },
+        }
     },
     {
         tag: DominanceActionTag.BREAK_RIVAL_NETWORK,
@@ -195,7 +194,7 @@ export const DominanceActions: ActionDefinition[] = [
         socialImpact: { DOMINANCE: 0.65, FEAR: 0.35, RESENTMENT: 0.3 },
         lawEffect: { banOrder: 'rival_guild_disbanded', enforceable: true },
         ownershipEffect: { seizeAssets: true, accessScope: 'rival_hall' },
-        tradeEffect: { market_share: '+Δ', fines_collected: '+X' },
+        tradeEffect: { market_share: '+Δ', fines_collected: '+X' }
     },
     {
         tag: DominanceActionTag.BANISHMENT_WITH_CONDITION,
@@ -209,7 +208,7 @@ export const DominanceActions: ActionDefinition[] = [
             condition: 'reparations|time',
             enforceable: true,
         },
-        ownershipEffect: { accessScope: 'settlement', accessLevel: 'DENIED' },
+        ownershipEffect: { accessScope: 'settlement', accessLevel: 'DENIED' }
     },
     {
         tag: DominanceActionTag.SHOW_OF_FORCE_PATROL,
@@ -223,6 +222,6 @@ export const DominanceActions: ActionDefinition[] = [
         ownershipEffect: {
             accessScope: 'streets|gates|markets',
             grantAccess: true,
-        },
+        }
     },
 ];

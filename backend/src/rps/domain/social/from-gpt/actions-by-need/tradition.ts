@@ -1,6 +1,6 @@
 import { ActionDefinition } from '../action-definition';
 import { TraditionActionTag } from '../action-tags';
-
+import { cog, comm, culture } from '../memes';
 export const TraditionActions: ActionDefinition[] = [
     {
         tag: TraditionActionTag.KEEP_SEASONAL_RITE,
@@ -16,6 +16,7 @@ export const TraditionActions: ActionDefinition[] = [
         tradeEffect: { offerings: -2, ceremonial_food: -2 },
         socialImpact: { TRADITION: 0.6, COHESION: 0.4, IDENTITY: 0.3 as any },
         lawEffect: { riteCalendar: 'seasonal#kept', enforceable: true },
+        requiredMemes: [comm.language.written]
     },
     {
         tag: TraditionActionTag.HOST_CLAN_HERITAGE_FEAST,
@@ -33,7 +34,7 @@ export const TraditionActions: ActionDefinition[] = [
             accessScope: 'feast_hall|clan_green',
             grantAccess: true,
         },
-        lawEffect: { feastPermit: 'approved', enforceable: true },
+        lawEffect: { feastPermit: 'approved', enforceable: true }
     },
     {
         tag: TraditionActionTag.TEACH_CUSTOMS_TO_YOUTH,
@@ -50,7 +51,7 @@ export const TraditionActions: ActionDefinition[] = [
             CONTINUITY: 0.6 as any,
             RESPECT: 0.25,
         },
-        lawEffect: { curriculum: 'customs_basics', enforceable: true },
+        lawEffect: { curriculum: 'customs_basics', enforceable: true }
     },
     {
         tag: TraditionActionTag.MAINTAIN_RITUAL_ATTIRE,
@@ -59,7 +60,7 @@ export const TraditionActions: ActionDefinition[] = [
         rewardSecondary: { TRADITION: 0.6, HYGIENE: 0.2, STATUS: 0.2 },
         tradeEffect: { cloth: -2, dye: -1, needlework: '-time' },
         socialImpact: { TRADITION: 0.45, DIGNITY: 0.3 as any, RESPECT: 0.2 },
-        ownershipEffect: { attireState: 'kept', storage: 'clan_chest' },
+        ownershipEffect: { attireState: 'kept', storage: 'clan_chest' }
     },
     {
         tag: TraditionActionTag.CONSERVE_SACRED_OBJECTS,
@@ -74,7 +75,7 @@ export const TraditionActions: ActionDefinition[] = [
             accessScope: 'inner_room',
             grantAccess: true,
         },
-        lawEffect: { relicRegistry: 'updated', enforceable: true },
+        lawEffect: { relicRegistry: 'updated', enforceable: true }
     },
     {
         tag: TraditionActionTag.PRESIDE_AT_RITE_OF_PASSAGE,
@@ -91,6 +92,11 @@ export const TraditionActions: ActionDefinition[] = [
         tradeEffect: { garlands: -2, feast: -4 },
         socialImpact: { TRADITION: 0.7, IDENTITY: 0.6, RESPECT: 0.4 },
         lawEffect: { riteRecord: 'passage_entry', enforceable: true },
+        requiredMemes: [
+            culture.vigil_ritual,
+            cog.timekeeping.basic,
+            comm.language.written,
+        ]
     },
     {
         tag: TraditionActionTag.OBSERVE_TABOO_RULES,
@@ -98,7 +104,7 @@ export const TraditionActions: ActionDefinition[] = [
         costTime: 0.8,
         rewardSecondary: { TRADITION: 0.55, STABILITY: 0.3, SPIRIT: 0.2 },
         socialImpact: { TRADITION: 0.45, MORAL_CODE: 0.4 as any, TRUST: 0.2 },
-        lawEffect: { tabooList: 'observed', enforceable: true },
+        lawEffect: { tabooList: 'observed', enforceable: true }
     },
     {
         tag: TraditionActionTag.RECITE_ORAL_HISTORY,
@@ -111,7 +117,7 @@ export const TraditionActions: ActionDefinition[] = [
             COMMUNITY: 0.3,
         },
         socialImpact: { TRADITION: 0.5, MEMORY: 0.6 as any, UNITY: 0.3 as any },
-        lawEffect: { historianRoll: 'acknowledged', enforceable: false },
+        lawEffect: { historianRoll: 'acknowledged', enforceable: false }
     },
     {
         tag: TraditionActionTag.CRAFT_TRADITIONAL_ART,
@@ -127,7 +133,7 @@ export const TraditionActions: ActionDefinition[] = [
         tradeEffect: { spend_materials: -5, sale_value: '+potential' },
         socialImpact: { TRADITION: 0.55, PRIDE: 0.4, AWE: 0.3 },
         ownershipEffect: { artifact: 'created', provenance: 'clan_style' },
-        lawEffect: { hallmark: 'stamped', enforceable: true },
+        lawEffect: { hallmark: 'stamped', enforceable: true }
     },
     {
         tag: TraditionActionTag.MARK_FESTIVE_CALENDAR,
@@ -146,6 +152,10 @@ export const TraditionActions: ActionDefinition[] = [
             grantAccess: true,
         },
         lawEffect: { riteCalendar: 'posted', enforceable: true },
+        requiredMemes: [
+            comm.language.written,
+            cog.number_concept,
+        ]
     },
     {
         tag: TraditionActionTag.UPHOLD_HOSPITALITY_CODE,
@@ -160,7 +170,7 @@ export const TraditionActions: ActionDefinition[] = [
         tradeEffect: { guest_meal: -2, bedding: -1 },
         socialImpact: { TRADITION: 0.55, TRUST: 0.4, DIPLOMACY: 0.3 as any },
         lawEffect: { hospitalityEdict: 'active', enforceable: true },
-        ownershipEffect: { accessScope: 'guest_house', grantAccess: true },
+        ownershipEffect: { accessScope: 'guest_house', grantAccess: true }
     },
     {
         tag: TraditionActionTag.CLAN_SYMBOL_PROCESSION,
@@ -175,7 +185,7 @@ export const TraditionActions: ActionDefinition[] = [
         tradeEffect: { banners: '-N', drummers_fee: -2 },
         socialImpact: { TRADITION: 0.65, VISIBILITY: 0.5, IDENTITY: 0.5 },
         lawEffect: { processionPermit: 'granted', enforceable: true },
-        ownershipEffect: { accessScope: 'procession_route', grantAccess: true },
+        ownershipEffect: { accessScope: 'procession_route', grantAccess: true }
     },
     {
         tag: TraditionActionTag.ADJUDICATE_BY_CUSTOM,
@@ -185,7 +195,7 @@ export const TraditionActions: ActionDefinition[] = [
         rewardSecondary: { TRADITION: 0.7, JUSTICE: 0.4, STABILITY: 0.4 },
         requiresSkill: 'mediation|custom_law',
         socialImpact: { TRADITION: 0.55, FAIRNESS: 0.5, TRUST: 0.3 },
-        lawEffect: { customCourt: 'verdict_logged', enforceable: true },
+        lawEffect: { customCourt: 'verdict_logged', enforceable: true }
     },
     {
         tag: TraditionActionTag.INITIATE_NEW_RITUAL,
@@ -204,7 +214,7 @@ export const TraditionActions: ActionDefinition[] = [
             CONTROVERSY: 0.3,
             CURIOSITY: 0.2 as any,
         },
-        lawEffect: { riteCharter: 'trial_phase', enforceable: true },
+        lawEffect: { riteCharter: 'trial_phase', enforceable: true }
     },
     {
         tag: TraditionActionTag.INTERCLAN_GIFT_EXCHANGE,
@@ -222,7 +232,7 @@ export const TraditionActions: ActionDefinition[] = [
         ownershipEffect: {
             provenance: 'interclan',
             accessScope: 'council_hall',
-        },
+        }
     },
     {
         tag: TraditionActionTag.ENFORCE_DRESS_AND_DECORUM,
@@ -239,6 +249,6 @@ export const TraditionActions: ActionDefinition[] = [
             decorumCode: 'active',
             enforceable: true,
             penalties: 'fines',
-        },
+        }
     },
 ];

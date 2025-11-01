@@ -1,6 +1,6 @@
 import { ActionDefinition } from '../action-definition';
 import { StatusActionTag } from '../action-tags';
-
+import { comm, econ, record } from '../memes';
 export const StatusActions: ActionDefinition[] = [
     {
         tag: StatusActionTag.DISPLAY_INSIGNIA,
@@ -14,7 +14,7 @@ export const StatusActions: ActionDefinition[] = [
             grantAccess: true,
             accessLevel: 'RANKED',
         },
-        lawEffect: { dressCode: 'rank_symbols_allowed', enforceable: true },
+        lawEffect: { dressCode: 'rank_symbols_allowed', enforceable: true }
     },
     {
         tag: StatusActionTag.WEAR_FINE_CLOTHING,
@@ -26,7 +26,7 @@ export const StatusActions: ActionDefinition[] = [
         lawEffect: {
             attirePolicy: 'formal_events_required',
             enforceable: true,
-        },
+        }
     },
     {
         tag: StatusActionTag.PARADE_RETINUE,
@@ -37,7 +37,7 @@ export const StatusActions: ActionDefinition[] = [
         requiresItem: ['banners', 'guards'],
         socialImpact: { STATUS: 0.55, AWE: 0.35, FEAR: 0.1 },
         ownershipEffect: { accessScope: 'streets_route', grantAccess: true },
-        lawEffect: { permit: 'procession_lane_reserved', enforceable: true },
+        lawEffect: { permit: 'procession_lane_reserved', enforceable: true }
     },
     {
         tag: StatusActionTag.SPONSOR_FEAST,
@@ -47,7 +47,7 @@ export const StatusActions: ActionDefinition[] = [
         tradeEffect: { spend_food: -12, spend_drink: -6, hire_minstrels: -2 },
         socialImpact: { STATUS: 0.7, GRATITUDE: 0.6, VISIBILITY: 0.5 },
         ownershipEffect: { accessScope: 'feast_hall', grantAccess: true },
-        lawEffect: { eventPermit: 'feast#ok', enforceable: true },
+        lawEffect: { eventPermit: 'feast#ok', enforceable: true }
     },
     {
         tag: StatusActionTag.HOST_TOURNAMENT,
@@ -64,6 +64,10 @@ export const StatusActions: ActionDefinition[] = [
         tradeEffect: { prize_pool: -8, vendor_fees: '+3' },
         socialImpact: { STATUS: 0.8, FAME: 0.6, AWE: 0.4 },
         lawEffect: { gamesCharter: 'tournament_rules_v1', enforceable: true },
+        requiredMemes: [
+            record.ledgerkeeping,
+            econ.pooling_common_fund,
+        ]
     },
     {
         tag: StatusActionTag.COMMISSION_ART,
@@ -73,7 +77,7 @@ export const StatusActions: ActionDefinition[] = [
         tradeEffect: { pay_silver: -5, commission: 'fresco|relief' },
         socialImpact: { STATUS: 0.45, CULTURE: 0.35 },
         ownershipEffect: { claimArtwork: true, accessScope: 'hall' },
-        lawEffect: { artisanContract: 'signed', enforceable: true },
+        lawEffect: { artisanContract: 'signed', enforceable: true }
     },
     {
         tag: StatusActionTag.PATRON_ARTISAN,
@@ -82,7 +86,7 @@ export const StatusActions: ActionDefinition[] = [
         rewardSecondary: { STATUS: 0.55, CREATIVITY: 0.3, COMMUNITY: 0.2 },
         tradeEffect: { stipend: -3, materials_grant: -2 },
         socialImpact: { STATUS: 0.5, NETWORK: 0.3, GRATITUDE: 0.4 },
-        lawEffect: { patronageRecord: 'guild_ledger', enforceable: true },
+        lawEffect: { patronageRecord: 'guild_ledger', enforceable: true }
     },
     {
         tag: StatusActionTag.BUILD_MONUMENT,
@@ -98,7 +102,7 @@ export const StatusActions: ActionDefinition[] = [
         requiresItem: ['stone', 'labor'],
         socialImpact: { STATUS: 0.9, AWE: 0.6, PRIDE: 0.5 },
         ownershipEffect: { claimLandmark: true, accessScope: 'plaza' },
-        lawEffect: { decreeId: 'monument_permit', enforceable: true },
+        lawEffect: { decreeId: 'monument_permit', enforceable: true }
     },
     {
         tag: StatusActionTag.ENDOW_TEMPLE,
@@ -112,7 +116,7 @@ export const StatusActions: ActionDefinition[] = [
         },
         tradeEffect: { donate_gold: -7, endowment_note: 'altar_lamps' },
         socialImpact: { STATUS: 0.6, REVERENCE: 0.5, GRATITUDE: 0.5 },
-        lawEffect: { endowmentRecord: 'temple_roll', enforceable: true },
+        lawEffect: { endowmentRecord: 'temple_roll', enforceable: true }
     },
     {
         tag: StatusActionTag.HOLD_AUDIENCE,
@@ -126,7 +130,7 @@ export const StatusActions: ActionDefinition[] = [
             grantAccess: true,
             accessLevel: 'PETITION',
         },
-        lawEffect: { docketOpen: 'petitions_registered', enforceable: true },
+        lawEffect: { docketOpen: 'petitions_registered', enforceable: true }
     },
     {
         tag: StatusActionTag.BESTOW_TITLES,
@@ -144,7 +148,7 @@ export const StatusActions: ActionDefinition[] = [
             accessScope: 'council',
             accessLevel: 'NOBLE',
         },
-        lawEffect: { patentOfNobility: 'issued', enforceable: true },
+        lawEffect: { patentOfNobility: 'issued', enforceable: true }
     },
     {
         tag: StatusActionTag.AWARD_PRIZES,
@@ -153,7 +157,7 @@ export const StatusActions: ActionDefinition[] = [
         rewardSecondary: { STATUS: 0.6, MASTERY: 0.3, COMMUNITY: 0.3 },
         tradeEffect: { prize_items: -4, herald_cost: -1 },
         socialImpact: { STATUS: 0.55, MERIT: 0.45, GRATITUDE: 0.4 },
-        lawEffect: { awardRoll: 'registered', enforceable: true },
+        lawEffect: { awardRoll: 'registered', enforceable: true }
     },
     {
         tag: StatusActionTag.SIT_HIGH_SEAT,
@@ -163,6 +167,7 @@ export const StatusActions: ActionDefinition[] = [
         requiresLocation: 'hall',
         socialImpact: { STATUS: 0.4, ORDER: 0.2 },
         lawEffect: { seatingProtocol: 'hierarchy_enforced', enforceable: true },
+        requiredMemes: [comm.language.written]
     },
     {
         tag: StatusActionTag.RECITE_GENEALOGY,
@@ -170,7 +175,7 @@ export const StatusActions: ActionDefinition[] = [
         costTime: 0.7,
         rewardSecondary: { STATUS: 0.5, TRADITION: 0.4, REPUTATION: 0.3 },
         socialImpact: { STATUS: 0.45, HONOR: 0.35, IDENTITY: 0.3 },
-        lawEffect: { lineageRecord: 'recited_publicly', enforceable: false },
+        lawEffect: { lineageRecord: 'recited_publicly', enforceable: false }
     },
     {
         tag: StatusActionTag.BOAST_DEEDS,
@@ -179,7 +184,7 @@ export const StatusActions: ActionDefinition[] = [
         risk: 0.05,
         rewardSecondary: { STATUS: 0.5, REPUTATION: 0.4 },
         socialImpact: { STATUS: 0.45, AWE: 0.25, SKEPTICISM: 0.1 },
-        lawEffect: { claimLogged: 'boast_in_assembly', enforceable: false },
+        lawEffect: { claimLogged: 'boast_in_assembly', enforceable: false }
     },
     {
         tag: StatusActionTag.PROCESSION_CEREMONY,
@@ -198,6 +203,6 @@ export const StatusActions: ActionDefinition[] = [
             processionPermit: 'granted',
             routeSecured: true,
             enforceable: true,
-        },
+        }
     },
 ];

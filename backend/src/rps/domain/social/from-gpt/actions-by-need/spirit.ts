@@ -1,7 +1,6 @@
 import { ActionDefinition } from '../action-definition';
 import { SpiritActionTag } from '../action-tags';
-import { cog, culture, fire } from '../memes';
-
+import { cog, comm, culture, food, record } from '../memes';
 export const SpiritActions: ActionDefinition[] = [
     {
         tag: SpiritActionTag.PRIVATE_PRAYER,
@@ -19,7 +18,7 @@ export const SpiritActions: ActionDefinition[] = [
             CALM: 0.4 as any,
             DISCIPLINE: 0.2 as any,
         },
-        lawEffect: { ritual: 'private_prayer', enforceable: false },
+        lawEffect: { ritual: 'private_prayer', enforceable: false }
     },
     {
         tag: SpiritActionTag.OFFER_INCENSE,
@@ -27,9 +26,8 @@ export const SpiritActions: ActionDefinition[] = [
         costTime: 0.5,
         rewardSecondary: { SPIRIT: 0.5, TRADITION: 0.2, HYGIENE: 0.05 },
         tradeEffect: { incense: -1, candle: -1 },
-        requiredMemes: [fire.control],
         socialImpact: { SPIRIT: 0.4, REVERENCE: 0.3, AWE: 0.2 },
-        lawEffect: { templeEtiquette: 'observed', enforceable: false },
+        lawEffect: { templeEtiquette: 'observed', enforceable: false }
     },
     {
         tag: SpiritActionTag.DONATE_TO_TEMPLE,
@@ -47,7 +45,7 @@ export const SpiritActions: ActionDefinition[] = [
             plaqueName: 'benefactor',
             accessScope: 'outer_sanctum',
         },
-        lawEffect: { donationRoll: 'temple_ledger', enforceable: true },
+        lawEffect: { donationRoll: 'temple_ledger', enforceable: true }
     },
     {
         tag: SpiritActionTag.ATTEND_SERMON,
@@ -66,6 +64,10 @@ export const SpiritActions: ActionDefinition[] = [
             MORAL_CODE: 0.3 as any,
         },
         lawEffect: { riteCalendar: 'observed', enforceable: false },
+        requiredMemes: [
+            culture.vigil_ritual,
+            cog.timekeeping.basic,
+        ]
     },
     {
         tag: SpiritActionTag.KEEP_FAST,
@@ -79,7 +81,7 @@ export const SpiritActions: ActionDefinition[] = [
             HEALTH: 0.05,
         },
         socialImpact: { SPIRIT: 0.5, PIETY: 0.4 as any, RESPECT: 0.15 },
-        lawEffect: { fastingRule: 'voluntary|seasonal', enforceable: false },
+        lawEffect: { fastingRule: 'voluntary|seasonal', enforceable: false }
     },
     {
         tag: SpiritActionTag.PURIFICATION_RITE,
@@ -93,7 +95,7 @@ export const SpiritActions: ActionDefinition[] = [
             DIGNITY: 0.3 as any,
             ACCEPTANCE: 0.2 as any,
         },
-        lawEffect: { purityToken: 'issued', enforceable: true },
+        lawEffect: { purityToken: 'issued', enforceable: true }
     },
     {
         tag: SpiritActionTag.PILGRIMAGE_STEP,
@@ -110,6 +112,7 @@ export const SpiritActions: ActionDefinition[] = [
         socialImpact: { SPIRIT: 0.7, HUMILITY: 0.3 as any, REPUTATION: 0.2 },
         ownershipEffect: { accessScope: 'pilgrim_hostels', grantAccess: true },
         lawEffect: { pilgrimMark: 'stamped', enforceable: true },
+        requiredMemes: [comm.language.written]
     },
     {
         tag: SpiritActionTag.CONSULT_ORACLE,
@@ -119,7 +122,7 @@ export const SpiritActions: ActionDefinition[] = [
         rewardSecondary: { SPIRIT: 0.6, CLARITY: 0.4 as any, CONTROL: 0.2 },
         tradeEffect: { seer_fee: -3, offerings: -1 },
         socialImpact: { SPIRIT: 0.45, AWE: 0.3, CONTROVERSY: 0.1 },
-        lawEffect: { omenRecord: 'sealed', enforceable: true },
+        lawEffect: { omenRecord: 'sealed', enforceable: true }
     },
     {
         tag: SpiritActionTag.VOW_OATH_BEFORE_ALTAR,
@@ -139,7 +142,7 @@ export const SpiritActions: ActionDefinition[] = [
             enforceable: true,
             penalty: 'sanctuary_ban',
         },
-        ownershipEffect: { accessScope: 'sanctuary', grantAccess: true },
+        ownershipEffect: { accessScope: 'sanctuary', grantAccess: true }
     },
     {
         tag: SpiritActionTag.COMMUNITY_VIGIL,
@@ -153,9 +156,12 @@ export const SpiritActions: ActionDefinition[] = [
         },
         tradeEffect: { candles: '-N', food_for_vigil: '-M' },
         needRework: true,
-        requiredMemes: [culture.vigil_ritual, cog.timekeeping.basic],
+        requiredMemes: [
+            culture.vigil_ritual,
+            cog.timekeeping.basic,
+        ],
         socialImpact: { SPIRIT: 0.7, COHESION: 0.6, HOPE: 0.5 as any },
-        lawEffect: { vigilPermit: 'granted', enforceable: true },
+        lawEffect: { vigilPermit: 'granted', enforceable: true }
     },
     {
         tag: SpiritActionTag.BLESS_TOOLS_OR_WEAPONS,
@@ -165,7 +171,7 @@ export const SpiritActions: ActionDefinition[] = [
         tradeEffect: { priest_fee: -1, anoint_oil: -1 },
         socialImpact: { SPIRIT: 0.45, CONFIDENCE: 0.3 as any },
         ownershipEffect: { itemBlessed: true, duration: 'season' },
-        lawEffect: { consecrationNote: 'filed', enforceable: true },
+        lawEffect: { consecrationNote: 'filed', enforceable: true }
     },
     {
         tag: SpiritActionTag.FUNERAL_RITES,
@@ -181,6 +187,10 @@ export const SpiritActions: ActionDefinition[] = [
         socialImpact: { SPIRIT: 0.7, CLOSURE: 0.6 as any, RESPECT: 0.4 },
         ownershipEffect: { gravePlot: 'assigned', memorial: 'stone_mark' },
         lawEffect: { burialRecord: 'temple_roll', enforceable: true },
+        requiredMemes: [
+            comm.language.written,
+            record.ledgerkeeping,
+        ]
     },
     {
         tag: SpiritActionTag.EXORCISM_OR_BANISHMENT,
@@ -195,9 +205,9 @@ export const SpiritActions: ActionDefinition[] = [
         },
         tradeEffect: { sacred_salt: -1, incense: -1, cord: -1 },
         needRework: true,
-        requiredMemes: [culture.vigil_ritual, cog.timekeeping.basic],
+        requiredMemes: [food.preservation.salting],
         socialImpact: { SPIRIT: 0.65, FEAR: -0.2, HOPE: 0.3 as any },
-        lawEffect: { riteAuthority: 'recognized', enforceable: true },
+        lawEffect: { riteAuthority: 'recognized', enforceable: true }
     },
     {
         tag: SpiritActionTag.FESTIVAL_PROCESSION,
@@ -212,7 +222,7 @@ export const SpiritActions: ActionDefinition[] = [
         tradeEffect: { garlands: '-N', musicians_fee: -2 },
         socialImpact: { SPIRIT: 0.75, COHESION: 0.6, VISIBILITY: 0.5 },
         lawEffect: { paradePermit: 'approved', enforceable: true },
-        ownershipEffect: { accessScope: 'procession_route', grantAccess: true },
+        ownershipEffect: { accessScope: 'procession_route', grantAccess: true }
     },
     {
         tag: SpiritActionTag.TEMPLE_VOLUNTEER_SERVICE,
@@ -230,7 +240,7 @@ export const SpiritActions: ActionDefinition[] = [
             accessLevel: 'VOLUNTEER',
             grantAccess: true,
         },
-        lawEffect: { serviceRoster: 'logged', enforceable: true },
+        lawEffect: { serviceRoster: 'logged', enforceable: true }
     },
     {
         tag: SpiritActionTag.CONSECRATE_SHRINE,
@@ -250,6 +260,6 @@ export const SpiritActions: ActionDefinition[] = [
             steward: 'temple|clan',
             accessScope: 'sanctuary',
         },
-        lawEffect: { consecrationCharter: 'ratified', enforceable: true },
+        lawEffect: { consecrationCharter: 'ratified', enforceable: true }
     },
 ];

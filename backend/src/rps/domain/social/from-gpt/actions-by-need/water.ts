@@ -1,7 +1,6 @@
 import { ActionDefinition } from '../action-definition';
 import { ActionTags } from '../action-tags';
-import { fire } from '../memes';
-
+import { food, health } from '../memes';
 export const WaterActions: ActionDefinition[] = [
     {
         tag: ActionTags.COLLECT_WATER,
@@ -12,7 +11,7 @@ export const WaterActions: ActionDefinition[] = [
         skillRequired: 'Survival',
         resourceOutput: ['raw_water'],
         locationType: 'riverbank',
-        environmentalImpact: -0.05,
+        environmentalImpact: -0.05
     },
     {
         tag: ActionTags.FETCH_WATER,
@@ -26,7 +25,7 @@ export const WaterActions: ActionDefinition[] = [
         resourceInput: ['container'],
         resourceOutput: ['raw_water'],
         locationType: 'village',
-        emotionalImpact: 0.1,
+        emotionalImpact: 0.1
     },
     {
         tag: ActionTags.BOIL_WATER,
@@ -39,7 +38,12 @@ export const WaterActions: ActionDefinition[] = [
         resourceInput: ['raw_water', 'fire'],
         resourceOutput: ['clean_water'],
         locationType: 'camp',
-        requiredMemes: [fire.use],
+        requiredMemes: [
+            health.sanitation_norms,
+            health.waste_handling,
+            food.culinary.core,
+            food.culinary.boil,
+        ]
     },
     {
         tag: ActionTags.DRINK_WATER,
@@ -51,6 +55,10 @@ export const WaterActions: ActionDefinition[] = [
         resourceInput: ['clean_water'],
         locationType: 'any',
         emotionalImpact: 0.3,
+        requiredMemes: [
+            health.sanitation_norms,
+            health.waste_handling,
+        ]
     },
     {
         tag: ActionTags.SHARE_WATER,
@@ -63,6 +71,10 @@ export const WaterActions: ActionDefinition[] = [
         groupAffinity: 0.5,
         resourceInput: ['clean_water'],
         visibleToOthers: true,
+        requiredMemes: [
+            health.sanitation_norms,
+            health.waste_handling,
+        ]
     },
     {
         tag: ActionTags.STEAL_WATER,
@@ -74,7 +86,7 @@ export const WaterActions: ActionDefinition[] = [
         moralWeight: -0.8,
         shameGain: 0.4,
         visibleToOthers: false,
-        emotionalImpact: -0.4,
+        emotionalImpact: -0.4
     },
     {
         tag: ActionTags.TRADE_FOR_WATER,
@@ -88,6 +100,10 @@ export const WaterActions: ActionDefinition[] = [
         resourceInput: ['trade_goods'],
         resourceOutput: ['clean_water'],
         locationType: 'market',
+        requiredMemes: [
+            health.sanitation_norms,
+            health.waste_handling,
+        ]
     },
     {
         tag: ActionTags.GUARD_WATER_SOURCE,
@@ -97,7 +113,7 @@ export const WaterActions: ActionDefinition[] = [
         rewardSecondary: { WATER: 0.1, POWER: 0.2, STATUS: 0.3 },
         moralWeight: 0.2,
         socialImpact: { respect: 0.1 },
-        locationType: 'well',
+        locationType: 'well'
     },
     {
         tag: ActionTags.BUILD_WELL,
@@ -109,7 +125,7 @@ export const WaterActions: ActionDefinition[] = [
         skillRequired: 'Construction',
         resourceInput: ['stone', 'wood', 'tools'],
         resourceOutput: ['well'],
-        locationType: 'village',
+        locationType: 'village'
     },
     {
         tag: ActionTags.MAINTAIN_WELL,
@@ -118,7 +134,7 @@ export const WaterActions: ActionDefinition[] = [
         risk: 0.1,
         rewardSecondary: { WATER: 0.4, COMMUNITY: 0.2 },
         moralWeight: 0.4,
-        locationType: 'village',
+        locationType: 'village'
     },
     {
         tag: ActionTags.DISCOVER_WATER_SOURCE,
@@ -128,7 +144,7 @@ export const WaterActions: ActionDefinition[] = [
         rewardSecondary: { WATER: 0.7, KNOWLEDGE: 0.3, STATUS: 0.2 },
         moralWeight: 0.3,
         locationType: 'wilderness',
-        skillRequired: 'Survival',
+        skillRequired: 'Survival'
     },
     {
         tag: ActionTags.RATION_WATER,
@@ -138,6 +154,6 @@ export const WaterActions: ActionDefinition[] = [
         rewardSecondary: { WATER: 0.2, CONTROL: 0.4, LOYALTY: 0.2 },
         socialImpact: { respect: 0.3 },
         moralWeight: 0.4,
-        locationType: 'camp',
+        locationType: 'camp'
     },
 ];

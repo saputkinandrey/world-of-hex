@@ -1,6 +1,5 @@
 import { ActionDefinition } from '../action-definition';
 import { ActionTags } from '../action-tags';
-
 export const FoodActions: ActionDefinition[] = [
     {
         tag: ActionTags.FORAGE,
@@ -12,7 +11,7 @@ export const FoodActions: ActionDefinition[] = [
         resourceOutput: ['berries', 'roots'],
         locationType: 'wilderness',
         emotionalImpact: 0.1,
-        environmentalImpact: -0.1,
+        environmentalImpact: -0.1
     },
     {
         tag: ActionTags.HUNT,
@@ -27,7 +26,7 @@ export const FoodActions: ActionDefinition[] = [
         resourceOutput: ['meat', 'hide'],
         locationType: 'wilderness',
         respectGain: 0.3,
-        emotionalImpact: 0.2,
+        emotionalImpact: 0.2
     },
     {
         tag: ActionTags.STEAL_FOOD,
@@ -40,6 +39,6 @@ export const FoodActions: ActionDefinition[] = [
         shameGain: 0.3,
         locationType: 'village',
         visibleToOthers: true,
-        emotionalImpact: -0.3,
+        emotionalImpact: -0.3
     },
 ];

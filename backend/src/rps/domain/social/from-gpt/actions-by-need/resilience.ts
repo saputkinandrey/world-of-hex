@@ -1,6 +1,6 @@
 import { ActionDefinition } from '../action-definition';
 import { ResilienceActionTag } from '../action-tags';
-
+import { cog, comm, culture, econ, food, health, heat, org, record, tech } from '../memes';
 export const ResilienceActions: ActionDefinition[] = [
     {
         tag: ResilienceActionTag.EMERGENCY_DRILL,
@@ -17,6 +17,11 @@ export const ResilienceActions: ActionDefinition[] = [
         socialImpact: { TRUST: 0.2, COHESION: 0.3 as any },
         lawEffect: { drillRule: 'monthly_required', enforceable: true },
         ownershipEffect: { musterPoints: 'marked' },
+        requiredMemes: [
+            health.sanitation_norms,
+            health.waste_handling,
+            comm.language.written,
+        ]
     },
     {
         tag: ResilienceActionTag[' STOCKPILE_ESSENTIALS'],
@@ -32,6 +37,7 @@ export const ResilienceActions: ActionDefinition[] = [
         socialImpact: { TRUST: 0.2, PANIC: -0.2 as any },
         ownershipEffect: { storesLevel: 'strategic', rotation: 'set' },
         lawEffect: { rationPolicy: 'defined', enforceable: true },
+        requiredMemes: [food.preservation.salting]
     },
     {
         tag: ResilienceActionTag.DIVERSIFY_CROPS_CRAFTS,
@@ -46,7 +52,7 @@ export const ResilienceActions: ActionDefinition[] = [
         requiresLocation: 'fields|workshops',
         socialImpact: { INNOVATION_REP: 0.2, COMMUNITY: 0.2 },
         ownershipEffect: { portfolio: 'diversified' },
-        lawEffect: { seedRights: 'granted', enforceable: true },
+        lawEffect: { seedRights: 'granted', enforceable: true }
     },
     {
         tag: ResilienceActionTag.CROSS_TRAIN_ROLES,
@@ -61,6 +67,12 @@ export const ResilienceActions: ActionDefinition[] = [
         requiresLocation: 'guild_hall|yard',
         socialImpact: { COHESION: 0.3, RESPECT: 0.2 },
         ownershipEffect: { skillsMatrix: 'redundancy_added' },
+        requiredMemes: [
+            health.sanitation_norms,
+            health.waste_handling,
+            comm.language.written,
+            org.workshop_practice,
+        ]
     },
     {
         tag: ResilienceActionTag.MUTUAL_AID_PACT,
@@ -77,6 +89,11 @@ export const ResilienceActions: ActionDefinition[] = [
         socialImpact: { NETWORK: 0.4, LOYALTY: 0.2 },
         lawEffect: { pactCharter: 'sealed', enforceable: true },
         ownershipEffect: { accessScope: 'mutual_aid', grantAccess: true },
+        requiredMemes: [
+            comm.language.written,
+            record.ledgerkeeping,
+            econ.pooling_common_fund,
+        ]
     },
     {
         tag: ResilienceActionTag.REPAIR_SPRINT,
@@ -96,6 +113,10 @@ export const ResilienceActions: ActionDefinition[] = [
         },
         socialImpact: { COMMUNITY: 0.3, RESPECT: 0.2 },
         ownershipEffect: { criticalAssets: 'restored' },
+        requiredMemes: [
+            culture.vigil_ritual,
+            cog.timekeeping.basic,
+        ]
     },
     {
         tag: ResilienceActionTag.FIREBREAK_AND_CLEARING,
@@ -111,7 +132,7 @@ export const ResilienceActions: ActionDefinition[] = [
         tradeEffect: { axes_wear: '-minor', labor: '-N' as any },
         socialImpact: { READINESS: 0.3 as any, TRUST: 0.2 },
         ownershipEffect: { firebreaks: 'cut' },
-        lawEffect: { burnBan: 'posted', enforceable: true },
+        lawEffect: { burnBan: 'posted', enforceable: true }
     },
     {
         tag: ResilienceActionTag.FLOOD_LEVEE_DITCHES,
@@ -126,7 +147,7 @@ export const ResilienceActions: ActionDefinition[] = [
         requiresLocation: 'river_bank|lowlands',
         tradeEffect: { shovels_wear: '-minor', stakes: '-N' as any },
         socialImpact: { COMMUNITY: 0.3, TRUST: 0.2 },
-        ownershipEffect: { levees: 'raised', ditches: 'dug' },
+        ownershipEffect: { levees: 'raised', ditches: 'dug' }
     },
     {
         tag: ResilienceActionTag.QUARANTINE_PROTOCOL,
@@ -143,6 +164,10 @@ export const ResilienceActions: ActionDefinition[] = [
         socialImpact: { FEAR: -0.1, TRUST: 0.2 },
         lawEffect: { quarantine: 'active', enforceable: true },
         ownershipEffect: { accessScope: 'isolation_ward', grantAccess: true },
+        requiredMemes: [
+            culture.vigil_ritual,
+            cog.timekeeping.basic,
+        ]
     },
     {
         tag: ResilienceActionTag.BACKUP_TOOLS_AND_PARTS,
@@ -157,6 +182,10 @@ export const ResilienceActions: ActionDefinition[] = [
         tradeEffect: { spare_parts: '+N', tools: '+N' },
         socialImpact: { TRUST: 0.2 },
         ownershipEffect: { redundancyLevel: 'raised' },
+        requiredMemes: [
+            comm.language.written,
+            tech.tool.use_basic,
+        ]
     },
     {
         tag: ResilienceActionTag.SAFE_WATER_CACHE,
@@ -171,7 +200,7 @@ export const ResilienceActions: ActionDefinition[] = [
         requiresLocation: 'well_house|cool_cellar',
         tradeEffect: { barrels: '-N' as any, lime: -1 | (0 as any) },
         socialImpact: { TRUST: 0.2, PANIC: -0.1 as any },
-        ownershipEffect: { waterCache: 'sealed' },
+        ownershipEffect: { waterCache: 'sealed' }
     },
     {
         tag: ResilienceActionTag.RISK_REGISTER_COUNCIL,
@@ -186,6 +215,7 @@ export const ResilienceActions: ActionDefinition[] = [
         requiresLocation: 'hall|council_chamber',
         socialImpact: { TRANSPARENCY: 0.3 as any, COHESION: 0.2 },
         ownershipEffect: { riskRegister: 'updated', mitigation: 'assigned' },
+        requiredMemes: [comm.language.written]
     },
     {
         tag: ResilienceActionTag.EVACUATION_ROUTES_MAP,
@@ -200,6 +230,7 @@ export const ResilienceActions: ActionDefinition[] = [
         tradeEffect: { parchment: -1, ink: -1, signs: '-N' as any },
         socialImpact: { PANIC: -0.2 as any, TRUST: 0.2 },
         ownershipEffect: { evacMap: 'posted', rallyPoints: 'named' },
+        requiredMemes: [comm.language.written]
     },
     {
         tag: ResilienceActionTag.WORKLOAD_ROTATION_PLAN,
@@ -213,7 +244,7 @@ export const ResilienceActions: ActionDefinition[] = [
         },
         socialImpact: { FAIRNESS: 0.3, RESENTMENT: -0.1 },
         lawEffect: { rota: 'fatigue_limits_posted', enforceable: true },
-        ownershipEffect: { dutyRoster: 'rotating' },
+        ownershipEffect: { dutyRoster: 'rotating' }
     },
     {
         tag: ResilienceActionTag.COPING_RITUALS_CIRCLE,
@@ -228,6 +259,11 @@ export const ResilienceActions: ActionDefinition[] = [
         requiresLocation: 'hearth|temple|grove',
         socialImpact: { EMPATHY: 0.4 as any, HOPE: 0.3 as any },
         ownershipEffect: { memoryLog: 'healed_entry' },
+        requiredMemes: [
+            culture.vigil_ritual,
+            cog.timekeeping.basic,
+            heat.space.hearth,
+        ]
     },
     {
         tag: ResilienceActionTag.CONTINGENCY_FUND,
@@ -245,6 +281,6 @@ export const ResilienceActions: ActionDefinition[] = [
             treasuryReserve: 'earmarked',
             withdrawRules: 'strict',
         },
-        lawEffect: { reserveCharter: 'sealed', enforceable: true },
+        lawEffect: { reserveCharter: 'sealed', enforceable: true }
     },
 ];

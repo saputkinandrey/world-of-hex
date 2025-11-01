@@ -1,6 +1,6 @@
 import { ActionDefinition } from '../action-definition';
 import { ActionTags, LoyaltyActionTag } from '../action-tags';
-
+import { cog, comm, culture } from '../memes';
 export const LoyaltyActions: ActionDefinition[] = [
     {
         tag: LoyaltyActionTag.SWEAR_FEALTY,
@@ -20,6 +20,7 @@ export const LoyaltyActions: ActionDefinition[] = [
             enforceable: true,
             duration: '1y',
         },
+        requiredMemes: [comm.language.written]
     },
     {
         tag: LoyaltyActionTag.RENEW_OATH,
@@ -29,6 +30,10 @@ export const LoyaltyActions: ActionDefinition[] = [
         requiresLocation: 'temple',
         socialImpact: { LOYALTY: 0.4, COHESION: 0.3 },
         lawEffect: { oathRenewal: 'yearly_festival', enforceable: true },
+        requiredMemes: [
+            culture.vigil_ritual,
+            cog.timekeeping.basic,
+        ]
     },
     {
         tag: LoyaltyActionTag.OBEY_ORDER_PROMPTLY,
@@ -38,7 +43,7 @@ export const LoyaltyActions: ActionDefinition[] = [
         rewardSecondary: { LOYALTY: 0.5, ORDER: 0.3, PRODUCTIVITY: 0.3 },
         targetType: 'OTHER',
         socialImpact: { OBEDIENCE: 0.4, TRUST: 0.2 },
-        lawEffect: { orderRef: 'ord-runtime', enforceable: true },
+        lawEffect: { orderRef: 'ord-runtime', enforceable: true }
     },
     {
         tag: LoyaltyActionTag.DEFEND_LEADER,
@@ -58,7 +63,7 @@ export const LoyaltyActions: ActionDefinition[] = [
             grantAccess: true,
             accessScope: 'inner_circle',
             accessLevel: 'GUARD',
-        },
+        }
     },
     {
         tag: LoyaltyActionTag.ESCORT_LEADER,
@@ -67,7 +72,7 @@ export const LoyaltyActions: ActionDefinition[] = [
         risk: 0.15,
         rewardSecondary: { LOYALTY: 0.6, SECURITY: 0.4, BELONGING: 0.2 },
         targetType: 'OTHER',
-        socialImpact: { TRUST: 0.3, RELIABILITY: 0.3 },
+        socialImpact: { TRUST: 0.3, RELIABILITY: 0.3 }
     },
     {
         tag: LoyaltyActionTag.PROTECT_LEADER_KIN,
@@ -76,7 +81,7 @@ export const LoyaltyActions: ActionDefinition[] = [
         risk: 0.2,
         rewardSecondary: { LOYALTY: 0.7, FAMILY: 0.4, COMMUNITY: 0.3 },
         targetType: 'OTHER',
-        socialImpact: { GRATITUDE: 0.4, LOYALTY: 0.4 },
+        socialImpact: { GRATITUDE: 0.4, LOYALTY: 0.4 }
     },
     {
         tag: ActionTags.REFUSE_BRIBE,
@@ -91,7 +96,7 @@ export const LoyaltyActions: ActionDefinition[] = [
         },
         tradeEffect: { bribe_refused: 'yes', attempted_amount: '+X' },
         socialImpact: { TRUST: 0.5, RESPECT: 0.3, SUSPICION: -0.2 },
-        lawEffect: { report: 'bribe_attempt_logged', enforceable: true },
+        lawEffect: { report: 'bribe_attempt_logged', enforceable: true }
     },
     {
         tag: LoyaltyActionTag.INFORM_LEADER,
@@ -101,7 +106,7 @@ export const LoyaltyActions: ActionDefinition[] = [
         rewardSecondary: { LOYALTY: 0.5, CONTROL: 0.3, STABILITY: 0.2 },
         targetType: 'OTHER',
         socialImpact: { TRUST: 0.3, USEFULNESS: 0.3 as any },
-        lawEffect: { memo: 'intel_report', confidentiality: 'HIGH' },
+        lawEffect: { memo: 'intel_report', confidentiality: 'HIGH' }
     },
     {
         tag: LoyaltyActionTag.VOLUNTEER_DANGEROUS_TASK,
@@ -114,7 +119,7 @@ export const LoyaltyActions: ActionDefinition[] = [
             grantAccess: true,
             accessScope: 'elite_missions',
             accessLevel: 'VOLUNTEER',
-        },
+        }
     },
     {
         tag: LoyaltyActionTag.CARRY_BANNER,
@@ -128,7 +133,7 @@ export const LoyaltyActions: ActionDefinition[] = [
             VISIBILITY: 0.4 as any,
             PRIDE: 0.4 as any,
             LOYALTY: 0.3,
-        },
+        }
     },
     {
         tag: LoyaltyActionTag.PAY_EXTRA_TITHE,
@@ -142,7 +147,7 @@ export const LoyaltyActions: ActionDefinition[] = [
             accessScope: 'leader_favor',
             accessLevel: 'PREFERRED',
         },
-        lawEffect: { titheReceipt: 'ok', enforceable: true },
+        lawEffect: { titheReceipt: 'ok', enforceable: true }
     },
     {
         tag: LoyaltyActionTag.DENOUNCE_TRAITOR,
@@ -152,7 +157,7 @@ export const LoyaltyActions: ActionDefinition[] = [
         rewardSecondary: { LOYALTY: 0.7, JUSTICE: 0.4, LAW: 0.3 },
         targetType: 'GROUP',
         socialImpact: { TRUST: 0.3, FEAR: 0.2, RESPECT: 0.2 },
-        lawEffect: { caseOpened: true, charge: 'treason' },
+        lawEffect: { caseOpened: true, charge: 'treason' }
     },
     {
         tag: LoyaltyActionTag.KEEP_LEADER_SECRETS,
@@ -161,7 +166,7 @@ export const LoyaltyActions: ActionDefinition[] = [
         risk: 0.05,
         rewardSecondary: { LOYALTY: 0.5, TRUST: 0.4, CONTROL: 0.2 },
         socialImpact: { RELIABILITY: 0.4 as any, TRUST: 0.3 },
-        lawEffect: { confidentialityOath: 'signed', enforceable: true },
+        lawEffect: { confidentialityOath: 'signed', enforceable: true }
     },
     {
         tag: LoyaltyActionTag.REINFORCE_MORALE,
@@ -174,7 +179,7 @@ export const LoyaltyActions: ActionDefinition[] = [
             POWER: 0.1,
         },
         targetType: 'GROUP',
-        socialImpact: { MORALE: 0.6 as any, COHESION: 0.4, HOPE: 0.3 as any },
+        socialImpact: { MORALE: 0.6 as any, COHESION: 0.4, HOPE: 0.3 as any }
     },
     {
         tag: LoyaltyActionTag.GUARD_LEADER_SLEEP,
@@ -183,7 +188,7 @@ export const LoyaltyActions: ActionDefinition[] = [
         risk: 0.1,
         rewardSecondary: { LOYALTY: 0.6, SECURITY: 0.5, BELONGING: 0.3 },
         targetType: 'OTHER',
-        socialImpact: { TRUST: 0.5, CARE: 0.3 as any },
+        socialImpact: { TRUST: 0.5, CARE: 0.3 as any }
     },
     {
         tag: LoyaltyActionTag.PARTICIPATE_BODYGUARD_ROTATION,
@@ -198,6 +203,6 @@ export const LoyaltyActions: ActionDefinition[] = [
         },
         targetType: 'GROUP',
         socialImpact: { LOYALTY: 0.3, TRUST: 0.2 },
-        lawEffect: { rotaPolicy: 'weekly', enforceable: true },
+        lawEffect: { rotaPolicy: 'weekly', enforceable: true }
     },
 ];

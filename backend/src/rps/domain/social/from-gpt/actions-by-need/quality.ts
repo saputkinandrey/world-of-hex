@@ -1,6 +1,6 @@
 import { ActionDefinition } from '../action-definition';
 import { QualityActionTag } from '../action-tags';
-
+import { comm, econ, health, org, record, tech } from '../memes';
 export const QualityActions: ActionDefinition[] = [
     {
         tag: QualityActionTag.SPEC_DEFINE_ACCEPTANCE,
@@ -16,6 +16,7 @@ export const QualityActions: ActionDefinition[] = [
         socialImpact: { INTEGRITY: 0.3, TRUST: 0.2 },
         ownershipEffect: { specSheet: 'created', archive: 'yes' },
         lawEffect: { standardCharter: 'ratified', enforceable: true },
+        requiredMemes: [comm.language.written]
     },
     {
         tag: QualityActionTag.SELECT_PROPER_MATERIAL,
@@ -29,7 +30,7 @@ export const QualityActions: ActionDefinition[] = [
         },
         tradeEffect: { raw_good: '+N', raw_bad: '-N' },
         socialImpact: { RESPONSIBILITY: 0.2 as any },
-        ownershipEffect: { storesQuality: 'improved' },
+        ownershipEffect: { storesQuality: 'improved' }
     },
     {
         tag: QualityActionTag.CALIBRATE_TOOLS,
@@ -47,7 +48,7 @@ export const QualityActions: ActionDefinition[] = [
         },
         socialImpact: { DISCIPLINE: 0.3, TRUST: 0.1 },
         ownershipEffect: { toolCal: 'ok', dueDate: 'set' },
-        lawEffect: { measureSeal: 'stamped', enforceable: true },
+        lawEffect: { measureSeal: 'stamped', enforceable: true }
     },
     {
         tag: QualityActionTag.FIRST_ARTICLE_CHECK,
@@ -62,7 +63,7 @@ export const QualityActions: ActionDefinition[] = [
         requiresLocation: 'workbench|inspection_table',
         socialImpact: { TRANSPARENCY: 0.3 as any },
         ownershipEffect: { masterSample: 'approved|revised' },
-        lawEffect: { firstArticleRecord: 'filed', enforceable: true },
+        lawEffect: { firstArticleRecord: 'filed', enforceable: true }
     },
     {
         tag: QualityActionTag.IN_PROCESS_INSPECTION,
@@ -75,7 +76,7 @@ export const QualityActions: ActionDefinition[] = [
             STABILITY: 0.3,
         },
         socialImpact: { TRUST: 0.2, COORDINATION: 0.2 as any },
-        ownershipEffect: { lotStatus: 'hold|release' },
+        ownershipEffect: { lotStatus: 'hold|release' }
     },
     {
         tag: QualityActionTag.STOP_AND_FIX_RULE,
@@ -88,7 +89,7 @@ export const QualityActions: ActionDefinition[] = [
             FAIRNESS: 0.2,
         },
         socialImpact: { RESPECT: 0.2, BLAME: -0.1 as any },
-        lawEffect: { defectStopRule: 'worker_can_stop', enforceable: true },
+        lawEffect: { defectStopRule: 'worker_can_stop', enforceable: true }
     },
     {
         tag: QualityActionTag.SCRAP_AND_REWORK,
@@ -102,7 +103,7 @@ export const QualityActions: ActionDefinition[] = [
         },
         tradeEffect: { scrap: '+N', rework_hours: '+N' },
         socialImpact: { RESPONSIBILITY: 0.3 as any, LEARNING: 0.2 as any },
-        ownershipEffect: { lotState: 'rework', ledger: 'updated' },
+        ownershipEffect: { lotState: 'rework', ledger: 'updated' }
     },
     {
         tag: QualityActionTag.POKA_YOKE_GUARDS,
@@ -116,7 +117,7 @@ export const QualityActions: ActionDefinition[] = [
         },
         tradeEffect: { jigs: -1, guards: -1, nails: -1 },
         socialImpact: { DISCIPLINE: 0.3, TRUST: 0.2 },
-        ownershipEffect: { fixtureState: 'installed' },
+        ownershipEffect: { fixtureState: 'installed' }
     },
     {
         tag: QualityActionTag.CLEAN_WORK_SURFACES,
@@ -131,6 +132,11 @@ export const QualityActions: ActionDefinition[] = [
         tradeEffect: { linen: -1, soap: -1 | (0 as any) },
         socialImpact: { DIGNITY: 0.2 as any },
         ownershipEffect: { benchState: 'clean' },
+        requiredMemes: [
+            health.sanitation_norms,
+            health.waste_handling,
+            tech.tool.use_basic,
+        ]
     },
     {
         tag: QualityActionTag.TOOL_EDGE_MAINTENANCE,
@@ -144,7 +150,7 @@ export const QualityActions: ActionDefinition[] = [
         },
         tradeEffect: { whetstone_wear: '-minor', oil: -1 | (0 as any) },
         socialImpact: { RESPONSIBILITY: 0.2 as any },
-        ownershipEffect: { toolSharp: 'ok' },
+        ownershipEffect: { toolSharp: 'ok' }
     },
     {
         tag: QualityActionTag.FINAL_INSPECTION_STAMP,
@@ -161,6 +167,10 @@ export const QualityActions: ActionDefinition[] = [
         socialImpact: { TRUST: 0.3, STATUS: 0.2 },
         ownershipEffect: { stamp: 'applied', provenance: 'traceable' },
         lawEffect: { hallmarkRoll: 'updated', enforceable: true },
+        requiredMemes: [
+            record.ledgerkeeping,
+            econ.pooling_common_fund,
+        ]
     },
     {
         tag: QualityActionTag.DEFECT_LOG_LEDGER,
@@ -176,6 +186,10 @@ export const QualityActions: ActionDefinition[] = [
         socialImpact: { TRANSPARENCY: 0.3 as any, TRUST: 0.2 },
         ownershipEffect: { defectLedger: 'updated' },
         lawEffect: { ledgerPolicy: 'accurate_entry', enforceable: true },
+        requiredMemes: [
+            comm.language.written,
+            record.ledgerkeeping,
+        ]
     },
     {
         tag: QualityActionTag.ROOT_CAUSE_CIRCLE,
@@ -190,6 +204,7 @@ export const QualityActions: ActionDefinition[] = [
         requiresLocation: 'hall|workyard',
         socialImpact: { COHESION: 0.3, FAIRNESS: 0.2 },
         ownershipEffect: { actionItems: 'issued' },
+        requiredMemes: [comm.language.written]
     },
     {
         tag: QualityActionTag.TRAIN_ON_STANDARD,
@@ -206,6 +221,12 @@ export const QualityActions: ActionDefinition[] = [
         socialImpact: { RESPECT: 0.2, TRUST: 0.2 },
         ownershipEffect: { accessScope: 'training_room', grantAccess: true },
         lawEffect: { trainingRoster: 'logged', enforceable: true },
+        requiredMemes: [
+            health.sanitation_norms,
+            health.waste_handling,
+            comm.language.written,
+            org.workshop_practice,
+        ]
     },
     {
         tag: QualityActionTag.SUPPLIER_AUDIT_VISIT,
@@ -221,7 +242,7 @@ export const QualityActions: ActionDefinition[] = [
         tradeEffect: { travel_supplies: -1, sample_fee: -1 | (0 as any) },
         socialImpact: { NETWORK: 0.2, RESPECT: 0.2 },
         ownershipEffect: { supplierStatus: 'audited' },
-        lawEffect: { auditRoll: 'filed', enforceable: true },
+        lawEffect: { auditRoll: 'filed', enforceable: true }
     },
     {
         tag: QualityActionTag.CUSTOMER_FEEDBACK_LOOP,
@@ -237,5 +258,6 @@ export const QualityActions: ActionDefinition[] = [
         socialImpact: { REPUTATION: 0.3, FAIRNESS: 0.2 },
         ownershipEffect: { feedbackLog: 'updated' },
         lawEffect: { complaintDesk: 'active', enforceable: true },
+        requiredMemes: [comm.language.written]
     },
 ];

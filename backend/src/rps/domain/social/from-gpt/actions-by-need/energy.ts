@@ -1,6 +1,6 @@
 import { ActionDefinition } from '../action-definition';
 import { EnergyActionTag } from '../action-tags';
-
+import { cog, comm, culture, food, health, heat } from '../memes';
 export const EnergyActions: ActionDefinition[] = [
     {
         tag: EnergyActionTag.HIGH_PROTEIN_MEAL,
@@ -19,6 +19,13 @@ export const EnergyActions: ActionDefinition[] = [
             herbs: '-1 | 0' as any,
         },
         ownershipEffect: { storesLevel: 'reduced_meal' },
+        requiredMemes: [
+            culture.vigil_ritual,
+            cog.timekeeping.basic,
+            health.first_aid_basic,
+            heat.space.hearth,
+            comm.language.written,
+        ]
     },
     {
         tag: EnergyActionTag.POWER_NAP_20,
@@ -32,6 +39,11 @@ export const EnergyActions: ActionDefinition[] = [
         },
         requiresLocation: 'bunks|hearth',
         ownershipEffect: { berthUse: 'short_rest' },
+        requiredMemes: [
+            culture.vigil_ritual,
+            cog.timekeeping.basic,
+            heat.space.hearth,
+        ]
     },
     {
         tag: EnergyActionTag.SUNLIGHT_STRETCH,
@@ -45,10 +57,14 @@ export const EnergyActions: ActionDefinition[] = [
         },
         requiresLocation: 'yard|green|balcony',
         socialImpact: { CALM: 0.2 as any },
+        requiredMemes: [
+            health.sanitation_norms,
+            health.waste_handling,
+        ]
     },
     {
         tag: EnergyActionTag.SHORT_SPRINT_EXERCISE,
-        costEnergy: -0.08, // расход сейчас → бодрость позже
+        costEnergy: -0.08,
         costTime: 0.4,
         rewardSecondary: {
             ENERGY: 0.6,
@@ -57,7 +73,11 @@ export const EnergyActions: ActionDefinition[] = [
             MORALE: 0.15,
         },
         requiresLocation: 'yard|track|field',
-        risk: 0.04, // перетрен
+        risk: 0.04,
+        requiredMemes: [
+            health.sanitation_norms,
+            health.waste_handling,
+        ]
     },
     {
         tag: EnergyActionTag.CAFFEINE_HERB_TONIC,
@@ -70,8 +90,8 @@ export const EnergyActions: ActionDefinition[] = [
             MORALE: 0.15,
         },
         tradeEffect: { tonic_herbs_or_coffee: -1, honey: -1 | (0 as any) },
-        risk: 0.05, // дрожь/откат
-        ownershipEffect: { kettleState: 'brewed' },
+        risk: 0.05,
+        ownershipEffect: { kettleState: 'brewed' }
     },
     {
         tag: EnergyActionTag.BREATH_OXY_DRILL,
@@ -84,6 +104,11 @@ export const EnergyActions: ActionDefinition[] = [
             CLARITY: 0.2,
         },
         requiresLocation: 'quiet_corner|hearth',
+        requiredMemes: [
+            culture.vigil_ritual,
+            cog.timekeeping.basic,
+            heat.space.hearth,
+        ]
     },
     {
         tag: EnergyActionTag.WATER_REHYDRATE,
@@ -101,6 +126,11 @@ export const EnergyActions: ActionDefinition[] = [
             salt_or_ash_electrolyte: -1 | (0 as any),
         },
         ownershipEffect: { canteen: 'refilled' },
+        requiredMemes: [
+            health.sanitation_norms,
+            health.waste_handling,
+            food.preservation.salting,
+        ]
     },
     {
         tag: EnergyActionTag.MICRO_BREAK_EYESTRAIN,
@@ -112,7 +142,7 @@ export const EnergyActions: ActionDefinition[] = [
             FOCUS: 0.2,
             HEALTH: 0.1,
         },
-        ownershipEffect: { taskState: 'paused_micro' },
+        ownershipEffect: { taskState: 'paused_micro' }
     },
     {
         tag: EnergyActionTag.POSTURE_RESET,
@@ -126,6 +156,10 @@ export const EnergyActions: ActionDefinition[] = [
         },
         requiresLocation: 'workroom|yard',
         socialImpact: { DIGNITY: 0.1 as any },
+        requiredMemes: [
+            health.sanitation_norms,
+            health.waste_handling,
+        ]
     },
     {
         tag: EnergyActionTag.SNACK_TRAIL_MIX,
@@ -142,7 +176,7 @@ export const EnergyActions: ActionDefinition[] = [
             dried_fruit: -1 | (0 as any),
             grain_bar: -1 | (0 as any),
         },
-        ownershipEffect: { storesLevel: 'reduced_snacks' },
+        ownershipEffect: { storesLevel: 'reduced_snacks' }
     },
     {
         tag: EnergyActionTag.SOCIAL_ENERGY_CHECKIN,
@@ -156,10 +190,16 @@ export const EnergyActions: ActionDefinition[] = [
         },
         requiresLocation: 'hearth|hall|workyard',
         socialImpact: { COHESION: 0.2, STRESS: -0.1 as any },
+        requiredMemes: [
+            culture.vigil_ritual,
+            cog.timekeeping.basic,
+            heat.space.hearth,
+            comm.language.written,
+        ]
     },
     {
         tag: EnergyActionTag.WORKLOAD_REBALANCE,
-        costEnergy: +0.08, // снимает перегруз
+        costEnergy: +0.08,
         costTime: 0.8,
         rewardSecondary: {
             ENERGY: 0.7,
@@ -170,7 +210,7 @@ export const EnergyActions: ActionDefinition[] = [
         requiresSkill: 'leadership|planning',
         socialImpact: { RESENTMENT: -0.1, TRUST: 0.2 },
         ownershipEffect: { dutyRoster: 'rebalanced' },
-        lawEffect: { fatigueLimits: 'posted', enforceable: true },
+        lawEffect: { fatigueLimits: 'posted', enforceable: true }
     },
     {
         tag: EnergyActionTag.EARLY_LIGHTS_OUT,
@@ -184,7 +224,7 @@ export const EnergyActions: ActionDefinition[] = [
         },
         requiresLocation: 'bunks|home',
         lawEffect: { quietHours: 'observed', enforceable: true },
-        ownershipEffect: { curfewReady: 'true' },
+        ownershipEffect: { curfewReady: 'true' }
     },
     {
         tag: EnergyActionTag.MORNING_COLD_SPLASH,
@@ -197,11 +237,11 @@ export const EnergyActions: ActionDefinition[] = [
             HEALTH: 0.1,
         },
         requiresLocation: 'well|river',
-        risk: 0.03, // простуда в плохую погоду
+        risk: 0.03
     },
     {
         tag: EnergyActionTag.WARMUP_BEFORE_LABOR,
-        costEnergy: -0.04, // лёгкий расход → меньше травм
+        costEnergy: -0.04,
         costTime: 0.4,
         rewardSecondary: {
             READINESS: 0.3 as any,
@@ -211,6 +251,10 @@ export const EnergyActions: ActionDefinition[] = [
         },
         requiresLocation: 'yard|worksite',
         socialImpact: { SAFETY: 0.2 as any },
+        requiredMemes: [
+            health.sanitation_norms,
+            health.waste_handling,
+        ]
     },
     {
         tag: EnergyActionTag.RECOVERY_MASSAGE,
@@ -226,5 +270,11 @@ export const EnergyActions: ActionDefinition[] = [
         requiresSkill: 'massage|healer_craft',
         tradeEffect: { oil: -1 | (0 as any), herbs: -1 | (0 as any) },
         socialImpact: { CARE: 0.3 as any },
+        requiredMemes: [
+            culture.vigil_ritual,
+            cog.timekeeping.basic,
+            health.first_aid_basic,
+            heat.space.hearth,
+        ]
     },
 ];

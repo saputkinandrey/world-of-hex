@@ -1,6 +1,6 @@
 import { ActionDefinition } from '../action-definition';
 import { DisciplineActionTag } from '../action-tags';
-
+import { cog, comm, culture, econ, health, record, tech } from '../memes';
 export const DisciplineActions: ActionDefinition[] = [
     {
         tag: DisciplineActionTag.DAWN_ROLL_CALL,
@@ -15,6 +15,11 @@ export const DisciplineActions: ActionDefinition[] = [
         requiresLocation: 'yard|square',
         socialImpact: { ACCOUNTABILITY: 0.4 as any, COHESION: 0.2 },
         lawEffect: { rollCall: 'mandatory', enforceable: true },
+        requiredMemes: [
+            health.sanitation_norms,
+            health.waste_handling,
+            comm.language.written,
+        ]
     },
     {
         tag: DisciplineActionTag.CODE_RECITAL,
@@ -29,6 +34,11 @@ export const DisciplineActions: ActionDefinition[] = [
         requiresLocation: 'hall|temple',
         socialImpact: { RESPECT: 0.2, UNITY: 0.2 as any },
         lawEffect: { codeCharter: 'reaffirmed', enforceable: true },
+        requiredMemes: [
+            culture.vigil_ritual,
+            cog.timekeeping.basic,
+            comm.language.written,
+        ]
     },
     {
         tag: DisciplineActionTag.PUNCTUALITY_CHECK,
@@ -41,7 +51,7 @@ export const DisciplineActions: ActionDefinition[] = [
             PRODUCTIVITY: 0.2,
         },
         socialImpact: { PUNCTUALITY: 0.4 as any, RESENTMENT: -0.05 },
-        lawEffect: { latePolicy: 'warning|fine', enforceable: true },
+        lawEffect: { latePolicy: 'warning|fine', enforceable: true }
     },
     {
         tag: DisciplineActionTag.UNIFORM_STANDARD_CHECK,
@@ -55,7 +65,7 @@ export const DisciplineActions: ActionDefinition[] = [
         },
         tradeEffect: { linen: '-wear', polish: -1 | (0 as any) },
         socialImpact: { DIGNITY: 0.2 as any, STATUS: 0.1 },
-        lawEffect: { dressCode: 'posted', enforceable: true },
+        lawEffect: { dressCode: 'posted', enforceable: true }
     },
     {
         tag: DisciplineActionTag.DRILL_BASIC_FORMS,
@@ -70,6 +80,10 @@ export const DisciplineActions: ActionDefinition[] = [
         requiresLocation: 'yard|field',
         socialImpact: { COHESION: 0.3, RESPECT: 0.2 },
         ownershipEffect: { drillLog: 'updated' },
+        requiredMemes: [
+            health.sanitation_norms,
+            health.waste_handling,
+        ]
     },
     {
         tag: DisciplineActionTag.SILENCE_INTERVALS,
@@ -82,7 +96,7 @@ export const DisciplineActions: ActionDefinition[] = [
             CLARITY: 0.2,
         },
         socialImpact: { CALM: 0.3 as any },
-        lawEffect: { quietHours: 'posted', enforceable: true },
+        lawEffect: { quietHours: 'posted', enforceable: true }
     },
     {
         tag: DisciplineActionTag.TASK_START_RITUAL,
@@ -97,6 +111,11 @@ export const DisciplineActions: ActionDefinition[] = [
         requiresLocation: 'workbench|gate',
         socialImpact: { RELIABILITY: 0.2 as any },
         ownershipEffect: { logbook: 'task_start_mark' },
+        requiredMemes: [
+            culture.vigil_ritual,
+            cog.timekeeping.basic,
+            record.boundary_marking,
+        ]
     },
     {
         tag: DisciplineActionTag.CLEAN_AS_YOU_GO,
@@ -111,6 +130,11 @@ export const DisciplineActions: ActionDefinition[] = [
         tradeEffect: { rags: '-wear', soap: -1 | (0 as any) },
         socialImpact: { DIGNITY: 0.2 as any, RESPECT: 0.1 },
         ownershipEffect: { workspaceState: 'tidy' },
+        requiredMemes: [
+            health.sanitation_norms,
+            health.waste_handling,
+            tech.tool.use_basic,
+        ]
     },
     {
         tag: DisciplineActionTag.STRICT_BREAK_WINDOWS,
@@ -123,7 +147,7 @@ export const DisciplineActions: ActionDefinition[] = [
             PRODUCTIVITY: 0.2,
         },
         socialImpact: { PUNCTUALITY: 0.3 as any, RESENTMENT: -0.05 },
-        lawEffect: { breakPolicy: 'posted', enforceable: true },
+        lawEffect: { breakPolicy: 'posted', enforceable: true }
     },
     {
         tag: DisciplineActionTag.CONSEQUENCE_LEDGER,
@@ -139,6 +163,10 @@ export const DisciplineActions: ActionDefinition[] = [
         socialImpact: { TRANSPARENCY: 0.3 as any, FEAR: 0.05 },
         ownershipEffect: { disciplineLog: 'updated' },
         lawEffect: { penaltyScale: 'posted', enforceable: true },
+        requiredMemes: [
+            comm.language.written,
+            record.ledgerkeeping,
+        ]
     },
     {
         tag: DisciplineActionTag.PRAISE_PUBLIC_GOOD,
@@ -153,6 +181,11 @@ export const DisciplineActions: ActionDefinition[] = [
         requiresLocation: 'yard|hall',
         socialImpact: { COHESION: 0.3, RESENTMENT: -0.05 },
         lawEffect: { honorRoll: 'posted', enforceable: false },
+        requiredMemes: [
+            health.sanitation_norms,
+            health.waste_handling,
+            comm.language.written,
+        ]
     },
     {
         tag: DisciplineActionTag.SELF_DENIAL_DRILL,
@@ -166,7 +199,7 @@ export const DisciplineActions: ActionDefinition[] = [
             FOCUS: 0.2,
         },
         socialImpact: { RESPECT: 0.2, AUSTERITY: 0.3 as any },
-        lawEffect: { excessBan: 'observed', enforceable: false },
+        lawEffect: { excessBan: 'observed', enforceable: false }
     },
     {
         tag: DisciplineActionTag.CURFEW_OBSERVANCE,
@@ -179,7 +212,7 @@ export const DisciplineActions: ActionDefinition[] = [
             STABILITY: 0.2,
         },
         socialImpact: { TRUST: 0.1, PANIC: -0.05 as any },
-        lawEffect: { curfew: 'active', enforceable: true },
+        lawEffect: { curfew: 'active', enforceable: true }
     },
     {
         tag: DisciplineActionTag.EQUIPMENT_CHECK_IN_OUT,
@@ -197,7 +230,7 @@ export const DisciplineActions: ActionDefinition[] = [
             grantAccess: true,
         },
         socialImpact: { RESPONSIBILITY: 0.3 as any, LOSS: -0.1 as any },
-        lawEffect: { depositRule: 'posted', enforceable: true },
+        lawEffect: { depositRule: 'posted', enforceable: true }
     },
     {
         tag: DisciplineActionTag.TASK_TIME_PLEDGE,
@@ -212,6 +245,12 @@ export const DisciplineActions: ActionDefinition[] = [
         },
         socialImpact: { ACCOUNTABILITY: 0.3 as any },
         lawEffect: { pledgeBoard: 'posted', enforceable: true },
+        requiredMemes: [
+            comm.language.written,
+            record.ledgerkeeping,
+            econ.pooling_common_fund,
+            econ.deposit_contract,
+        ]
     },
     {
         tag: DisciplineActionTag.WEEKLY_RETROSPECT,
@@ -226,5 +265,6 @@ export const DisciplineActions: ActionDefinition[] = [
         requiresLocation: 'hall|workyard',
         socialImpact: { COHESION: 0.3, TRUST: 0.2 },
         ownershipEffect: { actionItems: 'issued' },
+        requiredMemes: [comm.language.written]
     },
 ];

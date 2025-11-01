@@ -1,6 +1,6 @@
 import { ActionDefinition } from '../action-definition';
 import { CreativityActionTag } from '../action-tags';
-
+import { comm, econ, health, record, tech } from '../memes';
 export const CreativityActions: ActionDefinition[] = [
     {
         tag: CreativityActionTag.SKETCH_CONCEPT,
@@ -12,6 +12,7 @@ export const CreativityActions: ActionDefinition[] = [
         socialImpact: { CREATIVITY: 0.45, INSPIRATION: 0.4 as any },
         ownershipEffect: { sketchbook: 'updated', conceptId: 'new' },
         lawEffect: { none: true },
+        requiredMemes: [comm.language.written]
     },
     {
         tag: CreativityActionTag.COMPOSE_SONG_OR_POEM,
@@ -25,7 +26,7 @@ export const CreativityActions: ActionDefinition[] = [
         },
         socialImpact: { CREATIVITY: 0.5, MOOD: 0.4 as any },
         ownershipEffect: { composition: 'created', performanceRight: 'author' },
-        lawEffect: { bardicRoll: 'noted', enforceable: true },
+        lawEffect: { bardicRoll: 'noted', enforceable: true }
     },
     {
         tag: CreativityActionTag.CRAFT_DECORATIVE_ART,
@@ -42,6 +43,10 @@ export const CreativityActions: ActionDefinition[] = [
         socialImpact: { CREATIVITY: 0.5, AESTHETICS: 0.5 as any },
         ownershipEffect: { artifact: 'created', provenance: 'atelier' },
         lawEffect: { hallmark: 'stamped', enforceable: true },
+        requiredMemes: [
+            comm.language.written,
+            tech.tool.use_basic,
+        ]
     },
     {
         tag: CreativityActionTag.DESIGN_FUNCTIONAL_TOOL,
@@ -57,7 +62,7 @@ export const CreativityActions: ActionDefinition[] = [
         tradeEffect: { prototypes: '-1..2', scrap: '+1' },
         socialImpact: { CREATIVITY: 0.55, INNOVATION_REP: 0.4 },
         ownershipEffect: { blueprint: 'tool_v1', license: 'open|guild' },
-        lawEffect: { guildPatent: 'pending', enforceable: true },
+        lawEffect: { guildPatent: 'pending', enforceable: true }
     },
     {
         tag: CreativityActionTag.PAINT_MURAL_PUBLIC,
@@ -75,6 +80,7 @@ export const CreativityActions: ActionDefinition[] = [
         socialImpact: { CREATIVITY: 0.75, VISIBILITY: 0.6, COHESION: 0.3 },
         ownershipEffect: { mural: 'created_public', stewardship: 'council' },
         lawEffect: { muralPermit: 'granted', enforceable: true },
+        requiredMemes: [comm.language.written]
     },
     {
         tag: CreativityActionTag.CARVE_STATUE_OR_TOTEM,
@@ -90,7 +96,7 @@ export const CreativityActions: ActionDefinition[] = [
         tradeEffect: { stone_blocks: -3, tool_wear: '-minor' },
         socialImpact: { CREATIVITY: 0.7, REVERENCE: 0.4, AWE: 0.4 },
         ownershipEffect: { monument: 'statue|totem', location: 'plaza|grove' },
-        lawEffect: { monumentCharter: 'approved', enforceable: true },
+        lawEffect: { monumentCharter: 'approved', enforceable: true }
     },
     {
         tag: CreativityActionTag.WEAVE_CEREMONIAL_TEXTILE,
@@ -106,7 +112,7 @@ export const CreativityActions: ActionDefinition[] = [
         tradeEffect: { yarn: -4, dye: -1 },
         socialImpact: { CREATIVITY: 0.6, IDENTITY: 0.4 as any },
         ownershipEffect: { textile: 'ceremonial', accessScope: 'clan_chest' },
-        lawEffect: { clanPattern: 'registered', enforceable: true },
+        lawEffect: { clanPattern: 'registered', enforceable: true }
     },
     {
         tag: CreativityActionTag.PERFORM_STREET_THEATRE,
@@ -127,6 +133,11 @@ export const CreativityActions: ActionDefinition[] = [
             accessScope: 'square_stage',
         },
         lawEffect: { buskingPermit: 'approved', enforceable: true },
+        requiredMemes: [
+            health.sanitation_norms,
+            health.waste_handling,
+            comm.language.written,
+        ]
     },
     {
         tag: CreativityActionTag.HOST_SALON_OR_SHOWCASE,
@@ -151,6 +162,7 @@ export const CreativityActions: ActionDefinition[] = [
         },
         ownershipEffect: { exhibit: 'staged', guestList: 'archived' },
         lawEffect: { eventPermit: 'granted', enforceable: true },
+        requiredMemes: [comm.language.written]
     },
     {
         tag: CreativityActionTag.COLLABORATE_ARTISAN_GUILD,
@@ -165,7 +177,7 @@ export const CreativityActions: ActionDefinition[] = [
         tradeEffect: { shared_costs: -2, order_backlog: '+potential' },
         socialImpact: { CREATIVITY: 0.5, TRUST: 0.3, LOYALTY: 0.2 },
         ownershipEffect: { accessScope: 'guild_workshop', grantAccess: true },
-        lawEffect: { collaborationCharter: 'filed', enforceable: true },
+        lawEffect: { collaborationCharter: 'filed', enforceable: true }
     },
     {
         tag: CreativityActionTag.EXPERIMENT_NEW_MEDIUM,
@@ -184,6 +196,10 @@ export const CreativityActions: ActionDefinition[] = [
             FASCINATION: 0.3 as any,
         },
         lawEffect: { atelierSafety: 'observed', enforceable: true },
+        requiredMemes: [
+            health.sanitation_norms,
+            health.waste_handling,
+        ]
     },
     {
         tag: CreativityActionTag.RESTORE_OLD_ARTWORK,
@@ -203,7 +219,7 @@ export const CreativityActions: ActionDefinition[] = [
             stewardship: 'art_guardian',
             accessScope: 'reliquary',
         },
-        lawEffect: { restorationWrit: 'approved', enforceable: true },
+        lawEffect: { restorationWrit: 'approved', enforceable: true }
     },
     {
         tag: CreativityActionTag.COMMISSIONED_PIECE,
@@ -227,7 +243,7 @@ export const CreativityActions: ActionDefinition[] = [
             commissionContract: 'signed',
             rights: 'artist_copyright',
         },
-        lawEffect: { contractRoll: 'filed', enforceable: true },
+        lawEffect: { contractRoll: 'filed', enforceable: true }
     },
     {
         tag: CreativityActionTag.TEACH_ART_WORKSHOP,
@@ -244,6 +260,7 @@ export const CreativityActions: ActionDefinition[] = [
         socialImpact: { CREATIVITY: 0.55, RESPECT: 0.4, NETWORK: 0.3 },
         ownershipEffect: { accessScope: 'classroom', grantAccess: true },
         lawEffect: { classRoll: 'recorded', enforceable: true },
+        requiredMemes: [comm.language.written]
     },
     {
         tag: CreativityActionTag.RITUALIZE_CREATIVE_PROCESS,
@@ -257,7 +274,7 @@ export const CreativityActions: ActionDefinition[] = [
         },
         requiresLocation: 'quiet_room|shrine',
         socialImpact: { CREATIVITY: 0.45, FOCUS: 0.4 as any },
-        lawEffect: { atelierRite: 'noted', enforceable: false },
+        lawEffect: { atelierRite: 'noted', enforceable: false }
     },
     {
         tag: CreativityActionTag.REGISTER_ART_MARK,
@@ -272,5 +289,10 @@ export const CreativityActions: ActionDefinition[] = [
         },
         ownershipEffect: { artMark: 'registered', provenance: 'traceable' },
         lawEffect: { hallmarkRoll: 'updated', enforceable: true },
+        requiredMemes: [
+            record.ledgerkeeping,
+            econ.pooling_common_fund,
+            comm.language.written,
+        ]
     },
 ];

@@ -1,7 +1,6 @@
 import { ActionDefinition } from '../action-definition';
 import { CommunityActionTag } from '../action-tags';
-import { health } from '../memes';
-
+import { cog, comm, culture, econ, health, record, tech } from '../memes';
 export const CommunityActions: ActionDefinition[] = [
     {
         tag: CommunityActionTag.ORGANIZE_WORK_BEE,
@@ -20,6 +19,11 @@ export const CommunityActions: ActionDefinition[] = [
         socialImpact: { COHESION: 0.6, COMMUNITY: 0.6, VISIBILITY: 0.3 },
         ownershipEffect: { accessScope: 'public_worksite', grantAccess: true },
         lawEffect: { notice: 'work_bee_called', enforceable: false },
+        requiredMemes: [
+            record.ledgerkeeping,
+            econ.pooling_common_fund,
+            comm.language.written,
+        ]
     },
     {
         tag: CommunityActionTag.BUILD_COMMON_INFRA,
@@ -38,7 +42,7 @@ export const CommunityActions: ActionDefinition[] = [
             commonAsset: 'well|bridge|road',
             steward: 'council',
         },
-        lawEffect: { workPermit: 'approved', enforceable: true },
+        lawEffect: { workPermit: 'approved', enforceable: true }
     },
     {
         tag: CommunityActionTag.MAINTAIN_COMMON_INFRA,
@@ -49,6 +53,10 @@ export const CommunityActions: ActionDefinition[] = [
         socialImpact: { COMMUNITY: 0.5, RELIABILITY: 0.4 },
         ownershipEffect: { assetUptime: 'extended' },
         lawEffect: { maintenanceLog: 'updated', enforceable: true },
+        requiredMemes: [
+            comm.language.written,
+            tech.tool.use_basic,
+        ]
     },
     {
         tag: CommunityActionTag.COLLECT_COMMON_FUND,
@@ -59,6 +67,10 @@ export const CommunityActions: ActionDefinition[] = [
         tradeEffect: { contribute_silver: '+X', ledger: 'community_fund' },
         socialImpact: { COMMUNITY: 0.5, FAIRNESS: 0.3, SUSPICION: -0.1 },
         lawEffect: { fundCharter: 'created', enforceable: true },
+        requiredMemes: [
+            record.ledgerkeeping,
+            econ.pooling_common_fund,
+        ]
     },
     {
         tag: CommunityActionTag.DISTRIBUTE_COMMON_RATIONS,
@@ -78,7 +90,7 @@ export const CommunityActions: ActionDefinition[] = [
             accessScope: 'granary',
             accessLevel: 'RECIPIENT',
         },
-        lawEffect: { rationPolicy: 'v1', enforceable: true },
+        lawEffect: { rationPolicy: 'v1', enforceable: true }
     },
     {
         tag: CommunityActionTag.HOST_COMMUNITY_FEAST,
@@ -93,7 +105,7 @@ export const CommunityActions: ActionDefinition[] = [
         tradeEffect: { spend_food: -12, spend_drink: -6, music_fee: -2 },
         socialImpact: { COMMUNITY: 0.75, COHESION: 0.6, JOY: 0.5 as any },
         ownershipEffect: { accessScope: 'feast_hall', grantAccess: true },
-        lawEffect: { eventPermit: 'feast#ok', enforceable: true },
+        lawEffect: { eventPermit: 'feast#ok', enforceable: true }
     },
     {
         tag: CommunityActionTag.HOLD_OPEN_COUNCIL,
@@ -103,6 +115,7 @@ export const CommunityActions: ActionDefinition[] = [
         requiresLocation: 'council_hall',
         socialImpact: { COMMUNITY: 0.6, ACCESSIBILITY: 0.5, FAIRNESS: 0.4 },
         lawEffect: { docketOpen: 'petitions_heard', enforceable: true },
+        requiredMemes: [comm.language.written]
     },
     {
         tag: CommunityActionTag.POST_PUBLIC_NOTICES,
@@ -112,6 +125,7 @@ export const CommunityActions: ActionDefinition[] = [
         tradeEffect: { use_parchment: -1, posts: '+N' },
         socialImpact: { COMMUNITY: 0.45, VISIBILITY: 0.4, CLARITY: 0.3 as any },
         lawEffect: { noticeBoard: 'updated', enforceable: true },
+        requiredMemes: [comm.language.written]
     },
     {
         tag: CommunityActionTag.ORGANIZE_MUSTER_DRILL,
@@ -121,7 +135,7 @@ export const CommunityActions: ActionDefinition[] = [
         rewardSecondary: { COMMUNITY: 0.8, SECURITY: 0.6, STABILITY: 0.4 },
         requiresItem: ['practice_weapons'],
         socialImpact: { COMMUNITY: 0.6, READINESS: 0.6 as any, PRIDE: 0.3 },
-        lawEffect: { militiaRegister: 'updated', enforceable: true },
+        lawEffect: { militiaRegister: 'updated', enforceable: true }
     },
     {
         tag: CommunityActionTag.MEDIATE_NEIGHBOR_CONFLICTS,
@@ -130,7 +144,7 @@ export const CommunityActions: ActionDefinition[] = [
         risk: 0.1,
         rewardSecondary: { COMMUNITY: 0.7, JUSTICE: 0.4, STABILITY: 0.4 },
         socialImpact: { COMMUNITY: 0.55, HARMONY: 0.55, TRUST: 0.35 },
-        lawEffect: { mediationRecord: 'filed', enforceable: true },
+        lawEffect: { mediationRecord: 'filed', enforceable: true }
     },
     {
         tag: CommunityActionTag.ESTABLISH_MUTUAL_AID,
@@ -141,6 +155,10 @@ export const CommunityActions: ActionDefinition[] = [
         socialImpact: { COMMUNITY: 0.65, SAFETY_NET: 0.6 as any },
         ownershipEffect: { fundAccessPolicy: 'need_based', grantAccess: true },
         lawEffect: { mutualAidCharter: 'ratified', enforceable: true },
+        requiredMemes: [
+            record.ledgerkeeping,
+            econ.pooling_common_fund,
+        ]
     },
     {
         tag: CommunityActionTag.SET_COMMUNITY_NORMS,
@@ -149,7 +167,7 @@ export const CommunityActions: ActionDefinition[] = [
         rewardSecondary: { COMMUNITY: 0.65, TRADITION: 0.5, LAW: 0.4 },
         requiresSkill: 'diplomacy',
         socialImpact: { COMMUNITY: 0.55, CONSENSUS: 0.5 as any, RESPECT: 0.25 },
-        lawEffect: { normsCodex: 'adopted', enforceable: true },
+        lawEffect: { normsCodex: 'adopted', enforceable: true }
     },
     {
         tag: CommunityActionTag.RUN_MARKET_DAY,
@@ -161,6 +179,11 @@ export const CommunityActions: ActionDefinition[] = [
         socialImpact: { COMMUNITY: 0.6, VIBRANCY: 0.5 as any, NETWORK: 0.4 },
         ownershipEffect: { accessScope: 'market_stalls', grantAccess: true },
         lawEffect: { marketRules: 'v1', enforceable: true },
+        requiredMemes: [
+            health.sanitation_norms,
+            health.waste_handling,
+            comm.language.written,
+        ]
     },
     {
         tag: CommunityActionTag.CLEAN_PUBLIC_SPACES,
@@ -171,7 +194,11 @@ export const CommunityActions: ActionDefinition[] = [
         socialImpact: { COMMUNITY: 0.45, CIVIC_DUTY: 0.45 as any },
         ownershipEffect: { accessScope: 'square|streets', grantAccess: true },
         needRework: true,
-        requiredMemes: [health.sanitation_norms, health.waste_handling],
+        requiredMemes: [
+            health.sanitation_norms,
+            health.waste_handling,
+            tech.tool.use_basic,
+        ]
     },
     {
         tag: CommunityActionTag.FORM_WATCH_PATROLS,
@@ -187,6 +214,10 @@ export const CommunityActions: ActionDefinition[] = [
             grantAccess: true,
         },
         lawEffect: { patrolRoster: 'created', enforceable: true },
+        requiredMemes: [
+            culture.vigil_ritual,
+            cog.timekeeping.basic,
+        ]
     },
     {
         tag: CommunityActionTag.CELEBRATE_COMMUNITY_RITES,
@@ -199,6 +230,6 @@ export const CommunityActions: ActionDefinition[] = [
             IDENTITY: 0.55 as any,
             JOY: 0.45 as any,
         },
-        lawEffect: { riteCalendar: 'observed', enforceable: false },
+        lawEffect: { riteCalendar: 'observed', enforceable: false }
     },
 ];
