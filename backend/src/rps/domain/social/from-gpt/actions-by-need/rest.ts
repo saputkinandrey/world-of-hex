@@ -56,6 +56,7 @@ export const RestActions: ActionDefinition[] = [
         risk: 0.05,
         rewardSecondary: { REST: 0.6, COMFORT: 0.4, SOCIAL: 0.2 },
         locationType: 'campfire',
+        requiredMeme: { fire: true },
     },
     {
         tag: ActionTags.MEDITATE,

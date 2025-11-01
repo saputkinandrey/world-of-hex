@@ -25,6 +25,7 @@ export const HygieneActions: ActionDefinition[] = [
         rewardSecondary: { HYGIENE: 0.9, HEALTH: 0.4, SOCIAL: 0.3 },
         requiresItem: ['hot_water', 'soap'],
         requiresLocation: 'bathhouse',
+        requiredMeme: { fire: true },
     },
     {
         tag: HygieneActionTag.CLEAN_BODY_WITH_ASH,

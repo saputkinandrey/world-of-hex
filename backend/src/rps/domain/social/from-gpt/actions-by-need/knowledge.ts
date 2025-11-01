@@ -27,6 +27,7 @@ export const KnowledgeActions: ActionDefinition[] = [
         rewardSecondary: { KNOWLEDGE: 0.65, MASTERY: 0.4, PURPOSE: 0.2 },
         requiresItem: ['scroll|treatise'],
         tradeEffect: { ink_marks: '-minor', lamp_oil: -1 },
+        needRework: true,
         socialImpact: { KNOWLEDGE: 0.5, DISCIPLINE: 0.3 as any },
         lawEffect: { loanSlip: 'signed', enforceable: true },
     },

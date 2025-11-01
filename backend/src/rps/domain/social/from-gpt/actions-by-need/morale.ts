@@ -110,6 +110,7 @@ export const MoraleActions: ActionDefinition[] = [
         },
         requiresLocation: 'hearth|campfire',
         tradeEffect: { firewood: -1, lamp_oil: -1 | (0 as any) },
+        requiredMeme: { fire: true },
         socialImpact: { STORYTELLING: 0.3 as any, COHESION: 0.3 },
         lawEffect: { fireSafety: 'observed', enforceable: true },
     },

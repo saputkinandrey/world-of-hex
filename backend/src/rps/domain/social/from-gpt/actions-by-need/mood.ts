@@ -35,6 +35,7 @@ export const MoodActions: ActionDefinition[] = [
         costTime: 0.6,
         rewardSecondary: { MOOD: 0.5, COMFORT: 0.3, SECURITY: 0.1 },
         tradeEffect: { firewood: -1 },
+        requiredMeme: { fire: true },
         socialImpact: { MOOD: 0.45, COHESION: 0.2 },
         lawEffect: { fireSafety: 'observed', enforceable: true },
     },

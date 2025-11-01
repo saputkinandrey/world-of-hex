@@ -194,6 +194,7 @@ export const StressActions: ActionDefinition[] = [
             herbs: -1 | (0 as any),
             oil: -1 | (0 as any),
         },
+        requiredMeme: { fire: true },
         ownershipEffect: { bathSlot: 'booked' },
     },
     {
@@ -207,6 +208,7 @@ export const StressActions: ActionDefinition[] = [
             CLARITY: 0.1,
         },
         tradeEffect: { incense: -1 | (0 as any), resin: -1 | (0 as any) },
+        needRework: true,
         socialImpact: { CALM: 0.2 as any },
     },
     {

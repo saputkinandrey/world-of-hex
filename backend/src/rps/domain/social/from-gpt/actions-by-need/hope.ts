@@ -14,6 +14,7 @@ export const HopeActions: ActionDefinition[] = [
         },
         requiresLocation: 'gate|main_road',
         tradeEffect: { resin_torches: -1 | (0 as any), oil: -1 | (0 as any) },
+        requiredMeme: { fire: true },
         socialImpact: { COHESION: 0.3, TRADITION: 0.2 as any },
         ownershipEffect: { routeMarkers: 'placed' },
     },
@@ -102,6 +103,7 @@ export const HopeActions: ActionDefinition[] = [
         },
         requiresLocation: 'square|temple|riverbank',
         tradeEffect: { candles: -2 | (0 as any), oil: -1 | (0 as any) },
+        requiredMeme: { fire: true },
         socialImpact: { COHESION: 0.4, PEACE: 0.2 as any },
         ownershipEffect: { lanterns: 'released_counted' },
         risk: 0.05, // риск пожара при низкой санитарии/охране
@@ -149,6 +151,7 @@ export const HopeActions: ActionDefinition[] = [
         },
         requiresLocation: 'temple|memorial',
         tradeEffect: { incense: -1 | (0 as any), candles: -1 | (0 as any) },
+        needRework: true,
         socialImpact: { DIGNITY: 0.3 as any },
         ownershipEffect: { remembranceRoll: 'names_read' },
     },

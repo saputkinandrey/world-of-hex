@@ -84,6 +84,7 @@ export const CultureActions: ActionDefinition[] = [
             dye: -1 | (0 as any),
             candles: -1 | (0 as any),
         },
+        needRework: true,
         socialImpact: { AESTHETIC: 0.3 as any, COHESION: 0.2 },
         ownershipEffect: { districtLook: 'festive' },
     },
