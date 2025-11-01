@@ -1,5 +1,6 @@
 import { ActionDefinition } from '../action-definition';
 import { EfficiencyActionTag } from '../action-tags';
+import { fire, heat } from '../memes';
 
 export const EfficiencyActions: ActionDefinition[] = [
     {
@@ -207,6 +208,7 @@ export const EfficiencyActions: ActionDefinition[] = [
         },
         tradeEffect: { lamp_oil: -1 | (0 as any), firewood: -1 | (0 as any) },
         needRework: true,
+        requiredMemes: [fire.control, heat.space.core],
         socialImpact: { DILIGENCE: 0.2 as any },
         ownershipEffect: { workspaceState: 'ergonomic' },
     },

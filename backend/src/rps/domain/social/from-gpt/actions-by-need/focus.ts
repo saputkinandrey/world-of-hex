@@ -1,5 +1,6 @@
 import { ActionDefinition } from '../action-definition';
 import { FocusActionTag } from '../action-tags';
+import { fire } from '../memes';
 
 export const FocusActions: ActionDefinition[] = [
     {
@@ -90,6 +91,7 @@ export const FocusActions: ActionDefinition[] = [
         rewardSecondary: { FOCUS: 0.45, HEALTH: 0.2, QUALITY: 0.2 },
         tradeEffect: { lamp_oil: -1 as any },
         needRework: true,
+        requiredMemes: [fire.control],
         socialImpact: { FOCUS: 0.35, DILIGENCE: 0.2 as any },
         ownershipEffect: { workspaceState: 'ergonomic' },
     },

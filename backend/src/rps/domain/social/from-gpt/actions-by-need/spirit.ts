@@ -1,6 +1,6 @@
 import { ActionDefinition } from '../action-definition';
 import { SpiritActionTag } from '../action-tags';
-import { fire } from '../memes';
+import { cog, culture, fire } from '../memes';
 
 export const SpiritActions: ActionDefinition[] = [
     {
@@ -153,6 +153,7 @@ export const SpiritActions: ActionDefinition[] = [
         },
         tradeEffect: { candles: '-N', food_for_vigil: '-M' },
         needRework: true,
+        requiredMemes: [culture.vigil_ritual, cog.timekeeping.basic],
         socialImpact: { SPIRIT: 0.7, COHESION: 0.6, HOPE: 0.5 as any },
         lawEffect: { vigilPermit: 'granted', enforceable: true },
     },
@@ -194,6 +195,7 @@ export const SpiritActions: ActionDefinition[] = [
         },
         tradeEffect: { sacred_salt: -1, incense: -1, cord: -1 },
         needRework: true,
+        requiredMemes: [culture.vigil_ritual, cog.timekeeping.basic],
         socialImpact: { SPIRIT: 0.65, FEAR: -0.2, HOPE: 0.3 as any },
         lawEffect: { riteAuthority: 'recognized', enforceable: true },
     },

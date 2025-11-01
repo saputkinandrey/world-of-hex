@@ -1,5 +1,6 @@
 import { ActionDefinition } from '../action-definition';
 import { IdentityActionTag } from '../action-tags';
+import { cog, culture, heat } from '../memes';
 
 export const IdentityActions: ActionDefinition[] = [
     {
@@ -194,6 +195,7 @@ export const IdentityActions: ActionDefinition[] = [
         tradeEffect: { incense: -1, ribbon: '-1 | 0' as any },
         needRework: true,
         requiresLocation: 'shrine|hearth',
+        requiredMemes: [culture.vigil_ritual, cog.timekeeping.basic, heat.space.hearth],
         socialImpact: { REVERENCE: 0.4 as any, UNITY: 0.2 as any },
         lawEffect: { reliquaryRegister: 'filed', enforceable: true },
         ownershipEffect: { totem: 'consecrated' },

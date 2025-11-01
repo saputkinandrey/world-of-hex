@@ -1,5 +1,6 @@
 import { ActionDefinition } from '../action-definition';
 import { CourageActionTag } from '../action-tags';
+import { cog, culture } from '../memes';
 
 export const CourageActions: ActionDefinition[] = [
     {
@@ -77,6 +78,7 @@ export const CourageActions: ActionDefinition[] = [
         },
         requiresItem: ['drum|pots|torches'],
         needRework: true,
+        requiredMemes: [culture.vigil_ritual, cog.timekeeping.basic],
         socialImpact: { PANIC: -0.2 as any, RESPECT: 0.2 },
         lawEffect: { fireSafety: 'observed', enforceable: true },
     },
@@ -147,6 +149,7 @@ export const CourageActions: ActionDefinition[] = [
         },
         requiresItem: ['rope|struts|lantern'],
         needRework: true,
+        requiredMemes: [culture.vigil_ritual, cog.timekeeping.basic],
         socialImpact: { RESPECT: 0.4, HOPE: 0.3 as any },
         lawEffect: { rescuePermit: 'granted', enforceable: true },
     },
@@ -218,6 +221,7 @@ export const CourageActions: ActionDefinition[] = [
         requiresLocation: 'ruins|forest_edge|cave_mouth',
         requiresItem: ['torches|oil'],
         needRework: true,
+        requiredMemes: [culture.vigil_ritual, cog.timekeeping.basic],
         socialImpact: { TRUST: 0.3, RESPECT: 0.2 },
         ownershipEffect: { siteState: 'watched' },
     },
