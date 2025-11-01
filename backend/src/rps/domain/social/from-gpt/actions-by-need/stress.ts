@@ -1,6 +1,5 @@
 import { ActionDefinition } from '../action-definition';
 import { StressActionTag } from '../action-tags';
-
 export const StressActions: ActionDefinition[] = [
     {
         tag: StressActionTag.BREATHING_DRILL,
@@ -194,7 +193,6 @@ export const StressActions: ActionDefinition[] = [
             herbs: -1 | (0 as any),
             oil: -1 | (0 as any),
         },
-        requiredMeme: { fire: true },
         ownershipEffect: { bathSlot: 'booked' },
     },
     {

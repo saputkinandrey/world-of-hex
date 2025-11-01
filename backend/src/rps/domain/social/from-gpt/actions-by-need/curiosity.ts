@@ -1,5 +1,6 @@
 import { ActionDefinition } from '../action-definition';
 import { CuriosityActionTag } from '../action-tags';
+import { fire } from '../memes';
 
 export const CuriosityActions: ActionDefinition[] = [
     {
@@ -43,7 +44,7 @@ export const CuriosityActions: ActionDefinition[] = [
         rewardSecondary: { CURIOSITY: 0.7, WEALTH: 0.25, KNOWLEDGE: 0.4 },
         requiresItem: ['assay_kit', 'forge'],
         tradeEffect: { reagents: -1, crucible_wear: '-minor' },
-        requiredMeme: { fire: true },
+        requiredMemes: [fire.control],
         socialImpact: { CURIOSITY: 0.5, PROSPECT_REP: 0.3 as any },
         ownershipEffect: {
             assayReport: 'created',

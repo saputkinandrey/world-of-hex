@@ -1,5 +1,6 @@
 import { ActionDefinition } from '../action-definition';
 import { HopeActionTag } from '../action-tags';
+import { fire } from '../memes';
 
 export const HopeActions: ActionDefinition[] = [
     {
@@ -14,7 +15,7 @@ export const HopeActions: ActionDefinition[] = [
         },
         requiresLocation: 'gate|main_road',
         tradeEffect: { resin_torches: -1 | (0 as any), oil: -1 | (0 as any) },
-        requiredMeme: { fire: true },
+        requiredMemes: [fire.control],
         socialImpact: { COHESION: 0.3, TRADITION: 0.2 as any },
         ownershipEffect: { routeMarkers: 'placed' },
     },
@@ -103,7 +104,7 @@ export const HopeActions: ActionDefinition[] = [
         },
         requiresLocation: 'square|temple|riverbank',
         tradeEffect: { candles: -2 | (0 as any), oil: -1 | (0 as any) },
-        requiredMeme: { fire: true },
+        requiredMemes: [fire.control],
         socialImpact: { COHESION: 0.4, PEACE: 0.2 as any },
         ownershipEffect: { lanterns: 'released_counted' },
         risk: 0.05, // риск пожара при низкой санитарии/охране

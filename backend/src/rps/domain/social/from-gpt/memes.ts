@@ -185,7 +185,7 @@ export const memeDeps: Record<MemeId, readonly MemeId[]> = {
 
     // === Technology — fire/heat ===
     [memes.tech.fire.use]:              [],                        // использовать/поддерживать огонь
-    [memes.tech.fire.control]:          [],                        // разжигать/гасить/управлять
+    [memes.tech.fire.control]:          [memes.tech.fire.use],     // разжигать/гасить/управлять
     [memes.tech.heat.core]:             [memes.tech.fire.use],     // любое применение тепла требует уметь ПОЛЬЗОВАТЬСЯ огнем
     [memes.tech.heat.space.core]:       [memes.tech.heat.core],
     [memes.tech.heat.space.hearth]:     [memes.tech.heat.space.core],

@@ -1,5 +1,6 @@
 import { ActionDefinition } from '../action-definition';
 import { ActionTags } from '../action-tags';
+import { fire } from '../memes';
 
 export const WaterActions: ActionDefinition[] = [
     {
@@ -38,7 +39,7 @@ export const WaterActions: ActionDefinition[] = [
         resourceInput: ['raw_water', 'fire'],
         resourceOutput: ['clean_water'],
         locationType: 'camp',
-        requiredMeme: { fire: true },
+        requiredMemes: [fire.use],
     },
     {
         tag: ActionTags.DRINK_WATER,
