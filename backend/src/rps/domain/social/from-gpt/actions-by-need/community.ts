@@ -169,6 +169,7 @@ export const CommunityActions: ActionDefinition[] = [
         tradeEffect: { refuse_removed: '+K', lime_used: -1 },
         socialImpact: { COMMUNITY: 0.45, CIVIC_DUTY: 0.45 as any },
         ownershipEffect: { accessScope: 'square|streets', grantAccess: true },
+        needRework: true,
     },
     {
         tag: CommunityActionTag.FORM_WATCH_PATROLS,

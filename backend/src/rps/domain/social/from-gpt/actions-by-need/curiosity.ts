@@ -43,6 +43,7 @@ export const CuriosityActions: ActionDefinition[] = [
         rewardSecondary: { CURIOSITY: 0.7, WEALTH: 0.25, KNOWLEDGE: 0.4 },
         requiresItem: ['assay_kit', 'forge'],
         tradeEffect: { reagents: -1, crucible_wear: '-minor' },
+        requiredMeme: { fire: true },
         socialImpact: { CURIOSITY: 0.5, PROSPECT_REP: 0.3 as any },
         ownershipEffect: {
             assayReport: 'created',
@@ -85,6 +86,7 @@ export const CuriosityActions: ActionDefinition[] = [
         },
         requiresItem: ['rope', 'lamp_oil', 'probe_pole'],
         tradeEffect: { rope: -1, oil: -1, findings: '+artifacts?' },
+        needRework: true,
         socialImpact: { CURIOSITY: 0.75, FAME: 0.3, MYSTERY: 0.4 as any },
         ownershipEffect: {
             artifactClaim: 'possible',
@@ -143,6 +145,7 @@ export const CuriosityActions: ActionDefinition[] = [
         },
         requiresItem: ['chalk', 'line', 'spare_torch'],
         tradeEffect: { chalk: -1, torches: -2, mapSegments: '+1' },
+        needRework: true,
         socialImpact: { CURIOSITY: 0.7, READINESS: 0.4 as any },
         ownershipEffect: {
             mapSheet: 'cave_v1',

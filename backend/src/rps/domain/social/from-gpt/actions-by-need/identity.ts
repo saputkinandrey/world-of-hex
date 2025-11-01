@@ -192,6 +192,7 @@ export const IdentityActions: ActionDefinition[] = [
             COMMUNITY: 0.3,
         },
         tradeEffect: { incense: -1, ribbon: '-1 | 0' as any },
+        needRework: true,
         requiresLocation: 'shrine|hearth',
         socialImpact: { REVERENCE: 0.4 as any, UNITY: 0.2 as any },
         lawEffect: { reliquaryRegister: 'filed', enforceable: true },

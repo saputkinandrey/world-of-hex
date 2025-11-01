@@ -76,6 +76,7 @@ export const JoyActions: ActionDefinition[] = [
         },
         requiresLocation: 'square|river_bank',
         tradeEffect: { pitch: -1 | (0 as any), powder: -1 | (0 as any) },
+        requiredMeme: { fire: true },
         socialImpact: { AWE: 0.5 as any, PANIC: -0.05 as any },
         lawEffect: { fireSafety: 'strict', enforceable: true },
     },

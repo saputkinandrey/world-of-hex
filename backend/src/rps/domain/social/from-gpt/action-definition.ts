@@ -59,4 +59,8 @@ export interface ActionDefinition {
     lawEffect?: {
         [k: string]: string | boolean; // указы/правила/флаги исполнимости
     };
+    requiredMeme?: {
+        fire?: boolean;
+    };
+    needRework?: boolean;
 }

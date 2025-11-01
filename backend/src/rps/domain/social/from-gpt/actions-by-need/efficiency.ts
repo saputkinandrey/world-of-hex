@@ -206,6 +206,7 @@ export const EfficiencyActions: ActionDefinition[] = [
             PRODUCTIVITY: 0.2,
         },
         tradeEffect: { lamp_oil: -1 | (0 as any), firewood: -1 | (0 as any) },
+        needRework: true,
         socialImpact: { DILIGENCE: 0.2 as any },
         ownershipEffect: { workspaceState: 'ergonomic' },
     },

@@ -38,6 +38,7 @@ export const WaterActions: ActionDefinition[] = [
         resourceInput: ['raw_water', 'fire'],
         resourceOutput: ['clean_water'],
         locationType: 'camp',
+        requiredMeme: { fire: true },
     },
     {
         tag: ActionTags.DRINK_WATER,
