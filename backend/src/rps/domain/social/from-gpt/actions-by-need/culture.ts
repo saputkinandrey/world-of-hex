@@ -1,5 +1,6 @@
 import { ActionDefinition } from '../action-definition';
 import { CultureActionTag } from '../action-tags';
+import { comm } from '../memes';
 
 export const CultureActions: ActionDefinition[] = [
     {
@@ -85,6 +86,7 @@ export const CultureActions: ActionDefinition[] = [
             candles: -1 | (0 as any),
         },
         needRework: true,
+        requiredMemes: [comm.signage],
         socialImpact: { AESTHETIC: 0.3 as any, COHESION: 0.2 },
         ownershipEffect: { districtLook: 'festive' },
     },

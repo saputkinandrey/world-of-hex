@@ -1,5 +1,6 @@
 import { ActionDefinition } from '../action-definition';
 import { StressActionTag } from '../action-tags';
+import { fire } from '../memes';
 export const StressActions: ActionDefinition[] = [
     {
         tag: StressActionTag.BREATHING_DRILL,
@@ -207,6 +208,7 @@ export const StressActions: ActionDefinition[] = [
         },
         tradeEffect: { incense: -1 | (0 as any), resin: -1 | (0 as any) },
         needRework: true,
+        requiredMemes: [fire.control],
         socialImpact: { CALM: 0.2 as any },
     },
     {

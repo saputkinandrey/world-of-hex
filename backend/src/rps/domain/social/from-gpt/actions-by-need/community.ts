@@ -1,5 +1,6 @@
 import { ActionDefinition } from '../action-definition';
 import { CommunityActionTag } from '../action-tags';
+import { health } from '../memes';
 
 export const CommunityActions: ActionDefinition[] = [
     {
@@ -170,6 +171,7 @@ export const CommunityActions: ActionDefinition[] = [
         socialImpact: { COMMUNITY: 0.45, CIVIC_DUTY: 0.45 as any },
         ownershipEffect: { accessScope: 'square|streets', grantAccess: true },
         needRework: true,
+        requiredMemes: [health.sanitation_norms, health.waste_handling],
     },
     {
         tag: CommunityActionTag.FORM_WATCH_PATROLS,

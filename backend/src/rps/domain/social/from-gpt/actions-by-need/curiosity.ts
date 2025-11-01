@@ -1,6 +1,6 @@
 import { ActionDefinition } from '../action-definition';
 import { CuriosityActionTag } from '../action-tags';
-import { fire } from '../memes';
+import { cog, comm, culture, fire } from '../memes';
 
 export const CuriosityActions: ActionDefinition[] = [
     {
@@ -87,6 +87,7 @@ export const CuriosityActions: ActionDefinition[] = [
         },
         requiresItem: ['rope', 'lamp_oil', 'probe_pole'],
         tradeEffect: { rope: -1, oil: -1, findings: '+artifacts?' },
+        requiredMemes: [culture.vigil_ritual, cog.timekeeping.basic],
         needRework: true,
         socialImpact: { CURIOSITY: 0.75, FAME: 0.3, MYSTERY: 0.4 as any },
         ownershipEffect: {
@@ -146,6 +147,7 @@ export const CuriosityActions: ActionDefinition[] = [
         },
         requiresItem: ['chalk', 'line', 'spare_torch'],
         tradeEffect: { chalk: -1, torches: -2, mapSegments: '+1' },
+        requiredMemes: [culture.vigil_ritual, cog.timekeeping.basic, comm.signage],
         needRework: true,
         socialImpact: { CURIOSITY: 0.7, READINESS: 0.4 as any },
         ownershipEffect: {

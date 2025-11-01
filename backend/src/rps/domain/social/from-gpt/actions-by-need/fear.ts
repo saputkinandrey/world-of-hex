@@ -1,6 +1,6 @@
 import { ActionDefinition } from '../action-definition';
 import { FearActionTag } from '../action-tags';
-import { fire } from '../memes';
+import { cog, culture, fire } from '../memes';
 
 export const FearActions: ActionDefinition[] = [
     {
@@ -246,6 +246,7 @@ export const FearActions: ActionDefinition[] = [
         requiresLocation: 'temple|haunted_spot',
         tradeEffect: { incense: -1, sacred_oil: -1, salt: -1 },
         needRework: true,
+        requiredMemes: [culture.vigil_ritual, cog.timekeeping.basic],
         socialImpact: { REVERENCE: 0.3, HOPE: 0.3 as any },
         lawEffect: { ritePermit: 'granted', enforceable: true },
         ownershipEffect: { siteState: 'cleansed' },

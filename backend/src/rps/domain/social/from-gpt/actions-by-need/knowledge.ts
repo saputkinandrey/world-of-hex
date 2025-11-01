@@ -1,5 +1,6 @@
 import { ActionDefinition } from '../action-definition';
 import { KnowledgeActionTag } from '../action-tags';
+import { cog, comm, record } from '../memes';
 
 export const KnowledgeActions: ActionDefinition[] = [
     {
@@ -28,6 +29,7 @@ export const KnowledgeActions: ActionDefinition[] = [
         requiresItem: ['scroll|treatise'],
         tradeEffect: { ink_marks: '-minor', lamp_oil: -1 },
         needRework: true,
+        requiredMemes: [comm.signage, record.ledgerkeeping, cog.number_concept],
         socialImpact: { KNOWLEDGE: 0.5, DISCIPLINE: 0.3 as any },
         lawEffect: { loanSlip: 'signed', enforceable: true },
     },

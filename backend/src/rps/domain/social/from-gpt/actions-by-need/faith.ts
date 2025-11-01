@@ -1,6 +1,6 @@
 import { ActionDefinition } from '../action-definition';
 import { FaithActionTag } from '../action-tags';
-import { fire } from '../memes';
+import { cog, comm, culture, fire } from '../memes';
 
 export const FaithActions: ActionDefinition[] = [
     {
@@ -132,6 +132,7 @@ export const FaithActions: ActionDefinition[] = [
         requiresItem: ['scroll|codex'],
         tradeEffect: { lamp_oil: -1, parchment_wear: '-minor' },
         needRework: true,
+        requiredMemes: [comm.signage],
         socialImpact: { RESPECT: 0.2, DISCIPLINE: 0.3 },
         lawEffect: { readerPass: 'issued', enforceable: true },
     },
@@ -190,6 +191,7 @@ export const FaithActions: ActionDefinition[] = [
         },
         tradeEffect: { incense: -1, sacred_salt: -1 },
         needRework: true,
+        requiredMemes: [culture.vigil_ritual, cog.timekeeping.basic],
         socialImpact: { TRUST: 0.2, DIGNITY: 0.2 },
         ownershipEffect: { homeBlessed: true, duration: 'season' },
         lawEffect: { parishNote: 'logged', enforceable: true },

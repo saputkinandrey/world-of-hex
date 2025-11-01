@@ -87,6 +87,10 @@ web_modules/
 # Next.js build output
 .next
 out
+# allow needrework reports under var/out
+!var/
+!var/out/
+!var/out/needrework_memes_report.csv
 
 # Nuxt.js build / generate output
 .nuxt

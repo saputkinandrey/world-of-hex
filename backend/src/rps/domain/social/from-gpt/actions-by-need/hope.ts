@@ -1,6 +1,6 @@
 import { ActionDefinition } from '../action-definition';
 import { HopeActionTag } from '../action-tags';
-import { fire } from '../memes';
+import { cog, culture, fire } from '../memes';
 
 export const HopeActions: ActionDefinition[] = [
     {
@@ -153,6 +153,7 @@ export const HopeActions: ActionDefinition[] = [
         requiresLocation: 'temple|memorial',
         tradeEffect: { incense: -1 | (0 as any), candles: -1 | (0 as any) },
         needRework: true,
+        requiredMemes: [culture.vigil_ritual, cog.timekeeping.basic],
         socialImpact: { DIGNITY: 0.3 as any },
         ownershipEffect: { remembranceRoll: 'names_read' },
     },
