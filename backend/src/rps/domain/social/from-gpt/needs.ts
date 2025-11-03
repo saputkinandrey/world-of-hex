@@ -4,6 +4,26 @@ interface Need {
     satisfaction: number; // уровень удовлетворения
 }
 
+/** Вклад одного мема в профиль потребностей */
+export interface MemeNeedImpact {
+    /** Какие потребности этот мем «включает» вообще (гейтинг) */
+    gate?: ReadonlyArray<NeedTag>;
+    /** Какие потребности он «подпитывает» (суммируется) базовым весом 0..1 */
+    present?: ReadonlyArray<{ need: NeedTag; weight: number }>;
+    /** Множители для уже набранного веса (например, подавление/усиление) */
+    multiply?: ReadonlyArray<{ need: NeedTag; factor: number }>;
+}
+
+/** Контекст окружения для динамических модификаторов (по желанию) */
+export interface NeedContext {
+    ambientC?: number;              // температура среды
+    preferredC?: number;            // «комфортная» для вида
+    season?: 'winter'|'summer'|'spring'|'autumn';
+    timeOfDay?: 'day'|'night'|'dawn'|'dusk';
+    hydrationLevel?: number;        // 0..1
+    satietyLevel?: number;          // 0..1
+}
+
 export enum NeedTag {
 
 
@@ -43,6 +63,8 @@ export enum NeedTag {
     NETWORK = 'NETWORK',
 
     // === I. Физиологические ===
+    TEMPERATURE = 'TEMPERATURE', // Пища, голод, вода, охота, собирательство
+    BREATH = 'BREATH', // Пища, голод, вода, охота, собирательство
     FOOD = 'FOOD', // Пища, голод, вода, охота, собирательство
     WATER = 'WATER', // Пища, голод, вода, охота, собирательство
     REST = 'REST', // Сон, отдых, восстановление

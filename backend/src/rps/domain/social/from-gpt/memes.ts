@@ -14,6 +14,14 @@ export const memes = {
         motor_coordination: 'core.motor_coordination',
     } as const,
 
+    bio: {
+        vital: {
+            // «живое» — базовая витальность
+            core: 'bio.vital.core',
+            cold_blooded: 'bio.vital.cold_blooded',
+        },
+    } as const,
+
     // === Social / Communication ===
     soc: {
         shared_attention: 'soc.shared_attention',
@@ -72,6 +80,12 @@ export const memes = {
 
     // === Technology ===
     tech: {
+        sensing: {
+            chemosense_basic: 'tech.sensing.chemosense_basic', // химочутьё/язычок (универсально)
+            vibration_basic: 'tech.sensing.vibration_basic', // чувствительность к вибрациям
+            heat_localization_basic: 'tech.sensing.heat_localization_basic', // тепловая локализация (у кого есть органы)
+        },
+
         throwing: {
             basic: 'tech.throwing.basic',
         },
@@ -80,6 +94,8 @@ export const memes = {
             unarmed_basic: 'tech.combat.unarmed_basic', // базовая безоружная техника
             melee_basic: 'tech.combat.melee_basic', // базовая оружейная (рукопашное/холодное)
             missile_basic: 'tech.combat.missile_basic', // базовая метательная/стрельба
+            bite_basic: 'tech.combat.bite_basic', // природный «укус» как техника ближнего боя
+            venom_delivery: 'tech.combat.venom_delivery', // введение яда (требует bite_basic)
         },
 
         hunting: {
@@ -192,6 +208,13 @@ export const memes = {
         tactics: {
             ambush_stalk: 'eth.tactics.ambush_stalk', // скрытность, выжидание, рывок
             pursuit_chase: 'eth.tactics.pursuit_chase', // преследование, изматывание
+            constriction: 'eth.tactics.constriction', // обвитие/фиксация/сдавливание (универсально для констрикторов)
+        },
+
+        maintenance: {
+            cleanliness_core: 'eth.maintenance.cleanliness_core', // НОВОЕ: базовый инстинкт чистоты
+            thermoregulation: 'eth.maintenance.thermoregulation', // поведенческая терморегуляция (греться/охлаждаться)
+            ecdysis: 'eth.maintenance.ecdysis', // линька (рептилии, членистоногие и др.)
         },
 
         // === Хищничество: только база + драйвы (без social/style/post-capture)
@@ -224,6 +247,8 @@ export const culture = memes.culture;
 export const record = memes.record;
 export const law = memes.law;
 export const econ = memes.econ;
+export const eth = memes.eth;
+export const bio = memes.bio;
 
 // ===== Типы: все листовые значения автоматически собираются в union =====
 type LeafValues<T> = T extends string
@@ -233,6 +258,9 @@ export type MemeId = LeafValues<typeof memes>;
 
 // Явные зависимости (только «смысловые» ребра; остальное достроит резолвер)
 export const memeDeps: Record<MemeId, readonly MemeId[]> = {
+    [memes.bio.vital.core]: [], // базовый аксиомный мем
+    [memes.bio.vital.cold_blooded]: [memes.bio.vital.core],
+
     // === Core ===
     [memes.core.perception]: [],
     [memes.core.motor_coordination]: [],
@@ -265,6 +293,9 @@ export const memeDeps: Record<MemeId, readonly MemeId[]> = {
         memes.core.perception,
         memes.core.motor_coordination,
     ],
+    [memes.tech.combat.bite_basic]: [memes.tech.combat.core],
+    [memes.tech.combat.venom_delivery]: [memes.tech.combat.bite_basic],
+
     [memes.tech.combat.unarmed_basic]: [memes.tech.combat.core],
     [memes.tech.combat.melee_basic]: [
         memes.tech.combat.core,
@@ -372,19 +403,40 @@ export const memeDeps: Record<MemeId, readonly MemeId[]> = {
     // === Социальность (общая)
 
     // === ЭТОЛОГИЯ (без ссылок на soc.*)
-    [memes.eth.sociality.solitary]:        [],  // норма вида
-    [memes.eth.sociality.cooperative]: [memes.soc.shared_attention, memes.comm.signaling],
+    [memes.eth.sociality.solitary]: [], // норма вида
+    [memes.eth.sociality.cooperative]: [
+        memes.soc.shared_attention,
+        memes.comm.signaling,
+    ],
 
     // === Тактики (общие, без привязки к домену; домен задаётся экшеном)
-    [memes.eth.tactics.ambush_stalk]:  [memes.core.perception, memes.core.motor_coordination],
-    [memes.eth.tactics.pursuit_chase]: [memes.core.perception, memes.core.motor_coordination],
+    [memes.eth.tactics.ambush_stalk]: [
+        memes.core.perception,
+        memes.core.motor_coordination,
+    ],
+    [memes.eth.tactics.pursuit_chase]: [
+        memes.core.perception,
+        memes.core.motor_coordination,
+    ],
+    [eth.tactics.constriction]: [memes.core.motor_coordination],
+    [memes.eth.maintenance.cleanliness_core]: [memes.core.perception], // ощущать дискомфорт/паразитов
+    [memes.eth.maintenance.thermoregulation]: [memes.core.perception],
+    [memes.eth.maintenance.ecdysis]: [],
+
+    // === Сенсорика
+    [memes.tech.sensing.chemosense_basic]: [memes.core.perception],
+    [memes.tech.sensing.vibration_basic]: [memes.core.perception],
+    [memes.tech.sensing.heat_localization_basic]: [memes.core.perception],
 
     // === Хищничество (база + драйвы)
-    [memes.eth.predation.core]:                 [memes.core.perception, memes.core.motor_coordination],
-    [memes.eth.predation.drive.prey_drive]:     [memes.eth.predation.core],
+    [memes.eth.predation.core]: [
+        memes.core.perception,
+        memes.core.motor_coordination,
+    ],
+    [memes.eth.predation.drive.prey_drive]: [memes.eth.predation.core],
     [memes.eth.predation.drive.play_predation]: [memes.eth.predation.core],
-    [memes.eth.predation.drive.scavenging]:     [memes.eth.predation.core],
-    [memes.eth.predation.drive.opportunistic]:  [memes.eth.predation.core],
+    [memes.eth.predation.drive.scavenging]: [memes.eth.predation.core],
+    [memes.eth.predation.drive.opportunistic]: [memes.eth.predation.core],
 
     // === Social
     [memes.soc.networking.basic]: [

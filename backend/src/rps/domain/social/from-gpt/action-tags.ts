@@ -1261,6 +1261,27 @@ export enum WasteActionTag {
     REPAIR_CAFE_DAY = 'REPAIR_CAFE_DAY', // день «починяй-ка» с наставниками
 }
 
+export enum EthoActionTag {
+    AMBUSH_FROM_COVER = 'E.AMBUSH_FROM_COVER', // U
+    SCENT_TRAIL_TRACK = 'E.SCENT_TRAIL_TRACK', // U
+    VIBRATION_ALERT_HIDE = 'E.VIBRATION_ALERT_HIDE', // U
+    HEAT_SEEK_PREY = 'E.HEAT_SEEK_PREY', // U (для видов с тепловыми органами)
+    BASK_SUN_THERMOREGULATE = 'E.BASK_SUN_THERMOREGULATE', // U
+    SEEK_COOL_SHELTER = 'E.SEEK_COOL_SHELTER', // U
+    NOCTURNAL_FORAGE = 'E.NOCTURNAL_FORAGE', // U
+    SEASONAL_TORPOR = 'E.SEASONAL_TORPOR', // U (брюмация/сезонный режим)
+    COURTSHIP_DISPLAY = 'E.COURTSHIP_DISPLAY', // U
+    TERRITORY_MICROHABIT_EXPLORE = 'E.TERRITORY_MICROHABIT_EXPLORE', // U
+    DEFENSIVE_WARNING_DISPLAY = 'E.DEFENSIVE_WARNING_DISPLAY', // U
+    SHED_SKIN_ECDYSIS = 'E.SHED_SKIN_ECDYSIS', // U
+    WATER_EDGE_FORAGE = 'E.WATER_EDGE_FORAGE', // U
+    BURROW_HIDE_OR_AMBUSH = 'E.BURROW_HIDE_OR_AMBUSH', // U
+    VENOM_STRIKE = 'E.VENOM_STRIKE', // S (для ядовитых)
+    CONSTRICT_PREY = 'E.CONSTRICT_PREY', // S (для констрикторов)
+    SWALLOW_WHOLE_FEEDING = 'E.SWALLOW_WHOLE_FEEDING', // S (широко у змей, но встречается и у др.)
+    MALE_RITUAL_COMBAT = 'E.MALE_RITUAL_COMBAT', // U (ритуальные поединки в брачный период)
+}
+
 // Собираем все в один объект
 export const ActionTags = {
     ...FoodActionTag,
@@ -1328,6 +1349,7 @@ export const ActionTags = {
     ...AccountabilityActionTag,
     ...HopeActionTag,
     ...WasteActionTag,
+    ...EthoActionTag,
 };
 
 // Универсальный тип для всех значений
