@@ -1,4 +1,4 @@
-// types.ts
+// base.ts
 export type HitLocationKey =
   | 'TORSO'
   | 'CHEST'
