@@ -335,9 +335,9 @@ export const memeDeps: Record<MemeId, readonly MemeId[]> = {
     [memes.cog.timekeeping.basic]: [IQ7],
     [memes.cog.space_mapping]: [IQ7],
 
-    [memes.org.scheduling]: [memes.cog.timekeeping.basic, IQ7],
+    [memes.org.scheduling]: [memes.cog.timekeeping.basic],
     [memes.org.duty_roster]: [memes.org.scheduling, IQ8],
-    [memes.org.workshop_practice]: [memes.tech.tool.making, IQ7],
+    [memes.org.workshop_practice]: [memes.tech.tool.making],
 
     [memes.tech.throwing.basic]: [
         memes.core.perception,
@@ -389,9 +389,9 @@ export const memeDeps: Record<MemeId, readonly MemeId[]> = {
     // === Technology — fire/heat ===
     [memes.tech.fire.use]: [IQ6], // использовать/поддерживать огонь
     [memes.tech.fire.control]: [memes.tech.fire.use, IQ7], // разжигать/гасить/управлять
-    [memes.tech.heat.core]: [memes.tech.fire.use, IQ7], // любое применение тепла требует уметь ПОЛЬЗОВАТЬСЯ огнем
-    [memes.tech.heat.space.core]: [memes.tech.heat.core, IQ7],
-    [memes.tech.heat.space.hearth]: [memes.tech.heat.space.core, IQ7],
+    [memes.tech.heat.core]: [memes.tech.fire.use], // любое применение тепла требует уметь ПОЛЬЗОВАТЬСЯ огнем
+    [memes.tech.heat.space.core]: [memes.tech.heat.core],
+    [memes.tech.heat.space.hearth]: [memes.tech.heat.space.core],
     [memes.tech.heat.industrial]: [memes.tech.heat.core, IQ9], // укрупнённый промышленный тепло-процесс
 
     // === Technology — food (без тепла по умолчанию) ===
@@ -409,7 +409,7 @@ export const memeDeps: Record<MemeId, readonly MemeId[]> = {
     ],
 
     // кулинарные приёмы: тепло приходит через зависимости, а не через расположение
-    [memes.tech.food.culinary.core]: [memes.tech.heat.core, IQ7],
+    [memes.tech.food.culinary.core]: [memes.tech.heat.core],
     [memes.tech.food.culinary.boil]: [memes.tech.food.culinary.core],
     [memes.tech.food.culinary.roast]: [memes.tech.food.culinary.core],
     [memes.tech.food.culinary.bake]: [memes.tech.food.culinary.core, IQ8],
@@ -434,21 +434,19 @@ export const memeDeps: Record<MemeId, readonly MemeId[]> = {
     ],
     [memes.culture.vigil_ritual]: [
         memes.culture.ritual_basic,
-        memes.cog.timekeeping.basic,
-        IQ7
+        memes.cog.timekeeping.basic
     ],
 
     [memes.record.ledgerkeeping]: [
         memes.cog.number_concept,
         memes.comm.language.written,
-        IQ8,
     ],
     [memes.record.boundary_marking]: [
         memes.cog.space_mapping,
         memes.cog.standards.agreement,
     ],
 
-    [memes.law.public_posting]: [memes.comm.language.written, IQ8],
+    [memes.law.public_posting]: [memes.comm.language.written],
 
     [memes.econ.exchange_barter]: [IQ7],
     [memes.econ.token_use]: [
@@ -456,7 +454,7 @@ export const memeDeps: Record<MemeId, readonly MemeId[]> = {
         memes.cog.number_concept,
     ],
     [memes.econ.market_norms]: [memes.econ.token_use, memes.org.scheduling, IQ8],
-    [memes.econ.pooling_common_fund]: [memes.record.ledgerkeeping, IQ8],
+    [memes.econ.pooling_common_fund]: [memes.record.ledgerkeeping],
     [memes.econ.deposit_contract]: [memes.econ.pooling_common_fund, IQ9],
 
     // === Социальность (общая)
