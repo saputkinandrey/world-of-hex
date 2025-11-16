@@ -1,10 +1,12 @@
 import { ActionTag } from './action-tags';
-import { NeedTag } from './needs';
+import { NeedGate, NeedTag, NeedThresholdEnum, NeedThresholds } from './needs';
 import { MemeId } from './memes';
 
 export interface ActionDefinition {
     tag?: ActionTag; // Тип действия
     need?: NeedTag; // Какая потребность удовлетворяется
+
+    needThresholds?: Partial<Record<NeedTag, NeedGate>>;
 
     // === Стоимость, награда и риск ===
     costEnergy?: number; // Энергия, потраченная на выполнение (0–1)
@@ -65,4 +67,55 @@ export interface ActionDefinition {
     needMemes?: boolean;
     needRework?: boolean;
     unclearAction?: boolean;
+}
+
+// определить дискретную зону по level∈[0..1] и порогам
+export function zoneOf(
+    level: number,
+    t: NeedThresholds,
+): NeedThresholdEnum | null {
+    if (level >= t.critical) return NeedThresholdEnum.CRITICAL;
+    if (level >= t.severe) return NeedThresholdEnum.SEVERE;
+    if (level >= t.impaired) return NeedThresholdEnum.IMPAIRED;
+    if (level >= t.warn) return NeedThresholdEnum.WARN;
+    return null; // ниже warn — «нормально»
+}
+
+const order = [
+    NeedThresholdEnum.WARN,
+    NeedThresholdEnum.IMPAIRED,
+    NeedThresholdEnum.SEVERE,
+    NeedThresholdEnum.CRITICAL,
+] as const;
+const idx = (z: NeedThresholdEnum) => order.indexOf(z);
+
+// главная проверка: все требуемые гейты должны пройти
+export function actionAllowedByNeeds(
+    action: ActionDefinition,
+    needs: Map<NeedTag, { level: number; thresholds: NeedThresholds }>,
+): boolean {
+    const gates = action.needThresholds;
+    if (!gates) return true;
+
+    for (const [needTag, gate] of Object.entries(gates) as [
+        NeedTag,
+        NeedGate,
+    ][]) {
+        const state = needs.get(needTag);
+        if (!state) return false; // существо не «знает» эту потребность → экшен недоступен
+
+        const z = zoneOf(state.level, state.thresholds);
+        // ниже WARN — считаем как «зона отсутствует»
+        const hasZone = z !== null;
+
+        if (gate.atLeast) {
+            if (!hasZone) return false;
+            if (idx(z!) < idx(gate.atLeast)) return false;
+        }
+        if (gate.atMost) {
+            // если ниже WARN, то любая atMost пройдёт
+            if (hasZone && idx(z!) > idx(gate.atMost)) return false;
+        }
+    }
+    return true;
 }

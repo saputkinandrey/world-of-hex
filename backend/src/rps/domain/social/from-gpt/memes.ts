@@ -47,6 +47,36 @@ export const memes = {
 
     // === Cognition / Org ===
     cog: {
+
+        // === Уровни «общего интеллекта» (IQ) ===
+        // IQ2 — рептилия / простые насекомые:
+        //        базовая сенсорика и моторика, простые фиксированные паттерны охоты/убегания.
+        iq2:  'cog.iq2',
+        // IQ3 — мелкие млекопитающие / птицы:
+        //        простое обучение, привычки, локальные сигналы/ритуалы внутри вида.
+        iq3:  'cog.iq3',
+        // IQ4 — социальные млекопитающие (волки, приматы «простейшего уровня»):
+        //        устойчивые роли в группе, кооперативная охота, иерархии.
+        iq4:  'cog.iq4',
+        // IQ5 — «умные звери» (вороны, дельфины, более развитые приматы):
+        //        использование простых орудий, решение задач через пробу и ошибку.
+        iq5:  'cog.iq5',
+        // IQ6 — ранние гоминиды / ребёнок:
+        //        протоязык, простая символика, элементарное планирование и обмен опытом.
+        iq6:  'cog.iq6',
+        // IQ7 — ранний человек / племенное общество:
+        //        устойчивый язык, счёт «на пальцах», простые меры, кулинария как норма.
+        iq7:  'cog.iq7',
+        // IQ8 — грамотный человек / ранние цивилизации:
+        //        письмо, реестры, долговые записи, базовые правовые и рыночные нормы.
+        iq8:  'cog.iq8',
+        // IQ9 — развитые институты / сложная абстракция:
+        //        системные контракты, сложная экономика, стандарты, процедуры.
+        iq9:  'cog.iq9',
+        // IQ10 — условный «средний взрослый человек» твоей эпохи:
+        //        полный широкий набор обобщённых человеческих мемов.
+        iq10: 'cog.iq10',
+
         counting: {
             tally: 'cog.counting.tally',
         },
@@ -198,6 +228,8 @@ export const memes = {
     } as const,
 
     eth: {
+        territory_marking: 'eth.territory_marking',
+
         // === Общая социальность (не только про хищников)
         sociality: {
             solitary: 'eth.sociality.solitary',
@@ -236,6 +268,17 @@ export const core = memes.core;
 export const soc = memes.soc;
 export const comm = memes.comm;
 export const cog = memes.cog;
+export const IQ2  = memes.cog.iq2;
+export const IQ3  = memes.cog.iq3;
+export const IQ4  = memes.cog.iq4;
+export const IQ5  = memes.cog.iq5;
+export const IQ6  = memes.cog.iq6;
+export const IQ7  = memes.cog.iq7;
+export const IQ8  = memes.cog.iq8;
+export const IQ9  = memes.cog.iq9;
+export const IQ10 = memes.cog.iq10;
+
+
 export const org = memes.org;
 export const tech = memes.tech;
 export const fire = tech.fire;
@@ -258,6 +301,19 @@ export type MemeId = LeafValues<typeof memes>;
 
 // Явные зависимости (только «смысловые» ребра; остальное достроит резолвер)
 export const memeDeps: Record<MemeId, readonly MemeId[]> = {
+    [memes.eth.territory_marking]: [
+        memes.core.perception,
+        memes.cog.iq2, // или iq3
+    ],
+    // Лестница IQ — каждый следующий уровень опирается на предыдущий
+    [memes.cog.iq3]:  [memes.cog.iq2],
+    [memes.cog.iq4]:  [memes.cog.iq3],
+    [memes.cog.iq5]:  [memes.cog.iq4],
+    [memes.cog.iq6]:  [memes.cog.iq5],
+    [memes.cog.iq7]:  [memes.cog.iq6],
+    [memes.cog.iq8]:  [memes.cog.iq7],
+    [memes.cog.iq9]:  [memes.cog.iq8],
+    [memes.cog.iq10]: [memes.cog.iq9],
     [memes.bio.vital.core]: [], // базовый аксиомный мем
     [memes.bio.vital.cold_blooded]: [memes.bio.vital.core],
 
@@ -266,22 +322,22 @@ export const memeDeps: Record<MemeId, readonly MemeId[]> = {
     [memes.core.motor_coordination]: [],
 
     // === Social / Communication ===
-    [memes.soc.shared_attention]: [memes.core.perception],
-    [memes.comm.signaling]: [memes.soc.shared_attention],
-    [memes.comm.language.spoken]: [memes.comm.signaling],
-    [memes.comm.language.written]: [memes.comm.language.spoken],
+    [memes.soc.shared_attention]: [memes.comm.signaling, IQ4],
+    [memes.comm.signaling]: [memes.core.perception, IQ3],
+    [memes.comm.language.spoken]: [memes.comm.signaling, IQ6],
+    [memes.comm.language.written]: [memes.comm.language.spoken, IQ8],
 
     // === Cognition / Org ===
-    [memes.cog.counting.tally]: [],
-    [memes.cog.number_concept]: [memes.cog.counting.tally],
-    [memes.cog.measurement.rudimentary]: [],
-    [memes.cog.standards.agreement]: [memes.comm.language.spoken],
-    [memes.cog.timekeeping.basic]: [],
-    [memes.cog.space_mapping]: [],
+    [memes.cog.counting.tally]: [ IQ6 ],
+    [memes.cog.number_concept]: [memes.cog.counting.tally, IQ7],
+    [memes.cog.measurement.rudimentary]: [IQ7],
+    [memes.cog.standards.agreement]: [memes.comm.language.spoken, IQ7],
+    [memes.cog.timekeeping.basic]: [IQ7],
+    [memes.cog.space_mapping]: [IQ7],
 
-    [memes.org.scheduling]: [memes.cog.timekeeping.basic],
-    [memes.org.duty_roster]: [memes.org.scheduling],
-    [memes.org.workshop_practice]: [memes.tech.tool.making],
+    [memes.org.scheduling]: [memes.cog.timekeeping.basic, IQ7],
+    [memes.org.duty_roster]: [memes.org.scheduling, IQ8],
+    [memes.org.workshop_practice]: [memes.tech.tool.making, IQ7],
 
     [memes.tech.throwing.basic]: [
         memes.core.perception,
@@ -326,79 +382,82 @@ export const memeDeps: Record<MemeId, readonly MemeId[]> = {
     ],
 
     // === Technology — tools ===
-    [memes.tech.tool.use_basic]: [memes.core.motor_coordination],
-    [memes.tech.tool.shaping]: [memes.tech.tool.use_basic],
-    [memes.tech.tool.making]: [memes.tech.tool.shaping],
+    [memes.tech.tool.use_basic]: [memes.core.motor_coordination, IQ5],
+    [memes.tech.tool.shaping]: [memes.tech.tool.use_basic, IQ6],
+    [memes.tech.tool.making]: [memes.tech.tool.shaping, IQ7],
 
     // === Technology — fire/heat ===
-    [memes.tech.fire.use]: [], // использовать/поддерживать огонь
-    [memes.tech.fire.control]: [memes.tech.fire.use], // разжигать/гасить/управлять
-    [memes.tech.heat.core]: [memes.tech.fire.use], // любое применение тепла требует уметь ПОЛЬЗОВАТЬСЯ огнем
-    [memes.tech.heat.space.core]: [memes.tech.heat.core],
-    [memes.tech.heat.space.hearth]: [memes.tech.heat.space.core],
-    [memes.tech.heat.industrial]: [memes.tech.heat.core], // укрупнённый промышленный тепло-процесс
+    [memes.tech.fire.use]: [IQ6], // использовать/поддерживать огонь
+    [memes.tech.fire.control]: [memes.tech.fire.use, IQ7], // разжигать/гасить/управлять
+    [memes.tech.heat.core]: [memes.tech.fire.use, IQ7], // любое применение тепла требует уметь ПОЛЬЗОВАТЬСЯ огнем
+    [memes.tech.heat.space.core]: [memes.tech.heat.core, IQ7],
+    [memes.tech.heat.space.hearth]: [memes.tech.heat.space.core, IQ7],
+    [memes.tech.heat.industrial]: [memes.tech.heat.core, IQ9], // укрупнённый промышленный тепло-процесс
 
     // === Technology — food (без тепла по умолчанию) ===
-    [memes.tech.food.prep.butchering_basic]: [memes.tech.tool.use_basic],
-    [memes.tech.food.prep.milling_basic]: [memes.tech.tool.use_basic],
-    [memes.tech.food.prep.leavening_basic]: [],
+    [memes.tech.food.prep.butchering_basic]: [memes.tech.tool.use_basic, IQ6],
+    [memes.tech.food.prep.milling_basic]: [memes.tech.tool.use_basic, IQ7],
+    [memes.tech.food.prep.leavening_basic]: [IQ8],
 
-    [memes.tech.food.preservation.fermentation]: [],
-    [memes.tech.food.preservation.drying]: [],
-    [memes.tech.food.preservation.salting]: [],
-    [memes.tech.food.preservation.pickling]: [],
+    [memes.tech.food.preservation.fermentation]: [IQ7],
+    [memes.tech.food.preservation.drying]: [IQ7],
+    [memes.tech.food.preservation.salting]: [IQ8],
+    [memes.tech.food.preservation.pickling]: [IQ8],
 
     [memes.tech.food.sanitation.kitchen_hygiene]: [
         memes.health.sanitation_norms,
     ],
 
     // кулинарные приёмы: тепло приходит через зависимости, а не через расположение
-    [memes.tech.food.culinary.core]: [memes.tech.heat.core],
+    [memes.tech.food.culinary.core]: [memes.tech.heat.core, IQ7],
     [memes.tech.food.culinary.boil]: [memes.tech.food.culinary.core],
     [memes.tech.food.culinary.roast]: [memes.tech.food.culinary.core],
-    [memes.tech.food.culinary.bake]: [memes.tech.food.culinary.core],
+    [memes.tech.food.culinary.bake]: [memes.tech.food.culinary.core, IQ8],
     [memes.tech.food.culinary.smoke]: [memes.tech.food.culinary.core],
 
     // === Health / Culture / Law / Econ ===
-    [memes.health.sanitation_norms]: [],
+    [memes.health.sanitation_norms]: [ IQ7],
     [memes.health.waste_handling]: [memes.health.sanitation_norms],
     [memes.health.waste_sorting]: [memes.health.waste_handling],
-    [memes.health.first_aid_basic]: [],
-    [memes.health.herbal_knowledge]: [],
-    [memes.health.hygiene_tools]: [memes.tech.tool.use_basic],
+    [memes.health.first_aid_basic]: [IQ7],
+    [memes.health.herbal_knowledge]: [IQ7],
+    [memes.health.hygiene_tools]: [memes.tech.tool.use_basic, IQ7],
 
     // База «справедливости»: требует договорённостей/норм
     [memes.culture.justice_concept]: [memes.cog.standards.agreement],
 
-    [memes.culture.ritual_basic]: [],
+    [memes.culture.ritual_basic]: [IQ6],
     [memes.culture.oath_norm]: [
         memes.culture.ritual_basic,
         memes.comm.language.spoken,
+        IQ8
     ],
     [memes.culture.vigil_ritual]: [
         memes.culture.ritual_basic,
         memes.cog.timekeeping.basic,
+        IQ7
     ],
 
     [memes.record.ledgerkeeping]: [
         memes.cog.number_concept,
         memes.comm.language.written,
+        IQ8,
     ],
     [memes.record.boundary_marking]: [
         memes.cog.space_mapping,
         memes.cog.standards.agreement,
     ],
 
-    [memes.law.public_posting]: [memes.comm.language.written],
+    [memes.law.public_posting]: [memes.comm.language.written, IQ8],
 
-    [memes.econ.exchange_barter]: [],
+    [memes.econ.exchange_barter]: [IQ7],
     [memes.econ.token_use]: [
         memes.econ.exchange_barter,
         memes.cog.number_concept,
     ],
-    [memes.econ.market_norms]: [memes.econ.token_use, memes.org.scheduling],
-    [memes.econ.pooling_common_fund]: [memes.record.ledgerkeeping],
-    [memes.econ.deposit_contract]: [memes.econ.pooling_common_fund],
+    [memes.econ.market_norms]: [memes.econ.token_use, memes.org.scheduling, IQ8],
+    [memes.econ.pooling_common_fund]: [memes.record.ledgerkeeping, IQ8],
+    [memes.econ.deposit_contract]: [memes.econ.pooling_common_fund, IQ9],
 
     // === Социальность (общая)
 

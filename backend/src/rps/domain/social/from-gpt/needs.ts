@@ -14,6 +14,28 @@ export interface MemeNeedImpact {
     multiply?: ReadonlyArray<{ need: NeedTag; factor: number }>;
 }
 
+// Зоны дефицита (только дискретные пороги)
+export enum NeedThresholdEnum {
+    WARN = 'WARN',
+    IMPAIRED = 'IMPAIRED',
+    SEVERE = 'SEVERE',
+    CRITICAL = 'CRITICAL',
+}
+
+// Пороговая «решётка» для конкретной потребности
+export interface NeedThresholds {
+    warn: number;
+    impaired: number;
+    severe: number;
+    critical: number;
+}
+
+// Гейт экшена по конкретной потребности
+export interface NeedGate {
+    atLeast?: NeedThresholdEnum; // экшен разрешён, если текущая зона >= atLeast
+    atMost?: NeedThresholdEnum;  // и/или запрещён, если текущая зона > atMost
+}
+
 /** Контекст окружения для динамических модификаторов (по желанию) */
 export interface NeedContext {
     ambientC?: number;              // температура среды

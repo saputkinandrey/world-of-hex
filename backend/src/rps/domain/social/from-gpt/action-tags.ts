@@ -26,6 +26,10 @@ export enum FoodActionTag {
     // === Исследование и логистика ===
     DISCOVER_FOOD_SOURCE = 'DISCOVER_FOOD_SOURCE', // Найти источник пищи
     TRANSPORT_FOOD = 'TRANSPORT_FOOD', // Переносить запасы
+
+    EAT_ACCEPTABLE = 'EAT_ACCEPTABLE',
+    EAT_POOR = 'EAT_POOR',
+    EAT_ANYTHING = 'EAT_ANYTHING',
 }
 
 export enum WaterActionTag {
@@ -45,6 +49,8 @@ export enum WaterActionTag {
     DISCOVER_WATER_SOURCE = 'DISCOVER_WATER_SOURCE', // Собирать ягоды, грибы, коренья
     BLESS_WATER = 'BLESS_WATER', // Собирать ягоды, грибы, коренья
     RATION_WATER = 'RATION_WATER', // Собирать ягоды, грибы, коренья
+
+    'DRINK_DIRTY_WATER' = 'DRINK_DIRTY_WATER',
 }
 
 export enum RestActionTag {
@@ -1282,6 +1288,11 @@ export enum EthoActionTag {
     MALE_RITUAL_COMBAT = 'E.MALE_RITUAL_COMBAT', // U (ритуальные поединки в брачный период)
 }
 
+export enum GenericActionTag {
+    'GO_LONG_TRAVEL' = 'GO_LONG_TRAVEL',
+    'SLEEP_REST' = 'SLEEP_REST',
+}
+
 // Собираем все в один объект
 export const ActionTags = {
     ...FoodActionTag,
@@ -1350,6 +1361,7 @@ export const ActionTags = {
     ...HopeActionTag,
     ...WasteActionTag,
     ...EthoActionTag,
+    ...GenericActionTag,
 };
 
 // Универсальный тип для всех значений
