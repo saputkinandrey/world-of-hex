@@ -560,7 +560,7 @@ class FpHpChatProcessor extends ChatProcessor {
 
 class SelectChatProcessor extends ChatProcessor {
   help() {
-    return '/select &lt;Actor name&gt';
+    return '/select &lt;ActorEntity name&gt';
   }
   matches(line) {
     this.match = line.match(/^\/(select|sel) ?(\@self)?([^!]*)(!)?/);
@@ -1087,10 +1087,10 @@ class DevChatProcessor extends ChatProcessor {
     let m = this.match[1].match(/(\w+)(.*)/);
     switch (m[1]) {
       case 'open': {
-        // Open the full character sheet for an Actor
+        // Open the full character sheet for an ActorEntity
         let a = game.actors.getName(m[2].trim());
         if (a) a.openSheet('gurps.GurpsActorSheet');
-        else ui.notifications.warn("Can't find Actor named '" + m[2] + "'");
+        else ui.notifications.warn("Can't find ActorEntity named '" + m[2] + "'");
         break;
       }
       case 'clear': {

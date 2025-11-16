@@ -179,12 +179,12 @@ export default class StatusChatProcessor extends ChatProcessor {
           ? i18n_f(
               'GURPS.chatNoTokenFound',
               { name: name },
-              'No Actor/Token found matching {name}',
+              'No ActorEntity/Token found matching {name}',
             )
           : i18n_f(
               'GURPS.chatMultipleTokensFound',
               { name: name },
-              'More than one Token/Actor found matching {name}',
+              'More than one Token/ActorEntity found matching {name}',
             );
       ui.notifications.warn(msg);
       return null;

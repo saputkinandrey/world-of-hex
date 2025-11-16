@@ -39,7 +39,7 @@ export default class GurpsActiveEffect extends ActiveEffect {
   }
 
   /**
-   * Before adding the ActiveEffect to the Actor/Item -- might be used to augment the data used to create, for example.
+   * Before adding the ActiveEffect to the ActorEntity/Item -- might be used to augment the data used to create, for example.
    * @param {ActiveEffect} _effect
    * @param {ActiveEffectData} data
    * @param {*} _options
@@ -65,7 +65,7 @@ export default class GurpsActiveEffect extends ActiveEffect {
   }
 
   /**
-   * On Actor.applyEffect: Applies only to changes that have mode: CONST.ACTIVE_EFFECT_MODES.CUSTOM.
+   * On ActorEntity.applyEffect: Applies only to changes that have mode: CONST.ACTIVE_EFFECT_MODES.CUSTOM.
    * @param {Actor|Item} actor
    * @param {ChangeData} change - the change to apply
    * @param {*} _options

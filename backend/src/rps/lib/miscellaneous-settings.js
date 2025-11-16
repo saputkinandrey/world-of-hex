@@ -240,7 +240,7 @@ export function initializeSettings() {
         console.log(`Using non-locally hosted import dialog : ${value}`),
     });
 
-    // Actor Sheet Configuration ----
+    // ActorEntity Sheet Configuration ----
 
     game.settings.register(SYSTEM_NAME, SETTING_SHOW_SHEET_NAVIGATION, {
       name: i18n('GURPS.settingShowNavigation'),

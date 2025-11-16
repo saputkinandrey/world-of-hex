@@ -972,7 +972,7 @@ export class GurpsActorSheet extends ActorSheet {
     if (dragData.type == 'JournalEntry') {
       n = game.journal.get(dragData.id).name;
     }
-    if (dragData.type == 'Actor') {
+    if (dragData.type == 'ActorEntity') {
       n = game.actors.get(dragData.id).name;
     }
     if (dragData.type == 'RollTable') {
@@ -1875,13 +1875,13 @@ export class GurpsActorCombatSheet extends GurpsActorSheet {
 
 Hooks.on('getGurpsActorEditorSheetHeaderButtons', (sheet) => {
   if (sheet.actor.isEmptyActor()) {
-    ui.notifications.error('You are editing an EMPTY Actor!');
+    ui.notifications.error('You are editing an EMPTY ActorEntity!');
     setTimeout(
       () =>
         Dialog.prompt({
-          title: 'Empty Actor',
+          title: 'Empty ActorEntity',
           content:
-            'You are editing an EMPTY Actor!<br><br>Either use the <b>Import</b> button to enter data, or delete this Actor and use the <b>/mook</b> chat command to create NPCs.<br><br>Press Ok to open the Full View.',
+            'You are editing an EMPTY ActorEntity!<br><br>Either use the <b>Import</b> button to enter data, or delete this ActorEntity and use the <b>/mook</b> chat command to create NPCs.<br><br>Press Ok to open the Full View.',
           label: 'Ok',
           callback: async () => {
             sheet.actor.openSheet('gurps.GurpsActorSheet');

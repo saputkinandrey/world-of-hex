@@ -1,6 +1,6 @@
 /**
- * The point of this file is that these classes may be used outside of the Actor, but do not have
- * any dependencies on Actor.
+ * The point of this file is that these classes may be used outside of the ActorEntity, but do not have
+ * any dependencies on ActorEntity.
  *
  * If that changes -- if any class is modified or added that has an external dependency -- we need
  * to think really hard about potentially moving the class back to actor.js.

@@ -4081,7 +4081,7 @@ export class GurpsActor extends Actor {
     }
     if (!dragData.isLinked) {
       ui.notifications?.warn(
-        "You cannot drag from an un-linked token.   The source must have 'Linked Actor Data'",
+        "You cannot drag from an un-linked token.   The source must have 'Linked ActorEntity Data'",
       );
       return;
     }
@@ -4927,7 +4927,7 @@ export class GurpsActor extends Actor {
         ]);
       else {
         ui.notifications?.warn(
-          'Invalid Item in Actor... removing all features',
+          'Invalid Item in ActorEntity... removing all features',
         );
         this._removeItemAdditions(eqt.itemid);
       }

@@ -22,7 +22,7 @@ const oldTemporaryEffects = Object.getOwnPropertyDescriptor(
   'temporaryEffects',
 );
 
-// Override Actor.temporaryEffects getter to sort maneuvers to the front of the array
+// Override ActorEntity.temporaryEffects getter to sort maneuvers to the front of the array
 Object.defineProperty(Actor.prototype, 'temporaryEffects', {
   get: function () {
     let results = oldTemporaryEffects?.get?.call(this);

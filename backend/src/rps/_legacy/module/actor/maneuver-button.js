@@ -20,11 +20,11 @@ export default class ManeuverHUDButton {
   }
 
   /**
-   * Retrieves the Actor associated with a given token.
+   * Retrieves the ActorEntity associated with a given token.
    *
    * @static
    * @param {Token} token - The Token.
-   * @return {Actor|undefined} The associated Actor.
+   * @return {Actor|undefined} The associated ActorEntity.
    * @memberof ManeuverHUDButton
    */
   static getTokenActor(token) {

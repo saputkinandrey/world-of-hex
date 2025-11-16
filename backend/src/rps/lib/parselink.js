@@ -340,7 +340,7 @@ export function parselink(str, htmldesc, clrdmods = false) {
     if (
       link == 'JournalEntry' ||
       link == 'JournalEntryPage' ||
-      link == 'Actor' ||
+      link == 'ActorEntity' ||
       link == 'RollTable' ||
       link == 'Item'
     ) {

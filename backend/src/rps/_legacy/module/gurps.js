@@ -118,14 +118,14 @@ if (!globalThis.GURPS) {
 
   GURPS.StatusEffect = new StatusEffect();
 
-  // Hack to remember the last Actor sheet that was accessed... for the Modifier Bucket to work
+  // Hack to remember the last ActorEntity sheet that was accessed... for the Modifier Bucket to work
   GURPS.LastActor = null;
   GURPS.SJGProductMappings = SJGProductMappings;
   GURPS.clearActiveEffects = GurpsActiveEffect.clearEffectsOnSelectedToken;
 
   GURPS.SetLastActor = function (actor, tokenDocument) {
     if (actor != GURPS.LastActor)
-      console.log('Setting Last Actor:' + actor?.name);
+      console.log('Setting Last ActorEntity:' + actor?.name);
     GURPS.LastActor = actor;
     GURPS.LastTokenDocument = tokenDocument;
     setTimeout(() => GURPS.ModifierBucket.refresh(), 100); // Need to make certain the mod bucket refresh occurs later
@@ -133,7 +133,7 @@ if (!globalThis.GURPS) {
 
   GURPS.ClearLastActor = function (actor) {
     if (GURPS.LastActor == actor) {
-      console.log('Clearing Last Actor:' + GURPS.LastActor?.name);
+      console.log('Clearing Last ActorEntity:' + GURPS.LastActor?.name);
       GURPS.LastActor = null;
       GURPS.ModifierBucket.refresh();
       const tokens = canvas.tokens;
@@ -591,7 +591,7 @@ if (!globalThis.GURPS) {
         case 'JournalEntryPage':
           Journal._showEntry(action.id);
           return true;
-        case 'Actor':
+        case 'ActorEntity':
           game.actors?.get(action.id)?.sheet?.render(true);
           return true;
         case 'RollTable':
