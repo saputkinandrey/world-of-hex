@@ -1,7 +1,8 @@
 // iq2-profiles.ts
 import { MemeId, IQ2, bio, core, eth, tech } from '../memes';
+import {MorphId} from "../morphs";
 
-export const IQ2_BASE_MEMES: MemeId[] = [
+export const IQ2_BASE_MEMES: MemeId|MorphId[] = [
     IQ2,
     bio.vital.core,
     core.perception,

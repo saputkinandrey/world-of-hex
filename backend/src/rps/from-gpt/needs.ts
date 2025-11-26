@@ -16,6 +16,7 @@ export interface MemeNeedImpact {
 
 // Зоны дефицита (только дискретные пороги)
 export enum NeedThresholdEnum {
+    OK = 'OK',
     WARN = 'WARN',
     IMPAIRED = 'IMPAIRED',
     SEVERE = 'SEVERE',

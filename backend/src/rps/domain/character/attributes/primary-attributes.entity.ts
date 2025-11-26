@@ -1,5 +1,12 @@
 import { AttributeEntity } from './attribute.entity';
 
+export interface PrimaryAttributesDelta {
+    ST?: number;
+    DX?: number;
+    IQ?: number;
+    HT?: number;
+}
+
 export class PrimaryAttributesEntity {
   st: AttributeEntity;
   dx: AttributeEntity;
@@ -67,4 +74,37 @@ export class PrimaryAttributesEntity {
     }
     return this;
   }
+    /**
+     * Применяет дельту к первичным атрибутам:
+     *  ST/DX/IQ/HT увеличиваются (или уменьшаются) на указанные значения.
+     *
+     * Используем обычные сеттеры, чтобы не ломать инварианты класса.
+     */
+    applyDelta(delta: PrimaryAttributesDelta = {}): this {
+        const { ST, DX, IQ, HT } = delta;
+
+        if (typeof ST === 'number') {
+            // предполагаю, что у тебя есть setST; если нет — будешь использовать свой метод
+            // @ts-ignore
+            this.setST((this as any).ST + ST);
+        }
+
+        if (typeof DX === 'number') {
+            // @ts-ignore
+            this.setDX((this as any).DX + DX);
+        }
+
+        if (typeof IQ === 'number') {
+            // @ts-ignore
+            this.setIQ((this as any).IQ + IQ);
+        }
+
+        if (typeof HT === 'number') {
+            // @ts-ignore
+            this.setHT((this as any).HT + HT);
+        }
+
+        return this;
+    }
+
 }

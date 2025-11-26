@@ -2,6 +2,15 @@ import { AttributeEntity } from './attribute.entity';
 import { ResourceAttributeEntity } from './resource-attribute.entity';
 import { PrimaryAttributesEntity } from './primary-attributes.entity';
 
+export interface SecondaryAttributesDelta {
+    HP?: number;
+    FP?: number;
+    Will?: number;
+    Per?: number;
+    BasicSpeed?: number;
+    BasicMove?: number;
+}
+
 export class SecondaryAttributesEntity {
   per: AttributeEntity;
   will: AttributeEntity;
@@ -169,4 +178,62 @@ export class SecondaryAttributesEntity {
     }
     return this;
   }
+
+    /**
+     * Применяет дельту ко вторичным атрибутам.
+     */
+    applyDelta(delta: SecondaryAttributesDelta = {}): this {
+        const { HP, FP, Will, Per, BasicSpeed, BasicMove } = delta;
+        const self: any = this;
+
+        if (typeof HP === 'number') {
+            if (typeof self.setHP === 'function') {
+                self.setHP(self.HP + HP);
+            } else {
+                self.HP = (self.HP ?? 0) + HP;
+            }
+        }
+
+        if (typeof FP === 'number') {
+            if (typeof self.setFP === 'function') {
+                self.setFP(self.FP + FP);
+            } else {
+                self.FP = (self.FP ?? 0) + FP;
+            }
+        }
+
+        if (typeof Will === 'number') {
+            if (typeof self.setWill === 'function') {
+                self.setWill(self.Will + Will);
+            } else {
+                self.Will = (self.Will ?? 0) + Will;
+            }
+        }
+
+        if (typeof Per === 'number') {
+            if (typeof self.setPer === 'function') {
+                self.setPer(self.Per + Per);
+            } else {
+                self.Per = (self.Per ?? 0) + Per;
+            }
+        }
+
+        if (typeof BasicSpeed === 'number') {
+            if (typeof self.setBasicSpeed === 'function') {
+                self.setBasicSpeed(self.BasicSpeed + BasicSpeed);
+            } else {
+                self.BasicSpeed = (self.BasicSpeed ?? 0) + BasicSpeed;
+            }
+        }
+
+        if (typeof BasicMove === 'number') {
+            if (typeof self.setBasicMove === 'function') {
+                self.setBasicMove(self.BasicMove + BasicMove);
+            } else {
+                self.BasicMove = (self.BasicMove ?? 0) + BasicMove;
+            }
+        }
+
+        return this;
+    }
 }

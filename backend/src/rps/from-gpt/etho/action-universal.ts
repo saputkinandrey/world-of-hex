@@ -81,24 +81,6 @@ export const BASK_SUN_THERMOREGULATE: ActionDefinition = {
     requiresLocation: 'open_sun|rock|log',
 };
 
-// Поиск прохладного укрытия при перегреве.
-export const SEEK_COOL_SHELTER: ActionDefinition = {
-    tag: EthoActionTag.SEEK_COOL_SHELTER, // U
-    costEnergy: 0.05,
-    costTime: 1,
-    risk: 0.02,
-    rewardSecondary: {
-        TEMPERATURE: -0.4 as any,
-        COMFORT: 0.2,
-        SAFETY: 0.1,
-    },
-    requiredMemes: [
-        eth.maintenance.thermoregulation,
-        core.perception,
-    ],
-    requiresLocation: 'shade|burrow|rock_crevice',
-};
-
 // Ночной выход за добычей/ресурсами.
 export const NOCTURNAL_FORAGE: ActionDefinition = {
     tag: EthoActionTag.NOCTURNAL_FORAGE, // U

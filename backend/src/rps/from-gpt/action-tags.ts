@@ -2,6 +2,8 @@ export enum FoodActionTag {
     // === Сбор и добыча ===
     FORAGE = 'FORAGE', // Собирать ягоды, грибы, коренья
     HUNT = 'HUNT', // Охотиться на животных
+    HUNT_ACTIVE_FORAGE = 'HUNT_ACTIVE_FORAGE', // Охотиться на животных
+    HUNT_WAIT_IN_AMBUSH = 'HUNT_WAIT_IN_AMBUSH', // Охотиться на животных
     FISH = 'FISH', // Ловить рыбу
     FARM = 'FARM', // Обрабатывать землю, выращивать растения
     HARVEST = 'HARVEST', // Собирать урожай
@@ -1286,6 +1288,20 @@ export enum EthoActionTag {
     CONSTRICT_PREY = 'E.CONSTRICT_PREY', // S (для констрикторов)
     SWALLOW_WHOLE_FEEDING = 'E.SWALLOW_WHOLE_FEEDING', // S (широко у змей, но встречается и у др.)
     MALE_RITUAL_COMBAT = 'E.MALE_RITUAL_COMBAT', // U (ритуальные поединки в брачный период)
+    /** Паническое бегство к ближайшему укрытию. U */
+    FLEE_TO_COVER = 'FLEE_TO_COVER',
+
+    /** Застыть и "слиться" с окружением. U */
+    FREEZE_IN_PLACE = 'FREEZE_IN_PLACE',
+
+    /** Короткий рывок/бросок по прямой в цель. U */
+    SHORT_DASH_ATTACK = 'SHORT_DASH_ATTACK',
+
+    /** Настороженное "сканирование" окружения. U */
+    OBSERVATION = 'OBSERVATION',
+
+
+    SEEK_THERMAL_REFUGE = 'SEEK_THERMAL_REFUGE',
 }
 
 export enum GenericActionTag {

@@ -1,27 +1,16 @@
 // memes.ts
 
+import {morph, MorphId} from "./morphs";
+
 export type MemeNode = {
     id: MemeId;
     parents?: MemeId[]; // prerequisites
 };
 
+
 // src/memes/index.ts
 // Иерархия: строки-листовые узлы = стабильные ID (литералы).
 export const memes = {
-    // === Core ===
-    core: {
-        perception: 'core.perception',
-        motor_coordination: 'core.motor_coordination',
-    } as const,
-
-    bio: {
-        vital: {
-            // «живое» — базовая витальность
-            core: 'bio.vital.core',
-            cold_blooded: 'bio.vital.cold_blooded',
-        },
-    } as const,
-
     // === Social / Communication ===
     soc: {
         shared_attention: 'soc.shared_attention',
@@ -29,7 +18,7 @@ export const memes = {
             basic: 'soc.networking.basic',
             coalition_building: 'soc.networking.coalition_building',
         },
-    } as const,
+    },
 
     comm: {
         signaling: 'comm.signaling',
@@ -43,7 +32,7 @@ export const memes = {
         persuasion: {
             basic: 'comm.persuasion.basic',
         },
-    } as const,
+    },
 
     // === Cognition / Org ===
     cog: {
@@ -94,7 +83,7 @@ export const memes = {
         innovation: {
             basic: 'cog.innovation.basic', // идея инноваций
         },
-    } as const,
+    },
 
     org: {
         scheduling: 'org.scheduling',
@@ -106,11 +95,12 @@ export const memes = {
         tournament: {
             organizing_basic: 'org.tournament.organizing_basic', // организация состязаний
         },
-    } as const,
+    },
 
     // === Technology ===
     tech: {
         sensing: {
+            vision_basic: 'tech.sensing.vision_basic', // зрение
             chemosense_basic: 'tech.sensing.chemosense_basic', // химочутьё/язычок (универсально)
             vibration_basic: 'tech.sensing.vibration_basic', // чувствительность к вибрациям
             heat_localization_basic: 'tech.sensing.heat_localization_basic', // тепловая локализация (у кого есть органы)
@@ -130,6 +120,7 @@ export const memes = {
 
         hunting: {
             core: 'tech.hunting.core', // базовая охотничья практика
+            ambush_stalk: 'tech.hunting.ambush_stalk', // (сидит + короткий бросок)
             tracking_basic: 'tech.hunting.tracking_basic', // чтение следов/признаков
             stalking_basic: 'tech.hunting.stalking_basic', // бесшумное сближение/маскировка
             trapping_basic: 'tech.hunting.trapping_basic', // установка ловушек/силков
@@ -177,7 +168,7 @@ export const memes = {
                 smoke: 'tech.food.culinary.smoke',
             },
         },
-    } as const,
+    },
 
     // === Health / Culture / Law / Econ ===
     health: {
@@ -187,7 +178,7 @@ export const memes = {
         first_aid_basic: 'health.first_aid_basic',
         herbal_knowledge: 'health.herbal_knowledge',
         hygiene_tools: 'health.hygiene_tools',
-    } as const,
+    },
 
     culture: {
         justice_concept: 'culture.justice_concept',
@@ -198,7 +189,7 @@ export const memes = {
             ethos: 'culture.competition.ethos', // идея соревновательности
             fair_play_norm: 'culture.competition.fair_play_norm', // честная игра, судейство
         },
-    } as const,
+    },
 
     record: {
         ledgerkeeping: 'record.ledgerkeeping',
@@ -209,11 +200,11 @@ export const memes = {
         submissions_registry: 'record.submissions_registry', // подача работ/идей
         contract_registry: 'record.contract_registry', // учёт договоров/контрактов
         innovation_register: 'record.innovation_register', // учёт чертежей/патентов
-    } as const,
+    },
 
     law: {
         public_posting: 'law.public_posting',
-    } as const,
+    },
 
     econ: {
         exchange_barter: 'econ.exchange_barter',
@@ -225,7 +216,7 @@ export const memes = {
             contract_basic: 'econ.contracting.contract_basic', // идея договора
             bidding_norm: 'econ.contracting.bidding_norm', // торги/тендер
         },
-    } as const,
+    },
 
     eth: {
         territory_marking: 'eth.territory_marking',
@@ -264,7 +255,7 @@ export const memes = {
 } as const;
 
 // 👉 Алиасы верхнего уровня — чтобы IDE подсказывала и по коротким префиксам:
-export const core = memes.core;
+export const core = morph.core;
 export const soc = memes.soc;
 export const comm = memes.comm;
 export const cog = memes.cog;
@@ -291,7 +282,6 @@ export const record = memes.record;
 export const law = memes.law;
 export const econ = memes.econ;
 export const eth = memes.eth;
-export const bio = memes.bio;
 
 // ===== Типы: все листовые значения автоматически собираются в union =====
 type LeafValues<T> = T extends string
@@ -300,9 +290,9 @@ type LeafValues<T> = T extends string
 export type MemeId = LeafValues<typeof memes>;
 
 // Явные зависимости (только «смысловые» ребра; остальное достроит резолвер)
-export const memeDeps: Record<MemeId, readonly MemeId[]> = {
+export const memeDeps: Record<MemeId, readonly (MemeId|MorphId)[]> = {
     [memes.eth.territory_marking]: [
-        memes.core.perception,
+        core.perception,
         memes.cog.iq2, // или iq3
     ],
     // Лестница IQ — каждый следующий уровень опирается на предыдущий
@@ -314,16 +304,14 @@ export const memeDeps: Record<MemeId, readonly MemeId[]> = {
     [memes.cog.iq8]:  [memes.cog.iq7],
     [memes.cog.iq9]:  [memes.cog.iq8],
     [memes.cog.iq10]: [memes.cog.iq9],
-    [memes.bio.vital.core]: [], // базовый аксиомный мем
-    [memes.bio.vital.cold_blooded]: [memes.bio.vital.core],
 
     // === Core ===
-    [memes.core.perception]: [],
-    [memes.core.motor_coordination]: [],
+    [core.perception]: [],
+    [core.motor_coordination]: [],
 
     // === Social / Communication ===
     [memes.soc.shared_attention]: [memes.comm.signaling, IQ4],
-    [memes.comm.signaling]: [memes.core.perception, IQ3],
+    [memes.comm.signaling]: [core.perception, IQ3],
     [memes.comm.language.spoken]: [memes.comm.signaling, IQ6],
     [memes.comm.language.written]: [memes.comm.language.spoken, IQ8],
 
@@ -340,14 +328,14 @@ export const memeDeps: Record<MemeId, readonly MemeId[]> = {
     [memes.org.workshop_practice]: [memes.tech.tool.making],
 
     [memes.tech.throwing.basic]: [
-        memes.core.perception,
-        memes.core.motor_coordination,
+        core.perception,
+        core.motor_coordination,
     ],
 
     // === COMBAT
     [memes.tech.combat.core]: [
-        memes.core.perception,
-        memes.core.motor_coordination,
+        core.perception,
+        core.motor_coordination,
     ],
     [memes.tech.combat.bite_basic]: [memes.tech.combat.core],
     [memes.tech.combat.venom_delivery]: [memes.tech.combat.bite_basic],
@@ -364,8 +352,8 @@ export const memeDeps: Record<MemeId, readonly MemeId[]> = {
 
     // === HUNTING
     [memes.tech.hunting.core]: [
-        memes.core.perception,
-        memes.core.motor_coordination,
+        core.perception,
+        core.motor_coordination,
     ],
     [memes.tech.hunting.tracking_basic]: [memes.tech.hunting.core],
     [memes.tech.hunting.stalking_basic]: [
@@ -382,7 +370,7 @@ export const memeDeps: Record<MemeId, readonly MemeId[]> = {
     ],
 
     // === Technology — tools ===
-    [memes.tech.tool.use_basic]: [memes.core.motor_coordination, IQ5],
+    [memes.tech.tool.use_basic]: [core.motor_coordination, IQ5],
     [memes.tech.tool.shaping]: [memes.tech.tool.use_basic, IQ6],
     [memes.tech.tool.making]: [memes.tech.tool.shaping, IQ7],
 
@@ -468,27 +456,27 @@ export const memeDeps: Record<MemeId, readonly MemeId[]> = {
 
     // === Тактики (общие, без привязки к домену; домен задаётся экшеном)
     [memes.eth.tactics.ambush_stalk]: [
-        memes.core.perception,
-        memes.core.motor_coordination,
+        core.perception,
+        core.motor_coordination,
     ],
     [memes.eth.tactics.pursuit_chase]: [
-        memes.core.perception,
-        memes.core.motor_coordination,
+        core.perception,
+        core.motor_coordination,
     ],
-    [eth.tactics.constriction]: [memes.core.motor_coordination],
-    [memes.eth.maintenance.cleanliness_core]: [memes.core.perception], // ощущать дискомфорт/паразитов
-    [memes.eth.maintenance.thermoregulation]: [memes.core.perception],
+    [eth.tactics.constriction]: [core.motor_coordination],
+    [memes.eth.maintenance.cleanliness_core]: [core.perception], // ощущать дискомфорт/паразитов
+    [memes.eth.maintenance.thermoregulation]: [core.perception],
     [memes.eth.maintenance.ecdysis]: [],
 
     // === Сенсорика
-    [memes.tech.sensing.chemosense_basic]: [memes.core.perception],
-    [memes.tech.sensing.vibration_basic]: [memes.core.perception],
-    [memes.tech.sensing.heat_localization_basic]: [memes.core.perception],
+    [memes.tech.sensing.chemosense_basic]: [core.perception],
+    [memes.tech.sensing.vibration_basic]: [core.perception],
+    [memes.tech.sensing.heat_localization_basic]: [core.perception],
 
     // === Хищничество (база + драйвы)
     [memes.eth.predation.core]: [
-        memes.core.perception,
-        memes.core.motor_coordination,
+        core.perception,
+        core.motor_coordination,
     ],
     [memes.eth.predation.drive.prey_drive]: [memes.eth.predation.core],
     [memes.eth.predation.drive.play_predation]: [memes.eth.predation.core],
