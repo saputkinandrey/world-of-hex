@@ -1,6 +1,6 @@
 import { ActionDefinition } from '../action-definition';
 import { LoveActionTag } from '../action-tags';
-import { comm, econ, health, record, tech } from '../memes';
+import { comm, econ, health, record, tech } from '../../world/memes';
 export const LoveActions: ActionDefinition[] = [
     {
         tag: LoveActionTag.COURTSHIP_VISIT,

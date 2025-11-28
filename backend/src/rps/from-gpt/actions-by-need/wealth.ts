@@ -1,6 +1,6 @@
 import { ActionDefinition } from '../action-definition';
 import { WealthActionTag } from '../action-tags';
-import { comm, org } from '../memes';
+import { comm, org } from '../../world/memes';
 export const WealthActions: ActionDefinition[] = [
     {
         tag: WealthActionTag.MINE_RESOURCES,

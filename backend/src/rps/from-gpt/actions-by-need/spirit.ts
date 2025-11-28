@@ -1,6 +1,6 @@
 import { ActionDefinition } from '../action-definition';
 import { SpiritActionTag } from '../action-tags';
-import { cog, comm, culture, food, record } from '../memes';
+import { cog, comm, culture, food, record } from '../../world/memes';
 export const SpiritActions: ActionDefinition[] = [
     {
         tag: SpiritActionTag.PRIVATE_PRAYER,

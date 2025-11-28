@@ -1,6 +1,6 @@
 import { ActionDefinition } from '../action-definition';
 import { JusticeActionTag } from '../action-tags';
-import { cog, comm, culture, econ, health, record } from '../memes';
+import { cog, comm, culture, econ, health, record } from '../../world/memes';
 export const JusticeActions: ActionDefinition[] = [
     {
         tag: JusticeActionTag.ACCUSE_OFFENDER,

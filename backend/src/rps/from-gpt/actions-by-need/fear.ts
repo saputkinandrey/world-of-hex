@@ -1,6 +1,6 @@
 import { ActionDefinition } from '../action-definition';
 import { FearActionTag } from '../action-tags';
-import { cog, comm, culture, food, health, org } from '../memes';
+import { cog, comm, culture, food, health, org } from '../../world/memes';
 export const FearActions: ActionDefinition[] = [
     {
         tag: FearActionTag.LIGHT_TORCHES,

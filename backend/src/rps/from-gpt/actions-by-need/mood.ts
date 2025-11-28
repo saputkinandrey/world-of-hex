@@ -1,6 +1,6 @@
 import { ActionDefinition } from '../action-definition';
 import { ActionTags, MoodActionTag } from '../action-tags';
-import { cog, comm, culture, health, heat } from '../memes';
+import { cog, comm, culture, health, heat } from '../../world/memes';
 export const MoodActions: ActionDefinition[] = [
     {
         tag: MoodActionTag.LISTEN_MUSIC,

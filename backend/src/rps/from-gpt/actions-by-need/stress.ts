@@ -1,6 +1,6 @@
 import { ActionDefinition } from '../action-definition';
 import { StressActionTag } from '../action-tags';
-import { cog, comm, culture, health, heat } from '../memes';
+import { cog, comm, culture, health, heat } from '../../world/memes';
 export const StressActions: ActionDefinition[] = [
     {
         tag: StressActionTag.BREATHING_DRILL,

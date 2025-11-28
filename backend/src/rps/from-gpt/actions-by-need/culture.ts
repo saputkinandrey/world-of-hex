@@ -1,6 +1,6 @@
 import { ActionDefinition } from '../action-definition';
 import { CultureActionTag } from '../action-tags';
-import { cog, comm, culture, health, heat, org } from '../memes';
+import { cog, comm, culture, health, heat, org } from '../../world/memes';
 export const CultureActions: ActionDefinition[] = [
     {
         tag: CultureActionTag.FESTIVAL_ORGANIZE,

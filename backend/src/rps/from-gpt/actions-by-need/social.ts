@@ -1,6 +1,6 @@
 import { ActionDefinition } from '../action-definition';
 import { SocialNeedActionTag } from '../action-tags';
-import { cog, comm, culture, health, org, tech } from '../memes';
+import { cog, comm, culture, health, org, tech } from '../../world/memes';
 export const SocialNeedActions: ActionDefinition[] = [
     {
         tag: SocialNeedActionTag.GREET_NEIGHBORS,

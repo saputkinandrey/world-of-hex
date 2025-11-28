@@ -1,7 +1,10 @@
 // world/actor.entity.ts
 // Сущность актора (живого существа) и его метаболизм/питание.
 
-import type { HexId, VolumeUnits } from './hex.entity';
+import type { HexId, VolumeUnits } from '../hex.entity';
+import {PostureTag} from "./types";
+import {ActionDefinition, Idle} from "../actions/action-definition";
+import {NeedTag} from "../needs/needs";
 
 /**
  * Пищевая ценность ресурса / приёма пищи.
@@ -45,19 +48,19 @@ export class MetabolismProfile {
     consumptionPerTurn: NutritionContent;
 
     constructor({
-                    nutritionNeedsPerDay = {
-                        energyPerDay: 60,
-                        proteinPerDay: 6,
-                        waterPerDay: 3,
-                        massPerDayLb: 3,
-                    },
-                    consumptionPerTurn = {
-                        energy: 1,
-                        protein: 0.1,
-                        water: 0.1,
-                        massLb: 0.1,
-                    },
-                }: MetabolismProfileInit = {}) {
+        nutritionNeedsPerDay = {
+            energyPerDay: 60,
+            proteinPerDay: 6,
+            waterPerDay: 3,
+            massPerDayLb: 3,
+        },
+        consumptionPerTurn = {
+            energy: 1,
+            protein: 0.1,
+            water: 0.1,
+            massLb: 0.1,
+        },
+    }: MetabolismProfileInit = {}) {
         this.nutritionNeedsPerDay = nutritionNeedsPerDay;
         this.consumptionPerTurn = consumptionPerTurn;
     }
@@ -115,28 +118,7 @@ export class CreaturePhysicalProfile {
         return this;
     }
 
-    /**
-     * Оценка фактического объёма по позе.
-     *  - standing  → baseVolume
-     *  - crouched  → среднее между base и min
-     *  - prone/coiled/прочее → minVolume
-     * Это можно будет переопределить на уровне вида.
-     */
-    getVolumeForPosture(posture: ActorPosture): VolumeUnits {
-        switch (posture) {
-            case 'standing':
-                return this.baseVolume;
-            case 'crouched':
-                return (this.baseVolume + this.minVolume) / 2;
-            case 'prone':
-            case 'coiled':
-            default:
-                return this.minVolume;
-        }
-    }
 }
-
-export type ActorPosture = 'standing' | 'crouched' | 'prone' | 'coiled';
 
 /**
  * Инициализационные данные для актора.
@@ -147,7 +129,8 @@ export interface ActorInit {
     hexId?: HexId;
     physical?: CreaturePhysicalProfile;
     metabolism?: MetabolismProfile;
-    posture?: ActorPosture;
+    posture?: PostureTag;
+    action?: ActionDefinition;
     inventoryItemIds?: string[];
 }
 
@@ -162,18 +145,32 @@ export class ActorEntity {
     hexId: HexId;
     physical: CreaturePhysicalProfile;
     metabolism: MetabolismProfile;
-    posture: ActorPosture;
+    posture: PostureTag;
     inventoryItemIds: string[];
 
+    /**
+     * Текущие значения дефицитов по нуждам.
+     *
+     * Семантика:
+     *  - 0      — дефицита нет (полностью удовлетворена);
+     *  - больше — чем больше число, тем хуже (больше нехватка).
+     *
+     * Конкретные диапазоны (0..5, 0..100 и т.п.) задаются уже
+     * системой нужд/порогов и морфами, а актор просто хранит числа.
+     */
+    protected needValues: Partial<Record<NeedTag, number>> = {};
+
+    public action: ActionDefinition | null
+
     constructor({
-                    id = '',
-                    name = '',
-                    hexId = '',
-                    physical = new CreaturePhysicalProfile(),
-                    metabolism = new MetabolismProfile(),
-                    posture = 'standing',
-                    inventoryItemIds = [],
-                }: ActorInit = {}) {
+        id = '',
+        name = '',
+        hexId = '',
+        physical = new CreaturePhysicalProfile(),
+        metabolism = new MetabolismProfile(),
+        posture = 'standing',
+        inventoryItemIds = [],
+    }: ActorInit = {}) {
         this.id = id;
         this.name = name;
         this.hexId = hexId;
@@ -208,7 +205,7 @@ export class ActorEntity {
         return this;
     }
 
-    setPosture(posture: ActorPosture): this {
+    setPosture(posture: PostureTag): this {
         this.posture = posture;
         return this;
     }
@@ -230,10 +227,71 @@ export class ActorEntity {
         return this;
     }
 
-    /** Фактический объём, занимаемый актором в гексе. */
-    getVolume(): VolumeUnits {
-        return this.physical.getVolumeForPosture(this.posture);
+    setAction(action: ActionDefinition | null): this {
+        this.action = action;
+
+        return this;
     }
+
+    isBusy(): boolean {
+        if(!this.action) {
+            return false;
+        }
+        return this.action !== Idle;
+    }
+
+    // ───────────────────────────────────────────────────────────
+    // Доступ к нуждам
+    // ───────────────────────────────────────────────────────────
+
+    /**
+     * Получить текущее "сырьё" дефицита по нужде.
+     * Если нужда ещё не инициализирована — вернёт 0.
+     */
+    getNeedValue(tag: NeedTag): number {
+        const raw = this.needValues[tag];
+        return typeof raw === 'number' ? raw : 0;
+    }
+
+    /**
+     * Жёстко установить значение дефицита по нужде.
+     * Значение всегда не меньше 0.
+     */
+    setNeedValue(tag: NeedTag, value: number): this {
+        const v = Number.isFinite(value) ? value : 0;
+        this.needValues[tag] = Math.max(0, v);
+        return this;
+    }
+
+    /**
+     * Прибавить дельту к дефициту (может быть положительной или отрицательной).
+     *
+     * ПРИМЕЧАНИЕ:
+     *  - Положительная дельта → дефицит растёт, становится хуже.
+     *  - Отрицательная дельта → дефицит уменьшается, становится лучше.
+     */
+    changeNeedValue(tag: NeedTag, delta: number): this {
+        if (!Number.isFinite(delta) || delta === 0) {
+            return this;
+        }
+        const current = this.getNeedValue(tag);
+        return this.setNeedValue(tag, current + delta);
+    }
+
+    /**
+     * Массовое применение дельт по нескольким нуждам.
+     * Удобно для экшенов, которые трогают сразу FOOD/WATER/REST и т.п.
+     */
+    applyNeedDeltas(deltas: Partial<Record<NeedTag, number>>): this {
+        for (const [key, delta] of Object.entries(deltas)) {
+            const tag = key as NeedTag;
+            if (typeof delta === 'number' && delta !== 0) {
+                this.changeNeedValue(tag, delta);
+            }
+        }
+        return this;
+    }
+
 }
 
 /**

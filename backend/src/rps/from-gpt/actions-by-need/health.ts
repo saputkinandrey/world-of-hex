@@ -1,6 +1,6 @@
 import { ActionDefinition } from '../action-definition';
 import { HealthActionTag } from '../action-tags';
-import { health } from '../memes';
+import { health } from '../../world/memes';
 export const HealthActions: ActionDefinition[] = [
     {
         tag: HealthActionTag.HEAL_SELF,

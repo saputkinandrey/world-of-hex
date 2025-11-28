@@ -1,6 +1,6 @@
 import { ActionDefinition } from '../action-definition';
 import { InspirationActionTag } from '../action-tags';
-import { cog, comm, culture, econ, fire, heat, org, record } from '../memes';
+import { cog, comm, culture, econ, fire, heat, org, record } from '../../world/memes';
 export const InspirationActions: ActionDefinition[] = [
     {
         tag: InspirationActionTag.SEEK_MUSE_IN_NATURE,

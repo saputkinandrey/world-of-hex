@@ -1,6 +1,6 @@
 import { ActionDefinition } from '../action-definition';
 import { FaithActionTag } from '../action-tags';
-import { cog, comm, culture, food } from '../memes';
+import { cog, comm, culture, food } from '../../world/memes';
 export const FaithActions: ActionDefinition[] = [
     {
         tag: FaithActionTag.PRIVATE_DEVOTION,

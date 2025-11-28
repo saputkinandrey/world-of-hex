@@ -1,5 +1,5 @@
 import {EthoActionTag} from "../action-tags";
-import {core, eth, tech} from "../memes";
+import {core, eth, tech} from "../../world/memes";
 import {ActionDefinition} from "../action-definition";
 
 /**

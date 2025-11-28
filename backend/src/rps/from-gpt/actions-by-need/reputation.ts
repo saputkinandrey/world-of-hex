@@ -1,6 +1,6 @@
 import { ActionDefinition } from '../action-definition';
 import { ReputationActionTag } from '../action-tags';
-import { econ, health, record } from '../memes';
+import { econ, health, record } from '../../world/memes';
 export const ReputationActions: ActionDefinition[] = [
     {
         tag: ReputationActionTag.ANNOUNCE_DEEDS,

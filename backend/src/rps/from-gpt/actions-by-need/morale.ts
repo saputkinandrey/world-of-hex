@@ -1,6 +1,6 @@
 import { ActionDefinition } from '../action-definition';
 import { MoraleActionTag } from '../action-tags';
-import { cog, comm, culture, econ, health, heat, record } from '../memes';
+import { cog, comm, culture, econ, health, heat, record } from '../../world/memes';
 export const MoraleActions: ActionDefinition[] = [
     {
         tag: MoraleActionTag.RALLY_SPEECH,

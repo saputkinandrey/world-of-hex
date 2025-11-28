@@ -1,6 +1,6 @@
 import { ActionDefinition } from '../action-definition';
 import { FocusActionTag } from '../action-tags';
-import { comm, org, tech } from '../memes';
+import { comm, org, tech } from '../../world/memes';
 export const FocusActions: ActionDefinition[] = [
     {
         tag: FocusActionTag.SET_QUIET_HOURS,

@@ -1,6 +1,6 @@
 import { ActionDefinition } from '../action-definition';
 import { StatusActionTag } from '../action-tags';
-import { comm, econ, record } from '../memes';
+import { comm, econ, record } from '../../world/memes';
 export const StatusActions: ActionDefinition[] = [
     {
         tag: StatusActionTag.DISPLAY_INSIGNIA,

@@ -1,6 +1,6 @@
 import { ActionDefinition } from '../action-definition';
 import { ControlActionTag } from '../action-tags';
-import { cog, comm, culture, org, tech } from '../memes';
+import { cog, comm, culture, org, tech } from '../../world/memes';
 export const ControlActions: ActionDefinition[] = [
     {
         tag: ControlActionTag.ASSIGN_ROLES,

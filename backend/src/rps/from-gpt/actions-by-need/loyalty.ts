@@ -1,6 +1,6 @@
 import { ActionDefinition } from '../action-definition';
 import { ActionTags, LoyaltyActionTag } from '../action-tags';
-import { cog, comm, culture } from '../memes';
+import { cog, comm, culture } from '../../world/memes';
 export const LoyaltyActions: ActionDefinition[] = [
     {
         tag: LoyaltyActionTag.SWEAR_FEALTY,

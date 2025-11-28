@@ -1,6 +1,6 @@
 import { ActionDefinition } from '../action-definition';
 import { NetworkActionTag } from '../action-tags';
-import { cog, comm, culture, econ, health, heat, org, record } from '../memes';
+import { cog, comm, culture, econ, health, heat, org, record } from '../../world/memes';
 export const NetworkActions: ActionDefinition[] = [
     {
         tag: NetworkActionTag.MARKET_MEET_AND_GREET,

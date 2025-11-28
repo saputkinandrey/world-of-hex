@@ -1,6 +1,6 @@
 import { ActionDefinition } from '../action-definition';
 import { KnowledgeActionTag } from '../action-tags';
-import { cog, comm, econ, fire, heat, org, record, tech } from '../memes';
+import { cog, comm, econ, fire, heat, org, record, tech } from '../../world/memes';
 export const KnowledgeActions: ActionDefinition[] = [
     {
         tag: KnowledgeActionTag.VISIT_LIBRARY,

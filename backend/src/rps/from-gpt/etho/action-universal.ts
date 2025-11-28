@@ -1,7 +1,7 @@
 // etho/action-universal.ts
 import type { ActionDefinition } from '../action-definition';
 import { EthoActionTag } from '../action-tags';
-import { cog, comm, core, eth, tech } from '../memes';
+import { cog, comm, core, eth, tech } from '../../world/memes';
 
 // Засада из укрытия: переходим в режим ожидания/наблюдения.
 export const AMBUSH_FROM_COVER: ActionDefinition = {

@@ -1,6 +1,6 @@
 import { ActionDefinition } from '../action-definition';
 import { ComfortActionTag } from '../action-tags';
-import { culinary, fire, memes } from '../memes';
+import { culinary, fire, memes } from '../../world/memes';
 export const ComfortActions: ActionDefinition[] = [
     {
         tag: ComfortActionTag.LIGHT_FIRE,

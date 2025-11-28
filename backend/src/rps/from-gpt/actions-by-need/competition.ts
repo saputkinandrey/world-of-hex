@@ -1,6 +1,6 @@
 import { ActionDefinition } from '../action-definition';
 import { CompetitionActionTag } from '../action-tags';
-import { comm, health, memes, org, tech } from '../memes';
+import { comm, health, memes, org, tech } from '../../world/memes';
 export const CompetitionActions: ActionDefinition[] = [
     {
         tag: CompetitionActionTag.ENTER_SKILL_CONTEST,

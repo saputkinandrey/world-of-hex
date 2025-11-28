@@ -1,6 +1,6 @@
 import { ActionDefinition } from '../action-definition';
 import { DisciplineActionTag } from '../action-tags';
-import { cog, comm, culture, econ, health, record, tech } from '../memes';
+import { cog, comm, culture, econ, health, record, tech } from '../../world/memes';
 export const DisciplineActions: ActionDefinition[] = [
     {
         tag: DisciplineActionTag.DAWN_ROLL_CALL,

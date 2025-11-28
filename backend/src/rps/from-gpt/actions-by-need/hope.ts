@@ -1,6 +1,6 @@
 import { ActionDefinition } from '../action-definition';
 import { HopeActionTag } from '../action-tags';
-import { cog, comm, culture, econ, health, heat, org, record, tech } from '../memes';
+import { cog, comm, culture, econ, health, heat, org, record, tech } from '../../world/memes';
 export const HopeActions: ActionDefinition[] = [
     {
         tag: HopeActionTag.DAWN_TORCH_RUN,

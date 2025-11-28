@@ -10,7 +10,7 @@ import {
     heat,
     org,
     record,
-} from '../memes';
+} from '../../world/memes';
 export const ClarityActions: ActionDefinition[] = [
     {
         tag: ClarityActionTag.MORNING_CLARITY_BRIEF,

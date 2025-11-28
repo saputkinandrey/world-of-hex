@@ -2,7 +2,7 @@
 // Сущности предметов и их связь с объёмом/питательностью.
 
 import type { VolumeUnits } from './hex.entity';
-import type { NutritionContent } from './actor.entity';
+import type { NutritionContent } from './actor/actor.entity';
 
 /**
  * Тип предмета-ресурса. Это именно "чертёж", а не конкретный объект.

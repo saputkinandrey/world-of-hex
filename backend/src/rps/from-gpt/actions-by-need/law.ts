@@ -1,6 +1,6 @@
 import { ActionDefinition } from '../action-definition';
 import { ActionTags, LawActionTag } from '../action-tags';
-import { cog, comm, culture } from '../memes';
+import { cog, comm, culture } from '../../world/memes';
 export const LawActions: ActionDefinition[] = [
     {
         tag: LawActionTag.DECLARE_LAW,

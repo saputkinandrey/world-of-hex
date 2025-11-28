@@ -125,7 +125,7 @@ export interface HexCellInit {
  * Класс гекса карты: хранит координаты, вместимость и список содержимого.
  * Логику физики (объём, соседей) он знает сам.
  */
-export class HexCellEntity {
+export class HexEntity {
     id: HexId;
     coord: HexCoord;
     volumeCapacity: VolumeUnits;

@@ -1,6 +1,6 @@
 import { ActionDefinition } from '../action-definition';
 import { IdentityActionTag } from '../action-tags';
-import { cog, comm, culture, econ, fire, health, heat, org, record } from '../memes';
+import { cog, comm, culture, econ, fire, health, heat, org, record } from '../../world/memes';
 export const IdentityActions: ActionDefinition[] = [
     {
         tag: IdentityActionTag.DECLARE_CLAN_AFFILIATION,

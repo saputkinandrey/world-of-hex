@@ -1,6 +1,6 @@
 import { ActionDefinition } from '../action-definition';
 import { JoyActionTag } from '../action-tags';
-import { cog, comm, culture, econ, health, heat, record } from '../memes';
+import { cog, comm, culture, econ, health, heat, record } from '../../world/memes';
 export const JoyActions: ActionDefinition[] = [
     {
         tag: JoyActionTag.PLAY_MUSIC_TOGETHER,

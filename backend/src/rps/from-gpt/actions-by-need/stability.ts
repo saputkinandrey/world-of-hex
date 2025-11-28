@@ -1,6 +1,6 @@
 import { StabilityActionTag } from '../action-tags';
 import { ActionDefinition } from '../action-definition';
-import { cog, comm, culture } from '../memes';
+import { cog, comm, culture } from '../../world/memes';
 export const StabilityActions: ActionDefinition[] = [
     {
         tag: StabilityActionTag.MAINTAIN_STORAGE,

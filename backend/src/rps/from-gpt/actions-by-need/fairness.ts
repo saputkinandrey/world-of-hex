@@ -1,6 +1,6 @@
 import { ActionDefinition } from '../action-definition';
 import { FairnessActionTag } from '../action-tags';
-import { cog, comm, culture, econ, fire, health, record } from '../memes';
+import { cog, comm, culture, econ, fire, health, record } from '../../world/memes';
 export const FairnessActions: ActionDefinition[] = [
     {
         tag: FairnessActionTag.POST_CLEAR_TARIFFS,

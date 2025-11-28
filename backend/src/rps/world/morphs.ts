@@ -1,7 +1,9 @@
 // from-gpt/morphs.ts
 // Морфологические/механические "мемы" — то, что умеет тело (body plan, локомоция, сенсоры, оружие и т.п.).
 
-export type MorphId = string;
+import {LeafValues} from "../types/leaf-values.type";
+
+export type MorphId = LeafValues<typeof morph>;
 
 /**
  * Базовое дерево морфологических способностей.
@@ -36,40 +38,43 @@ export const morph = {
         perception: 'core.perception',
         motor_coordination: 'core.motor_coordination',
     },
+    vital: {
+        living: 'core.vital.living',
+    },
 
     // ───────────────────────────────────────────────────────────
     // План тела / общая конфигурация
     // ─────────────────────────────────────────s──────────────────
     body_plan: {
         /** Маленький наземный тетрапод (ящерица, мелкий грызун и т.п.). */
-        tetrapod_small_ground: 'morph.body_plan.tetrapod_small_ground' as MorphId,
+        tetrapod_small_ground: 'morph.body_plan.tetrapod_small_ground',
 
         /** Крупный наземный тетрапод (лошадь, крупный хищник). */
-        tetrapod_large_ground: 'morph.body_plan.tetrapod_large_ground' as MorphId,
+        tetrapod_large_ground: 'morph.body_plan.tetrapod_large_ground',
 
         /** Тетрапод с выраженной способностью лазать (лесные звери, лазящие ящерицы). */
-        tetrapod_climber: 'morph.body_plan.tetrapod_climber' as MorphId,
+        tetrapod_climber: 'morph.body_plan.tetrapod_climber',
 
         /** Серпентинная наземная форма (змеи и т.п.). */
-        serpentine_ground: 'morph.body_plan.serpentine_ground' as MorphId,
+        serpentine_ground: 'morph.body_plan.serpentine_ground',
 
         /** Серпентинная, с выраженной водной адаптацией. */
-        serpentine_aquatic: 'morph.body_plan.serpentine_aquatic' as MorphId,
+        serpentine_aquatic: 'morph.body_plan.serpentine_aquatic',
 
         /** Птичий план тела (крылья + задние конечности). */
-        avian: 'morph.body_plan.avian' as MorphId,
+        avian: 'morph.body_plan.avian',
 
         /** Рыбоподобный план тела (рыбы, амфибии в воде). */
-        fish_like: 'morph.body_plan.fish_like' as MorphId,
+        fish_like: 'morph.body_plan.fish_like',
 
         /** Шестиногий "насекомый" план тела. */
-        hexapod_insect: 'morph.body_plan.hexapod_insect' as MorphId,
+        hexapod_insect: 'morph.body_plan.hexapod_insect',
 
         /** Паукообразные (4 пары ног, цефалоторакс). */
-        arachnid: 'morph.body_plan.arachnid' as MorphId,
+        arachnid: 'morph.body_plan.arachnid',
 
         /** Гуманоидный план тела (2 руки, 2 ноги, прямохождение). */
-        humanoid: 'morph.body_plan.humanoid' as MorphId,
+        humanoid: 'morph.body_plan.humanoid',
     },
 
     // ───────────────────────────────────────────────────────────
@@ -77,43 +82,43 @@ export const morph = {
     // ───────────────────────────────────────────────────────────
     locomotion: {
         /** Обычная бипедальная ходьба. */
-        walk_biped: 'morph.locomotion.walk_biped' as MorphId,
+        walk_biped: 'morph.locomotion.walk_biped',
 
         /** Обычная четвероногая ходьба. */
-        walk_quadruped: 'morph.locomotion.walk_quadruped' as MorphId,
+        walk_quadruped: 'morph.locomotion.walk_quadruped',
 
         /** Низкое "ползание/шагание" четвероногих по земле (ящерица, крысоподобные). */
-        crawl_quadruped: 'morph.locomotion.crawl_quadruped' as MorphId, // уже использовалось в профиле ящерицы
+        crawl_quadruped: 'morph.locomotion.crawl_quadruped', // уже использовалось в профиле ящерицы
 
         /** Серпентинное скольжение по земле. */
-        slither_ground: 'morph.locomotion.slither_ground' as MorphId,
+        slither_ground: 'morph.locomotion.slither_ground',
 
         /** Прыжки небольших животных (лягушки, некоторые ящерицы, кенгуровые мелкие). */
-        hop_small: 'morph.locomotion.hop_small' as MorphId,
+        hop_small: 'morph.locomotion.hop_small',
 
         /** Активное рытьё и движение в толще грунта. */
-        burrow_dig: 'morph.locomotion.burrow_dig' as MorphId,
+        burrow_dig: 'morph.locomotion.burrow_dig',
 
         /** Лазание по грубой поверхности (камни, кора дерева). */
-        climb_rough_surface: 'morph.locomotion.climb_rough_surface' as MorphId, // уже использовалось
+        climb_rough_surface: 'morph.locomotion.climb_rough_surface', // уже использовалось
 
         /** Ограниченное лазание по относительно гладкой поверхности. */
-        climb_smooth_limited: 'morph.locomotion.climb_smooth_limited' as MorphId,
+        climb_smooth_limited: 'morph.locomotion.climb_smooth_limited',
 
         /** Базовое плавание (могут держаться на воде и двигаться). */
-        swim_basic: 'morph.locomotion.swim_basic' as MorphId,
+        swim_basic: 'morph.locomotion.swim_basic',
 
         /** Быстрое/эффективное плавание (рыбы, водные млекопитающие). */
-        swim_fast: 'morph.locomotion.swim_fast' as MorphId,
+        swim_fast: 'morph.locomotion.swim_fast',
 
         /** Планирующий полёт (летяги, планирующие ящерицы). */
-        glide_basic: 'morph.locomotion.glide_basic' as MorphId,
+        glide_basic: 'morph.locomotion.glide_basic',
 
         /** Активный взмаховый полёт (птицы, летучие мыши). */
-        fly_flapping: 'morph.locomotion.fly_flapping' as MorphId,
+        fly_flapping: 'morph.locomotion.fly_flapping',
 
         /** Малая "зависшая" аэродинамика (насекомые с зависанием). */
-        hover_insect: 'morph.locomotion.hover_insect' as MorphId,
+        hover_insect: 'morph.locomotion.hover_insect',
     },
 
     // ───────────────────────────────────────────────────────────
@@ -121,25 +126,25 @@ export const morph = {
     // ───────────────────────────────────────────────────────────
     manip: {
         /** Фактически нет специализированных манипуляторов, только рот/челюсти. */
-        mouth_only: 'morph.manip.mouth_only' as MorphId,
+        mouth_only: 'morph.manip.mouth_only',
 
         /** Передние лапы пригодны для копания/опоры, но не для тонкой моторики. */
-        forepaws_non_manip: 'morph.manip.forepaws_non_manip' as MorphId,
+        forepaws_non_manip: 'morph.manip.forepaws_non_manip',
 
         /** Когти/лапа позволяют примитивный захват (перенести, держать грубо). */
-        claws_simple_grip: 'morph.manip.claws_simple_grip' as MorphId,
+        claws_simple_grip: 'morph.manip.claws_simple_grip',
 
         /** Полноценные хватательные руки (приматы, гуманоиды). */
-        hands_grasping: 'morph.manip.hands_grasping' as MorphId,
+        hands_grasping: 'morph.manip.hands_grasping',
 
         /** Гибкий хобот с возможностью хватать и манипулировать. */
-        trunk_flexible: 'morph.manip.trunk_flexible' as MorphId,
+        trunk_flexible: 'morph.manip.trunk_flexible',
 
         /** Гибкие щупальца с возможностью точной манипуляции. */
-        tentacles_flexible: 'morph.manip.tentacles_flexible' as MorphId,
+        tentacles_flexible: 'morph.manip.tentacles_flexible',
 
         /** Клюв, пригодный для использования как простой инструмент. */
-        beak_toollike: 'morph.manip.beak_toollike' as MorphId,
+        beak_toollike: 'morph.manip.beak_toollike',
     },
 
     // ───────────────────────────────────────────────────────────
@@ -147,40 +152,40 @@ export const morph = {
     // ───────────────────────────────────────────────────────────
     sense: {
         /** Есть хоть какая-то формирующая изображение зрительная система. */
-        vision_basic: 'morph.sense.vision_basic' as MorphId,
+        vision_basic: 'morph.sense.vision_basic',
 
         /** Бинокулярное зрение с перекрывающимися полями (оценка расстояния). */
-        vision_binocular: 'morph.sense.vision_binocular' as MorphId,
+        vision_binocular: 'morph.sense.vision_binocular',
 
         /** Улучшенное зрение при слабом освещении. */
-        vision_lowlight: 'morph.sense.vision_lowlight' as MorphId,
+        vision_lowlight: 'morph.sense.vision_lowlight',
 
         /** Богатое цветовое зрение (птицы, приматы). */
-        vision_color_rich: 'morph.sense.vision_color_rich' as MorphId,
+        vision_color_rich: 'morph.sense.vision_color_rich',
 
         /** Базовое обоняние. */
-        olfaction_basic: 'morph.sense.olfaction_basic' as MorphId,
+        olfaction_basic: 'morph.sense.olfaction_basic',
 
         /** Развитое обоняние для слежения по запаховому следу. */
-        olfaction_tracking: 'morph.sense.olfaction_tracking' as MorphId,
+        olfaction_tracking: 'morph.sense.olfaction_tracking',
 
         /** Базовый слух. */
-        hearing_basic: 'morph.sense.hearing_basic' as MorphId,
+        hearing_basic: 'morph.sense.hearing_basic',
 
         /** Хорошая локализация по звуку, широкий диапазон частот. */
-        hearing_directional: 'morph.sense.hearing_directional' as MorphId,
+        hearing_directional: 'morph.sense.hearing_directional',
 
         /** Чувствительность к вибрациям грунта/опоры. */
-        vibration_ground: 'morph.sense.vibration_ground' as MorphId,
+        vibration_ground: 'morph.sense.vibration_ground',
 
         /** Латеральная линия (водные позвоночные). */
-        lateral_line: 'morph.sense.lateral_line' as MorphId,
+        lateral_line: 'morph.sense.lateral_line',
 
         /** Эхолокация (летучие мыши, зубатые киты). */
-        echolocation_basic: 'morph.sense.echolocation_basic' as MorphId,
+        echolocation_basic: 'morph.sense.echolocation_basic',
 
         /** Электрорецепция (некоторые рыбы и амфибии). */
-        electroreception_basic: 'morph.sense.electroreception_basic' as MorphId,
+        electroreception_basic: 'morph.sense.electroreception_basic',
     },
 
     // ───────────────────────────────────────────────────────────
@@ -188,28 +193,28 @@ export const morph = {
     // ───────────────────────────────────────────────────────────
     integument: {
         /** Сухие чешуйки (типично для рептилий). */
-        scales_dry: 'morph.integument.scales_dry' as MorphId,
+        scales_dry: 'morph.integument.scales_dry',
 
         /** Гладкие чешуйки (змеи и часть рыб). */
-        scales_smooth: 'morph.integument.scales_smooth' as MorphId,
+        scales_smooth: 'morph.integument.scales_smooth',
 
         /** Обычная шерсть. */
-        fur_basic: 'morph.integument.fur_basic' as MorphId,
+        fur_basic: 'morph.integument.fur_basic',
 
         /** Густая/теплосберегающая шерсть. */
-        fur_dense: 'morph.integument.fur_dense' as MorphId,
+        fur_dense: 'morph.integument.fur_dense',
 
         /** Перья (базовый уровень). */
-        feathers_basic: 'morph.integument.feathers_basic' as MorphId,
+        feathers_basic: 'morph.integument.feathers_basic',
 
         /** Практически голая кожа (с минимальной шерстью/перьями). */
-        skin_bare: 'morph.integument.skin_bare' as MorphId,
+        skin_bare: 'morph.integument.skin_bare',
 
         /** Хитинизированный экзоскелет (насекомые, пауки). */
-        exoskeleton_chitin: 'morph.integument.exoskeleton_chitin' as MorphId,
+        exoskeleton_chitin: 'morph.integument.exoskeleton_chitin',
 
         /** Костные пластины/панцири (черепахи, броненосцы и т.п.). */
-        armor_bony_plates: 'morph.integument.armor_bony_plates' as MorphId,
+        armor_bony_plates: 'morph.integument.armor_bony_plates',
     },
 
     // ───────────────────────────────────────────────────────────
@@ -217,46 +222,46 @@ export const morph = {
     // ───────────────────────────────────────────────────────────
     natural_weapon: {
         /** Маленький укус как основное оружие. */
-        bite_small: 'morph.natural_weapon.bite_small' as MorphId, // уже использовалось
+        bite_small: 'morph.natural_weapon.bite_small', // уже использовалось
 
         /** Средний укус (собака/кошка размером с человека). */
-        bite_medium: 'morph.natural_weapon.bite_medium' as MorphId,
+        bite_medium: 'morph.natural_weapon.bite_medium',
 
         /** Крупный укус (крокодил, крупный хищник). */
-        bite_large: 'morph.natural_weapon.bite_large' as MorphId,
+        bite_large: 'morph.natural_weapon.bite_large',
 
         /** Небольшие когти. */
-        claws_small: 'morph.natural_weapon.claws_small' as MorphId,
+        claws_small: 'morph.natural_weapon.claws_small',
 
         /** Крупные когти (медведи, крупные кошки). */
-        claws_large: 'morph.natural_weapon.claws_large' as MorphId,
+        claws_large: 'morph.natural_weapon.claws_large',
 
         /** Рога/роговые отростки небольшого размера. */
-        horns_small: 'morph.natural_weapon.horns_small' as MorphId,
+        horns_small: 'morph.natural_weapon.horns_small',
 
         /** Крупные рога/бивни. */
-        horns_large: 'morph.natural_weapon.horns_large' as MorphId,
+        horns_large: 'morph.natural_weapon.horns_large',
 
         /** Ударный "булавоподобный" хвост. */
-        tail_club: 'morph.natural_weapon.tail_club' as MorphId,
+        tail_club: 'morph.natural_weapon.tail_club',
 
         /** Хлёсткий хвост (как кнут). */
-        tail_whip: 'morph.natural_weapon.tail_whip' as MorphId,
+        tail_whip: 'morph.natural_weapon.tail_whip',
 
         /** Клюв для клевания/крушения. */
-        beak_peck: 'morph.natural_weapon.beak_peck' as MorphId,
+        beak_peck: 'morph.natural_weapon.beak_peck',
 
         /** Жало небольшого размера. */
-        stinger_small: 'morph.natural_weapon.stinger_small' as MorphId,
+        stinger_small: 'morph.natural_weapon.stinger_small',
 
         /** Сжимающее тело/кольца (констриктор). */
-        constrictor_body: 'morph.natural_weapon.constrictor_body' as MorphId,
+        constrictor_body: 'morph.natural_weapon.constrictor_body',
 
         /** Передние ядовитые клыки. */
-        venom_fangs_front: 'morph.natural_weapon.venom_fangs_front' as MorphId,
+        venom_fangs_front: 'morph.natural_weapon.venom_fangs_front',
 
         /** Задние ядовитые клыки. */
-        venom_fangs_rear: 'morph.natural_weapon.venom_fangs_rear' as MorphId,
+        venom_fangs_rear: 'morph.natural_weapon.venom_fangs_rear',
     },
 
 // ───────────────────────────────────────────────────────────
@@ -264,66 +269,66 @@ export const morph = {
 // ───────────────────────────────────────────────────────────
     size: {
         /** GURPS: SM-8 — очень мелкие: мышь, мелкая ящерица, воробей. */
-        SMn8: 'morph.size.SM-8' as MorphId,
+        SMn8: 'morph.size.SM-8',
 
         /** GURPS: SM-7 — побольше мыши, но всё ещё в "мелочи". */
-        SMn7: 'morph.size.SM-7' as MorphId,
+        SMn7: 'morph.size.SM-7',
 
         /** GURPS: SM-6 — крыса, крупная ящерица, небольшая птица. */
-        SMn6: 'morph.size.SM-6' as MorphId,
+        SMn6: 'morph.size.SM-6',
 
         /** GURPS: SM-5 — что-то вроде хорька / очень мелкой кошки. */
-        SMn5: 'morph.size.SM-5' as MorphId,
+        SMn5: 'morph.size.SM-5',
 
         /** GURPS: SM-4 — кошка, мелкая собака. */
-        SMn4: 'morph.size.SM-4' as MorphId,
+        SMn4: 'morph.size.SM-4',
 
         /** GURPS: SM-3 — крупная кошка / маленькая лиса. */
-        SMn3: 'morph.size.SM-3' as MorphId,
+        SMn3: 'morph.size.SM-3',
 
         /** GURPS: SM-2 — лисица, средняя собака. */
-        SMn2: 'morph.size.SM-2' as MorphId,
+        SMn2: 'morph.size.SM-2',
 
         /** GURPS: SM-1 — мелкий человек, подросток, очень стройный. */
-        SMn1: 'morph.size.SM-1' as MorphId,
+        SMn1: 'morph.size.SM-1',
 
         /** GURPS: SM+0 — "человеческий" базовый размер. */
-        SM0: 'morph.size.SM+0' as MorphId,
+        SM0: 'morph.size.SM+0',
 
         /** GURPS: SM+1 — крупный человек, между человеком и лошадью. */
-        SMp1: 'morph.size.SM+1' as MorphId,
+        SMp1: 'morph.size.SM+1',
 
         /** GURPS: SM+2 — лошадь, корова, крупный хищник. */
-        SMp2: 'morph.size.SM+2' as MorphId,
+        SMp2: 'morph.size.SM+2',
 
         /** GURPS: SM+3 — очень крупные звери, мелкие динозавры. */
-        SMp3: 'morph.size.SM+3' as MorphId,
+        SMp3: 'morph.size.SM+3',
 
         /** GURPS: SM+4 — слон, большой динозавр/дракон. */
-        SMp4: 'morph.size.SM+4' as MorphId,
+        SMp4: 'morph.size.SM+4',
 
         /** GURPS: SM+5 — межслоново-китовая зона. */
-        SMp5: 'morph.size.SM+5' as MorphId,
+        SMp5: 'morph.size.SM+5',
 
         /** GURPS: SM+6 — кит, очень крупный дракон. */
-        SMp6: 'morph.size.SM+6' as MorphId,
-    } as const;
+        SMp6: 'morph.size.SM+6',
+    },
 
     // ───────────────────────────────────────────────────────────
     // Дыхание
     // ───────────────────────────────────────────────────────────
     respiration: {
         /** Жабры, постоянная зависимость от воды. */
-        gills_aquatic: 'morph.respiration.gills_aquatic' as MorphId,
+        gills_aquatic: 'morph.respiration.gills_aquatic',
 
         /** Базовые лёгкие. */
-        lungs_basic: 'morph.respiration.lungs_basic' as MorphId,
+        lungs_basic: 'morph.respiration.lungs_basic',
 
         /** Высокоэффективная лёгочная система (птицы и аналоги). */
-        lungs_high_efficiency: 'morph.respiration.lungs_high_efficiency' as MorphId,
+        lungs_high_efficiency: 'morph.respiration.lungs_high_efficiency',
 
         /** Дополнительное дыхание через кожу/слизь (некоторые амфибии). */
-        skin_assist: 'morph.respiration.skin_assist' as MorphId,
+        skin_assist: 'morph.respiration.skin_assist',
     },
 
 
@@ -332,12 +337,12 @@ export const morph = {
     // ───────────────────────────────────────────────────────────
     thermoreg: {
         /** GURPS: Cold-Blooded — температура тела сильно зависит от среды. */
-        coldBlooded: 'morph.thermoreg.coldBlooded' as MorphId,
+        coldBlooded: 'morph.thermoreg.coldBlooded',
 
         /**
          * "Тёплокровный" базовый вариант (птицы, млекопитающие).
          * В GURPS это обычно просто норма, без отдельного признака.
          */
-        warmBlooded: 'morph.thermoreg.warmBlooded' as MorphId,
+        warmBlooded: 'morph.thermoreg.warmBlooded',
     },
 } as const;

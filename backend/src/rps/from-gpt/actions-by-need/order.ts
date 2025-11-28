@@ -1,6 +1,6 @@
 import { ActionDefinition } from '../action-definition';
 import { OrderActionTag } from '../action-tags';
-import { cog, comm, culture, econ, health, record, tech } from '../memes';
+import { cog, comm, culture, econ, health, record, tech } from '../../world/memes';
 export const OrderActions: ActionDefinition[] = [
     {
         tag: OrderActionTag.POST_HOUSE_RULES,

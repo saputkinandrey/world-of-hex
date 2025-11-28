@@ -1,6 +1,6 @@
 import { ActionDefinition } from '../action-definition';
 import { QualityActionTag } from '../action-tags';
-import { comm, econ, health, org, record, tech } from '../memes';
+import { comm, econ, health, org, record, tech } from '../../world/memes';
 export const QualityActions: ActionDefinition[] = [
     {
         tag: QualityActionTag.SPEC_DEFINE_ACCEPTANCE,

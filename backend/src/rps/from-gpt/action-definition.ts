@@ -1,7 +1,7 @@
 import { ActionTag } from './action-tags';
 import { NeedGate, NeedTag, NeedThresholdEnum, NeedThresholds } from './needs';
-import { MemeId } from './memes';
-import {MorphId} from "./morphs";
+import { MemeId } from '../world/memes';
+import {MorphId} from "../world/morphs";
 
 export interface ActionDefinition {
     tag?: ActionTag; // Тип действия

@@ -1,6 +1,6 @@
 import { ActionDefinition } from '../action-definition';
 import { HygieneActionTag } from '../action-tags';
-import { cog, culture, health } from '../memes';
+import { cog, culture, health } from '../../world/memes';
 export const HygieneActions: ActionDefinition[] = [
     {
         tag: HygieneActionTag.WASH_HANDS,

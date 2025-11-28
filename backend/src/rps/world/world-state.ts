@@ -1,16 +1,16 @@
 // world/world-state.ts
 // Каркас состояния мира, который склеивает гексы, акторов и предметы.
 
-import type { HexId, HexCellEntity, HexContentInstance } from './hex.entity';
+import type { HexId, HexEntity, HexContentInstance } from './hex.entity';
 import type { ItemInstance, ItemType } from './item';
-import type { ActorEntity } from './actor.entity';
+import type { ActorEntity } from './actor/actor.entity';
 
 /**
  * Минимальный срез состояния мира.
  * Логика симуляции живёт поверх этого каркаса.
  */
 export interface WorldState {
-    hexes: Record<HexId, HexCellEntity>;
+    hexes: Record<HexId, HexEntity>;
     contents: Record<string, HexContentInstance>;
     itemTypes: Record<string, ItemType>;
     itemInstances: Record<string, ItemInstance>;

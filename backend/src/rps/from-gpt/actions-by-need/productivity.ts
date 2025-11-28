@@ -1,6 +1,6 @@
 import { ActionDefinition } from '../action-definition';
 import { ProductivityActionTag } from '../action-tags';
-import { cog, comm, culture, econ, health, org, record } from '../memes';
+import { cog, comm, culture, econ, health, org, record } from '../../world/memes';
 export const ProductivityActions: ActionDefinition[] = [
     {
         tag: ProductivityActionTag.MORNING_TALLY_AND_BRIEF,

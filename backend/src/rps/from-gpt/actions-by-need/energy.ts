@@ -1,6 +1,6 @@
 import { ActionDefinition } from '../action-definition';
 import { EnergyActionTag } from '../action-tags';
-import { cog, comm, culture, food, health, heat } from '../memes';
+import { cog, comm, culture, food, health, heat } from '../../world/memes';
 export const EnergyActions: ActionDefinition[] = [
     {
         tag: EnergyActionTag.HIGH_PROTEIN_MEAL,

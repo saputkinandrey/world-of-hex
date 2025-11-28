@@ -1,6 +1,6 @@
 import { ActionDefinition } from '../action-definition';
 import { EfficiencyActionTag } from '../action-tags';
-import { cog, comm, health, org, record } from '../memes';
+import { cog, comm, health, org, record } from '../../world/memes';
 export const EfficiencyActions: ActionDefinition[] = [
     {
         tag: EfficiencyActionTag.VALUE_STREAM_WALK,

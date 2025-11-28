@@ -1,6 +1,6 @@
 import { ActionDefinition } from '../action-definition';
 import { CommunityActionTag } from '../action-tags';
-import { cog, comm, culture, econ, health, record, tech } from '../memes';
+import { cog, comm, culture, econ, health, record, tech } from '../../world/memes';
 export const CommunityActions: ActionDefinition[] = [
     {
         tag: CommunityActionTag.ORGANIZE_WORK_BEE,

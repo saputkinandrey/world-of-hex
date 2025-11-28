@@ -1,6 +1,6 @@
 import { ActionDefinition } from '../action-definition';
 import { LegacyActionTag } from '../action-tags';
-import { comm, record, tech } from '../memes';
+import { comm, record, tech } from '../../world/memes';
 export const LegacyActions: ActionDefinition[] = [
     {
         tag: LegacyActionTag.ENDOW_MEMORIAL,

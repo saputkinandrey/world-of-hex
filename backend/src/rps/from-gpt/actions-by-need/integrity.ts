@@ -1,6 +1,6 @@
 import { ActionDefinition } from '../action-definition';
 import { IntegrityActionTag } from '../action-tags';
-import { cog, comm, culture, health, org, record } from '../memes';
+import { cog, comm, culture, health, org, record } from '../../world/memes';
 export const IntegrityActions: ActionDefinition[] = [
     {
         tag: IntegrityActionTag.TELL_TRUTH_UNDER_OATH,

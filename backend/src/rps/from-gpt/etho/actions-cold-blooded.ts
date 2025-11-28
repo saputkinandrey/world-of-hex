@@ -1,7 +1,7 @@
 // Специально найти место с "правильной" температурой
 import {ActionDefinition} from "../action-definition";
 import {EthoActionTag} from "../action-tags";
-import {core, eth, memes} from "../memes";
+import {core, eth, memes} from "../../world/memes";
 
 export const SEEK_THERMAL_REFUGE: ActionDefinition = {
     tag: EthoActionTag.SEEK_THERMAL_REFUGE,

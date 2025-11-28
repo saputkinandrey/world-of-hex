@@ -1,6 +1,6 @@
 import { ActionDefinition } from '../action-definition';
 import { WasteActionTag } from '../action-tags';
-import { comm, econ, fire, health, heat, org, record, tech } from '../memes';
+import { comm, econ, fire, health, heat, org, record, tech } from '../../world/memes';
 export const WasteActions: ActionDefinition[] = [
     {
         tag: WasteActionTag.SCRAP_LEDGER_START,

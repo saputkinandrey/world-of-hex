@@ -2,7 +2,7 @@
 
 import type { ActionDefinition } from '../action-definition';
 import { FoodActionTag } from '../action-tags';
-import { core, eth, tech } from '../memes';
+import { core, eth, tech } from '../../world/memes';
 
 /**
  * ОХОТА В ЗАСАДЕ (HUNT_WAIT_IN_AMBUSH):

@@ -2,31 +2,7 @@
 // Профиль ящерицы: мемы, морфология, действия и фабрика актора.
 
 import type { HexId } from '../hex.entity';
-import { bio, core, eth, IQ2, type MemeId, tech } from '../../memes';
-import type { ActionDefinition } from '../../action-definition';
 
-import { EAT_ACCEPTABLE, EAT_POOR } from '../../actions-by-need/food';
-import { DRINK_DIRTY_WATER } from '../../actions-by-need/water';
-import { SLEEP_REST } from '../../etho/generic-actions';
-
-import {
-    BASK_SUN_THERMOREGULATE,
-    BURROW_HIDE_OR_AMBUSH,
-    DEFENSIVE_WARNING_DISPLAY,
-    TERRITORY_MICROHABIT_EXPLORE,
-} from '../../etho/action-universal';
-
-import {
-    FLEE_TO_COVER,
-    FREEZE_IN_PLACE,
-    OBSERVATION,
-    SHORT_DASH_ATTACK,
-} from '../../etho/action-small-vertebrate';
-
-import {
-    HUNT_ACTIVE_FORAGE,
-    HUNT_WAIT_IN_AMBUSH,
-} from '../../actions-by-need/food-hunt';
 
 import {
     ActorEntity,
@@ -34,9 +10,26 @@ import {
     MetabolismProfile,
     type NutritionContent,
     type NutritionNeeds,
-} from '../actor.entity';
+} from '../actor/actor.entity';
+import {core, eth, IQ2, MemeId, tech} from "src/rps/world/memes";
+import {morph, MorphId} from "../morphs";
+import {ActionDefinition} from "../../from-gpt/action-definition";
+import {HUNT_ACTIVE_FORAGE, HUNT_WAIT_IN_AMBUSH} from "../../from-gpt/actions-by-need/food-hunt";
+import {EAT_ACCEPTABLE, EAT_POOR} from "../../from-gpt/actions-by-need/food";
+import {DRINK_DIRTY_WATER} from "../../from-gpt/actions-by-need/water";
+import {SLEEP_REST} from "../../from-gpt/etho/generic-actions";
+import {
+    BASK_SUN_THERMOREGULATE, BURROW_HIDE_OR_AMBUSH,
+    DEFENSIVE_WARNING_DISPLAY,
+    TERRITORY_MICROHABIT_EXPLORE
+} from "../../from-gpt/etho/action-universal";
+import {
+    FLEE_TO_COVER,
+    FREEZE_IN_PLACE,
+    OBSERVATION,
+    SHORT_DASH_ATTACK
+} from "../../from-gpt/etho/action-small-vertebrate";
 
-import { morph, type MorphId } from '../../morphs';
 
 // ───────────────────────────────────────────────────────────────
 // Мемный профиль ящерицы (IQ2, холоднокровная, визуальный хищник)
@@ -45,11 +38,6 @@ import { morph, type MorphId } from '../../morphs';
 export const LIZARD_MEMES: MemeId[] = [
     // базовый интеллект и "живость"
     IQ2,
-
-    // сенсорика (поведенческий/«софт»-уровень)
-    tech.sensing.vision_basic,
-    tech.sensing.chemosense_basic,
-    tech.sensing.vibration_basic,
 
     // уход за телом и кожа
     eth.maintenance.cleanliness_core,
@@ -60,10 +48,10 @@ export const LIZARD_MEMES: MemeId[] = [
     eth.territory_marking,
     eth.sociality.solitary,
 
-    // хищничество (мелкая движущаяся добыча)
-    eth.predation.core,
-    eth.predation.drive.prey_drive,
-    eth.predation.drive.opportunistic,
+    // // хищничество (мелкая движущаяся добыча)
+    // eth.predation.core,
+    // eth.predation.drive.prey_drive,
+    // eth.predation.drive.opportunistic,
 
     // тактика: засада + короткий рывок
     eth.tactics.ambush_stalk,
@@ -81,9 +69,6 @@ export const LIZARD_MEMES: MemeId[] = [
 // ───────────────────────────────────────────────────────────────
 
 export const LIZARD_MORPHS: MorphId[] = [
-    bio.vital.core,
-    bio.vital.cold_blooded,
-
     // ядро тела и восприятия
     core.perception,
     core.motor_coordination,

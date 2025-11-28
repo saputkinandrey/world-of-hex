@@ -1,6 +1,6 @@
 import { ActionDefinition } from '../action-definition';
 import { CuriosityActionTag } from '../action-tags';
-import { comm, econ, fire, health, record } from '../memes';
+import { comm, econ, fire, health, record } from '../../world/memes';
 export const CuriosityActions: ActionDefinition[] = [
     {
         tag: CuriosityActionTag.PROSPECT_UNCHARTED_AREA,

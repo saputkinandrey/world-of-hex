@@ -1,6 +1,6 @@
 import { ActionDefinition } from '../action-definition';
 import { FreedomActionTag } from '../action-tags';
-import { comm, econ, record, tech } from '../memes';
+import { comm, econ, record, tech } from '../../world/memes';
 export const FreedomActions: ActionDefinition[] = [
     {
         tag: FreedomActionTag.NEGOTIATE_AUTONOMY_PACT,

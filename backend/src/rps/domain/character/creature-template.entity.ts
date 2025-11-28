@@ -3,8 +3,11 @@
 import { NamedEntity } from '../base/named.entity';
 import { PrimaryAttributesEntity } from '../character/attributes/primary-attributes.entity';
 import { SecondaryAttributesEntity } from '../character/attributes/secondary-attributes.entity';
-import type { MemeId } from '../../from-gpt/memes';
-import type { MorphId } from '../../from-gpt/morphs';
+import type { MemeId } from '../../world/memes';
+import type { MorphId } from '../../world/morphs';
+import {NeedTag} from "../../world/needs/needs";
+import {ActionTag} from "../../world/actions/action-tags";
+import {CreatureTemplateLens} from "./creature-template-lens.entity";
 
 export interface CreatureTemplateProps {
     name?: string;
@@ -18,39 +21,10 @@ export interface CreatureTemplateProps {
 
     memeIds?: MemeId[];
     morphIds?: MorphId[];
-    actionTags?: string[]; // ActionTag, но без жёсткой привязки к enum
+    actionTags?: ActionTag[]; // ActionTag, но без жёсткой привязки к enum
 }
 
-/**
- * Линза для CreatureTemplate:
- *  - sizeModifierDelta      — приращение к SM;
- *  - primaryDelta           — приращения к ST/DX/IQ/HT;
- *  - secondaryDelta         — приращения к HP/FP/Will/Per/BasicSpeed/BasicMove;
- *  - memeIdsAdd/morphIdsAdd/actionTagsAdd — добавляемые элементы (без удаления).
- */
-export interface CreatureTemplateLens {
-    sizeModifierDelta?: number;
 
-    primaryDelta?: Partial<{
-        ST: number;
-        DX: number;
-        IQ: number;
-        HT: number;
-    }>;
-
-    secondaryDelta?: Partial<{
-        HP: number;
-        FP: number;
-        Will: number;
-        Per: number;
-        BasicSpeed: number;
-        BasicMove: number;
-    }>;
-
-    memeIdsAdd?: MemeId[];
-    morphIdsAdd?: MorphId[];
-    actionTagsAdd?: string[];
-}
 
 /**
  * Канонный шаблон существа в терминах RPS:
@@ -68,7 +42,9 @@ export class CreatureTemplateEntity extends NamedEntity {
 
     public memeIds: MemeId[] = [];
     public morphIds: MorphId[] = [];
-    public actionTags: string[] = [];
+    public actionTags: ActionTag[] = [];
+    public needTags: NeedTag[] = [];
+
 
     constructor(props: CreatureTemplateProps = {}) {
         const {
@@ -100,6 +76,7 @@ export class CreatureTemplateEntity extends NamedEntity {
             memeIdsAdd,
             morphIdsAdd,
             actionTagsAdd,
+            needTagsAdd,
         } = lens;
 
         if (typeof sizeModifierDelta === 'number' && !Number.isNaN(sizeModifierDelta)) {
@@ -135,6 +112,12 @@ export class CreatureTemplateEntity extends NamedEntity {
         if (Array.isArray(actionTagsAdd) && actionTagsAdd.length > 0) {
             this.setActionTags(
                 Array.from(new Set([...this.actionTags, ...actionTagsAdd])),
+            );
+        }
+
+        if (Array.isArray(needTagsAdd) && needTagsAdd.length > 0) {
+            this.setNeedTags(
+                Array.from(new Set([...this.needTags, ...needTagsAdd])),
             );
         }
 
@@ -253,11 +236,20 @@ export class CreatureTemplateEntity extends NamedEntity {
         return this;
     }
 
-    setActionTags(actionTags?: string[] | null): this {
+    setActionTags(actionTags?: ActionTag[] | null): this {
         if (Array.isArray(actionTags)) {
             this.actionTags = [...actionTags];
         } else {
             this.actionTags = [];
+        }
+        return this;
+    }
+
+    setNeedTags(needTags?: NeedTag[] | null): this {
+        if (Array.isArray(needTags)) {
+            this.needTags = [...needTags];
+        } else {
+            this.needTags = [];
         }
         return this;
     }

@@ -1,6 +1,6 @@
 import { ActionDefinition } from '../action-definition';
 import { ActionTags, MasteryActionTag } from '../action-tags';
-import { comm, health, org, record, tech } from '../memes';
+import { comm, health, org, record, tech } from '../../world/memes';
 export const MasteryActions: ActionDefinition[] = [
     {
         tag: MasteryActionTag.PRACTICE_DRILLS,

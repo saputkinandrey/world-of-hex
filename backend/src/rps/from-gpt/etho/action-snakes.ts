@@ -1,6 +1,6 @@
 // etho/action-snakes.ts
 import type { ActionDefinition } from '../action-definition';
-import { eth, tech, comm } from '../memes';
+import { eth, tech, comm } from '../../world/memes';
 import { EthoActionTag } from '../action-tags';
 import {
     AMBUSH_FROM_COVER,

@@ -1,6 +1,6 @@
 import { ActionDefinition } from '../action-definition';
 import { PrivacyActionTag } from '../action-tags';
-import { cog, comm, culture, econ, heat, record } from '../memes';
+import { cog, comm, culture, econ, heat, record } from '../../world/memes';
 export const PrivacyActions: ActionDefinition[] = [
     {
         tag: PrivacyActionTag.CREATE_PRIVATE_QUARTERS,

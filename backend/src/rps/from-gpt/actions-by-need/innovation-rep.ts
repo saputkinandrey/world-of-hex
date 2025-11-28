@@ -1,6 +1,6 @@
 import { ActionDefinition } from '../action-definition';
 import { InnovationRepActionTag } from '../action-tags';
-import { comm, econ, fire, health, heat, org, record } from '../memes';
+import { comm, econ, fire, health, heat, org, record } from '../../world/memes';
 export const InnovationRepActions: ActionDefinition[] = [
     {
         tag: InnovationRepActionTag.PROTOTYPE_BENCH_SETUP,

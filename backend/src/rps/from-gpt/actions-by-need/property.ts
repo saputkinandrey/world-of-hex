@@ -1,6 +1,6 @@
 import { ActionDefinition } from '../action-definition';
 import { PropertyActionTag } from '../action-tags';
-import { comm } from '../memes';
+import { comm } from '../../world/memes';
 export const PropertyActions: ActionDefinition[] = [
     {
         tag: PropertyActionTag.CLAIM_LAND,

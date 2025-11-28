@@ -1,4 +1,4 @@
-import { eth, MemeId, tech, bio } from './memes';
+import { eth, MemeId, tech, bio } from '../world/memes';
 import { MemeNeedImpact, NeedTag } from './needs';
 
 export const MemeToNeeds: Record<MemeId, MemeNeedImpact> = {

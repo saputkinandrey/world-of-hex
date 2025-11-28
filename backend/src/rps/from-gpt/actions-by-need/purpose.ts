@@ -1,6 +1,6 @@
 import { ActionDefinition } from '../action-definition';
 import { PurposeActionTag } from '../action-tags';
-import { cog, comm, culture, econ, record, tech } from '../memes';
+import { cog, comm, culture, econ, record, tech } from '../../world/memes';
 export const PurposeActions: ActionDefinition[] = [
     {
         tag: PurposeActionTag.DEFINE_PERSONAL_VOW,

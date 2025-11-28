@@ -1,6 +1,6 @@
 import { ActionDefinition } from '../action-definition';
 import { CourageActionTag } from '../action-tags';
-import { cog, comm, culture, health } from '../memes';
+import { cog, comm, culture, health } from '../../world/memes';
 export const CourageActions: ActionDefinition[] = [
     {
         tag: CourageActionTag.STAND_GUARD_FRONTIER,

@@ -1,6 +1,7 @@
 // memes.ts
 
 import {morph, MorphId} from "./morphs";
+import {LeafValues} from "../types/leaf-values.type";
 
 export type MemeNode = {
     id: MemeId;
@@ -284,9 +285,7 @@ export const econ = memes.econ;
 export const eth = memes.eth;
 
 // ===== Типы: все листовые значения автоматически собираются в union =====
-type LeafValues<T> = T extends string
-    ? T
-    : { [K in keyof T]: LeafValues<T[K]> }[keyof T];
+
 export type MemeId = LeafValues<typeof memes>;
 
 // Явные зависимости (только «смысловые» ребра; остальное достроит резолвер)
@@ -306,8 +305,6 @@ export const memeDeps: Record<MemeId, readonly (MemeId|MorphId)[]> = {
     [memes.cog.iq10]: [memes.cog.iq9],
 
     // === Core ===
-    [core.perception]: [],
-    [core.motor_coordination]: [],
 
     // === Social / Communication ===
     [memes.soc.shared_attention]: [memes.comm.signaling, IQ4],
@@ -467,11 +464,6 @@ export const memeDeps: Record<MemeId, readonly (MemeId|MorphId)[]> = {
     [memes.eth.maintenance.cleanliness_core]: [core.perception], // ощущать дискомфорт/паразитов
     [memes.eth.maintenance.thermoregulation]: [core.perception],
     [memes.eth.maintenance.ecdysis]: [],
-
-    // === Сенсорика
-    [memes.tech.sensing.chemosense_basic]: [core.perception],
-    [memes.tech.sensing.vibration_basic]: [core.perception],
-    [memes.tech.sensing.heat_localization_basic]: [core.perception],
 
     // === Хищничество (база + драйвы)
     [memes.eth.predation.core]: [

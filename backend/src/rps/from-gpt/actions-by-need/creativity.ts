@@ -1,6 +1,6 @@
 import { ActionDefinition } from '../action-definition';
 import { CreativityActionTag } from '../action-tags';
-import { comm, econ, health, record, tech } from '../memes';
+import { comm, econ, health, record, tech } from '../../world/memes';
 export const CreativityActions: ActionDefinition[] = [
     {
         tag: CreativityActionTag.SKETCH_CONCEPT,

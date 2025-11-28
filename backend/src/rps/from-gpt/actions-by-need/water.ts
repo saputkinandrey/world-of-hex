@@ -1,7 +1,7 @@
 import { ActionDefinition } from '../action-definition';
 import { ActionTags, WaterActionTag } from '../action-tags';
 import { NeedThresholdEnum } from '../needs';
-import { food, health, fire } from '../memes';
+import { food, health, fire } from '../../world/memes';
 
 // ───────────────────────────────────────────────────────────────────────────────
 // Добыча/перенос/обработка воды

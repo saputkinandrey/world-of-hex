@@ -1,6 +1,6 @@
 import {ActionDefinition} from "../action-definition";
 import {EthoActionTag} from "../action-tags";
-import {eth} from "../memes";
+import {eth} from "../../world/memes";
 import {NeedThresholdEnum} from "../needs";
 
 export const SHED_SKIN_ECDYSIS: ActionDefinition = {

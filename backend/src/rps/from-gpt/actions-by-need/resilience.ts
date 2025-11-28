@@ -1,6 +1,6 @@
 import { ActionDefinition } from '../action-definition';
 import { ResilienceActionTag } from '../action-tags';
-import { cog, comm, culture, econ, food, health, heat, org, record, tech } from '../memes';
+import { cog, comm, culture, econ, food, health, heat, org, record, tech } from '../../world/memes';
 export const ResilienceActions: ActionDefinition[] = [
     {
         tag: ResilienceActionTag.EMERGENCY_DRILL,

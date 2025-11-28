@@ -1,6 +1,6 @@
 import { ActionDefinition } from '../action-definition';
 import { ActionTags, TrustActionTag } from '../action-tags';
-import { econ, record } from '../memes';
+import { econ, record } from '../../world/memes';
 export const TrustActions: ActionDefinition[] = [
     {
         tag: TrustActionTag.KEEP_PROMISE,

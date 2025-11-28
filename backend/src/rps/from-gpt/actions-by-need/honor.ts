@@ -1,6 +1,6 @@
 import { ActionDefinition } from '../action-definition';
 import { HonorActionTag } from '../action-tags';
-import { comm, health } from '../memes';
+import { comm, health } from '../../world/memes';
 export const HonorActions: ActionDefinition[] = [
     {
         tag: HonorActionTag.KEEP_WORD,

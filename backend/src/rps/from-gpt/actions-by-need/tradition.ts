@@ -1,6 +1,6 @@
 import { ActionDefinition } from '../action-definition';
 import { TraditionActionTag } from '../action-tags';
-import { cog, comm, culture } from '../memes';
+import { cog, comm, culture } from '../../world/memes';
 export const TraditionActions: ActionDefinition[] = [
     {
         tag: TraditionActionTag.KEEP_SEASONAL_RITE,

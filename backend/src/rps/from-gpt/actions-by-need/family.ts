@@ -1,6 +1,6 @@
 import { ActionDefinition } from '../action-definition';
 import { FamilyActionTag } from '../action-tags';
-import { cog, comm, culture, tech } from '../memes';
+import { cog, comm, culture, tech } from '../../world/memes';
 export const FamilyActions: ActionDefinition[] = [
     {
         tag: FamilyActionTag.PROVIDE_FOOD_TO_FAMILY,
