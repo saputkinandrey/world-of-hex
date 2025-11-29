@@ -5,6 +5,10 @@ import type { HexId, VolumeUnits } from '../hex.entity';
 import {PostureTag} from "./types";
 import {ActionDefinition, Idle} from "../actions/action-definition";
 import {NeedTag} from "../needs/needs";
+import {CreatureTemplateEntity} from "../../domain/character/creature-template.entity";
+import {ActionTag} from "../actions/action-tags";
+import {MemeId} from "../memes";
+import {getLeveledMorphLevel, leveledMorphPrefix, LeveledMorphTemplateId, MorphId} from "../morphs";
 
 /**
  * Пищевая ценность ресурса / приёма пищи.
@@ -132,6 +136,7 @@ export interface ActorInit {
     posture?: PostureTag;
     action?: ActionDefinition;
     inventoryItemIds?: string[];
+    creatureProfile?: CreatureTemplateEntity | null
 }
 
 /**
@@ -147,6 +152,19 @@ export class ActorEntity {
     metabolism: MetabolismProfile;
     posture: PostureTag;
     inventoryItemIds: string[];
+
+    /**
+     * Профиль существа (по сути, "рассовый/видовой" шаблон из домена).
+     * Содержит:
+     *  - базовые primary/secondary;
+     *  - sizeModifier;
+     *  - набор мемов/морфов;
+     *  - список тегов действий;
+     *  - список тегов нужд (через линзы).
+     *
+     * Важно: Actor НЕ должен мутировать профиль — это "чертёж".
+     */
+    protected creatureProfile: CreatureTemplateEntity | null = null;
 
     /**
      * Текущие значения дефицитов по нуждам.
@@ -170,6 +188,7 @@ export class ActorEntity {
         metabolism = new MetabolismProfile(),
         posture = 'standing',
         inventoryItemIds = [],
+        creatureProfile = null,
     }: ActorInit = {}) {
         this.id = id;
         this.name = name;
@@ -178,6 +197,8 @@ export class ActorEntity {
         this.metabolism = metabolism;
         this.posture = posture;
         this.inventoryItemIds = [...inventoryItemIds];
+
+        this.setCreatureProfile(creatureProfile ?? null);
     }
 
     setId(id: string): this {
@@ -238,6 +259,118 @@ export class ActorEntity {
             return false;
         }
         return this.action !== Idle;
+    }
+
+    // ───────────────────────────────────────────────────────────
+    // Профиль существа
+    // ───────────────────────────────────────────────────────────
+
+    /**
+     * Задать/сбросить профиль существа.
+     * Профиль воспринимаем как иммутабельный "чертёж".
+     *
+     * При назначении профиля можно:
+     *  - инициализировать нужды под его needTags;
+     *  - в будущем — инициализировать атрибуты, экшены и т.п.
+     */
+    setCreatureProfile(profile?: CreatureTemplateEntity | null): this {
+        this.creatureProfile = profile ?? null;
+
+        // Автоинициализация нужд под профиль (если он их несёт).
+        if (this.creatureProfile && Array.isArray(this.creatureProfile.needTags)) {
+            for (const tag of this.creatureProfile.needTags as NeedTag[]) {
+                // Не перезаписываем уже существующие значения, только инициализируем 0.
+                if (this.needValues[tag] === undefined) {
+                    this.needValues[tag] = 0;
+                }
+            }
+        }
+
+        return this;
+    }
+
+    getCreatureProfile(): CreatureTemplateEntity | null {
+        return this.creatureProfile;
+    }
+
+    /**
+     * Удобные геттеры для разных аспектов профиля.
+     * Возвращают readonly-массивы, чтобы профиль случайно не мутировали.
+     */
+
+    getProfileActionTags(): readonly ActionTag[] {
+        return (this.creatureProfile?.actionTags ?? []) as ActionTag[];
+    }
+
+    getProfileNeedTags(): readonly NeedTag[] {
+        return (this.creatureProfile?.needTags ?? []) as NeedTag[];
+    }
+
+    getProfileMemeIds(): readonly MemeId[] {
+        return (this.creatureProfile?.memeIds ?? []) as MemeId[];
+    }
+
+    getProfileMorphIds(): readonly MorphId[] {
+        return (this.creatureProfile?.morphIds ?? []) as MorphId[];
+    }
+
+    /**
+     * Проверки "умеет ли этот актор вообще такое".
+     */
+
+    hasActionTag(tag: ActionTag): boolean {
+        const tags = this.getProfileActionTags();
+        return tags.includes(tag);
+    }
+
+    hasNeedTag(tag: NeedTag): boolean {
+        const tags = this.getProfileNeedTags();
+        return tags.includes(tag);
+    }
+
+    hasMeme(memeId: MemeId): boolean {
+        const ids = this.getProfileMemeIds();
+        return ids.includes(memeId);
+    }
+
+    /**
+     * Проверка точного морфа (для неуровневых).
+     */
+    hasMorph(morphId: MorphId): boolean {
+        const ids = this.getProfileMorphIds();
+        return ids.includes(morphId);
+    }
+
+    /**
+     * Найти конкретный уровневый морф по шаблону.
+     *
+     *   actor.findMorph(morph.rest.lessSleep)
+     *   → "morph.rest.less-sleep.3" | null
+     */
+    findMorph(template: LeveledMorphTemplateId): MorphId | null {
+        const ids = this.getProfileMorphIds();
+        const prefix = leveledMorphPrefix(template);
+
+        for (const id of ids) {
+            if (id.startsWith(prefix)) {
+                return id as MorphId;
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Получить уровень уровневого морфа по шаблону.
+     *
+     *   actor.getMorphLevel(morph.rest.lessSleep)
+     *   → 0 (нет морфа) или N (уровень >= 1)
+     */
+    getMorphLevel(template: LeveledMorphTemplateId): number {
+        const id = this.findMorph(template);
+        if (!id) return 0;
+
+        const level = getLeveledMorphLevel(id, template);
+        return level ?? 0;
     }
 
     // ───────────────────────────────────────────────────────────

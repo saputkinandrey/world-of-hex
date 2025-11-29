@@ -136,39 +136,6 @@ const order = [
     NeedThresholdEnum.CRITICAL,
 ] as const;
 
-// const idx = (z: NeedThresholdEnum) => order.indexOf(z);
-//
-// // главная проверка: все требуемые гейты должны пройти
-// export function actionAllowedByNeeds(
-//     action: ActionDefinition,
-//     needs: Map<NeedTag, { level: number; thresholds: NeedThresholds }>,
-// ): boolean {
-//     const gates = action.needThresholds;
-//     if (!gates) return true;
-//
-//     for (const [needTag, gate] of Object.entries(gates) as [
-//         NeedTag,
-//         NeedGate,
-//     ][]) {
-//         const state = needs.get(needTag);
-//         if (!state) return false; // существо не «знает» эту потребность → экшен недоступен
-//
-//         const z = zoneOf(state.level, state.thresholds);
-//         // ниже WARN — считаем как «зона отсутствует»
-//         const hasZone = z !== null;
-//
-//         if (gate.atLeast) {
-//             if (!hasZone) return false;
-//             if (idx(z!) < idx(gate.atLeast)) return false;
-//         }
-//         if (gate.atMost) {
-//             // если ниже WARN, то любая atMost пройдёт
-//             if (hasZone && idx(z!) > idx(gate.atMost)) return false;
-//         }
-//     }
-//     return true;
-// }
-
 export const Idle: ActionDefinition = {
     tag: 'IDLE',
 

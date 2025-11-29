@@ -6,6 +6,12 @@ import {LeafValues} from "../types/leaf-values.type";
 export type MorphId = LeafValues<typeof morph>;
 
 /**
+ * Шаблон уровневого морфа:
+ *   "morph.rest.less-sleep.%level%"
+ */
+export type LeveledMorphTemplateId = `${string}.%level%`;
+
+/**
  * Базовое дерево морфологических способностей.
  *
  * Здесь собран обобщённый и модульный набор для позвоночных и крупных беспозвоночных:
@@ -23,6 +29,24 @@ export type MorphId = LeafValues<typeof morph>;
  * и базовых насекомых/пауков. Потом можно будет аккуратно дополнять.
  */
 export const morph = {
+    rest: {
+        /**
+         * GURPS Less Sleep — уровневый морф.
+         *
+         * Конкретный MorphId получается подстановкой числа уровня
+         * вместо "%level%", например:
+         *
+         *   morph.rest.less-sleep.1
+         *   morph.rest.less-sleep.2
+         *   morph.rest.less-sleep.5
+         *
+         * Рекомендуемый гурпсовый диапазон: 1–4,
+         * но движок не ограничен — можно сделать и 6, и больше.
+         */
+        lessSleep: 'morph.rest.less-sleep.%level%' as LeveledMorphTemplateId,
+        moreSleep: 'morph.rest.more-sleep.%level%' as LeveledMorphTemplateId,
+        sleep: 'morph.rest.sleep.%level%' as LeveledMorphTemplateId,
+    },
     kinematics: {
         combat: {
             body_lunge: 'eth.kinematics.combat.body_lunge',
@@ -346,3 +370,74 @@ export const morph = {
         warmBlooded: 'morph.thermoreg.warmBlooded',
     },
 } as const;
+
+/**
+ * Сгенерировать конкретный MorphId из шаблона и уровня.
+ *
+ *   leveledMorph(morph.rest.lessSleep, 3)
+ *   → "morph.rest.less-sleep.3"
+ */
+export function leveledMorph(
+    template: LeveledMorphTemplateId,
+    level: number,
+): MorphId {
+    const safeLevel = Number.isFinite(level) && level > 0 ? Math.floor(level) : 1;
+    return template.replace('%level%', String(safeLevel)) as MorphId;
+}
+
+/**
+ * Префикс шаблона:
+ *   "morph.rest.less-sleep.%level%" → "morph.rest.less-sleep."
+ */
+export function leveledMorphPrefix(template: LeveledMorphTemplateId): string {
+    return template.replace('%level%', '');
+}
+
+/**
+ * Проверить, что конкретный MorphId относится к данному уровневому шаблону.
+ */
+export function isMorphOfTemplate(
+    id: MorphId,
+    template: LeveledMorphTemplateId,
+): boolean {
+    return id.startsWith(leveledMorphPrefix(template));
+}
+
+/**
+ * Извлечь уровень из MorphId, опционально проверяя, что он подходит под шаблон.
+ *
+ *   getLeveledMorphLevel("morph.rest.less-sleep.3", morph.rest.lessSleep) → 3
+ *
+ * Если морф не подходит под шаблон или формат сломан — вернёт null.
+ */
+export function getLeveledMorphLevel(
+    id: MorphId,
+    template?: LeveledMorphTemplateId,
+): number | null {
+    if (template && !isMorphOfTemplate(id, template)) {
+        return null;
+    }
+
+    const lastDot = id.lastIndexOf('.');
+    if (lastDot === -1 || lastDot === id.length - 1) return null;
+
+    const tail = id.slice(lastDot + 1); // "3", "10"
+    const num = Number.parseInt(tail, 10);
+    if (!Number.isFinite(num) || num <= 0) return null;
+
+    return num;
+}
+
+/**
+ * Совсем общий хелпер "уровня" по одному конкретному MorphId.
+ * Подходит для любого морфа, который заканчивается ".<число>".
+ *
+ *   morphLvl("morph.rest.less-sleep.5") → 5
+ *   morphLvl("morph.cog.iq.7") → 7
+ *   morphLvl("morph.core.perception") → 0
+ */
+export function morphLvl(id: MorphId | null | undefined): number {
+    if (!id) return 0;
+    const level = getLeveledMorphLevel(id);
+    return level ?? 0;
+}
