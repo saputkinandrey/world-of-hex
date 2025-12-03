@@ -8,7 +8,7 @@ import {NeedTag} from "../needs/needs";
 import {CreatureTemplateEntity} from "../../domain/character/creature-template.entity";
 import {ActionTag} from "../actions/action-tags";
 import {MemeId} from "../memes";
-import {getLeveledMorphLevel, leveledMorphPrefix, LeveledMorphTemplateId, MorphId} from "../morphs";
+import {getLeveledMorphLevel, leveledMorphPrefix, LeveledMorphTemplateId, morph, MorphId} from "../morphs";
 
 /**
  * Пищевая ценность ресурса / приёма пищи.
@@ -140,6 +140,53 @@ export interface ActorInit {
 }
 
 /**
+ * Определить Size Modifier (SM) существа по его морфам.
+ *
+ * Если морф morph.size.sm.%level% не найден — считаем SM0.
+ */
+export function getSizeModifierFromMorphs(actor: ActorEntity): number {
+    const ids = actor.getProfileMorphIds();
+    const template = morph.size.sm;
+    const prefix = leveledMorphPrefix(template);
+
+    for (const id of ids) {
+        if (!id.startsWith(prefix)) continue;
+
+        const lvl = getLeveledMorphLevel(id, template);
+        if (lvl === null || Number.isNaN(lvl)) continue;
+
+        return lvl; // предполагаем ровно один SM-морф на акторе
+    }
+
+    // по умолчанию — SM0 (человекоподобный)
+    return 0;
+}
+
+/**
+ * Вместимость желудка в фунтах для данного актора.
+ *
+ * Модель:
+ *   - SM0 → 1 lb (человек),
+ *   - SM+1 → 2 lb,
+ *   - SM+2 → 4 lb,
+ *   - SM-1 → 0.5 lb,
+ *   - SM-2 → 0.25 lb,
+ *   и т.д.
+ *
+ * Это упрощённая, но гурпс-совместимая логика (размер → масса/объём).
+ */
+export function getStomachCapacityLb(actor: ActorEntity): number {
+    const sm = getSizeModifierFromMorphs(actor);
+
+    const BASE_CAPACITY_SM0 = 1; // 1 lb для SM0
+    const factor = Math.pow(2, sm);
+
+    // защищаемся от слишком маленьких значений
+    const capacity = BASE_CAPACITY_SM0 * factor;
+    return Math.max(0.05, capacity);
+}
+
+/**
  * Актор (живое существо) в мире гексов.
  * Хранит минимум, нужный для физики и метаболизма.
  * Мемы, потребности и IQ будут навешиваться сверху.
@@ -152,6 +199,26 @@ export class ActorEntity {
     metabolism: MetabolismProfile;
     posture: PostureTag;
     inventoryItemIds: string[];
+
+    protected stomachFillMassLb: number = 0;
+
+    getStomachFillMassLb(): number {
+        return this.stomachFillMassLb;
+    }
+
+    setStomachFillMassLb(massLb: number): this {
+        this.stomachFillMassLb = Math.max(0, massLb);
+        return this;
+    }
+
+    changeStomachFillMassLb(deltaLb: number): this {
+        return this.setStomachFillMassLb(this.stomachFillMassLb + deltaLb);
+    }
+
+    getStomachFreeCapacityLb(): number {
+        const capacity = getStomachCapacityLb(this);
+        return Math.max(0, capacity - this.stomachFillMassLb);
+    }
 
     /**
      * Профиль существа (по сути, "рассовый/видовой" шаблон из домена).

@@ -29,6 +29,22 @@ export type LeveledMorphTemplateId = `${string}.%level%`;
  * и базовых насекомых/пауков. Потом можно будет аккуратно дополнять.
  */
 export const morph = {
+    // ───────────────────────────────────────────────────────────
+    // Размер (GURPS-совместимые Size Modifier'ы)
+    // ───────────────────────────────────────────────────────────
+    size: {
+        /**
+         * Size Modifier (SM) в терминах GURPS.
+         *
+         * Примеры MorphId:
+         *   morph.size.sm.-6  → SM-6 (крыса/мелкая ящерица)
+         *   morph.size.sm.0   → SM0  (человек)
+         *   morph.size.sm.2   → SM+2 (лошадь)
+         *
+         * Если SM-морф отсутствует — считаем SM0 по умолчанию.
+         */
+        sm: 'morph.size.sm.%level%' as LeveledMorphTemplateId,
+    },
     rest: {
         /**
          * GURPS Less Sleep — уровневый морф.
@@ -46,6 +62,35 @@ export const morph = {
         lessSleep: 'morph.rest.less-sleep.%level%' as LeveledMorphTemplateId,
         moreSleep: 'morph.rest.more-sleep.%level%' as LeveledMorphTemplateId,
         sleep: 'morph.rest.sleep.%level%' as LeveledMorphTemplateId,
+    },
+    water: {
+        /**
+         * Базовая суточная потребность в воде, в литрах:
+         *
+         *   morph.water.need.2  → базово 2 л/сутки
+         *   morph.water.need.3  → базово 3 л/сутки
+         *
+         * Если морфа нет — по умолчанию считаем 2 л/сутки.
+         */
+        need: 'morph.water.need.%level%' as LeveledMorphTemplateId,
+
+        /**
+         * Меньше воды:
+         *   morph.water.less-need.1  → -1 л/сутки к базовой потребности
+         *   morph.water.less-need.2  → -2 л/сутки
+         *
+         * Не даём итоговой потребности уйти ниже 0.
+         */
+        lessNeed: 'morph.water.less-need.%level%' as LeveledMorphTemplateId,
+
+        /**
+         * Больше воды:
+         *   morph.water.more-need.1  → +1 л/сутки к базовой потребности
+         *   morph.water.more-need.3  → +3 л/сутки
+         *
+         * Без верхнего ограничения — пустынные/крупные твари могут пить много.
+         */
+        moreNeed: 'morph.water.more-need.%level%' as LeveledMorphTemplateId,
     },
     kinematics: {
         combat: {
@@ -288,56 +333,6 @@ export const morph = {
         venom_fangs_rear: 'morph.natural_weapon.venom_fangs_rear',
     },
 
-// ───────────────────────────────────────────────────────────
-// Размер (GURPS-совместимые Size Modifier'ы)
-// ───────────────────────────────────────────────────────────
-    size: {
-        /** GURPS: SM-8 — очень мелкие: мышь, мелкая ящерица, воробей. */
-        SMn8: 'morph.size.SM-8',
-
-        /** GURPS: SM-7 — побольше мыши, но всё ещё в "мелочи". */
-        SMn7: 'morph.size.SM-7',
-
-        /** GURPS: SM-6 — крыса, крупная ящерица, небольшая птица. */
-        SMn6: 'morph.size.SM-6',
-
-        /** GURPS: SM-5 — что-то вроде хорька / очень мелкой кошки. */
-        SMn5: 'morph.size.SM-5',
-
-        /** GURPS: SM-4 — кошка, мелкая собака. */
-        SMn4: 'morph.size.SM-4',
-
-        /** GURPS: SM-3 — крупная кошка / маленькая лиса. */
-        SMn3: 'morph.size.SM-3',
-
-        /** GURPS: SM-2 — лисица, средняя собака. */
-        SMn2: 'morph.size.SM-2',
-
-        /** GURPS: SM-1 — мелкий человек, подросток, очень стройный. */
-        SMn1: 'morph.size.SM-1',
-
-        /** GURPS: SM+0 — "человеческий" базовый размер. */
-        SM0: 'morph.size.SM+0',
-
-        /** GURPS: SM+1 — крупный человек, между человеком и лошадью. */
-        SMp1: 'morph.size.SM+1',
-
-        /** GURPS: SM+2 — лошадь, корова, крупный хищник. */
-        SMp2: 'morph.size.SM+2',
-
-        /** GURPS: SM+3 — очень крупные звери, мелкие динозавры. */
-        SMp3: 'morph.size.SM+3',
-
-        /** GURPS: SM+4 — слон, большой динозавр/дракон. */
-        SMp4: 'morph.size.SM+4',
-
-        /** GURPS: SM+5 — межслоново-китовая зона. */
-        SMp5: 'morph.size.SM+5',
-
-        /** GURPS: SM+6 — кит, очень крупный дракон. */
-        SMp6: 'morph.size.SM+6',
-    },
-
     // ───────────────────────────────────────────────────────────
     // Дыхание
     // ───────────────────────────────────────────────────────────
@@ -404,26 +399,24 @@ export function isMorphOfTemplate(
 }
 
 /**
- * Извлечь уровень из MorphId, опционально проверяя, что он подходит под шаблон.
+ * Извлечь уровень из MorphId, опционально проверяя шаблон.
  *
- *   getLeveledMorphLevel("morph.rest.less-sleep.3", morph.rest.lessSleep) → 3
- *
- * Если морф не подходит под шаблон или формат сломан — вернёт null.
+ * ВАЖНО: уровень может быть отрицательным или 0.
  */
 export function getLeveledMorphLevel(
     id: MorphId,
     template?: LeveledMorphTemplateId,
 ): number | null {
-    if (template && !isMorphOfTemplate(id, template)) {
+    if (template && !id.startsWith(leveledMorphPrefix(template))) {
         return null;
     }
 
     const lastDot = id.lastIndexOf('.');
     if (lastDot === -1 || lastDot === id.length - 1) return null;
 
-    const tail = id.slice(lastDot + 1); // "3", "10"
+    const tail = id.slice(lastDot + 1); // "0", "-6", "2", ...
     const num = Number.parseInt(tail, 10);
-    if (!Number.isFinite(num) || num <= 0) return null;
+    if (!Number.isFinite(num)) return null;
 
     return num;
 }

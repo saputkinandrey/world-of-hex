@@ -108,12 +108,12 @@ export interface ActionDefinition {
      *  - true  — если состояние нужно завершить (перейти в idle);
      *  - false — если продолжаем оставаться в этой активности.
      */
-    perform(deltaTime: number): void;
+    perform?(deltaTime: number): void;
 
     /**
      * Выход из состояния (опционально).
      */
-    onExit?(ctx: ActionContext): void;
+    onExit?(): void;
 
 }
 
