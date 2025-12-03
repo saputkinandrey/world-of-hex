@@ -175,8 +175,6 @@ export interface VisionEnvModifiers {
     miscMod?: number;
 }
 
-import type { ActorEntity } from "./actor.entity";
-
 /**
  * Получить Per актора. Адаптируй под свой SecondaryAttributesEntity.
  */
