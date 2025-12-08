@@ -10,6 +10,8 @@ import {
   TradeEffectCategorySchema,
 } from './schemas/trade-effect-category.schema';
 import { TradeEffectKey, TradeEffectKeySchema } from './schemas/trade-effect-key.schema';
+import {LocationService} from "./services/location.service";
+import {LocationGateway} from "./services/location.gateway";
 
 @Module({
   imports: [
@@ -22,7 +24,19 @@ import { TradeEffectKey, TradeEffectKeySchema } from './schemas/trade-effect-key
     ]),
   ],
   controllers: [],
-  providers: [],
-  exports: [CombatService, EquipmentService, EquipmentGateway],
+  providers: [
+      CombatService,
+      EquipmentService,
+      EquipmentGateway,
+      LocationService,
+      LocationGateway,
+  ],
+  exports: [
+      CombatService,
+      EquipmentService,
+      EquipmentGateway,
+      LocationService,
+      LocationGateway,
+  ],
 })
 export class RpsModule {}

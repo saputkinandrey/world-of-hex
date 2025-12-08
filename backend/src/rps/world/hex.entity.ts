@@ -96,7 +96,7 @@ export type VolumeUnits = number;
 /** Дефолтная вместимость гекса. */
 export const DEFAULT_HEX_VOLUME_CAPACITY: VolumeUnits = 4;
 
-export type HexContentKind = 'creature' | 'item' | 'structure';
+export type HexContentKind = 'creature' | 'item' | 'structure' | 'environment';
 
 /**
  * "Что-то, что занимает место в гексе".
