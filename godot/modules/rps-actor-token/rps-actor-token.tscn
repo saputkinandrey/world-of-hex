@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Script" uid="uid://0qalnhyabwit" path="res://modules/rps-actor-token/rps-actor-token.gd" id="1"]
+[ext_resource type="Texture2D" uid="uid://t2ui0d1ji55i" path="res://modules/rps-actor-token/assets/lizard-1-6.png" id="2"]
+
+[node name="RpsActorToken" type="Node2D"]
+script = ExtResource("1")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2")
+centered = true
+hframes = 6
+vframes = 1

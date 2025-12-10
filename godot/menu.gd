@@ -2,6 +2,8 @@ extends Control
 
 @export var seaCombatScene: SeaCombatScene
 @export var shipConstructorScene: Node2D
+@export var rpsLocationScene: RpsLocationScene
+
 
 
 # Called when the node enters the scene tree for the first time.
@@ -36,6 +38,11 @@ func _on_battle_for_nothing_pressed() -> void:
     var battleForNothingId: String = '6873743de19a720b371cac5e'
     self.seaCombatScene.connectToEncounter(battleForNothingId)
     pass # Replace with function body.
+
+
+func _on_rps_location_pressed() -> void:
+    var location_id: String = "dev:lizard-puddle"
+    rpsLocationScene.connect_to_location(location_id)
 
 
 func _on_sort_of_pressed() -> void:

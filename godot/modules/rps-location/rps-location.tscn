@@ -1,0 +1,20 @@
+[gd_scene load_steps=5 format=3]
+
+[ext_resource type="Script" path="res://modules/rps-location/rps-location.gd" id="1"]
+[ext_resource type="Script" path="res://modules/rps-location/rps-location-socket.gd" id="2"]
+[ext_resource type="PackedScene" path="res://modules/rps-actor-token/rps-actor-token.tscn" id="3"]
+[ext_resource type="PackedScene" path="res://modules/rps-decoration-token/rps-decoration-token.tscn" id="4"]
+
+[node name="Rps Location" type="Node2D" node_paths=PackedStringArray("mainScene")]
+script = ExtResource("1")
+actor_token_scene = ExtResource("3")
+decoration_token_scene = ExtResource("4")
+
+
+[node name="RpsLocationSocket" type="Node" parent="."]
+script = ExtResource("2")
+
+[node name="Map" type="Node2D" parent="."]
+
+[node name="Tokens" type="Node2D" parent="."]
+

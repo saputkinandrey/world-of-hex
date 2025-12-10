@@ -1,0 +1,34 @@
+[gd_scene load_steps=7 format=3 uid="uid://dxvudajhevayb"]
+
+[ext_resource type="PackedScene" uid="uid://u7kkbp6vpf1b" path="res://scenes/sea_combat.tscn" id="1_2s51p"]
+[ext_resource type="Script" uid="uid://dian81loik6t8" path="res://main_scene.gd" id="1_jjpdp"]
+[ext_resource type="PackedScene" uid="uid://cmcwccg2n6hbr" path="res://ship_constructor.tscn" id="4_fcmkb"]
+[ext_resource type="SpriteFrames" uid="uid://c5teuc846ltj0" path="res://LEGACY/resources/animations/new_sprite_frames.tres" id="6_7cbxl"]
+[ext_resource type="PackedScene" uid="uid://ceiddnee04aau" path="res://scenes/esc.tscn" id="6_ysdxk"]
+[ext_resource type="PackedScene" path="res://modules/rps-location/rps-location.tscn" id="7_rpsloc"]
+
+[node name="Main Scene" type="Node2D" node_paths=PackedStringArray("scenes", "activeScene")]
+script = ExtResource("1_jjpdp")
+scenes = [NodePath("Sea Combat"), NodePath("Rps Location")]
+activeScene = NodePath("Sea Combat")
+
+[node name="Sea Combat" parent="." node_paths=PackedStringArray("mainScene") instance=ExtResource("1_2s51p")]
+visible = false
+mainScene = NodePath("..")
+
+[node name="Rps Location" parent="." node_paths=PackedStringArray("mainScene") instance=ExtResource("7_rpsloc")]
+visible = false
+mainScene = NodePath("..")
+
+[node name="Ship Constructor" parent="." instance=ExtResource("4_fcmkb")]
+visible = false
+
+[node name="menu" parent="." node_paths=PackedStringArray("seaCombatScene", "rpsLocationScene") instance=ExtResource("6_ysdxk")]
+seaCombatScene = NodePath("../Sea Combat")
+rpsLocationScene = NodePath("../Rps Location")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+visible = false
+position = Vector2(904, 478)
+sprite_frames = ExtResource("6_7cbxl")
+animation = &"shot"

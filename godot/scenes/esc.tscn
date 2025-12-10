@@ -77,7 +77,17 @@ offset_right = 1701.0
 offset_bottom = 451.0
 text = "Sort Of"
 
+[node name="Rps_Location" type="Button" parent="."]
+layout_mode = 0
+offset_left = 1333.0
+offset_top = 470.0
+offset_right = 1701.0
+offset_bottom = 530.0
+text = "RPS: Lizard & Puddle"
+
 [connection signal="pressed" from="Exit" to="." method="_on_exit_pressed"]
 [connection signal="pressed" from="Sea_Combat" to="." method="_on_sea_combat_pressed"]
 [connection signal="pressed" from="Battle_For_Nothing" to="." method="_on_battle_for_nothing_pressed"]
 [connection signal="pressed" from="Sort_of" to="." method="_on_sort_of_pressed"]
+[connection signal="pressed" from="Rps_Location" to="." method="_on_rps_location_pressed"]
+
