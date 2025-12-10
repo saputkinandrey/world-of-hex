@@ -75,7 +75,7 @@ export const LIZARD_MORPHS: MorphId[] = [
 
     // План тела и общий класс
     morph.body_plan.tetrapod_small_ground,
-    morph.size.SMn6,          // вместо прошлых tiny/SM-6
+    'morph.size.sm.-6' as MorphId,          // вместо прошлых tiny/SM-6
     morph.thermoreg.coldBlooded,
     morph.respiration.lungs_basic,
 

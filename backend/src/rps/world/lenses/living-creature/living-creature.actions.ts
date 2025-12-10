@@ -139,7 +139,9 @@ export const EAT: ActionDefinition = {
 
     // rewardSecondary здесь можно оставить пустым: эффекты идут
     // через систему метаболизма / NutritionContent.
-    perform(ctx: ActionContext, deltaTime: number) {
+    perform(deltaTime: number) {
+        const { ctx } = this;
+        if (!ctx) return;
         // ctx.actor.metabolism.nutritionNeedsPerDay
     }
 };

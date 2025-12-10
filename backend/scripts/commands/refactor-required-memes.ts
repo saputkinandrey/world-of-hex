@@ -619,7 +619,7 @@ for (const fileName of fs.readdirSync(ACTIONS_DIR)) {
       }
       return ts.visitEachChild(node, visitor, context);
     };
-    return (node) => ts.visitNode(node, visitor);
+    return (node) => (ts.visitNode(node, visitor) as ts.SourceFile) ?? node;
   };
 
   const result = ts.transform(sourceFile, [transformer]);
@@ -649,7 +649,6 @@ for (const fileName of fs.readdirSync(ACTIONS_DIR)) {
     if (!hasMemesImport) {
       const sortedAliases = [...aliasesArray].sort((a, b) => a.localeCompare(b));
       const newImport = ts.factory.createImportDeclaration(
-        undefined,
         undefined,
         ts.factory.createImportClause(
           false,

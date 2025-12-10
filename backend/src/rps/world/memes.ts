@@ -286,7 +286,7 @@ export const eth = memes.eth;
 
 // ===== Типы: все листовые значения автоматически собираются в union =====
 
-export type MemeId = LeafValues<typeof memes>;
+export type MemeId = string;
 
 // Явные зависимости (только «смысловые» ребра; остальное достроит резолвер)
 export const memeDeps: Record<MemeId, readonly (MemeId|MorphId)[]> = {
