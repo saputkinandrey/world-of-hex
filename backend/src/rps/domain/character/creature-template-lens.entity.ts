@@ -137,9 +137,9 @@ export class CreatureTemplateLensEntity extends NamedEntity implements CreatureT
         return this;
     }
 
-    setActionTagsAdd(actionTags?: ActionTag[] | null): this {
+    setActionTagsAdd(actionTags?: (ActionTag | string)[] | null): this {
         if (Array.isArray(actionTags)) {
-            this.actionTagsAdd = [...actionTags];
+            this.actionTagsAdd = actionTags.map((tag) => tag as ActionTag);
         } else {
             this.actionTagsAdd = [];
         }

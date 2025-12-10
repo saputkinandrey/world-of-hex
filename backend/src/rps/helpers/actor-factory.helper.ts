@@ -1,14 +1,14 @@
 // helpers/actor-factory.helper.ts
 
-import type { HexId } from '../from-gpt/world/hex.entity';
+import type { HexId } from '../world/hex.entity';
 import {
     ActorEntity,
     CreaturePhysicalProfile,
     MetabolismProfile,
     type NutritionContent,
     type NutritionNeeds,
-} from '../from-gpt/world/actor.entity';
-import type { CreatureTemplateEntity } from '../domain/creature/creature-template.entity';
+} from '../world/actor/actor.entity';
+import type { CreatureTemplateEntity } from '../world/creatures/creature-template.entity';
 import type { CharacterEntity } from '../domain/character/character.entity';
 
 /**

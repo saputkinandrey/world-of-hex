@@ -1,23 +1,7 @@
-import { eth, MemeId, tech, bio } from '../world/memes';
+import { eth, MemeId, tech } from '../world/memes';
 import { MemeNeedImpact, NeedTag } from './needs';
 
 export const MemeToNeeds: Record<MemeId, MemeNeedImpact> = {
-    // === БАЗА ЖИЗНИ ===
-    [bio.vital.core]: {
-        gate: [
-            NeedTag.FOOD,
-            NeedTag.WATER,
-            NeedTag.BREATH,
-            NeedTag.TEMPERATURE,
-            NeedTag.REST,
-            NeedTag.HEALTH,
-            NeedTag.REPRODUCTION,
-            NeedTag.COMFORT,
-        ],
-        present: [],
-    },
-
-
     [eth.maintenance.cleanliness_core]: {
         gate: [NeedTag.HYGIENE],
         present: [{ need: NeedTag.HYGIENE, weight: 0.25 }],

@@ -3,7 +3,7 @@
 
 import {LeafValues} from "../types/leaf-values.type";
 
-export type MorphId = LeafValues<typeof morph>;
+export type MorphId = string;
 
 /**
  * Шаблон уровневого морфа:

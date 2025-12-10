@@ -83,12 +83,12 @@ export function zoneOf(
     return null; // ниже warn — «нормально»
 }
 
-const order = [
+const order: NeedThresholdEnum[] = [
     NeedThresholdEnum.WARN,
     NeedThresholdEnum.IMPAIRED,
     NeedThresholdEnum.SEVERE,
     NeedThresholdEnum.CRITICAL,
-] as const;
+];
 const idx = (z: NeedThresholdEnum) => order.indexOf(z);
 
 // главная проверка: все требуемые гейты должны пройти
