@@ -15,8 +15,8 @@ import {
 } from './schemas/trade-effect-key.schema';
 import { LocationService } from './services/location.service';
 import { LocationGateway } from './services/location.gateway';
-import { Player, PlayerSchema } from '../sea-combat/schemas/player.schema';
-import { PlayerRepository } from '../sea-combat/repositories/player.repository';
+import { PlayerModule } from '../player/player.module';
+import { PlayerRepository } from '../player/repositories/player.repository';
 
 @Module({
     imports: [
@@ -29,8 +29,8 @@ import { PlayerRepository } from '../sea-combat/repositories/player.repository';
                 name: TradeEffectCategory.name,
                 schema: TradeEffectCategorySchema,
             },
-            { name: Player.name, schema: PlayerSchema },
         ]),
+        PlayerModule,
     ],
     controllers: [],
     providers: [
@@ -39,7 +39,6 @@ import { PlayerRepository } from '../sea-combat/repositories/player.repository';
         EquipmentGateway,
         LocationService,
         LocationGateway,
-        PlayerRepository,
     ],
     exports: [
         CombatService,

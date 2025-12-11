@@ -9,11 +9,11 @@ import {
 import { ApiTags } from '@nestjs/swagger';
 
 import { EncounterService } from '../services/encounter.service';
-import { PlayerRepository } from '../repositories/player.repository';
+import { PlayerRepository } from '../../player/repositories/player.repository';
 import { PostJoinEncounterBodyDto } from '../dto/player/post-join-encounter-body.dto';
 import { PostLeaveEncounterBodyDto } from '../dto/player/post-leave-encounter-body.dto';
 import { ShipRepository } from '../repositories/ship.repository';
-import { PlayerService } from '../services/player.service';
+import { PlayerService } from '../../player/services/player.service';
 
 // @ApiBearerAuth()
 // @Roles(RoleEnum.admin)

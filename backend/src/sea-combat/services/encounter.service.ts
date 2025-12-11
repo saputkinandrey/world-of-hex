@@ -8,7 +8,7 @@ import {
   PlayerToEncounter,
   ShipToEncounter,
 } from '../schemas/encounter.schema';
-import { Player, PlayerDocument } from '../schemas/player.schema';
+import { Player, PlayerDocument } from '../../player/schemas/player.schema';
 import { Ship, ShipDocument } from '../schemas/ship.schema';
 import {
   DirectionToVectorEven,

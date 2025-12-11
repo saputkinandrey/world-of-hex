@@ -10,10 +10,10 @@ import {
 import { ApiTags } from '@nestjs/swagger';
 
 import { PostNewPlayerBodyDto } from '../dto/players/post-new-player-body.dto';
-import { PlayerRepository } from '../repositories/player.repository';
+import { PlayerRepository } from '../../player/repositories/player.repository';
 import { PostOwnAShipBodyDto } from '../dto/player/post-own-a-ship-body.dto';
 import { ShipRepository } from '../repositories/ship.repository';
-import { PlayerService } from '../services/player.service';
+import { PlayerService } from '../../player/services/player.service';
 
 // @ApiBearerAuth()
 // @Roles(RoleEnum.admin)

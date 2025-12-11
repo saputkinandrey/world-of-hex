@@ -9,7 +9,7 @@ import { UserConnectedResponsePayloadDto } from '../dto/user-connected/user-conn
 import { LoadLocationMessagePayloadDto } from '../dto/location/load-location-message.payload.dto';
 import { LoadLocationResponsePayloadDto } from '../dto/location/load-location-response.payload.dto';
 import { LocationService } from './location.service';
-import { PlayerRepository } from '../../sea-combat/repositories/player.repository';
+import { PlayerRepository } from '../../player/repositories/player.repository';
 
 @WebSocketGateway({ path: '/ws-rps-location' })
 @Injectable()
