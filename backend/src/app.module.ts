@@ -22,6 +22,7 @@ import { ExpressAdapter } from '@bull-board/express';
 import { JwtModule } from '@nestjs/jwt';
 import { AiModule } from './ai/ai.module';
 import { URL } from 'url';
+import {RpsModule} from "./rps/rps.module";
 
 const infrastructureDatabaseModule = MongooseModule.forRootAsync({
     useClass: MongooseConfigService,
@@ -135,6 +136,7 @@ const infrastructureDatabaseModule = MongooseModule.forRootAsync({
         MailerModule,
         HomeModule,
         SeaCombatModule,
+        RpsModule,
         AiModule,
     ],
 })

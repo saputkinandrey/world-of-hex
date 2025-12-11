@@ -10,7 +10,7 @@ import { LoadLocationMessagePayloadDto } from '../dto/location/load-location-mes
 import { LoadLocationResponsePayloadDto } from '../dto/location/load-location-response.payload.dto';
 import { LocationService } from './location.service';
 
-@WebSocketGateway({ path: '/ws' })
+@WebSocketGateway({ path: '/ws-rps-location' })
 @Injectable()
 export class LocationGateway implements OnModuleInit {
     @WebSocketServer()
@@ -37,8 +37,9 @@ export class LocationGateway implements OnModuleInit {
         [RpsWsMessage.LOAD_LOCATION]: async (
             payload: LoadLocationMessagePayloadDto,
         ): Promise<RpsResponseDto<LoadLocationResponsePayloadDto>> => {
-            return this.locationService.loadLocation(payload.locationId).then(
-                (snapshot) => {
+            return this.locationService
+                .loadLocation(payload.locationId)
+                .then((snapshot) => {
                     console.log(
                         `LOCATION LOADED: ${snapshot.locationId} (${snapshot.locationName})`,
                     );
@@ -46,8 +47,7 @@ export class LocationGateway implements OnModuleInit {
                         response: RpsWsResponse.LOAD_LOCATION,
                         payload: snapshot,
                     };
-                },
-            );
+                });
         },
     };
 
