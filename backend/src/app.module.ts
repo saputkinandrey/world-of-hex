@@ -41,7 +41,6 @@ const infrastructureDatabaseModule = MongooseModule.forRootAsync({
         }),
         infrastructureDatabaseModule,
         EventNestMongoDbModule.forRootAsync({
-            imports: [ConfigModule],
             useFactory: (configService: ConfigService<AllConfigType>) => {
                 const configuredUri = configService.get('database.url', {
                     infer: true,
