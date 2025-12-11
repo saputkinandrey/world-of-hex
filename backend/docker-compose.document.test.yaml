@@ -28,6 +28,14 @@ services:
       dockerfile: document.test.Dockerfile
     env_file:
       - env-example-document
+    environment:
+      DATABASE_TYPE: mongodb
+      DATABASE_URL: mongodb://mongo:${DATABASE_PORT}
+      DATABASE_HOST: mongo
+      DATABASE_PORT: ${DATABASE_PORT}
+      DATABASE_USERNAME: ${DATABASE_USERNAME}
+      DATABASE_PASSWORD: ${DATABASE_PASSWORD}
+      DATABASE_NAME: ${DATABASE_NAME}
     volumes:
       - ./src:/usr/src/app/src
       - ./test:/usr/src/app/test
