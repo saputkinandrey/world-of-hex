@@ -40,6 +40,14 @@ services:
       dockerfile: document.Dockerfile
     ports:
       - ${APP_PORT}:${APP_PORT}
+    environment:
+      DATABASE_TYPE: mongodb
+      DATABASE_URL: mongodb://mongo:${DATABASE_PORT}
+      DATABASE_HOST: mongo
+      DATABASE_PORT: ${DATABASE_PORT}
+      DATABASE_USERNAME: ${DATABASE_USERNAME}
+      DATABASE_PASSWORD: ${DATABASE_PASSWORD}
+      DATABASE_NAME: ${DATABASE_NAME}
 
 volumes:
   boilerplate-mongo-db:
