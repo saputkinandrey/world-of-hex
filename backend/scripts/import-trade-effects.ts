@@ -8,7 +8,7 @@ import {
     TRADE_EFFECT_CATEGORIES,
     TradeEffectCategory as TradeEffectCategoryType,
 } from '../src/from-gpt/db/models/TradeEffectKey';
-import { TradeEffectCategory as TradeEffectCategoryModel } from '../src/from-gpt/db/models/TradeEffectCategory';
+import { TradeEffectCategoryModel } from '../src/from-gpt/db/models/TradeEffectCategory';
 
 type RowKeysByCategory = {
     tradeEffect_key: string;

@@ -1,7 +1,8 @@
 // Специально найти место с "правильной" температурой
 import {ActionDefinition} from "../action-definition";
 import {EthoActionTag} from "../action-tags";
-import {core, eth, memes} from "../../world/memes";
+import {core, eth} from "../../world/memes";
+import {morph} from "../../world/morphs";
 
 export const SEEK_THERMAL_REFUGE: ActionDefinition = {
     tag: EthoActionTag.SEEK_THERMAL_REFUGE,
@@ -15,8 +16,10 @@ export const SEEK_THERMAL_REFUGE: ActionDefinition = {
     },
     requiredMemes: [
         eth.maintenance.thermoregulation,
-        memes.bio.vital.cold_blooded,
         core.perception,
+    ],
+    requiredMorphs: [
+        morph.thermoreg.coldBlooded,
     ],
     requiresLocation: 'shade|burrow|rock_crevice|water_edge',
 };

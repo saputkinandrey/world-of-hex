@@ -49,7 +49,7 @@ export interface CreatureTemplateLensProps {
 
     memeIdsAdd?: MemeId[];
     morphIdsAdd?: MorphId[];
-    actionTagsAdd?: ActionTag|string[];
+    actionTagsAdd?: (ActionTag | string)[];
     needTagsAdd?: NeedTag[];
 
 }
