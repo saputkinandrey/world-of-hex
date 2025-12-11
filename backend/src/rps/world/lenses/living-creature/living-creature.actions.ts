@@ -120,7 +120,7 @@ export function getDailyDrinkSeconds(actor: ActorEntity): number {
 export const EAT: ActionDefinition = {
     tag: FoodActionTag.EAT,
 
-    needThresholds: {
+    enterThresholds: {
         FOOD: {
             // Если FOOD ниже warn — можно начать думать о еде.
             atLeast: NeedThresholdEnum.WARN,

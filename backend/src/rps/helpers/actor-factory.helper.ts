@@ -8,7 +8,7 @@ import {
     type NutritionContent,
     type NutritionNeeds,
 } from '../world/actor/actor.entity';
-import type { CreatureTemplateEntity } from '../world/creatures/creature-template.entity';
+import type { CreatureTemplateEntity } from '../domain/character/creature-template.entity';
 import type { CharacterEntity } from '../domain/character/character.entity';
 
 /**
@@ -48,7 +48,7 @@ export class ActorFactoryHelper {
         const consumptionPerTurn: NutritionContent = {
             energy: nutritionNeeds.energyPerDay / 24,
             protein: nutritionNeeds.proteinPerDay / 24,
-            water: nutritionNeeds.waterPerDay / 24,
+            water: (nutritionNeeds.waterPerDay ?? 0) / 24,
             massLb: nutritionNeeds.massPerDayLb / 24,
         };
 
