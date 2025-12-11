@@ -24,105 +24,119 @@ import { AiModule } from './ai/ai.module';
 import { URL } from 'url';
 
 const infrastructureDatabaseModule = MongooseModule.forRootAsync({
-  useClass: MongooseConfigService,
+    useClass: MongooseConfigService,
 });
 
 @Module({
-  imports: [
-    ConfigModule.forRoot({
-      isGlobal: true,
-      load: [
-        databaseConfig,
-        appConfig,
-        mailConfig,
-      ],
-      envFilePath: ['.env'],
-    }),
-    ScheduleModule.forRoot({ cronJobs: true }),
-    EventEmitterModule.forRoot({
-      wildcard: true,
-      maxListeners: 30,
-    }),
-    infrastructureDatabaseModule,
-    EventNestMongoDbModule.forRootAsync({
-      imports: [ConfigModule],
-      useFactory: (configService: ConfigService<AllConfigType>) => {
-        const configuredUri = configService.get('database.url', { infer: true });
-        const defaultHost =
-          configService.get('database.host', { infer: true }) ?? 'localhost';
-        const defaultPort =
-          configService.get('database.port', { infer: true }) ?? 27017;
-        const fallbackUri = `mongodb://${defaultHost}:${defaultPort}`;
-
-        let connectionUrl: URL;
-        try {
-          connectionUrl = new URL(configuredUri ?? fallbackUri);
-        } catch {
-          connectionUrl = new URL(fallbackUri);
-        }
-
-        const username = configService.get('database.username', { infer: true });
-        const password = configService.get('database.password', { infer: true });
-        const dbName = configService.get('database.name', { infer: true });
-
-        if (username && password) {
-          connectionUrl.username = username;
-          connectionUrl.password = password;
-        }
-
-        if ((connectionUrl.pathname ?? '/') === '/' && dbName) {
-          connectionUrl.pathname = `/${dbName}`;
-        }
-
-        return {
-          connectionUri: connectionUrl.toString(),
-          aggregatesCollection: 'aggregates-collection',
-          eventsCollection: 'events-collection',
-        };
-      },
-      inject: [ConfigService],
-    }),
-    BullModule.forRoot({
-      connection: {
-        host: environment.REDIS_HOST,
-        port: Number(environment.REDIS_PORT || 6379),
-        tls: environment.NODE_ENV === 'production' ? {} : undefined,
-      },
-    }),
-    BullBoardModule.forRoot({
-      route: '/queues',
-      adapter: ExpressAdapter, // Or FastifyAdapter from `@bull-board/fastify`
-    }),
-    JwtModule.register({ secret: environment.JWT_SECRET, global: true }),
-
-    I18nModule.forRootAsync({
-      useFactory: (configService: ConfigService<AllConfigType>) => ({
-        fallbackLanguage: configService.getOrThrow('app.fallbackLanguage', {
-          infer: true,
+    imports: [
+        ConfigModule.forRoot({
+            isGlobal: true,
+            load: [databaseConfig, appConfig, mailConfig],
+            envFilePath: ['.env'],
         }),
-        loaderOptions: { path: path.join(__dirname, 'i18n'), watch: true },
-      }),
-      resolvers: [
-        {
-          use: HeaderResolver,
-          useFactory: (configService: ConfigService<AllConfigType>) => {
-            return [
-              configService.get('app.headerLanguage', {
-                infer: true,
-              }),
-            ];
-          },
-          inject: [ConfigService],
-        },
-      ],
-      imports: [ConfigModule],
-      inject: [ConfigService],
-    }),
-    MailModule,
-    MailerModule,
-    HomeModule,
-    SeaCombatModule,
-    AiModule,
-  ],
+        ScheduleModule.forRoot({ cronJobs: true }),
+        EventEmitterModule.forRoot({
+            wildcard: true,
+            maxListeners: 30,
+        }),
+        infrastructureDatabaseModule,
+        EventNestMongoDbModule.forRootAsync({
+            imports: [ConfigModule],
+            useFactory: (configService: ConfigService<AllConfigType>) => {
+                const configuredUri = configService.get('database.url', {
+                    infer: true,
+                });
+                const defaultHost =
+                    configService.get('database.host', { infer: true }) ??
+                    'localhost';
+                const defaultPort =
+                    configService.get('database.port', { infer: true }) ??
+                    27017;
+                const fallbackUri = `mongodb://${defaultHost}:${defaultPort}`;
+
+                let connectionUrl: URL;
+                try {
+                    connectionUrl = new URL(configuredUri ?? fallbackUri);
+                } catch {
+                    connectionUrl = new URL(fallbackUri);
+                }
+
+                const username = configService.get('database.username', {
+                    infer: true,
+                });
+                const password = configService.get('database.password', {
+                    infer: true,
+                });
+                const dbName = configService.get('database.name', {
+                    infer: true,
+                });
+
+                if (username && password) {
+                    connectionUrl.username = username;
+                    connectionUrl.password = password;
+                }
+
+                if ((connectionUrl.pathname ?? '/') === '/' && dbName) {
+                    connectionUrl.pathname = `/${dbName}`;
+                }
+
+                return {
+                    connectionUri: connectionUrl.toString(),
+                    aggregatesCollection: 'aggregates-collection',
+                    eventsCollection: 'events-collection',
+                };
+            },
+            inject: [ConfigService],
+        }),
+        BullModule.forRoot({
+            connection: {
+                host: environment.REDIS_HOST,
+                port: Number(environment.REDIS_PORT || 6379),
+                tls: environment.NODE_ENV === 'production' ? {} : undefined,
+            },
+        }),
+        BullBoardModule.forRoot({
+            route: '/queues',
+            adapter: ExpressAdapter, // Or FastifyAdapter from `@bull-board/fastify`
+        }),
+        JwtModule.register({ secret: environment.JWT_SECRET, global: true }),
+
+        I18nModule.forRootAsync({
+            useFactory: (configService: ConfigService<AllConfigType>) => ({
+                fallbackLanguage: configService.getOrThrow(
+                    'app.fallbackLanguage',
+                    {
+                        infer: true,
+                    },
+                ),
+                loaderOptions: {
+                    path: path.join(__dirname, 'i18n'),
+                    watch: true,
+                },
+            }),
+            resolvers: [
+                {
+                    use: HeaderResolver,
+                    useFactory: (
+                        configService: ConfigService<AllConfigType>,
+                    ) => {
+                        return [
+                            configService.get('app.headerLanguage', {
+                                infer: true,
+                            }),
+                        ];
+                    },
+                    inject: [ConfigService],
+                },
+            ],
+            imports: [ConfigModule],
+            inject: [ConfigService],
+        }),
+        MailModule,
+        MailerModule,
+        HomeModule,
+        SeaCombatModule,
+        AiModule,
+    ],
 })
 export class AppModule {}
