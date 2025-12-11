@@ -21,6 +21,7 @@ import { BullBoardModule } from '@bull-board/nestjs';
 import { ExpressAdapter } from '@bull-board/express';
 import { JwtModule } from '@nestjs/jwt';
 import { AiModule } from './ai/ai.module';
+import { URL } from 'url';
 
 const infrastructureDatabaseModule = MongooseModule.forRootAsync({
   useClass: MongooseConfigService,
@@ -43,11 +44,43 @@ const infrastructureDatabaseModule = MongooseModule.forRootAsync({
       maxListeners: 30,
     }),
     infrastructureDatabaseModule,
-    EventNestMongoDbModule.forRoot({
-      connectionUri:
-        'mongodb://root:secret@localhost:27017/api?authSource=admin',
-      aggregatesCollection: 'aggregates-collection',
-      eventsCollection: 'events-collection',
+    EventNestMongoDbModule.forRootAsync({
+      imports: [ConfigModule],
+      useFactory: (configService: ConfigService<AllConfigType>) => {
+        const configuredUri = configService.get('database.url', { infer: true });
+        const defaultHost =
+          configService.get('database.host', { infer: true }) ?? 'localhost';
+        const defaultPort =
+          configService.get('database.port', { infer: true }) ?? 27017;
+        const fallbackUri = `mongodb://${defaultHost}:${defaultPort}`;
+
+        let connectionUrl: URL;
+        try {
+          connectionUrl = new URL(configuredUri ?? fallbackUri);
+        } catch {
+          connectionUrl = new URL(fallbackUri);
+        }
+
+        const username = configService.get('database.username', { infer: true });
+        const password = configService.get('database.password', { infer: true });
+        const dbName = configService.get('database.name', { infer: true });
+
+        if (username && password) {
+          connectionUrl.username = username;
+          connectionUrl.password = password;
+        }
+
+        if ((connectionUrl.pathname ?? '/') === '/' && dbName) {
+          connectionUrl.pathname = `/${dbName}`;
+        }
+
+        return {
+          connectionUri: connectionUrl.toString(),
+          aggregatesCollection: 'aggregates-collection',
+          eventsCollection: 'events-collection',
+        };
+      },
+      inject: [ConfigService],
     }),
     BullModule.forRoot({
       connection: {
@@ -67,7 +100,7 @@ const infrastructureDatabaseModule = MongooseModule.forRootAsync({
         fallbackLanguage: configService.getOrThrow('app.fallbackLanguage', {
           infer: true,
         }),
-        loaderOptions: { path: path.join(__dirname, '/i18n/'), watch: true },
+        loaderOptions: { path: path.join(__dirname, 'i18n'), watch: true },
       }),
       resolvers: [
         {
