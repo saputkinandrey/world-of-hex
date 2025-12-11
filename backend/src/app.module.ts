@@ -109,7 +109,7 @@ const infrastructureDatabaseModule = MongooseModule.forRootAsync({
                     },
                 ),
                 loaderOptions: {
-                    path: path.join(__dirname, 'i18n'),
+                    path: path.join(__dirname, '../i18n'),
                     watch: true,
                 },
             }),
