@@ -9,6 +9,7 @@ import { UserConnectedResponsePayloadDto } from '../dto/user-connected/user-conn
 import { LoadLocationMessagePayloadDto } from '../dto/location/load-location-message.payload.dto';
 import { LoadLocationResponsePayloadDto } from '../dto/location/load-location-response.payload.dto';
 import { LocationService } from './location.service';
+import { PlayerRepository } from '../../sea-combat/repositories/player.repository';
 
 @WebSocketGateway({ path: '/ws-rps-location' })
 @Injectable()
@@ -16,7 +17,34 @@ export class LocationGateway implements OnModuleInit {
     @WebSocketServer()
     server: Server;
 
-    constructor(private readonly locationService: LocationService) {}
+    constructor(
+        private readonly locationService: LocationService,
+        private readonly playerRepository: PlayerRepository,
+    ) {}
+
+    async processLoadLocation(
+        payload: LoadLocationMessagePayloadDto,
+    ): Promise<LoadLocationResponsePayloadDto> {
+        console.log(
+            `Player ${payload.userId} requested to download location ${payload.locationId}`,
+        );
+
+        const player = await this.playerRepository.findOneById(payload.userId);
+        if (!player) {
+            throw new Error(
+                'Unable to find user-connected with id ' + payload.userId,
+            );
+        }
+
+        return this.locationService
+            .loadLocation(payload.locationId)
+            .then((snapshot) => {
+                console.log(
+                    `LOCATION LOADED: ${snapshot.locationId} (${snapshot.locationName})`,
+                );
+                return snapshot;
+            });
+    }
 
     /**
      * Таблица обработчиков сообщений по типу WSMessage.
@@ -37,17 +65,10 @@ export class LocationGateway implements OnModuleInit {
         [RpsWsMessage.LOAD_LOCATION]: async (
             payload: LoadLocationMessagePayloadDto,
         ): Promise<RpsResponseDto<LoadLocationResponsePayloadDto>> => {
-            return this.locationService
-                .loadLocation(payload.locationId)
-                .then((snapshot) => {
-                    console.log(
-                        `LOCATION LOADED: ${snapshot.locationId} (${snapshot.locationName})`,
-                    );
-                    return {
-                        response: RpsWsResponse.LOAD_LOCATION,
-                        payload: snapshot,
-                    };
-                });
+            return this.processLoadLocation(payload).then((snapshot) => ({
+                response: RpsWsResponse.LOAD_LOCATION,
+                payload: snapshot,
+            }));
         },
     };
 
