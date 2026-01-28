@@ -18,7 +18,7 @@ import { UserConnectedMessagePayloadDto } from '../dto/websockets/user-connected
 import { LoadEncounterResponsePayloadDto } from '../dto/websockets/load-encounter-response.payload.dto';
 
 @WebSocketGateway({
-    path: process.env.SEA_COMBAT_SOCKETIO_PATH || '/socket.io',
+    path: process.env.SEA_COMBAT_SOCKETIO_PATH || '/ws-sea-combat',
     cors: { origin: '*' },
 })
 @Injectable()
