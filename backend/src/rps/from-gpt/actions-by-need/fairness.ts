@@ -1,6 +1,14 @@
 import { ActionDefinition } from '../action-definition';
 import { FairnessActionTag } from '../action-tags';
-import { cog, comm, culture, econ, fire, health, record } from '../../world/memes';
+import {
+    cog,
+    comm,
+    culture,
+    econ,
+    fire,
+    health,
+    record,
+} from '../../world/memes';
 export const FairnessActions: ActionDefinition[] = [
     {
         tag: FairnessActionTag.POST_CLEAR_TARIFFS,
@@ -16,7 +24,7 @@ export const FairnessActions: ActionDefinition[] = [
         socialImpact: { TRANSPARENCY: 0.4 as any, RESENTMENT: -0.1 },
         lawEffect: { tariffTable: 'posted', enforceable: true },
         ownershipEffect: { accessScope: 'notice_board', grantAccess: true },
-        requiredMemes: [comm.language.written]
+        requiredMemes: [comm.language.written],
     },
     {
         tag: FairnessActionTag.WEIGH_WITH_PUBLIC_SCALES,
@@ -31,7 +39,7 @@ export const FairnessActions: ActionDefinition[] = [
             health.sanitation_norms,
             health.waste_handling,
             comm.language.written,
-        ]
+        ],
     },
     {
         tag: FairnessActionTag.RANDOM_AUDIT_DRAW,
@@ -46,7 +54,7 @@ export const FairnessActions: ActionDefinition[] = [
         },
         requiresItem: ['lottery_bag|dice'],
         socialImpact: { DETERRENCE: 0.3 as any, RESENTMENT: -0.05 },
-        lawEffect: { auditRoll: 'randomized', enforceable: true }
+        lawEffect: { auditRoll: 'randomized', enforceable: true },
     },
     {
         tag: FairnessActionTag.BLIND_BID_ENVELOPES,
@@ -56,10 +64,7 @@ export const FairnessActions: ActionDefinition[] = [
         tradeEffect: { envelopes: '-N' as any, wax: -1 | (0 as any) },
         socialImpact: { CORRUPTION: -0.3 as any, CREDIBILITY: 0.3 },
         lawEffect: { bidCharter: 'sealed_blind', enforceable: true },
-        requiredMemes: [
-            record.ledgerkeeping,
-            econ.pooling_common_fund,
-        ]
+        requiredMemes: [record.ledgerkeeping, econ.pooling_common_fund],
     },
     {
         tag: FairnessActionTag.PRO_RATA_REWARD_SPLIT,
@@ -73,7 +78,7 @@ export const FairnessActions: ActionDefinition[] = [
         },
         tradeEffect: { coin_purse: '-distributed' },
         socialImpact: { LOYALTY: 0.3, RESENTMENT: -0.2 },
-        lawEffect: { rewardLedger: 'per_contribution', enforceable: true }
+        lawEffect: { rewardLedger: 'per_contribution', enforceable: true },
     },
     {
         tag: FairnessActionTag.DISPUTE_PANEL_THREE,
@@ -93,7 +98,7 @@ export const FairnessActions: ActionDefinition[] = [
             culture.vigil_ritual,
             cog.timekeeping.basic,
             comm.language.written,
-        ]
+        ],
     },
     {
         tag: FairnessActionTag.TURN_ORDER_LOTTERY,
@@ -107,7 +112,7 @@ export const FairnessActions: ActionDefinition[] = [
         },
         requiresItem: ['lottery_bag|dice'],
         socialImpact: { RESENTMENT: -0.15, ACCEPTANCE: 0.25 as any },
-        lawEffect: { queueRule: 'lottery_when_tie', enforceable: true }
+        lawEffect: { queueRule: 'lottery_when_tie', enforceable: true },
     },
     {
         tag: FairnessActionTag.EQUAL_ACCESS_NOTICE,
@@ -126,10 +131,7 @@ export const FairnessActions: ActionDefinition[] = [
             accessScope: 'commons|library|forge',
             grantAccess: true,
         },
-        requiredMemes: [
-            comm.language.written,
-            fire.control,
-        ]
+        requiredMemes: [comm.language.written, fire.control],
     },
     {
         tag: FairnessActionTag.CAP_FAVOR_EXCEPTIONS,
@@ -143,7 +145,7 @@ export const FairnessActions: ActionDefinition[] = [
             STABILITY: 0.3,
         },
         socialImpact: { CORRUPTION: -0.3 as any, TRUST: 0.2 },
-        lawEffect: { exceptionQuota: 'capped', enforceable: true }
+        lawEffect: { exceptionQuota: 'capped', enforceable: true },
     },
     {
         tag: FairnessActionTag.STANDARD_WAGE_TABLE,
@@ -158,7 +160,7 @@ export const FairnessActions: ActionDefinition[] = [
         tradeEffect: { parchment: -1, ink: -1 },
         socialImpact: { RESENTMENT: -0.1, MORALE: 0.3 },
         lawEffect: { wageTable: 'posted', enforceable: true },
-        requiredMemes: [comm.language.written]
+        requiredMemes: [comm.language.written],
     },
     {
         tag: FairnessActionTag.PUBLISH_WORK_LOGS,
@@ -172,7 +174,7 @@ export const FairnessActions: ActionDefinition[] = [
         },
         ownershipEffect: { logbook: 'public_view', redact: 'private_details' },
         socialImpact: { TRANSPARENCY: 0.4 as any, RESENTMENT: -0.1 },
-        lawEffect: { privacyRule: 'respected', enforceable: true }
+        lawEffect: { privacyRule: 'respected', enforceable: true },
     },
     {
         tag: FairnessActionTag.TWO_KEYS_STORES,
@@ -186,7 +188,7 @@ export const FairnessActions: ActionDefinition[] = [
         },
         ownershipEffect: { stores: 'two_keys', custodians: 'A&B' },
         socialImpact: { ABUSE: -0.3 as any, RESPECT: 0.2 },
-        lawEffect: { storeAccess: 'dual_control', enforceable: true }
+        lawEffect: { storeAccess: 'dual_control', enforceable: true },
     },
     {
         tag: FairnessActionTag.RESTITUTION_FOR_HARM,
@@ -201,7 +203,7 @@ export const FairnessActions: ActionDefinition[] = [
         },
         tradeEffect: { coin: '-compensation' },
         socialImpact: { TRUST: 0.3, RESENTMENT: -0.2 },
-        lawEffect: { restitutionOrder: 'filed', enforceable: true }
+        lawEffect: { restitutionOrder: 'filed', enforceable: true },
     },
     {
         tag: FairnessActionTag.APPEALS_WINDOW,
@@ -214,7 +216,7 @@ export const FairnessActions: ActionDefinition[] = [
             CLARITY: 0.3,
         },
         socialImpact: { TRUST: 0.2, PANIC: -0.1 as any },
-        lawEffect: { appealPeriod: 'announced', enforceable: true }
+        lawEffect: { appealPeriod: 'announced', enforceable: true },
     },
     {
         tag: FairnessActionTag.ROTATE_FAVORED_TASKS,
@@ -222,7 +224,7 @@ export const FairnessActions: ActionDefinition[] = [
         costTime: 1.0,
         rewardSecondary: { FAIRNESS: 0.7, TRUST: 0.3, MORALE: 0.3, ORDER: 0.3 },
         socialImpact: { RESENTMENT: -0.2, ACCEPTANCE: 0.2 as any },
-        lawEffect: { rota: 'rotation_required', enforceable: true }
+        lawEffect: { rota: 'rotation_required', enforceable: true },
     },
     {
         tag: FairnessActionTag.SANCTION_FOR_BIAS,
@@ -236,6 +238,6 @@ export const FairnessActions: ActionDefinition[] = [
             ORDER: 0.3,
         },
         socialImpact: { CORRUPTION: -0.4 as any, RESPECT: 0.2 },
-        lawEffect: { biasPenalty: 'warning|fine|removal', enforceable: true }
+        lawEffect: { biasPenalty: 'warning|fine|removal', enforceable: true },
     },
 ];

@@ -1,6 +1,6 @@
-import {EthoActionTag} from "../action-tags";
-import {core, eth, tech} from "../../world/memes";
-import {ActionDefinition} from "../action-definition";
+import { EthoActionTag } from '../action-tags';
+import { core, eth, tech } from '../../world/memes';
+import { ActionDefinition } from '../action-definition';
 
 /**
  * Паническое бегство к ближайшему укрытию.
@@ -16,10 +16,7 @@ export const FLEE_TO_COVER: ActionDefinition = {
         STRESS: -0.2 as any,
         FOCUS: 0.1,
     },
-    requiredMemes: [
-        core.perception,
-        core.motor_coordination,
-    ],
+    requiredMemes: [core.perception, core.motor_coordination],
     requiresLocation: 'open_ground|edge|rocks',
 };
 
@@ -36,10 +33,7 @@ export const FREEZE_IN_PLACE: ActionDefinition = {
         STRESS: -0.1 as any,
         FOCUS: 0.2,
     },
-    requiredMemes: [
-        core.perception,
-        core.motor_coordination,
-    ],
+    requiredMemes: [core.perception, core.motor_coordination],
     requiresLocation: 'rocks|tree_trunk|scrub',
 };
 
@@ -58,10 +52,7 @@ export const SHORT_DASH_ATTACK: ActionDefinition = {
         FOCUS: 0.1,
         // FOOD здесь не трогаем — поедание будет через HUNT/EAT
     },
-    requiredMemes: [
-        eth.predation.core,
-        tech.combat.core,
-    ],
+    requiredMemes: [eth.predation.core, tech.combat.core],
     requiresLocation: 'prey_in_line_of_sight',
 };
 
@@ -80,8 +71,6 @@ export const OBSERVATION: ActionDefinition = {
         CURIOSITY: 0.2,
         STRESS: -0.05 as any,
     },
-    requiredMemes: [
-        core.perception,
-    ],
+    requiredMemes: [core.perception],
     requiresLocation: 'any',
 };

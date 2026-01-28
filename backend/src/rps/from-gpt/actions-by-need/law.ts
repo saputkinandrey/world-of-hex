@@ -10,7 +10,7 @@ export const LawActions: ActionDefinition[] = [
         requiresSkill: 'leadership',
         requiresLocation: 'council_hall',
         lawEffect: { newLaw: true },
-        requiredMemes: [comm.language.written]
+        requiredMemes: [comm.language.written],
     },
     {
         tag: LawActionTag.HOLD_TRIAL,
@@ -19,7 +19,7 @@ export const LawActions: ActionDefinition[] = [
         rewardSecondary: { LAW: 0.7, JUSTICE: 0.6, TRUST: 0.5 },
         requiresSkill: 'diplomacy',
         requiresLocation: 'court',
-        targetType: 'GROUP'
+        targetType: 'GROUP',
     },
     {
         tag: LawActionTag.PASS_JUDGMENT,
@@ -27,7 +27,7 @@ export const LawActions: ActionDefinition[] = [
         costTime: 1,
         rewardSecondary: { LAW: 0.6, JUSTICE: 0.5, STATUS: 0.3 },
         requiresSkill: 'judgment',
-        targetType: 'OTHER'
+        targetType: 'OTHER',
     },
     {
         tag: LawActionTag.PUNISH_OFFENDER,
@@ -36,7 +36,7 @@ export const LawActions: ActionDefinition[] = [
         rewardSecondary: { LAW: 0.6, CONTROL: 0.4, FEAR: 0.3 },
         requiresSkill: 'discipline',
         targetType: 'OTHER',
-        risk: 0.2
+        risk: 0.2,
     },
     {
         tag: LawActionTag.GRANT_PARDON,
@@ -44,14 +44,14 @@ export const LawActions: ActionDefinition[] = [
         costTime: 1,
         rewardSecondary: { LAW: 0.7, TRUST: 0.5, STATUS: 0.4 },
         requiresSkill: 'leadership',
-        moralWeight: 0.4
+        moralWeight: 0.4,
     },
     {
         tag: LawActionTag.COLLECT_FINE,
         costEnergy: -0.2,
         costTime: 0.5,
         rewardSecondary: { LAW: 0.4, WEALTH: 0.5, CONTROL: 0.3 },
-        requiresItem: ['money']
+        requiresItem: ['money'],
     },
     {
         tag: LawActionTag.DRAFT_CODE,
@@ -59,7 +59,7 @@ export const LawActions: ActionDefinition[] = [
         costTime: 4,
         rewardSecondary: { LAW: 0.8, STABILITY: 0.5, KNOWLEDGE: 0.4 },
         requiresSkill: 'writing',
-        requiresItem: ['parchment']
+        requiresItem: ['parchment'],
     },
     {
         tag: LawActionTag.SWEAR_OATH,
@@ -67,23 +67,20 @@ export const LawActions: ActionDefinition[] = [
         costTime: 0.5,
         rewardSecondary: { LAW: 0.5, LOYALTY: 0.4, SPIRIT: 0.3 },
         requiresLocation: 'temple',
-        requiredMemes: [
-            culture.vigil_ritual,
-            cog.timekeeping.basic,
-        ]
+        requiredMemes: [culture.vigil_ritual, cog.timekeeping.basic],
     },
     {
         tag: ActionTags.ISSUE_DECREE,
         costEnergy: -0.3,
         costTime: 1,
         rewardSecondary: { LAW: 0.6, CONTROL: 0.4, STATUS: 0.3 },
-        requiresSkill: 'administration'
+        requiresSkill: 'administration',
     },
     {
         tag: LawActionTag.REPORT_CRIME,
         costEnergy: -0.1,
         costTime: 0.2,
         rewardSecondary: { LAW: 0.4, TRUST: 0.3, JUSTICE: 0.2 },
-        targetType: 'GROUP'
+        targetType: 'GROUP',
     },
 ];

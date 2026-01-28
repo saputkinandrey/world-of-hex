@@ -8,7 +8,9 @@ import { PlayerService } from './services/player.service';
 @Module({
     imports: [
         // import modules, etc.
-        MongooseModule.forFeature([{ name: Player.name, schema: PlayerSchema }]),
+        MongooseModule.forFeature([
+            { name: Player.name, schema: PlayerSchema },
+        ]),
     ],
     controllers: [],
     providers: [PlayerRepository, PlayerService],

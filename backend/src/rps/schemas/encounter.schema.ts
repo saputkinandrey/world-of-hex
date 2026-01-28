@@ -7,50 +7,50 @@ import Vector from 'vector2js';
 export type EncounterDocument = HydratedDocument<Encounter>;
 
 export class ShipToEncounter {
-  @Prop({ type: Vector })
-  position: Vector;
+    @Prop({ type: Vector })
+    position: Vector;
 
-  @Prop({ type: Direction })
-  direction: Direction;
+    @Prop({ type: Direction })
+    direction: Direction;
 
-  @Prop({ type: Number })
-  speed: number;
+    @Prop({ type: Number })
+    speed: number;
 }
 
 export class CharacterToEncounter extends EntityDocumentHelper {
-  // @Prop({
-  //   type: Ship,
-  //   default: null,
-  // })
-  // selectedShip: Ship;
+    // @Prop({
+    //   type: Ship,
+    //   default: null,
+    // })
+    // selectedShip: Ship;
 
-  @Prop({ type: String })
-  name: string;
+    @Prop({ type: String })
+    name: string;
 }
 
 @Schema({
-  id: false,
-  collection: 'rps-encounters',
-  timestamps: true,
-  toJSON: {
-    virtuals: true,
-    getters: false,
-  },
+    id: false,
+    collection: 'rps-encounters',
+    timestamps: true,
+    toJSON: {
+        virtuals: true,
+        getters: false,
+    },
 })
 export class Encounter extends EntityDocumentHelper {
-  @Prop({
-    type: [CharacterToEncounter],
-    default: [],
-  })
-  characters: CharacterToEncounter[];
+    @Prop({
+        type: [CharacterToEncounter],
+        default: [],
+    })
+    characters: CharacterToEncounter[];
 
-  @Prop({})
-  radius: number;
+    @Prop({})
+    radius: number;
 
-  @Prop({
-    type: String,
-  })
-  name: string | null;
+    @Prop({
+        type: String,
+    })
+    name: string | null;
 }
 
 export const EncounterSchema = SchemaFactory.createForClass(Encounter);

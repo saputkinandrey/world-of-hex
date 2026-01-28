@@ -2,10 +2,10 @@ import { ShipToEncounter } from '../../schemas/encounter.schema';
 import Vector from 'vector2js';
 
 export class ShipPathDto {
-  ship: ShipToEncounter;
+    ship: ShipToEncounter;
 
-  path: Vector[];
+    path: Vector[];
 
-  currentStep: number;
-  hasCollided: boolean = false;
+    currentStep: number;
+    hasCollided: boolean = false;
 }

@@ -15,10 +15,7 @@ export const EfficiencyActions: ActionDefinition[] = [
         requiresLocation: 'workyard|workshop|stores',
         socialImpact: { DISCIPLINE: 0.3, TRANSPARENCY: 0.3 as any },
         ownershipEffect: { flowMap: 'drawn' },
-        requiredMemes: [
-            comm.language.written,
-            org.workshop_practice,
-        ]
+        requiredMemes: [comm.language.written, org.workshop_practice],
     },
     {
         tag: EfficiencyActionTag.SHADOW_TIME_STUDY,
@@ -39,7 +36,7 @@ export const EfficiencyActions: ActionDefinition[] = [
             comm.language.written,
             record.ledgerkeeping,
             cog.number_concept,
-        ]
+        ],
     },
     {
         tag: EfficiencyActionTag['5S_SORT_SET_SHINE'],
@@ -57,7 +54,7 @@ export const EfficiencyActions: ActionDefinition[] = [
             soap: -1 | (0 as any),
         },
         socialImpact: { DIGNITY: 0.2 as any, COHESION: 0.2 },
-        ownershipEffect: { workspaceState: '5S_ready' }
+        ownershipEffect: { workspaceState: '5S_ready' },
     },
     {
         tag: EfficiencyActionTag.REDUCE_MOTION_WASTE,
@@ -72,10 +69,7 @@ export const EfficiencyActions: ActionDefinition[] = [
         tradeEffect: { benches_reloc: '-labor' },
         socialImpact: { COORDINATION: 0.3 as any },
         ownershipEffect: { pathLengths: 'reduced' },
-        requiredMemes: [
-            health.sanitation_norms,
-            health.waste_handling,
-        ]
+        requiredMemes: [health.sanitation_norms, health.waste_handling],
     },
     {
         tag: EfficiencyActionTag.KANBAN_CARD_FLOW,
@@ -91,7 +85,7 @@ export const EfficiencyActions: ActionDefinition[] = [
         socialImpact: { ACCOUNTABILITY: 0.4 as any },
         ownershipEffect: { accessScope: 'kanban_board', grantAccess: true },
         lawEffect: { queueRule: 'pull_only', enforceable: true },
-        requiredMemes: [comm.language.written]
+        requiredMemes: [comm.language.written],
     },
     {
         tag: EfficiencyActionTag.QUICK_CHANGEOVER,
@@ -105,7 +99,7 @@ export const EfficiencyActions: ActionDefinition[] = [
         },
         tradeEffect: { jig_pins: '-adjust', grease: -1 | (0 as any) },
         socialImpact: { DISCIPLINE: 0.3, RESPECT: 0.1 },
-        ownershipEffect: { setupTime: 'reduced' }
+        ownershipEffect: { setupTime: 'reduced' },
     },
     {
         tag: EfficiencyActionTag.STANDARD_CONTAINER_SIZES,
@@ -119,7 +113,7 @@ export const EfficiencyActions: ActionDefinition[] = [
         },
         tradeEffect: { crates: '-N' as any, labels: '-N' as any },
         socialImpact: { COORDINATION: 0.2 as any },
-        ownershipEffect: { containerStandard: 'adopted' }
+        ownershipEffect: { containerStandard: 'adopted' },
     },
     {
         tag: EfficiencyActionTag.POINT_OF_USE_STORES,
@@ -133,7 +127,7 @@ export const EfficiencyActions: ActionDefinition[] = [
         },
         tradeEffect: { small_bins: '-N' as any, pegs: '-N' as any },
         socialImpact: { READINESS: 0.3 as any },
-        ownershipEffect: { microStores: 'installed' }
+        ownershipEffect: { microStores: 'installed' },
     },
     {
         tag: EfficiencyActionTag.TACT_RHYTHM_SIGNAL,
@@ -147,7 +141,7 @@ export const EfficiencyActions: ActionDefinition[] = [
         },
         requiresItem: ['bell|drum'],
         socialImpact: { PUNCTUALITY: 0.3 as any },
-        lawEffect: { timeSignals: 'posted', enforceable: true }
+        lawEffect: { timeSignals: 'posted', enforceable: true },
     },
     {
         tag: EfficiencyActionTag.WORK_BALANCING,
@@ -161,7 +155,7 @@ export const EfficiencyActions: ActionDefinition[] = [
             STABILITY: 0.3,
         },
         socialImpact: { TRUST: 0.2, RESENTMENT: -0.1 },
-        lawEffect: { rota: 'balanced', enforceable: true }
+        lawEffect: { rota: 'balanced', enforceable: true },
     },
     {
         tag: EfficiencyActionTag.ERROR_BURNDOWN_HOUR,
@@ -174,7 +168,7 @@ export const EfficiencyActions: ActionDefinition[] = [
             PRODUCTIVITY: 0.3,
         },
         socialImpact: { INTEGRITY: 0.2, DISCIPLINE: 0.3 },
-        ownershipEffect: { backlogSmall: 'reduced' }
+        ownershipEffect: { backlogSmall: 'reduced' },
     },
     {
         tag: EfficiencyActionTag.MAINT_PREVENTIVE_CYCLE,
@@ -193,7 +187,7 @@ export const EfficiencyActions: ActionDefinition[] = [
         },
         socialImpact: { RESPONSIBILITY: 0.3 as any, TRUST: 0.2 },
         ownershipEffect: { machineUptime: 'improved' },
-        lawEffect: { maintLog: 'updated', enforceable: true }
+        lawEffect: { maintLog: 'updated', enforceable: true },
     },
     {
         tag: EfficiencyActionTag.PATH_OPTIMIZATION_MAP,
@@ -208,7 +202,7 @@ export const EfficiencyActions: ActionDefinition[] = [
         tradeEffect: { chalk: -1, parchment: -1, ink: -1 },
         socialImpact: { COORDINATION: 0.3 as any },
         ownershipEffect: { routeMap: 'optimized' },
-        requiredMemes: [comm.language.written]
+        requiredMemes: [comm.language.written],
     },
     {
         tag: EfficiencyActionTag.HEAT_AND_LIGHT_TUNING,
@@ -223,7 +217,7 @@ export const EfficiencyActions: ActionDefinition[] = [
         tradeEffect: { lamp_oil: -1 | (0 as any), firewood: -1 | (0 as any) },
         needRework: true,
         socialImpact: { DILIGENCE: 0.2 as any },
-        ownershipEffect: { workspaceState: 'ergonomic' }
+        ownershipEffect: { workspaceState: 'ergonomic' },
     },
     {
         tag: EfficiencyActionTag.REUSABLE_FIXTURE_PROGRAM,
@@ -237,7 +231,7 @@ export const EfficiencyActions: ActionDefinition[] = [
         },
         tradeEffect: { wood: '-N' as any, metal: '-N' as any, jigs: '+N' },
         socialImpact: { INNOVATION_REP: 0.2, RESPECT: 0.1 },
-        ownershipEffect: { fixtureLibrary: 'created' }
+        ownershipEffect: { fixtureLibrary: 'created' },
     },
     {
         tag: EfficiencyActionTag.PULL_SUPPLY_REPLENISH,
@@ -252,6 +246,6 @@ export const EfficiencyActions: ActionDefinition[] = [
         tradeEffect: { blanks: '+N', raw_materials: '-N' },
         socialImpact: { TRUST: 0.2, COORDINATION: 0.2 as any },
         ownershipEffect: { minMaxLevels: 'respected' },
-        lawEffect: { storeLedger: 'updated', enforceable: true }
+        lawEffect: { storeLedger: 'updated', enforceable: true },
     },
 ];

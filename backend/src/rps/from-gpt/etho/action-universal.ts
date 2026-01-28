@@ -74,10 +74,7 @@ export const BASK_SUN_THERMOREGULATE: ActionDefinition = {
         ENERGY: 0.1,
         STRESS: -0.05 as any,
     },
-    requiredMemes: [
-        eth.maintenance.thermoregulation,
-        core.perception,
-    ],
+    requiredMemes: [eth.maintenance.thermoregulation, core.perception],
     requiresLocation: 'open_sun|rock|log',
 };
 
@@ -91,9 +88,7 @@ export const SEEK_COOL_SHELTER: ActionDefinition = {
         TEMPERATURE: -0.4 as any,
         STRESS: -0.05 as any,
     },
-    requiredMemes: [
-        eth.maintenance.thermoregulation,
-    ],
+    requiredMemes: [eth.maintenance.thermoregulation],
     requiresLocation: 'shade|burrow|cool_crevice',
 };
 
@@ -109,10 +104,7 @@ export const NOCTURNAL_FORAGE: ActionDefinition = {
         SAFETY: 0.05,
         STRESS: -0.05 as any,
     },
-    requiredMemes: [
-        eth.predation.core,
-        core.perception,
-    ],
+    requiredMemes: [eth.predation.core, core.perception],
     requiresLocation: 'edge|undergrowth|water_edge',
 };
 
@@ -147,10 +139,7 @@ export const COURTSHIP_DISPLAY: ActionDefinition = {
         JOY: 0.1,
         STRESS: -0.05 as any,
     },
-    requiredMemes: [
-        comm.signaling,
-        core.perception,
-    ],
+    requiredMemes: [comm.signaling, core.perception],
     requiresLocation: 'display_site|open_ground',
 };
 
@@ -165,10 +154,7 @@ export const TERRITORY_MICROHABIT_EXPLORE: ActionDefinition = {
         SAFETY: 0.1,
         KNOWLEDGE: 0.2,
     },
-    requiredMemes: [
-        eth.territory_marking,
-        core.perception,
-    ],
+    requiredMemes: [eth.territory_marking, core.perception],
     requiresLocation: 'territory_patch|microhabitat',
 };
 
@@ -183,11 +169,7 @@ export const DEFENSIVE_WARNING_DISPLAY: ActionDefinition = {
         STRESS: -0.1 as any,
         COURAGE: 0.1,
     },
-    requiredMemes: [
-        comm.signaling,
-        core.perception,
-        tech.combat.core,
-    ],
+    requiredMemes: [comm.signaling, core.perception, tech.combat.core],
     requiresLocation: 'any',
 };
 
@@ -202,10 +184,7 @@ export const BURROW_HIDE_OR_AMBUSH: ActionDefinition = {
         TEMPERATURE: 0.2,
         STRESS: -0.05 as any,
     },
-    requiredMemes: [
-        eth.tactics.ambush_stalk,
-        eth.maintenance.thermoregulation,
-    ],
+    requiredMemes: [eth.tactics.ambush_stalk, eth.maintenance.thermoregulation],
     requiresLocation: 'burrow|termite_mound|root_mat',
 };
 

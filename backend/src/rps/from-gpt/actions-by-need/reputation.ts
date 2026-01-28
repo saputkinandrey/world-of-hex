@@ -9,7 +9,7 @@ export const ReputationActions: ActionDefinition[] = [
         risk: 0.05,
         rewardSecondary: { REPUTATION: 0.5, STATUS: 0.2, COMMUNITY: 0.2 },
         socialImpact: { REPUTATION: 0.45, VISIBILITY: 0.3, SKEPTICISM: 0.05 },
-        lawEffect: { assemblyRecord: 'deeds_announced', enforceable: false }
+        lawEffect: { assemblyRecord: 'deeds_announced', enforceable: false },
     },
     {
         tag: ReputationActionTag.HIRE_TOWN_CRIER,
@@ -18,7 +18,7 @@ export const ReputationActions: ActionDefinition[] = [
         rewardSecondary: { REPUTATION: 0.6, COMMUNITY: 0.2 },
         tradeEffect: { pay_silver: -2, contract: 'town_crier_v1' },
         socialImpact: { REPUTATION: 0.5, REACH: 0.5, ENVY: 0.05 },
-        lawEffect: { noticePermit: 'granted', enforceable: true }
+        lawEffect: { noticePermit: 'granted', enforceable: true },
     },
     {
         tag: ReputationActionTag.COMMISSION_BARD,
@@ -31,7 +31,7 @@ export const ReputationActions: ActionDefinition[] = [
         },
         tradeEffect: { pay_silver: -4, song_title: 'Ballad_of_Brave' },
         socialImpact: { REPUTATION: 0.55, FAME: 0.4, AWE: 0.2 },
-        lawEffect: { patronageRecord: 'guild_bards', enforceable: true }
+        lawEffect: { patronageRecord: 'guild_bards', enforceable: true },
     },
     {
         tag: ReputationActionTag.SPONSOR_PUBLIC_WORKS,
@@ -41,7 +41,7 @@ export const ReputationActions: ActionDefinition[] = [
         tradeEffect: { spend_wood: -12, pay_silver: -6, result: 'well/bridge' },
         socialImpact: { REPUTATION: 0.8, GRATITUDE: 0.7, LEGACY: 0.4 },
         ownershipEffect: { plaqueName: 'sponsor', accessScope: 'public_work' },
-        lawEffect: { workPermit: 'approved', enforceable: true }
+        lawEffect: { workPermit: 'approved', enforceable: true },
     },
     {
         tag: ReputationActionTag.MAKE_PUBLIC_AMENDS,
@@ -50,7 +50,7 @@ export const ReputationActions: ActionDefinition[] = [
         rewardSecondary: { REPUTATION: 0.7, JUSTICE: 0.4, COMMUNITY: 0.3 },
         tradeEffect: { compensate: -3, note: 'apology_gift' },
         socialImpact: { REPUTATION: 0.6, TRUST: 0.4, RESENTMENT: -0.2 },
-        lawEffect: { settlement: 'accepted_publicly', enforceable: true }
+        lawEffect: { settlement: 'accepted_publicly', enforceable: true },
     },
     {
         tag: ReputationActionTag.RETURN_LOST_PROPERTY,
@@ -59,7 +59,7 @@ export const ReputationActions: ActionDefinition[] = [
         rewardSecondary: { REPUTATION: 0.6, LAW: 0.2, TRUST: 0.3 },
         tradeEffect: { return_item: 'lost_item', note: 'owner_identified' },
         socialImpact: { REPUTATION: 0.55, HONESTY: 0.5 },
-        ownershipEffect: { chainOfCustody: 'restored', verified: true }
+        ownershipEffect: { chainOfCustody: 'restored', verified: true },
     },
     {
         tag: ReputationActionTag.RESCUE_IN_DANGER,
@@ -72,7 +72,7 @@ export const ReputationActions: ActionDefinition[] = [
             COMMUNITY: 0.4,
             SECURITY: 0.3,
         },
-        socialImpact: { REPUTATION: 0.9, HEROISM: 0.8, GRATITUDE: 0.6 }
+        socialImpact: { REPUTATION: 0.9, HEROISM: 0.8, GRATITUDE: 0.6 },
     },
     {
         tag: ReputationActionTag.DONATE_TO_POOR,
@@ -81,7 +81,7 @@ export const ReputationActions: ActionDefinition[] = [
         rewardSecondary: { REPUTATION: 0.6, SPIRIT: 0.3, COMMUNITY: 0.3 },
         tradeEffect: { donate_food: -6, donate_clothes: -2 },
         socialImpact: { REPUTATION: 0.6, COMPASSION: 0.5 },
-        lawEffect: { charityRoll: 'temple_log', enforceable: true }
+        lawEffect: { charityRoll: 'temple_log', enforceable: true },
     },
     {
         tag: ReputationActionTag.REBUILD_AFTER_DISASTER,
@@ -89,7 +89,7 @@ export const ReputationActions: ActionDefinition[] = [
         costTime: 3.5,
         rewardSecondary: { REPUTATION: 0.9, STABILITY: 0.5, COMMUNITY: 0.5 },
         tradeEffect: { spend_wood: -10, spend_stone: -6 },
-        socialImpact: { REPUTATION: 0.75, GRATITUDE: 0.6, HOPE: 0.5 }
+        socialImpact: { REPUTATION: 0.75, GRATITUDE: 0.6, HOPE: 0.5 },
     },
     {
         tag: ReputationActionTag.CLEAN_PUBLIC_SPACE,
@@ -98,10 +98,7 @@ export const ReputationActions: ActionDefinition[] = [
         rewardSecondary: { REPUTATION: 0.55, HYGIENE: 0.4, COMMUNITY: 0.3 },
         socialImpact: { REPUTATION: 0.45, CIVIC_DUTY: 0.4 as any },
         ownershipEffect: { accessScope: 'square', grantAccess: true },
-        requiredMemes: [
-            health.sanitation_norms,
-            health.waste_handling,
-        ]
+        requiredMemes: [health.sanitation_norms, health.waste_handling],
     },
     {
         tag: ReputationActionTag.HOST_OPEN_FORUM,
@@ -109,7 +106,7 @@ export const ReputationActions: ActionDefinition[] = [
         costTime: 2.0,
         rewardSecondary: { REPUTATION: 0.65, TRUST: 0.3, COMMUNITY: 0.4 },
         socialImpact: { REPUTATION: 0.6, ACCESSIBILITY: 0.4, FAIRNESS: 0.3 },
-        lawEffect: { docketOpen: 'complaints_heard', enforceable: true }
+        lawEffect: { docketOpen: 'complaints_heard', enforceable: true },
     },
     {
         tag: ReputationActionTag.DENY_RUMOR_PUBLICLY,
@@ -118,7 +115,7 @@ export const ReputationActions: ActionDefinition[] = [
         risk: 0.15,
         rewardSecondary: { REPUTATION: 0.5, LAW: 0.1 },
         socialImpact: { REPUTATION: 0.35, SUSPICION: -0.2, VISIBILITY: 0.2 },
-        lawEffect: { statementFiled: 'counter_rumor', enforceable: false }
+        lawEffect: { statementFiled: 'counter_rumor', enforceable: false },
     },
     {
         tag: ReputationActionTag.EXPOSE_FALSE_ACCUSER,
@@ -127,7 +124,7 @@ export const ReputationActions: ActionDefinition[] = [
         risk: 0.25,
         rewardSecondary: { REPUTATION: 0.8, JUSTICE: 0.5, LAW: 0.4 },
         socialImpact: { REPUTATION: 0.7, TRUST: 0.4, FEAR: 0.1 },
-        lawEffect: { defamationCase: 'opened', enforceable: true }
+        lawEffect: { defamationCase: 'opened', enforceable: true },
     },
     {
         tag: ReputationActionTag.PUBLISH_TRANSPARENT_LEDGER,
@@ -137,10 +134,7 @@ export const ReputationActions: ActionDefinition[] = [
         tradeEffect: { ledger_open: 'yes', delta_visible: '+all' },
         socialImpact: { REPUTATION: 0.55, TRUST: 0.5, SUSPICION: -0.3 },
         lawEffect: { auditTrail: 'created_public', enforceable: true },
-        requiredMemes: [
-            record.ledgerkeeping,
-            econ.pooling_common_fund,
-        ]
+        requiredMemes: [record.ledgerkeeping, econ.pooling_common_fund],
     },
     {
         tag: ReputationActionTag.MEDIATE_NEIGHBOR_DISPUTE,
@@ -148,7 +142,7 @@ export const ReputationActions: ActionDefinition[] = [
         costTime: 1.4,
         rewardSecondary: { REPUTATION: 0.6, STABILITY: 0.4, COMMUNITY: 0.4 },
         socialImpact: { REPUTATION: 0.5, HARMONY: 0.45, TRUST: 0.3 },
-        lawEffect: { mediationRecord: 'filed', enforceable: true }
+        lawEffect: { mediationRecord: 'filed', enforceable: true },
     },
     {
         tag: ReputationActionTag.HONOR_LOCAL_HEROES,
@@ -162,6 +156,6 @@ export const ReputationActions: ActionDefinition[] = [
         },
         tradeEffect: { prize_items: -3, hall_banner: 'new_name' },
         socialImpact: { REPUTATION: 0.65, GRATITUDE: 0.6, COHESION: 0.4 },
-        lawEffect: { honorRoll: 'updated', enforceable: true }
+        lawEffect: { honorRoll: 'updated', enforceable: true },
     },
 ];

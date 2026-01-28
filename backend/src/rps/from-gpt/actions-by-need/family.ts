@@ -14,7 +14,7 @@ export const FamilyActions: ActionDefinition[] = [
         },
         tradeEffect: { transfer_food: -4, pantry_stock: '+4' },
         socialImpact: { FAMILY: 0.6, GRATITUDE: 0.4, TRUST: 0.3 },
-        ownershipEffect: { householdPantry: 'replenished' }
+        ownershipEffect: { householdPantry: 'replenished' },
     },
     {
         tag: FamilyActionTag.CARE_FOR_CHILD,
@@ -27,7 +27,7 @@ export const FamilyActions: ActionDefinition[] = [
             STABILITY: 0.3,
         },
         socialImpact: { FAMILY: 0.6, ATTACHMENT: 0.5 as any, TRUST: 0.3 },
-        ownershipEffect: { accessScope: 'home_nursery', grantAccess: true }
+        ownershipEffect: { accessScope: 'home_nursery', grantAccess: true },
     },
     {
         tag: FamilyActionTag.TEACH_CHILD_SKILL,
@@ -40,7 +40,7 @@ export const FamilyActions: ActionDefinition[] = [
             TRADITION: 0.3,
         },
         socialImpact: { FAMILY: 0.5, PRIDE: 0.4 as any },
-        lawEffect: { apprenticeshipNote: 'family_line', enforceable: false }
+        lawEffect: { apprenticeshipNote: 'family_line', enforceable: false },
     },
     {
         tag: FamilyActionTag.CARE_FOR_ELDER,
@@ -54,7 +54,7 @@ export const FamilyActions: ActionDefinition[] = [
         },
         tradeEffect: { use_herbs: -1, time_off_work: '-1' },
         socialImpact: { FAMILY: 0.65, GRATITUDE: 0.5, REVERENCE: 0.3 },
-        ownershipEffect: { accessScope: 'elder_quarters', grantAccess: true }
+        ownershipEffect: { accessScope: 'elder_quarters', grantAccess: true },
     },
     {
         tag: FamilyActionTag.REPAIR_FAMILY_HOME,
@@ -69,10 +69,7 @@ export const FamilyActions: ActionDefinition[] = [
         tradeEffect: { spend_wood: -6, spend_tools: -1 },
         socialImpact: { FAMILY: 0.5, RELIEF: 0.4 as any },
         ownershipEffect: { homeIntegrity: 'improved', accessScope: 'house' },
-        requiredMemes: [
-            comm.language.written,
-            tech.tool.use_basic,
-        ]
+        requiredMemes: [comm.language.written, tech.tool.use_basic],
     },
     {
         tag: FamilyActionTag.GUARD_FAMILY_HOME,
@@ -83,10 +80,7 @@ export const FamilyActions: ActionDefinition[] = [
         socialImpact: { FAMILY: 0.45, SAFETY: 0.45 },
         ownershipEffect: { accessScope: 'home_perimeter', grantAccess: true },
         lawEffect: { curfewWatch: 'home_guard', enforceable: true },
-        requiredMemes: [
-            culture.vigil_ritual,
-            cog.timekeeping.basic,
-        ]
+        requiredMemes: [culture.vigil_ritual, cog.timekeeping.basic],
     },
     {
         tag: FamilyActionTag.MEDIATE_FAMILY_CONFLICT,
@@ -100,7 +94,7 @@ export const FamilyActions: ActionDefinition[] = [
             JUSTICE: 0.3,
         },
         socialImpact: { FAMILY: 0.6, HARMONY: 0.6, TRUST: 0.3 },
-        lawEffect: { mediationRecord: 'family_pact', enforceable: true }
+        lawEffect: { mediationRecord: 'family_pact', enforceable: true },
     },
     {
         tag: FamilyActionTag.SAVE_FOR_DOWRY,
@@ -115,7 +109,7 @@ export const FamilyActions: ActionDefinition[] = [
         tradeEffect: { reserve_silver: '+8', lockbox: 'dowry' },
         socialImpact: { FAMILY: 0.5, STATUS: 0.3, EXPECTATION: 0.2 as any },
         ownershipEffect: { earmarkedFunds: 'dowry' },
-        lawEffect: { dowryLedger: 'started', enforceable: true }
+        lawEffect: { dowryLedger: 'started', enforceable: true },
     },
     {
         tag: FamilyActionTag.ARRANGE_MARRIAGE_MEETING,
@@ -129,7 +123,7 @@ export const FamilyActions: ActionDefinition[] = [
             STATUS: 0.2,
         },
         socialImpact: { FAMILY: 0.55, ALLIANCE: 0.4 as any, RESPECT: 0.2 },
-        lawEffect: { betrothalTalks: 'opened', enforceable: false }
+        lawEffect: { betrothalTalks: 'opened', enforceable: false },
     },
     {
         tag: FamilyActionTag.HOST_FAMILY_GATHERING,
@@ -143,7 +137,7 @@ export const FamilyActions: ActionDefinition[] = [
         },
         tradeEffect: { spend_food: -8, spend_drink: -4 },
         socialImpact: { FAMILY: 0.6, COHESION: 0.5, JOY: 0.4 as any },
-        ownershipEffect: { accessScope: 'home_hall', grantAccess: true }
+        ownershipEffect: { accessScope: 'home_hall', grantAccess: true },
     },
     {
         tag: FamilyActionTag.HONOR_ANCESTORS_FAMILY,
@@ -156,7 +150,7 @@ export const FamilyActions: ActionDefinition[] = [
             IDENTITY: 0.3 as any,
         },
         socialImpact: { FAMILY: 0.6, REVERENCE: 0.45, UNITY: 0.3 as any },
-        lawEffect: { ritual: 'family_ancestral_rite', enforceable: false }
+        lawEffect: { ritual: 'family_ancestral_rite', enforceable: false },
     },
     {
         tag: FamilyActionTag.ALLOCATE_INHERITANCE,
@@ -166,7 +160,7 @@ export const FamilyActions: ActionDefinition[] = [
         rewardSecondary: { FAMILY: 0.7, STABILITY: 0.5, JUSTICE: 0.4 },
         socialImpact: { FAMILY: 0.5, FAIRNESS: 0.5, RESENTMENT: -0.2 },
         ownershipEffect: { transferTitles: 'executed', parcels: 'distributed' },
-        lawEffect: { willRead: 'completed', enforceable: true }
+        lawEffect: { willRead: 'completed', enforceable: true },
     },
     {
         tag: FamilyActionTag.BUILD_EXTENSION_FOR_FAMILY,
@@ -181,7 +175,7 @@ export const FamilyActions: ActionDefinition[] = [
         tradeEffect: { spend_wood: -10, spend_stone: -6, hire_labor: -2 },
         socialImpact: { FAMILY: 0.55, GRATITUDE: 0.5, PRIDE: 0.3 },
         ownershipEffect: { homeCapacity: '+2_rooms', accessScope: 'new_wing' },
-        lawEffect: { buildingPermit: 'granted', enforceable: true }
+        lawEffect: { buildingPermit: 'granted', enforceable: true },
     },
     {
         tag: FamilyActionTag.SHARE_TOOLS_WITH_KIN,
@@ -192,10 +186,7 @@ export const FamilyActions: ActionDefinition[] = [
         socialImpact: { FAMILY: 0.45, TRUST: 0.35, RECIPROCITY: 0.3 },
         ownershipEffect: { sharedUse: true, itemOwner: 'lender' },
         lawEffect: { loanNote: 'family_tools', enforceable: true },
-        requiredMemes: [
-            comm.language.written,
-            tech.tool.use_basic,
-        ]
+        requiredMemes: [comm.language.written, tech.tool.use_basic],
     },
     {
         tag: FamilyActionTag.ESCORT_FAMILY_MEMBER,
@@ -204,7 +195,7 @@ export const FamilyActions: ActionDefinition[] = [
         risk: 0.12,
         rewardSecondary: { FAMILY: 0.6, SECURITY: 0.4, AFFECTION: 0.3 },
         socialImpact: { FAMILY: 0.45, SAFETY: 0.4, CARE: 0.3 },
-        ownershipEffect: { accessScope: 'route_pass', grantAccess: true }
+        ownershipEffect: { accessScope: 'route_pass', grantAccess: true },
     },
     {
         tag: FamilyActionTag.FOSTER_OR_ADOPT_CHILD,
@@ -219,6 +210,6 @@ export const FamilyActions: ActionDefinition[] = [
         },
         socialImpact: { FAMILY: 0.75, AFFECTION: 0.6, REPUTATION: 0.4 },
         ownershipEffect: { guardianship: 'established' },
-        lawEffect: { adoptionRoll: 'approved_by_council', enforceable: true }
+        lawEffect: { adoptionRoll: 'approved_by_council', enforceable: true },
     },
 ];

@@ -25,27 +25,27 @@ export enum NeedThresholdEnum {
 
 // Пороговая «решётка» для конкретной потребности
 export interface NeedThresholds {
-    ok: number;         // 1
-    warn: number;       // 2
-    impaired: number;   // 3
-    severe: number;     // 4
-    critical: number;   // 5
+    ok: number; // 1
+    warn: number; // 2
+    impaired: number; // 3
+    severe: number; // 4
+    critical: number; // 5
 }
 
 // Гейт экшена по конкретной потребности
 export interface NeedGate {
     atLeast?: NeedThresholdEnum; // экшен разрешён, если текущая зона >= atLeast
-    atMost?: NeedThresholdEnum;  // и/или запрещён, если текущая зона > atMost
+    atMost?: NeedThresholdEnum; // и/или запрещён, если текущая зона > atMost
 }
 
 /** Контекст окружения для динамических модификаторов (по желанию) */
 export interface NeedContext {
-    ambientC?: number;              // температура среды
-    preferredC?: number;            // «комфортная» для вида
-    season?: 'winter'|'summer'|'spring'|'autumn';
-    timeOfDay?: 'day'|'night'|'dawn'|'dusk';
-    hydrationLevel?: number;        // 0..1
-    satietyLevel?: number;          // 0..1
+    ambientC?: number; // температура среды
+    preferredC?: number; // «комфортная» для вида
+    season?: 'winter' | 'summer' | 'spring' | 'autumn';
+    timeOfDay?: 'day' | 'night' | 'dawn' | 'dusk';
+    hydrationLevel?: number; // 0..1
+    satietyLevel?: number; // 0..1
 }
 
 export enum NeedTag {
@@ -53,7 +53,6 @@ export enum NeedTag {
     FOOD = 'FOOD', // Пища, голод, вода, охота, собирательство
     WATER = 'WATER', // Пища, голод, вода, охота, собирательство
     REST = 'REST', // Сон, отдых, восстановление
-
 
     STRESS = 'STRESS',
     ENERGY = 'ENERGY',
@@ -146,10 +145,13 @@ export function zoneRank(z: NeedThresholdEnum): number {
     return NEED_THRESHOLD_RANK[z];
 }
 
-export function resolveZone(value: number, t: NeedThresholds): NeedThresholdEnum {
+export function resolveZone(
+    value: number,
+    t: NeedThresholds,
+): NeedThresholdEnum {
     if (value >= t.critical) return NeedThresholdEnum.CRITICAL;
-    if (value >= t.severe)   return NeedThresholdEnum.SEVERE;
+    if (value >= t.severe) return NeedThresholdEnum.SEVERE;
     if (value >= t.impaired) return NeedThresholdEnum.IMPAIRED;
-    if (value >= t.warn)     return NeedThresholdEnum.WARN;
+    if (value >= t.warn) return NeedThresholdEnum.WARN;
     return NeedThresholdEnum.OK;
 }

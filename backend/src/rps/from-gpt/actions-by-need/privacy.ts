@@ -23,7 +23,7 @@ export const PrivacyActions: ActionDefinition[] = [
             roomState: 'private_quarters',
             accessScope: 'owner_only',
         },
-        lawEffect: { trespassRule: 'posted', enforceable: true }
+        lawEffect: { trespassRule: 'posted', enforceable: true },
     },
     {
         tag: PrivacyActionTag.SET_SCREEN_PARTITIONS,
@@ -41,7 +41,7 @@ export const PrivacyActions: ActionDefinition[] = [
             stakes: '-N' as any,
         },
         socialImpact: { BOUNDARIES: 0.3 as any },
-        ownershipEffect: { areaDivision: 'partitioned' }
+        ownershipEffect: { areaDivision: 'partitioned' },
     },
     {
         tag: PrivacyActionTag.SECURE_STORAGE_CHEST,
@@ -60,10 +60,7 @@ export const PrivacyActions: ActionDefinition[] = [
             accessScope: 'owner_only',
         },
         lawEffect: { sealTamperPenalty: 'fine|shame', enforceable: true },
-        requiredMemes: [
-            record.ledgerkeeping,
-            econ.pooling_common_fund,
-        ]
+        requiredMemes: [record.ledgerkeeping, econ.pooling_common_fund],
     },
     {
         tag: PrivacyActionTag.QUIET_ZONE_DECLARATION,
@@ -84,7 +81,7 @@ export const PrivacyActions: ActionDefinition[] = [
             cog.timekeeping.basic,
             heat.space.hearth,
             comm.language.written,
-        ]
+        ],
     },
     {
         tag: PrivacyActionTag.PRIVATE_COUNSEL_MEET,
@@ -98,7 +95,7 @@ export const PrivacyActions: ActionDefinition[] = [
         },
         requiresLocation: 'side_room|sacristy|study',
         socialImpact: { GOSSIP: -0.1 as any },
-        lawEffect: { confidentialityRule: 'affirmed', enforceable: true }
+        lawEffect: { confidentialityRule: 'affirmed', enforceable: true },
     },
     {
         tag: PrivacyActionTag.REDACT_SENSITIVE_RECORDS,
@@ -121,7 +118,7 @@ export const PrivacyActions: ActionDefinition[] = [
             comm.language.written,
             record.ledgerkeeping,
             econ.pooling_common_fund,
-        ]
+        ],
     },
     {
         tag: PrivacyActionTag.CONFIDE_TRUSTED_CONFIDANT,
@@ -136,7 +133,7 @@ export const PrivacyActions: ActionDefinition[] = [
         },
         requiresSkill: 'empathy|counsel',
         socialImpact: { BOND: 0.3 as any, GOSSIP: -0.05 as any },
-        lawEffect: { oathOfSilence: 'sworn', enforceable: false }
+        lawEffect: { oathOfSilence: 'sworn', enforceable: false },
     },
     {
         tag: PrivacyActionTag.PERSONAL_TIME_BLOCK,
@@ -149,7 +146,7 @@ export const PrivacyActions: ActionDefinition[] = [
             FOCUS: 0.2,
         },
         socialImpact: { RESPECT: 0.2, CONFLICT: -0.05 as any },
-        lawEffect: { doNotDisturb: 'posted', enforceable: true }
+        lawEffect: { doNotDisturb: 'posted', enforceable: true },
     },
     {
         tag: PrivacyActionTag.MARKET_PRIVACY_CURTAIN,
@@ -165,7 +162,7 @@ export const PrivacyActions: ActionDefinition[] = [
         tradeEffect: { curtain: -1, hooks: -1 | (0 as any) },
         socialImpact: { GOSSIP: -0.1 as any, CREDIBILITY: 0.1 },
         ownershipEffect: { boothState: 'curtained' },
-        lawEffect: { marketEtiquette: 'observed', enforceable: true }
+        lawEffect: { marketEtiquette: 'observed', enforceable: true },
     },
     {
         tag: PrivacyActionTag.SOUND_DAMPENING_MATS,
@@ -179,7 +176,7 @@ export const PrivacyActions: ActionDefinition[] = [
         },
         tradeEffect: { hay_bales: '-N' as any, felt_mats: '-N' as any },
         socialImpact: { CALM: 0.3 as any },
-        ownershipEffect: { roomAcoustics: 'dampened' }
+        ownershipEffect: { roomAcoustics: 'dampened' },
     },
     {
         tag: PrivacyActionTag.CONTROL_VISITORS_LEDGER,
@@ -195,10 +192,7 @@ export const PrivacyActions: ActionDefinition[] = [
         socialImpact: { ABUSE: -0.1 as any, RESPECT: 0.1 },
         ownershipEffect: { visitorLog: 'active', accessScope: 'gate_clerk' },
         lawEffect: { entryRule: 'sign_in_required', enforceable: true },
-        requiredMemes: [
-            comm.language.written,
-            record.ledgerkeeping,
-        ]
+        requiredMemes: [comm.language.written, record.ledgerkeeping],
     },
     {
         tag: PrivacyActionTag.SEALED_LETTER_SERVICE,
@@ -218,10 +212,7 @@ export const PrivacyActions: ActionDefinition[] = [
         socialImpact: { GOSSIP: -0.15 as any, CREDIBILITY: 0.2 },
         ownershipEffect: { letterState: 'sealed', chainOfCustody: 'tracked' },
         lawEffect: { tamperPenalty: 'severe', enforceable: true },
-        requiredMemes: [
-            record.ledgerkeeping,
-            econ.pooling_common_fund,
-        ]
+        requiredMemes: [record.ledgerkeeping, econ.pooling_common_fund],
     },
     {
         tag: PrivacyActionTag.MASK_IDENTITY_ATTIRE,
@@ -236,7 +227,7 @@ export const PrivacyActions: ActionDefinition[] = [
         },
         tradeEffect: { hood_cloak: -1 | (0 as any), veil: -1 | (0 as any) },
         socialImpact: { VISIBILITY: -0.2 as any, RESPECT: 0.1 },
-        lawEffect: { maskRule: 'allowed_within_market', enforceable: true }
+        lawEffect: { maskRule: 'allowed_within_market', enforceable: true },
     },
     {
         tag: PrivacyActionTag.BATHING_SCHEDULE_SEPARATE,
@@ -250,7 +241,7 @@ export const PrivacyActions: ActionDefinition[] = [
         },
         requiresLocation: 'baths|river_hut',
         socialImpact: { CONFLICT: -0.1 as any, DIGNITY: 0.3 as any },
-        lawEffect: { bathRoster: 'posted', enforceable: true }
+        lawEffect: { bathRoster: 'posted', enforceable: true },
     },
     {
         tag: PrivacyActionTag.WINDOW_SHUTTERS_PROTOCOL,
@@ -266,10 +257,7 @@ export const PrivacyActions: ActionDefinition[] = [
         socialImpact: { GAZE: -0.2 as any, RESPECT: 0.1 },
         ownershipEffect: { homeState: 'shutters_rule_active' },
         lawEffect: { nightPrivacy: 'observed', enforceable: true },
-        requiredMemes: [
-            culture.vigil_ritual,
-            cog.timekeeping.basic,
-        ]
+        requiredMemes: [culture.vigil_ritual, cog.timekeeping.basic],
     },
     {
         tag: PrivacyActionTag.SECLUDED_PATH_MAPPING,
@@ -286,6 +274,6 @@ export const PrivacyActions: ActionDefinition[] = [
         socialImpact: { CONFLICT: -0.05 as any },
         ownershipEffect: { routeMap: 'secluded_paths_marked' },
         lawEffect: { accessRule: 'private_paths_respected', enforceable: true },
-        requiredMemes: [comm.language.written]
+        requiredMemes: [comm.language.written],
     },
 ];

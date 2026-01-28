@@ -10,7 +10,7 @@ export const WealthActions: ActionDefinition[] = [
         requiresItem: ['pickaxe'],
         requiresSkill: 'mining',
         requiresLocation: 'mine',
-        tradeEffect: { resource: 'ore', amount: +5 }
+        tradeEffect: { resource: 'ore', amount: +5 },
     },
     {
         tag: WealthActionTag.CRAFT_VALUABLES,
@@ -21,10 +21,7 @@ export const WealthActions: ActionDefinition[] = [
         requiresItem: ['materials'],
         requiresLocation: 'workshop',
         tradeEffect: { itemValue: +10 },
-        requiredMemes: [
-            comm.language.written,
-            org.workshop_practice,
-        ]
+        requiredMemes: [comm.language.written, org.workshop_practice],
     },
     {
         tag: WealthActionTag.TRADE_WITH_MERCHANT,
@@ -34,14 +31,14 @@ export const WealthActions: ActionDefinition[] = [
         requiresSkill: 'bargaining',
         requiresLocation: 'market',
         targetType: 'MARKET',
-        tradeEffect: { balance: +5 }
+        tradeEffect: { balance: +5 },
     },
     {
         tag: WealthActionTag.STORE_WEALTH,
         costEnergy: -0.1,
         costTime: 0.5,
         rewardSecondary: { WEALTH: 0.4, SECURITY: 0.4 },
-        requiresLocation: 'home'
+        requiresLocation: 'home',
     },
     {
         tag: WealthActionTag.COLLECT_TAX,
@@ -50,7 +47,7 @@ export const WealthActions: ActionDefinition[] = [
         rewardSecondary: { WEALTH: 0.8, CONTROL: 0.6, STATUS: 0.3 },
         requiresSkill: 'leadership',
         targetType: 'GROUP',
-        tradeEffect: { balance: +10 }
+        tradeEffect: { balance: +10 },
     },
     {
         tag: WealthActionTag.HIRE_WORKERS,
@@ -59,7 +56,7 @@ export const WealthActions: ActionDefinition[] = [
         rewardSecondary: { WEALTH: 0.5, CONTROL: 0.4, STATUS: 0.3 },
         requiresSkill: 'management',
         requiresItem: ['money'],
-        targetType: 'OTHER'
+        targetType: 'OTHER',
     },
     {
         tag: WealthActionTag.LEND_RESOURCES,
@@ -67,7 +64,7 @@ export const WealthActions: ActionDefinition[] = [
         costTime: 1,
         rewardSecondary: { WEALTH: 0.4, TRUST: 0.5, COMMUNITY: 0.2 },
         requiresItem: ['money'],
-        tradeEffect: { balance: -5 }
+        tradeEffect: { balance: -5 },
     },
     {
         tag: WealthActionTag.DEMAND_PAYMENT,
@@ -76,7 +73,7 @@ export const WealthActions: ActionDefinition[] = [
         rewardSecondary: { WEALTH: 0.6, CONTROL: 0.3 },
         requiresSkill: 'intimidation',
         targetType: 'OTHER',
-        risk: 0.2
+        risk: 0.2,
     },
     {
         tag: WealthActionTag.DONATE_WEALTH,
@@ -84,7 +81,7 @@ export const WealthActions: ActionDefinition[] = [
         costTime: 1,
         rewardSecondary: { WEALTH: 0.5, RESPECT: 0.6, SPIRIT: 0.3 },
         requiresItem: ['money'],
-        tradeEffect: { balance: -5 }
+        tradeEffect: { balance: -5 },
     },
     {
         tag: WealthActionTag.SHOW_OFF_WEALTH,
@@ -92,6 +89,6 @@ export const WealthActions: ActionDefinition[] = [
         costTime: 0.5,
         rewardSecondary: { WEALTH: 0.5, STATUS: 0.6, RESPECT: 0.4 },
         requiresItem: ['jewelry', 'clothing'],
-        socialImpact: { admiration: +0.3, envy: +0.2 }
+        socialImpact: { admiration: +0.3, envy: +0.2 },
     },
 ];

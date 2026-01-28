@@ -145,7 +145,7 @@ export const ClarityActions: ActionDefinition[] = [
     },
     {
         tag: ClarityActionTag.WRITTEN_LANGUAGE_TRAINING,
-        needRework:true,
+        needRework: true,
         requiredMemes: [comm.language.written],
     },
     {

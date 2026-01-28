@@ -3,11 +3,11 @@ import { IsEnum, IsString } from 'class-validator';
 import { ShipType } from '../../types/ship-type.type';
 
 export class PostNewShipBodyDto {
-  @ApiProperty()
-  @IsString()
-  name: string;
+    @ApiProperty()
+    @IsString()
+    name: string;
 
-  @ApiProperty({ enum: ShipType })
-  @IsEnum(ShipType)
-  type: ShipType;
+    @ApiProperty({ enum: ShipType })
+    @IsEnum(ShipType)
+    type: ShipType;
 }

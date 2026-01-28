@@ -5,25 +5,25 @@ import { Ship, ShipDocument } from '../schemas/ship.schema';
 
 @Injectable()
 export class ShipRepository {
-  constructor(
-    @InjectModel(Ship.name)
-    private readonly shipModel: Model<Ship>,
-  ) {}
+    constructor(
+        @InjectModel(Ship.name)
+        private readonly shipModel: Model<Ship>,
+    ) {}
 
-  findOneById(id: string) {
-    return this.shipModel.findById(id) as Promise<ShipDocument>;
-  }
-  create(ship: Partial<Ship>) {
-    return this.shipModel.create(ship);
-  }
+    findOneById(id: string) {
+        return this.shipModel.findById(id) as Promise<ShipDocument>;
+    }
+    create(ship: Partial<Ship>) {
+        return this.shipModel.create(ship);
+    }
 
-  find(
-    filter: FilterQuery<Ship>,
-    projection?: ProjectionType<Ship>,
-    options?: QueryOptions<Ship>,
-  ) {
-    return this.shipModel.find(filter, projection, options) as Promise<
-      ShipDocument[]
-    >;
-  }
+    find(
+        filter: FilterQuery<Ship>,
+        projection?: ProjectionType<Ship>,
+        options?: QueryOptions<Ship>,
+    ) {
+        return this.shipModel.find(filter, projection, options) as Promise<
+            ShipDocument[]
+        >;
+    }
 }

@@ -28,8 +28,7 @@ export class LocationEntity {
     world: WorldState;
 
     constructor(init: LocationEntityInit = {}) {
-        this
-            .setId(init.id ?? '')
+        this.setId(init.id ?? '')
             .setName(init.name ?? '')
             .setWorld(
                 init.world ?? {
@@ -108,7 +107,8 @@ export class LocationEntity {
     }): this {
         const { actor, hexId } = params;
         const contentId = params.contentId ?? `content:creature:${actor.id}`;
-        const volume: VolumeUnits = params.volume ?? actor.physical?.baseVolume ?? 1;
+        const volume: VolumeUnits =
+            params.volume ?? actor.physical?.baseVolume ?? 1;
 
         this.world.creatures[actor.id] = actor;
 

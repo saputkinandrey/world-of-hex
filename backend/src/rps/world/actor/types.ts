@@ -5,13 +5,8 @@
  *  - живые существа с LivingCreatureLens могут иметь 'eat'/'drink'/'sleep';
  *  - големы/нежить — нет, им просто не навешиваем такие активности.
  */
-export type ActivityId =
-    | 'idle'
-    | 'eat'
-    | 'drink'
-    | 'sleep'
+export type ActivityId = 'idle' | 'eat' | 'drink' | 'sleep';
 // дальше можно добавлять 'move', 'fight', 'cast_spell' и т.п.
-    ;
 
 /**
  * Состояние активности:

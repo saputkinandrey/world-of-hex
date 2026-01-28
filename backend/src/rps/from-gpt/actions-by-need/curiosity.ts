@@ -21,7 +21,7 @@ export const CuriosityActions: ActionDefinition[] = [
             grantAccess: true,
             routeRight: 'scout_bonus',
         },
-        lawEffect: { explorationPermit: 'issued', enforceable: true }
+        lawEffect: { explorationPermit: 'issued', enforceable: true },
     },
     {
         tag: CuriosityActionTag.SAMPLE_UNKNOWN_PLANT,
@@ -33,7 +33,7 @@ export const CuriosityActions: ActionDefinition[] = [
         tradeEffect: { vials: -1, herbarium_entry: '+1' },
         socialImpact: { CURIOSITY: 0.5, INNOVATION_REP: 0.2 as any },
         ownershipEffect: { samples: '+1', labAccess: true },
-        lawEffect: { bioSafetyRule: 'observed', enforceable: true }
+        lawEffect: { bioSafetyRule: 'observed', enforceable: true },
     },
     {
         tag: CuriosityActionTag.TEST_STRANGE_MINERAL,
@@ -49,7 +49,7 @@ export const CuriosityActions: ActionDefinition[] = [
             assayReport: 'created',
             claimPotential: 'ore_vein?',
         },
-        lawEffect: { assayRecord: 'filed', enforceable: true }
+        lawEffect: { assayRecord: 'filed', enforceable: true },
     },
     {
         tag: CuriosityActionTag.FOLLOW_MYSTERIOUS_TRACKS,
@@ -59,7 +59,7 @@ export const CuriosityActions: ActionDefinition[] = [
         rewardSecondary: { CURIOSITY: 0.75, SECURITY: 0.2, KNOWLEDGE: 0.3 },
         requiresSkill: 'tracking',
         socialImpact: { CURIOSITY: 0.55, READINESS: 0.3 as any },
-        lawEffect: { trackingNote: 'logged', enforceable: true }
+        lawEffect: { trackingNote: 'logged', enforceable: true },
     },
     {
         tag: CuriosityActionTag.INTERVIEW_TRAVELER,
@@ -71,7 +71,7 @@ export const CuriosityActions: ActionDefinition[] = [
         tradeEffect: { meal_for_traveler: -1 },
         socialImpact: { CURIOSITY: 0.45, NETWORK: 0.3 },
         ownershipEffect: { intelNotes: '+1', rumor_flag: 'needs_verification' },
-        lawEffect: { interviewLog: 'recorded', enforceable: true }
+        lawEffect: { interviewLog: 'recorded', enforceable: true },
     },
     {
         tag: CuriosityActionTag.EXPLORE_RUINS,
@@ -92,7 +92,7 @@ export const CuriosityActions: ActionDefinition[] = [
             artifactClaim: 'possible',
             accessScope: 'ruins_sector',
         },
-        lawEffect: { digPermit: 'granted', enforceable: true }
+        lawEffect: { digPermit: 'granted', enforceable: true },
     },
     {
         tag: CuriosityActionTag.PROBE_RUMOR,
@@ -103,7 +103,7 @@ export const CuriosityActions: ActionDefinition[] = [
         requiresSkill: 'investigation',
         socialImpact: { CURIOSITY: 0.45, CREDIBILITY: 0.3 as any },
         ownershipEffect: { rumorStatus: 'confirmed|debunked' },
-        lawEffect: { falseReportPenalty: 'noted', enforceable: true }
+        lawEffect: { falseReportPenalty: 'noted', enforceable: true },
     },
     {
         tag: CuriosityActionTag.REVERSE_ENGINEER_ITEM,
@@ -120,7 +120,7 @@ export const CuriosityActions: ActionDefinition[] = [
         tradeEffect: { tool_wear: '-minor', scrap: '+1' },
         socialImpact: { CURIOSITY: 0.6, INNOVATION_REP: 0.4 },
         ownershipEffect: { blueprint: 'drafted', ipRisk: 'potential' },
-        lawEffect: { guildRule: 'reverse_ok_if_no_theft', enforceable: true }
+        lawEffect: { guildRule: 'reverse_ok_if_no_theft', enforceable: true },
     },
     {
         tag: CuriosityActionTag.TRY_UNFAMILIAR_CRAFT,
@@ -131,10 +131,7 @@ export const CuriosityActions: ActionDefinition[] = [
         tradeEffect: { trial_materials: -2, waste_risk: 0.2 as any },
         socialImpact: { CURIOSITY: 0.5, HUMILITY: 0.2 as any },
         lawEffect: { workshopEtiquette: 'observed', enforceable: true },
-        requiredMemes: [
-            health.sanitation_norms,
-            health.waste_handling,
-        ]
+        requiredMemes: [health.sanitation_norms, health.waste_handling],
     },
     {
         tag: CuriosityActionTag.MAP_SUBTERRANEAN_PASSAGE,
@@ -156,7 +153,7 @@ export const CuriosityActions: ActionDefinition[] = [
             mapSheet: 'cave_v1',
             accessScope: 'underground_route',
         },
-        lawEffect: { hazardNote: 'posted', enforceable: true }
+        lawEffect: { hazardNote: 'posted', enforceable: true },
     },
     {
         tag: CuriosityActionTag.RECORD_NATURAL_PHENOMENON,
@@ -168,10 +165,7 @@ export const CuriosityActions: ActionDefinition[] = [
         socialImpact: { CURIOSITY: 0.55, CREDIBILITY: 0.3 },
         ownershipEffect: { observationLog: 'updated', forecastBonus: 'minor' },
         lawEffect: { observatoryRoll: 'filed', enforceable: true },
-        requiredMemes: [
-            comm.language.written,
-            record.ledgerkeeping,
-        ]
+        requiredMemes: [comm.language.written, record.ledgerkeeping],
     },
     {
         tag: CuriosityActionTag.DECIPHER_SYMBOLS,
@@ -184,10 +178,7 @@ export const CuriosityActions: ActionDefinition[] = [
         socialImpact: { CURIOSITY: 0.6, MYSTERY: 0.3, RESPECT: 0.2 },
         ownershipEffect: { cipherKey: 'partial|complete' },
         lawEffect: { archiveAccess: 'granted', enforceable: true },
-        requiredMemes: [
-            record.ledgerkeeping,
-            econ.pooling_common_fund,
-        ]
+        requiredMemes: [record.ledgerkeeping, econ.pooling_common_fund],
     },
     {
         tag: CuriosityActionTag.OPEN_EXPLORERS_BOARD,
@@ -212,7 +203,7 @@ export const CuriosityActions: ActionDefinition[] = [
             health.sanitation_norms,
             health.waste_handling,
             comm.language.written,
-        ]
+        ],
     },
     {
         tag: CuriosityActionTag.TRAILBLAZE_NEW_ROUTE,
@@ -232,7 +223,7 @@ export const CuriosityActions: ActionDefinition[] = [
             routeRight: 'discoverer_bonus',
             tollPotential: 'yes',
         },
-        lawEffect: { explorationClaim: 'route_registered', enforceable: true }
+        lawEffect: { explorationClaim: 'route_registered', enforceable: true },
     },
     {
         tag: CuriosityActionTag.SAFETY_PROTOCOL_DRILL,
@@ -246,7 +237,7 @@ export const CuriosityActions: ActionDefinition[] = [
             health.sanitation_norms,
             health.waste_handling,
             comm.language.written,
-        ]
+        ],
     },
     {
         tag: CuriosityActionTag.PUBLISH_FINDINGS,
@@ -265,9 +256,6 @@ export const CuriosityActions: ActionDefinition[] = [
             license: 'open|restricted',
         },
         lawEffect: { guildSeal: 'granted', enforceable: true },
-        requiredMemes: [
-            comm.language.written,
-            record.ledgerkeeping,
-        ]
+        requiredMemes: [comm.language.written, record.ledgerkeeping],
     },
 ];

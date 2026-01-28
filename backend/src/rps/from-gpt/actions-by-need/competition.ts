@@ -23,7 +23,7 @@ export const CompetitionActions: ActionDefinition[] = [
         needMemes: true,
         requiredMemes: [
             // нужен мем, отвечающий за саму идею соревновательности
-        ]
+        ],
     },
     {
         tag: CompetitionActionTag.ENTER_HUNT_CONTEST,
@@ -44,7 +44,7 @@ export const CompetitionActions: ActionDefinition[] = [
         requiredMemes: [
             // нужен мем, отвечающий за саму идею соревновательности
             // нужен мем, отвечающий за охоту
-        ]
+        ],
     },
     {
         tag: CompetitionActionTag.ENTER_COMBAT_SPAR,
@@ -64,7 +64,7 @@ export const CompetitionActions: ActionDefinition[] = [
             // нужен мем, отвечающий за саму идею соревновательности
             // нужен мем, отвечающий за идею боя
         ],
-        lawEffect: { safetyRules: 'nonlethal', enforceable: true }
+        lawEffect: { safetyRules: 'nonlethal', enforceable: true },
     },
     {
         tag: CompetitionActionTag.CHALLENGE_PUBLIC_DEBATE,
@@ -82,10 +82,10 @@ export const CompetitionActions: ActionDefinition[] = [
         socialImpact: { COMPETITION: 0.5, VISIBILITY: 0.5, SKEPTICISM: 0.1 },
         needMemes: true,
         requiredMemes: [
-            memes.comm.language.spoken
+            memes.comm.language.spoken,
             // нужен мем, отвечающий за саму идею соревновательности
         ],
-        lawEffect: { debateDocket: 'scheduled', enforceable: true }
+        lawEffect: { debateDocket: 'scheduled', enforceable: true },
     },
     {
         tag: CompetitionActionTag.BID_FOR_CONTRACT,
@@ -102,7 +102,7 @@ export const CompetitionActions: ActionDefinition[] = [
             // нужен мем, отвечающий за саму идею договора
             // нужен мем, отвечающий за саму идею денег
         ],
-        lawEffect: { tenderId: 'public_work_v1', enforceable: true }
+        lawEffect: { tenderId: 'public_work_v1', enforceable: true },
     },
     {
         tag: CompetitionActionTag.SHOWCASE_MASTERPIECE,
@@ -139,7 +139,7 @@ export const CompetitionActions: ActionDefinition[] = [
         requiredMemes: [
             // нужен мем, отвечающий за саму идею инноваций
         ],
-        ownershipEffect: { ipClaim: 'innovation#id', exclusive: true }
+        ownershipEffect: { ipClaim: 'innovation#id', exclusive: true },
     },
     {
         tag: CompetitionActionTag.RECRUIT_ALLIES,
@@ -153,7 +153,7 @@ export const CompetitionActions: ActionDefinition[] = [
         requiredMemes: [
             // нужен мем, отвечающий за саму идею социальности
         ],
-        ownershipEffect: { accessScope: 'team_assets', grantAccess: true }
+        ownershipEffect: { accessScope: 'team_assets', grantAccess: true },
     },
     {
         tag: CompetitionActionTag.TRAIN_FOR_EVENT,
@@ -171,7 +171,7 @@ export const CompetitionActions: ActionDefinition[] = [
             // нужен мем, отвечающий за саму идею обучения
         ],
         socialImpact: { COMPETITION: 0.45, DISCIPLINE: 0.4 },
-        lawEffect: { trainingPermit: 'range_access', enforceable: true }
+        lawEffect: { trainingPermit: 'range_access', enforceable: true },
     },
     {
         tag: CompetitionActionTag.SCOUT_RIVAL,
@@ -182,7 +182,7 @@ export const CompetitionActions: ActionDefinition[] = [
         requiresSkill: 'observation',
         socialImpact: { COMPETITION: 0.45, INFORMATIONAL_ADV: 0.5 as any },
         needMemes: true,
-        lawEffect: { codeOfConduct: 'no_sabotage', enforceable: true }
+        lawEffect: { codeOfConduct: 'no_sabotage', enforceable: true },
     },
     {
         tag: CompetitionActionTag.NEGOTIATE_RULES,
@@ -193,7 +193,7 @@ export const CompetitionActions: ActionDefinition[] = [
         socialImpact: { COMPETITION: 0.45, TRUST: 0.25 },
         needMemes: true,
 
-        lawEffect: { ruleset: 'ratified', enforceable: true }
+        lawEffect: { ruleset: 'ratified', enforceable: true },
     },
     {
         tag: CompetitionActionTag.APPEAL_JUDGEMENT,
@@ -203,7 +203,7 @@ export const CompetitionActions: ActionDefinition[] = [
         rewardSecondary: { COMPETITION: 0.5, JUSTICE: 0.4, LAW: 0.4 },
         requiresSkill: 'rhetoric',
         socialImpact: { COMPETITION: 0.35, FAIRNESS: 0.4, CONTROVERSY: 0.2 },
-        lawEffect: { appealCase: 'opened', enforceable: true }
+        lawEffect: { appealCase: 'opened', enforceable: true },
     },
     {
         tag: CompetitionActionTag.FRIENDLY_WAGER,
@@ -218,7 +218,7 @@ export const CompetitionActions: ActionDefinition[] = [
         tradeEffect: { stake: '-X', escrow: 'trusted_holder' },
         socialImpact: { COMPETITION: 0.4, FUN: 0.35 as any, TENSION: 0.1 },
         lawEffect: { wagerNote: 'private', enforceable: false },
-        ownershipEffect: { transferOnCondition: true }
+        ownershipEffect: { transferOnCondition: true },
     },
     {
         tag: CompetitionActionTag.COOPERATE_TEMPORARILY,
@@ -233,7 +233,7 @@ export const CompetitionActions: ActionDefinition[] = [
             enforceable: true,
             duration: 'short',
         },
-        ownershipEffect: { sharedUse: true, accessScope: 'joint_assets' }
+        ownershipEffect: { sharedUse: true, accessScope: 'joint_assets' },
     },
     {
         tag: CompetitionActionTag.SPORTSMANSHIP_GESTURE,
@@ -241,6 +241,6 @@ export const CompetitionActions: ActionDefinition[] = [
         costTime: 0.3,
         rewardSecondary: { COMPETITION: 0.5, REPUTATION: 0.3, COMMUNITY: 0.2 },
         socialImpact: { COMPETITION: 0.3, RESPECT: 0.4, HOSTILITY: -0.2 },
-        lawEffect: { codeOfHonor: 'observed', enforceable: false }
+        lawEffect: { codeOfHonor: 'observed', enforceable: false },
     },
 ];

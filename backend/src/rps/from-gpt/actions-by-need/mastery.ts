@@ -10,10 +10,7 @@ export const MasteryActions: ActionDefinition[] = [
         requiresLocation: 'training_yard|workbench',
         socialImpact: { RESPECT: 0.1, CONSISTENCY: 0.4 as any },
         lawEffect: { trainingPermit: 'not_required', enforceable: false },
-        requiredMemes: [
-            health.sanitation_norms,
-            health.waste_handling,
-        ]
+        requiredMemes: [health.sanitation_norms, health.waste_handling],
     },
     {
         tag: MasteryActionTag.STUDY_TREATISE,
@@ -23,7 +20,7 @@ export const MasteryActions: ActionDefinition[] = [
         requiresItem: ['treatise|scroll'],
         tradeEffect: { study_wear: '-minor' },
         socialImpact: { SCHOLARLY: 0.4 as any },
-        ownershipEffect: { accessScope: 'library', grantAccess: true }
+        ownershipEffect: { accessScope: 'library', grantAccess: true },
     },
     {
         tag: MasteryActionTag.APPRENTICE_UNDER_MASTER,
@@ -38,7 +35,7 @@ export const MasteryActions: ActionDefinition[] = [
         socialImpact: { RESPECT: 0.2, NETWORK: 0.3, HUMILITY: 0.3 as any },
         lawEffect: { apprenticeshipContract: 'signed', enforceable: true },
         ownershipEffect: { accessScope: 'master_workshop', grantAccess: true },
-        tradeEffect: { stipend: '-1/day', tuition: '-1/season' }
+        tradeEffect: { stipend: '-1/day', tuition: '-1/season' },
     },
     {
         tag: MasteryActionTag.COMPLETE_APPRENTICE_TASK,
@@ -48,7 +45,7 @@ export const MasteryActions: ActionDefinition[] = [
         rewardSecondary: { MASTERY: 0.6, REPUTATION: 0.2 },
         socialImpact: { RELIABILITY: 0.4 as any, TRUST: 0.2 },
         lawEffect: { taskRecord: 'guild_log', enforceable: true },
-        tradeEffect: { materials_used: -2, payment: '+1' }
+        tradeEffect: { materials_used: -2, payment: '+1' },
     },
     {
         tag: ActionTags.MENTOR_JUNIOR,
@@ -61,7 +58,7 @@ export const MasteryActions: ActionDefinition[] = [
             STATUS: 0.2,
         },
         socialImpact: { RESPECT: 0.3, LOYALTY: 0.2, TEACHING_REP: 0.4 as any },
-        lawEffect: { mentorRegistry: 'updated', enforceable: true }
+        lawEffect: { mentorRegistry: 'updated', enforceable: true },
     },
     {
         tag: MasteryActionTag.BUILD_TRAINING_RIG,
@@ -72,10 +69,7 @@ export const MasteryActions: ActionDefinition[] = [
         tradeEffect: { spend_wood: -5, spend_rope: -2, spend_tools: -1 },
         ownershipEffect: { trainingFacility: 'built', accessScope: 'yard' },
         lawEffect: { buildingPermit: 'granted', enforceable: true },
-        requiredMemes: [
-            comm.language.written,
-            tech.tool.use_basic,
-        ]
+        requiredMemes: [comm.language.written, tech.tool.use_basic],
     },
     {
         tag: MasteryActionTag.ANALYZE_FAILURES,
@@ -83,7 +77,7 @@ export const MasteryActions: ActionDefinition[] = [
         costTime: 1.2,
         rewardSecondary: { MASTERY: 0.55, KNOWLEDGE: 0.5, STABILITY: 0.2 },
         socialImpact: { HUMILITY: 0.3 as any, IMPROVEMENT: 0.4 as any },
-        lawEffect: { logPostmortem: 'kept', enforceable: false }
+        lawEffect: { logPostmortem: 'kept', enforceable: false },
     },
     {
         tag: MasteryActionTag.FIELD_TEST_TECHNIQUE,
@@ -93,7 +87,7 @@ export const MasteryActions: ActionDefinition[] = [
         rewardSecondary: { MASTERY: 0.7, REPUTATION: 0.2 },
         socialImpact: { COURAGE: 0.3, INNOVATION_REP: 0.3 as any },
         lawEffect: { testPermit: 'required', enforceable: true },
-        tradeEffect: { consumables_used: -1 }
+        tradeEffect: { consumables_used: -1 },
     },
     {
         tag: MasteryActionTag.MASTER_CLASS_DEMO,
@@ -109,10 +103,7 @@ export const MasteryActions: ActionDefinition[] = [
         socialImpact: { RESPECT: 0.5, FAME: 0.4, INFLUENCE: 0.3 as any },
         lawEffect: { eventPermit: 'demo_ok', enforceable: true },
         tradeEffect: { ticket_donations: '+2' },
-        requiredMemes: [
-            comm.language.written,
-            org.workshop_practice,
-        ]
+        requiredMemes: [comm.language.written, org.workshop_practice],
     },
     {
         tag: MasteryActionTag.GUILD_EXAM_ATTEMPT,
@@ -128,10 +119,7 @@ export const MasteryActions: ActionDefinition[] = [
             license: 'if_passed',
             accessScope: 'guild_contracts',
         },
-        requiredMemes: [
-            comm.language.written,
-            org.workshop_practice,
-        ]
+        requiredMemes: [comm.language.written, org.workshop_practice],
     },
     {
         tag: MasteryActionTag.SPECIALIZE_BRANCH,
@@ -142,7 +130,7 @@ export const MasteryActions: ActionDefinition[] = [
         lawEffect: {
             registryUpdate: 'specialization_noted',
             enforceable: true,
-        }
+        },
     },
     {
         tag: MasteryActionTag.RECORD_KNOWLEDGE_SCROLL,
@@ -153,10 +141,7 @@ export const MasteryActions: ActionDefinition[] = [
         socialImpact: { SCHOLARLY: 0.5, COMMUNITY: 0.2 },
         ownershipEffect: { ipClaim: 'treatise_v1', author: 'self' },
         lawEffect: { scriptoriumRecord: 'filed', enforceable: true },
-        requiredMemes: [
-            comm.language.written,
-            record.ledgerkeeping,
-        ]
+        requiredMemes: [comm.language.written, record.ledgerkeeping],
     },
     {
         tag: MasteryActionTag.OPTIMIZE_WORKFLOW,
@@ -169,7 +154,7 @@ export const MasteryActions: ActionDefinition[] = [
             STABILITY: 0.2,
         },
         socialImpact: { EFFICIENCY_REP: 0.4 as any },
-        ownershipEffect: { toolCalibrations: 'updated' }
+        ownershipEffect: { toolCalibrations: 'updated' },
     },
     {
         tag: MasteryActionTag.LEARN_FROM_RIVAL,
@@ -178,7 +163,7 @@ export const MasteryActions: ActionDefinition[] = [
         risk: 0.12,
         rewardSecondary: { MASTERY: 0.65, KNOWLEDGE: 0.5, COMPETITION: 0.2 },
         socialImpact: { HUMILITY: 0.3, NETWORK: 0.3 },
-        lawEffect: { codeOfHonor: 'observe_no_theft', enforceable: true }
+        lawEffect: { codeOfHonor: 'observe_no_theft', enforceable: true },
     },
     {
         tag: MasteryActionTag.RITUAL_OF_FOCUS,
@@ -187,7 +172,7 @@ export const MasteryActions: ActionDefinition[] = [
         rewardSecondary: { SPIRIT: 0.3, REST: 0.2, MASTERY: 0.3 },
         requiresLocation: 'shrine|quiet_room',
         socialImpact: { CALM: 0.4 as any, DISCIPLINE: 0.3 as any },
-        lawEffect: { ritual: 'focus_v1', enforceable: false }
+        lawEffect: { ritual: 'focus_v1', enforceable: false },
     },
     {
         tag: MasteryActionTag.CRAFT_SIGNATURE_WORK,
@@ -204,6 +189,6 @@ export const MasteryActions: ActionDefinition[] = [
         tradeEffect: { spend_rare: -3, price_potential: '+high' },
         socialImpact: { FAME: 0.6, AWE: 0.5, RESPECT: 0.4 },
         ownershipEffect: { claimAuthorship: true, masterpiece: 'created' },
-        lawEffect: { hallmark: 'stamped', enforceable: true }
+        lawEffect: { hallmark: 'stamped', enforceable: true },
     },
 ];

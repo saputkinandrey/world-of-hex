@@ -8,7 +8,7 @@ export const SecurityActions: ActionDefinition[] = [
         rewardSecondary: { SECURITY: 0.9, COMFORT: 0.5, STABILITY: 0.4 },
         requiresItem: ['wood', 'branches', 'clay'],
         requiresSkill: 'construction',
-        targetType: 'AREA'
+        targetType: 'AREA',
     },
     {
         tag: SecurityActionTag.FORTIFY_WALLS,
@@ -17,7 +17,7 @@ export const SecurityActions: ActionDefinition[] = [
         rewardSecondary: { SECURITY: 0.8, STABILITY: 0.6, CONTROL: 0.3 },
         requiresItem: ['wood', 'stone'],
         requiresLocation: 'settlement',
-        requiresSkill: 'engineering'
+        requiresSkill: 'engineering',
     },
     {
         tag: SecurityActionTag.SET_TRAPS,
@@ -25,14 +25,14 @@ export const SecurityActions: ActionDefinition[] = [
         costTime: 2,
         rewardSecondary: { SECURITY: 0.6, CONTROL: 0.2 },
         requiresItem: ['rope', 'wood'],
-        requiresSkill: 'trapping'
+        requiresSkill: 'trapping',
     },
     {
         tag: SecurityActionTag.STAND_GUARD,
         costEnergy: -0.4,
         costTime: 3,
         rewardSecondary: { SECURITY: 0.5, TRUST: 0.4, CONTROL: 0.3 },
-        targetType: 'GROUP'
+        targetType: 'GROUP',
     },
     {
         tag: SecurityActionTag.TRAIN_WITH_WEAPON,
@@ -40,7 +40,7 @@ export const SecurityActions: ActionDefinition[] = [
         costTime: 2,
         rewardSecondary: { SECURITY: 0.5, POWER: 0.3, MASTERY: 0.2 },
         requiresItem: ['weapon'],
-        requiresSkill: 'combat'
+        requiresSkill: 'combat',
     },
     {
         tag: SecurityActionTag.REPAIR_DEFENSES,
@@ -48,7 +48,7 @@ export const SecurityActions: ActionDefinition[] = [
         costTime: 3,
         rewardSecondary: { SECURITY: 0.7, STABILITY: 0.4 },
         requiresItem: ['wood', 'stone'],
-        requiresLocation: 'settlement'
+        requiresLocation: 'settlement',
     },
     {
         tag: SecurityActionTag.PATROL_PERIMETER,
@@ -56,7 +56,7 @@ export const SecurityActions: ActionDefinition[] = [
         costTime: 2,
         rewardSecondary: { SECURITY: 0.6, CONTROL: 0.4, TRUST: 0.3 },
         requiresSkill: 'scouting',
-        targetType: 'AREA'
+        targetType: 'AREA',
     },
     {
         tag: SecurityActionTag.HUNT_THREATS,
@@ -65,20 +65,20 @@ export const SecurityActions: ActionDefinition[] = [
         rewardSecondary: { SECURITY: 0.8, POWER: 0.4, HEALTH: 0.3 },
         risk: 0.4,
         requiresItem: ['weapon'],
-        requiresSkill: 'combat'
+        requiresSkill: 'combat',
     },
     {
         tag: SecurityActionTag.WARN_ALLIES,
         costEnergy: -0.1,
         costTime: 0.2,
         rewardSecondary: { SECURITY: 0.3, TRUST: 0.4, COMMUNITY: 0.3 },
-        targetType: 'GROUP'
+        targetType: 'GROUP',
     },
     {
         tag: SecurityActionTag.SEEK_SHELTER,
         costEnergy: -0.2,
         costTime: 0.5,
         rewardSecondary: { SECURITY: 0.7, COMFORT: 0.4, HEALTH: 0.2 },
-        requiresLocation: 'shelter'
+        requiresLocation: 'shelter',
     },
 ];

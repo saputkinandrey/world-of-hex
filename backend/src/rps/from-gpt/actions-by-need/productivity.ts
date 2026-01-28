@@ -1,6 +1,14 @@
 import { ActionDefinition } from '../action-definition';
 import { ProductivityActionTag } from '../action-tags';
-import { cog, comm, culture, econ, health, org, record } from '../../world/memes';
+import {
+    cog,
+    comm,
+    culture,
+    econ,
+    health,
+    org,
+    record,
+} from '../../world/memes';
 export const ProductivityActions: ActionDefinition[] = [
     {
         tag: ProductivityActionTag.MORNING_TALLY_AND_BRIEF,
@@ -23,7 +31,7 @@ export const ProductivityActions: ActionDefinition[] = [
             record.ledgerkeeping,
             cog.number_concept,
             org.workshop_practice,
-        ]
+        ],
     },
     {
         tag: ProductivityActionTag.TASK_BOARD_PULL_TOKENS,
@@ -44,7 +52,7 @@ export const ProductivityActions: ActionDefinition[] = [
             comm.language.written,
             record.ledgerkeeping,
             econ.pooling_common_fund,
-        ]
+        ],
     },
     {
         tag: ProductivityActionTag.SET_WIP_LIMITS,
@@ -57,7 +65,7 @@ export const ProductivityActions: ActionDefinition[] = [
             ORDER: 0.4,
         },
         socialImpact: { DISCIPLINE: 0.4, FAIRNESS: 0.2 },
-        lawEffect: { wipMax: 'posted', enforceable: true }
+        lawEffect: { wipMax: 'posted', enforceable: true },
     },
     {
         tag: ProductivityActionTag.STANDARDIZE_WORK_STEPS,
@@ -73,7 +81,7 @@ export const ProductivityActions: ActionDefinition[] = [
         socialImpact: { INTEGRITY: 0.3, ORDER: 0.4 },
         ownershipEffect: { standardSheet: 'created', archive: 'yes' },
         lawEffect: { guildStandard: 'ratified', enforceable: true },
-        requiredMemes: [comm.language.written]
+        requiredMemes: [comm.language.written],
     },
     {
         tag: ProductivityActionTag.TOOLS_MAINTENANCE_ROTA,
@@ -88,7 +96,7 @@ export const ProductivityActions: ActionDefinition[] = [
         tradeEffect: { oil: -1, whetstone_wear: '-minor' },
         socialImpact: { RESPONSIBILITY: 0.3 as any, TRUST: 0.2 },
         ownershipEffect: { toolState: 'maintained' },
-        lawEffect: { rota: 'logged', enforceable: true }
+        lawEffect: { rota: 'logged', enforceable: true },
     },
     {
         tag: ProductivityActionTag.BENCH_LAYOUT_STREAMLINE,
@@ -104,10 +112,7 @@ export const ProductivityActions: ActionDefinition[] = [
         tradeEffect: { labor: '-rearrange', chalk: -1 },
         socialImpact: { COORDINATION: 0.3 as any, DISCIPLINE: 0.2 },
         ownershipEffect: { layout: 'streamlined' },
-        requiredMemes: [
-            comm.language.written,
-            org.workshop_practice,
-        ]
+        requiredMemes: [comm.language.written, org.workshop_practice],
     },
     {
         tag: ProductivityActionTag.BATCH_PREP_MATERIALS,
@@ -121,7 +126,7 @@ export const ProductivityActions: ActionDefinition[] = [
         },
         tradeEffect: { raw_materials: '-N' as any, blanks: '+N' },
         socialImpact: { READINESS: 0.3 as any, TRUST: 0.1 },
-        ownershipEffect: { storesLevel: 'raised' }
+        ownershipEffect: { storesLevel: 'raised' },
     },
     {
         tag: ProductivityActionTag.CROSS_TRAIN_PAIRING,
@@ -136,7 +141,7 @@ export const ProductivityActions: ActionDefinition[] = [
         requiresSkill: 'teaching|apprentice',
         socialImpact: { LOYALTY: 0.2, COMMUNITY: 0.2 },
         ownershipEffect: { accessScope: 'bench_guest', grantAccess: true },
-        lawEffect: { apprenticeRoll: 'updated', enforceable: true }
+        lawEffect: { apprenticeRoll: 'updated', enforceable: true },
     },
     {
         tag: ProductivityActionTag.PRIORITIZE_HIGH_IMPACT,
@@ -149,7 +154,7 @@ export const ProductivityActions: ActionDefinition[] = [
             ORDER: 0.3,
         },
         socialImpact: { DISCIPLINE: 0.3, FAIRNESS: 0.2 },
-        lawEffect: { priorityRule: 'value_first', enforceable: true }
+        lawEffect: { priorityRule: 'value_first', enforceable: true },
     },
     {
         tag: ProductivityActionTag.REMOVE_BOTTLENECK,
@@ -164,7 +169,7 @@ export const ProductivityActions: ActionDefinition[] = [
         },
         tradeEffect: { reassign_workers: '+2', idle_loss: '-1' },
         socialImpact: { COORDINATION: 0.4 as any, RESENTMENT: -0.1 },
-        lawEffect: { dutyRota: 'amended', enforceable: true }
+        lawEffect: { dutyRota: 'amended', enforceable: true },
     },
     {
         tag: ProductivityActionTag.MEASURE_THROUGHPUT_TALLY,
@@ -185,7 +190,7 @@ export const ProductivityActions: ActionDefinition[] = [
             comm.language.written,
             record.ledgerkeeping,
             cog.number_concept,
-        ]
+        ],
     },
     {
         tag: ProductivityActionTag.QUALITY_CHECK_AT_SOURCE,
@@ -200,10 +205,7 @@ export const ProductivityActions: ActionDefinition[] = [
         requiresLocation: 'workbench',
         socialImpact: { INTEGRITY: 0.3, RESPECT: 0.2 },
         lawEffect: { defectStopRule: 'worker_can_stop', enforceable: true },
-        requiredMemes: [
-            health.sanitation_norms,
-            health.waste_handling,
-        ]
+        requiredMemes: [health.sanitation_norms, health.waste_handling],
     },
     {
         tag: ProductivityActionTag.MIDDAY_SYNCH_AND_REALLOC,
@@ -218,7 +220,7 @@ export const ProductivityActions: ActionDefinition[] = [
         requiresLocation: 'workyard',
         socialImpact: { COORDINATION: 0.4 as any, TRUST: 0.2 },
         ownershipEffect: { accessScope: 'task_board', grantAccess: true },
-        requiredMemes: [comm.language.written]
+        requiredMemes: [comm.language.written],
     },
     {
         tag: ProductivityActionTag.BUFFER_STOCK_ESTABLISH,
@@ -233,7 +235,7 @@ export const ProductivityActions: ActionDefinition[] = [
         tradeEffect: { blanks: '+N', storage_space: '-capacity' },
         socialImpact: { READINESS: 0.3 as any },
         ownershipEffect: { storeState: 'buffered' },
-        lawEffect: { storeLedger: 'updated', enforceable: true }
+        lawEffect: { storeLedger: 'updated', enforceable: true },
     },
     {
         tag: ProductivityActionTag.SHIFT_HANDOFF_RITUAL,
@@ -259,7 +261,7 @@ export const ProductivityActions: ActionDefinition[] = [
             cog.timekeeping.basic,
             record.ledgerkeeping,
             econ.pooling_common_fund,
-        ]
+        ],
     },
     {
         tag: ProductivityActionTag.FAIR_REWARD_DISTRIBUTION,
@@ -280,6 +282,6 @@ export const ProductivityActions: ActionDefinition[] = [
             health.waste_handling,
             comm.language.written,
             record.ledgerkeeping,
-        ]
+        ],
     },
 ];

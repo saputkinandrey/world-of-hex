@@ -1,7 +1,7 @@
 // rps/world/items.helpers.ts
 
-import type { HexEntity } from "./hex.entity";
-import {ActorEntity} from "./actor/actor.entity";
+import type { HexEntity } from './hex.entity';
+import { ActorEntity } from './actor/actor.entity';
 
 /**
  * Идентификатор предмета.
@@ -21,7 +21,7 @@ export interface ItemLike {
     nutrition?: {
         energy?: number;
         protein?: number;
-        water?: number;  // литры или «игровые литры»
+        water?: number; // литры или «игровые литры»
         massLb?: number; // масса съедобной части
     };
 }
@@ -60,10 +60,7 @@ export function getActorInventoryItems(
  * Предполагаем, что гекс тоже хранит список id предметов.
  * Если у тебя другое поле — поменяй тут.
  */
-export function getHexItems(
-    hex: HexEntity,
-    itemIndex: ItemIndex,
-): ItemLike[] {
+export function getHexItems(hex: HexEntity, itemIndex: ItemIndex): ItemLike[] {
     const ids: ItemId[] = (hex as any).itemIds ?? [];
 
     const result: ItemLike[] = [];

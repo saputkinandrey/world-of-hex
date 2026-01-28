@@ -3,9 +3,9 @@ import { EquipmentEntity } from '../domain/character/inventory/equipment/equipme
 
 @Injectable()
 export class EquipmentService {
-  constructor() {}
+    constructor() {}
 
-  getBuiltArmours(): Promise<EquipmentEntity[]> {
-    return Promise.resolve([]);
-  }
+    getBuiltArmours(): Promise<EquipmentEntity[]> {
+        return Promise.resolve([]);
+    }
 }

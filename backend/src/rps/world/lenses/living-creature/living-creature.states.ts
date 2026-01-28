@@ -1,6 +1,5 @@
-import {ActorStateStrategy} from "../../actor/actor-activity";
-import {ActorEntity} from "../../actor/actor.entity";
-
+import { ActorStateStrategy } from '../../actor/actor-activity';
+import { ActorEntity } from '../../actor/actor.entity';
 
 /**
  * Стратегия сна.
@@ -60,7 +59,7 @@ export const SleepState: ActorStateStrategy = {
         // if (profile.idlePostureTag) {
         // 	actor.setPosture(profile.idlePostureTag);
         // }
-    }
+    },
 };
 
 /**
@@ -92,7 +91,7 @@ export const EatState: ActorStateStrategy = {
         //
         // Завершаем, когда время приёма пищи закончилось:
         return this.remainingSeconds <= 0;
-    }
+    },
 };
 
 /**
@@ -112,5 +111,5 @@ export const DrinkState: ActorStateStrategy = {
         // actor.metabolism.advanceDuringDrinking(dt);
         //
         return this.remainingSeconds <= 0;
-    }
+    },
 };

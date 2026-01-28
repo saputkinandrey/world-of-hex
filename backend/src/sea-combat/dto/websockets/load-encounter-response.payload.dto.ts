@@ -1,3 +1,3 @@
 import { Encounter } from '../../schemas/encounter.schema';
 
-export type LoadEncounterResponsePayloadDto = Encounter
+export type LoadEncounterResponsePayloadDto = Encounter;

@@ -1,8 +1,8 @@
 // iq2-profiles.ts
 import { MemeId, IQ2, core, eth, tech } from '../../world/memes';
-import {MorphId} from "../../world/morphs";
+import { MorphId } from '../../world/morphs';
 
-export const IQ2_BASE_MEMES: MemeId|MorphId[] = [
+export const IQ2_BASE_MEMES: MemeId | MorphId[] = [
     IQ2,
     core.perception,
     core.motor_coordination,
@@ -20,26 +20,17 @@ export const IQ2_BASE_MEMES: MemeId|MorphId[] = [
 // ЛИНЗЫ ЧУТЬ-ЧУТЬ ПРО БЫТ / ЭТОЛОГИЮ (но уже НЕ база!)
 // ───────────────────────────────────────────────────────────────
 
+export const IQ2_TERRITORIAL_LENS: MemeId[] = [eth.territory_marking];
 
-export const IQ2_TERRITORIAL_LENS: MemeId[] = [
-    eth.territory_marking,
-];
-
-export const IQ2_SOLITARY_LENS: MemeId[] = [
-    eth.sociality.solitary,
-];
+export const IQ2_SOLITARY_LENS: MemeId[] = [eth.sociality.solitary];
 
 // ───────────────────────────────────────────────────────────────
 // СЕНСОРНЫЕ ЛИНЗЫ (морфология органов чувств)
 // ───────────────────────────────────────────────────────────────
 
-export const IQ2_CHEMOSENSE_LENS: MemeId[] = [
-    tech.sensing.chemosense_basic,
-];
+export const IQ2_CHEMOSENSE_LENS: MemeId[] = [tech.sensing.chemosense_basic];
 
-export const IQ2_VIBROSENSE_LENS: MemeId[] = [
-    tech.sensing.vibration_basic,
-];
+export const IQ2_VIBROSENSE_LENS: MemeId[] = [tech.sensing.vibration_basic];
 
 export const IQ2_HEAT_LOCALIZATION_LENS: MemeId[] = [
     tech.sensing.heat_localization_basic,

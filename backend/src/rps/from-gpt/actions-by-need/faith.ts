@@ -14,7 +14,7 @@ export const FaithActions: ActionDefinition[] = [
         },
         requiresLocation: 'shrine|quiet_room',
         socialImpact: { CALM: 0.4, DISCIPLINE: 0.2 },
-        lawEffect: { rite: 'private_devotion', enforceable: false }
+        lawEffect: { rite: 'private_devotion', enforceable: false },
     },
     {
         tag: FaithActionTag.LIGHT_VOTIVE_CANDLE,
@@ -28,7 +28,7 @@ export const FaithActions: ActionDefinition[] = [
         },
         tradeEffect: { candle: -1, oil: -1 },
         socialImpact: { REVERENCE: 0.3, COMMUNITY: 0.1 },
-        lawEffect: { fireSafety: 'observed', enforceable: true }
+        lawEffect: { fireSafety: 'observed', enforceable: true },
     },
     {
         tag: FaithActionTag.ATTEND_SERVICE,
@@ -43,10 +43,7 @@ export const FaithActions: ActionDefinition[] = [
         requiresLocation: 'temple|assembly',
         socialImpact: { COHESION: 0.3, ORDER: 0.2, RESPECT: 0.2 },
         lawEffect: { riteCalendar: 'observed', enforceable: false },
-        requiredMemes: [
-            culture.vigil_ritual,
-            cog.timekeeping.basic,
-        ]
+        requiredMemes: [culture.vigil_ritual, cog.timekeeping.basic],
     },
     {
         tag: FaithActionTag.CONFESS_TRANSGRESSION,
@@ -61,7 +58,7 @@ export const FaithActions: ActionDefinition[] = [
         },
         requiresLocation: 'confessional|quiet_room',
         socialImpact: { TRUST: 0.2, STIGMA: 0.05 as any },
-        lawEffect: { confessionalSeal: 'respected', enforceable: true }
+        lawEffect: { confessionalSeal: 'respected', enforceable: true },
     },
     {
         tag: FaithActionTag.MAKE_VOW,
@@ -76,7 +73,7 @@ export const FaithActions: ActionDefinition[] = [
         },
         requiresLocation: 'altar|shrine',
         socialImpact: { ACCOUNTABILITY: 0.4 as any, RESPECT: 0.2 },
-        lawEffect: { sacredOath: 'registered', enforceable: true }
+        lawEffect: { sacredOath: 'registered', enforceable: true },
     },
     {
         tag: FaithActionTag.FULFILL_VOW,
@@ -90,7 +87,7 @@ export const FaithActions: ActionDefinition[] = [
         },
         tradeEffect: { offering_value: -2 },
         socialImpact: { TRUST: 0.3, CREDIBILITY: 0.3 },
-        lawEffect: { oathRecord: 'closed', enforceable: true }
+        lawEffect: { oathRecord: 'closed', enforceable: true },
     },
     {
         tag: FaithActionTag.DONATE_ALMS,
@@ -104,7 +101,7 @@ export const FaithActions: ActionDefinition[] = [
         },
         tradeEffect: { coin: -2, bread: -1 },
         socialImpact: { GRATITUDE: 0.4 as any, RESPECT: 0.2 },
-        lawEffect: { almsLedger: 'updated', enforceable: true }
+        lawEffect: { almsLedger: 'updated', enforceable: true },
     },
     {
         tag: FaithActionTag.CARE_FOR_SHRINE,
@@ -119,7 +116,7 @@ export const FaithActions: ActionDefinition[] = [
         tradeEffect: { linen: -1, herbs: -1, water: -1 },
         socialImpact: { REVERENCE: 0.4, DIGNITY: 0.3 as any },
         ownershipEffect: { accessScope: 'inner_yard', grantAccess: true },
-        lawEffect: { caretakerRoster: 'logged', enforceable: true }
+        lawEffect: { caretakerRoster: 'logged', enforceable: true },
     },
     {
         tag: FaithActionTag.STUDY_SACRED_TEXTS,
@@ -136,7 +133,7 @@ export const FaithActions: ActionDefinition[] = [
         needRework: true,
         requiredMemes: [comm.language.written],
         socialImpact: { RESPECT: 0.2, DISCIPLINE: 0.3 },
-        lawEffect: { readerPass: 'issued', enforceable: true }
+        lawEffect: { readerPass: 'issued', enforceable: true },
     },
     {
         tag: FaithActionTag.CONSULT_PRIEST,
@@ -150,7 +147,7 @@ export const FaithActions: ActionDefinition[] = [
         },
         tradeEffect: { counsel_fee: -1 as any },
         socialImpact: { TRUST: 0.3, HOPE: 0.3 as any },
-        lawEffect: { counselRecord: 'sealed', enforceable: true }
+        lawEffect: { counselRecord: 'sealed', enforceable: true },
     },
     {
         tag: FaithActionTag.FASTING_OBSERVANCE,
@@ -164,7 +161,7 @@ export const FaithActions: ActionDefinition[] = [
             HEALTH: 0.05,
         },
         socialImpact: { RESPECT: 0.2, PIETY: 0.4 as any },
-        lawEffect: { fastingRule: 'seasonal|voluntary', enforceable: false }
+        lawEffect: { fastingRule: 'seasonal|voluntary', enforceable: false },
     },
     {
         tag: FaithActionTag.PROCESSION_PARTICIPATE,
@@ -179,7 +176,7 @@ export const FaithActions: ActionDefinition[] = [
         tradeEffect: { garlands: -1, banners: -1 },
         socialImpact: { COHESION: 0.5, VISIBILITY: 0.3, REVERENCE: 0.4 },
         lawEffect: { processionPermit: 'granted', enforceable: true },
-        ownershipEffect: { accessScope: 'procession_route', grantAccess: true }
+        ownershipEffect: { accessScope: 'procession_route', grantAccess: true },
     },
     {
         tag: FaithActionTag.BLESS_HOME,
@@ -196,7 +193,7 @@ export const FaithActions: ActionDefinition[] = [
         requiredMemes: [food.preservation.salting],
         socialImpact: { TRUST: 0.2, DIGNITY: 0.2 },
         ownershipEffect: { homeBlessed: true, duration: 'season' },
-        lawEffect: { parishNote: 'logged', enforceable: true }
+        lawEffect: { parishNote: 'logged', enforceable: true },
     },
     {
         tag: FaithActionTag.PRAYER_CHAIN_COMMUNITY,
@@ -210,10 +207,7 @@ export const FaithActions: ActionDefinition[] = [
         },
         socialImpact: { COHESION: 0.5, TRUST: 0.3 },
         lawEffect: { vigilPermit: 'approved', enforceable: true },
-        requiredMemes: [
-            culture.vigil_ritual,
-            cog.timekeeping.basic,
-        ]
+        requiredMemes: [culture.vigil_ritual, cog.timekeeping.basic],
     },
     {
         tag: FaithActionTag.TESTIMONY_SHARE,
@@ -229,7 +223,7 @@ export const FaithActions: ActionDefinition[] = [
         requiresLocation: 'hall|assembly',
         socialImpact: { CREDIBILITY: 0.2, CONTROVERSY: 0.1 },
         lawEffect: { speechRule: 'no_defamation', enforceable: true },
-        requiredMemes: [comm.language.written]
+        requiredMemes: [comm.language.written],
     },
     {
         tag: FaithActionTag.PILGRIMAGE_STEP_FAITH,
@@ -250,6 +244,6 @@ export const FaithActions: ActionDefinition[] = [
         },
         ownershipEffect: { accessScope: 'pilgrim_hostels', grantAccess: true },
         lawEffect: { pilgrimMark: 'stamped', enforceable: true },
-        requiredMemes: [comm.language.written]
+        requiredMemes: [comm.language.written],
     },
 ];

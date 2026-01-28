@@ -1,4 +1,3 @@
-
 // world/locations/lizard-puddle.example.ts
 
 import { LocationEntity } from './location.entity';

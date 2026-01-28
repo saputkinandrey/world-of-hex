@@ -1300,7 +1300,6 @@ export enum EthoActionTag {
     /** Настороженное "сканирование" окружения. U */
     OBSERVATION = 'OBSERVATION',
 
-
     SEEK_THERMAL_REFUGE = 'SEEK_THERMAL_REFUGE',
 }
 

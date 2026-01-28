@@ -1,6 +1,16 @@
 import { ActionDefinition } from '../action-definition';
 import { IdentityActionTag } from '../action-tags';
-import { cog, comm, culture, econ, fire, health, heat, org, record } from '../../world/memes';
+import {
+    cog,
+    comm,
+    culture,
+    econ,
+    fire,
+    health,
+    heat,
+    org,
+    record,
+} from '../../world/memes';
 export const IdentityActions: ActionDefinition[] = [
     {
         tag: IdentityActionTag.DECLARE_CLAN_AFFILIATION,
@@ -19,7 +29,7 @@ export const IdentityActions: ActionDefinition[] = [
             health.sanitation_norms,
             health.waste_handling,
             comm.language.written,
-        ]
+        ],
     },
     {
         tag: IdentityActionTag.WEAR_HERALDIC_MARKS,
@@ -34,7 +44,7 @@ export const IdentityActions: ActionDefinition[] = [
         tradeEffect: { dye: '-1 | 0' as any, cloth: '-1 | 0' as any },
         socialImpact: { VISIBILITY: 0.3 as any, UNITY: 0.2 as any },
         lawEffect: { heraldryRule: 'observed', enforceable: true },
-        ownershipEffect: { attireState: 'colors_worn' }
+        ownershipEffect: { attireState: 'colors_worn' },
     },
     {
         tag: IdentityActionTag.GENEALOGY_RECITAL,
@@ -55,7 +65,7 @@ export const IdentityActions: ActionDefinition[] = [
             cog.timekeeping.basic,
             heat.space.hearth,
             comm.language.written,
-        ]
+        ],
     },
     {
         tag: IdentityActionTag.RITE_OF_NAMING_OR_RENAMING,
@@ -76,7 +86,7 @@ export const IdentityActions: ActionDefinition[] = [
             culture.vigil_ritual,
             cog.timekeeping.basic,
             comm.language.written,
-        ]
+        ],
     },
     {
         tag: IdentityActionTag.PERSONAL_CREST_DESIGN,
@@ -92,10 +102,7 @@ export const IdentityActions: ActionDefinition[] = [
         socialImpact: { REPUTATION: 0.2, VISIBILITY: 0.2 as any },
         ownershipEffect: { crest: 'drafted', rights: 'display' },
         lawEffect: { crestRegister: 'filed', enforceable: true },
-        requiredMemes: [
-            comm.language.written,
-            record.ledgerkeeping,
-        ]
+        requiredMemes: [comm.language.written, record.ledgerkeeping],
     },
     {
         tag: IdentityActionTag.LINEAGE_MARK_TATTOO,
@@ -112,10 +119,7 @@ export const IdentityActions: ActionDefinition[] = [
         socialImpact: { COURAGE: 0.2, RESPECT: 0.2 },
         lawEffect: { markCharter: 'permitted', enforceable: true },
         ownershipEffect: { bodyMark: 'applied' },
-        requiredMemes: [
-            comm.language.written,
-            cog.number_concept,
-        ]
+        requiredMemes: [comm.language.written, cog.number_concept],
     },
     {
         tag: IdentityActionTag.SIGNATURE_STYLE_CRAFT,
@@ -130,11 +134,7 @@ export const IdentityActions: ActionDefinition[] = [
         requiresLocation: 'workbench|loom|forge',
         socialImpact: { STATUS: 0.3, NETWORK: 0.2 },
         ownershipEffect: { makerMark: 'engraved', provenance: 'traceable' },
-        requiredMemes: [
-            heat.industrial,
-            fire.control,
-            comm.language.written,
-        ]
+        requiredMemes: [heat.industrial, fire.control, comm.language.written],
     },
     {
         tag: IdentityActionTag['OATH_TO_CODE_OR PATRON'],
@@ -154,7 +154,7 @@ export const IdentityActions: ActionDefinition[] = [
             culture.vigil_ritual,
             cog.timekeeping.basic,
             comm.language.written,
-        ]
+        ],
     },
     {
         tag: IdentityActionTag.MENTOR_LINE_ACKNOWLEDGE,
@@ -170,10 +170,7 @@ export const IdentityActions: ActionDefinition[] = [
         socialImpact: { RESPECT: 0.3, NETWORK: 0.3 },
         ownershipEffect: { lineageMap: 'updated' },
         lawEffect: { apprenticeRoll: 'annotated', enforceable: true },
-        requiredMemes: [
-            comm.language.written,
-            org.workshop_practice,
-        ]
+        requiredMemes: [comm.language.written, org.workshop_practice],
     },
     {
         tag: IdentityActionTag.PILGRIMAGE_TO_ORIGIN_SITE,
@@ -190,10 +187,7 @@ export const IdentityActions: ActionDefinition[] = [
         requiresLocation: 'ancestral_site|sacred_spring|old_hall',
         socialImpact: { COMMUNITY: 0.3, RESPECT: 0.2 },
         ownershipEffect: { token: 'pilgrim_mark' },
-        requiredMemes: [
-            comm.language.written,
-            cog.number_concept,
-        ]
+        requiredMemes: [comm.language.written, cog.number_concept],
     },
     {
         tag: IdentityActionTag.CLAN_SERVICE_DAY,
@@ -212,7 +206,7 @@ export const IdentityActions: ActionDefinition[] = [
             health.sanitation_norms,
             health.waste_handling,
             comm.language.written,
-        ]
+        ],
     },
     {
         tag: IdentityActionTag.DIALECT_OR_SONG_KEEP,
@@ -232,7 +226,7 @@ export const IdentityActions: ActionDefinition[] = [
             cog.timekeeping.basic,
             heat.space.hearth,
             comm.language.written,
-        ]
+        ],
     },
     {
         tag: IdentityActionTag.TOTEM_OBJECT_CONSECRATE,
@@ -256,7 +250,7 @@ export const IdentityActions: ActionDefinition[] = [
         ],
         socialImpact: { REVERENCE: 0.4 as any, UNITY: 0.2 as any },
         lawEffect: { reliquaryRegister: 'filed', enforceable: true },
-        ownershipEffect: { totem: 'consecrated' }
+        ownershipEffect: { totem: 'consecrated' },
     },
     {
         tag: IdentityActionTag.ROLE_MASTERY_BADGE,
@@ -278,7 +272,7 @@ export const IdentityActions: ActionDefinition[] = [
             health.waste_handling,
             comm.language.written,
             org.workshop_practice,
-        ]
+        ],
     },
     {
         tag: IdentityActionTag.PERSONAL_CHRONICLE_ENTRY,
@@ -293,7 +287,7 @@ export const IdentityActions: ActionDefinition[] = [
         tradeEffect: { parchment: -1, ink: -1 },
         socialImpact: { REFLECTION: 0.3 as any },
         ownershipEffect: { chronicle: 'updated' },
-        requiredMemes: [comm.language.written]
+        requiredMemes: [comm.language.written],
     },
     {
         tag: IdentityActionTag.BOUNDARY_STATEMENT,
@@ -313,6 +307,6 @@ export const IdentityActions: ActionDefinition[] = [
             health.sanitation_norms,
             health.waste_handling,
             comm.language.written,
-        ]
+        ],
     },
 ];

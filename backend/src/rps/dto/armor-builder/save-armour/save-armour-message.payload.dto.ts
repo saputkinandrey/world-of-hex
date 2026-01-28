@@ -3,10 +3,10 @@ import { IsString } from 'class-validator';
 import { EquipmentEntity } from '../../../domain/character/inventory/equipment/equipment.entity';
 
 export class SaveArmourMessagePayloadDto {
-  @ApiProperty()
-  @IsString()
-  userId: string;
+    @ApiProperty()
+    @IsString()
+    userId: string;
 
-  @ApiProperty()
-  armourToSave: EquipmentEntity;
+    @ApiProperty()
+    armourToSave: EquipmentEntity;
 }

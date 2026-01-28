@@ -46,7 +46,10 @@ export interface OffsetCoord {
 export type QOffsetLayout = 'odd-q' | 'even-q';
 
 /** Offset (odd-q/even-q) → axial. Формулы из redblobgames. */
-export function offsetToAxial_q(layout: QOffsetLayout, h: OffsetCoord): HexCoord {
+export function offsetToAxial_q(
+    layout: QOffsetLayout,
+    h: OffsetCoord,
+): HexCoord {
     const col = h.col;
     const row = h.row;
 
@@ -63,7 +66,10 @@ export function offsetToAxial_q(layout: QOffsetLayout, h: OffsetCoord): HexCoord
 }
 
 /** Axial → offset (odd-q/even-q). */
-export function axialToOffset_q(layout: QOffsetLayout, h: HexCoord): OffsetCoord {
+export function axialToOffset_q(
+    layout: QOffsetLayout,
+    h: HexCoord,
+): OffsetCoord {
     const x = h.q;
     const z = h.r;
 
@@ -103,10 +109,10 @@ export type HexContentKind = 'creature' | 'item' | 'structure' | 'environment';
  * Это тонкий слой над реальными сущностями (актёрами, предметами, структурами).
  */
 export interface HexContentInstance {
-    id: string;              // уникальный ID этого размещения
+    id: string; // уникальный ID этого размещения
     kind: HexContentKind;
     hexId: HexId;
-    volume: VolumeUnits;     // сколько объёма съедает
+    volume: VolumeUnits; // сколько объёма съедает
 
     // Ссылки на реальные сущности (одна из них должна быть заполнена по kind)
     creatureId?: string;
@@ -132,11 +138,11 @@ export class HexEntity {
     contentIds: string[];
 
     constructor({
-                    id,
-                    coord = { q: 0, r: 0 },
-                    volumeCapacity = DEFAULT_HEX_VOLUME_CAPACITY,
-                    contentIds = [],
-                }: HexCellInit = {}) {
+        id,
+        coord = { q: 0, r: 0 },
+        volumeCapacity = DEFAULT_HEX_VOLUME_CAPACITY,
+        contentIds = [],
+    }: HexCellInit = {}) {
         this.coord = coord;
         this.id = id ?? makeHexId(coord);
         this.volumeCapacity = volumeCapacity;

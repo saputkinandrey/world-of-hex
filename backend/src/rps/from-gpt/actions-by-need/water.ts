@@ -47,10 +47,7 @@ export const FILTER_WATER: ActionDefinition = {
     resourceOutput: ['filtered_water'],
     locationType: 'camp|village',
     emotionalImpact: 0.05,
-    requiredMemes: [
-        health.sanitation_norms,
-        health.hygiene_tools,
-    ],
+    requiredMemes: [health.sanitation_norms, health.hygiene_tools],
     needThresholds: {
         WATER: { atLeast: NeedThresholdEnum.WARN },
     },
@@ -66,11 +63,7 @@ export const BOIL_WATER: ActionDefinition = {
     resourceOutput: ['clean_water'],
     locationType: 'hearth|campfire|kitchen',
     emotionalImpact: 0.1,
-    requiredMemes: [
-        food.culinary.core,
-        food.culinary.boil,
-        fire.use,
-    ],
+    requiredMemes: [food.culinary.core, food.culinary.boil, fire.use],
     needThresholds: {
         WATER: { atLeast: NeedThresholdEnum.WARN },
     },
@@ -90,10 +83,7 @@ export const DRINK_WATER: ActionDefinition = {
     resourceInput: ['clean_water|filtered_water'],
     locationType: 'any',
     emotionalImpact: 0.3,
-    requiredMemes: [
-        health.sanitation_norms,
-        health.waste_handling,
-    ],
+    requiredMemes: [health.sanitation_norms, health.waste_handling],
     needThresholds: {
         WATER: { atLeast: NeedThresholdEnum.WARN },
     },
@@ -108,8 +98,8 @@ export const DRINK_DIRTY_WATER: ActionDefinition = {
     locationType: 'any',
     emotionalImpact: -0.05,
     needThresholds: {
-        WATER:  { atLeast: NeedThresholdEnum.SEVERE },
-        HEALTH: { atMost:  NeedThresholdEnum.SEVERE }, // если здоровье уже крит — стоп
+        WATER: { atLeast: NeedThresholdEnum.SEVERE },
+        HEALTH: { atMost: NeedThresholdEnum.SEVERE }, // если здоровье уже крит — стоп
     },
 };
 
@@ -266,7 +256,7 @@ export const WaterActions: ActionDefinition[] = [
 ];
 
 const WaterActionsByTag: Record<string, ActionDefinition> = Object.fromEntries(
-    WaterActions.map(a => [a.tag, a]),
+    WaterActions.map((a) => [a.tag, a]),
 );
 
 export default WaterActionsByTag;

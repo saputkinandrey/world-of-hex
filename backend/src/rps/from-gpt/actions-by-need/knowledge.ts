@@ -1,6 +1,15 @@
 import { ActionDefinition } from '../action-definition';
 import { KnowledgeActionTag } from '../action-tags';
-import { cog, comm, econ, fire, heat, org, record, tech } from '../../world/memes';
+import {
+    cog,
+    comm,
+    econ,
+    fire,
+    heat,
+    org,
+    record,
+    tech,
+} from '../../world/memes';
 export const KnowledgeActions: ActionDefinition[] = [
     {
         tag: KnowledgeActionTag.VISIT_LIBRARY,
@@ -18,7 +27,7 @@ export const KnowledgeActions: ActionDefinition[] = [
             accessScope: 'stacks|reading_room',
             grantAccess: true,
         },
-        lawEffect: { readerPass: 'issued', enforceable: true }
+        lawEffect: { readerPass: 'issued', enforceable: true },
     },
     {
         tag: KnowledgeActionTag.STUDY_SCROLL,
@@ -34,7 +43,7 @@ export const KnowledgeActions: ActionDefinition[] = [
             cog.number_concept,
         ],
         socialImpact: { KNOWLEDGE: 0.5, DISCIPLINE: 0.3 as any },
-        lawEffect: { loanSlip: 'signed', enforceable: true }
+        lawEffect: { loanSlip: 'signed', enforceable: true },
     },
     {
         tag: KnowledgeActionTag.COPY_MANUSCRIPT,
@@ -51,10 +60,7 @@ export const KnowledgeActions: ActionDefinition[] = [
         socialImpact: { KNOWLEDGE: 0.55, ACCESSIBILITY: 0.4 as any },
         ownershipEffect: { manuscriptCopy: 'created', provenance: 'scribe' },
         lawEffect: { scriptoriumRecord: 'updated', enforceable: true },
-        requiredMemes: [
-            comm.language.written,
-            record.ledgerkeeping,
-        ]
+        requiredMemes: [comm.language.written, record.ledgerkeeping],
     },
     {
         tag: KnowledgeActionTag.ATTEND_LECTURE,
@@ -65,7 +71,7 @@ export const KnowledgeActions: ActionDefinition[] = [
         tradeEffect: { fee: -1 },
         socialImpact: { KNOWLEDGE: 0.5, NETWORK: 0.3, INSPIRATION: 0.2 as any },
         lawEffect: { lectureRoll: 'attendance_marked', enforceable: true },
-        requiredMemes: [comm.language.written]
+        requiredMemes: [comm.language.written],
     },
     {
         tag: KnowledgeActionTag.OBSERVE_MASTER_WORK,
@@ -81,7 +87,7 @@ export const KnowledgeActions: ActionDefinition[] = [
             fire.control,
             comm.language.written,
             org.workshop_practice,
-        ]
+        ],
     },
     {
         tag: KnowledgeActionTag.RUN_EXPERIMENT,
@@ -98,7 +104,7 @@ export const KnowledgeActions: ActionDefinition[] = [
             fire.control,
             comm.language.written,
             tech.tool.use_basic,
-        ]
+        ],
     },
     {
         tag: KnowledgeActionTag.FIELD_RESEARCH,
@@ -109,7 +115,7 @@ export const KnowledgeActions: ActionDefinition[] = [
         tradeEffect: { travel_supplies: -2, markers: -1 },
         socialImpact: { KNOWLEDGE: 0.6, DISCOVERY: 0.5 as any },
         ownershipEffect: { fieldNotes: 'recorded', samples: '+N' },
-        lawEffect: { explorationPermit: 'issued', enforceable: true }
+        lawEffect: { explorationPermit: 'issued', enforceable: true },
     },
     {
         tag: KnowledgeActionTag.GATHER_ORAL_TRADITIONS,
@@ -122,7 +128,7 @@ export const KnowledgeActions: ActionDefinition[] = [
             recordings: 'stories_collected',
             accessScope: 'archive',
         },
-        lawEffect: { oralHistoryRoll: 'logged', enforceable: true }
+        lawEffect: { oralHistoryRoll: 'logged', enforceable: true },
     },
     {
         tag: KnowledgeActionTag.CROSSCHECK_SOURCES,
@@ -134,7 +140,7 @@ export const KnowledgeActions: ActionDefinition[] = [
             CREDIBILITY: 0.5 as any,
             SKEPTICISM: 0.3,
         },
-        lawEffect: { peerReviewNote: 'entered', enforceable: true }
+        lawEffect: { peerReviewNote: 'entered', enforceable: true },
     },
     {
         tag: KnowledgeActionTag.CATALOGUE_ARCHIVE,
@@ -144,7 +150,7 @@ export const KnowledgeActions: ActionDefinition[] = [
         tradeEffect: { labels: '-N', shelves: 'rearranged' },
         socialImpact: { KNOWLEDGE: 0.5, ACCESSIBILITY: 0.5, ORDER: 0.3 as any },
         ownershipEffect: { archiveIndex: 'v1', accessScope: 'catalogue' },
-        lawEffect: { archiveCharter: 'updated', enforceable: true }
+        lawEffect: { archiveCharter: 'updated', enforceable: true },
     },
     {
         tag: KnowledgeActionTag.MAP_TERRITORY,
@@ -157,7 +163,7 @@ export const KnowledgeActions: ActionDefinition[] = [
         socialImpact: { KNOWLEDGE: 0.65, READINESS: 0.3 as any },
         ownershipEffect: { mapSheet: 'created', rights: 'cartographer_credit' },
         lawEffect: { mapRegistry: 'filed', enforceable: true },
-        requiredMemes: [comm.language.written]
+        requiredMemes: [comm.language.written],
     },
     {
         tag: KnowledgeActionTag.COMPILE_HANDBOOK,
@@ -168,7 +174,7 @@ export const KnowledgeActions: ActionDefinition[] = [
         socialImpact: { KNOWLEDGE: 0.65, EFFICIENCY_REP: 0.4 as any },
         ownershipEffect: { handbook: 'compiled', license: 'open|guild_only' },
         lawEffect: { guildSeal: 'granted', enforceable: true },
-        requiredMemes: [comm.language.written]
+        requiredMemes: [comm.language.written],
     },
     {
         tag: KnowledgeActionTag.TEACH_SEMINAR,
@@ -185,10 +191,7 @@ export const KnowledgeActions: ActionDefinition[] = [
         socialImpact: { KNOWLEDGE: 0.6, RESPECT: 0.4, NETWORK: 0.3 },
         ownershipEffect: { accessScope: 'classroom', grantAccess: true },
         lawEffect: { classRoll: 'recorded', enforceable: true },
-        requiredMemes: [
-            comm.language.written,
-            org.workshop_practice,
-        ]
+        requiredMemes: [comm.language.written, org.workshop_practice],
     },
     {
         tag: KnowledgeActionTag.DEBATE_THEORY,
@@ -203,10 +206,7 @@ export const KnowledgeActions: ActionDefinition[] = [
             CONTROVERSY: 0.2,
         },
         lawEffect: { debateDocket: 'logged', enforceable: true },
-        requiredMemes: [
-            comm.language.written,
-            org.workshop_practice,
-        ]
+        requiredMemes: [comm.language.written, org.workshop_practice],
     },
     {
         tag: KnowledgeActionTag.OPEN_SCHOLARS_CIRCLE,
@@ -221,7 +221,7 @@ export const KnowledgeActions: ActionDefinition[] = [
         tradeEffect: { tea_and_bread: -2, room_rent: -1 },
         socialImpact: { KNOWLEDGE: 0.65, NETWORK: 0.6, INFLUENCE: 0.3 as any },
         ownershipEffect: { societyRoom: 'reserved', membership: 'initiated' },
-        lawEffect: { societyCharter: 'filed', enforceable: true }
+        lawEffect: { societyCharter: 'filed', enforceable: true },
     },
     {
         tag: KnowledgeActionTag.SEAL_SECRET_KNOWLEDGE,
@@ -237,9 +237,6 @@ export const KnowledgeActions: ActionDefinition[] = [
             grantAccess: true,
         },
         lawEffect: { secrecyWrit: 'issued', enforceable: true },
-        requiredMemes: [
-            record.ledgerkeeping,
-            econ.pooling_common_fund,
-        ]
+        requiredMemes: [record.ledgerkeeping, econ.pooling_common_fund],
     },
 ];

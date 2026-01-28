@@ -53,10 +53,7 @@ export const SWALLOW_WHOLE_FEEDING: ActionDefinition = {
         ENERGY: -0.05,
         STRESS: -0.05 as any,
     },
-    requiredMemes: [
-        eth.predation.core,
-        tech.combat.bite_basic,
-    ],
+    requiredMemes: [eth.predation.core, tech.combat.bite_basic],
     requiresLocation: 'safe_shelter|cover',
 };
 

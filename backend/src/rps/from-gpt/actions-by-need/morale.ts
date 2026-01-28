@@ -1,6 +1,14 @@
 import { ActionDefinition } from '../action-definition';
 import { MoraleActionTag } from '../action-tags';
-import { cog, comm, culture, econ, health, heat, record } from '../../world/memes';
+import {
+    cog,
+    comm,
+    culture,
+    econ,
+    health,
+    heat,
+    record,
+} from '../../world/memes';
 export const MoraleActions: ActionDefinition[] = [
     {
         tag: MoraleActionTag.RALLY_SPEECH,
@@ -20,7 +28,7 @@ export const MoraleActions: ActionDefinition[] = [
             health.sanitation_norms,
             health.waste_handling,
             comm.language.written,
-        ]
+        ],
     },
     {
         tag: MoraleActionTag.CELEBRATE_SMALL_WIN,
@@ -34,7 +42,7 @@ export const MoraleActions: ActionDefinition[] = [
         },
         tradeEffect: { bread: -1, ale: '-1 | 0' as any },
         socialImpact: { BELONGING: 0.3 as any, NETWORK: 0.2 },
-        ownershipEffect: { memoryLog: 'win_marked' }
+        ownershipEffect: { memoryLog: 'win_marked' },
     },
     {
         tag: MoraleActionTag.ISSUE_COMMENDATION_TOKEN,
@@ -45,10 +53,7 @@ export const MoraleActions: ActionDefinition[] = [
         socialImpact: { FAIRNESS: 0.2, COMPETITION: 0.2 },
         ownershipEffect: { accolade: 'awarded', rights: 'display' },
         lawEffect: { honorRoll: 'updated', enforceable: true },
-        requiredMemes: [
-            record.ledgerkeeping,
-            econ.pooling_common_fund,
-        ]
+        requiredMemes: [record.ledgerkeeping, econ.pooling_common_fund],
     },
     {
         tag: MoraleActionTag.BANNER_RAISING,
@@ -70,7 +75,7 @@ export const MoraleActions: ActionDefinition[] = [
             culture.vigil_ritual,
             cog.timekeeping.basic,
             comm.language.written,
-        ]
+        ],
     },
     {
         tag: MoraleActionTag.SHARED_SONG_AT_WORK,
@@ -83,7 +88,7 @@ export const MoraleActions: ActionDefinition[] = [
             MORALE: 0.7,
         },
         requiresLocation: 'workyard|road|fields',
-        socialImpact: { COHESION: 0.3 as any, RHYTHM: 0.2 as any }
+        socialImpact: { COHESION: 0.3 as any, RHYTHM: 0.2 as any },
     },
     {
         tag: MoraleActionTag.REST_DAY_ROTATION,
@@ -97,7 +102,7 @@ export const MoraleActions: ActionDefinition[] = [
         },
         socialImpact: { TRUST: 0.2, RESENTMENT: -0.1 },
         lawEffect: { rota: 'rest_day_posted', enforceable: true },
-        ownershipEffect: { accessScope: 'common_amenities', grantAccess: true }
+        ownershipEffect: { accessScope: 'common_amenities', grantAccess: true },
     },
     {
         tag: MoraleActionTag.WARM_MEAL_DISTRIBUTION,
@@ -113,7 +118,7 @@ export const MoraleActions: ActionDefinition[] = [
         tradeEffect: { stew: '-N' as any, bread: '-N' as any },
         socialImpact: { GRATITUDE: 0.4 as any, TRUST: 0.2 },
         ownershipEffect: { storesLevel: 'reduced_meal' },
-        requiredMemes: [comm.language.written]
+        requiredMemes: [comm.language.written],
     },
     {
         tag: MoraleActionTag.FIRE_HEARTH_GATHER,
@@ -133,7 +138,7 @@ export const MoraleActions: ActionDefinition[] = [
             heat.space.hearth,
         ],
         socialImpact: { STORYTELLING: 0.3 as any, COHESION: 0.3 },
-        lawEffect: { fireSafety: 'observed', enforceable: true }
+        lawEffect: { fireSafety: 'observed', enforceable: true },
     },
     {
         tag: MoraleActionTag.TEAM_GAME_SPORT,
@@ -149,10 +154,7 @@ export const MoraleActions: ActionDefinition[] = [
         requiresLocation: 'green|yard',
         socialImpact: { COHESION: 0.4, STATUS: 0.2 },
         ownershipEffect: { fieldState: 'lines_marked' },
-        requiredMemes: [
-            health.sanitation_norms,
-            health.waste_handling,
-        ]
+        requiredMemes: [health.sanitation_norms, health.waste_handling],
     },
     {
         tag: MoraleActionTag.LETTERS_FROM_HOME_READING,
@@ -172,7 +174,7 @@ export const MoraleActions: ActionDefinition[] = [
             culture.vigil_ritual,
             cog.timekeeping.basic,
             heat.space.hearth,
-        ]
+        ],
     },
     {
         tag: MoraleActionTag.HONOR_FALLEN_RITES,
@@ -188,10 +190,7 @@ export const MoraleActions: ActionDefinition[] = [
         socialImpact: { DIGNITY: 0.4 as any, COHESION: 0.3 },
         lawEffect: { processionPermit: 'granted', enforceable: true },
         ownershipEffect: { memorialRoll: 'updated' },
-        requiredMemes: [
-            culture.vigil_ritual,
-            cog.timekeeping.basic,
-        ]
+        requiredMemes: [culture.vigil_ritual, cog.timekeeping.basic],
     },
     {
         tag: MoraleActionTag.SUCCESS_TALLY_BOARD,
@@ -205,7 +204,7 @@ export const MoraleActions: ActionDefinition[] = [
             comm.language.written,
             record.ledgerkeeping,
             cog.number_concept,
-        ]
+        ],
     },
     {
         tag: MoraleActionTag.PAIR_NEW_WITH_VETERAN,
@@ -220,7 +219,7 @@ export const MoraleActions: ActionDefinition[] = [
         requiresSkill: 'mentoring|apprentice',
         socialImpact: { LOYALTY: 0.3, COHESION: 0.3 },
         ownershipEffect: { accessScope: 'mentor_area', grantAccess: true },
-        lawEffect: { pairingRoster: 'logged', enforceable: true }
+        lawEffect: { pairingRoster: 'logged', enforceable: true },
     },
     {
         tag: MoraleActionTag.HOPE_STORIES_SHARING,
@@ -239,7 +238,7 @@ export const MoraleActions: ActionDefinition[] = [
             cog.timekeeping.basic,
             heat.space.hearth,
             comm.language.written,
-        ]
+        ],
     },
     {
         tag: MoraleActionTag.CLEAN_AND_DECORATE_COMMONS,
@@ -258,10 +257,7 @@ export const MoraleActions: ActionDefinition[] = [
         },
         socialImpact: { DIGNITY: 0.3 as any, BELONGING: 0.3 as any },
         ownershipEffect: { commonsState: 'bright_and_clean' },
-        requiredMemes: [
-            health.sanitation_norms,
-            health.waste_handling,
-        ]
+        requiredMemes: [health.sanitation_norms, health.waste_handling],
     },
     {
         tag: MoraleActionTag.SET_SYMBOLIC_GOAL_MARKER,
@@ -275,6 +271,6 @@ export const MoraleActions: ActionDefinition[] = [
         },
         tradeEffect: { banner: -1 | (0 as any), stakes: '-N' as any },
         socialImpact: { MOTIVATION: 0.4 as any, UNITY: 0.2 as any },
-        ownershipEffect: { milestone: 'planted', progress: 'trackable' }
+        ownershipEffect: { milestone: 'planted', progress: 'trackable' },
     },
 ];

@@ -10,30 +10,30 @@ import { PostNewEncounterBodyDto } from '../dto/encounters/post-new-encounter-bo
 // @UseGuards(AuthGuard('jwt'), RolesGuard)
 @ApiTags('Sea-Combat-Encounters')
 @Controller({
-  path: 'sea-combat/encounters',
-  // version: '1',
+    path: 'sea-combat/encounters',
+    // version: '1',
 })
 export class EncountersController {
-  constructor(private readonly encounterRepository: EncounterRepository) {}
+    constructor(private readonly encounterRepository: EncounterRepository) {}
 
-  @Post()
-  postNewEncounter(@Body() body: PostNewEncounterBodyDto) {
-    return this.encounterRepository
-      .create({
-        players: [],
-        ships: [],
-        radius: body.radius,
-        name: body.name,
-      })
-      .then((res) => res.toJSON());
-  }
+    @Post()
+    postNewEncounter(@Body() body: PostNewEncounterBodyDto) {
+        return this.encounterRepository
+            .create({
+                players: [],
+                ships: [],
+                radius: body.radius,
+                name: body.name,
+            })
+            .then((res) => res.toJSON());
+    }
 
-  @Get('list')
-  getList() {
-    return this.encounterRepository
-      .find({}, {}, { sort: { createdAt: -1 } })
-      .then((result) => {
-        return result.map((document) => document.toJSON());
-      });
-  }
+    @Get('list')
+    getList() {
+        return this.encounterRepository
+            .find({}, {}, { sort: { createdAt: -1 } })
+            .then((result) => {
+                return result.map((document) => document.toJSON());
+            });
+    }
 }

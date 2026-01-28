@@ -8,7 +8,7 @@ export const TrustActions: ActionDefinition[] = [
         costTime: 0.5,
         rewardSecondary: { TRUST: 0.7, REPUTATION: 0.3, LOYALTY: 0.3 },
         socialImpact: { TRUST: 0.6, RELIABILITY: 0.4 },
-        lawEffect: { note: 'promise_fulfilled', enforceable: false }
+        lawEffect: { note: 'promise_fulfilled', enforceable: false },
     },
     {
         tag: TrustActionTag.SHARE_SECRET,
@@ -20,7 +20,7 @@ export const TrustActions: ActionDefinition[] = [
         ownershipEffect: {
             confidentiality: 'MUTUAL',
             accessScope: 'personal_story',
-        }
+        },
     },
     {
         tag: TrustActionTag.TRANSPARENT_ACCOUNTING,
@@ -30,10 +30,7 @@ export const TrustActions: ActionDefinition[] = [
         tradeEffect: { ledger_open: 'yes', delta_visible: '+all' },
         socialImpact: { TRUST: 0.5, SUSPICION: -0.3 },
         lawEffect: { auditTrail: 'created', enforceable: true },
-        requiredMemes: [
-            record.ledgerkeeping,
-            econ.pooling_common_fund,
-        ]
+        requiredMemes: [record.ledgerkeeping, econ.pooling_common_fund],
     },
     {
         tag: TrustActionTag.PLEDGE_COLLATERAL,
@@ -52,7 +49,7 @@ export const TrustActions: ActionDefinition[] = [
             record.ledgerkeeping,
             econ.pooling_common_fund,
             econ.deposit_contract,
-        ]
+        ],
     },
     {
         tag: TrustActionTag.SMALL_FAVOR_TEST,
@@ -60,7 +57,7 @@ export const TrustActions: ActionDefinition[] = [
         costTime: 0.8,
         rewardSecondary: { TRUST: 0.5, COMMUNITY: 0.2 },
         socialImpact: { TRUST: 0.3, SCREENING: 0.3 },
-        lawEffect: { agreement: 'favor_test_informal', enforceable: false }
+        lawEffect: { agreement: 'favor_test_informal', enforceable: false },
     },
     {
         tag: TrustActionTag.RETURN_BORROWED,
@@ -68,7 +65,7 @@ export const TrustActions: ActionDefinition[] = [
         costTime: 0.4,
         rewardSecondary: { TRUST: 0.6, LAW: 0.2, REPUTATION: 0.2 },
         tradeEffect: { return_item: 'loaned_item', note: 'returned_intact' },
-        socialImpact: { TRUST: 0.5, RELIABILITY: 0.4 }
+        socialImpact: { TRUST: 0.5, RELIABILITY: 0.4 },
     },
     {
         tag: TrustActionTag.VOUCH_FOR,
@@ -77,7 +74,7 @@ export const TrustActions: ActionDefinition[] = [
         risk: 0.2,
         rewardSecondary: { TRUST: 0.6, STATUS: 0.2, COMMUNITY: 0.2 },
         socialImpact: { TRUST: 0.5, TRANSITIVE_TRUST: 0.4 },
-        lawEffect: { surety: 'personal_vouch', enforceable: true }
+        lawEffect: { surety: 'personal_vouch', enforceable: true },
     },
     {
         tag: ActionTags.MUTUAL_AID_PACT,
@@ -90,10 +87,7 @@ export const TrustActions: ActionDefinition[] = [
             enforceable: true,
             duration: 'season',
         },
-        requiredMemes: [
-            record.ledgerkeeping,
-            econ.pooling_common_fund,
-        ]
+        requiredMemes: [record.ledgerkeeping, econ.pooling_common_fund],
     },
     {
         tag: TrustActionTag.ACCOMPANY_RISKY_TRIP,
@@ -102,7 +96,7 @@ export const TrustActions: ActionDefinition[] = [
         risk: 0.35,
         rewardSecondary: { TRUST: 0.8, SECURITY: 0.4, AFFECTION: 0.3 },
         socialImpact: { TRUST: 0.6, COURAGE: 0.3 },
-        ownershipEffect: { sharedLiability: true }
+        ownershipEffect: { sharedLiability: true },
     },
     {
         tag: TrustActionTag.GUARD_SLEEP,
@@ -110,7 +104,7 @@ export const TrustActions: ActionDefinition[] = [
         costTime: 2,
         rewardSecondary: { TRUST: 0.6, SECURITY: 0.4, BELONGING: 0.3 },
         socialImpact: { TRUST: 0.5, CARE: 0.3 },
-        ownershipEffect: { accessScope: 'camp_perimeter', grantAccess: true }
+        ownershipEffect: { accessScope: 'camp_perimeter', grantAccess: true },
     },
     {
         tag: TrustActionTag.REVEAL_VULNERABILITY,
@@ -119,14 +113,14 @@ export const TrustActions: ActionDefinition[] = [
         risk: 0.2,
         rewardSecondary: { TRUST: 0.7, AFFECTION: 0.4, RESPECT: 0.2 },
         socialImpact: { TRUST: 0.6, INTIMACY: 0.5 },
-        lawEffect: { confidentialityOath: 'verbal', enforceable: false }
+        lawEffect: { confidentialityOath: 'verbal', enforceable: false },
     },
     {
         tag: TrustActionTag.FORGIVE_MISTAKE,
         costEnergy: -0.05,
         costTime: 0.4,
         rewardSecondary: { TRUST: 0.6, COMMUNITY: 0.3, JUSTICE: 0.2 },
-        socialImpact: { TRUST: 0.5, GOODWILL: 0.4 }
+        socialImpact: { TRUST: 0.5, GOODWILL: 0.4 },
     },
     {
         tag: TrustActionTag.VERIFY_RECORDS,
@@ -135,7 +129,7 @@ export const TrustActions: ActionDefinition[] = [
         rewardSecondary: { TRUST: 0.5, KNOWLEDGE: 0.3, LAW: 0.2 },
         tradeEffect: { audit: 'performed', mismatch: 'none|some' },
         socialImpact: { TRUST: 0.4, SUSPICION: -0.2 },
-        lawEffect: { auditReport: 'filed', enforceable: true }
+        lawEffect: { auditReport: 'filed', enforceable: true },
     },
     {
         tag: TrustActionTag.ESCROW_EXCHANGE,
@@ -148,7 +142,7 @@ export const TrustActions: ActionDefinition[] = [
         },
         socialImpact: { TRUST: 0.5, FAIRNESS: 0.4 },
         lawEffect: { escrowContract: 'escrow_v1', enforceable: true },
-        ownershipEffect: { transferOnCondition: true }
+        ownershipEffect: { transferOnCondition: true },
     },
     {
         tag: TrustActionTag.CONSISTENT_ATTENDANCE,
@@ -156,7 +150,7 @@ export const TrustActions: ActionDefinition[] = [
         costTime: 1.0,
         rewardSecondary: { TRUST: 0.5, STABILITY: 0.3, BELONGING: 0.3 },
         socialImpact: { RELIABILITY: 0.5, TRUST: 0.4 },
-        lawEffect: { attendanceLog: 'update', enforceable: false }
+        lawEffect: { attendanceLog: 'update', enforceable: false },
     },
     {
         tag: TrustActionTag.HANDSHAKE_OATH,
@@ -164,6 +158,6 @@ export const TrustActions: ActionDefinition[] = [
         costTime: 0.2,
         rewardSecondary: { TRUST: 0.5, RESPECT: 0.2, COMMUNITY: 0.2 },
         socialImpact: { TRUST: 0.5, HONOR: 0.3 },
-        lawEffect: { oathType: 'informal_handshake', enforceable: false }
+        lawEffect: { oathType: 'informal_handshake', enforceable: false },
     },
 ];

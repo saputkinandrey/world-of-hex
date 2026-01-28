@@ -8,7 +8,7 @@ export const SocialNeedActions: ActionDefinition[] = [
         costTime: 0.3,
         rewardSecondary: { SOCIAL: 0.45, COMMUNITY: 0.2, RESPECT: 0.1 },
         socialImpact: { SOCIAL: 0.35, TRUST: 0.2 },
-        lawEffect: { etiquette: 'observed', enforceable: false }
+        lawEffect: { etiquette: 'observed', enforceable: false },
     },
     {
         tag: SocialNeedActionTag.SMALL_TALK_MARKET,
@@ -23,7 +23,7 @@ export const SocialNeedActions: ActionDefinition[] = [
             health.sanitation_norms,
             health.waste_handling,
             comm.language.written,
-        ]
+        ],
     },
     {
         tag: SocialNeedActionTag.SHARE_NEWS_BULLETIN,
@@ -34,14 +34,14 @@ export const SocialNeedActions: ActionDefinition[] = [
         socialImpact: { SOCIAL: 0.5, TRUST: 0.2, PANIC: -0.1 as any },
         lawEffect: { bulletinPermit: 'approved', enforceable: true },
         ownershipEffect: { accessScope: 'notice_board', grantAccess: true },
-        requiredMemes: [comm.language.written]
+        requiredMemes: [comm.language.written],
     },
     {
         tag: SocialNeedActionTag.VISIT_RELATIVES,
         costEnergy: -0.08,
         costTime: 1.4,
         rewardSecondary: { SOCIAL: 0.55, FAMILY: 0.4, AFFECTION: 0.3 },
-        socialImpact: { SOCIAL: 0.5, LOYALTY: 0.2 }
+        socialImpact: { SOCIAL: 0.5, LOYALTY: 0.2 },
     },
     {
         tag: SocialNeedActionTag.HOST_TEAHOUSE_TABLE,
@@ -51,7 +51,7 @@ export const SocialNeedActions: ActionDefinition[] = [
         requiresLocation: 'teahouse|tavern',
         tradeEffect: { tea: -2, bread: -1, table_fee: -1 },
         socialImpact: { SOCIAL: 0.6, COHESION: 0.3, VISIBILITY: 0.2 },
-        lawEffect: { gatheringPermit: 'not_required', enforceable: false }
+        lawEffect: { gatheringPermit: 'not_required', enforceable: false },
     },
     {
         tag: SocialNeedActionTag.HELP_WITH_CHORES,
@@ -59,7 +59,7 @@ export const SocialNeedActions: ActionDefinition[] = [
         costTime: 1.6,
         rewardSecondary: { SOCIAL: 0.55, COMMUNITY: 0.5, FAIRNESS: 0.2 },
         socialImpact: { SOCIAL: 0.6, GRATITUDE: 0.4, TRUST: 0.3 },
-        ownershipEffect: { reciprocityCredit: '+1' }
+        ownershipEffect: { reciprocityCredit: '+1' },
     },
     {
         tag: SocialNeedActionTag.INTRODUCE_CONTACTS,
@@ -68,7 +68,7 @@ export const SocialNeedActions: ActionDefinition[] = [
         risk: 0.08,
         rewardSecondary: { SOCIAL: 0.55, NETWORK: 0.5, STATUS: 0.1 },
         socialImpact: { SOCIAL: 0.55, TRUST: 0.2, BROKER_REP: 0.2 as any },
-        lawEffect: { patronageRule: 'disclose_conflict', enforceable: true }
+        lawEffect: { patronageRule: 'disclose_conflict', enforceable: true },
     },
     {
         tag: SocialNeedActionTag.MEDIATE_DISPUTE,
@@ -78,7 +78,7 @@ export const SocialNeedActions: ActionDefinition[] = [
         rewardSecondary: { SOCIAL: 0.6, JUSTICE: 0.4, STABILITY: 0.4 },
         requiresSkill: 'mediation',
         socialImpact: { SOCIAL: 0.6, TRUST: 0.4, RESENTMENT: -0.1 },
-        lawEffect: { mediationRecord: 'filed', enforceable: true }
+        lawEffect: { mediationRecord: 'filed', enforceable: true },
     },
     {
         tag: SocialNeedActionTag.JOIN_COMMON_WORK,
@@ -94,7 +94,7 @@ export const SocialNeedActions: ActionDefinition[] = [
             health.waste_handling,
             tech.tool.use_basic,
             comm.language.written,
-        ]
+        ],
     },
     {
         tag: SocialNeedActionTag.SING_ALONG_EVENING,
@@ -103,7 +103,7 @@ export const SocialNeedActions: ActionDefinition[] = [
         rewardSecondary: { SOCIAL: 0.65, MOOD: 0.5, CULTURE: 0.3 },
         tradeEffect: { musician_fee: -1 as any },
         socialImpact: { SOCIAL: 0.65, UNITY: 0.4 as any, JOY: 0.4 as any },
-        lawEffect: { quietHours: 'respected', enforceable: true }
+        lawEffect: { quietHours: 'respected', enforceable: true },
     },
     {
         tag: SocialNeedActionTag.EXCHANGE_GIFTS,
@@ -112,7 +112,7 @@ export const SocialNeedActions: ActionDefinition[] = [
         rewardSecondary: { SOCIAL: 0.6, AFFECTION: 0.4, TRUST: 0.2 },
         tradeEffect: { gifts_out: -1, gifts_in: '+1' },
         socialImpact: { SOCIAL: 0.6, REPUTATION: 0.2 },
-        lawEffect: { giftPolicy: 'no_bribe', enforceable: true }
+        lawEffect: { giftPolicy: 'no_bribe', enforceable: true },
     },
     {
         tag: SocialNeedActionTag.VISIT_SICK,
@@ -121,7 +121,7 @@ export const SocialNeedActions: ActionDefinition[] = [
         rewardSecondary: { SOCIAL: 0.6, FAMILY: 0.3, SPIRIT: 0.2 },
         tradeEffect: { broth: -1, herbs: -1 },
         socialImpact: { SOCIAL: 0.65, COMPASSION: 0.5 as any, LOYALTY: 0.2 },
-        lawEffect: { sickroomEtiquette: 'observed', enforceable: true }
+        lawEffect: { sickroomEtiquette: 'observed', enforceable: true },
     },
     {
         tag: SocialNeedActionTag.CELEBRATE_NAME_DAY,
@@ -132,7 +132,7 @@ export const SocialNeedActions: ActionDefinition[] = [
         tradeEffect: { sweets: -2, drink: -2 },
         socialImpact: { SOCIAL: 0.7, COHESION: 0.4, VISIBILITY: 0.3 },
         lawEffect: { gatheringPermit: 'not_required', enforceable: false },
-        requiredMemes: [comm.language.written]
+        requiredMemes: [comm.language.written],
     },
     {
         tag: SocialNeedActionTag.FORM_INTEREST_CIRCLE,
@@ -144,10 +144,7 @@ export const SocialNeedActions: ActionDefinition[] = [
         socialImpact: { SOCIAL: 0.65, COORDINATION: 0.4 as any, RESPECT: 0.2 },
         lawEffect: { circleCharter: 'noted', enforceable: true },
         ownershipEffect: { accessScope: 'circle_room', grantAccess: true },
-        requiredMemes: [
-            comm.language.written,
-            org.workshop_practice,
-        ]
+        requiredMemes: [comm.language.written, org.workshop_practice],
     },
     {
         tag: SocialNeedActionTag.MENTOR_JUNIOR,
@@ -155,7 +152,7 @@ export const SocialNeedActions: ActionDefinition[] = [
         costTime: 2.0,
         rewardSecondary: { SOCIAL: 0.6, MASTERY: 0.5, FAMILY: 0.2 },
         socialImpact: { SOCIAL: 0.6, RESPECT: 0.4, CONTINUITY: 0.4 as any },
-        lawEffect: { mentorshipRoll: 'filed', enforceable: true }
+        lawEffect: { mentorshipRoll: 'filed', enforceable: true },
     },
     {
         tag: SocialNeedActionTag.NEIGHBORHOOD_WATCH,
@@ -171,6 +168,6 @@ export const SocialNeedActions: ActionDefinition[] = [
             health.waste_handling,
             culture.vigil_ritual,
             cog.timekeeping.basic,
-        ]
+        ],
     },
 ];

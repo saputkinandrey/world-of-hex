@@ -12,7 +12,7 @@ export const PowerActions: ActionDefinition[] = [
             STATUS: 0.2,
         },
         socialImpact: { POWER: 0.6, ORDER: 0.5, CONFUSION: -0.3 },
-        lawEffect: { charter: 'chain_of_command_v1', enforceable: true }
+        lawEffect: { charter: 'chain_of_command_v1', enforceable: true },
     },
     {
         tag: PowerActionTag.APPOINT_OFFICERS,
@@ -27,7 +27,7 @@ export const PowerActions: ActionDefinition[] = [
         },
         socialImpact: { POWER: 0.55, FAVOR: 0.4, ENVY: 0.2 },
         lawEffect: { lettersOfOffice: 'issued', enforceable: true },
-        ownershipEffect: { accessScope: 'command_rooms', grantAccess: true }
+        ownershipEffect: { accessScope: 'command_rooms', grantAccess: true },
     },
     {
         tag: PowerActionTag.DELEGATE_AUTHORITY,
@@ -49,7 +49,7 @@ export const PowerActions: ActionDefinition[] = [
             grantAccess: true,
             accessScope: 'assets_subset',
             accessLevel: 'DELEGATE',
-        }
+        },
     },
     {
         tag: PowerActionTag.ISSUE_DECREE,
@@ -64,7 +64,7 @@ export const PowerActions: ActionDefinition[] = [
         },
         socialImpact: { POWER: 0.55, COMPLIANCE: 0.4 as any, RESENTMENT: 0.15 },
         lawEffect: { decreeId: 'dcr#001', enforceable: true },
-        tradeEffect: { notice_posts: '+N', heralds_fee: -1 }
+        tradeEffect: { notice_posts: '+N', heralds_fee: -1 },
     },
     {
         tag: PowerActionTag.CONVENE_PRIVY_COUNCIL,
@@ -79,7 +79,7 @@ export const PowerActions: ActionDefinition[] = [
         requiresLocation: 'council_chamber',
         socialImpact: { POWER: 0.45, COHESION: 0.35, SECRECY: 0.3 as any },
         lawEffect: { minutes: 'sealed', enforceable: true },
-        ownershipEffect: { accessScope: 'privy_council', grantAccess: true }
+        ownershipEffect: { accessScope: 'privy_council', grantAccess: true },
     },
     {
         tag: PowerActionTag.CONTROL_KEY_RESOURCES,
@@ -95,7 +95,7 @@ export const PowerActions: ActionDefinition[] = [
         requiresItem: ['guards'],
         socialImpact: { POWER: 0.7, DEPENDENCE: 0.5 as any, ENVY: 0.25 },
         ownershipEffect: { seize: 'granary|armory|well', steward: 'appointed' },
-        lawEffect: { seizureOrder: 'filed', enforceable: true }
+        lawEffect: { seizureOrder: 'filed', enforceable: true },
     },
     {
         tag: PowerActionTag.GRANT_PRIVILEGE,
@@ -112,7 +112,7 @@ export const PowerActions: ActionDefinition[] = [
             grantAccess: true,
             accessScope: 'market|resource',
             accessLevel: 'LICENSED',
-        }
+        },
     },
     {
         tag: PowerActionTag.REVOKE_PRIVILEGE,
@@ -125,7 +125,7 @@ export const PowerActions: ActionDefinition[] = [
         ownershipEffect: {
             accessRevoked: true,
             accessScope: 'resource|office',
-        }
+        },
     },
     {
         tag: PowerActionTag.ESTABLISH_INTELLIGENCE_NETWORK,
@@ -140,7 +140,7 @@ export const PowerActions: ActionDefinition[] = [
         },
         tradeEffect: { stipends: -3, informants: '+N' },
         socialImpact: { POWER: 0.55, FEAR: 0.15, READINESS: 0.3 as any },
-        lawEffect: { secrecyWrit: 'issued', enforceable: true }
+        lawEffect: { secrecyWrit: 'issued', enforceable: true },
     },
     {
         tag: PowerActionTag.ENFORCE_TAX_OR_TITHE,
@@ -151,7 +151,7 @@ export const PowerActions: ActionDefinition[] = [
         tradeEffect: { collect_silver: '+X', arrears: '-Y' },
         socialImpact: { POWER: 0.55, RESENTMENT: 0.25, FAIRNESS: 0.2 },
         lawEffect: { taxCode: 'tithed_v1', enforceable: true },
-        ownershipEffect: { treasury: 'credited' }
+        ownershipEffect: { treasury: 'credited' },
     },
     {
         tag: PowerActionTag.APPOINT_JUDGES,
@@ -160,7 +160,7 @@ export const PowerActions: ActionDefinition[] = [
         rewardSecondary: { POWER: 0.6, JUSTICE: 0.5, STABILITY: 0.4 },
         socialImpact: { POWER: 0.45, TRUST: 0.3, FEAR: 0.1 },
         lawEffect: { benchLetters: 'issued', enforceable: true },
-        ownershipEffect: { accessScope: 'court_chamber', grantAccess: true }
+        ownershipEffect: { accessScope: 'court_chamber', grantAccess: true },
     },
     {
         tag: PowerActionTag.RAISE_GUARD_OR_RETINUE,
@@ -177,7 +177,7 @@ export const PowerActions: ActionDefinition[] = [
         tradeEffect: { hire_cost: '-X', upkeep: '-Y/season' },
         socialImpact: { POWER: 0.7, FEAR: 0.3, LOYALTY: 0.2 },
         lawEffect: { musterRoll: 'guard_registered', enforceable: true },
-        ownershipEffect: { accessScope: 'armory|barracks', grantAccess: true }
+        ownershipEffect: { accessScope: 'armory|barracks', grantAccess: true },
     },
     {
         tag: PowerActionTag.CALL_MUSTER,
@@ -187,7 +187,7 @@ export const PowerActions: ActionDefinition[] = [
         rewardSecondary: { POWER: 0.7, SECURITY: 0.5, COMMUNITY: 0.3 },
         requiresLocation: 'mustering_field',
         socialImpact: { POWER: 0.6, READINESS: 0.6 as any, FEAR: 0.15 },
-        lawEffect: { generalSummons: 'issued', enforceable: true }
+        lawEffect: { generalSummons: 'issued', enforceable: true },
     },
     {
         tag: PowerActionTag.NEGOTIATE_VASSALAGE,
@@ -207,7 +207,7 @@ export const PowerActions: ActionDefinition[] = [
             enforceable: true,
             obligations: 'tribute+levy',
         },
-        ownershipEffect: { grantAccess: true, accessScope: 'overlord_rights' }
+        ownershipEffect: { grantAccess: true, accessScope: 'overlord_rights' },
     },
     {
         tag: PowerActionTag.HOSTAGE_EXCHANGE,
@@ -226,7 +226,7 @@ export const PowerActions: ActionDefinition[] = [
             enforceable: true,
             duration: 'term',
         },
-        ownershipEffect: { custodyRights: 'reciprocal' }
+        ownershipEffect: { custodyRights: 'reciprocal' },
     },
     {
         tag: PowerActionTag.PUNISHMENT_WITH_DUE_PROCESS,
@@ -239,6 +239,6 @@ export const PowerActions: ActionDefinition[] = [
             sentence: 'passed_by_court',
             enforceable: true,
             appeal: 'allowed',
-        }
+        },
     },
 ];

@@ -1,6 +1,11 @@
 // world/environment/location-water.helpers.ts
 
-import type {VolumeUnits, HexId, HexCoord, HexContentInstance} from '../hex.entity';
+import type {
+    VolumeUnits,
+    HexId,
+    HexCoord,
+    HexContentInstance,
+} from '../hex.entity';
 import { HexEntity, makeHexId } from '../hex.entity';
 import type { WorldState } from '../world-state';
 import { LocationEntity } from '../locations/location.entity';

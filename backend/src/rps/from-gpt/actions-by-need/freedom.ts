@@ -20,7 +20,7 @@ export const FreedomActions: ActionDefinition[] = [
             pactId: 'autonomy_v1',
             enforceable: true,
             terms: 'duty_floor_only',
-        }
+        },
     },
     {
         tag: FreedomActionTag.DECLARE_PERSONAL_BOUNDARIES,
@@ -28,7 +28,7 @@ export const FreedomActions: ActionDefinition[] = [
         costTime: 0.8,
         rewardSecondary: { FREEDOM: 0.6, STABILITY: 0.2, PURPOSE: 0.2 },
         socialImpact: { FREEDOM: 0.45, RESPECT: 0.25, CONFLICT: 0.05 },
-        lawEffect: { notice: 'boundaries_recorded', enforceable: true }
+        lawEffect: { notice: 'boundaries_recorded', enforceable: true },
     },
     {
         tag: FreedomActionTag.RESERVE_FREE_TIME_BLOCKS,
@@ -37,7 +37,7 @@ export const FreedomActions: ActionDefinition[] = [
         rewardSecondary: { FREEDOM: 0.55, REST: 0.2, MASTERY: 0.1 },
         socialImpact: { FREEDOM: 0.35, RELIABILITY: 0.2 },
         ownershipEffect: { timeBlocks: 'personal_reserved' },
-        lawEffect: { rotaPolicy: 'free_block_protected', enforceable: true }
+        lawEffect: { rotaPolicy: 'free_block_protected', enforceable: true },
     },
     {
         tag: FreedomActionTag.TRAVEL_WITHOUT_ESCORT,
@@ -47,7 +47,7 @@ export const FreedomActions: ActionDefinition[] = [
         rewardSecondary: { FREEDOM: 0.7, CURIOSITY: 0.3, KNOWLEDGE: 0.2 },
         socialImpact: { FREEDOM: 0.45, COURAGE: 0.2 },
         lawEffect: { checkpointNote: 'solo_travel', enforceable: true },
-        ownershipEffect: { accessScope: 'roads|paths', grantAccess: true }
+        ownershipEffect: { accessScope: 'roads|paths', grantAccess: true },
     },
     {
         tag: FreedomActionTag.CHOOSE_WORK_ASSIGNMENT,
@@ -58,7 +58,7 @@ export const FreedomActions: ActionDefinition[] = [
         lawEffect: {
             assignmentPolicy: 'self_select_allowed',
             enforceable: true,
-        }
+        },
     },
     {
         tag: FreedomActionTag.REFUSE_UNJUST_ORDER,
@@ -67,7 +67,7 @@ export const FreedomActions: ActionDefinition[] = [
         risk: 0.25,
         rewardSecondary: { FREEDOM: 0.65, JUSTICE: 0.4, PURPOSE: 0.2 },
         socialImpact: { FREEDOM: 0.6, RESPECT: 0.3, CONFLICT: 0.2 },
-        lawEffect: { whistleblowerShield: 'weak|strong', enforceable: true }
+        lawEffect: { whistleblowerShield: 'weak|strong', enforceable: true },
     },
     {
         tag: FreedomActionTag.SWITCH_PATRON_OR_GUILD,
@@ -83,7 +83,7 @@ export const FreedomActions: ActionDefinition[] = [
         tradeEffect: { exit_fee: -2, join_fee: -2 },
         socialImpact: { FREEDOM: 0.55, NETWORK: 0.3, LOYALTY: -0.1 },
         lawEffect: { transferNote: 'guild_switch', enforceable: true },
-        ownershipEffect: { accessScope: 'new_guild_assets', grantAccess: true }
+        ownershipEffect: { accessScope: 'new_guild_assets', grantAccess: true },
     },
     {
         tag: FreedomActionTag.RENOUNCE_DEBT,
@@ -93,7 +93,7 @@ export const FreedomActions: ActionDefinition[] = [
         tradeEffect: { pay_off: '-X', collateral_release: 'yes' },
         socialImpact: { FREEDOM: 0.7, TRUST: 0.2 },
         lawEffect: { debtRecord: 'settled', enforceable: true },
-        ownershipEffect: { collateral_pledged: false }
+        ownershipEffect: { collateral_pledged: false },
     },
     {
         tag: FreedomActionTag.SECURE_TRAVEL_PERMIT,
@@ -108,10 +108,7 @@ export const FreedomActions: ActionDefinition[] = [
             routes: 'green',
         },
         ownershipEffect: { accessScope: 'gates|bridges', grantAccess: true },
-        requiredMemes: [
-            record.ledgerkeeping,
-            econ.pooling_common_fund,
-        ]
+        requiredMemes: [record.ledgerkeeping, econ.pooling_common_fund],
     },
     {
         tag: FreedomActionTag.ACQUIRE_PRIVATE_WORKSPACE,
@@ -126,7 +123,7 @@ export const FreedomActions: ActionDefinition[] = [
         tradeEffect: { rent: -2, furnish: -2 },
         socialImpact: { FREEDOM: 0.55, RESPECT: 0.2 },
         ownershipEffect: { accessScope: 'private_workshop', grantAccess: true },
-        lawEffect: { leaseRecord: 'signed', enforceable: true }
+        lawEffect: { leaseRecord: 'signed', enforceable: true },
     },
     {
         tag: FreedomActionTag.HIDE_TRAIL,
@@ -136,7 +133,7 @@ export const FreedomActions: ActionDefinition[] = [
         rewardSecondary: { FREEDOM: 0.55, SECURITY: 0.25, CONTROL: 0.2 },
         requiresSkill: 'stealth',
         socialImpact: { FREEDOM: 0.35, SUSPICION: -0.1 },
-        lawEffect: { conductRule: 'legal_evasion_only', enforceable: true }
+        lawEffect: { conductRule: 'legal_evasion_only', enforceable: true },
     },
     {
         tag: FreedomActionTag.ENCRYPT_COMMUNICATION,
@@ -146,10 +143,7 @@ export const FreedomActions: ActionDefinition[] = [
         tradeEffect: { cipher_tools: -1, training: -1 },
         socialImpact: { FREEDOM: 0.45, PRIVACY: 0.5 as any },
         lawEffect: { codeUse: 'permitted_with_notice', enforceable: true },
-        requiredMemes: [
-            comm.language.written,
-            tech.tool.use_basic,
-        ]
+        requiredMemes: [comm.language.written, tech.tool.use_basic],
     },
     {
         tag: FreedomActionTag.PORTABLE_TOOLKIT,
@@ -158,7 +152,7 @@ export const FreedomActions: ActionDefinition[] = [
         rewardSecondary: { FREEDOM: 0.6, PRODUCTIVITY: 0.3, STABILITY: 0.2 },
         tradeEffect: { assemble_kit: '-materials', weight: '-light' },
         socialImpact: { FREEDOM: 0.4, MOBILITY: 0.4 as any },
-        ownershipEffect: { carryCapacity: '+tools_portable' }
+        ownershipEffect: { carryCapacity: '+tools_portable' },
     },
     {
         tag: FreedomActionTag.SET_OWN_PRICES,
@@ -171,7 +165,7 @@ export const FreedomActions: ActionDefinition[] = [
             contract_terms: 'flexible',
         },
         socialImpact: { FREEDOM: 0.5, REPUTATION: 0.2, ENVY: 0.05 },
-        lawEffect: { marketRules: 'price_floor_only', enforceable: true }
+        lawEffect: { marketRules: 'price_floor_only', enforceable: true },
     },
     {
         tag: FreedomActionTag.CHART_NEW_ROUTE,
@@ -183,7 +177,7 @@ export const FreedomActions: ActionDefinition[] = [
         socialImpact: { FREEDOM: 0.55, FAME: 0.2 },
         lawEffect: { explorationClaim: 'route_logged', enforceable: true },
         ownershipEffect: { routeRight: 'discoverer_bonus' },
-        requiredMemes: [comm.language.written]
+        requiredMemes: [comm.language.written],
     },
     {
         tag: FreedomActionTag.ASSERT_RIGHT_TO_SILENCE,
@@ -192,6 +186,6 @@ export const FreedomActions: ActionDefinition[] = [
         risk: 0.1,
         rewardSecondary: { FREEDOM: 0.55, JUSTICE: 0.25, STABILITY: 0.15 },
         socialImpact: { FREEDOM: 0.45, RESPECT: 0.2, SUSPICION: 0.05 },
-        lawEffect: { rightToSilence: 'invoked', enforceable: true }
+        lawEffect: { rightToSilence: 'invoked', enforceable: true },
     },
 ];

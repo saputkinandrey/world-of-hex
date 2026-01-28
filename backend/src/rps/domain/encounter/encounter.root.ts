@@ -2,11 +2,11 @@ import { AggregateRoot, AggregateRootName } from '@event-nest/core';
 
 @AggregateRootName(EncounterRoot.name)
 export class EncounterRoot extends AggregateRoot {
-  characters: object[] = [];
+    characters: object[] = [];
 
-  createdAt: Date = new Date();
+    createdAt: Date = new Date();
 
-  updatedAt: Date;
+    updatedAt: Date;
 
-  deletedAt: Date;
+    deletedAt: Date;
 }

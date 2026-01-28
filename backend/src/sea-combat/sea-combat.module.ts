@@ -10,7 +10,7 @@ import { EncountersController } from './controller/encounters.controller';
 import { ShipsController } from './controller/ships.controller';
 import { Encounter, EncounterSchema } from './schemas/encounter.schema';
 import { ShipController } from './controller/ship.controller';
-import { SeaCombatGateway } from './services/sea-combat.gateway';
+import { SeaCombatSocketIoGateway } from './services/sea-combat-socketio.gateway';
 import { PlayerModule } from '../player/player.module';
 
 @Module({
@@ -33,7 +33,7 @@ import { PlayerModule } from '../player/player.module';
         EncounterService,
         EncounterRepository,
         ShipRepository,
-        SeaCombatGateway,
+        SeaCombatSocketIoGateway,
     ],
     exports: [EncounterService],
 })

@@ -1,13 +1,12 @@
 // memes.ts
 
-import {morph, MorphId} from "./morphs";
-import {LeafValues} from "../types/leaf-values.type";
+import { morph, MorphId } from './morphs';
+import { LeafValues } from '../types/leaf-values.type';
 
 export type MemeNode = {
     id: MemeId;
     parents?: MemeId[]; // prerequisites
 };
-
 
 // src/memes/index.ts
 // Иерархия: строки-листовые узлы = стабильные ID (литералы).
@@ -37,32 +36,31 @@ export const memes = {
 
     // === Cognition / Org ===
     cog: {
-
         // === Уровни «общего интеллекта» (IQ) ===
         // IQ2 — рептилия / простые насекомые:
         //        базовая сенсорика и моторика, простые фиксированные паттерны охоты/убегания.
-        iq2:  'cog.iq2',
+        iq2: 'cog.iq2',
         // IQ3 — мелкие млекопитающие / птицы:
         //        простое обучение, привычки, локальные сигналы/ритуалы внутри вида.
-        iq3:  'cog.iq3',
+        iq3: 'cog.iq3',
         // IQ4 — социальные млекопитающие (волки, приматы «простейшего уровня»):
         //        устойчивые роли в группе, кооперативная охота, иерархии.
-        iq4:  'cog.iq4',
+        iq4: 'cog.iq4',
         // IQ5 — «умные звери» (вороны, дельфины, более развитые приматы):
         //        использование простых орудий, решение задач через пробу и ошибку.
-        iq5:  'cog.iq5',
+        iq5: 'cog.iq5',
         // IQ6 — ранние гоминиды / ребёнок:
         //        протоязык, простая символика, элементарное планирование и обмен опытом.
-        iq6:  'cog.iq6',
+        iq6: 'cog.iq6',
         // IQ7 — ранний человек / племенное общество:
         //        устойчивый язык, счёт «на пальцах», простые меры, кулинария как норма.
-        iq7:  'cog.iq7',
+        iq7: 'cog.iq7',
         // IQ8 — грамотный человек / ранние цивилизации:
         //        письмо, реестры, долговые записи, базовые правовые и рыночные нормы.
-        iq8:  'cog.iq8',
+        iq8: 'cog.iq8',
         // IQ9 — развитые институты / сложная абстракция:
         //        системные контракты, сложная экономика, стандарты, процедуры.
-        iq9:  'cog.iq9',
+        iq9: 'cog.iq9',
         // IQ10 — условный «средний взрослый человек» твоей эпохи:
         //        полный широкий набор обобщённых человеческих мемов.
         iq10: 'cog.iq10',
@@ -260,16 +258,15 @@ export const core = morph.core;
 export const soc = memes.soc;
 export const comm = memes.comm;
 export const cog = memes.cog;
-export const IQ2  = memes.cog.iq2;
-export const IQ3  = memes.cog.iq3;
-export const IQ4  = memes.cog.iq4;
-export const IQ5  = memes.cog.iq5;
-export const IQ6  = memes.cog.iq6;
-export const IQ7  = memes.cog.iq7;
-export const IQ8  = memes.cog.iq8;
-export const IQ9  = memes.cog.iq9;
+export const IQ2 = memes.cog.iq2;
+export const IQ3 = memes.cog.iq3;
+export const IQ4 = memes.cog.iq4;
+export const IQ5 = memes.cog.iq5;
+export const IQ6 = memes.cog.iq6;
+export const IQ7 = memes.cog.iq7;
+export const IQ8 = memes.cog.iq8;
+export const IQ9 = memes.cog.iq9;
 export const IQ10 = memes.cog.iq10;
-
 
 export const org = memes.org;
 export const tech = memes.tech;
@@ -289,19 +286,19 @@ export const eth = memes.eth;
 export type MemeId = string;
 
 // Явные зависимости (только «смысловые» ребра; остальное достроит резолвер)
-export const memeDeps: Record<MemeId, readonly (MemeId|MorphId)[]> = {
+export const memeDeps: Record<MemeId, readonly (MemeId | MorphId)[]> = {
     [memes.eth.territory_marking]: [
         core.perception,
         memes.cog.iq2, // или iq3
     ],
     // Лестница IQ — каждый следующий уровень опирается на предыдущий
-    [memes.cog.iq3]:  [memes.cog.iq2],
-    [memes.cog.iq4]:  [memes.cog.iq3],
-    [memes.cog.iq5]:  [memes.cog.iq4],
-    [memes.cog.iq6]:  [memes.cog.iq5],
-    [memes.cog.iq7]:  [memes.cog.iq6],
-    [memes.cog.iq8]:  [memes.cog.iq7],
-    [memes.cog.iq9]:  [memes.cog.iq8],
+    [memes.cog.iq3]: [memes.cog.iq2],
+    [memes.cog.iq4]: [memes.cog.iq3],
+    [memes.cog.iq5]: [memes.cog.iq4],
+    [memes.cog.iq6]: [memes.cog.iq5],
+    [memes.cog.iq7]: [memes.cog.iq6],
+    [memes.cog.iq8]: [memes.cog.iq7],
+    [memes.cog.iq9]: [memes.cog.iq8],
     [memes.cog.iq10]: [memes.cog.iq9],
 
     // === Core ===
@@ -313,7 +310,7 @@ export const memeDeps: Record<MemeId, readonly (MemeId|MorphId)[]> = {
     [memes.comm.language.written]: [memes.comm.language.spoken, IQ8],
 
     // === Cognition / Org ===
-    [memes.cog.counting.tally]: [ IQ6 ],
+    [memes.cog.counting.tally]: [IQ6],
     [memes.cog.number_concept]: [memes.cog.counting.tally, IQ7],
     [memes.cog.measurement.rudimentary]: [IQ7],
     [memes.cog.standards.agreement]: [memes.comm.language.spoken, IQ7],
@@ -324,16 +321,10 @@ export const memeDeps: Record<MemeId, readonly (MemeId|MorphId)[]> = {
     [memes.org.duty_roster]: [memes.org.scheduling, IQ8],
     [memes.org.workshop_practice]: [memes.tech.tool.making],
 
-    [memes.tech.throwing.basic]: [
-        core.perception,
-        core.motor_coordination,
-    ],
+    [memes.tech.throwing.basic]: [core.perception, core.motor_coordination],
 
     // === COMBAT
-    [memes.tech.combat.core]: [
-        core.perception,
-        core.motor_coordination,
-    ],
+    [memes.tech.combat.core]: [core.perception, core.motor_coordination],
     [memes.tech.combat.bite_basic]: [memes.tech.combat.core],
     [memes.tech.combat.venom_delivery]: [memes.tech.combat.bite_basic],
 
@@ -348,10 +339,7 @@ export const memeDeps: Record<MemeId, readonly (MemeId|MorphId)[]> = {
     ],
 
     // === HUNTING
-    [memes.tech.hunting.core]: [
-        core.perception,
-        core.motor_coordination,
-    ],
+    [memes.tech.hunting.core]: [core.perception, core.motor_coordination],
     [memes.tech.hunting.tracking_basic]: [memes.tech.hunting.core],
     [memes.tech.hunting.stalking_basic]: [
         memes.tech.hunting.core,
@@ -401,7 +389,7 @@ export const memeDeps: Record<MemeId, readonly (MemeId|MorphId)[]> = {
     [memes.tech.food.culinary.smoke]: [memes.tech.food.culinary.core],
 
     // === Health / Culture / Law / Econ ===
-    [memes.health.sanitation_norms]: [ IQ7],
+    [memes.health.sanitation_norms]: [IQ7],
     [memes.health.waste_handling]: [memes.health.sanitation_norms],
     [memes.health.waste_sorting]: [memes.health.waste_handling],
     [memes.health.first_aid_basic]: [IQ7],
@@ -415,11 +403,11 @@ export const memeDeps: Record<MemeId, readonly (MemeId|MorphId)[]> = {
     [memes.culture.oath_norm]: [
         memes.culture.ritual_basic,
         memes.comm.language.spoken,
-        IQ8
+        IQ8,
     ],
     [memes.culture.vigil_ritual]: [
         memes.culture.ritual_basic,
-        memes.cog.timekeeping.basic
+        memes.cog.timekeeping.basic,
     ],
 
     [memes.record.ledgerkeeping]: [
@@ -438,7 +426,11 @@ export const memeDeps: Record<MemeId, readonly (MemeId|MorphId)[]> = {
         memes.econ.exchange_barter,
         memes.cog.number_concept,
     ],
-    [memes.econ.market_norms]: [memes.econ.token_use, memes.org.scheduling, IQ8],
+    [memes.econ.market_norms]: [
+        memes.econ.token_use,
+        memes.org.scheduling,
+        IQ8,
+    ],
     [memes.econ.pooling_common_fund]: [memes.record.ledgerkeeping],
     [memes.econ.deposit_contract]: [memes.econ.pooling_common_fund, IQ9],
 
@@ -466,10 +458,7 @@ export const memeDeps: Record<MemeId, readonly (MemeId|MorphId)[]> = {
     [memes.eth.maintenance.ecdysis]: [],
 
     // === Хищничество (база + драйвы)
-    [memes.eth.predation.core]: [
-        core.perception,
-        core.motor_coordination,
-    ],
+    [memes.eth.predation.core]: [core.perception, core.motor_coordination],
     [memes.eth.predation.drive.prey_drive]: [memes.eth.predation.core],
     [memes.eth.predation.drive.play_predation]: [memes.eth.predation.core],
     [memes.eth.predation.drive.scavenging]: [memes.eth.predation.core],

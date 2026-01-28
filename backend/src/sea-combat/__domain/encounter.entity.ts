@@ -4,20 +4,20 @@ import { WindroseEntity } from './windrose.entity';
 const idType = String;
 
 export class EncounterEntity {
-  @ApiProperty({
-    type: idType,
-  })
-  id: number | string;
+    @ApiProperty({
+        type: idType,
+    })
+    id: number | string;
 
-  @ApiProperty()
-  windrose: WindroseEntity = new WindroseEntity();
+    @ApiProperty()
+    windrose: WindroseEntity = new WindroseEntity();
 
-  @ApiProperty()
-  createdAt: Date;
+    @ApiProperty()
+    createdAt: Date;
 
-  @ApiProperty()
-  updatedAt: Date;
+    @ApiProperty()
+    updatedAt: Date;
 
-  @ApiProperty()
-  deletedAt: Date;
+    @ApiProperty()
+    deletedAt: Date;
 }
