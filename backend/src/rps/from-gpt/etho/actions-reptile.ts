@@ -1,16 +1,16 @@
-import {ActionDefinition} from "../action-definition";
-import {EthoActionTag} from "../action-tags";
-import {eth} from "../../world/memes";
-import {NeedThresholdEnum} from "../needs";
+import { ActionDefinition } from '../action-definition';
+import { EthoActionTag } from '../action-tags';
+import { eth } from '../../world/memes';
+import { NeedThresholdEnum } from '../needs';
 
 export const SHED_SKIN_ECDYSIS: ActionDefinition = {
     tag: EthoActionTag.SHED_SKIN_ECDYSIS,
-    needThresholds: {SAFETY: {atMost: NeedThresholdEnum.OK}},
+    needThresholds: { SAFETY: { atMost: NeedThresholdEnum.OK } },
 
     // Линька — редкий, но долгий и энергозатратный процесс
-    costEnergy: 0.5,      // много энергии уходит за цикл
-    costTime: 8,          // "долгое" действие (несколько тактов / часов)
-    risk: 0.2,            // в это время уязвим
+    costEnergy: 0.5, // много энергии уходит за цикл
+    costTime: 8, // "долгое" действие (несколько тактов / часов)
+    risk: 0.2, // в это время уязвим
 
     // Потребности: улучшаем комфорт/здоровье, но временно падает безопасность
     rewardSecondary: {
@@ -23,5 +23,4 @@ export const SHED_SKIN_ECDYSIS: ActionDefinition = {
     requiredMemes: [
         eth.maintenance.ecdysis, // "умение" линять
     ],
-
 };

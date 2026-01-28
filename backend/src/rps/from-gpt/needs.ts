@@ -34,22 +34,20 @@ export interface NeedThresholds {
 // Гейт экшена по конкретной потребности
 export interface NeedGate {
     atLeast?: NeedThresholdEnum; // экшен разрешён, если текущая зона >= atLeast
-    atMost?: NeedThresholdEnum;  // и/или запрещён, если текущая зона > atMost
+    atMost?: NeedThresholdEnum; // и/или запрещён, если текущая зона > atMost
 }
 
 /** Контекст окружения для динамических модификаторов (по желанию) */
 export interface NeedContext {
-    ambientC?: number;              // температура среды
-    preferredC?: number;            // «комфортная» для вида
-    season?: 'winter'|'summer'|'spring'|'autumn';
-    timeOfDay?: 'day'|'night'|'dawn'|'dusk';
-    hydrationLevel?: number;        // 0..1
-    satietyLevel?: number;          // 0..1
+    ambientC?: number; // температура среды
+    preferredC?: number; // «комфортная» для вида
+    season?: 'winter' | 'summer' | 'spring' | 'autumn';
+    timeOfDay?: 'day' | 'night' | 'dawn' | 'dusk';
+    hydrationLevel?: number; // 0..1
+    satietyLevel?: number; // 0..1
 }
 
 export enum NeedTag {
-
-
     STRESS = 'STRESS',
     ENERGY = 'ENERGY',
     ACCOUNTABILITY = 'ACCOUNTABILITY',

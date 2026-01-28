@@ -1,2 +1,1 @@
-
-export type LoadEncounterResponsePayloadDto = object
+export type LoadEncounterResponsePayloadDto = object;

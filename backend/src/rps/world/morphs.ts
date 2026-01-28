@@ -1,7 +1,7 @@
 // from-gpt/morphs.ts
 // Морфологические/механические "мемы" — то, что умеет тело (body plan, локомоция, сенсоры, оружие и т.п.).
 
-import {LeafValues} from "../types/leaf-values.type";
+import { LeafValues } from '../types/leaf-values.type';
 
 export type MorphId = string;
 
@@ -350,7 +350,6 @@ export const morph = {
         skin_assist: 'morph.respiration.skin_assist',
     },
 
-
     // ───────────────────────────────────────────────────────────
     // Терморегуляция (GURPS-стиль: Cold-Blooded / "норма")
     // ───────────────────────────────────────────────────────────
@@ -376,7 +375,8 @@ export function leveledMorph(
     template: LeveledMorphTemplateId,
     level: number,
 ): MorphId {
-    const safeLevel = Number.isFinite(level) && level > 0 ? Math.floor(level) : 1;
+    const safeLevel =
+        Number.isFinite(level) && level > 0 ? Math.floor(level) : 1;
     return template.replace('%level%', String(safeLevel)) as MorphId;
 }
 

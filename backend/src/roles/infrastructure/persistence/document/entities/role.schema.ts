@@ -1,5 +1,5 @@
 export class RoleSchema {
-  _id: string;
+    _id: string;
 
-  name?: string;
+    name?: string;
 }

@@ -1,8 +1,8 @@
 // Специально найти место с "правильной" температурой
-import {ActionDefinition} from "../action-definition";
-import {EthoActionTag} from "../action-tags";
-import {core, eth} from "../../world/memes";
-import {morph} from "../../world/morphs";
+import { ActionDefinition } from '../action-definition';
+import { EthoActionTag } from '../action-tags';
+import { core, eth } from '../../world/memes';
+import { morph } from '../../world/morphs';
 
 export const SEEK_THERMAL_REFUGE: ActionDefinition = {
     tag: EthoActionTag.SEEK_THERMAL_REFUGE,
@@ -10,16 +10,11 @@ export const SEEK_THERMAL_REFUGE: ActionDefinition = {
     costTime: 1,
     risk: 0.04,
     rewardSecondary: {
-        TEMPERATURE: 0.5,          // двигаем к комфортной зоне
+        TEMPERATURE: 0.5, // двигаем к комфортной зоне
         COMFORT: 0.3,
         STRESS: -0.1 as any,
     },
-    requiredMemes: [
-        eth.maintenance.thermoregulation,
-        core.perception,
-    ],
-    requiredMorphs: [
-        morph.thermoreg.coldBlooded,
-    ],
+    requiredMemes: [eth.maintenance.thermoregulation, core.perception],
+    requiredMorphs: [morph.thermoreg.coldBlooded],
     requiresLocation: 'shade|burrow|rock_crevice|water_edge',
 };

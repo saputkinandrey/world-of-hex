@@ -15,7 +15,7 @@ export const FearActions: ActionDefinition[] = [
         tradeEffect: { lamp_oil: -1, torches: -1 },
         socialImpact: { READINESS: 0.2, COMMUNITY: 0.1 },
         lawEffect: { fireSafety: 'observed', enforceable: true },
-        ownershipEffect: { accessScope: 'streets|gates', grantAccess: true }
+        ownershipEffect: { accessScope: 'streets|gates', grantAccess: true },
     },
     {
         tag: FearActionTag.HOLD_FORMATION_DRILL,
@@ -35,7 +35,7 @@ export const FearActions: ActionDefinition[] = [
             health.sanitation_norms,
             health.waste_handling,
             comm.language.written,
-        ]
+        ],
     },
     {
         tag: FearActionTag.REASSURE_PUBLIC_SPEECH,
@@ -55,7 +55,7 @@ export const FearActions: ActionDefinition[] = [
             health.sanitation_norms,
             health.waste_handling,
             comm.language.written,
-        ]
+        ],
     },
     {
         tag: FearActionTag.ESCORT_VULNERABLE,
@@ -70,7 +70,7 @@ export const FearActions: ActionDefinition[] = [
         },
         socialImpact: { RESPECT: 0.2, TRUST: 0.3 },
         ownershipEffect: { accessScope: 'safe_corridors', grantAccess: true },
-        lawEffect: { escortRoster: 'logged', enforceable: true }
+        lawEffect: { escortRoster: 'logged', enforceable: true },
     },
     {
         tag: FearActionTag.MAP_SAFE_ROUTE,
@@ -89,7 +89,7 @@ export const FearActions: ActionDefinition[] = [
             accessScope: 'notice_board',
         },
         lawEffect: { routeRegistry: 'filed', enforceable: true },
-        requiredMemes: [comm.language.written]
+        requiredMemes: [comm.language.written],
     },
     {
         tag: FearActionTag.WARD_SIGNS_PLACEMENT,
@@ -103,7 +103,7 @@ export const FearActions: ActionDefinition[] = [
         },
         tradeEffect: { paint: -1 | (0 as any), charms: -1 | (0 as any) },
         socialImpact: { HOPE: 0.2 as any, COMMUNITY: 0.1 },
-        lawEffect: { superstitionBan: 'symbolic_allowed', enforceable: true }
+        lawEffect: { superstitionBan: 'symbolic_allowed', enforceable: true },
     },
     {
         tag: FearActionTag.SET_TRAPS_EARLY_WARNING,
@@ -119,7 +119,7 @@ export const FearActions: ActionDefinition[] = [
         requiresItem: ['wire|bells|snares'],
         tradeEffect: { wire: -1, bells: -1 },
         socialImpact: { PANIC: -0.1 as any, TRUST: 0.2 },
-        lawEffect: { trapNotice: 'posted', enforceable: true }
+        lawEffect: { trapNotice: 'posted', enforceable: true },
     },
     {
         tag: FearActionTag.NIGHT_WATCH_ROTATION,
@@ -143,7 +143,7 @@ export const FearActions: ActionDefinition[] = [
             comm.language.written,
             culture.vigil_ritual,
             cog.timekeeping.basic,
-        ]
+        ],
     },
     {
         tag: FearActionTag.FORTIFY_DOORS_WINDOWS,
@@ -157,7 +157,7 @@ export const FearActions: ActionDefinition[] = [
         },
         tradeEffect: { planks: -2, nails: -2, bars: -1 },
         socialImpact: { PANIC: -0.1 as any, RESPONSIBILITY: 0.2 as any },
-        ownershipEffect: { homeState: 'fortified' }
+        ownershipEffect: { homeState: 'fortified' },
     },
     {
         tag: FearActionTag.EVACUATION_DRILL,
@@ -176,7 +176,7 @@ export const FearActions: ActionDefinition[] = [
             health.sanitation_norms,
             health.waste_handling,
             comm.language.written,
-        ]
+        ],
     },
     {
         tag: FearActionTag.COUNSELING_SESSION,
@@ -191,7 +191,7 @@ export const FearActions: ActionDefinition[] = [
         requiresSkill: 'empathy|counsel',
         tradeEffect: { counsel_fee: -1 as any },
         socialImpact: { TRUST: 0.2, STIGMA: -0.05 as any },
-        lawEffect: { privacyRule: 'respected', enforceable: true }
+        lawEffect: { privacyRule: 'respected', enforceable: true },
     },
     {
         tag: FearActionTag.SHARE_THREAT_INTEL,
@@ -207,7 +207,7 @@ export const FearActions: ActionDefinition[] = [
         socialImpact: { PANIC: -0.2 as any, TRUST: 0.2 },
         lawEffect: { bulletinPermit: 'approved', enforceable: true },
         ownershipEffect: { accessScope: 'notice_board', grantAccess: true },
-        requiredMemes: [comm.language.written]
+        requiredMemes: [comm.language.written],
     },
     {
         tag: FearActionTag.MONSTER_LORE_SESSION,
@@ -222,7 +222,7 @@ export const FearActions: ActionDefinition[] = [
         requiresLocation: 'hall|library',
         socialImpact: { SUPERSTITION: -0.2 as any, RESPECT: 0.1 },
         lawEffect: { readerPass: 'issued', enforceable: true },
-        requiredMemes: [comm.language.written]
+        requiredMemes: [comm.language.written],
     },
     {
         tag: FearActionTag.ISSUE_CLEAR_RULES_CURFEW,
@@ -239,7 +239,7 @@ export const FearActions: ActionDefinition[] = [
             curfew: 'active',
             penalties: 'warning|fine',
             enforceable: true,
-        }
+        },
     },
     {
         tag: FearActionTag.DISTRIBUTE_TALISMANS,
@@ -254,7 +254,7 @@ export const FearActions: ActionDefinition[] = [
         tradeEffect: { talismans: '-N' as any, string: -1 },
         socialImpact: { HOPE: 0.3 as any },
         ownershipEffect: { charmOwned: true, duration: 'season' },
-        lawEffect: { charmRegistry: 'optional', enforceable: false }
+        lawEffect: { charmRegistry: 'optional', enforceable: false },
     },
     {
         tag: FearActionTag.EXORCISM_RITE,
@@ -277,6 +277,6 @@ export const FearActions: ActionDefinition[] = [
         ],
         socialImpact: { REVERENCE: 0.3, HOPE: 0.3 as any },
         lawEffect: { ritePermit: 'granted', enforceable: true },
-        ownershipEffect: { siteState: 'cleansed' }
+        ownershipEffect: { siteState: 'cleansed' },
     },
 ];

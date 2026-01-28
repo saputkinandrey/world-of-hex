@@ -20,8 +20,7 @@ export class WaterSourceEntity {
     regenRatePerHour: number;
 
     constructor(params: WaterSourceInit) {
-        this
-            .setId(params.id)
+        this.setId(params.id)
             .setHexId(params.hexId)
             .setMaxLiters(params.maxLiters ?? params.liters)
             .setLiters(params.liters)

@@ -1,6 +1,14 @@
 import { ActionDefinition } from '../action-definition';
 import { AccountabilityActionTag } from '../action-tags';
-import { cog, comm, culture, econ, health, org, record } from '../../world/memes';
+import {
+    cog,
+    comm,
+    culture,
+    econ,
+    health,
+    org,
+    record,
+} from '../../world/memes';
 export const AccountabilityActions: ActionDefinition[] = [
     {
         tag: AccountabilityActionTag.DUTY_CHART_POST,
@@ -16,10 +24,7 @@ export const AccountabilityActions: ActionDefinition[] = [
         ownershipEffect: { roleMatrix: 'posted_named_owners' },
         lawEffect: { dutyCharter: 'ratified', enforceable: true },
         needRework: true,
-        requiredMemes: [
-            comm.language.written,
-            org.duty_roster,
-        ]
+        requiredMemes: [comm.language.written, org.duty_roster],
     },
     {
         tag: AccountabilityActionTag.PERSONAL_WEEKLY_REPORT,
@@ -35,10 +40,7 @@ export const AccountabilityActions: ActionDefinition[] = [
         ownershipEffect: { worklog: 'weekly_summary_posted' },
         needRework: true,
 
-        requiredMemes: [
-            comm.language.written,
-            record.ledgerkeeping,
-        ]
+        requiredMemes: [comm.language.written, record.ledgerkeeping],
     },
     {
         tag: AccountabilityActionTag.TASK_HANDOFF_FORMALIZE,
@@ -53,7 +55,7 @@ export const AccountabilityActions: ActionDefinition[] = [
         needRework: true,
 
         ownershipEffect: { taskOwner: 'reassigned_with_receipt' },
-        lawEffect: { handoffRule: 'required', enforceable: true }
+        lawEffect: { handoffRule: 'required', enforceable: true },
     },
     {
         tag: AccountabilityActionTag.AUDIT_RANDOM_SPOTCHECK,
@@ -71,10 +73,7 @@ export const AccountabilityActions: ActionDefinition[] = [
         ownershipEffect: { auditNotes: 'logged' },
         needRework: true,
 
-        requiredMemes: [
-            culture.vigil_ritual,
-            cog.timekeeping.basic,
-        ]
+        requiredMemes: [culture.vigil_ritual, cog.timekeeping.basic],
     },
     {
         tag: AccountabilityActionTag.WITNESS_SIGNATURES,
@@ -91,10 +90,7 @@ export const AccountabilityActions: ActionDefinition[] = [
         ownershipEffect: { document: 'witness_countersigned' },
         needRework: true,
 
-        requiredMemes: [
-            record.ledgerkeeping,
-            econ.pooling_common_fund,
-        ]
+        requiredMemes: [record.ledgerkeeping, econ.pooling_common_fund],
     },
     {
         tag: AccountabilityActionTag.PUBLIC_RETROSPECT,
@@ -115,7 +111,7 @@ export const AccountabilityActions: ActionDefinition[] = [
             health.sanitation_norms,
             health.waste_handling,
             comm.language.written,
-        ]
+        ],
     },
     {
         tag: AccountabilityActionTag.INCIDENT_REPORT_FILE,
@@ -133,10 +129,7 @@ export const AccountabilityActions: ActionDefinition[] = [
         lawEffect: { reportRule: 'mandatory', enforceable: true },
         needRework: true,
 
-        requiredMemes: [
-            comm.language.written,
-            record.ledgerkeeping,
-        ]
+        requiredMemes: [comm.language.written, record.ledgerkeeping],
     },
     {
         tag: AccountabilityActionTag.CHECKLIST_BEFORE_AFTER,
@@ -150,7 +143,7 @@ export const AccountabilityActions: ActionDefinition[] = [
         },
         tradeEffect: { board_or_tablet: -1 | (0 as any) },
         ownershipEffect: { checklist: 'used_pre_post' },
-        requiredMemes: [comm.language.written]
+        requiredMemes: [comm.language.written],
     },
     {
         tag: AccountabilityActionTag.TOOL_COUNTERSIGN,
@@ -166,7 +159,7 @@ export const AccountabilityActions: ActionDefinition[] = [
         ownershipEffect: { toolLedger: 'countersigned_in_out' },
         needRework: true,
 
-        lawEffect: { depositRule: 'posted', enforceable: true }
+        lawEffect: { depositRule: 'posted', enforceable: true },
     },
     {
         tag: AccountabilityActionTag.WORKLOG_STAMP,
@@ -182,10 +175,7 @@ export const AccountabilityActions: ActionDefinition[] = [
         ownershipEffect: { worklog: 'time_stamped' },
         needRework: true,
 
-        requiredMemes: [
-            record.ledgerkeeping,
-            econ.pooling_common_fund,
-        ]
+        requiredMemes: [record.ledgerkeeping, econ.pooling_common_fund],
     },
     {
         tag: AccountabilityActionTag.PEER_REVIEW_ROTATION,
@@ -206,7 +196,7 @@ export const AccountabilityActions: ActionDefinition[] = [
             comm.language.written,
             org.duty_roster,
             org.workshop_practice,
-        ]
+        ],
     },
     {
         tag: AccountabilityActionTag.ESCALATION_PATH_POST,
@@ -222,10 +212,7 @@ export const AccountabilityActions: ActionDefinition[] = [
         ownershipEffect: { noticeBoard: 'escalation_tree_posted' },
         needRework: true,
 
-        requiredMemes: [
-            comm.language.written,
-            org.duty_roster,
-        ]
+        requiredMemes: [comm.language.written, org.duty_roster],
     },
     {
         tag: AccountabilityActionTag.KPI_TALLY_MARKS,
@@ -246,7 +233,7 @@ export const AccountabilityActions: ActionDefinition[] = [
             record.ledgerkeeping,
             cog.number_concept,
             econ.pooling_common_fund,
-        ]
+        ],
     },
     {
         tag: AccountabilityActionTag.OATH_OF_OFFICE_RENEW,
@@ -267,7 +254,7 @@ export const AccountabilityActions: ActionDefinition[] = [
             culture.vigil_ritual,
             cog.timekeeping.basic,
             comm.language.written,
-        ]
+        ],
     },
     {
         tag: AccountabilityActionTag.BUDGET_POUCH_SEALS,
@@ -289,10 +276,7 @@ export const AccountabilityActions: ActionDefinition[] = [
         lawEffect: { tamperPenalty: 'severe', enforceable: true },
         needRework: true,
 
-        requiredMemes: [
-            record.ledgerkeeping,
-            econ.pooling_common_fund,
-        ]
+        requiredMemes: [record.ledgerkeeping, econ.pooling_common_fund],
     },
     {
         tag: AccountabilityActionTag.FEEDBACK_ONE_ON_ONE,
@@ -308,6 +292,6 @@ export const AccountabilityActions: ActionDefinition[] = [
         socialImpact: { LOYALTY: 0.2, RESENTMENT: -0.05 },
         needRework: true,
 
-        ownershipEffect: { improvementPlan: 'agreed_named_actions' }
+        ownershipEffect: { improvementPlan: 'agreed_named_actions' },
     },
 ];

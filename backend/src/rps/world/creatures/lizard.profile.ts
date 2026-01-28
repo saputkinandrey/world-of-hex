@@ -3,7 +3,6 @@
 
 import type { HexId } from '../hex.entity';
 
-
 import {
     ActorEntity,
     CreaturePhysicalProfile,
@@ -11,25 +10,28 @@ import {
     type NutritionContent,
     type NutritionNeeds,
 } from '../actor/actor.entity';
-import {core, eth, IQ2, MemeId, tech} from "src/rps/world/memes";
-import {morph, MorphId} from "../morphs";
-import {ActionDefinition} from "../../from-gpt/action-definition";
-import {HUNT_ACTIVE_FORAGE, HUNT_WAIT_IN_AMBUSH} from "../../from-gpt/actions-by-need/food-hunt";
-import {EAT_ACCEPTABLE, EAT_POOR} from "../../from-gpt/actions-by-need/food";
-import {DRINK_DIRTY_WATER} from "../../from-gpt/actions-by-need/water";
-import {SLEEP_REST} from "../../from-gpt/etho/generic-actions";
+import { core, eth, IQ2, MemeId, tech } from 'src/rps/world/memes';
+import { morph, MorphId } from '../morphs';
+import { ActionDefinition } from '../../from-gpt/action-definition';
 import {
-    BASK_SUN_THERMOREGULATE, BURROW_HIDE_OR_AMBUSH,
+    HUNT_ACTIVE_FORAGE,
+    HUNT_WAIT_IN_AMBUSH,
+} from '../../from-gpt/actions-by-need/food-hunt';
+import { EAT_ACCEPTABLE, EAT_POOR } from '../../from-gpt/actions-by-need/food';
+import { DRINK_DIRTY_WATER } from '../../from-gpt/actions-by-need/water';
+import { SLEEP_REST } from '../../from-gpt/etho/generic-actions';
+import {
+    BASK_SUN_THERMOREGULATE,
+    BURROW_HIDE_OR_AMBUSH,
     DEFENSIVE_WARNING_DISPLAY,
-    TERRITORY_MICROHABIT_EXPLORE
-} from "../../from-gpt/etho/action-universal";
+    TERRITORY_MICROHABIT_EXPLORE,
+} from '../../from-gpt/etho/action-universal';
 import {
     FLEE_TO_COVER,
     FREEZE_IN_PLACE,
     OBSERVATION,
-    SHORT_DASH_ATTACK
-} from "../../from-gpt/etho/action-small-vertebrate";
-
+    SHORT_DASH_ATTACK,
+} from '../../from-gpt/etho/action-small-vertebrate';
 
 // ───────────────────────────────────────────────────────────────
 // Мемный профиль ящерицы (IQ2, холоднокровная, визуальный хищник)
@@ -75,7 +77,7 @@ export const LIZARD_MORPHS: MorphId[] = [
 
     // План тела и общий класс
     morph.body_plan.tetrapod_small_ground,
-    'morph.size.sm.-6' as MorphId,          // вместо прошлых tiny/SM-6
+    'morph.size.sm.-6' as MorphId, // вместо прошлых tiny/SM-6
     morph.thermoreg.coldBlooded,
     morph.respiration.lungs_basic,
 
@@ -180,7 +182,11 @@ export const LIZARD_PROFILE: CreatureProfile = {
     morphs: LIZARD_MORPHS,
     actions: LIZARD_ACTIONS,
 
-    createActor(hexId: HexId, id: string, name: string = 'Lizard'): ActorEntity {
+    createActor(
+        hexId: HexId,
+        id: string,
+        name: string = 'Lizard',
+    ): ActorEntity {
         return new ActorEntity({
             id,
             name,

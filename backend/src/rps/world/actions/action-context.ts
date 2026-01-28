@@ -1,7 +1,7 @@
 // world/actions/action-context.ts
 
-import type { ActorEntity } from "../actor/actor.entity";
-import {HexEntity} from "../hex.entity";
+import type { ActorEntity } from '../actor/actor.entity';
+import { HexEntity } from '../hex.entity';
 
 /**
  * Контекст выполнения экшена.

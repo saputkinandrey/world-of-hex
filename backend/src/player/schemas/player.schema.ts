@@ -7,26 +7,26 @@ export type PlayerDocument = HydratedDocument<Player>;
 export class ShipToPlayer extends EntityDocumentHelper {}
 
 @Schema({
-  id: false,
-  collection: 'players',
-  timestamps: true,
-  toJSON: {
-    virtuals: true,
-    getters: true,
-  },
+    id: false,
+    collection: 'players',
+    timestamps: true,
+    toJSON: {
+        virtuals: true,
+        getters: true,
+    },
 })
 export class Player extends EntityDocumentHelper {
-  @Prop({
-    type: String,
-    unique: true,
-  })
-  name: string | null;
+    @Prop({
+        type: String,
+        unique: true,
+    })
+    name: string | null;
 
-  @Prop({
-    type: [ShipToPlayer],
-    default: [],
-  })
-  ownedShips: ShipToPlayer[];
+    @Prop({
+        type: [ShipToPlayer],
+        default: [],
+    })
+    ownedShips: ShipToPlayer[];
 }
 
 export const PlayerSchema = SchemaFactory.createForClass(Player);

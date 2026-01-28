@@ -1,10 +1,15 @@
 // rps/water/water-consumption.ts
 
-import {ActionContext} from "../actions/action-context";
-import {ActorEntity} from "../actor/actor.entity";
-import {filterDrinkableItems, getActorInventoryItems, getHexItems, ItemLike} from "../items.helpers";
-import {HexEntity} from "../hex.entity";
-import {getVisibleHexesForActor} from "../vision.helpers";
+import { ActionContext } from '../actions/action-context';
+import { ActorEntity } from '../actor/actor.entity';
+import {
+    filterDrinkableItems,
+    getActorInventoryItems,
+    getHexItems,
+    ItemLike,
+} from '../items.helpers';
+import { HexEntity } from '../hex.entity';
+import { getVisibleHexesForActor } from '../vision.helpers';
 
 const WATER_LB_PER_LITER = 2; // твой округлённый коэффициент
 
@@ -12,9 +17,9 @@ const WATER_LB_PER_LITER = 2; // твой округлённый коэффиц�
  * Результат попытки попить из доступных источников мира.
  */
 export interface DrinkResult {
-    litersDrank: number;    // фактически выпитый объём воды
-    massLb: number;         // масса, попавшая в желудок (для stomachFill)
-    noSource: boolean;      // true, если не удалось найти ни капли воды
+    litersDrank: number; // фактически выпитый объём воды
+    massLb: number; // масса, попавшая в желудок (для stomachFill)
+    noSource: boolean; // true, если не удалось найти ни капли воды
 }
 
 /**
@@ -51,7 +56,7 @@ function consumeWaterFromItem(item: any, liters: number): void {
     n.water = available - taken;
 
     // Если хочешь — скорректируй массу:
-    if (typeof n.massLb === "number") {
+    if (typeof n.massLb === 'number') {
         n.massLb = Math.max(0, n.massLb - taken * WATER_LB_PER_LITER);
     }
 }
@@ -106,10 +111,13 @@ export function drinkFromWorld(
         //   const takeHex = Math.min(availHex, remaining);
         //   ctx.hex.consumeDrinkableWater(actor, takeHex);
 
-        if (typeof (ctx.hex as any).getDrinkableWaterLitersFor === "function"
-            && typeof (ctx.hex as any).consumeDrinkableWater === "function") {
-
-            const availHex = (ctx.hex as any).getDrinkableWaterLitersFor(actor) as number;
+        if (
+            typeof (ctx.hex as any).getDrinkableWaterLitersFor === 'function' &&
+            typeof (ctx.hex as any).consumeDrinkableWater === 'function'
+        ) {
+            const availHex = (ctx.hex as any).getDrinkableWaterLitersFor(
+                actor,
+            ) as number;
             const takeHex = Math.min(availHex, remaining);
 
             if (takeHex > 0) {
@@ -138,9 +146,7 @@ function findDrinkableItemsInReach(
 
     // 1) Всегда включаем свою флягу/бутылку в инвентаре
     result.push(
-        ...filterDrinkableItems(
-            getActorInventoryItems(actor, itemIndex),
-        ),
+        ...filterDrinkableItems(getActorInventoryItems(actor, itemIndex)),
     );
 
     // 2) Гексы, которые актор может видеть
@@ -153,11 +159,7 @@ function findDrinkableItemsInReach(
     );
 
     for (const hex of visibleHexes) {
-        result.push(
-            ...filterDrinkableItems(
-                getHexItems(hex, itemIndex),
-            ),
-        );
+        result.push(...filterDrinkableItems(getHexItems(hex, itemIndex)));
     }
 
     return result;

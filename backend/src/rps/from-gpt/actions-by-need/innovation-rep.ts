@@ -23,10 +23,7 @@ export const InnovationRepActions: ActionDefinition[] = [
             benchState: 'prototype_ready',
             accessScope: 'inventor',
         },
-        requiredMemes: [
-            heat.industrial,
-            fire.control,
-        ]
+        requiredMemes: [heat.industrial, fire.control],
     },
     {
         tag: InnovationRepActionTag.CONTROLLED_TRIAL_RUN,
@@ -43,10 +40,7 @@ export const InnovationRepActions: ActionDefinition[] = [
         socialImpact: { TRUST: 0.2, REPUTATION: 0.2 },
         ownershipEffect: { trialReport: 'logged' },
         lawEffect: { safetyRule: 'observed', enforceable: true },
-        requiredMemes: [
-            health.sanitation_norms,
-            health.waste_handling,
-        ]
+        requiredMemes: [health.sanitation_norms, health.waste_handling],
     },
     {
         tag: InnovationRepActionTag.GUILD_COLLOQUIUM,
@@ -61,10 +55,7 @@ export const InnovationRepActions: ActionDefinition[] = [
         requiresLocation: 'guild_hall|hall',
         socialImpact: { STATUS: 0.2, COMMUNITY: 0.2 },
         ownershipEffect: { minutes: 'posted' },
-        requiredMemes: [
-            comm.language.written,
-            org.workshop_practice,
-        ]
+        requiredMemes: [comm.language.written, org.workshop_practice],
     },
     {
         tag: InnovationRepActionTag.FIELD_DEMONSTRATION,
@@ -84,7 +75,7 @@ export const InnovationRepActions: ActionDefinition[] = [
             health.sanitation_norms,
             health.waste_handling,
             comm.language.written,
-        ]
+        ],
     },
     {
         tag: InnovationRepActionTag.IMPROVEMENT_KATA,
@@ -99,10 +90,7 @@ export const InnovationRepActions: ActionDefinition[] = [
         requiresLocation: 'workbench|loom|forge',
         socialImpact: { DISCIPLINE: 0.3, REPUTATION: 0.2 },
         ownershipEffect: { kaizenLog: 'updated' },
-        requiredMemes: [
-            heat.industrial,
-            fire.control,
-        ]
+        requiredMemes: [heat.industrial, fire.control],
     },
     {
         tag: InnovationRepActionTag.SUGGESTION_CHEST,
@@ -118,7 +106,7 @@ export const InnovationRepActions: ActionDefinition[] = [
         tradeEffect: { chest: -1 | (0 as any), paper_slips: '-N' as any },
         socialImpact: { PARTICIPATION: 0.3 as any, COMMUNITY: 0.2 },
         ownershipEffect: { ideaInbox: 'active' },
-        requiredMemes: [comm.language.written]
+        requiredMemes: [comm.language.written],
     },
     {
         tag: InnovationRepActionTag.INNOVATION_BOUNTY,
@@ -133,7 +121,7 @@ export const InnovationRepActions: ActionDefinition[] = [
         tradeEffect: { prize_fund: -1 as any },
         socialImpact: { COMPETITION: 0.3, MOTIVATION: 0.3 as any },
         lawEffect: { bountyRules: 'posted', enforceable: true },
-        ownershipEffect: { submissions: '+N' }
+        ownershipEffect: { submissions: '+N' },
     },
     {
         tag: InnovationRepActionTag.CROSS_POLLINATION_VISIT,
@@ -148,7 +136,7 @@ export const InnovationRepActions: ActionDefinition[] = [
         tradeEffect: { travel_supplies: -1 },
         requiresLocation: 'neighbor_guild|monastery|other_hamlet',
         socialImpact: { RESPECT: 0.2, STATUS: 0.2 },
-        ownershipEffect: { notes: 'exchange_collected' }
+        ownershipEffect: { notes: 'exchange_collected' },
     },
     {
         tag: InnovationRepActionTag.POSTMORTEM_SCROLL,
@@ -163,7 +151,7 @@ export const InnovationRepActions: ActionDefinition[] = [
         tradeEffect: { parchment: -1, ink: -1 },
         socialImpact: { TRANSPARENCY: 0.3 as any, INTEGRITY: 0.2 },
         ownershipEffect: { archiveState: 'failure_lessons_indexed' },
-        requiredMemes: [comm.language.written]
+        requiredMemes: [comm.language.written],
     },
     {
         tag: InnovationRepActionTag.SANDBOX_EXPERIMENT_ZONE,
@@ -179,10 +167,7 @@ export const InnovationRepActions: ActionDefinition[] = [
         requiresLocation: 'yard|annex',
         lawEffect: { safetyPerimeter: 'roped', enforceable: true },
         ownershipEffect: { accessScope: 'sandbox', grantAccess: true },
-        requiredMemes: [
-            health.sanitation_norms,
-            health.waste_handling,
-        ]
+        requiredMemes: [health.sanitation_norms, health.waste_handling],
     },
     {
         tag: InnovationRepActionTag.STANDARDIZE_SUCCESS,
@@ -198,10 +183,7 @@ export const InnovationRepActions: ActionDefinition[] = [
         socialImpact: { ORDER: 0.3, RESPECT: 0.2 },
         lawEffect: { standardRoll: 'ratified', enforceable: true },
         ownershipEffect: { SOP: 'issued' },
-        requiredMemes: [
-            comm.language.written,
-            org.workshop_practice,
-        ]
+        requiredMemes: [comm.language.written, org.workshop_practice],
     },
     {
         tag: InnovationRepActionTag.SALVAGE_TO_TOOL_PROGRAM,
@@ -215,7 +197,7 @@ export const InnovationRepActions: ActionDefinition[] = [
         },
         tradeEffect: { scrap: '-convert', fixtures: '+N' },
         socialImpact: { INGENUITY: 0.4 as any, COMMUNITY: 0.2 },
-        ownershipEffect: { toolLibrary: 'expanded' }
+        ownershipEffect: { toolLibrary: 'expanded' },
     },
     {
         tag: InnovationRepActionTag.OPEN_WORKSHOP_DAY,
@@ -237,7 +219,7 @@ export const InnovationRepActions: ActionDefinition[] = [
             fire.control,
             comm.language.written,
             org.workshop_practice,
-        ]
+        ],
     },
     {
         tag: InnovationRepActionTag.PATENT_SEAL_REGISTRY,
@@ -259,7 +241,7 @@ export const InnovationRepActions: ActionDefinition[] = [
             record.ledgerkeeping,
             econ.pooling_common_fund,
             org.workshop_practice,
-        ]
+        ],
     },
     {
         tag: InnovationRepActionTag.APPRENTICE_INNOVATOR_TRACK,
@@ -274,10 +256,7 @@ export const InnovationRepActions: ActionDefinition[] = [
         requiresLocation: 'guild_hall|workshop',
         socialImpact: { MASTERY: 0.4 as any, COMMUNITY: 0.2 },
         ownershipEffect: { curriculum: 'innovation_track' },
-        requiredMemes: [
-            comm.language.written,
-            org.workshop_practice,
-        ]
+        requiredMemes: [comm.language.written, org.workshop_practice],
     },
     {
         tag: InnovationRepActionTag.RISK_SHARE_CHARTER,
@@ -294,6 +273,6 @@ export const InnovationRepActions: ActionDefinition[] = [
         socialImpact: { FAIRNESS: 0.3, COURAGE: 0.2 },
         lawEffect: { riskCharter: 'sealed', enforceable: true },
         ownershipEffect: { profitShare: 'defined' },
-        requiredMemes: [comm.language.written]
+        requiredMemes: [comm.language.written],
     },
 ];

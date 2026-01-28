@@ -3,8 +3,8 @@
 import { NamedEntity } from '../base/named.entity';
 import type { MemeId } from '../../world/memes';
 import type { MorphId } from '../../world/morphs';
-import {ActionTag} from "../../from-gpt/action-tags";
-import {NeedTag} from "../../world/needs/needs";
+import { ActionTag } from '../../from-gpt/action-tags';
+import { NeedTag } from '../../world/needs/needs';
 
 /**
  * Линза для CreatureTemplate:
@@ -51,7 +51,6 @@ export interface CreatureTemplateLensProps {
     morphIdsAdd?: MorphId[];
     actionTagsAdd?: (ActionTag | string)[];
     needTagsAdd?: NeedTag[];
-
 }
 
 /**
@@ -62,7 +61,10 @@ export interface CreatureTemplateLensProps {
  *  - версионировать через event-sourcing,
  *  - навешивать их на шаблоны/персонажей по имени/идентификатору.
  */
-export class CreatureTemplateLensEntity extends NamedEntity implements CreatureTemplateLens {
+export class CreatureTemplateLensEntity
+    extends NamedEntity
+    implements CreatureTemplateLens
+{
     sizeModifierDelta?: number;
 
     primaryDelta?: CreatureTemplateLens['primaryDelta'];
@@ -74,22 +76,17 @@ export class CreatureTemplateLensEntity extends NamedEntity implements CreatureT
     needTagsAdd: NeedTag[];
 
     constructor(props: CreatureTemplateLensProps = {}) {
-        const {
-            name = '',
-            alias = '',
-        } = props;
+        const { name = '', alias = '' } = props;
 
         super({ name, alias });
 
-        this
-            .setSizeModifierDelta(props.sizeModifierDelta)
+        this.setSizeModifierDelta(props.sizeModifierDelta)
             .setPrimaryDelta(props.primaryDelta)
             .setSecondaryDelta(props.secondaryDelta)
             .setMemeIdsAdd(props.memeIdsAdd)
             .setMorphIdsAdd(props.morphIdsAdd)
             .setActionTagsAdd(props.actionTagsAdd)
             .setNeedTagsAdd(props.needTagsAdd);
-
     }
 
     setSizeModifierDelta(delta?: number | null): this {
@@ -110,7 +107,9 @@ export class CreatureTemplateLensEntity extends NamedEntity implements CreatureT
         return this;
     }
 
-    setSecondaryDelta(delta?: CreatureTemplateLens['secondaryDelta'] | null): this {
+    setSecondaryDelta(
+        delta?: CreatureTemplateLens['secondaryDelta'] | null,
+    ): this {
         if (delta && Object.keys(delta).length > 0) {
             this.secondaryDelta = { ...delta };
         } else {

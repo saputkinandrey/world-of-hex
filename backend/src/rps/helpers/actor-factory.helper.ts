@@ -81,6 +81,8 @@ export class ActorFactoryHelper {
         // TODO: достать creatureTemplate по raceId/видовой информации из CharacterEntity
         // и переиспользовать createFromTemplate(...)
 
-        throw new Error('ActorFactoryHelper.createFromCharacter not implemented yet');
+        throw new Error(
+            'ActorFactoryHelper.createFromCharacter not implemented yet',
+        );
     }
 }

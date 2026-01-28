@@ -1,6 +1,14 @@
 import { ActionDefinition } from '../action-definition';
 import { OrderActionTag } from '../action-tags';
-import { cog, comm, culture, econ, health, record, tech } from '../../world/memes';
+import {
+    cog,
+    comm,
+    culture,
+    econ,
+    health,
+    record,
+    tech,
+} from '../../world/memes';
 export const OrderActions: ActionDefinition[] = [
     {
         tag: OrderActionTag.POST_HOUSE_RULES,
@@ -16,7 +24,7 @@ export const OrderActions: ActionDefinition[] = [
         socialImpact: { TRUST: 0.2, DISCIPLINE: 0.3 },
         lawEffect: { houseRules: 'posted', enforceable: true },
         ownershipEffect: { accessScope: 'notice_board', grantAccess: true },
-        requiredMemes: [comm.language.written]
+        requiredMemes: [comm.language.written],
     },
     {
         tag: OrderActionTag.LAY_FLOOR_MARKS,
@@ -35,7 +43,7 @@ export const OrderActions: ActionDefinition[] = [
             comm.language.written,
             record.ledgerkeeping,
             cog.number_concept,
-        ]
+        ],
     },
     {
         tag: OrderActionTag.APPOINT_STEWARD,
@@ -50,7 +58,7 @@ export const OrderActions: ActionDefinition[] = [
         },
         socialImpact: { ACCOUNTABILITY: 0.4 as any, RESPECT: 0.2 },
         lawEffect: { stewardMandate: 'sealed', enforceable: true },
-        ownershipEffect: { accessScope: 'stores|keys', grantAccess: true }
+        ownershipEffect: { accessScope: 'stores|keys', grantAccess: true },
     },
     {
         tag: OrderActionTag.DAILY_TIDY_PASS,
@@ -64,7 +72,7 @@ export const OrderActions: ActionDefinition[] = [
         },
         tradeEffect: { brooms: '-wear', linens: '-wear' },
         socialImpact: { DIGNITY: 0.2 as any },
-        ownershipEffect: { commonAreas: 'tidy' }
+        ownershipEffect: { commonAreas: 'tidy' },
     },
     {
         tag: OrderActionTag.INVENTORY_SHELVING,
@@ -79,7 +87,7 @@ export const OrderActions: ActionDefinition[] = [
         tradeEffect: { shelves: -1 | (0 as any), bins: '-N' as any },
         socialImpact: { TRUST: 0.2 },
         ownershipEffect: { storesState: 'shelved', binSystem: 'A-B-C' },
-        lawEffect: { storeLedger: 'updated', enforceable: true }
+        lawEffect: { storeLedger: 'updated', enforceable: true },
     },
     {
         tag: OrderActionTag.QUEUE_LINE_FORMATION,
@@ -98,7 +106,7 @@ export const OrderActions: ActionDefinition[] = [
             culture.vigil_ritual,
             cog.timekeeping.basic,
             comm.language.written,
-        ]
+        ],
     },
     {
         tag: OrderActionTag.STANDARD_BOX_LABELS,
@@ -112,7 +120,7 @@ export const OrderActions: ActionDefinition[] = [
         },
         tradeEffect: { dye: -1 | (0 as any), tags: '-N' as any },
         socialImpact: { DISCIPLINE: 0.2 },
-        ownershipEffect: { labelScheme: 'standardized' }
+        ownershipEffect: { labelScheme: 'standardized' },
     },
     {
         tag: OrderActionTag.SCHEDULE_BELLS,
@@ -126,7 +134,7 @@ export const OrderActions: ActionDefinition[] = [
         },
         requiresItem: ['bell|drum'],
         socialImpact: { PUNCTUALITY: 0.3 as any, DISCIPLINE: 0.2 },
-        lawEffect: { timeSignals: 'posted', enforceable: true }
+        lawEffect: { timeSignals: 'posted', enforceable: true },
     },
     {
         tag: OrderActionTag.SORT_INBOX_OUTBOX,
@@ -142,7 +150,7 @@ export const OrderActions: ActionDefinition[] = [
         tradeEffect: { trays: -1 | (0 as any) },
         socialImpact: { TRANSPARENCY: 0.3 as any, TRUST: 0.2 },
         ownershipEffect: { messageFlow: 'separated' },
-        requiredMemes: [comm.language.written]
+        requiredMemes: [comm.language.written],
     },
     {
         tag: OrderActionTag.MAP_TERRITORY_PLOTS,
@@ -158,7 +166,7 @@ export const OrderActions: ActionDefinition[] = [
         socialImpact: { FAIRNESS: 0.3, TRUST: 0.2 },
         ownershipEffect: { plotMap: 'created', markers: 'placed' },
         lawEffect: { cadaster: 'opened', enforceable: true },
-        requiredMemes: [comm.language.written]
+        requiredMemes: [comm.language.written],
     },
     {
         tag: OrderActionTag.ROTATION_ROTA_BOARD,
@@ -174,7 +182,7 @@ export const OrderActions: ActionDefinition[] = [
         socialImpact: { RESENTMENT: -0.1, TRUST: 0.2 },
         lawEffect: { rota: 'posted', enforceable: true },
         ownershipEffect: { accessScope: 'task_board', grantAccess: true },
-        requiredMemes: [comm.language.written]
+        requiredMemes: [comm.language.written],
     },
     {
         tag: OrderActionTag.LOST_FOUND_STATION,
@@ -189,7 +197,7 @@ export const OrderActions: ActionDefinition[] = [
         tradeEffect: { chest: -1 | (0 as any) },
         socialImpact: { COMMUNITY: 0.2, HONOR: 0.2 },
         ownershipEffect: { foundItems: 'catalogued' },
-        lawEffect: { lostAndFoundLedger: 'active', enforceable: true }
+        lawEffect: { lostAndFoundLedger: 'active', enforceable: true },
     },
     {
         tag: OrderActionTag.DISPUTE_QUEUE_TOKENS,
@@ -204,10 +212,7 @@ export const OrderActions: ActionDefinition[] = [
         tradeEffect: { tokens: '-N' as any },
         socialImpact: { PANIC: -0.2 as any, TRUST: 0.2 },
         lawEffect: { courtDocket: 'numbered', enforceable: true },
-        requiredMemes: [
-            record.ledgerkeeping,
-            econ.pooling_common_fund,
-        ]
+        requiredMemes: [record.ledgerkeeping, econ.pooling_common_fund],
     },
     {
         tag: OrderActionTag.CLEAN_RECORDS_ARCHIVE,
@@ -227,7 +232,7 @@ export const OrderActions: ActionDefinition[] = [
             health.sanitation_norms,
             health.waste_handling,
             comm.language.written,
-        ]
+        ],
     },
     {
         tag: OrderActionTag.ONE_WAY_WALKWAYS,
@@ -242,7 +247,7 @@ export const OrderActions: ActionDefinition[] = [
         tradeEffect: { signs: '-N' as any, paint: -1 | (0 as any) },
         socialImpact: { COORDINATION: 0.3 as any },
         lawEffect: { walkwayRule: 'posted', enforceable: true },
-        ownershipEffect: { pathsFlow: 'one_way' }
+        ownershipEffect: { pathsFlow: 'one_way' },
     },
     {
         tag: OrderActionTag.WASTE_SEPARATION_POINTS,
@@ -262,6 +267,6 @@ export const OrderActions: ActionDefinition[] = [
             health.sanitation_norms,
             health.waste_handling,
             tech.tool.use_basic,
-        ]
+        ],
     },
 ];

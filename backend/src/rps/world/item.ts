@@ -9,7 +9,7 @@ import type { NutritionContent } from './actor/actor.entity';
  * Здесь задаём физические и ресурсные свойства.
  */
 export interface ItemType {
-    id: string;              // 'small_rodent_carcass', 'bird_egg', 'grain', ...
+    id: string; // 'small_rodent_carcass', 'bird_egg', 'grain', ...
     name: string;
 
     /** Объём одной единицы, сколько места занимает в гексе. */
@@ -30,16 +30,22 @@ export interface ItemType {
  */
 export interface ItemInstance {
     id: string;
-    typeId: string;  // ссылка на ItemType
-    stack: number;   // количество штук (для мелких предметов/еды)
+    typeId: string; // ссылка на ItemType
+    stack: number; // количество штук (для мелких предметов/еды)
 }
 
 /** Суммарный объём стопки предметов. */
-export function itemStackVolume(type: ItemType, instance: ItemInstance): VolumeUnits {
+export function itemStackVolume(
+    type: ItemType,
+    instance: ItemInstance,
+): VolumeUnits {
     return type.baseVolume * instance.stack;
 }
 
 /** Суммарный вес стопки предметов (в фунтах). */
-export function itemStackWeightLb(type: ItemType, instance: ItemInstance): number {
+export function itemStackWeightLb(
+    type: ItemType,
+    instance: ItemInstance,
+): number {
     return (type.baseWeightLb ?? 0) * instance.stack;
 }

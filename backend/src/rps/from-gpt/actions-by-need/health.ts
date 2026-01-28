@@ -9,7 +9,7 @@ export const HealthActions: ActionDefinition[] = [
         rewardSecondary: { HEALTH: 0.6, HYGIENE: 0.1, MOOD: 0.2 },
         skillRequired: 'FirstAid',
         locationType: 'any',
-        targetType: 'SELF'
+        targetType: 'SELF',
     },
     {
         tag: HealthActionTag.HEAL_OTHER,
@@ -18,7 +18,7 @@ export const HealthActions: ActionDefinition[] = [
         rewardSecondary: { HEALTH: 0.8, TRUST: 0.3, COMMUNITY: 0.2 },
         skillRequired: 'Medicine',
         targetType: 'OTHER',
-        socialImpact: { gratitude: 0.3, respect: 0.3 }
+        socialImpact: { gratitude: 0.3, respect: 0.3 },
     },
     {
         tag: HealthActionTag.APPLY_BANDAGE,
@@ -27,7 +27,7 @@ export const HealthActions: ActionDefinition[] = [
         rewardSecondary: { HEALTH: 0.4 },
         requiresItem: ['bandage'],
         locationType: 'any',
-        skillRequired: 'FirstAid'
+        skillRequired: 'FirstAid',
     },
     {
         tag: HealthActionTag.CLEAN_WOUND,
@@ -35,10 +35,7 @@ export const HealthActions: ActionDefinition[] = [
         costTime: 0.5,
         requiresItem: ['clean_water'],
         rewardSecondary: { HEALTH: 0.3, HYGIENE: 0.3 },
-        requiredMemes: [
-            health.sanitation_norms,
-            health.waste_handling,
-        ]
+        requiredMemes: [health.sanitation_norms, health.waste_handling],
     },
     {
         tag: HealthActionTag.APPLY_HERBAL_REMEDY,
@@ -46,21 +43,21 @@ export const HealthActions: ActionDefinition[] = [
         costTime: 2,
         requiresItem: ['herbs'],
         skillRequired: 'Herbalism',
-        rewardSecondary: { HEALTH: 0.7, SPIRIT: 0.1 }
+        rewardSecondary: { HEALTH: 0.7, SPIRIT: 0.1 },
     },
     {
         tag: HealthActionTag.DRINK_MEDICINE,
         costEnergy: -0.05,
         costTime: 0.2,
         requiresItem: ['medicine'],
-        rewardSecondary: { HEALTH: 0.5, MOOD: 0.2 }
+        rewardSecondary: { HEALTH: 0.5, MOOD: 0.2 },
     },
     {
         tag: HealthActionTag.REST_FOR_RECOVERY,
         costEnergy: -0.3,
         costTime: 6,
         rewardSecondary: { HEALTH: 1.0, REST: 0.6, MOOD: 0.3 },
-        locationType: 'bed'
+        locationType: 'bed',
     },
     {
         tag: HealthActionTag.SEEK_HEALER,
@@ -68,14 +65,14 @@ export const HealthActions: ActionDefinition[] = [
         costTime: 3,
         rewardSecondary: { HEALTH: 0.7, TRUST: 0.2 },
         targetType: 'OTHER',
-        locationType: 'village'
+        locationType: 'village',
     },
     {
         tag: HealthActionTag.PRAY_FOR_HEALTH,
         costEnergy: -0.1,
         costTime: 1,
         rewardSecondary: { HEALTH: 0.4, SPIRIT: 0.3, MOOD: 0.2 },
-        locationType: 'temple'
+        locationType: 'temple',
     },
     {
         tag: HealthActionTag.PERFORM_RITUAL_HEALING,
@@ -83,7 +80,7 @@ export const HealthActions: ActionDefinition[] = [
         costTime: 3,
         rewardSecondary: { HEALTH: 0.8, SPIRIT: 0.6, COMMUNITY: 0.4 },
         skillRequired: 'Ritualism',
-        locationType: 'sacred_site'
+        locationType: 'sacred_site',
     },
     {
         tag: HealthActionTag.CLEAN_BODY,
@@ -91,17 +88,14 @@ export const HealthActions: ActionDefinition[] = [
         costTime: 1,
         rewardSecondary: { HEALTH: 0.3, HYGIENE: 0.5 },
         locationType: 'river',
-        requiredMemes: [
-            health.sanitation_norms,
-            health.waste_handling,
-        ]
+        requiredMemes: [health.sanitation_norms, health.waste_handling],
     },
     {
         tag: HealthActionTag.EAT_HEALTHY_MEAL,
         costEnergy: -0.05,
         costTime: 0.5,
         rewardSecondary: { HEALTH: 0.3, FOOD: 0.5, MOOD: 0.2 },
-        requiresItem: ['meal_healthy']
+        requiresItem: ['meal_healthy'],
     },
     {
         tag: HealthActionTag.ISOLATE_SELF,
@@ -109,21 +103,21 @@ export const HealthActions: ActionDefinition[] = [
         costTime: 4,
         risk: 0.1,
         rewardSecondary: { HEALTH: 0.4, COMMUNITY: -0.1 },
-        locationType: 'hut'
+        locationType: 'hut',
     },
     {
         tag: HealthActionTag.MASSAGE,
         costEnergy: -0.15,
         costTime: 1.5,
         rewardSecondary: { HEALTH: 0.5, REST: 0.4, AFFECTION: 0.3 },
-        targetType: 'SELF'
+        targetType: 'SELF',
     },
     {
         tag: HealthActionTag.CHECK_HEALTH,
         costEnergy: -0.05,
         costTime: 0.5,
         rewardSecondary: { HEALTH: 0.2, KNOWLEDGE: 0.1 },
-        skillRequired: 'Medicine'
+        skillRequired: 'Medicine',
     },
     {
         tag: HealthActionTag.MAKE_MEDICINE,
@@ -131,6 +125,6 @@ export const HealthActions: ActionDefinition[] = [
         costTime: 2.5,
         rewardSecondary: { HEALTH: 0.6, KNOWLEDGE: 0.3 },
         requiresItem: ['herbs', 'water'],
-        skillRequired: 'Alchemy'
+        skillRequired: 'Alchemy',
     },
 ];

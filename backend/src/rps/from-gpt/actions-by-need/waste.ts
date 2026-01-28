@@ -1,6 +1,15 @@
 import { ActionDefinition } from '../action-definition';
 import { WasteActionTag } from '../action-tags';
-import { comm, econ, fire, health, heat, org, record, tech } from '../../world/memes';
+import {
+    comm,
+    econ,
+    fire,
+    health,
+    heat,
+    org,
+    record,
+    tech,
+} from '../../world/memes';
 export const WasteActions: ActionDefinition[] = [
     {
         tag: WasteActionTag.SCRAP_LEDGER_START,
@@ -25,7 +34,7 @@ export const WasteActions: ActionDefinition[] = [
             health.waste_handling,
             comm.language.written,
             record.ledgerkeeping,
-        ]
+        ],
     },
     {
         tag: WasteActionTag.RETURNABLE_CONTAINERS,
@@ -50,7 +59,7 @@ export const WasteActions: ActionDefinition[] = [
             record.ledgerkeeping,
             econ.pooling_common_fund,
             econ.deposit_contract,
-        ]
+        ],
     },
     {
         tag: WasteActionTag.COMPOST_PIT_SETUP,
@@ -67,10 +76,7 @@ export const WasteActions: ActionDefinition[] = [
         socialImpact: { WASTE: -0.35 as any, COMMUNITY: 0.1 },
         ownershipEffect: { compostBin: 'pit_dug_marked' },
         lawEffect: { refuseSorting: 'organic_required', enforceable: true },
-        requiredMemes: [
-            health.sanitation_norms,
-            health.waste_handling,
-        ]
+        requiredMemes: [health.sanitation_norms, health.waste_handling],
     },
     {
         tag: WasteActionTag.TOOL_REPAIR_BENCH,
@@ -91,7 +97,7 @@ export const WasteActions: ActionDefinition[] = [
             health.waste_handling,
             comm.language.written,
             org.workshop_practice,
-        ]
+        ],
     },
     {
         tag: WasteActionTag.SPOILAGE_AUDIT,
@@ -108,7 +114,7 @@ export const WasteActions: ActionDefinition[] = [
             health.waste_handling,
             comm.language.written,
             record.ledgerkeeping,
-        ]
+        ],
     },
     {
         tag: WasteActionTag.RATION_PORTION_TOKENS,
@@ -131,7 +137,7 @@ export const WasteActions: ActionDefinition[] = [
             comm.language.written,
             record.ledgerkeeping,
             econ.pooling_common_fund,
-        ]
+        ],
     },
     {
         tag: WasteActionTag.SALVAGE_RUN,
@@ -148,10 +154,7 @@ export const WasteActions: ActionDefinition[] = [
         socialImpact: { WASTE: -0.2 as any, NETWORK: 0.1 as any },
         ownershipEffect: { salvageList: 'items_sorted' },
         risk: 0.08,
-        requiredMemes: [
-            health.sanitation_norms,
-            health.waste_handling,
-        ]
+        requiredMemes: [health.sanitation_norms, health.waste_handling],
     },
     {
         tag: WasteActionTag.GREYWATER_REUSE,
@@ -168,10 +171,7 @@ export const WasteActions: ActionDefinition[] = [
         socialImpact: { WASTE: -0.3 as any, WATER: 0.1 as any },
         ownershipEffect: { greywaterLines: 'installed_checked' },
         risk: 0.06,
-        requiredMemes: [
-            health.sanitation_norms,
-            health.waste_handling,
-        ]
+        requiredMemes: [health.sanitation_norms, health.waste_handling],
     },
     {
         tag: WasteActionTag.SHARED_TOOL_LIBRARY,
@@ -193,7 +193,7 @@ export const WasteActions: ActionDefinition[] = [
             health.waste_handling,
             comm.language.written,
             record.ledgerkeeping,
-        ]
+        ],
     },
     {
         tag: WasteActionTag.ASH_BRICK_PRESS,
@@ -219,7 +219,7 @@ export const WasteActions: ActionDefinition[] = [
             health.waste_handling,
             heat.industrial,
             fire.control,
-        ]
+        ],
     },
     {
         tag: WasteActionTag.MANURE_MANAGEMENT,
@@ -235,7 +235,7 @@ export const WasteActions: ActionDefinition[] = [
             health.sanitation_norms,
             health.waste_handling,
             tech.tool.use_basic,
-        ]
+        ],
     },
     {
         tag: WasteActionTag.REPAIR_CAFE_DAY,
@@ -260,6 +260,6 @@ export const WasteActions: ActionDefinition[] = [
             health.waste_handling,
             comm.language.written,
             org.workshop_practice,
-        ]
+        ],
     },
 ];

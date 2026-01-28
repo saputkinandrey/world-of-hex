@@ -20,7 +20,7 @@ export const LegacyActions: ActionDefinition[] = [
             plotGrant: 'square_corner',
             inscription: 'approved',
             enforceable: true,
-        }
+        },
     },
     {
         tag: LegacyActionTag.COMMISSION_CHRONICLE,
@@ -30,7 +30,7 @@ export const LegacyActions: ActionDefinition[] = [
         tradeEffect: { pay_scribe: -4, parchments: -2 },
         socialImpact: { LEGACY: 0.6, FAME: 0.4, CLARITY: 0.3 as any },
         ownershipEffect: { manuscript: 'chronicle_v1', copyRight: 'sponsor' },
-        lawEffect: { scriptoriumRecord: 'filed', enforceable: true }
+        lawEffect: { scriptoriumRecord: 'filed', enforceable: true },
     },
     {
         tag: LegacyActionTag.FOUND_SCHOLARSHIP,
@@ -45,7 +45,7 @@ export const LegacyActions: ActionDefinition[] = [
         tradeEffect: { endowment_fund: -10, yield_rule: '+2/season' },
         socialImpact: { LEGACY: 0.65, GRATITUDE: 0.6, NETWORK: 0.4 },
         ownershipEffect: { fund: 'scholarship', steward: 'guild|temple' },
-        lawEffect: { endowmentCharter: 'ratified', enforceable: true }
+        lawEffect: { endowmentCharter: 'ratified', enforceable: true },
     },
     {
         tag: LegacyActionTag.TRAIN_HEIR_APPRENTICE,
@@ -59,7 +59,7 @@ export const LegacyActions: ActionDefinition[] = [
         },
         socialImpact: { LEGACY: 0.65, CONTINUITY: 0.6 as any, PRIDE: 0.3 },
         lawEffect: { apprenticeshipContract: 'heir_line', enforceable: true },
-        ownershipEffect: { accessScope: 'workshop|secrets', grantAccess: true }
+        ownershipEffect: { accessScope: 'workshop|secrets', grantAccess: true },
     },
     {
         tag: LegacyActionTag.DONATE_MASTER_TOOLS,
@@ -70,10 +70,7 @@ export const LegacyActions: ActionDefinition[] = [
         socialImpact: { LEGACY: 0.5, GRATITUDE: 0.5 },
         ownershipEffect: { title: 'donor_plaque', accessScope: 'guild_museum' },
         lawEffect: { deedOfGift: 'signed', enforceable: true },
-        requiredMemes: [
-            comm.language.written,
-            tech.tool.use_basic,
-        ]
+        requiredMemes: [comm.language.written, tech.tool.use_basic],
     },
     {
         tag: LegacyActionTag.ESTABLISH_HOUSE_SIGIL,
@@ -88,7 +85,7 @@ export const LegacyActions: ActionDefinition[] = [
         requiresItem: ['herald', 'seal_press'],
         socialImpact: { LEGACY: 0.5, RESPECT: 0.3 },
         ownershipEffect: { sigil: 'registered', bannerRights: 'granted' },
-        lawEffect: { heraldicRoll: 'updated', enforceable: true }
+        lawEffect: { heraldicRoll: 'updated', enforceable: true },
     },
     {
         tag: LegacyActionTag.CREATE_FAMILY_ARCHIVE,
@@ -106,7 +103,7 @@ export const LegacyActions: ActionDefinition[] = [
             archiveRoom: 'established',
             accessScope: 'kin_only',
         },
-        lawEffect: { archiveDeed: 'filed', enforceable: true }
+        lawEffect: { archiveDeed: 'filed', enforceable: true },
     },
     {
         tag: LegacyActionTag.BUILD_PUBLIC_LIBRARY,
@@ -121,7 +118,7 @@ export const LegacyActions: ActionDefinition[] = [
         tradeEffect: { spend_wood: -10, spend_stone: -8, hire_scribes: -3 },
         socialImpact: { LEGACY: 0.9, CULTURE: 0.7 as any, GRATITUDE: 0.6 },
         ownershipEffect: { publicAsset: 'library', steward: 'council' },
-        lawEffect: { charter: 'library_foundation', enforceable: true }
+        lawEffect: { charter: 'library_foundation', enforceable: true },
     },
     {
         tag: LegacyActionTag.RECORD_LIFE_TREATISE,
@@ -137,10 +134,7 @@ export const LegacyActions: ActionDefinition[] = [
         socialImpact: { LEGACY: 0.6, WISDOM: 0.5 as any },
         ownershipEffect: { ipClaim: 'memoirs', author: 'self' },
         lawEffect: { scriptoriumRecord: 'filed', enforceable: true },
-        requiredMemes: [
-            comm.language.written,
-            record.ledgerkeeping,
-        ]
+        requiredMemes: [comm.language.written, record.ledgerkeeping],
     },
     {
         tag: LegacyActionTag.PLANT_SACRED_GROVE,
@@ -155,7 +149,7 @@ export const LegacyActions: ActionDefinition[] = [
         tradeEffect: { saplings: -8, labor_hours: -24 },
         socialImpact: { LEGACY: 0.7, REVERENCE: 0.5, ECO_HEALTH: 0.5 as any },
         ownershipEffect: { protectedLand: 'grove', steward: 'temple|council' },
-        lawEffect: { conservationEdict: 'issued', enforceable: true }
+        lawEffect: { conservationEdict: 'issued', enforceable: true },
     },
     {
         tag: LegacyActionTag.ENDOW_TEMPLE_ALTAR,
@@ -173,7 +167,7 @@ export const LegacyActions: ActionDefinition[] = [
             plaqueName: 'altar_donor',
             accessScope: 'inner_sanctum',
         },
-        lawEffect: { endowmentRecord: 'temple_roll', enforceable: true }
+        lawEffect: { endowmentRecord: 'temple_roll', enforceable: true },
     },
     {
         tag: LegacyActionTag.CREATE_FOUNDATION,
@@ -189,7 +183,7 @@ export const LegacyActions: ActionDefinition[] = [
         socialImpact: { LEGACY: 0.75, TRUST: 0.5, NETWORK: 0.5 },
         ownershipEffect: { foundation: 'chartered', steward: 'board' },
         lawEffect: { foundationCharter: 'ratified', enforceable: true },
-        requiredMemes: [comm.language.written]
+        requiredMemes: [comm.language.written],
     },
     {
         tag: LegacyActionTag.SET_SUCCESSION_CHART,
@@ -208,7 +202,7 @@ export const LegacyActions: ActionDefinition[] = [
             landParcels: 'mapped',
         },
         lawEffect: { successionRoll: 'filed', enforceable: true },
-        requiredMemes: [comm.language.written]
+        requiredMemes: [comm.language.written],
     },
     {
         tag: LegacyActionTag.ENGRAVE_DEEDS_STELE,
@@ -218,7 +212,7 @@ export const LegacyActions: ActionDefinition[] = [
         tradeEffect: { stone_slab: -1, engraving_fee: -2 },
         socialImpact: { LEGACY: 0.65, FAME: 0.5, MEMORY: 0.6 as any },
         ownershipEffect: { monument: 'stele', location: 'plaza' },
-        lawEffect: { inscriptionPermit: 'granted', enforceable: true }
+        lawEffect: { inscriptionPermit: 'granted', enforceable: true },
     },
     {
         tag: LegacyActionTag.BURY_TIME_CHEST,
@@ -237,7 +231,7 @@ export const LegacyActions: ActionDefinition[] = [
             MYSTERY: 0.4 as any,
         },
         ownershipEffect: { cache: 'buried', mapFragment: 'created' },
-        lawEffect: { burialNote: 'registered', enforceable: true }
+        lawEffect: { burialNote: 'registered', enforceable: true },
     },
     {
         tag: LegacyActionTag.INAUGURATE_ANNUAL_REMEMBRANCE,
@@ -254,6 +248,6 @@ export const LegacyActions: ActionDefinition[] = [
         lawEffect: {
             riteCalendar: 'annual_day_of_remembrance',
             enforceable: true,
-        }
+        },
     },
 ];

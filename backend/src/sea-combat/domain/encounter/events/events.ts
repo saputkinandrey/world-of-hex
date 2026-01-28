@@ -5,10 +5,10 @@ import { Direction } from '../../../types/direction.type';
 
 @DomainEvent(ShipSpawnedEvent.name)
 export class ShipSpawnedEvent {
-  constructor(
-    public readonly ship: ShipEntity,
-    public readonly position: Vector,
-  ) {}
+    constructor(
+        public readonly ship: ShipEntity,
+        public readonly position: Vector,
+    ) {}
 }
 
 @DomainEvent(WindroseTurnLeftEvent.name)
@@ -19,7 +19,7 @@ export class WindroseTurnRightEvent {}
 
 @DomainEvent(WindroseSetDirectionEvent.name)
 export class WindroseSetDirectionEvent {
-  constructor(readonly direction: Direction) {}
+    constructor(readonly direction: Direction) {}
 }
 
 @DomainEvent(WindroseReRollDirectionEvent.name)

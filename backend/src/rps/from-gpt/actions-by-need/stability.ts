@@ -9,7 +9,7 @@ export const StabilityActions: ActionDefinition[] = [
         rewardSecondary: { STABILITY: 0.7, SECURITY: 0.4, CONTROL: 0.3 },
         requiresItem: ['tools'],
         requiresLocation: 'granary',
-        requiresSkill: 'organization'
+        requiresSkill: 'organization',
     },
     {
         tag: StabilityActionTag.REPAIR_TOOLS,
@@ -17,7 +17,7 @@ export const StabilityActions: ActionDefinition[] = [
         costTime: 1,
         rewardSecondary: { STABILITY: 0.4, CONTROL: 0.2, MASTERY: 0.2 },
         requiresItem: ['broken_tool', 'iron'],
-        requiresSkill: 'crafting'
+        requiresSkill: 'crafting',
     },
     {
         tag: StabilityActionTag.HOLD_COUNCIL,
@@ -27,21 +27,21 @@ export const StabilityActions: ActionDefinition[] = [
         requiresLocation: 'hall',
         targetType: 'GROUP',
         requiresSkill: 'leadership',
-        requiredMemes: [comm.language.written]
+        requiredMemes: [comm.language.written],
     },
     {
         tag: StabilityActionTag.FOLLOW_TRADITION,
         costEnergy: -0.1,
         costTime: 1,
         rewardSecondary: { STABILITY: 0.6, TRADITION: 0.7, SPIRIT: 0.3 },
-        moralWeight: 0.5
+        moralWeight: 0.5,
     },
     {
         tag: StabilityActionTag.MANAGE_SUPPLIES,
         costEnergy: -0.4,
         costTime: 2,
         rewardSecondary: { STABILITY: 0.8, SECURITY: 0.5, CONTROL: 0.4 },
-        requiresSkill: 'logistics'
+        requiresSkill: 'logistics',
     },
     {
         tag: StabilityActionTag.RESTORE_ORDER,
@@ -49,14 +49,14 @@ export const StabilityActions: ActionDefinition[] = [
         costTime: 1.5,
         rewardSecondary: { STABILITY: 0.7, LAW: 0.6, CONTROL: 0.5 },
         requiresSkill: 'leadership',
-        targetType: 'GROUP'
+        targetType: 'GROUP',
     },
     {
         tag: StabilityActionTag.MEDIATE_CONFLICT,
         costEnergy: -0.2,
         costTime: 2,
         rewardSecondary: { STABILITY: 0.6, TRUST: 0.5, COMMUNITY: 0.3 },
-        requiresSkill: 'diplomacy'
+        requiresSkill: 'diplomacy',
     },
     {
         tag: StabilityActionTag.HOLD_CEREMONY,
@@ -64,10 +64,7 @@ export const StabilityActions: ActionDefinition[] = [
         costTime: 3,
         rewardSecondary: { STABILITY: 0.8, COMMUNITY: 0.5, TRADITION: 0.6 },
         requiresLocation: 'temple',
-        requiredMemes: [
-            culture.vigil_ritual,
-            cog.timekeeping.basic,
-        ]
+        requiredMemes: [culture.vigil_ritual, cog.timekeeping.basic],
     },
     {
         tag: StabilityActionTag.KEEP_RECORDS,
@@ -75,7 +72,7 @@ export const StabilityActions: ActionDefinition[] = [
         costTime: 1,
         rewardSecondary: { STABILITY: 0.5, KNOWLEDGE: 0.3, CONTROL: 0.2 },
         requiresItem: ['parchment', 'ink'],
-        requiresSkill: 'writing'
+        requiresSkill: 'writing',
     },
     {
         tag: StabilityActionTag.PLANT_SEASONAL_CROPS,
@@ -83,6 +80,6 @@ export const StabilityActions: ActionDefinition[] = [
         costTime: 4,
         rewardSecondary: { STABILITY: 0.7, FOOD: 0.5, TRADITION: 0.3 },
         requiresSkill: 'farming',
-        locationType: 'fields'
+        locationType: 'fields',
     },
 ];

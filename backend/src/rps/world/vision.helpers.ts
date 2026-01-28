@@ -1,7 +1,7 @@
 // rps/world/vision.helpers.ts
 
-import type { HexEntity } from "./hex.entity";
-import {ActorEntity} from "./actor/actor.entity";
+import type { HexEntity } from './hex.entity';
+import { ActorEntity } from './actor/actor.entity';
 
 /**
  * Range penalty по мотивам GURPS Size and Speed/Range Table.
@@ -79,7 +79,9 @@ export interface VisionRollParams {
  *   index_max = floor(-p_req)
  *   range_max ≈ 10^(index_max / 6)
  */
-export function getAutoSuccessVisionDistanceHexes(params: VisionRollParams): number {
+export function getAutoSuccessVisionDistanceHexes(
+    params: VisionRollParams,
+): number {
     const {
         per,
         acuteVisionMod = 0,
@@ -118,8 +120,6 @@ export function getAutoSuccessVisionDistanceHexes(params: VisionRollParams): num
     return Math.max(0, rangeHexes);
 }
 
-
-
 /**
  * Координаты гекса в axial-формате (q, r).
  * Предполагаем, что в HexEntity есть что-то такое.
@@ -136,10 +136,10 @@ export interface HexCoordLike {
 export function getHexCoord(hex: HexEntity): HexCoordLike {
     // Например, если у тебя hex.coord: { q, r }:
     const coord = (hex as any).coord;
-    if (!coord || typeof coord.q !== "number" || typeof coord.r !== "number") {
+    if (!coord || typeof coord.q !== 'number' || typeof coord.r !== 'number') {
         throw new Error(
             `[vision] HexEntity не содержит coord {q,r}. ` +
-            `Проверь структуру HexEntity.`,
+                `Проверь структуру HexEntity.`,
         );
     }
     return coord as HexCoordLike;
@@ -155,7 +155,7 @@ export function getHexCoord(hex: HexEntity): HexCoordLike {
 export function hexDistance(a: HexCoordLike, b: HexCoordLike): number {
     const dq = a.q - b.q;
     const dr = a.r - b.r;
-    const ds = (-a.q - a.r) - (-b.q - b.r);
+    const ds = -a.q - a.r - (-b.q - b.r);
     return (Math.abs(dq) + Math.abs(dr) + Math.abs(ds)) / 2;
 }
 
@@ -180,7 +180,7 @@ export interface VisionEnvModifiers {
  */
 export function getActorPer(actor: ActorEntity): number {
     const sec = (actor as any).secondary;
-    if (sec && typeof sec.Per === "number") {
+    if (sec && typeof sec.Per === 'number') {
         return sec.Per;
     }
     return 10;
@@ -241,7 +241,6 @@ export function getActorAutoVisionDistanceHexes(
         targetSM,
     });
 }
-
 
 /**
  * GURPS-подобная оценка максимальной дистанции видимости в гексах.

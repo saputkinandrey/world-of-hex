@@ -5,9 +5,9 @@ import { PrimaryAttributesEntity } from '../character/attributes/primary-attribu
 import { SecondaryAttributesEntity } from '../character/attributes/secondary-attributes.entity';
 import type { MemeId } from '../../world/memes';
 import type { MorphId } from '../../world/morphs';
-import {NeedTag} from "../../world/needs/needs";
-import {ActionTag} from "../../world/actions/action-tags";
-import {CreatureTemplateLens} from "./creature-template-lens.entity";
+import { NeedTag } from '../../world/needs/needs';
+import { ActionTag } from '../../world/actions/action-tags';
+import { CreatureTemplateLens } from './creature-template-lens.entity';
 
 export interface CreatureTemplateProps {
     name?: string;
@@ -23,8 +23,6 @@ export interface CreatureTemplateProps {
     morphIds?: MorphId[];
     actionTags?: ActionTag[]; // ActionTag, но без жёсткой привязки к enum
 }
-
-
 
 /**
  * Канонный шаблон существа в терминах RPS:
@@ -45,17 +43,12 @@ export class CreatureTemplateEntity extends NamedEntity {
     public actionTags: ActionTag[] = [];
     public needTags: NeedTag[] = [];
 
-
     constructor(props: CreatureTemplateProps = {}) {
-        const {
-            name = '',
-            alias = '',
-        } = props;
+        const { name = '', alias = '' } = props;
 
         super({ name, alias });
 
-        this
-            .setSizeModifier(props.sizeModifier)
+        this.setSizeModifier(props.sizeModifier)
             .setPrimary(props.primary)
             .setSecondary(props.secondary)
             .setMemeIds(props.memeIds)
@@ -79,7 +72,10 @@ export class CreatureTemplateEntity extends NamedEntity {
             needTagsAdd,
         } = lens;
 
-        if (typeof sizeModifierDelta === 'number' && !Number.isNaN(sizeModifierDelta)) {
+        if (
+            typeof sizeModifierDelta === 'number' &&
+            !Number.isNaN(sizeModifierDelta)
+        ) {
             this.setSizeModifier(this.sizeModifier + sizeModifierDelta);
         }
 
@@ -179,7 +175,9 @@ export class CreatureTemplateEntity extends NamedEntity {
      * Δ primary: прибавляем дельту по ST/DX/IQ/HT.
      * Используем сеттеры, если они есть, иначе прямое присваивание.
      */
-    protected applyPrimaryDelta(delta: CreatureTemplateLens['primaryDelta']): void {
+    protected applyPrimaryDelta(
+        delta: CreatureTemplateLens['primaryDelta'],
+    ): void {
         if (!delta) return;
         // тут никакой магии: делегируем в сам PrimaryAttributesEntity
         this.primary.applyDelta(delta as any);
@@ -188,7 +186,9 @@ export class CreatureTemplateEntity extends NamedEntity {
     /**
      * Δ secondary: прибавляем дельту по HP/FP/Will/Per/BasicSpeed/BasicMove.
      */
-    protected applySecondaryDelta(delta: CreatureTemplateLens['secondaryDelta']): void {
+    protected applySecondaryDelta(
+        delta: CreatureTemplateLens['secondaryDelta'],
+    ): void {
         if (!delta) return;
         this.secondary.applyDelta(delta as any);
     }

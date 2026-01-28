@@ -1,8 +1,13 @@
-import {ActionTag} from "./action-tags";
-import {NeedGate, NeedTag, NeedThresholdEnum, NeedThresholds} from "../needs/needs";
-import {MemeId} from "../memes";
-import {MorphId} from "../morphs";
-import {ActionContext} from "./action-context";
+import { ActionTag } from './action-tags';
+import {
+    NeedGate,
+    NeedTag,
+    NeedThresholdEnum,
+    NeedThresholds,
+} from '../needs/needs';
+import { MemeId } from '../memes';
+import { MorphId } from '../morphs';
+import { ActionContext } from './action-context';
 
 export interface ActionDefinition {
     tag: ActionTag; // Тип действия
@@ -81,7 +86,7 @@ export interface ActionDefinition {
     lawEffect?: {
         [k: string]: string | boolean; // указы/правила/флаги исполнимости
     };
-    requiredMemes?: MemeId[];  // поведенческие / когнитивные паттерны
+    requiredMemes?: MemeId[]; // поведенческие / когнитивные паттерны
     requiredMorphs?: MorphId[]; // физические/морфологические возможности
 
     needMemes?: boolean;
@@ -114,7 +119,6 @@ export interface ActionDefinition {
      * Выход из состояния (опционально).
      */
     onExit?(): void;
-
 }
 
 // определить дискретную зону по level∈[0..1] и порогам
@@ -140,11 +144,10 @@ export const Idle: ActionDefinition = {
     tag: 'IDLE',
 
     onEnter(ctx: ActionContext) {
-        ctx.actor.setAction(this)
+        ctx.actor.setAction(this);
     },
 
     // rewardSecondary здесь можно оставить пустым: эффекты идут
     // через систему метаболизма / NutritionContent.
-    perform(deltaTime) {
-    }
+    perform(deltaTime) {},
 };

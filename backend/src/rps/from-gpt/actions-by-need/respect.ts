@@ -16,7 +16,7 @@ export const RespectActions: ActionDefinition[] = [
             protocol: 'greet_v1',
             enforceable: false,
             note: 'entry-ritual',
-        }
+        },
     },
     {
         tag: RespectActionTag.HONORIFIC_ADDRESS,
@@ -24,7 +24,7 @@ export const RespectActions: ActionDefinition[] = [
         costTime: 0.1,
         rewardSecondary: { RESPECT: 0.3, TRADITION: 0.1, COMMUNITY: 0.05 },
         socialImpact: { RESPECT: 0.35, STATUS: 0.1 },
-        lawEffect: { etiquetteRule: 'address_titles', enforceable: false }
+        lawEffect: { etiquetteRule: 'address_titles', enforceable: false },
     },
     {
         tag: RespectActionTag.BOW_RITUAL,
@@ -32,7 +32,7 @@ export const RespectActions: ActionDefinition[] = [
         costTime: 0.2,
         rewardSecondary: { RESPECT: 0.4, SPIRIT: 0.1, TRADITION: 0.2 },
         socialImpact: { RESPECT: 0.4, REVERENCE: 0.3 },
-        lawEffect: { ritual: 'bow_lvl1', enforceable: false }
+        lawEffect: { ritual: 'bow_lvl1', enforceable: false },
     },
     {
         tag: RespectActionTag.PUBLIC_PRAISE,
@@ -40,7 +40,7 @@ export const RespectActions: ActionDefinition[] = [
         costTime: 0.4,
         rewardSecondary: { RESPECT: 0.55, REPUTATION: 0.35, COMMUNITY: 0.25 },
         socialImpact: { RESPECT: 0.45, GRATITUDE: 0.35, VISIBILITY: 0.25 },
-        lawEffect: { recordPraise: 'optional', enforceable: false }
+        lawEffect: { recordPraise: 'optional', enforceable: false },
     },
     {
         tag: RespectActionTag.OFFER_GIFT_TOKEN,
@@ -53,7 +53,7 @@ export const RespectActions: ActionDefinition[] = [
             grantAccess: true,
             accessScope: 'audience_chamber',
             accessLevel: 'GUEST',
-        }
+        },
     },
     {
         tag: RespectActionTag.PRESENT_TRIBUTE,
@@ -62,7 +62,7 @@ export const RespectActions: ActionDefinition[] = [
         rewardSecondary: { RESPECT: 0.6, STATUS: 0.3, LOYALTY: 0.2 },
         tradeEffect: { transfer: 'personal->leader:+3', note: 'tribute' },
         socialImpact: { RESPECT: 0.5, REVERENCE: 0.25 },
-        lawEffect: { recordTribute: 'ok', enforceable: true }
+        lawEffect: { recordTribute: 'ok', enforceable: true },
     },
     {
         tag: RespectActionTag.DEFERENCE_SEATING,
@@ -70,14 +70,14 @@ export const RespectActions: ActionDefinition[] = [
         costTime: 0.1,
         rewardSecondary: { RESPECT: 0.35, BELONGING: 0.1, STABILITY: 0.1 },
         socialImpact: { RESPECT: 0.35, HARMONY: 0.2 },
-        lawEffect: { protocol: 'seating_order', enforceable: false }
+        lawEffect: { protocol: 'seating_order', enforceable: false },
     },
     {
         tag: RespectActionTag.YIELD_WAY,
         costEnergy: -0.01,
         costTime: 0.05,
         rewardSecondary: { RESPECT: 0.25, COMMUNITY: 0.1 },
-        socialImpact: { RESPECT: 0.3, COURTESY: 0.2 }
+        socialImpact: { RESPECT: 0.3, COURTESY: 0.2 },
     },
     {
         tag: RespectActionTag.OBSERVE_ETIQUETTE,
@@ -85,7 +85,7 @@ export const RespectActions: ActionDefinition[] = [
         costTime: 0.3,
         rewardSecondary: { RESPECT: 0.45, TRADITION: 0.25, STABILITY: 0.2 },
         socialImpact: { RESPECT: 0.4, DISCIPLINE: 0.25 },
-        lawEffect: { etiquetteRule: 'table_manners', enforceable: false }
+        lawEffect: { etiquetteRule: 'table_manners', enforceable: false },
     },
     {
         tag: RespectActionTag.COMPLY_DRESS_CODE,
@@ -94,7 +94,7 @@ export const RespectActions: ActionDefinition[] = [
         rewardSecondary: { RESPECT: 0.5, STATUS: 0.25, COMMUNITY: 0.15 },
         tradeEffect: { equip: 'formal_attire', upkeep: '-1 textile' },
         socialImpact: { RESPECT: 0.4, AESTHETICS: 0.2 },
-        lawEffect: { attirePolicy: 'formal_events', enforceable: true }
+        lawEffect: { attirePolicy: 'formal_events', enforceable: true },
     },
     {
         tag: RespectActionTag.ATTEND_SPEECH,
@@ -102,7 +102,7 @@ export const RespectActions: ActionDefinition[] = [
         costTime: 1.2,
         rewardSecondary: { RESPECT: 0.45, KNOWLEDGE: 0.25, COMMUNITY: 0.2 },
         socialImpact: { RESPECT: 0.35, ATTENTIVENESS: 0.3 },
-        lawEffect: { assemblyRecord: 'present', enforceable: false }
+        lawEffect: { assemblyRecord: 'present', enforceable: false },
     },
     {
         tag: RespectActionTag.MAINTAIN_SILENCE,
@@ -114,7 +114,7 @@ export const RespectActions: ActionDefinition[] = [
             STABILITY: 0.1,
         },
         socialImpact: { RESPECT: 0.35, SELF_CONTROL: 0.25 as any },
-        lawEffect: { etiquetteRule: 'no_interruptions', enforceable: true }
+        lawEffect: { etiquetteRule: 'no_interruptions', enforceable: true },
     },
     {
         tag: RespectActionTag.ESCORT_ELDER,
@@ -127,7 +127,7 @@ export const RespectActions: ActionDefinition[] = [
             SECURITY: 0.15,
         },
         socialImpact: { RESPECT: 0.45, GRATITUDE: 0.35, CARE: 0.3 },
-        ownershipEffect: { accessScope: 'inner_quarters', grantAccess: true }
+        ownershipEffect: { accessScope: 'inner_quarters', grantAccess: true },
     },
     {
         tag: RespectActionTag.PERFORM_SERVICE,
@@ -135,7 +135,7 @@ export const RespectActions: ActionDefinition[] = [
         costTime: 1.0,
         rewardSecondary: { RESPECT: 0.5, LOYALTY: 0.25, COMMUNITY: 0.2 },
         socialImpact: { RESPECT: 0.4, GRATITUDE: 0.35 },
-        tradeEffect: { expend_supplies: -1, note: 'service_rendered' }
+        tradeEffect: { expend_supplies: -1, note: 'service_rendered' },
     },
     {
         tag: RespectActionTag.HONOR_ANCESTORS,
@@ -143,7 +143,7 @@ export const RespectActions: ActionDefinition[] = [
         costTime: 0.8,
         rewardSecondary: { RESPECT: 0.6, TRADITION: 0.4, SPIRIT: 0.35 },
         socialImpact: { RESPECT: 0.45, REVERENCE: 0.35 },
-        lawEffect: { ritual: 'ancestral_offering', enforceable: false }
+        lawEffect: { ritual: 'ancestral_offering', enforceable: false },
     },
     {
         tag: RespectActionTag.UPHOLD_PROTOCOL,
@@ -160,6 +160,6 @@ export const RespectActions: ActionDefinition[] = [
             accessScope: 'ceremonial_space',
             accessLevel: 'STEWARD',
             grantAccess: true,
-        }
+        },
     },
 ];

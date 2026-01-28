@@ -1,6 +1,6 @@
 // rps/actions/action-errors.ts
 
-import type { ActionTag } from "./action-tags";
+import type { ActionTag } from './action-tags';
 
 /**
  * Специальная ошибка: "экшен НЕ МОЖЕТ быть начат в текущем состоянии".
@@ -20,7 +20,7 @@ export class ActionEnterRejectedError extends Error {
 
     constructor(actionTag: ActionTag, reason: string, details?: unknown) {
         super(`[ActionEnterRejected] ${String(actionTag)}: ${reason}`);
-        this.name = "ActionEnterRejectedError";
+        this.name = 'ActionEnterRejectedError';
         this.actionTag = actionTag;
         this.reason = reason;
         this.details = details;

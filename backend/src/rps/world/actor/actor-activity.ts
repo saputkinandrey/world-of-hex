@@ -1,7 +1,7 @@
 // world/actor-activity.ts
 
-import  { ActorEntity } from "./actor.entity";
-import {ActivityId} from "./types";
+import { ActorEntity } from './actor.entity';
+import { ActivityId } from './types';
 
 /**
  * Общий интерфейс стратегии активности.
@@ -47,7 +47,3 @@ export interface ActorStateStrategy {
      */
     onExit?(actor: ActorEntity): void;
 }
-
-
-
-

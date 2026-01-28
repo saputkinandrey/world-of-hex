@@ -25,7 +25,7 @@ export const EnergyActions: ActionDefinition[] = [
             health.first_aid_basic,
             heat.space.hearth,
             comm.language.written,
-        ]
+        ],
     },
     {
         tag: EnergyActionTag.POWER_NAP_20,
@@ -43,7 +43,7 @@ export const EnergyActions: ActionDefinition[] = [
             culture.vigil_ritual,
             cog.timekeeping.basic,
             heat.space.hearth,
-        ]
+        ],
     },
     {
         tag: EnergyActionTag.SUNLIGHT_STRETCH,
@@ -57,10 +57,7 @@ export const EnergyActions: ActionDefinition[] = [
         },
         requiresLocation: 'yard|green|balcony',
         socialImpact: { CALM: 0.2 as any },
-        requiredMemes: [
-            health.sanitation_norms,
-            health.waste_handling,
-        ]
+        requiredMemes: [health.sanitation_norms, health.waste_handling],
     },
     {
         tag: EnergyActionTag.SHORT_SPRINT_EXERCISE,
@@ -74,10 +71,7 @@ export const EnergyActions: ActionDefinition[] = [
         },
         requiresLocation: 'yard|track|field',
         risk: 0.04,
-        requiredMemes: [
-            health.sanitation_norms,
-            health.waste_handling,
-        ]
+        requiredMemes: [health.sanitation_norms, health.waste_handling],
     },
     {
         tag: EnergyActionTag.CAFFEINE_HERB_TONIC,
@@ -91,7 +85,7 @@ export const EnergyActions: ActionDefinition[] = [
         },
         tradeEffect: { tonic_herbs_or_coffee: -1, honey: -1 | (0 as any) },
         risk: 0.05,
-        ownershipEffect: { kettleState: 'brewed' }
+        ownershipEffect: { kettleState: 'brewed' },
     },
     {
         tag: EnergyActionTag.BREATH_OXY_DRILL,
@@ -108,7 +102,7 @@ export const EnergyActions: ActionDefinition[] = [
             culture.vigil_ritual,
             cog.timekeeping.basic,
             heat.space.hearth,
-        ]
+        ],
     },
     {
         tag: EnergyActionTag.WATER_REHYDRATE,
@@ -130,7 +124,7 @@ export const EnergyActions: ActionDefinition[] = [
             health.sanitation_norms,
             health.waste_handling,
             food.preservation.salting,
-        ]
+        ],
     },
     {
         tag: EnergyActionTag.MICRO_BREAK_EYESTRAIN,
@@ -142,7 +136,7 @@ export const EnergyActions: ActionDefinition[] = [
             FOCUS: 0.2,
             HEALTH: 0.1,
         },
-        ownershipEffect: { taskState: 'paused_micro' }
+        ownershipEffect: { taskState: 'paused_micro' },
     },
     {
         tag: EnergyActionTag.POSTURE_RESET,
@@ -156,10 +150,7 @@ export const EnergyActions: ActionDefinition[] = [
         },
         requiresLocation: 'workroom|yard',
         socialImpact: { DIGNITY: 0.1 as any },
-        requiredMemes: [
-            health.sanitation_norms,
-            health.waste_handling,
-        ]
+        requiredMemes: [health.sanitation_norms, health.waste_handling],
     },
     {
         tag: EnergyActionTag.SNACK_TRAIL_MIX,
@@ -176,7 +167,7 @@ export const EnergyActions: ActionDefinition[] = [
             dried_fruit: -1 | (0 as any),
             grain_bar: -1 | (0 as any),
         },
-        ownershipEffect: { storesLevel: 'reduced_snacks' }
+        ownershipEffect: { storesLevel: 'reduced_snacks' },
     },
     {
         tag: EnergyActionTag.SOCIAL_ENERGY_CHECKIN,
@@ -195,7 +186,7 @@ export const EnergyActions: ActionDefinition[] = [
             cog.timekeeping.basic,
             heat.space.hearth,
             comm.language.written,
-        ]
+        ],
     },
     {
         tag: EnergyActionTag.WORKLOAD_REBALANCE,
@@ -210,7 +201,7 @@ export const EnergyActions: ActionDefinition[] = [
         requiresSkill: 'leadership|planning',
         socialImpact: { RESENTMENT: -0.1, TRUST: 0.2 },
         ownershipEffect: { dutyRoster: 'rebalanced' },
-        lawEffect: { fatigueLimits: 'posted', enforceable: true }
+        lawEffect: { fatigueLimits: 'posted', enforceable: true },
     },
     {
         tag: EnergyActionTag.EARLY_LIGHTS_OUT,
@@ -224,7 +215,7 @@ export const EnergyActions: ActionDefinition[] = [
         },
         requiresLocation: 'bunks|home',
         lawEffect: { quietHours: 'observed', enforceable: true },
-        ownershipEffect: { curfewReady: 'true' }
+        ownershipEffect: { curfewReady: 'true' },
     },
     {
         tag: EnergyActionTag.MORNING_COLD_SPLASH,
@@ -237,7 +228,7 @@ export const EnergyActions: ActionDefinition[] = [
             HEALTH: 0.1,
         },
         requiresLocation: 'well|river',
-        risk: 0.03
+        risk: 0.03,
     },
     {
         tag: EnergyActionTag.WARMUP_BEFORE_LABOR,
@@ -251,10 +242,7 @@ export const EnergyActions: ActionDefinition[] = [
         },
         requiresLocation: 'yard|worksite',
         socialImpact: { SAFETY: 0.2 as any },
-        requiredMemes: [
-            health.sanitation_norms,
-            health.waste_handling,
-        ]
+        requiredMemes: [health.sanitation_norms, health.waste_handling],
     },
     {
         tag: EnergyActionTag.RECOVERY_MASSAGE,
@@ -275,6 +263,6 @@ export const EnergyActions: ActionDefinition[] = [
             cog.timekeeping.basic,
             health.first_aid_basic,
             heat.space.hearth,
-        ]
+        ],
     },
 ];

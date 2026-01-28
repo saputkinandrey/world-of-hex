@@ -1,22 +1,22 @@
 import {
-  Direction,
-  DirectionTurnLeft,
-  DirectionTurnRight,
+    Direction,
+    DirectionTurnLeft,
+    DirectionTurnRight,
 } from '../../../types/direction.type';
 
 export class WindroseEntity {
-  direction: Direction;
+    direction: Direction;
 
-  setDirection(direction: Direction) {
-    this.direction = direction;
-    return this;
-  }
+    setDirection(direction: Direction) {
+        this.direction = direction;
+        return this;
+    }
 
-  turnRight() {
-    return this.setDirection(DirectionTurnRight[this.direction]);
-  }
+    turnRight() {
+        return this.setDirection(DirectionTurnRight[this.direction]);
+    }
 
-  turnLeft() {
-    return this.setDirection(DirectionTurnLeft[this.direction]);
-  }
+    turnLeft() {
+        return this.setDirection(DirectionTurnLeft[this.direction]);
+    }
 }

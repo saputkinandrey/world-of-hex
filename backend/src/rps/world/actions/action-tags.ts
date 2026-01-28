@@ -1300,7 +1300,6 @@ export enum EthoActionTag {
     /** Настороженное "сканирование" окружения. U */
     OBSERVATION = 'OBSERVATION',
 
-
     SEEK_THERMAL_REFUGE = 'SEEK_THERMAL_REFUGE',
 }
 
@@ -1311,7 +1310,7 @@ export enum GenericActionTag {
 
 // Собираем все в один объект
 export const ActionTags = {
-    IDLE : 'IDLE',
+    IDLE: 'IDLE',
     ...FoodActionTag,
     ...WaterActionTag,
     ...RestActionTag,

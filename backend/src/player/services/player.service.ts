@@ -9,7 +9,9 @@ export class PlayerService {
     constructor(private readonly playerRepository: PlayerRepository) {}
 
     ownAShip(player: PlayerDocument, ship: Ship) {
-        const ownedShip = player.ownedShips.find((owned) => owned._id === ship._id);
+        const ownedShip = player.ownedShips.find(
+            (owned) => owned._id === ship._id,
+        );
 
         if (ownedShip) {
             throw new Error(

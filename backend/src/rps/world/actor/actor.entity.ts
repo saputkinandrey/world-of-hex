@@ -2,13 +2,19 @@
 // Сущность актора (живого существа) и его метаболизм/питание.
 
 import type { HexId, VolumeUnits } from '../hex.entity';
-import {PostureTag} from "./types";
-import {ActionDefinition, Idle} from "../actions/action-definition";
-import {NeedTag} from "../needs/needs";
-import {CreatureTemplateEntity} from "../../domain/character/creature-template.entity";
-import {ActionTag} from "../actions/action-tags";
-import {MemeId} from "../memes";
-import {getLeveledMorphLevel, leveledMorphPrefix, LeveledMorphTemplateId, morph, MorphId} from "../morphs";
+import { PostureTag } from './types';
+import { ActionDefinition, Idle } from '../actions/action-definition';
+import { NeedTag } from '../needs/needs';
+import { CreatureTemplateEntity } from '../../domain/character/creature-template.entity';
+import { ActionTag } from '../actions/action-tags';
+import { MemeId } from '../memes';
+import {
+    getLeveledMorphLevel,
+    leveledMorphPrefix,
+    LeveledMorphTemplateId,
+    morph,
+    MorphId,
+} from '../morphs';
 
 /**
  * Пищевая ценность ресурса / приёма пищи.
@@ -98,10 +104,10 @@ export class CreaturePhysicalProfile {
     carryVolumeCapacity: VolumeUnits;
 
     constructor({
-                    baseVolume = 1,
-                    minVolume = 0.5,
-                    carryVolumeCapacity = 4,
-                }: CreaturePhysicalProfileInit = {}) {
+        baseVolume = 1,
+        minVolume = 0.5,
+        carryVolumeCapacity = 4,
+    }: CreaturePhysicalProfileInit = {}) {
         this.baseVolume = baseVolume;
         this.minVolume = minVolume;
         this.carryVolumeCapacity = carryVolumeCapacity;
@@ -121,7 +127,6 @@ export class CreaturePhysicalProfile {
         this.carryVolumeCapacity = capacity;
         return this;
     }
-
 }
 
 /**
@@ -136,7 +141,7 @@ export interface ActorInit {
     posture?: PostureTag;
     action?: ActionDefinition;
     inventoryItemIds?: string[];
-    creatureProfile?: CreatureTemplateEntity | null
+    creatureProfile?: CreatureTemplateEntity | null;
 }
 
 /**
@@ -245,7 +250,7 @@ export class ActorEntity {
      */
     protected needValues: Partial<Record<NeedTag, number>> = {};
 
-    public action: ActionDefinition | null
+    public action: ActionDefinition | null;
 
     constructor({
         id = '',
@@ -322,7 +327,7 @@ export class ActorEntity {
     }
 
     isBusy(): boolean {
-        if(!this.action) {
+        if (!this.action) {
             return false;
         }
         return this.action !== Idle;
@@ -344,7 +349,10 @@ export class ActorEntity {
         this.creatureProfile = profile ?? null;
 
         // Автоинициализация нужд под профиль (если он их несёт).
-        if (this.creatureProfile && Array.isArray(this.creatureProfile.needTags)) {
+        if (
+            this.creatureProfile &&
+            Array.isArray(this.creatureProfile.needTags)
+        ) {
             for (const tag of this.creatureProfile.needTags as NeedTag[]) {
                 // Не перезаписываем уже существующие значения, только инициализируем 0.
                 if (this.needValues[tag] === undefined) {
@@ -491,7 +499,6 @@ export class ActorEntity {
         }
         return this;
     }
-
 }
 
 /**
@@ -501,14 +508,23 @@ export class ActorEntity {
 export function estimateNutritionShares(
     needs: NutritionNeeds,
     intake: NutritionContent,
-): { energyShare: number; proteinShare: number; waterShare?: number; massShare: number } {
+): {
+    energyShare: number;
+    proteinShare: number;
+    waterShare?: number;
+    massShare: number;
+} {
     const energyShare =
         needs.energyPerDay > 0 ? intake.energy / needs.energyPerDay : 0;
     const proteinShare =
         needs.proteinPerDay > 0 ? intake.protein / needs.proteinPerDay : 0;
 
     let waterShare: number | undefined;
-    if (needs.waterPerDay && needs.waterPerDay > 0 && intake.water !== undefined) {
+    if (
+        needs.waterPerDay &&
+        needs.waterPerDay > 0 &&
+        intake.water !== undefined
+    ) {
         waterShare = intake.water / needs.waterPerDay;
     }
 

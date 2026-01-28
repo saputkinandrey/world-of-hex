@@ -1,7 +1,7 @@
 import { ActionTag } from './action-tags';
 import { NeedGate, NeedTag, NeedThresholdEnum, NeedThresholds } from './needs';
 import { MemeId } from '../world/memes';
-import {MorphId} from "../world/morphs";
+import { MorphId } from '../world/morphs';
 
 export interface ActionDefinition {
     tag?: ActionTag; // Тип действия
@@ -63,7 +63,7 @@ export interface ActionDefinition {
     lawEffect?: {
         [k: string]: string | boolean; // указы/правила/флаги исполнимости
     };
-    requiredMemes?: MemeId[];  // поведенческие / когнитивные паттерны
+    requiredMemes?: MemeId[]; // поведенческие / когнитивные паттерны
     requiredMorphs?: MorphId[]; // физические/морфологические возможности
 
     needMemes?: boolean;

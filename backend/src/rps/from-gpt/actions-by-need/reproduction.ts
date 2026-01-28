@@ -7,7 +7,7 @@ export const ReproductionActions: ActionDefinition[] = [
         costTime: 2,
         rewardSecondary: { REPRODUCTION: 0.5, SOCIAL: 0.4, MOOD: 0.3 },
         skillRequired: 'Charm',
-        locationType: 'community'
+        locationType: 'community',
     },
     {
         tag: ReproductionActionTag.FLIRT,
@@ -15,7 +15,7 @@ export const ReproductionActions: ActionDefinition[] = [
         costTime: 0.5,
         rewardSecondary: { REPRODUCTION: 0.3, MOOD: 0.4, SOCIAL: 0.2 },
         skillRequired: 'Empathy',
-        targetType: 'OTHER'
+        targetType: 'OTHER',
     },
     {
         tag: ReproductionActionTag.GIFT_TO_PARTNER,
@@ -23,28 +23,28 @@ export const ReproductionActions: ActionDefinition[] = [
         costTime: 0.5,
         rewardSecondary: { REPRODUCTION: 0.4, TRUST: 0.3, MOOD: 0.2 },
         requiresItem: ['gift'],
-        targetType: 'OTHER'
+        targetType: 'OTHER',
     },
     {
         tag: ReproductionActionTag.COURTSHIP_RITUAL,
         costEnergy: -0.4,
         costTime: 3,
         rewardSecondary: { REPRODUCTION: 0.6, SOCIAL: 0.5, SPIRIT: 0.3 },
-        locationType: 'ritual_site'
+        locationType: 'ritual_site',
     },
     {
         tag: ReproductionActionTag.SHOW_STRENGTH,
         costEnergy: -0.3,
         costTime: 1,
         rewardSecondary: { REPRODUCTION: 0.4, STATUS: 0.3 },
-        skillRequired: 'Athletics'
+        skillRequired: 'Athletics',
     },
     {
         tag: ReproductionActionTag.BUILD_HOME_FOR_FAMILY,
         costEnergy: -0.6,
         costTime: 6,
         rewardSecondary: { REPRODUCTION: 0.8, SECURITY: 0.5, STATUS: 0.3 },
-        locationType: 'settlement'
+        locationType: 'settlement',
     },
     {
         tag: ReproductionActionTag.FORM_UNION,
@@ -53,14 +53,14 @@ export const ReproductionActions: ActionDefinition[] = [
         rewardSecondary: { REPRODUCTION: 0.7, LOVE: 0.8, SOCIAL: 0.4 },
         locationType: 'community',
         targetType: 'OTHER',
-        moralWeight: 0.3
+        moralWeight: 0.3,
     },
     {
         tag: ReproductionActionTag.MAKE_LOVE,
         costEnergy: -0.5,
         costTime: 1.5,
         rewardSecondary: { REPRODUCTION: 1.0, LOVE: 0.6, MOOD: 0.3 },
-        targetType: 'OTHER'
+        targetType: 'OTHER',
     },
     {
         tag: ReproductionActionTag.ATTEMPT_CONCEPTION,
@@ -68,35 +68,35 @@ export const ReproductionActions: ActionDefinition[] = [
         costTime: 1.5,
         rewardSecondary: { REPRODUCTION: 1.2, FAMILY: 0.6 },
         targetType: 'OTHER',
-        risk: 0.3
+        risk: 0.3,
     },
     {
         tag: ReproductionActionTag.CARE_FOR_PARTNER,
         costEnergy: -0.2,
         costTime: 1,
         rewardSecondary: { REPRODUCTION: 0.5, LOVE: 0.4, TRUST: 0.3 },
-        targetType: 'OTHER'
+        targetType: 'OTHER',
     },
     {
         tag: ActionTags.CARE_FOR_CHILD,
         costEnergy: -0.4,
         costTime: 3,
         rewardSecondary: { REPRODUCTION: 0.8, LOVE: 0.6, FAMILY: 0.8 },
-        targetType: 'FAMILY'
+        targetType: 'FAMILY',
     },
     {
         tag: ReproductionActionTag.TEACH_CHILD,
         costEnergy: -0.3,
         costTime: 2,
         rewardSecondary: { REPRODUCTION: 0.6, KNOWLEDGE: 0.5, FAMILY: 0.5 },
-        targetType: 'FAMILY'
+        targetType: 'FAMILY',
     },
     {
         tag: ReproductionActionTag.CELEBRATE_FERTILITY,
         costEnergy: -0.3,
         costTime: 2.5,
         rewardSecondary: { REPRODUCTION: 0.7, SPIRIT: 0.5, SOCIAL: 0.4 },
-        locationType: 'ritual_site'
+        locationType: 'ritual_site',
     },
     {
         tag: ReproductionActionTag.DEFEND_FAMILY,
@@ -104,20 +104,20 @@ export const ReproductionActions: ActionDefinition[] = [
         costTime: 1.5,
         rewardSecondary: { REPRODUCTION: 0.7, SECURITY: 0.8, HONOR: 0.5 },
         risk: 0.4,
-        locationType: 'home'
+        locationType: 'home',
     },
     {
         tag: ReproductionActionTag.SEEK_MIDWIFE,
         costEnergy: -0.3,
         costTime: 3,
         rewardSecondary: { REPRODUCTION: 0.6, HEALTH: 0.5, FAMILY: 0.4 },
-        targetType: 'OTHER'
+        targetType: 'OTHER',
     },
     {
         tag: ReproductionActionTag.BLESS_CHILD,
         costEnergy: -0.1,
         costTime: 1,
         rewardSecondary: { REPRODUCTION: 0.5, SPIRIT: 0.6, FAMILY: 0.4 },
-        locationType: 'temple'
+        locationType: 'temple',
     },
 ];

@@ -27,7 +27,7 @@ export const CultureActions: ActionDefinition[] = [
             health.sanitation_norms,
             health.waste_handling,
             comm.language.written,
-        ]
+        ],
     },
     {
         tag: CultureActionTag.ORAL_HISTORY_CIRCLE,
@@ -47,7 +47,7 @@ export const CultureActions: ActionDefinition[] = [
             cog.timekeeping.basic,
             heat.space.hearth,
             comm.language.written,
-        ]
+        ],
     },
     {
         tag: CultureActionTag.CRAFT_GUILD_EXHIBIT,
@@ -63,10 +63,7 @@ export const CultureActions: ActionDefinition[] = [
         tradeEffect: { booth_fee: -1 as any, decorations: -1 },
         socialImpact: { COMMUNITY: 0.3, RESPECT: 0.3 },
         lawEffect: { exhibitEtiquette: 'observed', enforceable: true },
-        requiredMemes: [
-            comm.language.written,
-            org.workshop_practice,
-        ]
+        requiredMemes: [comm.language.written, org.workshop_practice],
     },
     {
         tag: CultureActionTag.RITES_OF_PASSAGE,
@@ -83,10 +80,7 @@ export const CultureActions: ActionDefinition[] = [
         socialImpact: { RESPECT: 0.4, COMMUNITY: 0.3 },
         lawEffect: { riteRegister: 'recorded', enforceable: true },
         ownershipEffect: { token: 'granted', rights: 'adult_privileges' },
-        requiredMemes: [
-            culture.vigil_ritual,
-            cog.timekeeping.basic,
-        ]
+        requiredMemes: [culture.vigil_ritual, cog.timekeeping.basic],
     },
     {
         tag: CultureActionTag.SEASONAL_DECORATIONS,
@@ -105,7 +99,7 @@ export const CultureActions: ActionDefinition[] = [
         },
         needRework: true,
         socialImpact: { AESTHETIC: 0.3 as any, COHESION: 0.2 },
-        ownershipEffect: { districtLook: 'festive' }
+        ownershipEffect: { districtLook: 'festive' },
     },
     {
         tag: CultureActionTag.SONG_DANCE_REHEARSAL,
@@ -120,7 +114,7 @@ export const CultureActions: ActionDefinition[] = [
         requiresLocation: 'hall|green',
         socialImpact: { COHESION: 0.4, NETWORK: 0.2 },
         ownershipEffect: { repertoire: 'expanded' },
-        requiredMemes: [comm.language.written]
+        requiredMemes: [comm.language.written],
     },
     {
         tag: CultureActionTag.STORYTELLER_NIGHT,
@@ -141,7 +135,7 @@ export const CultureActions: ActionDefinition[] = [
             cog.timekeeping.basic,
             heat.space.hearth,
             comm.language.written,
-        ]
+        ],
     },
     {
         tag: CultureActionTag.HERITAGE_MARKERS,
@@ -156,7 +150,7 @@ export const CultureActions: ActionDefinition[] = [
         tradeEffect: { stone: '-N' as any, chisel_wear: '-minor' },
         socialImpact: { MEMORY: 0.4 as any, COMMUNITY: 0.3 },
         lawEffect: { heritageRegistry: 'updated', enforceable: true },
-        ownershipEffect: { siteStatus: 'protected' }
+        ownershipEffect: { siteStatus: 'protected' },
     },
     {
         tag: CultureActionTag.SHARED_MEAL_FEAST,
@@ -180,7 +174,7 @@ export const CultureActions: ActionDefinition[] = [
             health.sanitation_norms,
             health.waste_handling,
             comm.language.written,
-        ]
+        ],
     },
     {
         tag: CultureActionTag.ARTISAN_CONTEST,
@@ -197,10 +191,7 @@ export const CultureActions: ActionDefinition[] = [
         socialImpact: { COMPETITION: 0.3, RESPECT: 0.3 },
         lawEffect: { contestRules: 'posted', enforceable: true },
         ownershipEffect: { laurels: 'awarded' },
-        requiredMemes: [
-            comm.language.written,
-            org.workshop_practice,
-        ]
+        requiredMemes: [comm.language.written, org.workshop_practice],
     },
     {
         tag: CultureActionTag.SYMBOLS_STANDARDIZE,
@@ -215,7 +206,7 @@ export const CultureActions: ActionDefinition[] = [
         tradeEffect: { dye: -1 | (0 as any), seals: '-N' as any },
         socialImpact: { UNITY: 0.3 as any, RESPECT: 0.2 },
         lawEffect: { heraldryRoll: 'ratified', enforceable: true },
-        ownershipEffect: { banners: 'standardized' }
+        ownershipEffect: { banners: 'standardized' },
     },
     {
         tag: CultureActionTag.CULTURAL_EXCHANGE_FAIR,
@@ -236,7 +227,7 @@ export const CultureActions: ActionDefinition[] = [
             health.sanitation_norms,
             health.waste_handling,
             comm.language.written,
-        ]
+        ],
     },
     {
         tag: CultureActionTag.TEACH_CHILDREN_CUSTOMS,
@@ -255,7 +246,7 @@ export const CultureActions: ActionDefinition[] = [
             culture.vigil_ritual,
             cog.timekeeping.basic,
             heat.space.hearth,
-        ]
+        ],
     },
     {
         tag: CultureActionTag.MEMORIAL_SERVICE,
@@ -270,10 +261,7 @@ export const CultureActions: ActionDefinition[] = [
         requiresLocation: 'temple|graveyard',
         socialImpact: { DIGNITY: 0.4 as any, COHESION: 0.3 },
         lawEffect: { processionPermit: 'granted', enforceable: true },
-        requiredMemes: [
-            culture.vigil_ritual,
-            cog.timekeeping.basic,
-        ]
+        requiredMemes: [culture.vigil_ritual, cog.timekeeping.basic],
     },
     {
         tag: CultureActionTag.PATRONAGE_CHARTER,
@@ -288,7 +276,7 @@ export const CultureActions: ActionDefinition[] = [
         tradeEffect: { endowment: -1 as any },
         socialImpact: { NETWORK: 0.3, RESPECT: 0.3 },
         lawEffect: { patronCharter: 'sealed', enforceable: true },
-        ownershipEffect: { workshopGrants: 'enabled' }
+        ownershipEffect: { workshopGrants: 'enabled' },
     },
     {
         tag: CultureActionTag.ARCHIVE_SONGS_AND_PATTERNS,
@@ -307,6 +295,6 @@ export const CultureActions: ActionDefinition[] = [
             accessScope: 'library',
             grantAccess: true,
         },
-        lawEffect: { archivePolicy: 'preservation', enforceable: true }
+        lawEffect: { archivePolicy: 'preservation', enforceable: true },
     },
 ];

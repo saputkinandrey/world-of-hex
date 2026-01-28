@@ -1,4 +1,4 @@
-import {WorldState} from "../../world";
+import { WorldState } from '../../world';
 
 export interface LoadLocationResponsePayloadDto {
     locationId: string;

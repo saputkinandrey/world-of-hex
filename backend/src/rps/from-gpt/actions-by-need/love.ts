@@ -9,7 +9,7 @@ export const LoveActions: ActionDefinition[] = [
         rewardSecondary: { LOVE: 0.7, AFFECTION: 0.5, TRUST: 0.3, MOOD: 0.2 },
         requiresLocation: 'home|porch|garden',
         socialImpact: { REPUTATION: 0.1, COURTSHIP_ETIQUETTE: 0.3 as any },
-        lawEffect: { curfew: 'respected', enforceable: true }
+        lawEffect: { curfew: 'respected', enforceable: true },
     },
     {
         tag: LoveActionTag.EXCHANGE_TOKENS,
@@ -24,7 +24,7 @@ export const LoveActions: ActionDefinition[] = [
         tradeEffect: { token_gift_out: -1, token_gift_in: '+1' },
         socialImpact: { TRUST: 0.2, STATUS: 0.1 },
         ownershipEffect: { keepsake: 'paired_tokens', provenance: 'courtship' },
-        lawEffect: { giftPolicy: 'no_bribe', enforceable: true }
+        lawEffect: { giftPolicy: 'no_bribe', enforceable: true },
     },
     {
         tag: LoveActionTag.WRITE_POEM_OR_SONG,
@@ -39,7 +39,7 @@ export const LoveActions: ActionDefinition[] = [
         tradeEffect: { parchment: -1, ink: -1 },
         socialImpact: { REPUTATION: 0.2, JOY: 0.3 as any },
         ownershipEffect: { composition: 'dedication', rights: 'author' },
-        requiredMemes: [comm.language.written]
+        requiredMemes: [comm.language.written],
     },
     {
         tag: LoveActionTag.PROTECTIVE_GESTURE,
@@ -53,7 +53,7 @@ export const LoveActions: ActionDefinition[] = [
             RESILIENCE: 0.2,
         },
         socialImpact: { RESPECT: 0.2, COURAGE: 0.2 },
-        lawEffect: { conductRule: 'no_escalation', enforceable: true }
+        lawEffect: { conductRule: 'no_escalation', enforceable: true },
     },
     {
         tag: LoveActionTag.SHARED_TASK_HELP,
@@ -71,10 +71,7 @@ export const LoveActions: ActionDefinition[] = [
             accessScope: 'workbench|kitchen',
             grantAccess: true,
         },
-        requiredMemes: [
-            comm.language.written,
-            tech.tool.use_basic,
-        ]
+        requiredMemes: [comm.language.written, tech.tool.use_basic],
     },
     {
         tag: LoveActionTag.CARE_WHEN_ILL,
@@ -88,7 +85,7 @@ export const LoveActions: ActionDefinition[] = [
         },
         tradeEffect: { herbs: -1, broth: -1, linens: '-wear' },
         socialImpact: { TRUST: 0.4, LOYALTY: 0.3 },
-        lawEffect: { sickroomEtiquette: 'observed', enforceable: true }
+        lawEffect: { sickroomEtiquette: 'observed', enforceable: true },
     },
     {
         tag: LoveActionTag.RESOLVE_QUARREL,
@@ -103,7 +100,7 @@ export const LoveActions: ActionDefinition[] = [
         },
         requiresSkill: 'mediation|empathy',
         socialImpact: { RESPECT: 0.2, STABILITY: 0.2, RESENTMENT: -0.2 as any },
-        lawEffect: { truceNote: 'filed', enforceable: true }
+        lawEffect: { truceNote: 'filed', enforceable: true },
     },
     {
         tag: LoveActionTag.PLEDGE_PARTNERSHIP,
@@ -129,7 +126,7 @@ export const LoveActions: ActionDefinition[] = [
             record.ledgerkeeping,
             econ.pooling_common_fund,
             econ.deposit_contract,
-        ]
+        ],
     },
     {
         tag: LoveActionTag.PLAN_FUTURE_HOME,
@@ -140,7 +137,7 @@ export const LoveActions: ActionDefinition[] = [
         socialImpact: { STABILITY: 0.3, RESPONSIBILITY: 0.3 as any },
         ownershipEffect: { blueprint: 'home_layout', escrow: 'dowry_draft' },
         lawEffect: { propertySurvey: 'planned', enforceable: true },
-        requiredMemes: [comm.language.written]
+        requiredMemes: [comm.language.written],
     },
     {
         tag: LoveActionTag.MEET_EACH_OTHERS_FAMILY,
@@ -154,7 +151,7 @@ export const LoveActions: ActionDefinition[] = [
         },
         tradeEffect: { meal: -2, gifts: -1 },
         socialImpact: { TRUST: 0.3, ALLIANCE: 0.3 as any },
-        lawEffect: { kinshipNote: 'logged', enforceable: true }
+        lawEffect: { kinshipNote: 'logged', enforceable: true },
     },
     {
         tag: LoveActionTag.DANCE_PAIR_GATHERING,
@@ -169,7 +166,7 @@ export const LoveActions: ActionDefinition[] = [
             health.sanitation_norms,
             health.waste_handling,
             comm.language.written,
-        ]
+        ],
     },
     {
         tag: LoveActionTag.PRIVATE_WALK_CHAPERONED,
@@ -178,7 +175,7 @@ export const LoveActions: ActionDefinition[] = [
         rewardSecondary: { LOVE: 0.7, TRUST: 0.4, PRIVACY: 0.3, CLARITY: 0.2 },
         requiresLocation: 'greenway|riverbank',
         socialImpact: { REPUTATION: 0.1, SCANDAL: -0.1 as any },
-        lawEffect: { chaperoneRule: 'observed', enforceable: true }
+        lawEffect: { chaperoneRule: 'observed', enforceable: true },
     },
     {
         tag: LoveActionTag.SUPPORT_PERSONAL_GOAL,
@@ -192,7 +189,7 @@ export const LoveActions: ActionDefinition[] = [
         },
         tradeEffect: { small_funding: -1 | (0 as any) },
         socialImpact: { LOYALTY: 0.3, RESPECT: 0.3 },
-        ownershipEffect: { accessScope: 'workspace', grantAccess: true }
+        ownershipEffect: { accessScope: 'workspace', grantAccess: true },
     },
     {
         tag: LoveActionTag.DEFEND_REPUTATION,
@@ -202,7 +199,7 @@ export const LoveActions: ActionDefinition[] = [
         rewardSecondary: { LOVE: 0.8, HONOR: 0.4, COURAGE: 0.3, NETWORK: 0.2 },
         requiresSkill: 'rhetoric|dueling_etiquette',
         socialImpact: { CREDIBILITY: 0.3, FEAR: -0.1 },
-        lawEffect: { defamationRule: 'observed', enforceable: true }
+        lawEffect: { defamationRule: 'observed', enforceable: true },
     },
     {
         tag: LoveActionTag.REMEMBER_ANNIVERSARY,
@@ -217,7 +214,7 @@ export const LoveActions: ActionDefinition[] = [
         tradeEffect: { sweets: -1, flowers: -1 },
         socialImpact: { TRUST: 0.3, JOY: 0.4 as any },
         ownershipEffect: { memoryLog: 'anniversary_mark', keepsake: 'created' },
-        requiredMemes: [comm.language.written]
+        requiredMemes: [comm.language.written],
     },
     {
         tag: LoveActionTag.SURPRISE_KIND_ACT,
@@ -232,6 +229,6 @@ export const LoveActions: ActionDefinition[] = [
         },
         tradeEffect: { small_token: -1 | (0 as any) },
         socialImpact: { GRATITUDE: 0.4, REPUTATION: 0.1 },
-        ownershipEffect: { accessScope: 'home|work', grantAccess: true }
+        ownershipEffect: { accessScope: 'home|work', grantAccess: true },
     },
 ];

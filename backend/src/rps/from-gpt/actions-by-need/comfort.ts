@@ -10,7 +10,7 @@ export const ComfortActions: ActionDefinition[] = [
         requiresItem: ['wood', 'flint'],
         requiresLocation: 'camp',
         requiredMemes: [fire.control],
-        temperatureEffect: +10
+        temperatureEffect: +10,
     },
     {
         tag: ComfortActionTag.SIT_BY_FIRE,
@@ -18,14 +18,14 @@ export const ComfortActions: ActionDefinition[] = [
         costTime: 1,
         rewardSecondary: { COMFORT: 0.7, MOOD: 0.4, REST: 0.3 },
         requiredMemes: [fire.use],
-        temperatureEffect: +5
+        temperatureEffect: +5,
     },
     {
         tag: ComfortActionTag.ENTER_SHELTER,
         costEnergy: -0.1,
         costTime: 0.2,
         rewardSecondary: { COMFORT: 0.5, STABILITY: 0.3, SECURITY: 0.2 },
-        requiresLocation: 'shelter'
+        requiresLocation: 'shelter',
     },
     {
         tag: ComfortActionTag.COVER_WITH_FUR,
@@ -34,7 +34,7 @@ export const ComfortActions: ActionDefinition[] = [
         rewardSecondary: { COMFORT: 0.4, HEALTH: 0.2 },
         requiresItem: ['fur'],
         unclearAction: true,
-        temperatureEffect: +3
+        temperatureEffect: +3,
     },
     {
         tag: ComfortActionTag.DRINK_HOT_BEVERAGE,
@@ -42,7 +42,7 @@ export const ComfortActions: ActionDefinition[] = [
         costTime: 0.5,
         rewardSecondary: { COMFORT: 0.6, MOOD: 0.4, HEALTH: 0.2 },
         requiredMemes: [culinary.boil],
-        requiresItem: ['hot_drink']
+        requiresItem: ['hot_drink'],
     },
     {
         tag: ComfortActionTag.BUILD_BED,
@@ -50,7 +50,7 @@ export const ComfortActions: ActionDefinition[] = [
         costTime: 3,
         rewardSecondary: { COMFORT: 0.9, REST: 0.6, STABILITY: 0.4 },
         requiresItem: ['straw', 'wood'],
-        requiresLocation: 'home'
+        requiresLocation: 'home',
     },
     {
         tag: ComfortActionTag.REPAIR_HOUSE,
@@ -58,7 +58,7 @@ export const ComfortActions: ActionDefinition[] = [
         costTime: 4,
         rewardSecondary: { COMFORT: 0.7, STABILITY: 0.6, SECURITY: 0.4 },
         requiresItem: ['wood', 'clay'],
-        requiresLocation: 'home'
+        requiresLocation: 'home',
     },
     {
         tag: ComfortActionTag.SNUGGLE_WITH_PARTNER,
@@ -66,14 +66,14 @@ export const ComfortActions: ActionDefinition[] = [
         costTime: 1,
         rewardSecondary: { COMFORT: 0.8, AFFECTION: 0.5, MOOD: 0.3 },
         requiresLocation: 'home',
-        targetType: 'OTHER'
+        targetType: 'OTHER',
     },
     {
         tag: ComfortActionTag.DECORATE_HOME,
         costEnergy: -0.3,
         costTime: 2,
         rewardSecondary: { COMFORT: 0.5, STATUS: 0.2, MOOD: 0.3 },
-        requiresItem: ['paint', 'fabric']
+        requiresItem: ['paint', 'fabric'],
     },
     {
         tag: ComfortActionTag.BASK_IN_SUN,
@@ -81,6 +81,6 @@ export const ComfortActions: ActionDefinition[] = [
         costTime: 1,
         rewardSecondary: { COMFORT: 0.4, MOOD: 0.3, HEALTH: 0.2 },
         requiresLocation: 'outdoors',
-        temperatureEffect: +2
+        temperatureEffect: +2,
     },
 ];
