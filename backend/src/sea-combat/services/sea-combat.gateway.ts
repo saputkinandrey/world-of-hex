@@ -22,13 +22,13 @@ import { LoadEncounterResponsePayloadDto } from '../dto/websockets/load-encounte
     cors: { origin: '*' },
 })
 @Injectable()
-export class SeaCombatSocketIoGateway
+export class SeaCombatGateway
     implements OnGatewayInit, OnGatewayConnection, OnGatewayDisconnect
 {
     @WebSocketServer()
     server: Server;
 
-    private readonly logger = new Logger(SeaCombatSocketIoGateway.name);
+    private readonly logger = new Logger(SeaCombatGateway.name);
 
     constructor(
         private readonly encounterService: EncounterService,

@@ -1,0 +1,10 @@
+{
+  "name": "world-of-hex",
+  "private": true,
+  "version": "0.1.0",
+  "scripts": {
+    "backend:dev": "npm --prefix backend run start:dev",
+    "infra:up": "docker compose --env-file backend/.env -f backend/docker-compose.document.yaml up -d mongo redis",
+    "admin:dev": "npm --prefix admin run dev"
+  }
+}
