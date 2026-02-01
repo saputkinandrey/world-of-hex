@@ -1,11 +1,10 @@
 import type { Metadata } from 'next';
-import { CssBaseline, ThemeProvider } from '@mui/material';
 import { Space_Grotesk } from 'next/font/google';
-import { theme } from './theme';
+import ThemeRegistry from './theme-registry';
 import './globals.css';
 
 const spaceGrotesk = Space_Grotesk({
-  subsets: ['latin', 'cyrillic'],
+  subsets: ['latin', 'latin-ext'],
   display: 'swap',
 });
 
@@ -22,10 +21,7 @@ export default function RootLayout({
   return (
     <html lang="ru" className={spaceGrotesk.className}>
       <body>
-        <ThemeProvider theme={theme}>
-          <CssBaseline />
-          {children}
-        </ThemeProvider>
+        <ThemeRegistry>{children}</ThemeRegistry>
       </body>
     </html>
   );

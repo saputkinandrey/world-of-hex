@@ -11,12 +11,15 @@ import {
   Container,
   Divider,
   Grid,
+  IconButton,
   MenuItem,
   Stack,
   TextField,
   Toolbar,
   Typography,
 } from '@mui/material';
+import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
+import LinkOffRoundedIcon from '@mui/icons-material/LinkOffRounded';
 
 type Encounter = {
   _id: string;
@@ -27,6 +30,7 @@ type Encounter = {
 type Player = {
   _id: string;
   name: string;
+  ownedShips?: Array<{ _id: string }>;
 };
 
 type Ship = {
@@ -57,6 +61,32 @@ export default function HomePage() {
   const [ownPlayerId, setOwnPlayerId] = useState('');
   const [ownShipId, setOwnShipId] = useState('');
 
+  const shipNameById = useMemo(() => {
+    const map = new Map<string, Ship>();
+    ships.forEach((ship) => map.set(ship._id, ship));
+    return map;
+  }, [ships]);
+
+  const shipOwnerById = useMemo(() => {
+    const map = new Map<string, Player>();
+    players.forEach((player) => {
+      player.ownedShips?.forEach((owned) => {
+        if (!map.has(owned._id)) {
+          map.set(owned._id, player);
+        }
+      });
+    });
+    return map;
+  }, [players]);
+
+  const availableShips = useMemo(() => {
+    const ownedIds = new Set<string>();
+    players.forEach((player) => {
+      player.ownedShips?.forEach((owned) => ownedIds.add(owned._id));
+    });
+    return ships.filter((ship) => !ownedIds.has(ship._id));
+  }, [ships, players]);
+
   const fetchJson = async <T,>(
     path: string,
     options?: RequestInit,
@@ -68,11 +98,14 @@ export default function HomePage() {
         ...(options?.headers ?? {}),
       },
     });
+    const text = await res.text();
     if (!res.ok) {
-      const message = await res.text();
-      throw new Error(message || res.statusText);
+      throw new Error(text || res.statusText);
     }
-    return (await res.json()) as T;
+    if (!text) {
+      return null as T;
+    }
+    return JSON.parse(text) as T;
   };
 
   const loadAll = async () => {
@@ -139,6 +172,33 @@ export default function HomePage() {
     });
     setOwnPlayerId('');
     setOwnShipId('');
+    await loadAll();
+  };
+
+  const deleteShip = async (shipId: string) => {
+    if (!window.confirm('Delete this ship?')) {
+      return;
+    }
+    await fetchJson(`/sea-combat/ships/${shipId}`, {
+      method: 'DELETE',
+    });
+    await loadAll();
+  };
+
+  const deletePlayer = async (playerId: string) => {
+    if (!window.confirm('Delete this player?')) {
+      return;
+    }
+    await fetchJson(`/sea-combat/players/${playerId}`, {
+      method: 'DELETE',
+    });
+    await loadAll();
+  };
+
+  const unassignShip = async (playerId: string, shipId: string) => {
+    await fetchJson(`/sea-combat/players/${playerId}/own-a-ship/${shipId}`, {
+      method: 'DELETE',
+    });
     await loadAll();
   };
 
@@ -265,9 +325,10 @@ export default function HomePage() {
                       label="Assign ship"
                       select
                       value={ownShipId}
+                      disabled={!ownPlayerId}
                       onChange={(event) => setOwnShipId(event.target.value)}
                     >
-                      {ships.map((ship) => (
+                      {availableShips.map((ship) => (
                         <MenuItem key={ship._id} value={ship._id}>
                           {ship.name} · {ship.type}
                         </MenuItem>
@@ -292,10 +353,64 @@ export default function HomePage() {
                             py: 1,
                           }}
                         >
-                          <Typography>{player.name}</Typography>
+                          <Stack direction="row" alignItems="center" spacing={1}>
+                            <Typography>{player.name}</Typography>
+                            <IconButton
+                              size="small"
+                              aria-label="delete player"
+                              onClick={() => deletePlayer(player._id)}
+                              sx={{
+                                border: '1px solid rgba(255, 77, 77, 0.6)',
+                                color: 'rgba(255, 77, 77, 0.9)',
+                                transform: 'rotate(-12deg)',
+                                '&:hover': {
+                                  borderColor: 'rgba(255, 77, 77, 0.9)',
+                                  backgroundColor: 'rgba(255, 77, 77, 0.08)',
+                                },
+                              }}
+                            >
+                              <CloseRoundedIcon sx={{ fontSize: 14 }} />
+                            </IconButton>
+                          </Stack>
                           <Typography variant="caption" color="text.secondary">
                             {player._id}
                           </Typography>
+                          {player.ownedShips?.length ? (
+                            <Stack direction="row" spacing={1} sx={{ mt: 1 }}>
+                              {player.ownedShips.map((owned) => {
+                                const ship = shipNameById.get(owned._id);
+                                return (
+                                  <Chip
+                                    key={`${player._id}-${owned._id}`}
+                                    label={ship ? ship.name : owned._id}
+                                    size="medium"
+                                    variant="outlined"
+                                    onDelete={() =>
+                                      unassignShip(player._id, owned._id)
+                                    }
+                                    deleteIcon={<LinkOffRoundedIcon />}
+                                    sx={{
+                                      height: 32,
+                                      '& .MuiChip-deleteIcon': {
+                                        color: '#ffb04d',
+                                      },
+                                      '& .MuiChip-deleteIcon:hover': {
+                                        color: '#ffc06d',
+                                      },
+                                    }}
+                                  />
+                                );
+                              })}
+                            </Stack>
+                          ) : (
+                            <Typography
+                              variant="caption"
+                              color="text.secondary"
+                              sx={{ display: 'block', mt: 1 }}
+                            >
+                              No ships assigned
+                            </Typography>
+                          )}
                         </Box>
                       ))}
                     </Stack>
@@ -348,10 +463,60 @@ export default function HomePage() {
                             py: 1,
                           }}
                         >
-                          <Typography>{ship.name}</Typography>
+                          <Stack direction="row" alignItems="center" spacing={1}>
+                            <Typography>{ship.name}</Typography>
+                            <IconButton
+                              size="small"
+                              aria-label="delete ship"
+                              onClick={() => deleteShip(ship._id)}
+                              sx={{
+                                border: '1px solid rgba(255, 77, 77, 0.6)',
+                                color: 'rgba(255, 77, 77, 0.9)',
+                                transform: 'rotate(-12deg)',
+                                '&:hover': {
+                                  borderColor: 'rgba(255, 77, 77, 0.9)',
+                                  backgroundColor: 'rgba(255, 77, 77, 0.08)',
+                                },
+                              }}
+                            >
+                              <CloseRoundedIcon sx={{ fontSize: 14 }} />
+                            </IconButton>
+                          </Stack>
                           <Typography variant="caption" color="text.secondary">
                             {ship._id} · {ship.type} · speed {ship.speed}
                           </Typography>
+                          {shipOwnerById.has(ship._id) ? (
+                            <Chip
+                              size="medium"
+                              variant="outlined"
+                              sx={{ mt: 1, height: 32 }}
+                              label={`Owner: ${shipOwnerById.get(ship._id)?.name ?? 'unknown'}`}
+                              onDelete={() => {
+                                const owner = shipOwnerById.get(ship._id);
+                                if (owner) {
+                                  void unassignShip(owner._id, ship._id);
+                                }
+                              }}
+                              deleteIcon={<LinkOffRoundedIcon />}
+                              sx={{
+                                mt: 1,
+                                height: 32,
+                                '& .MuiChip-deleteIcon': {
+                                  color: '#ffb04d',
+                                },
+                                '& .MuiChip-deleteIcon:hover': {
+                                  color: '#ffc06d',
+                                },
+                              }}
+                            />
+                          ) : (
+                            <Chip
+                              size="medium"
+                              variant="outlined"
+                              sx={{ mt: 1, height: 32 }}
+                              label="Owner: —"
+                            />
+                          )}
                         </Box>
                       ))}
                     </Stack>
@@ -359,9 +524,11 @@ export default function HomePage() {
                 </CardContent>
               </Card>
             </Grid>
+
           </Grid>
         </Stack>
       </Container>
     </Box>
   );
 }
+
