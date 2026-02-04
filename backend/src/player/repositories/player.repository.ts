@@ -24,6 +24,23 @@ export class PlayerRepository {
         >;
     }
 
+    findOwnerByShipId(shipId: string) {
+        return this.playerModel
+            .findOne({ 'ownedShips._id': shipId })
+            .exec() as Promise<PlayerDocument | null>;
+    }
+
+    deleteById(id: string) {
+        return this.playerModel.findByIdAndDelete(id).exec();
+    }
+
+    removeShipFromAll(shipId: string) {
+        return this.playerModel.updateMany(
+            {},
+            { $pull: { ownedShips: { _id: shipId } } },
+        );
+    }
+
     create(player: Partial<Player>) {
         return this.playerModel.create(player);
     }

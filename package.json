@@ -5,6 +5,7 @@
   "scripts": {
     "backend:dev": "npm --prefix backend run start:dev",
     "infra:up": "docker compose --env-file backend/.env -f backend/docker-compose.document.yaml up -d mongo redis",
-    "admin:dev": "npm --prefix admin run dev"
+    "admin:dev": "npm --prefix admin run dev",
+    "web-client:dev": "npm --prefix web-client run dev"
   }
 }

@@ -26,4 +26,8 @@ export class ShipRepository {
             ShipDocument[]
         >;
     }
+
+    deleteById(id: string) {
+        return this.shipModel.findByIdAndDelete(id).exec();
+    }
 }

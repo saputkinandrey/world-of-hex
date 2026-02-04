@@ -1,6 +1,7 @@
 import {
     Body,
     Controller,
+    Delete,
     Get,
     NotFoundException,
     Param,
@@ -48,6 +49,27 @@ export class PlayersController {
         }
 
         await this.playerService.ownAShip(player, ship);
+    }
+
+    @Delete(':playerId/own-a-ship/:shipId')
+    async deleteOwnedShip(
+        @Param('playerId') playerId: string,
+        @Param('shipId') shipId: string,
+    ) {
+        const player = await this.playerRepository.findOneById(playerId);
+        if (!player) {
+            throw new NotFoundException(`Player with id ${playerId} not found`);
+        }
+        await this.playerService.unownShip(player, shipId);
+    }
+
+    @Delete(':playerId')
+    async deletePlayer(@Param('playerId') playerId: string) {
+        const player = await this.playerRepository.findOneById(playerId);
+        if (!player) {
+            throw new NotFoundException(`Player with id ${playerId} not found`);
+        }
+        await this.playerRepository.deleteById(playerId);
     }
 
     @Post()

@@ -1,94 +1,49 @@
-import { ShipToEncounterEntity } from '../../__entities/ship-to-encounter.entity';
+import { AggregateRoot, AggregateRootName } from '@event-nest/core';
+import { WindroseEntity } from './entities/windrose.entity';
+import { bindChildActions } from '../../../utils/child-action.decorator';
+import { Action } from '../../../utils/event-action.decorator';
+import { EncounterTurnEndedEvent, EncounterTurnStartedEvent } from './events/encounter.events';
 import Vector from 'vector2js';
-
-import { AggregateRoot, AggregateRootName, ApplyEvent } from '@event-nest/core';
-import {
-    ShipSpawnedEvent,
-    WindroseReRollDirectionEvent,
-    WindroseSetDirectionEvent,
-    WindroseTurnLeftEvent,
-    WindroseTurnRightEvent,
-} from './events/events';
-import { randomChoice } from '../../../rps/utils/roll';
-import { AllDirections } from '../../types/direction.type';
 import { ShipEntity } from '../../__entities/ship.entity';
-import { WindroseEntity } from './entities/windrose.model';
+import { ShipToEncounterEntity } from './entities/ship-to-encounter.entity';
+import { ShipSpawnedEvent } from './events/ship.events';
 
-@AggregateRootName(EncounterRoot.name)
-export class EncounterRoot extends AggregateRoot {
-    ships: ShipToEncounterEntity[] = [];
+@AggregateRootName(EncounterAggregate.name)
+export class EncounterAggregate extends AggregateRoot {
+    readonly windrose: WindroseEntity = new WindroseEntity();
+    readonly ships: ShipToEncounterEntity[] = [];
 
-    windrose: WindroseEntity = new WindroseEntity();
+    constructor(id: string) {
+        super(id);
+        this.windrose.setStreamId(`windrose:${id}`);
+        bindChildActions(this, this.windrose, 'windrose');
+    }
 
-    createdAt: Date = new Date();
+    @Action(EncounterTurnStartedEvent)
+    startTurn() {
+        this.ships.forEach((ship) => ship.startTurn());
+        return this;
+    }
 
-    updatedAt: Date;
+    @Action(EncounterTurnEndedEvent)
+    endTurn() {
+        this.ships.forEach((ship) => ship.endTurn());
+        return this;
+    }
 
-    deletedAt: Date;
+    @Action(ShipSpawnedEvent)
+    spawnShipAtPosition(ship: ShipEntity, position: Vector) {
+        const shipEntity = Object.assign(new ShipToEncounterEntity(), {
+            ship,
+            shipId: ship.id,
+            position,
+        });
+        bindChildActions(this, shipEntity, `ship_${shipEntity.shipId ?? this.ships.length}`);
+        this.ships.push(shipEntity);
+        return this;
+    }
 
     hasShipAtPosition(position: Vector): boolean {
         return this.ships.some((ship) => ship.position.equals(position));
-    }
-
-    spawnShipAtPosition(ship: ShipEntity, position: Vector) {
-        const event = new ShipSpawnedEvent(ship, position);
-        this.applyShipSpawnedEvent(event);
-        this.append(event);
-        return this;
-    }
-
-    @ApplyEvent(ShipSpawnedEvent)
-    applyShipSpawnedEvent(event: ShipSpawnedEvent) {
-        if (this.hasShipAtPosition(event.position)) {
-            throw new Error(
-                `Cannot spawn ship at position ${event.position.toString()}`,
-            );
-        }
-        this.ships.push(
-            Object.assign(new ShipToEncounterEntity(), {
-                ship: event.ship,
-                position: event.position,
-            }),
-        );
-        return this;
-    }
-}
-
-export class EncounterWithWindrose extends EncounterRoot {
-    @ApplyEvent(WindroseTurnRightEvent)
-    windroseTurnRight() {
-        this.windrose.turnRight();
-        return this;
-    }
-
-    @ApplyEvent(WindroseTurnLeftEvent)
-    windroseTurnLeft() {
-        this.windrose.turnRight();
-        return this;
-    }
-
-    @ApplyEvent(WindroseSetDirectionEvent)
-    windroseSetDirectionEvent(event: WindroseSetDirectionEvent) {
-        this.windrose.setDirection(event.direction);
-        return this;
-    }
-
-    @ApplyEvent(WindroseReRollDirectionEvent)
-    windroseReRollDirection() {
-        const event = new WindroseSetDirectionEvent(
-            randomChoice(AllDirections),
-        );
-        this.append(event);
-        return this.windroseSetDirectionEvent(event);
-    }
-}
-
-export class EncounterWithShips extends EncounterWithWindrose {}
-
-export class EncounterAggregate extends EncounterWithShips {
-    async methodA() {
-        this.append(new ShipSpawnedEvent(new ShipEntity(), new Vector(1, 1)));
-        this.append(new WindroseReRollDirectionEvent());
-        await this.commit();
     }
 }
