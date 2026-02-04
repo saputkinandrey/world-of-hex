@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import {
   AppBar,
   Box,
@@ -10,6 +10,10 @@ import {
   Chip,
   Container,
   Divider,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
   Grid,
   IconButton,
   MenuItem,
@@ -20,7 +24,11 @@ import {
 } from '@mui/material';
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 import LinkOffRoundedIcon from '@mui/icons-material/LinkOffRounded';
-import { EncounterCard, type EncounterCardData } from '@wohex/ui';
+import {
+  EncounterCard,
+  EncounterHexGrid,
+  type EncounterCardData,
+} from '@wohex/ui';
 
 type Encounter = EncounterCardData;
 
@@ -49,6 +57,83 @@ export default function HomePage() {
   const [players, setPlayers] = useState<Player[]>([]);
   const [ships, setShips] = useState<Ship[]>([]);
   const [loading, setLoading] = useState(false);
+  const [previewEncounter, setPreviewEncounter] =
+    useState<Encounter | null>(null);
+  const previewScrollRef = useRef<HTMLDivElement | null>(null);
+  const previewDragState = useRef<{
+    startX: number;
+    startY: number;
+    scrollLeft: number;
+    scrollTop: number;
+  } | null>(null);
+  const [isPreviewDragging, setIsPreviewDragging] = useState(false);
+  const previewHexSize = 28;
+  const [previewZoom, setPreviewZoom] = useState(1);
+  const previewZoomRef = useRef(previewZoom);
+  const baseGridSize = useMemo(() => {
+    if (!previewEncounter) {
+      return { width: 640, height: 480 };
+    }
+    const width = Math.max(
+      640,
+      previewHexSize * (3 * previewEncounter.radius + 2),
+    );
+    const height = Math.max(
+      480,
+      previewHexSize * Math.sqrt(3) * (2 * previewEncounter.radius + 1),
+    );
+    return { width, height };
+  }, [previewEncounter, previewHexSize]);
+  const previewGridSize = useMemo(
+    () => ({
+      width: baseGridSize.width * previewZoom,
+      height: baseGridSize.height * previewZoom,
+    }),
+    [baseGridSize, previewZoom],
+  );
+
+  useEffect(() => {
+    if (!isPreviewDragging) {
+      return undefined;
+    }
+    const handleMove = (event: MouseEvent) => {
+      const state = previewDragState.current;
+      const container = previewScrollRef.current;
+      if (!state || !container) {
+        return;
+      }
+      const dx = event.clientX - state.startX;
+      const dy = event.clientY - state.startY;
+      container.scrollLeft = state.scrollLeft - dx;
+      container.scrollTop = state.scrollTop - dy;
+    };
+    const handleUp = () => {
+      previewDragState.current = null;
+      setIsPreviewDragging(false);
+    };
+    window.addEventListener('mousemove', handleMove);
+    window.addEventListener('mouseup', handleUp);
+    return () => {
+      window.removeEventListener('mousemove', handleMove);
+      window.removeEventListener('mouseup', handleUp);
+    };
+  }, [isPreviewDragging]);
+
+  useEffect(() => {
+    previewZoomRef.current = previewZoom;
+  }, [previewZoom]);
+
+  useEffect(() => {
+    if (!previewEncounter) {
+      return;
+    }
+    previewZoomRef.current = 1;
+    setPreviewZoom(1);
+    if (previewScrollRef.current) {
+      previewScrollRef.current.scrollLeft = 0;
+      previewScrollRef.current.scrollTop = 0;
+    }
+  }, [previewEncounter]);
 
   const [encounterName, setEncounterName] = useState('');
   const [encounterRadius, setEncounterRadius] = useState(6);
@@ -213,9 +298,6 @@ export default function HomePage() {
             variant="outlined"
           />
           <Box sx={{ flexGrow: 1 }} />
-          <Button variant="outlined" onClick={loadAll}>
-            Refresh
-          </Button>
         </Toolbar>
       </AppBar>
 
@@ -264,7 +346,11 @@ export default function HomePage() {
                     <Divider />
                     <Stack spacing={1}>
                       {encounters.map((enc) => (
-                        <EncounterCard key={enc._id} encounter={enc} />
+                        <EncounterCard
+                          key={enc._id}
+                          encounter={enc}
+                          onClick={() => setPreviewEncounter(enc)}
+                        />
                       ))}
                     </Stack>
                   </Stack>
@@ -511,6 +597,120 @@ export default function HomePage() {
           </Grid>
         </Stack>
       </Container>
+
+      <Dialog
+        open={Boolean(previewEncounter)}
+        onClose={() => setPreviewEncounter(null)}
+        fullWidth
+        maxWidth="lg"
+        PaperProps={{ sx: { height: '90vh' } }}
+      >
+        <DialogTitle sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+          <Box sx={{ flex: 1 }}>
+            <Typography variant="h6">
+              {previewEncounter?.name ?? 'Encounter preview'}
+            </Typography>
+            {previewEncounter ? (
+              <Typography variant="caption" color="text.secondary">
+                {previewEncounter._id} - radius {previewEncounter.radius}
+              </Typography>
+            ) : null}
+          </Box>
+          <Button onClick={() => setPreviewEncounter(null)}>Close</Button>
+        </DialogTitle>
+        <DialogContent sx={{ overflow: 'hidden' }}>
+          {previewEncounter ? (
+            <Box sx={{ display: 'grid', gap: 2 }}>
+              <Box
+                ref={previewScrollRef}
+                onMouseDown={(event) => {
+                  if (event.button !== 0) {
+                    return;
+                  }
+                  const container = previewScrollRef.current;
+                  if (!container) {
+                    return;
+                  }
+                  event.preventDefault();
+                  previewDragState.current = {
+                    startX: event.clientX,
+                    startY: event.clientY,
+                    scrollLeft: container.scrollLeft,
+                    scrollTop: container.scrollTop,
+                  };
+                  setIsPreviewDragging(true);
+                }}
+                onWheel={(event) => {
+                  const container = previewScrollRef.current;
+                  if (!container) {
+                    return;
+                  }
+                  event.preventDefault();
+                  const rect = container.getBoundingClientRect();
+                  const pointerX = event.clientX - rect.left;
+                  const pointerY = event.clientY - rect.top;
+                  const offsetX = pointerX + container.scrollLeft;
+                  const offsetY = pointerY + container.scrollTop;
+                  const currentZoom = previewZoomRef.current;
+                  const zoomFactor = event.deltaY < 0 ? 1.1 : 0.9;
+                  const nextZoom = Math.min(
+                    3,
+                    Math.max(0.5, currentZoom * zoomFactor),
+                  );
+                  if (nextZoom === currentZoom) {
+                    return;
+                  }
+                  previewZoomRef.current = nextZoom;
+                  setPreviewZoom(nextZoom);
+                  const ratio = nextZoom / currentZoom;
+                  window.requestAnimationFrame(() => {
+                    const updated = previewScrollRef.current;
+                    if (!updated) {
+                      return;
+                    }
+                    updated.scrollLeft = offsetX * ratio - pointerX;
+                    updated.scrollTop = offsetY * ratio - pointerY;
+                  });
+                }}
+                sx={{
+                  width: '100%',
+                  height: '70vh',
+                  borderRadius: 2,
+                  border: '1px dashed',
+                  borderColor: 'divider',
+                  bgcolor: 'background.default',
+                  overflow: 'auto',
+                  cursor: isPreviewDragging ? 'grabbing' : 'grab',
+                  userSelect: isPreviewDragging ? 'none' : 'auto',
+                  p: 1,
+                }}
+                >
+                <Box
+                  sx={{
+                    width: `max(100%, ${previewGridSize.width}px)`,
+                    height: `max(100%, ${previewGridSize.height}px)`,
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                  }}
+                >
+                  <Box
+                    sx={{
+                      width: previewGridSize.width,
+                      height: previewGridSize.height,
+                    }}
+                  >
+                    <EncounterHexGrid
+                      radius={previewEncounter.radius}
+                      hexSize={previewHexSize * previewZoom}
+                    />
+                  </Box>
+                </Box>
+              </Box>
+            </Box>
+          ) : null}
+        </DialogContent>
+      </Dialog>
     </Box>
   );
 }

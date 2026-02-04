@@ -1,6 +1,7 @@
 import "./globals.css";
 import type { ReactNode } from "react";
 import ThemeRegistry from "./theme-registry";
+import { LiveReload } from "@wohex/ui";
 
 export const metadata = {
   title: "World of Hex - Web Client",
@@ -15,7 +16,10 @@ export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <html lang="en">
       <body>
-        <ThemeRegistry>{children}</ThemeRegistry>
+        <ThemeRegistry>
+          <LiveReload />
+          {children}
+        </ThemeRegistry>
       </body>
     </html>
   );

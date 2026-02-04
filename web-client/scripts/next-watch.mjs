@@ -2,6 +2,7 @@ import chokidar from "chokidar";
 import { spawn } from "node:child_process";
 import { fileURLToPath } from "node:url";
 import path from "node:path";
+import fs from "node:fs/promises";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const projectRoot = path.resolve(__dirname, "..");
@@ -16,6 +17,7 @@ for (const arg of process.argv.slice(2)) {
 
 const port = Number(args.get("port") ?? process.env.PORT ?? 3002);
 const debounceMs = Number(args.get("debounce") ?? 5000);
+const buildStatusFilename = "__build-status.json";
 const watchTargets = [
   "app",
   "pages",
@@ -34,6 +36,8 @@ const nextBin = path.join(
   ".bin",
   process.platform === "win32" ? "next.cmd" : "next",
 );
+const publicDir = path.join(projectRoot, "public");
+const buildStatusPath = path.join(publicDir, buildStatusFilename);
 
 const spawnCommand = (command, argsList, options) => {
   if (process.platform === "win32") {
@@ -87,8 +91,22 @@ const startServer = () => {
   );
 };
 
-const runBuild = () =>
-  new Promise((resolve, reject) => {
+let lastBuildId = Date.now();
+
+const writeBuildStatus = async (status, extra = {}) => {
+  await fs.mkdir(publicDir, { recursive: true });
+  const payload = {
+    status,
+    buildId: lastBuildId,
+    updatedAt: Date.now(),
+    ...extra,
+  };
+  await fs.writeFile(buildStatusPath, JSON.stringify(payload, null, 2), "utf8");
+};
+
+const runBuild = async () => {
+  await writeBuildStatus("building");
+  return new Promise((resolve, reject) => {
     log("building...");
     const proc = spawnCommand(nextBin, ["build"], {
       cwd: projectRoot,
@@ -96,13 +114,20 @@ const runBuild = () =>
     });
     proc.on("exit", (code) => {
       if (code === 0) {
+        lastBuildId = Date.now();
+        void writeBuildStatus("ready").catch((err) => log(String(err)));
         log("build complete");
         resolve();
         return;
       }
-      reject(new Error(`build failed with code ${code}`));
+      const error = new Error(`build failed with code ${code}`);
+      void writeBuildStatus("error", { error: String(error) }).catch((err) =>
+        log(String(err)),
+      );
+      reject(error);
     });
   });
+};
 
 const rebuild = async () => {
   if (building) {
@@ -141,7 +166,12 @@ const main = async () => {
   const watcher = chokidar.watch(watchTargets, {
     cwd: projectRoot,
     ignoreInitial: true,
-    ignored: ["**/.next/**", "**/node_modules/**", "**/.git/**"],
+    ignored: [
+      "**/.next/**",
+      "**/node_modules/**",
+      "**/.git/**",
+      `**/public/${buildStatusFilename}`,
+    ],
   });
 
   watcher.on("all", (event, changedPath) => {

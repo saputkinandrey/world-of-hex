@@ -15,10 +15,12 @@ import {
   MenuItem,
   Stack,
   TextField,
+  Tab,
+  Tabs,
   Toolbar,
   Typography,
 } from "@mui/material";
-import { EncounterCard, type EncounterCardData } from "@wohex/ui";
+import { EncounterHexGrid, type EncounterCardData } from "@wohex/ui";
 
 type LogEntry = {
   ts: string;
@@ -73,6 +75,27 @@ const normalizeId = (value: unknown) => {
   }
 };
 
+const parseEncounterSnapshot = (payload: unknown): EncounterCardData | null => {
+  if (!payload || typeof payload !== "object") {
+    return null;
+  }
+  const record = payload as Record<string, unknown>;
+  const id = normalizeId(
+    record._id ?? record.id ?? record.encounterId ?? "",
+  ).trim();
+  const radiusRaw = record.radius;
+  const radius =
+    typeof radiusRaw === "number" ? radiusRaw : Number(radiusRaw);
+  if (!id || !Number.isFinite(radius)) {
+    return null;
+  }
+  const name =
+    typeof record.name === "string" && record.name.trim()
+      ? record.name
+      : "Encounter";
+  return { _id: id, name, radius };
+};
+
 export default function HomePage() {
   const [url] = useState(
     process.env.NEXT_PUBLIC_SOCKET_URL ?? "http://localhost:3000",
@@ -94,13 +117,13 @@ export default function HomePage() {
   const [encounterId, setEncounterId] = useState("");
   const [selectedTokenId, setSelectedTokenId] = useState("");
   const [inputType, setInputType] = useState("");
-  const [encounters, setEncounters] = useState<EncounterCardData[]>([]);
-  const [encountersLoading, setEncountersLoading] = useState(false);
-  const [encountersError, setEncountersError] = useState("");
   const [encounterJson, setEncounterJson] = useState("");
+  const [encounterSnapshot, setEncounterSnapshot] =
+    useState<EncounterCardData | null>(null);
   const [status, setStatus] = useState("disconnected");
   const [logs, setLogs] = useState<LogEntry[]>([]);
   const [socket, setSocket] = useState<Socket | null>(null);
+  const [activeTab, setActiveTab] = useState(0);
 
   const endpoint = useMemo(() => {
     const base = url.trim();
@@ -148,29 +171,8 @@ export default function HomePage() {
     }
   };
 
-  const loadEncounters = async () => {
-    setEncountersLoading(true);
-    setEncountersError("");
-    try {
-      const response = await fetch(
-        `${apiBase.replace(/\/$/, "")}/sea-combat/encounters/list`,
-      );
-      if (!response.ok) {
-        throw new Error(`HTTP ${response.status}`);
-      }
-      const data = (await response.json()) as EncounterCardData[];
-      setEncounters(data);
-    } catch (err) {
-      setEncountersError(String(err));
-      setEncounters([]);
-    } finally {
-      setEncountersLoading(false);
-    }
-  };
-
   useEffect(() => {
     loadUsers();
-    loadEncounters();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [apiBase]);
 
@@ -198,6 +200,7 @@ export default function HomePage() {
       if (event === "load-encounter.response") {
         const payload = Array.isArray(args) && args.length === 1 ? args[0] : args;
         setEncounterJson(JSON.stringify(payload, null, 2));
+        setEncounterSnapshot(parseEncounterSnapshot(payload));
       }
     });
   };
@@ -342,12 +345,6 @@ export default function HomePage() {
             color={status.startsWith("connected") ? "success" : "warning"}
           />
           <Box sx={{ flexGrow: 1 }} />
-          <Button variant="outlined" onClick={loadUsers}>
-            Reload Users
-          </Button>
-          <Button variant="outlined" onClick={loadEncounters}>
-            Reload Encounters
-          </Button>
         </Toolbar>
       </AppBar>
 
@@ -457,50 +454,75 @@ export default function HomePage() {
             </Card>
           </Grid>
 
-          <Grid item xs={12} lg={4}>
-            <Card className="glass">
-              <CardContent>
-                <Typography variant="h5">Encounters</Typography>
-                <Typography color="text.secondary" sx={{ mb: 2 }}>
-                  Available encounters from the backend.
-                </Typography>
-                {encountersError && (
-                  <Typography variant="caption" color="error">
-                    Encounters load error: {encountersError}
-                  </Typography>
-                )}
-                <Stack spacing={1}>
-                  {encountersLoading && (
-                    <Typography variant="caption">Loading...</Typography>
-                  )}
-                  {encounters.map((encounter) => (
-                    <EncounterCard
-                      key={encounter._id}
-                      encounter={encounter}
-                    />
-                  ))}
-                </Stack>
-              </CardContent>
-            </Card>
-          </Grid>
-
-          <Grid item xs={12} lg={4}>
+          <Grid item xs={12} lg={8}>
             <Card className="glass">
               <CardContent>
                 <Typography variant="h5">Logs</Typography>
                 <Typography color="text.secondary" sx={{ mb: 2 }}>
-                  Raw socket events and latest encounter payload.
+                  Socket events and the latest encounter snapshot.
                 </Typography>
-                <Box className="log" sx={{ mb: 2 }}>
-                  {logs.map((entry, index) => (
-                    <div key={`${entry.ts}-${index}`}>
-                      [{entry.ts}] {entry.text}
-                    </div>
-                  ))}
-                </Box>
-                <Divider sx={{ mb: 2 }} />
-                <Typography variant="subtitle2">Encounter Payload</Typography>
-                <Box className="log">{encounterJson}</Box>
+                <Tabs
+                  value={activeTab}
+                  onChange={(_, next) => setActiveTab(next)}
+                  variant="fullWidth"
+                  sx={{ mb: 2 }}
+                >
+                  <Tab label="Logs" />
+                  <Tab label="Encounter" />
+                </Tabs>
+                {activeTab === 0 ? (
+                  <Box className="log">
+                    {logs.map((entry, index) => (
+                      <div key={`${entry.ts}-${index}`}>
+                        [{entry.ts}] {entry.text}
+                      </div>
+                    ))}
+                  </Box>
+                ) : (
+                  <Stack spacing={2}>
+                    <Box
+                      sx={{
+                        height: 320,
+                        borderRadius: 2,
+                        border: "1px dashed",
+                        borderColor: "divider",
+                        bgcolor: "background.default",
+                        p: 1,
+                      }}
+                    >
+                      {encounterSnapshot ? (
+                        <EncounterHexGrid radius={encounterSnapshot.radius} />
+                      ) : (
+                        <Box
+                          sx={{
+                            height: "100%",
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            color: "text.secondary",
+                          }}
+                        >
+                          No encounter loaded
+                        </Box>
+                      )}
+                    </Box>
+                    {encounterSnapshot ? (
+                      <Typography variant="caption" color="text.secondary">
+                        {encounterSnapshot._id} - radius{" "}
+                        {encounterSnapshot.radius}
+                      </Typography>
+                    ) : null}
+                    {encounterJson ? (
+                      <>
+                        <Divider />
+                        <Typography variant="subtitle2">
+                          Encounter Payload
+                        </Typography>
+                        <Box className="log">{encounterJson}</Box>
+                      </>
+                    ) : null}
+                  </Stack>
+                )}
               </CardContent>
             </Card>
           </Grid>

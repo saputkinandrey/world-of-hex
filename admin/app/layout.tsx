@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { Space_Grotesk } from 'next/font/google';
 import ThemeRegistry from './theme-registry';
+import { LiveReload } from '@wohex/ui';
 import './globals.css';
 
 const spaceGrotesk = Space_Grotesk({
@@ -21,7 +22,10 @@ export default function RootLayout({
   return (
     <html lang="ru" className={spaceGrotesk.className}>
       <body>
-        <ThemeRegistry>{children}</ThemeRegistry>
+        <ThemeRegistry>
+          <LiveReload />
+          {children}
+        </ThemeRegistry>
       </body>
     </html>
   );
