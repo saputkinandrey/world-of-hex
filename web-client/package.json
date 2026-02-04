@@ -4,12 +4,16 @@
   "version": "0.1.0",
   "type": "module",
   "scripts": {
-    "dev": "next dev",
+    "dev": "next build && next start -p 3002",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
   },
   "dependencies": {
+    "@emotion/react": "11.11.4",
+    "@emotion/styled": "11.11.5",
+    "@mui/material": "5.16.7",
+    "@wohex/ui": "file:../packages/ui",
     "next": "14.2.15",
     "react": "18.3.1",
     "react-dom": "18.3.1",

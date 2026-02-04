@@ -17,6 +17,9 @@
     "jsx": "preserve",
     "incremental": true,
     "esModuleInterop": true,
+    "paths": {
+      "@wohex/ui": ["../packages/ui/src/index.ts"]
+    },
     "plugins": [
       {
         "name": "next"
@@ -27,6 +30,8 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
+    "../packages/ui/src/**/*.ts",
+    "../packages/ui/src/**/*.tsx",
     ".next/types/**/*.ts"
   ],
   "exclude": [

@@ -2,6 +2,23 @@
 
 import { useEffect, useMemo, useRef, useState } from "react";
 import { io, type Socket } from "socket.io-client";
+import {
+  AppBar,
+  Box,
+  Button,
+  Card,
+  CardContent,
+  Chip,
+  Container,
+  Divider,
+  Grid,
+  MenuItem,
+  Stack,
+  TextField,
+  Toolbar,
+  Typography,
+} from "@mui/material";
+import { EncounterCard, type EncounterCardData } from "@wohex/ui";
 
 type LogEntry = {
   ts: string;
@@ -20,7 +37,7 @@ type SocketMeta = {
 
 const SOCKET_KEY = "__wohex_socket__";
 const SOCKET_META_KEY = "__wohex_socket_meta__";
-const SOCKET_HANDLERS_KEY = "__wohex_socket_handlers__";
+const socketHandlers = new WeakSet<Socket>();
 
 const getGlobalSocket = () =>
   (globalThis as Record<string, unknown>)[SOCKET_KEY] as Socket | undefined;
@@ -77,11 +94,13 @@ export default function HomePage() {
   const [encounterId, setEncounterId] = useState("");
   const [selectedTokenId, setSelectedTokenId] = useState("");
   const [inputType, setInputType] = useState("");
+  const [encounters, setEncounters] = useState<EncounterCardData[]>([]);
+  const [encountersLoading, setEncountersLoading] = useState(false);
+  const [encountersError, setEncountersError] = useState("");
   const [encounterJson, setEncounterJson] = useState("");
   const [status, setStatus] = useState("disconnected");
   const [logs, setLogs] = useState<LogEntry[]>([]);
   const [socket, setSocket] = useState<Socket | null>(null);
-  const socketRef = useRef<Socket | null>(null);
 
   const endpoint = useMemo(() => {
     const base = url.trim();
@@ -98,17 +117,8 @@ export default function HomePage() {
   };
 
   useEffect(() => {
-    socketRef.current = socket;
-  }, [socket]);
-
-  useEffect(() => {
     userIdRef.current = userId;
   }, [userId]);
-
-  useEffect(() => {
-    handleConnect();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
   const loadUsers = async () => {
     setUsersLoading(true);
@@ -138,15 +148,35 @@ export default function HomePage() {
     }
   };
 
+  const loadEncounters = async () => {
+    setEncountersLoading(true);
+    setEncountersError("");
+    try {
+      const response = await fetch(
+        `${apiBase.replace(/\/$/, "")}/sea-combat/encounters/list`,
+      );
+      if (!response.ok) {
+        throw new Error(`HTTP ${response.status}`);
+      }
+      const data = (await response.json()) as EncounterCardData[];
+      setEncounters(data);
+    } catch (err) {
+      setEncountersError(String(err));
+      setEncounters([]);
+    } finally {
+      setEncountersLoading(false);
+    }
+  };
+
   useEffect(() => {
     loadUsers();
+    loadEncounters();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [apiBase]);
 
   const attachSocketHandlers = (next: Socket) => {
-    const marked = (next as Record<string, unknown>)[SOCKET_HANDLERS_KEY];
-    if (marked) return;
-    (next as Record<string, unknown>)[SOCKET_HANDLERS_KEY] = true;
+    if (socketHandlers.has(next)) return;
+    socketHandlers.add(next);
 
     next.on("connect", () => {
       setStatus(`connected: ${next.id}`);
@@ -155,11 +185,9 @@ export default function HomePage() {
       if (!currentUserId || currentUserId === "[object Object]") {
         return;
       }
-      if (currentUserId) {
-        const data = { userId: currentUserId };
-        next.emit("user-connected.message", data);
-        pushLog(`emit user-connected.message ${JSON.stringify(data)}`);
-      }
+      const data = { userId: currentUserId };
+      next.emit("user-connected.message", data);
+      pushLog(`emit user-connected.message ${JSON.stringify(data)}`);
     });
     next.on("disconnect", (reason) => {
       setStatus(`disconnected: ${reason}`);
@@ -178,9 +206,12 @@ export default function HomePage() {
     const meta = { endpoint, path };
     const existing = getGlobalSocket();
     const existingMeta = getGlobalSocketMeta();
-    if (existing && existingMeta &&
-        existingMeta.endpoint === meta.endpoint &&
-        existingMeta.path === meta.path) {
+    if (
+      existing &&
+      existingMeta &&
+      existingMeta.endpoint === meta.endpoint &&
+      existingMeta.path === meta.path
+    ) {
       setSocket(existing);
       attachSocketHandlers(existing);
       return;
@@ -193,6 +224,11 @@ export default function HomePage() {
     setSocket(next);
     attachSocketHandlers(next);
   };
+
+  useEffect(() => {
+    handleConnect();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const handleEmit = () => {
     if (!socket) {
@@ -293,124 +329,183 @@ export default function HomePage() {
   };
 
   return (
-    <div className="page">
-      <header className="header">
-        <div className="title">World of Hex — Socket Client</div>
-        <div className="status">{status}</div>
-      </header>
-      <main className="main">
-        <section className="panel">
-          <div className="row">
-            <label htmlFor="userId">User</label>
-            <select
-              id="userId"
-              value={
-                userId
-                  ? String(users.findIndex((user) => user._id === userId))
-                  : ""
-              }
-              onChange={(event) => handleUserChange(event.target.value)}
-              disabled={usersLoading || !socket}
-            >
-              <option value="" disabled>
-                Select Player
-              </option>
-              {users.length === 0 && (
-                <option value="">
-                  {usersLoading ? "Loading..." : "No users"}
-                </option>
-              )}
-              {users.map((user, index) => (
-                <option key={user._id} value={String(index)}>
-                  {user.name}
-                </option>
-              ))}
-            </select>
-            {usersError && (
-              <div className="status">Users load error: {usersError}</div>
-            )}
-            <button type="button" className="secondary" onClick={loadUsers}>
-              Reload Users
-            </button>
-          </div>
-          <div className="row">
-            <label htmlFor="encounterId">Encounter ID</label>
-            <input
-              id="encounterId"
-              value={encounterId}
-              onChange={(event) => setEncounterId(event.target.value)}
-            />
-          </div>
-          <div className="row buttons">
-            <button type="button" onClick={handleUserConnected}>
-              user-connected.message
-            </button>
-            <button type="button" onClick={handleLoadEncounter}>
-              load-encounter.message
-            </button>
-          </div>
-          <div className="row">
-            <label htmlFor="selectedTokenId">Selected Token ID</label>
-            <input
-              id="selectedTokenId"
-              value={selectedTokenId}
-              onChange={(event) => setSelectedTokenId(event.target.value)}
-            />
-          </div>
-          <div className="row">
-            <label htmlFor="inputType">Input Type</label>
-            <input
-              id="inputType"
-              value={inputType}
-              onChange={(event) => setInputType(event.target.value)}
-            />
-          </div>
-          <div className="row">
-            <button type="button" onClick={handleSendInput}>
-              send-input.message
-            </button>
-          </div>
-          <hr />
-          <div className="row">
-            <label htmlFor="event">Custom Event</label>
-            <input
-              id="event"
-              value={eventName}
-              onChange={(event) => setEventName(event.target.value)}
-            />
-          </div>
-          <div className="row">
-            <label htmlFor="payload">Custom Payload (JSON)</label>
-            <textarea
-              id="payload"
-              rows={6}
-              value={payload}
-              onChange={(event) => setPayload(event.target.value)}
-            />
-          </div>
-          <div className="row">
-            <button type="button" onClick={handleEmit}>
-              Emit Custom
-            </button>
-          </div>
-        </section>
-        <section className="panel">
-          <div className="row">
-            <label>Log</label>
-            <div className="log">
-              {logs.map((entry, index) => (
-                <div key={`${entry.ts}-${index}`}>
-                  [{entry.ts}] {entry.text}
-                </div>
-              ))}
-            </div>
-          </div>
-          <div className="row">
-            <label>Encounter Payload</label>
-            <div className="log">{encounterJson}</div>
-          </div>
-        </section>
-      </main>
-    </div>
+    <Box>
+      <AppBar position="sticky" color="transparent" elevation={0}>
+        <Toolbar sx={{ gap: 2 }}>
+          <Typography variant="h6" sx={{ fontWeight: 700 }}>
+            World of Hex - Web Client
+          </Typography>
+          <Chip
+            label={status}
+            size="small"
+            variant="outlined"
+            color={status.startsWith("connected") ? "success" : "warning"}
+          />
+          <Box sx={{ flexGrow: 1 }} />
+          <Button variant="outlined" onClick={loadUsers}>
+            Reload Users
+          </Button>
+          <Button variant="outlined" onClick={loadEncounters}>
+            Reload Encounters
+          </Button>
+        </Toolbar>
+      </AppBar>
+
+      <Container sx={{ py: 6 }}>
+        <Grid container spacing={3}>
+          <Grid item xs={12} lg={4}>
+            <Card className="glass">
+              <CardContent>
+                <Typography variant="h5">Session</Typography>
+                <Typography color="text.secondary" sx={{ mb: 2 }}>
+                  Connect players and send commands.
+                </Typography>
+                <Stack spacing={2}>
+                  <TextField
+                    label="User"
+                    select
+                    value={
+                      userId
+                        ? String(
+                            users.findIndex((user) => user._id === userId),
+                          )
+                        : ""
+                    }
+                    onChange={(event) => handleUserChange(event.target.value)}
+                    disabled={usersLoading || !socket}
+                  >
+                    <MenuItem value="" disabled>
+                      Select Player
+                    </MenuItem>
+                    {users.length === 0 && (
+                      <MenuItem value="">
+                        {usersLoading ? "Loading..." : "No users"}
+                      </MenuItem>
+                    )}
+                    {users.map((user, index) => (
+                      <MenuItem key={user._id} value={String(index)}>
+                        {user.name}
+                      </MenuItem>
+                    ))}
+                  </TextField>
+                  {usersError && (
+                    <Typography variant="caption" color="error">
+                      Users load error: {usersError}
+                    </Typography>
+                  )}
+                  <TextField
+                    label="Encounter ID"
+                    value={encounterId}
+                    onChange={(event) => setEncounterId(event.target.value)}
+                  />
+                  <Stack direction="row" spacing={1}>
+                    <Button
+                      variant="outlined"
+                      onClick={handleUserConnected}
+                      disabled={!socket}
+                    >
+                      user-connected.message
+                    </Button>
+                    <Button
+                      variant="outlined"
+                      onClick={handleLoadEncounter}
+                      disabled={!socket}
+                    >
+                      load-encounter.message
+                    </Button>
+                  </Stack>
+                  <Divider />
+                  <TextField
+                    label="Selected Token ID"
+                    value={selectedTokenId}
+                    onChange={(event) => setSelectedTokenId(event.target.value)}
+                  />
+                  <TextField
+                    label="Input Type"
+                    value={inputType}
+                    onChange={(event) => setInputType(event.target.value)}
+                  />
+                  <Button
+                    variant="outlined"
+                    onClick={handleSendInput}
+                    disabled={!socket}
+                  >
+                    send-input.message
+                  </Button>
+                  <Divider />
+                  <TextField
+                    label="Custom Event"
+                    value={eventName}
+                    onChange={(event) => setEventName(event.target.value)}
+                  />
+                  <TextField
+                    label="Custom Payload (JSON)"
+                    multiline
+                    rows={6}
+                    value={payload}
+                    onChange={(event) => setPayload(event.target.value)}
+                  />
+                  <Button
+                    variant="contained"
+                    onClick={handleEmit}
+                    disabled={!socket}
+                  >
+                    Emit Custom
+                  </Button>
+                </Stack>
+              </CardContent>
+            </Card>
+          </Grid>
+
+          <Grid item xs={12} lg={4}>
+            <Card className="glass">
+              <CardContent>
+                <Typography variant="h5">Encounters</Typography>
+                <Typography color="text.secondary" sx={{ mb: 2 }}>
+                  Available encounters from the backend.
+                </Typography>
+                {encountersError && (
+                  <Typography variant="caption" color="error">
+                    Encounters load error: {encountersError}
+                  </Typography>
+                )}
+                <Stack spacing={1}>
+                  {encountersLoading && (
+                    <Typography variant="caption">Loading...</Typography>
+                  )}
+                  {encounters.map((encounter) => (
+                    <EncounterCard
+                      key={encounter._id}
+                      encounter={encounter}
+                    />
+                  ))}
+                </Stack>
+              </CardContent>
+            </Card>
+          </Grid>
+
+          <Grid item xs={12} lg={4}>
+            <Card className="glass">
+              <CardContent>
+                <Typography variant="h5">Logs</Typography>
+                <Typography color="text.secondary" sx={{ mb: 2 }}>
+                  Raw socket events and latest encounter payload.
+                </Typography>
+                <Box className="log" sx={{ mb: 2 }}>
+                  {logs.map((entry, index) => (
+                    <div key={`${entry.ts}-${index}`}>
+                      [{entry.ts}] {entry.text}
+                    </div>
+                  ))}
+                </Box>
+                <Divider sx={{ mb: 2 }} />
+                <Typography variant="subtitle2">Encounter Payload</Typography>
+                <Box className="log">{encounterJson}</Box>
+              </CardContent>
+            </Card>
+          </Grid>
+        </Grid>
+      </Container>
+    </Box>
   );
 }

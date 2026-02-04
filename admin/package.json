@@ -4,7 +4,7 @@
   "version": "0.1.0",
   "type": "module",
   "scripts": {
-    "dev": "next dev",
+    "dev": "next build && next start -p 3001",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
@@ -14,6 +14,7 @@
     "@emotion/styled": "11.11.5",
     "@mui/icons-material": "5.16.7",
     "@mui/material": "5.16.7",
+    "@wohex/ui": "file:../packages/ui",
     "next": "14.2.15",
     "react": "18.3.1",
     "react-dom": "18.3.1"

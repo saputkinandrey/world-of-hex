@@ -1,5 +1,6 @@
 import "./globals.css";
 import type { ReactNode } from "react";
+import ThemeRegistry from "./theme-registry";
 
 export const metadata = {
   title: "World of Hex - Web Client",
@@ -13,7 +14,9 @@ type RootLayoutProps = {
 export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body>
+        <ThemeRegistry>{children}</ThemeRegistry>
+      </body>
     </html>
   );
 }

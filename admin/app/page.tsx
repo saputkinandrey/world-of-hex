@@ -20,12 +20,9 @@ import {
 } from '@mui/material';
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 import LinkOffRoundedIcon from '@mui/icons-material/LinkOffRounded';
+import { EncounterCard, type EncounterCardData } from '@wohex/ui';
 
-type Encounter = {
-  _id: string;
-  name: string;
-  radius: number;
-};
+type Encounter = EncounterCardData;
 
 type Player = {
   _id: string;
@@ -267,20 +264,7 @@ export default function HomePage() {
                     <Divider />
                     <Stack spacing={1}>
                       {encounters.map((enc) => (
-                        <Box
-                          key={enc._id}
-                          sx={{
-                            border: '1px solid var(--stroke)',
-                            borderRadius: 2,
-                            px: 2,
-                            py: 1,
-                          }}
-                        >
-                          <Typography>{enc.name}</Typography>
-                          <Typography variant="caption" color="text.secondary">
-                            {enc._id} · radius {enc.radius}
-                          </Typography>
-                        </Box>
+                        <EncounterCard key={enc._id} encounter={enc} />
                       ))}
                     </Stack>
                   </Stack>
@@ -489,7 +473,6 @@ export default function HomePage() {
                             <Chip
                               size="medium"
                               variant="outlined"
-                              sx={{ mt: 1, height: 32 }}
                               label={`Owner: ${shipOwnerById.get(ship._id)?.name ?? 'unknown'}`}
                               onDelete={() => {
                                 const owner = shipOwnerById.get(ship._id);
@@ -531,4 +514,5 @@ export default function HomePage() {
     </Box>
   );
 }
+
 
