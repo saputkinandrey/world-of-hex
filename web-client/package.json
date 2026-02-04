@@ -4,7 +4,7 @@
   "version": "0.1.0",
   "type": "module",
   "scripts": {
-    "dev": "next build && next start -p 3002",
+    "dev": "node scripts/next-watch.mjs --port=3002 --debounce=5000",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
@@ -20,6 +20,7 @@
     "socket.io-client": "4.7.5"
   },
   "devDependencies": {
+    "chokidar": "3.6.0",
     "@types/node": "22.15.30",
     "@types/react": "18.3.12",
     "@types/react-dom": "18.3.1",
