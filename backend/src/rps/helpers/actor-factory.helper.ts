@@ -72,17 +72,12 @@ export class ActorFactoryHelper {
      * Создаёт актора на основе полноценного CharacterEntity (PC или NPC).
      * Пока заглушка — сюда потом можно подвязать поиск CreatureTemplate по расе/типу.
      */
-    createFromCharacter(params: {
-        character: CharacterEntity;
-        hexId: HexId;
-    }): ActorEntity {
+    createFromCharacter(params: { character: CharacterEntity; hexId: HexId }): ActorEntity {
         const { character, hexId } = params;
 
         // TODO: достать creatureTemplate по raceId/видовой информации из CharacterEntity
         // и переиспользовать createFromTemplate(...)
 
-        throw new Error(
-            'ActorFactoryHelper.createFromCharacter not implemented yet',
-        );
+        throw new Error('ActorFactoryHelper.createFromCharacter not implemented yet');
     }
 }

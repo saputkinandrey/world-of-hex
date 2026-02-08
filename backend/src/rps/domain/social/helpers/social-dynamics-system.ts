@@ -3,11 +3,7 @@ import { SocialRelationEntity } from '../entities/social-relation.entity';
 export class SocialDynamicsSystem {
     static updateAfterEconomicAction(
         relation: SocialRelationEntity,
-        action:
-            | 'tribute_paid'
-            | 'tribute_ignored'
-            | 'loot_shared'
-            | 'loot_denied',
+        action: 'tribute_paid' | 'tribute_ignored' | 'loot_shared' | 'loot_denied',
     ) {
         switch (action) {
             case 'tribute_paid':

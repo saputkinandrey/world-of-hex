@@ -111,11 +111,4 @@ export const EAT_ANYTHING: ActionDefinition = {
 // Сводный список и словарь по тегу
 // ───────────────────────────────────────────────────────────────────────────────
 
-export const FoodActions: ActionDefinition[] = [
-    FORAGE,
-    HUNT,
-    STEAL_FOOD,
-    EAT_ACCEPTABLE,
-    EAT_POOR,
-    EAT_ANYTHING,
-];
+export const FoodActions: ActionDefinition[] = [FORAGE, HUNT, STEAL_FOOD, EAT_ACCEPTABLE, EAT_POOR, EAT_ANYTHING];

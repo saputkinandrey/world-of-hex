@@ -45,7 +45,4 @@ const TradeEffectKeySchema = new Schema<TradeEffectKeyDoc>(
     { timestamps: true },
 );
 
-export const TradeEffectKey = model<TradeEffectKeyDoc>(
-    'TradeEffectKey',
-    TradeEffectKeySchema,
-);
+export const TradeEffectKey = model<TradeEffectKeyDoc>('TradeEffectKey', TradeEffectKeySchema);

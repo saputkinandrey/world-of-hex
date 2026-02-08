@@ -92,11 +92,7 @@ export const TraditionActions: ActionDefinition[] = [
         tradeEffect: { garlands: -2, feast: -4 },
         socialImpact: { TRADITION: 0.7, IDENTITY: 0.6, RESPECT: 0.4 },
         lawEffect: { riteRecord: 'passage_entry', enforceable: true },
-        requiredMemes: [
-            culture.vigil_ritual,
-            cog.timekeeping.basic,
-            comm.language.written,
-        ],
+        requiredMemes: [culture.vigil_ritual, cog.timekeeping.basic, comm.language.written],
     },
     {
         tag: TraditionActionTag.OBSERVE_TABOO_RULES,

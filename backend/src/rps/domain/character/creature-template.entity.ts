@@ -62,20 +62,10 @@ export class CreatureTemplateEntity extends NamedEntity {
      *  - memeIdsAdd / morphIdsAdd / actionTagsAdd — расширяют множества (с дедупликацией).
      */
     applyLens(lens: CreatureTemplateLens): this {
-        const {
-            sizeModifierDelta,
-            primaryDelta,
-            secondaryDelta,
-            memeIdsAdd,
-            morphIdsAdd,
-            actionTagsAdd,
-            needTagsAdd,
-        } = lens;
+        const { sizeModifierDelta, primaryDelta, secondaryDelta, memeIdsAdd, morphIdsAdd, actionTagsAdd, needTagsAdd } =
+            lens;
 
-        if (
-            typeof sizeModifierDelta === 'number' &&
-            !Number.isNaN(sizeModifierDelta)
-        ) {
+        if (typeof sizeModifierDelta === 'number' && !Number.isNaN(sizeModifierDelta)) {
             this.setSizeModifier(this.sizeModifier + sizeModifierDelta);
         }
 
@@ -94,27 +84,19 @@ export class CreatureTemplateEntity extends NamedEntity {
         }
 
         if (Array.isArray(memeIdsAdd) && memeIdsAdd.length > 0) {
-            this.setMemeIds(
-                Array.from(new Set([...this.memeIds, ...memeIdsAdd])),
-            );
+            this.setMemeIds(Array.from(new Set([...this.memeIds, ...memeIdsAdd])));
         }
 
         if (Array.isArray(morphIdsAdd) && morphIdsAdd.length > 0) {
-            this.setMorphIds(
-                Array.from(new Set([...this.morphIds, ...morphIdsAdd])),
-            );
+            this.setMorphIds(Array.from(new Set([...this.morphIds, ...morphIdsAdd])));
         }
 
         if (Array.isArray(actionTagsAdd) && actionTagsAdd.length > 0) {
-            this.setActionTags(
-                Array.from(new Set([...this.actionTags, ...actionTagsAdd])),
-            );
+            this.setActionTags(Array.from(new Set([...this.actionTags, ...actionTagsAdd])));
         }
 
         if (Array.isArray(needTagsAdd) && needTagsAdd.length > 0) {
-            this.setNeedTags(
-                Array.from(new Set([...this.needTags, ...needTagsAdd])),
-            );
+            this.setNeedTags(Array.from(new Set([...this.needTags, ...needTagsAdd])));
         }
 
         return this;
@@ -175,9 +157,7 @@ export class CreatureTemplateEntity extends NamedEntity {
      * Δ primary: прибавляем дельту по ST/DX/IQ/HT.
      * Используем сеттеры, если они есть, иначе прямое присваивание.
      */
-    protected applyPrimaryDelta(
-        delta: CreatureTemplateLens['primaryDelta'],
-    ): void {
+    protected applyPrimaryDelta(delta: CreatureTemplateLens['primaryDelta']): void {
         if (!delta) return;
         // тут никакой магии: делегируем в сам PrimaryAttributesEntity
         this.primary.applyDelta(delta as any);
@@ -186,9 +166,7 @@ export class CreatureTemplateEntity extends NamedEntity {
     /**
      * Δ secondary: прибавляем дельту по HP/FP/Will/Per/BasicSpeed/BasicMove.
      */
-    protected applySecondaryDelta(
-        delta: CreatureTemplateLens['secondaryDelta'],
-    ): void {
+    protected applySecondaryDelta(delta: CreatureTemplateLens['secondaryDelta']): void {
         if (!delta) return;
         this.secondary.applyDelta(delta as any);
     }
@@ -197,9 +175,7 @@ export class CreatureTemplateEntity extends NamedEntity {
      *  HP = ST, FP = HT, Will = IQ, Per = IQ,
      *  Basic Speed = (DX + HT) / 4, Basic Move = floor(Basic Speed).
      */
-    protected createDefaultSecondaryFromPrimary(
-        primary: PrimaryAttributesEntity,
-    ): SecondaryAttributesEntity {
+    protected createDefaultSecondaryFromPrimary(primary: PrimaryAttributesEntity): SecondaryAttributesEntity {
         const st = (primary as any).ST ?? 10;
         const dx = (primary as any).DX ?? 10;
         const iq = (primary as any).IQ ?? 10;

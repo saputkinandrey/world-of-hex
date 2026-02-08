@@ -1,14 +1,6 @@
 import { ActionDefinition } from '../action-definition';
 import { ProductivityActionTag } from '../action-tags';
-import {
-    cog,
-    comm,
-    culture,
-    econ,
-    health,
-    org,
-    record,
-} from '../../world/memes';
+import { cog, comm, culture, econ, health, org, record } from '../../world/memes';
 export const ProductivityActions: ActionDefinition[] = [
     {
         tag: ProductivityActionTag.MORNING_TALLY_AND_BRIEF,
@@ -48,11 +40,7 @@ export const ProductivityActions: ActionDefinition[] = [
         socialImpact: { ACCOUNTABILITY: 0.3 as any, CLARITY: 0.3 },
         ownershipEffect: { workItem: 'claimed' },
         lawEffect: { queueRule: 'pull_not_push', enforceable: true },
-        requiredMemes: [
-            comm.language.written,
-            record.ledgerkeeping,
-            econ.pooling_common_fund,
-        ],
+        requiredMemes: [comm.language.written, record.ledgerkeeping, econ.pooling_common_fund],
     },
     {
         tag: ProductivityActionTag.SET_WIP_LIMITS,
@@ -186,11 +174,7 @@ export const ProductivityActions: ActionDefinition[] = [
         socialImpact: { TRANSPARENCY: 0.3 as any, TRUST: 0.2 },
         ownershipEffect: { tallyLog: 'updated' },
         lawEffect: { ledgerPolicy: 'accurate_entry', enforceable: true },
-        requiredMemes: [
-            comm.language.written,
-            record.ledgerkeeping,
-            cog.number_concept,
-        ],
+        requiredMemes: [comm.language.written, record.ledgerkeeping, cog.number_concept],
     },
     {
         tag: ProductivityActionTag.QUALITY_CHECK_AT_SOURCE,
@@ -256,12 +240,7 @@ export const ProductivityActions: ActionDefinition[] = [
             grantAccess: true,
         },
         lawEffect: { handoffRule: 'required', enforceable: true },
-        requiredMemes: [
-            culture.vigil_ritual,
-            cog.timekeeping.basic,
-            record.ledgerkeeping,
-            econ.pooling_common_fund,
-        ],
+        requiredMemes: [culture.vigil_ritual, cog.timekeeping.basic, record.ledgerkeeping, econ.pooling_common_fund],
     },
     {
         tag: ProductivityActionTag.FAIR_REWARD_DISTRIBUTION,
@@ -277,11 +256,6 @@ export const ProductivityActions: ActionDefinition[] = [
         tradeEffect: { coin_purse: '-distributed' },
         socialImpact: { TRUST: 0.4, LOYALTY: 0.3, RESENTMENT: -0.2 },
         lawEffect: { rewardLedger: 'posted', enforceable: true },
-        requiredMemes: [
-            health.sanitation_norms,
-            health.waste_handling,
-            comm.language.written,
-            record.ledgerkeeping,
-        ],
+        requiredMemes: [health.sanitation_norms, health.waste_handling, comm.language.written, record.ledgerkeeping],
     },
 ];

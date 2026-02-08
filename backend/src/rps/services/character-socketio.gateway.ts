@@ -16,9 +16,7 @@ import { UserConnectedMessagePayloadDto } from '../dto/user-connected/user-conne
     cors: { origin: '*' },
 })
 @Injectable()
-export class CharacterSocketIoGateway
-    implements OnGatewayConnection, OnGatewayDisconnect
-{
+export class CharacterSocketIoGateway implements OnGatewayConnection, OnGatewayDisconnect {
     private readonly logger = new Logger(CharacterSocketIoGateway.name);
 
     handleConnection(client: Socket) {
@@ -30,18 +28,12 @@ export class CharacterSocketIoGateway
     }
 
     @SubscribeMessage(RpsWsMessage.USER_CONNECTED)
-    onUserConnected(
-        @MessageBody() payload: UserConnectedMessagePayloadDto,
-        @ConnectedSocket() client: Socket,
-    ): void {
+    onUserConnected(@MessageBody() payload: UserConnectedMessagePayloadDto, @ConnectedSocket() client: Socket): void {
         try {
-            this.logger.log(
-                `Player connected to CHARACTER gateway with ${payload.userId}`,
-            );
+            this.logger.log(`Player connected to CHARACTER gateway with ${payload.userId}`);
             client.emit(RpsWsResponse.USER_CONNECTED, true);
         } catch (err: any) {
-            const message =
-                err instanceof Error ? err.message : 'Unknown error';
+            const message = err instanceof Error ? err.message : 'Unknown error';
             client.emit('error', { message });
             client.emit(RpsWsResponse.USER_CONNECTED, false);
         }

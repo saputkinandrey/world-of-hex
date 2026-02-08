@@ -16,10 +16,7 @@ type ActionOptions<TEvent> = {
 const CHILD_ACTION_METADATA_KEY = 'wohex-child-action-meta';
 const OWNER_SYMBOL = Symbol('wohex-child-owner');
 
-const createEventInstance = <TEvent>(
-    EventClass: Class<TEvent>,
-    args: unknown[],
-) => {
+const createEventInstance = <TEvent>(EventClass: Class<TEvent>, args: unknown[]) => {
     if (args.length === 1) {
         return new EventClass(args[0] as never);
     }
@@ -80,9 +77,7 @@ const resolveActionArgs = <TEvent>(
     return { eventClass, options: second as ActionOptions<TEvent> };
 };
 
-export const ChildAction = <TEvent>(
-    ...decoratorArgs: ActionDecoratorArgs<TEvent>
-): MethodDecorator => {
+export const ChildAction = <TEvent>(...decoratorArgs: ActionDecoratorArgs<TEvent>): MethodDecorator => {
     const { eventClass, factory, options } = resolveActionArgs(decoratorArgs);
     return (target, propertyKey, descriptor) => {
         Reflect.defineMetadata(
@@ -101,9 +96,7 @@ export const ChildAction = <TEvent>(
             const [firstArg] = args;
             const isEventInstance =
                 firstArg instanceof eventClass ||
-                (firstArg &&
-                    typeof firstArg === 'object' &&
-                    (firstArg as object).constructor === eventClass);
+                (firstArg && typeof firstArg === 'object' && (firstArg as object).constructor === eventClass);
 
             if (isEventInstance) {
                 setCurrentActionEvent(this as object, firstArg as object);
@@ -141,14 +134,8 @@ export const ChildAction = <TEvent>(
                         ? original.call(this, ...args)
                         : original.call(this, event);
 
-                if (
-                    owner &&
-                    typeof (owner as { append?: (e: object) => void })
-                        .append === 'function'
-                ) {
-                    (owner as { append: (e: object) => void }).append(
-                        event as object,
-                    );
+                if (owner && typeof (owner as { append?: (e: object) => void }).append === 'function') {
+                    (owner as { append: (e: object) => void }).append(event as object);
                 }
 
                 return result;
@@ -157,23 +144,14 @@ export const ChildAction = <TEvent>(
             const result = original.call(this, ...args);
             const pendingEvent = consumeActionEvent(this);
             const event =
-                pendingEvent ??
-                (result instanceof eventClass
-                    ? result
-                    : createEventInstance(eventClass, args));
+                pendingEvent ?? (result instanceof eventClass ? result : createEventInstance(eventClass, args));
 
             const ownerStreams = collectStreams(owner);
             const childStreams = collectStreams(this);
             mergeEventStreams(event, [...ownerStreams, ...childStreams]);
 
-            if (
-                owner &&
-                typeof (owner as { append?: (e: object) => void }).append ===
-                    'function'
-            ) {
-                (owner as { append: (e: object) => void }).append(
-                    event as object,
-                );
+            if (owner && typeof (owner as { append?: (e: object) => void }).append === 'function') {
+                (owner as { append: (e: object) => void }).append(event as object);
             }
 
             return result instanceof eventClass || pendingEvent ? this : result;
@@ -184,11 +162,7 @@ export const ChildAction = <TEvent>(
     };
 };
 
-export const bindChildActions = (
-    owner: object,
-    child: object,
-    childName: string,
-) => {
+export const bindChildActions = (owner: object, child: object, childName: string) => {
     (child as { [OWNER_SYMBOL]?: unknown })[OWNER_SYMBOL] = owner;
 
     const metadataKeys = Reflect.getMetadataKeys(child);
@@ -209,14 +183,10 @@ export const bindChildActions = (
 
         const handlerKey = `__child_${childName}_${String(meta.key)}`;
 
-        if (
-            typeof (owner as Record<string, unknown>)[handlerKey] !== 'function'
-        ) {
+        if (typeof (owner as Record<string, unknown>)[handlerKey] !== 'function') {
             Object.defineProperty(owner, handlerKey, {
                 value: (event: unknown) =>
-                    (child as Record<string, (arg: unknown) => unknown>)[
-                        meta.key as string
-                    ](event),
+                    (child as Record<string, (arg: unknown) => unknown>)[meta.key as string](event),
                 writable: false,
             });
         }

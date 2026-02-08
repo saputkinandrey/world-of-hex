@@ -45,5 +45,4 @@ export class TradeEffectKey extends EntityDocumentHelper {
 
 export type TradeEffectKeyDocument = HydratedDocument<TradeEffectKey>;
 
-export const TradeEffectKeySchema =
-    SchemaFactory.createForClass(TradeEffectKey);
+export const TradeEffectKeySchema = SchemaFactory.createForClass(TradeEffectKey);

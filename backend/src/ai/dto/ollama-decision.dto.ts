@@ -1,11 +1,4 @@
-import {
-    IsString,
-    IsNumber,
-    IsObject,
-    IsArray,
-    IsOptional,
-    IsIn,
-} from 'class-validator';
+import { IsString, IsNumber, IsObject, IsArray, IsOptional, IsIn } from 'class-validator';
 import { validationMetadatasToSchemas } from 'class-validator-jsonschema';
 
 import { DecisionType } from '../enums/decision-type.enum';

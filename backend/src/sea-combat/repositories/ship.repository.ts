@@ -17,14 +17,8 @@ export class ShipRepository {
         return this.shipModel.create(ship);
     }
 
-    find(
-        filter: FilterQuery<Ship>,
-        projection?: ProjectionType<Ship>,
-        options?: QueryOptions<Ship>,
-    ) {
-        return this.shipModel.find(filter, projection, options) as Promise<
-            ShipDocument[]
-        >;
+    find(filter: FilterQuery<Ship>, projection?: ProjectionType<Ship>, options?: QueryOptions<Ship>) {
+        return this.shipModel.find(filter, projection, options) as Promise<ShipDocument[]>;
     }
 
     deleteById(id: string) {

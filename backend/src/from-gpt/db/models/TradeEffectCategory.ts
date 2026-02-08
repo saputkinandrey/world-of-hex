@@ -22,7 +22,4 @@ const TradeEffectCategorySchema = new Schema<TradeEffectCategoryDoc>(
     { timestamps: true },
 );
 
-export const TradeEffectCategoryModel = model<TradeEffectCategoryDoc>(
-    'TradeEffectCategory',
-    TradeEffectCategorySchema,
-);
+export const TradeEffectCategoryModel = model<TradeEffectCategoryDoc>('TradeEffectCategory', TradeEffectCategorySchema);

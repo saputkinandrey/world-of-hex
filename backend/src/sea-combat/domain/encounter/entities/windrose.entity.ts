@@ -1,10 +1,6 @@
 import { AllDirections, Direction, DirectionTurnLeft, DirectionTurnRight } from '../../../types/direction.type';
 import { randomChoice } from '../../../../rps/utils/roll';
-import {
-    WindroseReRollDirectionEvent,
-    WindroseTurnLeftEvent,
-    WindroseTurnRightEvent,
-} from '../events/windrose.events';
+import { WindroseReRollDirectionEvent, WindroseTurnLeftEvent, WindroseTurnRightEvent } from '../events/windrose.events';
 import { ChildAction } from '../../../../utils/child-action.decorator';
 import { getActionEvent } from '../../../../utils/action-event';
 import { StreamAwareEntity } from '../../../../utils/stream-aware-entity';

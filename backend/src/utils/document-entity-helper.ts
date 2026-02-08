@@ -8,12 +8,9 @@ export class EntityDocumentHelper {
         default: () => new Types.ObjectId(),
         required: true,
     })
-    @Transform(
-        ({ value }) => (value?.toHexString ? value.toHexString() : 'unknown'),
-        {
-            toClassOnly: true,
-        },
-    )
+    @Transform(({ value }) => (value?.toHexString ? value.toHexString() : 'unknown'), {
+        toClassOnly: true,
+    })
     public _id: string;
 
     @Prop({ default: now })

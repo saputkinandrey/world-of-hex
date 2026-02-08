@@ -39,11 +39,7 @@ export const EnergyActions: ActionDefinition[] = [
         },
         requiresLocation: 'bunks|hearth',
         ownershipEffect: { berthUse: 'short_rest' },
-        requiredMemes: [
-            culture.vigil_ritual,
-            cog.timekeeping.basic,
-            heat.space.hearth,
-        ],
+        requiredMemes: [culture.vigil_ritual, cog.timekeeping.basic, heat.space.hearth],
     },
     {
         tag: EnergyActionTag.SUNLIGHT_STRETCH,
@@ -98,11 +94,7 @@ export const EnergyActions: ActionDefinition[] = [
             CLARITY: 0.2,
         },
         requiresLocation: 'quiet_corner|hearth',
-        requiredMemes: [
-            culture.vigil_ritual,
-            cog.timekeeping.basic,
-            heat.space.hearth,
-        ],
+        requiredMemes: [culture.vigil_ritual, cog.timekeeping.basic, heat.space.hearth],
     },
     {
         tag: EnergyActionTag.WATER_REHYDRATE,
@@ -120,11 +112,7 @@ export const EnergyActions: ActionDefinition[] = [
             salt_or_ash_electrolyte: -1 | (0 as any),
         },
         ownershipEffect: { canteen: 'refilled' },
-        requiredMemes: [
-            health.sanitation_norms,
-            health.waste_handling,
-            food.preservation.salting,
-        ],
+        requiredMemes: [health.sanitation_norms, health.waste_handling, food.preservation.salting],
     },
     {
         tag: EnergyActionTag.MICRO_BREAK_EYESTRAIN,
@@ -181,12 +169,7 @@ export const EnergyActions: ActionDefinition[] = [
         },
         requiresLocation: 'hearth|hall|workyard',
         socialImpact: { COHESION: 0.2, STRESS: -0.1 as any },
-        requiredMemes: [
-            culture.vigil_ritual,
-            cog.timekeeping.basic,
-            heat.space.hearth,
-            comm.language.written,
-        ],
+        requiredMemes: [culture.vigil_ritual, cog.timekeeping.basic, heat.space.hearth, comm.language.written],
     },
     {
         tag: EnergyActionTag.WORKLOAD_REBALANCE,
@@ -258,11 +241,6 @@ export const EnergyActions: ActionDefinition[] = [
         requiresSkill: 'massage|healer_craft',
         tradeEffect: { oil: -1 | (0 as any), herbs: -1 | (0 as any) },
         socialImpact: { CARE: 0.3 as any },
-        requiredMemes: [
-            culture.vigil_ritual,
-            cog.timekeeping.basic,
-            health.first_aid_basic,
-            heat.space.hearth,
-        ],
+        requiredMemes: [culture.vigil_ritual, cog.timekeeping.basic, health.first_aid_basic, heat.space.hearth],
     },
 ];

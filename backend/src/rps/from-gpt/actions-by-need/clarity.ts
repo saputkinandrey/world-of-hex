@@ -1,16 +1,6 @@
 import { ActionDefinition } from '../action-definition';
 import { ClarityActionTag } from '../action-tags';
-import {
-    cog,
-    comm,
-    culture,
-    econ,
-    fire,
-    health,
-    heat,
-    org,
-    record,
-} from '../../world/memes';
+import { cog, comm, culture, econ, fire, health, heat, org, record } from '../../world/memes';
 export const ClarityActions: ActionDefinition[] = [
     {
         tag: ClarityActionTag.MORNING_CLARITY_BRIEF,
@@ -23,11 +13,7 @@ export const ClarityActions: ActionDefinition[] = [
         lawEffect: { briefRule: 'daily_required', enforceable: true },
         needRework: true,
         unclearAction: true,
-        requiredMemes: [
-            health.sanitation_norms,
-            health.waste_handling,
-            comm.language.written,
-        ],
+        requiredMemes: [health.sanitation_norms, health.waste_handling, comm.language.written],
     },
     {
         tag: ClarityActionTag.TASK_DEFINITION_CARDS,
@@ -265,12 +251,7 @@ export const ClarityActions: ActionDefinition[] = [
         socialImpact: { COHESION: 0.2, ACCOUNTABILITY: 0.2 as any },
         ownershipEffect: { logbook: 'end_of_day_update' },
         unclearAction: true,
-        requiredMemes: [
-            culture.vigil_ritual,
-            cog.timekeeping.basic,
-            heat.space.hearth,
-            comm.language.written,
-        ],
+        requiredMemes: [culture.vigil_ritual, cog.timekeeping.basic, heat.space.hearth, comm.language.written],
     },
     {
         tag: ClarityActionTag.MAP_AND_TERRAIN_BRIEF,
@@ -287,10 +268,6 @@ export const ClarityActions: ActionDefinition[] = [
         socialImpact: { TRUST: 0.2, COURAGE: 0.2 },
         ownershipEffect: { mapState: 'annotated' },
         unclearAction: true,
-        requiredMemes: [
-            comm.language.written,
-            record.ledgerkeeping,
-            econ.pooling_common_fund,
-        ],
+        requiredMemes: [comm.language.written, record.ledgerkeeping, econ.pooling_common_fund],
     },
 ];

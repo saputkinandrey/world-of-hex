@@ -371,12 +371,8 @@ export const morph = {
  *   leveledMorph(morph.rest.lessSleep, 3)
  *   → "morph.rest.less-sleep.3"
  */
-export function leveledMorph(
-    template: LeveledMorphTemplateId,
-    level: number,
-): MorphId {
-    const safeLevel =
-        Number.isFinite(level) && level > 0 ? Math.floor(level) : 1;
+export function leveledMorph(template: LeveledMorphTemplateId, level: number): MorphId {
+    const safeLevel = Number.isFinite(level) && level > 0 ? Math.floor(level) : 1;
     return template.replace('%level%', String(safeLevel)) as MorphId;
 }
 
@@ -391,10 +387,7 @@ export function leveledMorphPrefix(template: LeveledMorphTemplateId): string {
 /**
  * Проверить, что конкретный MorphId относится к данному уровневому шаблону.
  */
-export function isMorphOfTemplate(
-    id: MorphId,
-    template: LeveledMorphTemplateId,
-): boolean {
+export function isMorphOfTemplate(id: MorphId, template: LeveledMorphTemplateId): boolean {
     return id.startsWith(leveledMorphPrefix(template));
 }
 
@@ -403,10 +396,7 @@ export function isMorphOfTemplate(
  *
  * ВАЖНО: уровень может быть отрицательным или 0.
  */
-export function getLeveledMorphLevel(
-    id: MorphId,
-    template?: LeveledMorphTemplateId,
-): number | null {
+export function getLeveledMorphLevel(id: MorphId, template?: LeveledMorphTemplateId): number | null {
     if (template && !id.startsWith(leveledMorphPrefix(template))) {
         return null;
     }

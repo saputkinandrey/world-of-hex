@@ -4,14 +4,8 @@ import { EquipmentService } from './services/equipment.service';
 import { MongooseModule } from '@nestjs/mongoose';
 import { Encounter, EncounterSchema } from './schemas/encounter.schema';
 import { Equipment, EquipmentSchema } from './schemas/equipment.schema';
-import {
-    TradeEffectCategory,
-    TradeEffectCategorySchema,
-} from './schemas/trade-effect-category.schema';
-import {
-    TradeEffectKey,
-    TradeEffectKeySchema,
-} from './schemas/trade-effect-key.schema';
+import { TradeEffectCategory, TradeEffectCategorySchema } from './schemas/trade-effect-category.schema';
+import { TradeEffectKey, TradeEffectKeySchema } from './schemas/trade-effect-key.schema';
 import { LocationService } from './services/location.service';
 import { PlayerModule } from '../player/player.module';
 

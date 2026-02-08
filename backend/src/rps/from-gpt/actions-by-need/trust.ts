@@ -45,11 +45,7 @@ export const TrustActions: ActionDefinition[] = [
         },
         socialImpact: { TRUST: 0.45 },
         lawEffect: { bondRecord: 'collateral_v1', enforceable: true },
-        requiredMemes: [
-            record.ledgerkeeping,
-            econ.pooling_common_fund,
-            econ.deposit_contract,
-        ],
+        requiredMemes: [record.ledgerkeeping, econ.pooling_common_fund, econ.deposit_contract],
     },
     {
         tag: TrustActionTag.SMALL_FAVOR_TEST,

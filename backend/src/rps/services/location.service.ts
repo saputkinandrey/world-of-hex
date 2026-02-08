@@ -1,14 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { LoadLocationResponsePayloadDto } from '../dto/location/load-location-response.payload.dto';
 import { LIZARD_PROFILE } from '../world/creatures/lizard.profile';
-import {
-    ActorEntity,
-    HexCoord,
-    HexEntity,
-    makeHexId,
-    VolumeUnits,
-    WorldState,
-} from '../world';
+import { ActorEntity, HexCoord, HexEntity, makeHexId, VolumeUnits, WorldState } from '../world';
 
 @Injectable()
 export class LocationService {
@@ -20,9 +13,7 @@ export class LocationService {
      * Пока: один хардкоженный сценарий "lizard-puddle",
      * чтобы было с чем работать экшенам.
      */
-    async loadLocation(
-        locationId: string,
-    ): Promise<LoadLocationResponsePayloadDto> {
+    async loadLocation(locationId: string): Promise<LoadLocationResponsePayloadDto> {
         switch (locationId) {
             case 'dev:lizard-puddle':
             default:
@@ -36,9 +27,7 @@ export class LocationService {
      *  - ящерица в одной точке
      *  - структура "лужа" в другой
      */
-    private buildLizardPuddleLocation(
-        locationId: string,
-    ): LoadLocationResponsePayloadDto {
+    private buildLizardPuddleLocation(locationId: string): LoadLocationResponsePayloadDto {
         const world: WorldState = {
             hexes: {},
             contents: {},
@@ -72,11 +61,7 @@ export class LocationService {
         const lizardId = 'creature:lizard#1';
         const lizardName = 'Lizard';
 
-        const lizard: ActorEntity = LIZARD_PROFILE.createActor(
-            lizardHexId,
-            lizardId,
-            lizardName,
-        );
+        const lizard: ActorEntity = LIZARD_PROFILE.createActor(lizardHexId, lizardId, lizardName);
 
         world.creatures[lizardId] = lizard;
 

@@ -21,12 +21,7 @@ export const HUNT_WAIT_IN_AMBUSH: ActionDefinition = {
         STRESS: -0.05 as any,
         SAFETY: 0.05,
     },
-    requiredMemes: [
-        core.perception,
-        eth.predation.core,
-        eth.tactics.ambush_stalk,
-        tech.sensing.vision_basic,
-    ],
+    requiredMemes: [core.perception, eth.predation.core, eth.tactics.ambush_stalk, tech.sensing.vision_basic],
     requiresLocation: 'sun_warm_spot|rock|log|elevated_perch',
 };
 
@@ -46,10 +41,6 @@ export const HUNT_ACTIVE_FORAGE: ActionDefinition = {
         FOCUS: 0.2,
         STRESS: -0.05 as any,
     },
-    requiredMemes: [
-        core.perception,
-        eth.predation.core,
-        tech.sensing.vision_basic,
-    ],
+    requiredMemes: [core.perception, eth.predation.core, tech.sensing.vision_basic],
     requiresLocation: 'ground_cover|scrub|rocks',
 };

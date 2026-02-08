@@ -20,9 +20,7 @@ import { PlayerRepository } from '../../player/repositories/player.repository';
     cors: { origin: '*' },
 })
 @Injectable()
-export class LocationSocketIoGateway
-    implements OnGatewayConnection, OnGatewayDisconnect
-{
+export class LocationSocketIoGateway implements OnGatewayConnection, OnGatewayDisconnect {
     private readonly logger = new Logger(LocationSocketIoGateway.name);
 
     constructor(
@@ -39,14 +37,9 @@ export class LocationSocketIoGateway
     }
 
     @SubscribeMessage(RpsWsMessage.USER_CONNECTED)
-    onUserConnected(
-        @MessageBody() payload: UserConnectedMessagePayloadDto,
-        @ConnectedSocket() client: Socket,
-    ): void {
+    onUserConnected(@MessageBody() payload: UserConnectedMessagePayloadDto, @ConnectedSocket() client: Socket): void {
         try {
-            this.logger.log(
-                `Player connected to LOCATION gateway with ${payload.userId}`,
-            );
+            this.logger.log(`Player connected to LOCATION gateway with ${payload.userId}`);
             this.reply(client, RpsWsResponse.USER_CONNECTED, true);
         } catch (err: any) {
             this.replyError(client, err);
@@ -68,20 +61,12 @@ export class LocationSocketIoGateway
         }
     }
 
-    private async processLoadLocation(
-        payload: LoadLocationMessagePayloadDto,
-    ): Promise<LoadLocationResponsePayloadDto> {
-        this.logger.log(
-            `Player ${payload.userId} requested to download location ${payload.locationId}`,
-        );
+    private async processLoadLocation(payload: LoadLocationMessagePayloadDto): Promise<LoadLocationResponsePayloadDto> {
+        this.logger.log(`Player ${payload.userId} requested to download location ${payload.locationId}`);
 
         await this.getPlayerOrThrow(payload.userId);
-        const snapshot = await this.locationService.loadLocation(
-            payload.locationId,
-        );
-        this.logger.log(
-            `LOCATION LOADED: ${snapshot.locationId} (${snapshot.locationName})`,
-        );
+        const snapshot = await this.locationService.loadLocation(payload.locationId);
+        this.logger.log(`LOCATION LOADED: ${snapshot.locationId} (${snapshot.locationName})`);
         return snapshot;
     }
 

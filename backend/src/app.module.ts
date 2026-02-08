@@ -46,12 +46,8 @@ const infrastructureDatabaseModule = MongooseModule.forRootAsync({
                 const configuredUri = configService.get('database.url', {
                     infer: true,
                 });
-                const defaultHost =
-                    configService.get('database.host', { infer: true }) ??
-                    'localhost';
-                const defaultPort =
-                    configService.get('database.port', { infer: true }) ??
-                    27017;
+                const defaultHost = configService.get('database.host', { infer: true }) ?? 'localhost';
+                const defaultPort = configService.get('database.port', { infer: true }) ?? 27017;
                 const fallbackUri = `mongodb://${defaultHost}:${defaultPort}`;
 
                 let connectionUrl: URL;
@@ -103,12 +99,9 @@ const infrastructureDatabaseModule = MongooseModule.forRootAsync({
 
         I18nModule.forRootAsync({
             useFactory: (configService: ConfigService<AllConfigType>) => ({
-                fallbackLanguage: configService.getOrThrow(
-                    'app.fallbackLanguage',
-                    {
-                        infer: true,
-                    },
-                ),
+                fallbackLanguage: configService.getOrThrow('app.fallbackLanguage', {
+                    infer: true,
+                }),
                 loaderOptions: {
                     path: path.join(__dirname, '../i18n'),
                     watch: true,
@@ -117,9 +110,7 @@ const infrastructureDatabaseModule = MongooseModule.forRootAsync({
             resolvers: [
                 {
                     use: HeaderResolver,
-                    useFactory: (
-                        configService: ConfigService<AllConfigType>,
-                    ) => {
+                    useFactory: (configService: ConfigService<AllConfigType>) => {
                         return [
                             configService.get('app.headerLanguage', {
                                 infer: true,

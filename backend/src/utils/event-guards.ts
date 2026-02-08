@@ -1,7 +1,4 @@
-export const GuardEventEntityId = (
-    eventIdKey: string,
-    entityIdKey: string = eventIdKey,
-): MethodDecorator => {
+export const GuardEventEntityId = (eventIdKey: string, entityIdKey: string = eventIdKey): MethodDecorator => {
     return (_target, _propertyKey, descriptor) => {
         const original = descriptor.value as (...args: unknown[]) => unknown;
         if (typeof original !== 'function') {

@@ -117,11 +117,7 @@ export const IntegrityActions: ActionDefinition[] = [
         requiresLocation: 'hall|court_square',
         socialImpact: { CREDIBILITY: 0.4, FEAR: -0.05 },
         lawEffect: { perjuryAttempt: 'refused', enforceable: true },
-        requiredMemes: [
-            health.sanitation_norms,
-            health.waste_handling,
-            comm.language.written,
-        ],
+        requiredMemes: [health.sanitation_norms, health.waste_handling, comm.language.written],
     },
     {
         tag: IntegrityActionTag.HONOR_BOUNDARY_CONSENT,
@@ -193,11 +189,7 @@ export const IntegrityActions: ActionDefinition[] = [
         socialImpact: { TRANSPARENCY: 0.4 as any },
         ownershipEffect: { purseLedger: 'balanced' },
         lawEffect: { auditRoll: 'filed', enforceable: true },
-        requiredMemes: [
-            comm.language.written,
-            record.ledgerkeeping,
-            cog.number_concept,
-        ],
+        requiredMemes: [comm.language.written, record.ledgerkeeping, cog.number_concept],
     },
     {
         tag: IntegrityActionTag.RECUSE_FROM_DECISION,

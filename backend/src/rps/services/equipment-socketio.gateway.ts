@@ -12,10 +12,7 @@ import { RpsWsMessage, RpsWsResponse } from '../types/gateway-events.type';
 import { UserConnectedMessagePayloadDto } from '../dto/user-connected/user-connected-message.payload.dto';
 import { ArmorBuilderMessagePayloadDto } from '../dto/armor-builder/load/armor-builder-message.payload.dto';
 import { ArmorBuilderResponsePayloadDto } from '../dto/armor-builder/load/armor-builder-response.payload.dto';
-import {
-    ArmorHitLocationStats,
-    ArmorMaterials,
-} from '../domain/character/inventory/equipment/utils';
+import { ArmorHitLocationStats, ArmorMaterials } from '../domain/character/inventory/equipment/utils';
 import { EquipmentService } from './equipment.service';
 
 @WebSocketGateway({
@@ -23,9 +20,7 @@ import { EquipmentService } from './equipment.service';
     cors: { origin: '*' },
 })
 @Injectable()
-export class EquipmentSocketIoGateway
-    implements OnGatewayConnection, OnGatewayDisconnect
-{
+export class EquipmentSocketIoGateway implements OnGatewayConnection, OnGatewayDisconnect {
     private readonly logger = new Logger(EquipmentSocketIoGateway.name);
 
     constructor(private readonly equipmentService: EquipmentService) {}
@@ -39,14 +34,9 @@ export class EquipmentSocketIoGateway
     }
 
     @SubscribeMessage(RpsWsMessage.USER_CONNECTED)
-    onUserConnected(
-        @MessageBody() payload: UserConnectedMessagePayloadDto,
-        @ConnectedSocket() client: Socket,
-    ): void {
+    onUserConnected(@MessageBody() payload: UserConnectedMessagePayloadDto, @ConnectedSocket() client: Socket): void {
         try {
-            this.logger.log(
-                `Player connected to EQUIPMENT gateway with ${payload.userId}`,
-            );
+            this.logger.log(`Player connected to EQUIPMENT gateway with ${payload.userId}`);
             this.reply(client, RpsWsResponse.USER_CONNECTED, true);
         } catch (err: any) {
             this.replyError(client, err);

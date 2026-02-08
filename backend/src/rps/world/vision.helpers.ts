@@ -79,16 +79,8 @@ export interface VisionRollParams {
  *   index_max = floor(-p_req)
  *   range_max ≈ 10^(index_max / 6)
  */
-export function getAutoSuccessVisionDistanceHexes(
-    params: VisionRollParams,
-): number {
-    const {
-        per,
-        acuteVisionMod = 0,
-        taskDifficultyMod = 0,
-        envMod = 0,
-        targetSM,
-    } = params;
+export function getAutoSuccessVisionDistanceHexes(params: VisionRollParams): number {
+    const { per, acuteVisionMod = 0, taskDifficultyMod = 0, envMod = 0, targetSM } = params;
 
     // Эффективная "база" до учёта дальности:
     const B = per + acuteVisionMod + taskDifficultyMod + envMod + targetSM;
@@ -137,10 +129,7 @@ export function getHexCoord(hex: HexEntity): HexCoordLike {
     // Например, если у тебя hex.coord: { q, r }:
     const coord = (hex as any).coord;
     if (!coord || typeof coord.q !== 'number' || typeof coord.r !== 'number') {
-        throw new Error(
-            `[vision] HexEntity не содержит coord {q,r}. ` +
-                `Проверь структуру HexEntity.`,
-        );
+        throw new Error(`[vision] HexEntity не содержит coord {q,r}. ` + `Проверь структуру HexEntity.`);
     }
     return coord as HexCoordLike;
 }
@@ -254,21 +243,14 @@ export function getActorAutoVisionDistanceHexes(
  * Это НЕ точная копия GURPS Vision roll, но сохраняет интуицию:
  * лучше Per и условия → дальше видим.
  */
-export function getMaxVisionDistanceHexes(
-    actor: ActorEntity,
-    env: VisionEnvModifiers = {},
-): number {
+export function getMaxVisionDistanceHexes(actor: ActorEntity, env: VisionEnvModifiers = {}): number {
     const per = getActorPer(actor);
 
     const basePer = 10;
     const baseRangeHexes = 7; // "дальность" при Per 10 в норме
 
     const perDelta = per - basePer;
-    const envMod =
-        (env.lightingMod ?? 0) +
-        (env.contrastMod ?? 0) +
-        (env.fogMod ?? 0) +
-        (env.miscMod ?? 0);
+    const envMod = (env.lightingMod ?? 0) + (env.contrastMod ?? 0) + (env.fogMod ?? 0) + (env.miscMod ?? 0);
 
     const raw = baseRangeHexes + perDelta + envMod;
 

@@ -76,12 +76,7 @@ export const PrivacyActions: ActionDefinition[] = [
         socialImpact: { CALM: 0.3 as any, RESPECT: 0.2 },
         lawEffect: { quietHours: 'posted', enforceable: true },
         ownershipEffect: { accessScope: 'quiet_zone', grantAccess: true },
-        requiredMemes: [
-            culture.vigil_ritual,
-            cog.timekeeping.basic,
-            heat.space.hearth,
-            comm.language.written,
-        ],
+        requiredMemes: [culture.vigil_ritual, cog.timekeeping.basic, heat.space.hearth, comm.language.written],
     },
     {
         tag: PrivacyActionTag.PRIVATE_COUNSEL_MEET,
@@ -114,11 +109,7 @@ export const PrivacyActions: ActionDefinition[] = [
             accessScope: 'need_to_know',
         },
         lawEffect: { privacyRoll: 'updated', enforceable: true },
-        requiredMemes: [
-            comm.language.written,
-            record.ledgerkeeping,
-            econ.pooling_common_fund,
-        ],
+        requiredMemes: [comm.language.written, record.ledgerkeeping, econ.pooling_common_fund],
     },
     {
         tag: PrivacyActionTag.CONFIDE_TRUSTED_CONFIDANT,

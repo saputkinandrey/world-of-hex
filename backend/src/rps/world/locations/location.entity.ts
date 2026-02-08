@@ -1,13 +1,6 @@
 // world/locations/location.entity.ts
 
-import {
-    HexContentInstance,
-    HexCoord,
-    HexEntity,
-    HexId,
-    makeHexId,
-    VolumeUnits,
-} from '../hex.entity';
+import { HexContentInstance, HexCoord, HexEntity, HexId, makeHexId, VolumeUnits } from '../hex.entity';
 import type { WorldState } from '../world-state';
 import type { ActorEntity } from '../actor/actor.entity';
 
@@ -99,22 +92,14 @@ export class LocationEntity {
     // Акторы
     // ─────────────────────────────────────────────────────
 
-    placeCreature(params: {
-        actor: ActorEntity;
-        hexId: HexId;
-        contentId?: string;
-        volume?: VolumeUnits;
-    }): this {
+    placeCreature(params: { actor: ActorEntity; hexId: HexId; contentId?: string; volume?: VolumeUnits }): this {
         const { actor, hexId } = params;
         const contentId = params.contentId ?? `content:creature:${actor.id}`;
-        const volume: VolumeUnits =
-            params.volume ?? actor.physical?.baseVolume ?? 1;
+        const volume: VolumeUnits = params.volume ?? actor.physical?.baseVolume ?? 1;
 
         this.world.creatures[actor.id] = actor;
 
-        const hex =
-            this.world.hexes[hexId] ??
-            new HexEntity({ coord: this.parseHexId(hexId), id: hexId });
+        const hex = this.world.hexes[hexId] ?? new HexEntity({ coord: this.parseHexId(hexId), id: hexId });
         this.world.hexes[hex.id] = hex;
 
         this.world.contents[contentId] = {
@@ -151,9 +136,7 @@ export class LocationEntity {
         const hex = this.world.hexes[hexId];
 
         if (!hex) {
-            throw new Error(
-                `[LocationEntity] Cannot add content "${id}": hex "${hexId}" not found in world.hexes`,
-            );
+            throw new Error(`[LocationEntity] Cannot add content "${id}": hex "${hexId}" not found in world.hexes`);
         }
 
         this.world.contents[id] = content;

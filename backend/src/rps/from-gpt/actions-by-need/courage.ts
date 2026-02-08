@@ -120,11 +120,7 @@ export const CourageActions: ActionDefinition[] = [
         requiresLocation: 'hall|court_square',
         socialImpact: { CREDIBILITY: 0.4, COMMUNITY: 0.2 },
         lawEffect: { speechRule: 'no_defamation', enforceable: true },
-        requiredMemes: [
-            health.sanitation_norms,
-            health.waste_handling,
-            comm.language.written,
-        ],
+        requiredMemes: [health.sanitation_norms, health.waste_handling, comm.language.written],
     },
     {
         tag: CourageActionTag.CROSS_NIGHT_PATH,
@@ -211,11 +207,7 @@ export const CourageActions: ActionDefinition[] = [
         requiresLocation: 'hall|court_square',
         socialImpact: { CREDIBILITY: 0.4, FEAR: -0.05 },
         lawEffect: { testimony: 'sworn', enforceable: true },
-        requiredMemes: [
-            health.sanitation_norms,
-            health.waste_handling,
-            comm.language.written,
-        ],
+        requiredMemes: [health.sanitation_norms, health.waste_handling, comm.language.written],
     },
     {
         tag: CourageActionTag.HOLD_VIGIL_DANGEROUS_SITE,

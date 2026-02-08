@@ -11,12 +11,7 @@ export const MoodActions: ActionDefinition[] = [
         tradeEffect: { musician_fee: -1 as any },
         socialImpact: { MOOD: 0.5, COMMUNITY: 0.2 },
         lawEffect: { noiseCode: 'observed', enforceable: false },
-        requiredMemes: [
-            culture.vigil_ritual,
-            cog.timekeeping.basic,
-            heat.space.hearth,
-            comm.language.written,
-        ],
+        requiredMemes: [culture.vigil_ritual, cog.timekeeping.basic, heat.space.hearth, comm.language.written],
     },
     {
         tag: MoodActionTag.TELL_JOKES,
@@ -108,11 +103,7 @@ export const MoodActions: ActionDefinition[] = [
         tradeEffect: { musicians_fee: -2 },
         socialImpact: { MOOD: 0.8, COHESION: 0.5, VISIBILITY: 0.3 },
         lawEffect: { gatheringPermit: 'approved', enforceable: true },
-        requiredMemes: [
-            health.sanitation_norms,
-            health.waste_handling,
-            comm.language.written,
-        ],
+        requiredMemes: [health.sanitation_norms, health.waste_handling, comm.language.written],
     },
     {
         tag: MoodActionTag.STORYTELL_FIRESIDE,

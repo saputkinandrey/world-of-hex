@@ -46,10 +46,7 @@ export interface OffsetCoord {
 export type QOffsetLayout = 'odd-q' | 'even-q';
 
 /** Offset (odd-q/even-q) → axial. Формулы из redblobgames. */
-export function offsetToAxial_q(
-    layout: QOffsetLayout,
-    h: OffsetCoord,
-): HexCoord {
+export function offsetToAxial_q(layout: QOffsetLayout, h: OffsetCoord): HexCoord {
     const col = h.col;
     const row = h.row;
 
@@ -66,10 +63,7 @@ export function offsetToAxial_q(
 }
 
 /** Axial → offset (odd-q/even-q). */
-export function axialToOffset_q(
-    layout: QOffsetLayout,
-    h: HexCoord,
-): OffsetCoord {
+export function axialToOffset_q(layout: QOffsetLayout, h: HexCoord): OffsetCoord {
     const x = h.q;
     const z = h.r;
 
@@ -183,10 +177,7 @@ export class HexEntity {
     }
 
     /** Можно ли добавить ещё одно содержимое в гекс с учётом объёма. */
-    canFit(
-        newContent: HexContentInstance,
-        contentsInCell: HexContentInstance[],
-    ): boolean {
+    canFit(newContent: HexContentInstance, contentsInCell: HexContentInstance[]): boolean {
         const current = this.getUsedVolume(contentsInCell);
         return current + newContent.volume <= this.volumeCapacity;
     }

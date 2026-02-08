@@ -35,11 +35,7 @@ export const SCENT_TRAIL_TRACK: ActionDefinition = {
         CURIOSITY: 0.15,
         STRESS: -0.03 as any,
     },
-    requiredMemes: [
-        eth.predation.core,
-        tech.hunting.tracking_basic,
-        tech.sensing.chemosense_basic,
-    ],
+    requiredMemes: [eth.predation.core, tech.hunting.tracking_basic, tech.sensing.chemosense_basic],
     requiresLocation: 'trail|edge|undergrowth',
 };
 
@@ -54,11 +50,7 @@ export const VIBRATION_ALERT_HIDE: ActionDefinition = {
         STRESS: -0.1 as any,
         FOCUS: 0.2,
     },
-    requiredMemes: [
-        tech.sensing.vibration_basic,
-        core.perception,
-        eth.maintenance.thermoregulation,
-    ],
+    requiredMemes: [tech.sensing.vibration_basic, core.perception, eth.maintenance.thermoregulation],
     requiresLocation: 'any',
 };
 

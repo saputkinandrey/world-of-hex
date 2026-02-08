@@ -34,9 +34,7 @@ export class ModifierBucketEntity {
                 this.modifiers = [];
                 break;
             case ModifierBucketClearMode.Expired:
-                this.modifiers = this.modifiers.filter(
-                    (mod) => mod.turnsLeft == null || mod.turnsLeft <= 0,
-                );
+                this.modifiers = this.modifiers.filter((mod) => mod.turnsLeft == null || mod.turnsLeft <= 0);
                 break;
         }
         return this;
@@ -46,12 +44,7 @@ export class ModifierBucketEntity {
         const allReasons = {};
 
         this.modifiers
-            .filter(
-                (mod) =>
-                    mod.target == null ||
-                    target == null ||
-                    mod.target == target,
-            )
+            .filter((mod) => mod.target == null || target == null || mod.target == target)
             .forEach((modifier) => {
                 if (!allReasons.hasOwnProperty(modifier.reason)) {
                     allReasons[modifier.reason] = modifier.value;
@@ -62,20 +55,12 @@ export class ModifierBucketEntity {
                         allReasons[modifier.reason] += modifier.value;
                         return;
                     }
-                    if (
-                        Math.abs(allReasons[modifier.reason]) <
-                        Math.abs(modifier.value)
-                    ) {
+                    if (Math.abs(allReasons[modifier.reason]) < Math.abs(modifier.value)) {
                         allReasons[modifier.reason] = modifier.value;
                     }
                 }
             });
 
-        return Number(
-            Object.values(allReasons).reduce(
-                (acc: number, current: number) => Number(acc + current),
-                0,
-            ),
-        );
+        return Number(Object.values(allReasons).reduce((acc: number, current: number) => Number(acc + current), 0));
     }
 }

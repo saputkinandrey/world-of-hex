@@ -1,17 +1,8 @@
 import { ActionDefinition } from '../../actions/action-definition';
-import {
-    ActionTag,
-    FoodActionTag,
-    RestActionTag,
-} from '../../actions/action-tags';
+import { ActionTag, FoodActionTag, RestActionTag } from '../../actions/action-tags';
 import { NeedTag, NeedThresholdEnum, zoneRank } from '../../needs/needs';
 import { ActionContext } from '../../actions/action-context';
-import {
-    getLeveledMorphLevel,
-    leveledMorphPrefix,
-    morph,
-    morphLvl,
-} from '../../morphs';
+import { getLeveledMorphLevel, leveledMorphPrefix, morph, morphLvl } from '../../morphs';
 import { ActorEntity } from '../../actor/actor.entity';
 import { ActionEnterRejectedError } from '../../actions/action-errors';
 import { drinkFromWorld } from '../../water/water-consumption';
@@ -96,10 +87,7 @@ export function getDailyDrinkSeconds(actor: ActorEntity): number {
     const rate = getDrinkRateLitersPerSecond(actor);
 
     if (rate <= 0) {
-        throw new Error(
-            `[water] getDrinkRateLitersPerSecond() вернул ${rate}. ` +
-                `Скорость питья должна быть > 0.`,
-        );
+        throw new Error(`[water] getDrinkRateLitersPerSecond() вернул ${rate}. ` + `Скорость питья должна быть > 0.`);
     }
 
     // Если litersPerDay = 0 → не нуждается в воде.
@@ -228,16 +216,13 @@ export const DRINK: ActionDefinition = {
         const litersPerDay = getDailyWaterNeedLiters(actor);
         if (litersPerDay <= 0) {
             throw new Error(
-                `[Action DRINK] litersPerDay <= 0 в perform(), ` +
-                    `хотя onEnter должен был это отфильтровать.`,
+                `[Action DRINK] litersPerDay <= 0 в perform(), ` + `хотя onEnter должен был это отфильтровать.`,
             );
         }
 
         const dailyDrinkSeconds = getDailyDrinkSeconds(actor);
         if (dailyDrinkSeconds <= 0) {
-            throw new Error(
-                `[Action DRINK] dailyDrinkSeconds <= 0 в perform().`,
-            );
+            throw new Error(`[Action DRINK] dailyDrinkSeconds <= 0 в perform().`);
         }
 
         const drinkLengthMs = dailyDrinkSeconds * 1000;
@@ -245,15 +230,11 @@ export const DRINK: ActionDefinition = {
         // 3) Зонная логика: какой диапазон зон по WATER мы "тащим" за цикл DRINK
         const enterGate = this.enterThresholds?.[NeedTag.WATER];
         if (!enterGate || !enterGate.atLeast) {
-            throw new Error(
-                `[Action DRINK] Некорректный enterThresholds[WATER]. ` +
-                    `Нужен хотя бы atLeast.`,
-            );
+            throw new Error(`[Action DRINK] Некорректный enterThresholds[WATER]. ` + `Нужен хотя бы atLeast.`);
         }
 
         const targetExitZone = NeedThresholdEnum.OK;
-        const drinkZone =
-            zoneRank(enterGate.atLeast) - zoneRank(targetExitZone);
+        const drinkZone = zoneRank(enterGate.atLeast) - zoneRank(targetExitZone);
 
         if (drinkZone <= 0) {
             throw new Error(
@@ -282,10 +263,7 @@ export const DRINK: ActionDefinition = {
             return;
         }
 
-        const requestedLiters = Math.min(
-            idealLitersThisTick,
-            maxLitersByStomach,
-        );
+        const requestedLiters = Math.min(idealLitersThisTick, maxLitersByStomach);
 
         // 6) Реально пытаемся выпить requestedLiters из мира
         const drinkRes = drinkFromWorld(actor, ctx, requestedLiters);
@@ -386,8 +364,7 @@ export const SLEEP: ActionDefinition = {
         const enterGate = this.enterThresholds?.[NeedTag.REST];
         if (!enterGate) {
             throw new Error(
-                `[Action SLEEP] Missing enterThresholds[REST]. ` +
-                    `Нужно задать atLeast (например IMPAIRED).`,
+                `[Action SLEEP] Missing enterThresholds[REST]. ` + `Нужно задать atLeast (например IMPAIRED).`,
             );
         }
         if (!enterGate.atLeast) {
@@ -400,8 +377,7 @@ export const SLEEP: ActionDefinition = {
         const exitGate = this.exitThresholds?.[NeedTag.REST];
         if (!exitGate) {
             throw new Error(
-                `[Action SLEEP] Missing exitThresholds[REST]. ` +
-                    `Нужно задать atMost (например OK или WARN).`,
+                `[Action SLEEP] Missing exitThresholds[REST]. ` + `Нужно задать atMost (например OK или WARN).`,
             );
         }
         if (!exitGate.atMost) {
@@ -411,8 +387,7 @@ export const SLEEP: ActionDefinition = {
             );
         }
 
-        const sleepZone =
-            zoneRank(enterGate.atLeast) - zoneRank(exitGate.atMost);
+        const sleepZone = zoneRank(enterGate.atLeast) - zoneRank(exitGate.atMost);
 
         if (sleepZone <= 0) {
             throw new Error(

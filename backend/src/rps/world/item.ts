@@ -35,17 +35,11 @@ export interface ItemInstance {
 }
 
 /** Суммарный объём стопки предметов. */
-export function itemStackVolume(
-    type: ItemType,
-    instance: ItemInstance,
-): VolumeUnits {
+export function itemStackVolume(type: ItemType, instance: ItemInstance): VolumeUnits {
     return type.baseVolume * instance.stack;
 }
 
 /** Суммарный вес стопки предметов (в фунтах). */
-export function itemStackWeightLb(
-    type: ItemType,
-    instance: ItemInstance,
-): number {
+export function itemStackWeightLb(type: ItemType, instance: ItemInstance): number {
     return (type.baseWeightLb ?? 0) * instance.stack;
 }

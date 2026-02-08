@@ -13,10 +13,7 @@ import {
 import { core, eth, IQ2, MemeId, tech } from 'src/rps/world/memes';
 import { morph, MorphId } from '../morphs';
 import { ActionDefinition } from '../../from-gpt/action-definition';
-import {
-    HUNT_ACTIVE_FORAGE,
-    HUNT_WAIT_IN_AMBUSH,
-} from '../../from-gpt/actions-by-need/food-hunt';
+import { HUNT_ACTIVE_FORAGE, HUNT_WAIT_IN_AMBUSH } from '../../from-gpt/actions-by-need/food-hunt';
 import { EAT_ACCEPTABLE, EAT_POOR } from '../../from-gpt/actions-by-need/food';
 import { DRINK_DIRTY_WATER } from '../../from-gpt/actions-by-need/water';
 import { SLEEP_REST } from '../../from-gpt/etho/generic-actions';
@@ -182,11 +179,7 @@ export const LIZARD_PROFILE: CreatureProfile = {
     morphs: LIZARD_MORPHS,
     actions: LIZARD_ACTIONS,
 
-    createActor(
-        hexId: HexId,
-        id: string,
-        name: string = 'Lizard',
-    ): ActorEntity {
+    createActor(hexId: HexId, id: string, name: string = 'Lizard'): ActorEntity {
         return new ActorEntity({
             id,
             name,

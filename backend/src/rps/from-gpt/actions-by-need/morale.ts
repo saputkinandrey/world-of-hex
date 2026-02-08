@@ -1,14 +1,6 @@
 import { ActionDefinition } from '../action-definition';
 import { MoraleActionTag } from '../action-tags';
-import {
-    cog,
-    comm,
-    culture,
-    econ,
-    health,
-    heat,
-    record,
-} from '../../world/memes';
+import { cog, comm, culture, econ, health, heat, record } from '../../world/memes';
 export const MoraleActions: ActionDefinition[] = [
     {
         tag: MoraleActionTag.RALLY_SPEECH,
@@ -24,11 +16,7 @@ export const MoraleActions: ActionDefinition[] = [
         requiresLocation: 'yard|hall|square',
         socialImpact: { COHESION: 0.3 as any, RESPECT: 0.2 },
         lawEffect: { speechRule: 'no_defamation', enforceable: true },
-        requiredMemes: [
-            health.sanitation_norms,
-            health.waste_handling,
-            comm.language.written,
-        ],
+        requiredMemes: [health.sanitation_norms, health.waste_handling, comm.language.written],
     },
     {
         tag: MoraleActionTag.CELEBRATE_SMALL_WIN,
@@ -132,11 +120,7 @@ export const MoraleActions: ActionDefinition[] = [
         },
         requiresLocation: 'hearth|campfire',
         tradeEffect: { firewood: -1, lamp_oil: -1 | (0 as any) },
-        requiredMemes: [
-            culture.vigil_ritual,
-            cog.timekeeping.basic,
-            heat.space.hearth,
-        ],
+        requiredMemes: [culture.vigil_ritual, cog.timekeeping.basic, heat.space.hearth],
         socialImpact: { STORYTELLING: 0.3 as any, COHESION: 0.3 },
         lawEffect: { fireSafety: 'observed', enforceable: true },
     },
@@ -170,11 +154,7 @@ export const MoraleActions: ActionDefinition[] = [
         requiresLocation: 'mess|hearth|chapel',
         socialImpact: { PRIVACY: 0.2 as any, EMPATHY: 0.3 as any },
         ownershipEffect: { letter: 'read|archived' },
-        requiredMemes: [
-            culture.vigil_ritual,
-            cog.timekeeping.basic,
-            heat.space.hearth,
-        ],
+        requiredMemes: [culture.vigil_ritual, cog.timekeeping.basic, heat.space.hearth],
     },
     {
         tag: MoraleActionTag.HONOR_FALLEN_RITES,
@@ -200,11 +180,7 @@ export const MoraleActions: ActionDefinition[] = [
         tradeEffect: { chalk: -1, board_use: '+1' },
         socialImpact: { TRANSPARENCY: 0.3 as any, MOTIVATION: 0.3 as any },
         ownershipEffect: { boardState: 'wins_posted' },
-        requiredMemes: [
-            comm.language.written,
-            record.ledgerkeeping,
-            cog.number_concept,
-        ],
+        requiredMemes: [comm.language.written, record.ledgerkeeping, cog.number_concept],
     },
     {
         tag: MoraleActionTag.PAIR_NEW_WITH_VETERAN,
@@ -233,12 +209,7 @@ export const MoraleActions: ActionDefinition[] = [
         },
         requiresLocation: 'hearth|hall',
         socialImpact: { EMPATHY: 0.4 as any, COHESION: 0.3 },
-        requiredMemes: [
-            culture.vigil_ritual,
-            cog.timekeeping.basic,
-            heat.space.hearth,
-            comm.language.written,
-        ],
+        requiredMemes: [culture.vigil_ritual, cog.timekeeping.basic, heat.space.hearth, comm.language.written],
     },
     {
         tag: MoraleActionTag.CLEAN_AND_DECORATE_COMMONS,

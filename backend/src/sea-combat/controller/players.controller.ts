@@ -1,12 +1,4 @@
-import {
-    Body,
-    Controller,
-    Delete,
-    Get,
-    NotFoundException,
-    Param,
-    Post,
-} from '@nestjs/common';
+import { Body, Controller, Delete, Get, NotFoundException, Param, Post } from '@nestjs/common';
 
 import { ApiTags } from '@nestjs/swagger';
 
@@ -35,10 +27,7 @@ export class PlayersController {
     ) {}
 
     @Post(':playerId/own-a-ship')
-    async postOwnAShip(
-        @Param('playerId') playerId: string,
-        @Body() body: PostOwnAShipBodyDto,
-    ) {
+    async postOwnAShip(@Param('playerId') playerId: string, @Body() body: PostOwnAShipBodyDto) {
         const player = await this.playerRepository.findOneById(playerId);
         if (!player) {
             throw new NotFoundException(`Player with id ${playerId} not found`);
@@ -46,51 +35,34 @@ export class PlayersController {
 
         const ship = await this.shipRepository.findOneById(body.shipId);
         if (!ship) {
-            throw new NotFoundException(
-                `Ship with id ${body.shipId} not found`,
-            );
+            throw new NotFoundException(`Ship with id ${body.shipId} not found`);
         }
 
         await this.playerService.ownAShip(player, ship);
     }
 
     @Post(':playerId/join-encounter')
-    async postJoinEncounter(
-        @Param('playerId') playerId: string,
-        @Body() body: PostJoinEncounterBodyDto,
-    ) {
+    async postJoinEncounter(@Param('playerId') playerId: string, @Body() body: PostJoinEncounterBodyDto) {
         const player = await this.playerRepository.findOneById(playerId);
         if (!player) {
             throw new NotFoundException(`Player with id ${playerId} not found`);
         }
 
-        await this.encounterService.playerJoinsEncounter(
-            player,
-            body.encounterId,
-        );
+        await this.encounterService.playerJoinsEncounter(player, body.encounterId);
     }
 
     @Post(':playerId/leave-encounter')
-    async postLeaveEncounter(
-        @Param('playerId') playerId: string,
-        @Body() body: PostJoinEncounterBodyDto,
-    ) {
+    async postLeaveEncounter(@Param('playerId') playerId: string, @Body() body: PostJoinEncounterBodyDto) {
         const player = await this.playerRepository.findOneById(playerId);
         if (!player) {
             throw new NotFoundException(`Player with id ${playerId} not found`);
         }
 
-        await this.encounterService.playerLeaveEncounter(
-            player,
-            body.encounterId,
-        );
+        await this.encounterService.playerLeaveEncounter(player, body.encounterId);
     }
 
     @Delete(':playerId/own-a-ship/:shipId')
-    async deleteOwnedShip(
-        @Param('playerId') playerId: string,
-        @Param('shipId') shipId: string,
-    ) {
+    async deleteOwnedShip(@Param('playerId') playerId: string, @Param('shipId') shipId: string) {
         const player = await this.playerRepository.findOneById(playerId);
         if (!player) {
             throw new NotFoundException(`Player with id ${playerId} not found`);
@@ -119,10 +91,8 @@ export class PlayersController {
 
     @Get('list')
     getList() {
-        return this.playerRepository
-            .find({}, {}, { sort: { createdAt: -1 } })
-            .then((result) => {
-                return result.map((document) => document.toJSON());
-            });
+        return this.playerRepository.find({}, {}, { sort: { createdAt: -1 } }).then((result) => {
+            return result.map((document) => document.toJSON());
+        });
     }
 }

@@ -19,11 +19,7 @@ export const SocialNeedActions: ActionDefinition[] = [
         requiresLocation: 'market_square',
         socialImpact: { SOCIAL: 0.45, REPUTATION: 0.1, RUMOR: 0.05 as any },
         lawEffect: { speechRule: 'no_defamation', enforceable: true },
-        requiredMemes: [
-            health.sanitation_norms,
-            health.waste_handling,
-            comm.language.written,
-        ],
+        requiredMemes: [health.sanitation_norms, health.waste_handling, comm.language.written],
     },
     {
         tag: SocialNeedActionTag.SHARE_NEWS_BULLETIN,
@@ -89,12 +85,7 @@ export const SocialNeedActions: ActionDefinition[] = [
         tradeEffect: { tools_wear: '-minor' },
         socialImpact: { SOCIAL: 0.6, COHESION: 0.5, EFFICIENCY: 0.2 },
         lawEffect: { rota: 'volunteer', enforceable: false },
-        requiredMemes: [
-            health.sanitation_norms,
-            health.waste_handling,
-            tech.tool.use_basic,
-            comm.language.written,
-        ],
+        requiredMemes: [health.sanitation_norms, health.waste_handling, tech.tool.use_basic, comm.language.written],
     },
     {
         tag: SocialNeedActionTag.SING_ALONG_EVENING,
@@ -163,11 +154,6 @@ export const SocialNeedActions: ActionDefinition[] = [
         socialImpact: { SOCIAL: 0.6, READINESS: 0.4 as any, FEAR: -0.15 },
         lawEffect: { watchRoster: 'logged', enforceable: true },
         ownershipEffect: { accessScope: 'watch_posts', grantAccess: true },
-        requiredMemes: [
-            health.sanitation_norms,
-            health.waste_handling,
-            culture.vigil_ritual,
-            cog.timekeeping.basic,
-        ],
+        requiredMemes: [health.sanitation_norms, health.waste_handling, culture.vigil_ritual, cog.timekeeping.basic],
     },
 ];

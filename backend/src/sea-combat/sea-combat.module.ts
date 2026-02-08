@@ -15,24 +15,12 @@ import { PlayerModule } from '../player/player.module';
 @Module({
     imports: [
         // import modules, etc.
-        MongooseModule.forFeature([
-            { name: Encounter.name, schema: EncounterSchema },
-        ]),
+        MongooseModule.forFeature([{ name: Encounter.name, schema: EncounterSchema }]),
         MongooseModule.forFeature([{ name: Ship.name, schema: ShipSchema }]),
         PlayerModule,
     ],
-    controllers: [
-        PlayersController,
-        EncountersController,
-        ShipsController,
-        ShipController,
-    ],
-    providers: [
-        EncounterService,
-        EncounterRepository,
-        ShipRepository,
-        SeaCombatGateway,
-    ],
+    controllers: [PlayersController, EncountersController, ShipsController, ShipController],
+    providers: [EncounterService, EncounterRepository, ShipRepository, SeaCombatGateway],
     exports: [EncounterService],
 })
 export class SeaCombatModule {}

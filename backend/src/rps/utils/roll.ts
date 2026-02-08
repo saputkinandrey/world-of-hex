@@ -14,6 +14,19 @@ export const roll3d6Under = (target: number) => {
     return target - rollXd6(3);
 };
 
+export const roll3d6UnderWithCrit = (target: number) => {
+    const roll = rollXd6(3);
+    const mos = target - roll;
+    const isCritSuccess = roll <= 4;
+    const isCritFailure = roll >= 17;
+    return {
+        roll,
+        mos,
+        isCritSuccess,
+        isCritFailure,
+    };
+};
+
 export const randomChoice = <T>(variants: T[]): T => {
     return variants[rollXd(variants.length) - 1];
 };

@@ -3,10 +3,7 @@ import { AttributeEntity, DependencyCallback } from './attribute.entity';
 export class ResourceAttributeEntity extends AttributeEntity {
     currentLevel!: number;
 
-    constructor({
-        currentLevel,
-        ...rest
-    }: { currentLevel?: number } & Partial<AttributeEntity> = {}) {
+    constructor({ currentLevel, ...rest }: { currentLevel?: number } & Partial<AttributeEntity> = {}) {
         super(rest);
         this.setCurrentLevel(currentLevel);
     }
@@ -64,9 +61,7 @@ export class ResourceAttributeEntity extends AttributeEntity {
         return this;
     }
 
-    setTotalLevel(
-        totalLevel: number = this.baseLevel + this.level * this.levelIncrease,
-    ): this {
+    setTotalLevel(totalLevel: number = this.baseLevel + this.level * this.levelIncrease): this {
         super.setTotalLevel(totalLevel);
         return this;
     }

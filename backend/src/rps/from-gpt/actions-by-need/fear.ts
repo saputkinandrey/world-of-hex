@@ -31,11 +31,7 @@ export const FearActions: ActionDefinition[] = [
         requiresLocation: 'yard|square',
         socialImpact: { TRUST: 0.2, ORDER: 0.3 },
         lawEffect: { militiaCode: 'drill_logged', enforceable: true },
-        requiredMemes: [
-            health.sanitation_norms,
-            health.waste_handling,
-            comm.language.written,
-        ],
+        requiredMemes: [health.sanitation_norms, health.waste_handling, comm.language.written],
     },
     {
         tag: FearActionTag.REASSURE_PUBLIC_SPEECH,
@@ -51,11 +47,7 @@ export const FearActions: ActionDefinition[] = [
         requiresLocation: 'hall|square',
         socialImpact: { PANIC: -0.3 as any, TRUST: 0.3 },
         lawEffect: { speechRule: 'no_false_claims', enforceable: true },
-        requiredMemes: [
-            health.sanitation_norms,
-            health.waste_handling,
-            comm.language.written,
-        ],
+        requiredMemes: [health.sanitation_norms, health.waste_handling, comm.language.written],
     },
     {
         tag: FearActionTag.ESCORT_VULNERABLE,
@@ -172,11 +164,7 @@ export const FearActions: ActionDefinition[] = [
         requiresLocation: 'hall|streets',
         socialImpact: { PANIC: -0.3 as any, TRUST: 0.2, COHESION: 0.3 },
         lawEffect: { drillPolicy: 'posted', enforceable: true },
-        requiredMemes: [
-            health.sanitation_norms,
-            health.waste_handling,
-            comm.language.written,
-        ],
+        requiredMemes: [health.sanitation_norms, health.waste_handling, comm.language.written],
     },
     {
         tag: FearActionTag.COUNSELING_SESSION,
@@ -270,11 +258,7 @@ export const FearActions: ActionDefinition[] = [
         requiresLocation: 'temple|haunted_spot',
         tradeEffect: { incense: -1, sacred_oil: -1, salt: -1 },
         needRework: true,
-        requiredMemes: [
-            culture.vigil_ritual,
-            cog.timekeeping.basic,
-            food.preservation.salting,
-        ],
+        requiredMemes: [culture.vigil_ritual, cog.timekeeping.basic, food.preservation.salting],
         socialImpact: { REVERENCE: 0.3, HOPE: 0.3 as any },
         lawEffect: { ritePermit: 'granted', enforceable: true },
         ownershipEffect: { siteState: 'cleansed' },

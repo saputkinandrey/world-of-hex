@@ -121,12 +121,7 @@ export const LoveActions: ActionDefinition[] = [
             shared_rights: 'future_home',
         },
         lawEffect: { betrothalCharter: 'registered', enforceable: true },
-        requiredMemes: [
-            comm.language.written,
-            record.ledgerkeeping,
-            econ.pooling_common_fund,
-            econ.deposit_contract,
-        ],
+        requiredMemes: [comm.language.written, record.ledgerkeeping, econ.pooling_common_fund, econ.deposit_contract],
     },
     {
         tag: LoveActionTag.PLAN_FUTURE_HOME,
@@ -162,11 +157,7 @@ export const LoveActions: ActionDefinition[] = [
         tradeEffect: { musician_fee: -1 as any },
         socialImpact: { VISIBILITY: 0.3, JOY: 0.4 as any },
         lawEffect: { gatheringPermit: 'approved', enforceable: true },
-        requiredMemes: [
-            health.sanitation_norms,
-            health.waste_handling,
-            comm.language.written,
-        ],
+        requiredMemes: [health.sanitation_norms, health.waste_handling, comm.language.written],
     },
     {
         tag: LoveActionTag.PRIVATE_WALK_CHAPERONED,

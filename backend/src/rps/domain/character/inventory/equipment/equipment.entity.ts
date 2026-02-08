@@ -1,9 +1,4 @@
-import {
-    HitLocation,
-    ArmorMaterials,
-    ArmorMaterial,
-    ArmorHitLocationStats,
-} from './utils';
+import { HitLocation, ArmorMaterials, ArmorMaterial, ArmorHitLocationStats } from './utils';
 
 interface EquipmentEntityParams {
     coverage?: number;
@@ -52,10 +47,7 @@ export class EquipmentEntity {
             const zoneStats = ArmorHitLocationStats[zoneBit];
 
             // Игнорируем дочерние зоны, если родитель покрыт
-            if (
-                zoneStats.parentZone &&
-                (this.coverage & zoneStats.parentZone) !== 0
-            ) {
+            if (zoneStats.parentZone && (this.coverage & zoneStats.parentZone) !== 0) {
                 continue;
             }
 
@@ -65,9 +57,7 @@ export class EquipmentEntity {
                 if (drValue === null) {
                     drValue = zoneDr;
                 } else if (drValue !== zoneDr) {
-                    throw new Error(
-                        `Inconsistent DR detected: zone ${zoneBit} has DR ${zoneDr}, expected ${drValue}`,
-                    );
+                    throw new Error(`Inconsistent DR detected: zone ${zoneBit} has DR ${zoneDr}, expected ${drValue}`);
                 }
             }
         }
@@ -94,17 +84,13 @@ export class EquipmentEntity {
             const zoneStats = ArmorHitLocationStats[zoneBit];
 
             // Пропускаем дочерние зоны, если их родитель покрыт
-            if (
-                zoneStats.parentZone &&
-                (this.coverage & zoneStats.parentZone) !== 0
-            ) {
+            if (zoneStats.parentZone && (this.coverage & zoneStats.parentZone) !== 0) {
                 continue;
             }
 
             // Добавляем стоимость только если зона покрыта
             if ((this.coverage & zoneBit) !== 0) {
-                totalCost +=
-                    zoneStats.baseCost * this.material.costMult * this.layers;
+                totalCost += zoneStats.baseCost * this.material.costMult * this.layers;
             }
         }
 
@@ -130,19 +116,13 @@ export class EquipmentEntity {
             const zoneStats = ArmorHitLocationStats[zoneBit];
 
             // Пропускаем дочерние зоны, если их родитель покрыт
-            if (
-                zoneStats.parentZone &&
-                (this.coverage & zoneStats.parentZone) !== 0
-            ) {
+            if (zoneStats.parentZone && (this.coverage & zoneStats.parentZone) !== 0) {
                 continue;
             }
 
             // Добавляем вес только если зона покрыта
             if ((this.coverage & zoneBit) !== 0) {
-                totalWeight +=
-                    zoneStats.baseWeight *
-                    this.material.weightMult *
-                    this.layers;
+                totalWeight += zoneStats.baseWeight * this.material.weightMult * this.layers;
             }
         }
 

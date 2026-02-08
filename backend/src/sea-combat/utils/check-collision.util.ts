@@ -1,10 +1,6 @@
 import Vector from 'vector2js';
 
-export const checkCollision = (
-    pathA: Vector[],
-    pathB: Vector[],
-    roundLength: number,
-) => {
+export const checkCollision = (pathA: Vector[], pathB: Vector[], roundLength: number) => {
     const timePerStepA = roundLength / pathA.length; // 4.0 сек
     const timePerStepB = roundLength / pathB.length; // ~2.857 сек
 

@@ -1,14 +1,6 @@
 import { ActionDefinition } from '../action-definition';
 import { JoyActionTag } from '../action-tags';
-import {
-    cog,
-    comm,
-    culture,
-    econ,
-    health,
-    heat,
-    record,
-} from '../../world/memes';
+import { cog, comm, culture, econ, health, heat, record } from '../../world/memes';
 export const JoyActions: ActionDefinition[] = [
     {
         tag: JoyActionTag.PLAY_MUSIC_TOGETHER,
@@ -23,12 +15,7 @@ export const JoyActions: ActionDefinition[] = [
         requiresLocation: 'hearth|hall|green',
         requiresItem: ['flute|drum|lyre'],
         socialImpact: { COHESION: 0.3, RHYTHM: 0.2 as any },
-        requiredMemes: [
-            culture.vigil_ritual,
-            cog.timekeeping.basic,
-            heat.space.hearth,
-            comm.language.written,
-        ],
+        requiredMemes: [culture.vigil_ritual, cog.timekeeping.basic, heat.space.hearth, comm.language.written],
     },
     {
         tag: JoyActionTag.DANCE_RING,
@@ -39,11 +26,7 @@ export const JoyActions: ActionDefinition[] = [
         requiresLocation: 'square|green|hall',
         socialImpact: { COHESION: 0.4, STATUS: 0.1 },
         ownershipEffect: { floorSpace: 'cleared' },
-        requiredMemes: [
-            health.sanitation_norms,
-            health.waste_handling,
-            comm.language.written,
-        ],
+        requiredMemes: [health.sanitation_norms, health.waste_handling, comm.language.written],
     },
     {
         tag: JoyActionTag.JOKE_STORY_SWAP,
@@ -57,11 +40,7 @@ export const JoyActions: ActionDefinition[] = [
         },
         requiresLocation: 'hearth|mess',
         socialImpact: { EMPATHY: 0.3 as any, RUMORS: -0.1 as any },
-        requiredMemes: [
-            culture.vigil_ritual,
-            cog.timekeeping.basic,
-            heat.space.hearth,
-        ],
+        requiredMemes: [culture.vigil_ritual, cog.timekeeping.basic, heat.space.hearth],
     },
     {
         tag: JoyActionTag.SWEET_TREAT_SHARE,
@@ -100,11 +79,7 @@ export const JoyActions: ActionDefinition[] = [
         },
         requiresLocation: 'square|river_bank',
         tradeEffect: { pitch: -1 | (0 as any), powder: -1 | (0 as any) },
-        requiredMemes: [
-            health.sanitation_norms,
-            health.waste_handling,
-            comm.language.written,
-        ],
+        requiredMemes: [health.sanitation_norms, health.waste_handling, comm.language.written],
         socialImpact: { AWE: 0.5 as any, PANIC: -0.05 as any },
         lawEffect: { fireSafety: 'strict', enforceable: true },
     },
@@ -150,11 +125,7 @@ export const JoyActions: ActionDefinition[] = [
         requiresLocation: 'hall|yard',
         socialImpact: { COHESION: 0.3, RESENTMENT: -0.05 },
         ownershipEffect: { honorRoll: 'fun_titles_added' },
-        requiredMemes: [
-            health.sanitation_norms,
-            health.waste_handling,
-            comm.language.written,
-        ],
+        requiredMemes: [health.sanitation_norms, health.waste_handling, comm.language.written],
     },
     {
         tag: JoyActionTag.SURPRISE_GIFT_TOKEN,
@@ -180,11 +151,7 @@ export const JoyActions: ActionDefinition[] = [
         tradeEffect: { props: '-N' as any, dye: -1 | (0 as any) },
         socialImpact: { COHESION: 0.4, REPUTATION: 0.2 },
         ownershipEffect: { stageState: 'set' },
-        requiredMemes: [
-            health.sanitation_norms,
-            health.waste_handling,
-            comm.language.written,
-        ],
+        requiredMemes: [health.sanitation_norms, health.waste_handling, comm.language.written],
     },
     {
         tag: JoyActionTag.FISHING_PLEASURE_TRIP,
@@ -263,10 +230,6 @@ export const JoyActions: ActionDefinition[] = [
         tradeEffect: { ribbons: '-N' as any, prize_token: -1 | (0 as any) },
         socialImpact: { COHESION: 0.4, COMPETITION: 0.2 },
         ownershipEffect: { fieldState: 'game_lines' },
-        requiredMemes: [
-            health.sanitation_norms,
-            health.waste_handling,
-            comm.language.written,
-        ],
+        requiredMemes: [health.sanitation_norms, health.waste_handling, comm.language.written],
     },
 ];

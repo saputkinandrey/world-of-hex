@@ -8,10 +8,7 @@ import { RpsResponseDto } from '../dto/rps-response.dto';
 import { UserConnectedResponsePayloadDto } from '../dto/user-connected/user-connected-response.payload.dto';
 import { ArmorBuilderMessagePayloadDto } from '../dto/armor-builder/load/armor-builder-message.payload.dto';
 import { ArmorBuilderResponsePayloadDto } from '../dto/armor-builder/load/armor-builder-response.payload.dto';
-import {
-    ArmorHitLocationStats,
-    ArmorMaterials,
-} from '../domain/character/inventory/equipment/utils';
+import { ArmorHitLocationStats, ArmorMaterials } from '../domain/character/inventory/equipment/utils';
 import { EquipmentService } from './equipment.service';
 
 @WebSocketGateway({ path: '/ws-rps-character' })
@@ -26,9 +23,7 @@ export class CharacterGateway implements OnModuleInit {
         [RpsWsMessage.USER_CONNECTED]: async (
             payload: UserConnectedMessagePayloadDto,
         ): Promise<RpsResponseDto<UserConnectedResponsePayloadDto>> => {
-            console.log(
-                `Player connected to EQUIPMENT GATEWAY with ${payload.userId}`,
-            );
+            console.log(`Player connected to EQUIPMENT GATEWAY with ${payload.userId}`);
             return Promise.resolve({
                 response: RpsWsResponse.USER_CONNECTED,
                 payload: true,

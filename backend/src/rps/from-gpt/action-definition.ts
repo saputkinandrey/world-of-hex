@@ -72,10 +72,7 @@ export interface ActionDefinition {
 }
 
 // определить дискретную зону по level∈[0..1] и порогам
-export function zoneOf(
-    level: number,
-    t: NeedThresholds,
-): NeedThresholdEnum | null {
+export function zoneOf(level: number, t: NeedThresholds): NeedThresholdEnum | null {
     if (level >= t.critical) return NeedThresholdEnum.CRITICAL;
     if (level >= t.severe) return NeedThresholdEnum.SEVERE;
     if (level >= t.impaired) return NeedThresholdEnum.IMPAIRED;
@@ -99,10 +96,7 @@ export function actionAllowedByNeeds(
     const gates = action.needThresholds;
     if (!gates) return true;
 
-    for (const [needTag, gate] of Object.entries(gates) as [
-        NeedTag,
-        NeedGate,
-    ][]) {
+    for (const [needTag, gate] of Object.entries(gates) as [NeedTag, NeedGate][]) {
         const state = needs.get(needTag);
         if (!state) return false; // существо не «знает» эту потребность → экшен недоступен
 

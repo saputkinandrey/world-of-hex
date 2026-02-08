@@ -40,10 +40,7 @@ export interface ItemIndex {
  * Актор хранит только идентификаторы предметов (inventoryItemIds),
  * а сами предметы живут в ItemIndex (например, в мире).
  */
-export function getActorInventoryItems(
-    actor: ActorEntity,
-    itemIndex: ItemIndex,
-): ItemLike[] {
+export function getActorInventoryItems(actor: ActorEntity, itemIndex: ItemIndex): ItemLike[] {
     const ids: ItemId[] = (actor as any).inventoryItemIds ?? [];
 
     const result: ItemLike[] = [];

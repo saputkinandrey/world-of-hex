@@ -1,14 +1,6 @@
 import { ActionDefinition } from '../action-definition';
 import { FairnessActionTag } from '../action-tags';
-import {
-    cog,
-    comm,
-    culture,
-    econ,
-    fire,
-    health,
-    record,
-} from '../../world/memes';
+import { cog, comm, culture, econ, fire, health, record } from '../../world/memes';
 export const FairnessActions: ActionDefinition[] = [
     {
         tag: FairnessActionTag.POST_CLEAR_TARIFFS,
@@ -35,11 +27,7 @@ export const FairnessActions: ActionDefinition[] = [
         socialImpact: { CREDIBILITY: 0.3, DISPUTES: -0.1 as any },
         lawEffect: { measureSeal: 'stamped', enforceable: true },
         ownershipEffect: { scaleUse: 'public' },
-        requiredMemes: [
-            health.sanitation_norms,
-            health.waste_handling,
-            comm.language.written,
-        ],
+        requiredMemes: [health.sanitation_norms, health.waste_handling, comm.language.written],
     },
     {
         tag: FairnessActionTag.RANDOM_AUDIT_DRAW,
@@ -94,11 +82,7 @@ export const FairnessActions: ActionDefinition[] = [
         requiresLocation: 'hall|temple',
         socialImpact: { COMMUNITY: 0.2, RESPECT: 0.2 },
         lawEffect: { arbitrationPanel: 'three_neutrals', enforceable: true },
-        requiredMemes: [
-            culture.vigil_ritual,
-            cog.timekeeping.basic,
-            comm.language.written,
-        ],
+        requiredMemes: [culture.vigil_ritual, cog.timekeeping.basic, comm.language.written],
     },
     {
         tag: FairnessActionTag.TURN_ORDER_LOTTERY,

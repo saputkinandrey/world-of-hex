@@ -9,11 +9,7 @@ import {
 import { randomChoice } from '../../rps/utils/roll';
 import { ShipEncounterIntent } from '../types/ship-encounter-intent.type';
 
-export type SpawnTacticsOutcome =
-    | 'critSuccess'
-    | 'success'
-    | 'failure'
-    | 'critFailure';
+export type SpawnTacticsOutcome = 'critSuccess' | 'success' | 'failure' | 'critFailure';
 
 export type SpawnShipAtEncounterOptions = {
     radius: number;
@@ -47,23 +43,17 @@ const turnRight = (direction: Direction, times: number = 1) => {
 
 const oppositeDirection = (direction: Direction) => turnLeft(direction, 3);
 
-const chooseSide = (direction: Direction) =>
-    randomChoice([turnLeft(direction), turnRight(direction)]);
+const chooseSide = (direction: Direction) => randomChoice([turnLeft(direction), turnRight(direction)]);
 
 const windRelationRank = (heading: Direction, windFrom: Direction) => {
     const tailwind = oppositeDirection(windFrom);
     if (heading === tailwind) return 3;
-    if (heading === turnLeft(tailwind) || heading === turnRight(tailwind))
-        return 2;
-    if (heading === turnLeft(windFrom) || heading === turnRight(windFrom))
-        return 1;
+    if (heading === turnLeft(tailwind) || heading === turnRight(tailwind)) return 2;
+    if (heading === turnLeft(windFrom) || heading === turnRight(windFrom)) return 1;
     return 0;
 };
 
-const resolveHeadingFromWind = (
-    windFrom: Direction,
-    outcome: SpawnTacticsOutcome,
-) => {
+const resolveHeadingFromWind = (windFrom: Direction, outcome: SpawnTacticsOutcome) => {
     const tailwind = oppositeDirection(windFrom);
     const headwind = windFrom;
     const sideBehind = chooseSide(tailwind);
@@ -82,23 +72,15 @@ const resolveHeadingFromWind = (
     }
 };
 
-export const spawnShipAtEncounter = (
-    options: SpawnShipAtEncounterOptions,
-): SpawnShipAtEncounterResult => {
+export const spawnShipAtEncounter = (options: SpawnShipAtEncounterOptions): SpawnShipAtEncounterResult => {
     const center = options.center ?? new Vector(0, 0);
     const radius = options.radius;
     const speed = options.speed ?? 0;
     const distance = Math.max(0, radius - speed);
 
-    if (
-        !options.intent ||
-        !options.windDirection ||
-        !options.tacticsOutcome
-    ) {
+    if (!options.intent || !options.windDirection || !options.tacticsOutcome) {
         const direction = randomChoice(AllDirections);
-        const position = center.add(
-            DirectionToVectorOdd[direction].mulScalar(distance),
-        );
+        const position = center.add(DirectionToVectorOdd[direction].mulScalar(distance));
         return { position, direction };
     }
 
@@ -107,46 +89,31 @@ export const spawnShipAtEncounter = (
 
     if (options.intent === ShipEncounterIntent.FLEE) {
         const heading = resolveHeadingFromWind(windFrom, outcome);
-        const position = center.add(
-            DirectionToVectorOdd[heading].mulScalar(distance),
-        );
+        const position = center.add(DirectionToVectorOdd[heading].mulScalar(distance));
         return { position, direction: heading };
     }
 
     if (options.intent === ShipEncounterIntent.PURSUE) {
         const heading = resolveHeadingFromWind(windFrom, outcome);
-        const position = center.add(
-            DirectionToVectorOdd[oppositeDirection(heading)].mulScalar(distance),
-        );
+        const position = center.add(DirectionToVectorOdd[oppositeDirection(heading)].mulScalar(distance));
         return { position, direction: heading };
     }
 
     if (options.intent === ShipEncounterIntent.CIRCLE) {
         const radial = resolveHeadingFromWind(windFrom, outcome);
-        const position = center.add(
-            DirectionToVectorOdd[radial].mulScalar(distance),
-        );
+        const position = center.add(DirectionToVectorOdd[radial].mulScalar(distance));
         const left = turnLeft(radial);
         const right = turnRight(radial);
 
         const leftRank = windRelationRank(left, windFrom);
         const rightRank = windRelationRank(right, windFrom);
-        const isPositive =
-            outcome === 'critSuccess' || outcome === 'success';
-        const direction = isPositive
-            ? leftRank >= rightRank
-                ? left
-                : right
-            : leftRank <= rightRank
-              ? left
-              : right;
+        const isPositive = outcome === 'critSuccess' || outcome === 'success';
+        const direction = isPositive ? (leftRank >= rightRank ? left : right) : leftRank <= rightRank ? left : right;
 
         return { position, direction };
     }
 
     const fallbackDirection = randomChoice(AllDirections);
-    const fallbackPosition = center.add(
-        DirectionToVectorOdd[fallbackDirection].mulScalar(distance),
-    );
+    const fallbackPosition = center.add(DirectionToVectorOdd[fallbackDirection].mulScalar(distance));
     return { position: fallbackPosition, direction: fallbackDirection };
 };

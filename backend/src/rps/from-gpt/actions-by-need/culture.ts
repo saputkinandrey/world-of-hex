@@ -23,11 +23,7 @@ export const CultureActions: ActionDefinition[] = [
         socialImpact: { NETWORK: 0.3, RESPECT: 0.2 },
         lawEffect: { gatheringPermit: 'approved', enforceable: true },
         ownershipEffect: { accessScope: 'stalls|stage', grantAccess: true },
-        requiredMemes: [
-            health.sanitation_norms,
-            health.waste_handling,
-            comm.language.written,
-        ],
+        requiredMemes: [health.sanitation_norms, health.waste_handling, comm.language.written],
     },
     {
         tag: CultureActionTag.ORAL_HISTORY_CIRCLE,
@@ -42,12 +38,7 @@ export const CultureActions: ActionDefinition[] = [
         requiresLocation: 'hall|hearth',
         socialImpact: { COMMUNITY: 0.4, RESPECT: 0.2 },
         ownershipEffect: { loreLog: 'updated' },
-        requiredMemes: [
-            culture.vigil_ritual,
-            cog.timekeeping.basic,
-            heat.space.hearth,
-            comm.language.written,
-        ],
+        requiredMemes: [culture.vigil_ritual, cog.timekeeping.basic, heat.space.hearth, comm.language.written],
     },
     {
         tag: CultureActionTag.CRAFT_GUILD_EXHIBIT,
@@ -130,12 +121,7 @@ export const CultureActions: ActionDefinition[] = [
         tradeEffect: { small_fee: -1 | (0 as any) },
         socialImpact: { RESPECT: 0.2, COMMUNITY: 0.3 },
         ownershipEffect: { anthology: 'added_tale' },
-        requiredMemes: [
-            culture.vigil_ritual,
-            cog.timekeeping.basic,
-            heat.space.hearth,
-            comm.language.written,
-        ],
+        requiredMemes: [culture.vigil_ritual, cog.timekeeping.basic, heat.space.hearth, comm.language.written],
     },
     {
         tag: CultureActionTag.HERITAGE_MARKERS,
@@ -170,11 +156,7 @@ export const CultureActions: ActionDefinition[] = [
         },
         socialImpact: { BELONGING: 0.5 as any, NETWORK: 0.2 },
         ownershipEffect: { storesLevel: 'reduced_feast' },
-        requiredMemes: [
-            health.sanitation_norms,
-            health.waste_handling,
-            comm.language.written,
-        ],
+        requiredMemes: [health.sanitation_norms, health.waste_handling, comm.language.written],
     },
     {
         tag: CultureActionTag.ARTISAN_CONTEST,
@@ -223,11 +205,7 @@ export const CultureActions: ActionDefinition[] = [
         tradeEffect: { booths: '-N' as any, gifts: '-N' as any },
         socialImpact: { TOLERANCE: 0.4 as any, RESPECT: 0.2 },
         lawEffect: { guestRight: 'declared', enforceable: true },
-        requiredMemes: [
-            health.sanitation_norms,
-            health.waste_handling,
-            comm.language.written,
-        ],
+        requiredMemes: [health.sanitation_norms, health.waste_handling, comm.language.written],
     },
     {
         tag: CultureActionTag.TEACH_CHILDREN_CUSTOMS,
@@ -242,11 +220,7 @@ export const CultureActions: ActionDefinition[] = [
         requiresLocation: 'school|hearth|temple',
         socialImpact: { RESPECT: 0.2, HOPE: 0.3 as any },
         ownershipEffect: { primer: 'compiled' },
-        requiredMemes: [
-            culture.vigil_ritual,
-            cog.timekeeping.basic,
-            heat.space.hearth,
-        ],
+        requiredMemes: [culture.vigil_ritual, cog.timekeeping.basic, heat.space.hearth],
     },
     {
         tag: CultureActionTag.MEMORIAL_SERVICE,

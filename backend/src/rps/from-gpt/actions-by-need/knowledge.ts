@@ -1,15 +1,6 @@
 import { ActionDefinition } from '../action-definition';
 import { KnowledgeActionTag } from '../action-tags';
-import {
-    cog,
-    comm,
-    econ,
-    fire,
-    heat,
-    org,
-    record,
-    tech,
-} from '../../world/memes';
+import { cog, comm, econ, fire, heat, org, record, tech } from '../../world/memes';
 export const KnowledgeActions: ActionDefinition[] = [
     {
         tag: KnowledgeActionTag.VISIT_LIBRARY,
@@ -37,11 +28,7 @@ export const KnowledgeActions: ActionDefinition[] = [
         requiresItem: ['scroll|treatise'],
         tradeEffect: { ink_marks: '-minor', lamp_oil: -1 },
         needRework: true,
-        requiredMemes: [
-            comm.language.written,
-            record.ledgerkeeping,
-            cog.number_concept,
-        ],
+        requiredMemes: [comm.language.written, record.ledgerkeeping, cog.number_concept],
         socialImpact: { KNOWLEDGE: 0.5, DISCIPLINE: 0.3 as any },
         lawEffect: { loanSlip: 'signed', enforceable: true },
     },
@@ -82,12 +69,7 @@ export const KnowledgeActions: ActionDefinition[] = [
         socialImpact: { KNOWLEDGE: 0.5, HUMILITY: 0.2 as any },
         ownershipEffect: { accessScope: 'master_workbench', grantAccess: true },
         lawEffect: { visitorBadge: 'issued', enforceable: true },
-        requiredMemes: [
-            heat.industrial,
-            fire.control,
-            comm.language.written,
-            org.workshop_practice,
-        ],
+        requiredMemes: [heat.industrial, fire.control, comm.language.written, org.workshop_practice],
     },
     {
         tag: KnowledgeActionTag.RUN_EXPERIMENT,
@@ -100,11 +82,7 @@ export const KnowledgeActions: ActionDefinition[] = [
         socialImpact: { KNOWLEDGE: 0.6, INNOVATION_REP: 0.3 as any },
         lawEffect: { testPermit: 'granted', enforceable: true },
         ownershipEffect: { labNotebook: 'updated' },
-        requiredMemes: [
-            fire.control,
-            comm.language.written,
-            tech.tool.use_basic,
-        ],
+        requiredMemes: [fire.control, comm.language.written, tech.tool.use_basic],
     },
     {
         tag: KnowledgeActionTag.FIELD_RESEARCH,

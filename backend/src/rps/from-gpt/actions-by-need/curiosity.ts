@@ -199,11 +199,7 @@ export const CuriosityActions: ActionDefinition[] = [
         },
         ownershipEffect: { accessScope: 'explorers_board', grantAccess: true },
         lawEffect: { bulletinPermit: 'approved', enforceable: true },
-        requiredMemes: [
-            health.sanitation_norms,
-            health.waste_handling,
-            comm.language.written,
-        ],
+        requiredMemes: [health.sanitation_norms, health.waste_handling, comm.language.written],
     },
     {
         tag: CuriosityActionTag.TRAILBLAZE_NEW_ROUTE,
@@ -233,11 +229,7 @@ export const CuriosityActions: ActionDefinition[] = [
         requiresLocation: 'hall|yard',
         socialImpact: { CURIOSITY: 0.35, READINESS: 0.5, TRUST: 0.2 },
         lawEffect: { riskPolicy: 'updated', enforceable: true },
-        requiredMemes: [
-            health.sanitation_norms,
-            health.waste_handling,
-            comm.language.written,
-        ],
+        requiredMemes: [health.sanitation_norms, health.waste_handling, comm.language.written],
     },
     {
         tag: CuriosityActionTag.PUBLISH_FINDINGS,

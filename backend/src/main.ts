@@ -1,9 +1,5 @@
 import 'dotenv/config';
-import {
-    ClassSerializerInterceptor,
-    ValidationPipe,
-    VersioningType,
-} from '@nestjs/common';
+import { ClassSerializerInterceptor, ValidationPipe, VersioningType } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { NestFactory, Reflector } from '@nestjs/core';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
@@ -21,12 +17,9 @@ async function bootstrap() {
     app.useWebSocketAdapter(new IoAdapter(app));
 
     app.enableShutdownHooks();
-    app.setGlobalPrefix(
-        configService.getOrThrow('app.apiPrefix', { infer: true }),
-        {
-            exclude: ['/'],
-        },
-    );
+    app.setGlobalPrefix(configService.getOrThrow('app.apiPrefix', { infer: true }), {
+        exclude: ['/'],
+    });
     app.enableVersioning({
         type: VersioningType.URI,
     });

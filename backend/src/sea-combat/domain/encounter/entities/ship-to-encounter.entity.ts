@@ -72,10 +72,7 @@ export class ShipToEncounterEntity extends StreamAwareEntity {
         const action = getOwnActionEvent(this, ShipAcceleratedEvent);
         const { speed, seamanshipMoS } = action.setNamedArgs({
             speed: this.actualSpeed,
-            seamanshipMoS: roll3d6Under(
-                this.ship.skills.seamanship +
-                    this.modifierBucket.total('seamanship'),
-            ),
+            seamanshipMoS: roll3d6Under(this.ship.skills.seamanship + this.modifierBucket.total('seamanship')),
         });
         const nextSpeed = seamanshipMoS >= 0 ? speed + 1 : speed;
         return this.setActualSpeed(nextSpeed);

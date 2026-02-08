@@ -1,23 +1,14 @@
 import { CharacterEntity } from '../../character/character.entity';
 import { SocialDutyTag } from '../types';
 import { SampleRoles } from '../entities/social-relation.entity';
-import {
-    InventoryType,
-    ResourceType,
-} from '../../character/inventory/character-inventory.entity';
+import { InventoryType, ResourceType } from '../../character/inventory/character-inventory.entity';
 
 export class EconomySystem {
-    static giveTribute(
-        subordinate: CharacterEntity,
-        leader: CharacterEntity,
-        type: ResourceType,
-    ) {
+    static giveTribute(subordinate: CharacterEntity, leader: CharacterEntity, type: ResourceType) {
         const relation = leader.getRelationWith(subordinate.id);
         if (!relation) return;
 
-        const tributeTag = relation.dutiesBeforeLeader.find(
-            (d) => d.tag === SocialDutyTag.GIVE_TRIBUTE,
-        );
+        const tributeTag = relation.dutiesBeforeLeader.find((d) => d.tag === SocialDutyTag.GIVE_TRIBUTE);
         if (!tributeTag) return;
 
         const ratio = tributeTag.value; // 0–1
@@ -34,17 +25,11 @@ export class EconomySystem {
         }
     }
 
-    static shareLootUp(
-        subordinate: CharacterEntity,
-        leader: CharacterEntity,
-        type: ResourceType,
-    ) {
+    static shareLootUp(subordinate: CharacterEntity, leader: CharacterEntity, type: ResourceType) {
         const relation = leader.getRelationWith(subordinate.id);
         if (!relation) return;
 
-        const duty = relation.dutiesBeforeLeader.find(
-            (d) => d.tag === SocialDutyTag.SHARE_LOOT_UP,
-        );
+        const duty = relation.dutiesBeforeLeader.find((d) => d.tag === SocialDutyTag.SHARE_LOOT_UP);
         if (!duty) return;
 
         const ratio = duty.value;
@@ -62,9 +47,7 @@ export class EconomySystem {
             const relation = leader.getRelationWith(subordinate.id);
             if (!relation) continue;
 
-            const duty = relation.dutiesBeforeSubordinates.find(
-                (r) => r.tag === SocialDutyTag.SHARE_LOOT_DOWN,
-            );
+            const duty = relation.dutiesBeforeSubordinates.find((r) => r.tag === SocialDutyTag.SHARE_LOOT_DOWN);
             if (!duty) continue;
 
             const ratio = duty.value;

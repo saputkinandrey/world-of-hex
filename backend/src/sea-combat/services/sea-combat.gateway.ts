@@ -22,9 +22,7 @@ import { LoadEncounterResponsePayloadDto } from '../dto/websockets/load-encounte
     cors: { origin: '*' },
 })
 @Injectable()
-export class SeaCombatGateway
-    implements OnGatewayInit, OnGatewayConnection, OnGatewayDisconnect
-{
+export class SeaCombatGateway implements OnGatewayInit, OnGatewayConnection, OnGatewayDisconnect {
     @WebSocketServer()
     server: Server;
 
@@ -48,10 +46,7 @@ export class SeaCombatGateway
     }
 
     @SubscribeMessage(WSMessage.USER_CONNECTED)
-    onUserConnected(
-        @MessageBody() payload: UserConnectedMessagePayloadDto,
-        @ConnectedSocket() client: Socket,
-    ): void {
+    onUserConnected(@MessageBody() payload: UserConnectedMessagePayloadDto, @ConnectedSocket() client: Socket): void {
         try {
             this.logger.log(`Player connected with ${payload.userId}`);
             this.emit(client, WSResponse.USER_CONNECTED, true);
@@ -85,9 +80,7 @@ export class SeaCombatGateway
     private async processLoadEncounter(
         payload: LoadEncounterMessagePayloadDto,
     ): Promise<LoadEncounterResponsePayloadDto> {
-        this.logger.log(
-            `Player ${payload.userId} requested to download encounter ${payload.encounterId}`,
-        );
+        this.logger.log(`Player ${payload.userId} requested to download encounter ${payload.encounterId}`);
 
         const player = await this.getPlayerOrThrow(payload.userId);
         const encounter = await this.getEncounterOrThrow(payload.encounterId);
@@ -112,19 +105,11 @@ export class SeaCombatGateway
         return encounter;
     }
 
-    private assertPlayerInEncounter(
-        player: any,
-        encounter: any,
-        encounterId: string,
-    ) {
-        if (
-            this.encounterService.isPlayerJoinedToEncounter(player, encounter)
-        ) {
+    private assertPlayerInEncounter(player: any, encounter: any, encounterId: string) {
+        if (this.encounterService.isPlayerJoinedToEncounter(player, encounter)) {
             return;
         }
 
-        throw new Error(
-            `Player ${player._id} not participating in encounter ${encounterId}`,
-        );
+        throw new Error(`Player ${player._id} not participating in encounter ${encounterId}`);
     }
 }

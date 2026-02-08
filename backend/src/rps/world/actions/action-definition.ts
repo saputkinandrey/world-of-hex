@@ -1,10 +1,5 @@
 import { ActionTag } from './action-tags';
-import {
-    NeedGate,
-    NeedTag,
-    NeedThresholdEnum,
-    NeedThresholds,
-} from '../needs/needs';
+import { NeedGate, NeedTag, NeedThresholdEnum, NeedThresholds } from '../needs/needs';
 import { MemeId } from '../memes';
 import { MorphId } from '../morphs';
 import { ActionContext } from './action-context';
@@ -122,10 +117,7 @@ export interface ActionDefinition {
 }
 
 // определить дискретную зону по level∈[0..1] и порогам
-export function zoneOf(
-    level: number,
-    t: NeedThresholds,
-): NeedThresholdEnum | null {
+export function zoneOf(level: number, t: NeedThresholds): NeedThresholdEnum | null {
     if (level >= t.critical) return NeedThresholdEnum.CRITICAL;
     if (level >= t.severe) return NeedThresholdEnum.SEVERE;
     if (level >= t.impaired) return NeedThresholdEnum.IMPAIRED;

@@ -61,10 +61,7 @@ export interface CreatureTemplateLensProps {
  *  - версионировать через event-sourcing,
  *  - навешивать их на шаблоны/персонажей по имени/идентификатору.
  */
-export class CreatureTemplateLensEntity
-    extends NamedEntity
-    implements CreatureTemplateLens
-{
+export class CreatureTemplateLensEntity extends NamedEntity implements CreatureTemplateLens {
     sizeModifierDelta?: number;
 
     primaryDelta?: CreatureTemplateLens['primaryDelta'];
@@ -107,9 +104,7 @@ export class CreatureTemplateLensEntity
         return this;
     }
 
-    setSecondaryDelta(
-        delta?: CreatureTemplateLens['secondaryDelta'] | null,
-    ): this {
+    setSecondaryDelta(delta?: CreatureTemplateLens['secondaryDelta'] | null): this {
         if (delta && Object.keys(delta).length > 0) {
             this.secondaryDelta = { ...delta };
         } else {

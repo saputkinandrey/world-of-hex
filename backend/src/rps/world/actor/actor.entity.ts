@@ -8,13 +8,7 @@ import { NeedTag } from '../needs/needs';
 import { CreatureTemplateEntity } from '../../domain/character/creature-template.entity';
 import { ActionTag } from '../actions/action-tags';
 import { MemeId } from '../memes';
-import {
-    getLeveledMorphLevel,
-    leveledMorphPrefix,
-    LeveledMorphTemplateId,
-    morph,
-    MorphId,
-} from '../morphs';
+import { getLeveledMorphLevel, leveledMorphPrefix, LeveledMorphTemplateId, morph, MorphId } from '../morphs';
 
 /**
  * Пищевая ценность ресурса / приёма пищи.
@@ -103,11 +97,7 @@ export class CreaturePhysicalProfile {
     minVolume: VolumeUnits;
     carryVolumeCapacity: VolumeUnits;
 
-    constructor({
-        baseVolume = 1,
-        minVolume = 0.5,
-        carryVolumeCapacity = 4,
-    }: CreaturePhysicalProfileInit = {}) {
+    constructor({ baseVolume = 1, minVolume = 0.5, carryVolumeCapacity = 4 }: CreaturePhysicalProfileInit = {}) {
         this.baseVolume = baseVolume;
         this.minVolume = minVolume;
         this.carryVolumeCapacity = carryVolumeCapacity;
@@ -349,10 +339,7 @@ export class ActorEntity {
         this.creatureProfile = profile ?? null;
 
         // Автоинициализация нужд под профиль (если он их несёт).
-        if (
-            this.creatureProfile &&
-            Array.isArray(this.creatureProfile.needTags)
-        ) {
+        if (this.creatureProfile && Array.isArray(this.creatureProfile.needTags)) {
             for (const tag of this.creatureProfile.needTags as NeedTag[]) {
                 // Не перезаписываем уже существующие значения, только инициализируем 0.
                 if (this.needValues[tag] === undefined) {
@@ -514,22 +501,15 @@ export function estimateNutritionShares(
     waterShare?: number;
     massShare: number;
 } {
-    const energyShare =
-        needs.energyPerDay > 0 ? intake.energy / needs.energyPerDay : 0;
-    const proteinShare =
-        needs.proteinPerDay > 0 ? intake.protein / needs.proteinPerDay : 0;
+    const energyShare = needs.energyPerDay > 0 ? intake.energy / needs.energyPerDay : 0;
+    const proteinShare = needs.proteinPerDay > 0 ? intake.protein / needs.proteinPerDay : 0;
 
     let waterShare: number | undefined;
-    if (
-        needs.waterPerDay &&
-        needs.waterPerDay > 0 &&
-        intake.water !== undefined
-    ) {
+    if (needs.waterPerDay && needs.waterPerDay > 0 && intake.water !== undefined) {
         waterShare = intake.water / needs.waterPerDay;
     }
 
-    const massShare =
-        needs.massPerDayLb > 0 ? intake.massLb / needs.massPerDayLb : 0;
+    const massShare = needs.massPerDayLb > 0 ? intake.massLb / needs.massPerDayLb : 0;
 
     return { energyShare, proteinShare, waterShare, massShare };
 }
@@ -537,14 +517,8 @@ export function estimateNutritionShares(
 /**
  * Грубая оценка "сытости" от конкретного приёма пищи.
  */
-export function estimateFoodSatietyGain(
-    metabolism: MetabolismProfile,
-    intake: NutritionContent,
-): number {
-    const { energyShare, proteinShare } = estimateNutritionShares(
-        metabolism.nutritionNeedsPerDay,
-        intake,
-    );
+export function estimateFoodSatietyGain(metabolism: MetabolismProfile, intake: NutritionContent): number {
+    const { energyShare, proteinShare } = estimateNutritionShares(metabolism.nutritionNeedsPerDay, intake);
     const sat = Math.min(energyShare, proteinShare);
     // клампим в [0, 1.5], чтобы "объедание" чуть выходило за рамки 1.0, если нужно
     return Math.max(0, Math.min(sat, 1.5));

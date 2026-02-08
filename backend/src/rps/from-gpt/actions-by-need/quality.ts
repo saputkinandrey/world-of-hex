@@ -132,11 +132,7 @@ export const QualityActions: ActionDefinition[] = [
         tradeEffect: { linen: -1, soap: -1 | (0 as any) },
         socialImpact: { DIGNITY: 0.2 as any },
         ownershipEffect: { benchState: 'clean' },
-        requiredMemes: [
-            health.sanitation_norms,
-            health.waste_handling,
-            tech.tool.use_basic,
-        ],
+        requiredMemes: [health.sanitation_norms, health.waste_handling, tech.tool.use_basic],
     },
     {
         tag: QualityActionTag.TOOL_EDGE_MAINTENANCE,
@@ -215,12 +211,7 @@ export const QualityActions: ActionDefinition[] = [
         socialImpact: { RESPECT: 0.2, TRUST: 0.2 },
         ownershipEffect: { accessScope: 'training_room', grantAccess: true },
         lawEffect: { trainingRoster: 'logged', enforceable: true },
-        requiredMemes: [
-            health.sanitation_norms,
-            health.waste_handling,
-            comm.language.written,
-            org.workshop_practice,
-        ],
+        requiredMemes: [health.sanitation_norms, health.waste_handling, comm.language.written, org.workshop_practice],
     },
     {
         tag: QualityActionTag.SUPPLIER_AUDIT_VISIT,

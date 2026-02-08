@@ -661,10 +661,7 @@ export interface ArmorHitLocationStat {
 // =====================
 // Зоны попадания и базовые статы
 // =====================
-export const ArmorHitLocationStats: Record<
-    number,
-    { baseWeight: number; baseCost: number; parentZone?: number }
-> = {
+export const ArmorHitLocationStats: Record<number, { baseWeight: number; baseCost: number; parentZone?: number }> = {
     // Туловище
     [HitLocation.TORSO]: { baseWeight: 12, baseCost: 500 }, // суммарно с руками для хауберка
     [HitLocation.CHEST]: {

@@ -1,14 +1,6 @@
 import { registerAs } from '@nestjs/config';
 
-import {
-    IsString,
-    IsInt,
-    Min,
-    Max,
-    IsOptional,
-    IsBoolean,
-    IsEmail,
-} from 'class-validator';
+import { IsString, IsInt, Min, Max, IsOptional, IsBoolean, IsEmail } from 'class-validator';
 import validateConfig from '../../utils/validate-config';
 import { MailConfig } from './mail-config.type';
 

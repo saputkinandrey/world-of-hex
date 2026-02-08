@@ -1,7 +1,4 @@
-import {
-    ArmorHitLocationStat,
-    ArmorMaterial,
-} from '../../../domain/character/inventory/equipment/utils';
+import { ArmorHitLocationStat, ArmorMaterial } from '../../../domain/character/inventory/equipment/utils';
 import { EquipmentEntity } from '../../../domain/character/inventory/equipment/equipment.entity';
 
 export class ArmorBuilderResponsePayloadDto {

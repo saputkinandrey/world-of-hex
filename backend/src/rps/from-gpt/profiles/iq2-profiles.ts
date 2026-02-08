@@ -32,9 +32,7 @@ export const IQ2_CHEMOSENSE_LENS: MemeId[] = [tech.sensing.chemosense_basic];
 
 export const IQ2_VIBROSENSE_LENS: MemeId[] = [tech.sensing.vibration_basic];
 
-export const IQ2_HEAT_LOCALIZATION_LENS: MemeId[] = [
-    tech.sensing.heat_localization_basic,
-];
+export const IQ2_HEAT_LOCALIZATION_LENS: MemeId[] = [tech.sensing.heat_localization_basic];
 
 // ───────────────────────────────────────────────────────────────
 // ЛИНЗЫ "ТИП ТЕЛА" ДЛЯ БОЯ / ДВИЖЕНИЙ
@@ -42,16 +40,11 @@ export const IQ2_HEAT_LOCALIZATION_LENS: MemeId[] = [
 
 // Ударное тело / конечности: "классическая" рукопашка.
 // (это профиль, подходящий собаке/кошке/обезьяне, но уже не змее)
-export const IQ2_LIMB_UNARMED_COMBAT_LENS: MemeId[] = [
-    tech.combat.unarmed_basic,
-];
+export const IQ2_LIMB_UNARMED_COMBAT_LENS: MemeId[] = [tech.combat.unarmed_basic];
 
 // Возможность бросать отдельные объекты (камни, палки и т.п.).
 // Змее просто НЕ ДАЁМ эту линзу.
-export const IQ2_THROWING_LENS: MemeId[] = [
-    tech.throwing.basic,
-    tech.combat.missile_basic,
-];
+export const IQ2_THROWING_LENS: MemeId[] = [tech.throwing.basic, tech.combat.missile_basic];
 
 // "Змеиный" стиль: кусь + констрикция (если захочешь задействовать).
 // Внимание: в memeDeps сейчас ключ для constriction записан как

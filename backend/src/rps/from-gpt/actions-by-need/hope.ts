@@ -1,16 +1,6 @@
 import { ActionDefinition } from '../action-definition';
 import { HopeActionTag } from '../action-tags';
-import {
-    cog,
-    comm,
-    culture,
-    econ,
-    health,
-    heat,
-    org,
-    record,
-    tech,
-} from '../../world/memes';
+import { cog, comm, culture, econ, health, heat, org, record, tech } from '../../world/memes';
 export const HopeActions: ActionDefinition[] = [
     {
         tag: HopeActionTag.DAWN_TORCH_RUN,
@@ -43,11 +33,7 @@ export const HopeActions: ActionDefinition[] = [
         socialImpact: { DIGNITY: 0.3 as any, FAITH: 0.2 as any },
         ownershipEffect: { cornerstone: 'laid_named_inscription' },
         lawEffect: { memorialRecord: 'entered', enforceable: false },
-        requiredMemes: [
-            comm.language.written,
-            record.ledgerkeeping,
-            econ.pooling_common_fund,
-        ],
+        requiredMemes: [comm.language.written, record.ledgerkeeping, econ.pooling_common_fund],
     },
     {
         tag: HopeActionTag.FUTURE_MURAL_PAINT,
@@ -63,12 +49,7 @@ export const HopeActions: ActionDefinition[] = [
         tradeEffect: { pigments: -1, lime: -1 | (0 as any) },
         socialImpact: { BEAUTIFICATION: 0.4 as any, OWNERSHIP: 0.2 as any },
         ownershipEffect: { muralPanel: 'painted_with_signoffs' },
-        requiredMemes: [
-            health.sanitation_norms,
-            health.waste_handling,
-            tech.tool.use_basic,
-            comm.language.written,
-        ],
+        requiredMemes: [health.sanitation_norms, health.waste_handling, tech.tool.use_basic, comm.language.written],
     },
     {
         tag: HopeActionTag.SEED_SHARE_FAIR,
@@ -102,11 +83,7 @@ export const HopeActions: ActionDefinition[] = [
         requiresLocation: 'workshop|guild_hall',
         socialImpact: { YOUTH_ENGAGEMENT: 0.4 as any, COHESION: 0.2 },
         ownershipEffect: { apprenticeRoster: 'assigned_pairs' },
-        requiredMemes: [
-            comm.language.written,
-            org.duty_roster,
-            org.workshop_practice,
-        ],
+        requiredMemes: [comm.language.written, org.duty_roster, org.workshop_practice],
     },
     {
         tag: HopeActionTag.GOOD_NEWS_CRIER,
@@ -117,11 +94,7 @@ export const HopeActions: ActionDefinition[] = [
         tradeEffect: { bell: -1 | (0 as any), parchment: -1 | (0 as any) },
         socialImpact: { RUMORS: -0.1 as any, MORALE: 0.2 },
         ownershipEffect: { bulletin: 'posted_positive_events' },
-        requiredMemes: [
-            health.sanitation_norms,
-            health.waste_handling,
-            comm.language.written,
-        ],
+        requiredMemes: [health.sanitation_norms, health.waste_handling, comm.language.written],
     },
     {
         tag: HopeActionTag.LIGHTS_FESTIVAL,
@@ -160,12 +133,7 @@ export const HopeActions: ActionDefinition[] = [
         tradeEffect: { tools: -1 | (0 as any), compost: -1 | (0 as any) },
         socialImpact: { PARTICIPATION: 0.3 as any, OWNERSHIP: 0.2 as any },
         ownershipEffect: { plotGrid: 'staked_and_named' },
-        requiredMemes: [
-            health.sanitation_norms,
-            health.waste_handling,
-            tech.tool.use_basic,
-            comm.language.written,
-        ],
+        requiredMemes: [health.sanitation_norms, health.waste_handling, tech.tool.use_basic, comm.language.written],
     },
     {
         tag: HopeActionTag.SCOUTS_NEW_HORIZONS,
@@ -271,12 +239,7 @@ export const HopeActions: ActionDefinition[] = [
         ownershipEffect: { stallPermits: 'issued_with_names' },
         lawEffect: { micrograntRule: 'posted', enforceable: true },
         risk: 0.06,
-        requiredMemes: [
-            record.ledgerkeeping,
-            econ.pooling_common_fund,
-            econ.deposit_contract,
-            comm.language.written,
-        ],
+        requiredMemes: [record.ledgerkeeping, econ.pooling_common_fund, econ.deposit_contract, comm.language.written],
     },
     {
         tag: HopeActionTag.HEALERS_ROUND,

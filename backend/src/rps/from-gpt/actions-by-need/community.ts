@@ -1,14 +1,6 @@
 import { ActionDefinition } from '../action-definition';
 import { CommunityActionTag } from '../action-tags';
-import {
-    cog,
-    comm,
-    culture,
-    econ,
-    health,
-    record,
-    tech,
-} from '../../world/memes';
+import { cog, comm, culture, econ, health, record, tech } from '../../world/memes';
 export const CommunityActions: ActionDefinition[] = [
     {
         tag: CommunityActionTag.ORGANIZE_WORK_BEE,
@@ -185,11 +177,7 @@ export const CommunityActions: ActionDefinition[] = [
         socialImpact: { COMMUNITY: 0.45, CIVIC_DUTY: 0.45 as any },
         ownershipEffect: { accessScope: 'square|streets', grantAccess: true },
         needRework: true,
-        requiredMemes: [
-            health.sanitation_norms,
-            health.waste_handling,
-            tech.tool.use_basic,
-        ],
+        requiredMemes: [health.sanitation_norms, health.waste_handling, tech.tool.use_basic],
     },
     {
         tag: CommunityActionTag.FORM_WATCH_PATROLS,

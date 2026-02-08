@@ -1,15 +1,6 @@
 import { ActionDefinition } from '../action-definition';
 import { InspirationActionTag } from '../action-tags';
-import {
-    cog,
-    comm,
-    culture,
-    econ,
-    fire,
-    heat,
-    org,
-    record,
-} from '../../world/memes';
+import { cog, comm, culture, econ, fire, heat, org, record } from '../../world/memes';
 export const InspirationActions: ActionDefinition[] = [
     {
         tag: InspirationActionTag.SEEK_MUSE_IN_NATURE,
@@ -40,11 +31,7 @@ export const InspirationActions: ActionDefinition[] = [
         tradeEffect: { entry_fee: -1 },
         socialImpact: { REVERENCE: 0.4, AMBITION: 0.2 as any },
         lawEffect: { exhibitEtiquette: 'observed', enforceable: true },
-        requiredMemes: [
-            culture.vigil_ritual,
-            cog.timekeeping.basic,
-            comm.language.written,
-        ],
+        requiredMemes: [culture.vigil_ritual, cog.timekeeping.basic, comm.language.written],
     },
     {
         tag: InspirationActionTag.CREATIVE_JAM_SESSION,
@@ -117,12 +104,7 @@ export const InspirationActions: ActionDefinition[] = [
         socialImpact: { NETWORK: 0.3, RESPECT: 0.2 },
         ownershipEffect: { accessScope: 'guest_bench', grantAccess: true },
         lawEffect: { visitorBadge: 'issued', enforceable: true },
-        requiredMemes: [
-            heat.industrial,
-            fire.control,
-            comm.language.written,
-            org.workshop_practice,
-        ],
+        requiredMemes: [heat.industrial, fire.control, comm.language.written, org.workshop_practice],
     },
     {
         tag: InspirationActionTag.PROMPT_CARD_DRAW,
@@ -142,11 +124,7 @@ export const InspirationActions: ActionDefinition[] = [
         socialImpact: { TRUST: 0.2, COHESION: 0.2 },
         ownershipEffect: { promptPool: '+1', license: 'open' },
         lawEffect: { authorshipNote: 'logged', enforceable: true },
-        requiredMemes: [
-            comm.language.written,
-            record.ledgerkeeping,
-            econ.pooling_common_fund,
-        ],
+        requiredMemes: [comm.language.written, record.ledgerkeeping, econ.pooling_common_fund],
     },
     {
         tag: InspirationActionTag.ONE_HOUR_PROTOTYPE,

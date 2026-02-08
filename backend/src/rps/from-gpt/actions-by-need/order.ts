@@ -1,14 +1,6 @@
 import { ActionDefinition } from '../action-definition';
 import { OrderActionTag } from '../action-tags';
-import {
-    cog,
-    comm,
-    culture,
-    econ,
-    health,
-    record,
-    tech,
-} from '../../world/memes';
+import { cog, comm, culture, econ, health, record, tech } from '../../world/memes';
 export const OrderActions: ActionDefinition[] = [
     {
         tag: OrderActionTag.POST_HOUSE_RULES,
@@ -39,11 +31,7 @@ export const OrderActions: ActionDefinition[] = [
         tradeEffect: { paint: -1, chalk: -1 },
         socialImpact: { COORDINATION: 0.2 as any, DISCIPLINE: 0.2 },
         ownershipEffect: { layoutMarks: 'painted' },
-        requiredMemes: [
-            comm.language.written,
-            record.ledgerkeeping,
-            cog.number_concept,
-        ],
+        requiredMemes: [comm.language.written, record.ledgerkeeping, cog.number_concept],
     },
     {
         tag: OrderActionTag.APPOINT_STEWARD,
@@ -102,11 +90,7 @@ export const OrderActions: ActionDefinition[] = [
         requiresLocation: 'gate|market|hall',
         socialImpact: { RESENTMENT: -0.15 as any, TRUST: 0.2 },
         lawEffect: { queueRule: 'first_in_line', enforceable: true },
-        requiredMemes: [
-            culture.vigil_ritual,
-            cog.timekeeping.basic,
-            comm.language.written,
-        ],
+        requiredMemes: [culture.vigil_ritual, cog.timekeeping.basic, comm.language.written],
     },
     {
         tag: OrderActionTag.STANDARD_BOX_LABELS,
@@ -228,11 +212,7 @@ export const OrderActions: ActionDefinition[] = [
         socialImpact: { TRUST: 0.2 },
         ownershipEffect: { archiveState: 'indexed', obsolete: 'purged' },
         lawEffect: { archivePolicy: 'retention_applied', enforceable: true },
-        requiredMemes: [
-            health.sanitation_norms,
-            health.waste_handling,
-            comm.language.written,
-        ],
+        requiredMemes: [health.sanitation_norms, health.waste_handling, comm.language.written],
     },
     {
         tag: OrderActionTag.ONE_WAY_WALKWAYS,
@@ -263,10 +243,6 @@ export const OrderActions: ActionDefinition[] = [
         socialImpact: { DIGNITY: 0.2 as any, COMMUNITY: 0.2 },
         lawEffect: { wasteCode: 'adopted', enforceable: true },
         ownershipEffect: { refuseStations: 'placed' },
-        requiredMemes: [
-            health.sanitation_norms,
-            health.waste_handling,
-            tech.tool.use_basic,
-        ],
+        requiredMemes: [health.sanitation_norms, health.waste_handling, tech.tool.use_basic],
     },
 ];

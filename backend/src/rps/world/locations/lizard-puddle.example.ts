@@ -3,10 +3,7 @@
 import { LocationEntity } from './location.entity';
 import { LIZARD_PROFILE } from '../creatures/lizard.profile';
 import { HexCoord, makeHexId } from '../hex.entity';
-import {
-    createEmptyLocationWaterState,
-    addWaterSourceToLocation,
-} from '../environment/location-water.helpers';
+import { createEmptyLocationWaterState, addWaterSourceToLocation } from '../environment/location-water.helpers';
 
 const RADIUS = 10;
 
@@ -26,11 +23,7 @@ export function createLizardPuddleTestSetup(): {
 
     // Ящерица
     const lizardHexId = makeHexId(LIZARD_COORD);
-    const lizard = LIZARD_PROFILE.createActor(
-        lizardHexId,
-        'creature:lizard#1',
-        'Lizard',
-    );
+    const lizard = LIZARD_PROFILE.createActor(lizardHexId, 'creature:lizard#1', 'Lizard');
 
     location.placeCreature({
         actor: lizard,

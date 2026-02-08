@@ -1,12 +1,4 @@
-import {
-    Body,
-    Controller,
-    Delete,
-    Get,
-    NotFoundException,
-    Param,
-    Post,
-} from '@nestjs/common';
+import { Body, Controller, Delete, Get, NotFoundException, Param, Post } from '@nestjs/common';
 
 import { ApiTags } from '@nestjs/swagger';
 
@@ -42,11 +34,9 @@ export class ShipsController {
 
     @Get('list')
     getList() {
-        return this.shipRepository
-            .find({}, {}, { sort: { createdAt: -1 } })
-            .then((result) => {
-                return result.map((document) => document.toJSON());
-            });
+        return this.shipRepository.find({}, {}, { sort: { createdAt: -1 } }).then((result) => {
+            return result.map((document) => document.toJSON());
+        });
     }
 
     @Delete(':shipId')

@@ -44,9 +44,7 @@ export class AttributeEntity extends LeveledEntity {
         return this;
     }
 
-    setTotalLevel(
-        totalLevel: number = this.baseLevel + this.level * this.levelIncrease,
-    ): this {
+    setTotalLevel(totalLevel: number = this.baseLevel + this.level * this.levelIncrease): this {
         super.setTotalLevel(totalLevel);
         return this;
     }

@@ -1,10 +1,4 @@
-import {
-    Body,
-    Controller,
-    NotFoundException,
-    Param,
-    Post,
-} from '@nestjs/common';
+import { Body, Controller, NotFoundException, Param, Post } from '@nestjs/common';
 
 import { ApiTags } from '@nestjs/swagger';
 
@@ -31,29 +25,18 @@ export class ShipController {
     ) {}
 
     @Post('join-encounter')
-    async postJoinEncounter(
-        @Param('shipId') shipId: string,
-        @Body() body: PostShipJoinEncounterBodyDto,
-    ) {
+    async postJoinEncounter(@Param('shipId') shipId: string, @Body() body: PostShipJoinEncounterBodyDto) {
         const ship = await this.shipRepository.findOneById(shipId);
         if (!ship) {
             throw new NotFoundException(`Ship with id ${shipId} not found`);
         }
 
-        const encounter = await this.encounterService.findOneById(
-            body.encounterId,
-        );
+        const encounter = await this.encounterService.findOneById(body.encounterId);
         if (!encounter) {
-            throw new NotFoundException(
-                `Encounter with id ${body.encounterId} not found`,
-            );
+            throw new NotFoundException(`Encounter with id ${body.encounterId} not found`);
         }
 
-        await this.encounterService.shipJoinsEncounter(
-            ship,
-            encounter,
-            body.intent,
-        );
+        await this.encounterService.shipJoinsEncounter(ship, encounter, body.intent);
     }
 
     @Post('leave-encounter')
@@ -64,18 +47,12 @@ export class ShipController {
     ) {
         const ship = await this.shipRepository.findOneById(body.shipId);
         if (!ship) {
-            throw new NotFoundException(
-                `Ship with id ${body.shipId} not found`,
-            );
+            throw new NotFoundException(`Ship with id ${body.shipId} not found`);
         }
 
-        const encounter = await this.encounterService.findOneById(
-            body.encounterId,
-        );
+        const encounter = await this.encounterService.findOneById(body.encounterId);
         if (!encounter) {
-            throw new NotFoundException(
-                `Encounter with id ${body.encounterId} not found`,
-            );
+            throw new NotFoundException(`Encounter with id ${body.encounterId} not found`);
         }
         await this.encounterService.shipLeavesEncounter(ship, encounter);
     }
@@ -88,9 +65,7 @@ export class ShipController {
     ) {
         const encounter = await this.encounterService.findOneById(encounterId);
         if (!encounter) {
-            throw new NotFoundException(
-                `Encounter with id $encounterId} not found`,
-            );
+            throw new NotFoundException(`Encounter with id $encounterId} not found`);
         }
 
         const player = await this.playerRepository.findOneById(playerId);

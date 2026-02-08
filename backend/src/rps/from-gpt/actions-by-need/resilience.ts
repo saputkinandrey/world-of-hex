@@ -1,17 +1,6 @@
 import { ActionDefinition } from '../action-definition';
 import { ResilienceActionTag } from '../action-tags';
-import {
-    cog,
-    comm,
-    culture,
-    econ,
-    food,
-    health,
-    heat,
-    org,
-    record,
-    tech,
-} from '../../world/memes';
+import { cog, comm, culture, econ, food, health, heat, org, record, tech } from '../../world/memes';
 export const ResilienceActions: ActionDefinition[] = [
     {
         tag: ResilienceActionTag.EMERGENCY_DRILL,
@@ -28,11 +17,7 @@ export const ResilienceActions: ActionDefinition[] = [
         socialImpact: { TRUST: 0.2, COHESION: 0.3 as any },
         lawEffect: { drillRule: 'monthly_required', enforceable: true },
         ownershipEffect: { musterPoints: 'marked' },
-        requiredMemes: [
-            health.sanitation_norms,
-            health.waste_handling,
-            comm.language.written,
-        ],
+        requiredMemes: [health.sanitation_norms, health.waste_handling, comm.language.written],
     },
     {
         tag: ResilienceActionTag[' STOCKPILE_ESSENTIALS'],
@@ -78,12 +63,7 @@ export const ResilienceActions: ActionDefinition[] = [
         requiresLocation: 'guild_hall|yard',
         socialImpact: { COHESION: 0.3, RESPECT: 0.2 },
         ownershipEffect: { skillsMatrix: 'redundancy_added' },
-        requiredMemes: [
-            health.sanitation_norms,
-            health.waste_handling,
-            comm.language.written,
-            org.workshop_practice,
-        ],
+        requiredMemes: [health.sanitation_norms, health.waste_handling, comm.language.written, org.workshop_practice],
     },
     {
         tag: ResilienceActionTag.MUTUAL_AID_PACT,
@@ -100,11 +80,7 @@ export const ResilienceActions: ActionDefinition[] = [
         socialImpact: { NETWORK: 0.4, LOYALTY: 0.2 },
         lawEffect: { pactCharter: 'sealed', enforceable: true },
         ownershipEffect: { accessScope: 'mutual_aid', grantAccess: true },
-        requiredMemes: [
-            comm.language.written,
-            record.ledgerkeeping,
-            econ.pooling_common_fund,
-        ],
+        requiredMemes: [comm.language.written, record.ledgerkeeping, econ.pooling_common_fund],
     },
     {
         tag: ResilienceActionTag.REPAIR_SPRINT,
@@ -261,11 +237,7 @@ export const ResilienceActions: ActionDefinition[] = [
         requiresLocation: 'hearth|temple|grove',
         socialImpact: { EMPATHY: 0.4 as any, HOPE: 0.3 as any },
         ownershipEffect: { memoryLog: 'healed_entry' },
-        requiredMemes: [
-            culture.vigil_ritual,
-            cog.timekeeping.basic,
-            heat.space.hearth,
-        ],
+        requiredMemes: [culture.vigil_ritual, cog.timekeeping.basic, heat.space.hearth],
     },
     {
         tag: ResilienceActionTag.CONTINGENCY_FUND,

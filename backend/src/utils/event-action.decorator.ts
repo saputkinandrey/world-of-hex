@@ -12,10 +12,7 @@ type ActionOptions<TEvent> = {
     toArgs?: (event: TEvent) => unknown[];
 };
 
-const createEventInstance = <TEvent>(
-    EventClass: Class<TEvent>,
-    args: unknown[],
-) => {
+const createEventInstance = <TEvent>(EventClass: Class<TEvent>, args: unknown[]) => {
     if (args.length === 1) {
         return new EventClass(args[0] as never);
     }
@@ -76,9 +73,7 @@ const resolveActionArgs = <TEvent>(
     return { eventClass, options: second as ActionOptions<TEvent> };
 };
 
-export const Action = <TEvent>(
-    ...decoratorArgs: ActionDecoratorArgs<TEvent>
-): MethodDecorator => {
+export const Action = <TEvent>(...decoratorArgs: ActionDecoratorArgs<TEvent>): MethodDecorator => {
     const { eventClass, factory, options } = resolveActionArgs(decoratorArgs);
     return (target, propertyKey, descriptor) => {
         ApplyEvent(eventClass)(target, propertyKey);
@@ -92,9 +87,7 @@ export const Action = <TEvent>(
             const [firstArg] = args;
             const isEventInstance =
                 firstArg instanceof eventClass ||
-                (firstArg &&
-                    typeof firstArg === 'object' &&
-                    (firstArg as object).constructor === eventClass);
+                (firstArg && typeof firstArg === 'object' && (firstArg as object).constructor === eventClass);
 
             if (isEventInstance) {
                 setCurrentActionEvent(this as object, firstArg as object);
@@ -130,13 +123,8 @@ export const Action = <TEvent>(
                         ? original.call(this, ...args)
                         : original.call(this, event);
 
-                if (
-                    typeof (this as { append?: (e: object) => void }).append ===
-                    'function'
-                ) {
-                    (this as { append: (e: object) => void }).append(
-                        event as object,
-                    );
+                if (typeof (this as { append?: (e: object) => void }).append === 'function') {
+                    (this as { append: (e: object) => void }).append(event as object);
                 }
 
                 return result;
@@ -145,20 +133,12 @@ export const Action = <TEvent>(
             const result = original.call(this, ...args);
             const pendingEvent = consumeActionEvent(this);
             const event =
-                pendingEvent ??
-                (result instanceof eventClass
-                    ? result
-                    : createEventInstance(eventClass, args));
+                pendingEvent ?? (result instanceof eventClass ? result : createEventInstance(eventClass, args));
 
             mergeEventStreams(event, collectStreams(this));
 
-            if (
-                typeof (this as { append?: (e: object) => void }).append ===
-                'function'
-            ) {
-                (this as { append: (e: object) => void }).append(
-                    event as object,
-                );
+            if (typeof (this as { append?: (e: object) => void }).append === 'function') {
+                (this as { append: (e: object) => void }).append(event as object);
             }
 
             return result instanceof eventClass || pendingEvent ? this : result;

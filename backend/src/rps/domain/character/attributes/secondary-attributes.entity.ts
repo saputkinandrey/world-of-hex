@@ -23,68 +23,46 @@ export class SecondaryAttributesEntity {
 
     constructor({
         per = new AttributeEntity()
-            .setDependency(
-                (char: { primary: PrimaryAttributesEntity }) =>
-                    char.primary.iq.totalLevel,
-            )
+            .setDependency((char: { primary: PrimaryAttributesEntity }) => char.primary.iq.totalLevel)
             .setAlias('PER')
             .setName('Perception')
             .setLevelCost(5),
         will = new AttributeEntity()
-            .setDependency(
-                (char: { primary: PrimaryAttributesEntity }) =>
-                    char.primary.iq.totalLevel,
-            )
+            .setDependency((char: { primary: PrimaryAttributesEntity }) => char.primary.iq.totalLevel)
             .setAlias('WILL')
             .setName('Will')
             .setLevelCost(5),
         hp = new ResourceAttributeEntity()
-            .setDependency(
-                (char: { primary: PrimaryAttributesEntity }) =>
-                    char.primary.st.totalLevel,
-            )
+            .setDependency((char: { primary: PrimaryAttributesEntity }) => char.primary.st.totalLevel)
             .setAlias('HP')
             .setName('Hit Points')
             .setLevelCost(2),
         fp = new ResourceAttributeEntity()
-            .setDependency(
-                (char: { primary: PrimaryAttributesEntity }) =>
-                    char.primary.ht.totalLevel,
-            )
+            .setDependency((char: { primary: PrimaryAttributesEntity }) => char.primary.ht.totalLevel)
             .setAlias('FP')
             .setName('Fatigue Points')
             .setLevelCost(3),
         liftSt = new AttributeEntity()
-            .setDependency(
-                (char: { primary: PrimaryAttributesEntity }) =>
-                    char.primary.st.totalLevel,
-            )
+            .setDependency((char: { primary: PrimaryAttributesEntity }) => char.primary.st.totalLevel)
             .setAlias('LIFT_ST')
             .setName('Lift Strength')
             .setLevelCost(3),
         strikeSt = new AttributeEntity()
-            .setDependency(
-                (char: { primary: PrimaryAttributesEntity }) =>
-                    char.primary.st.totalLevel,
-            )
+            .setDependency((char: { primary: PrimaryAttributesEntity }) => char.primary.st.totalLevel)
             .setAlias('STRIKE_ST')
             .setName('Striking Strength')
             .setLevelCost(5),
         basicSpeed = new AttributeEntity()
             .setDependency(
                 (char: { primary: PrimaryAttributesEntity }) =>
-                    (char.primary.dx.totalLevel + char.primary.ht.totalLevel) /
-                    4,
+                    (char.primary.dx.totalLevel + char.primary.ht.totalLevel) / 4,
             )
             .setAlias('BS')
             .setName('Basic Speed')
             .setLevelCost(5)
             .setLevelIncrease(0.25),
         basicMove = new AttributeEntity()
-            .setDependency(
-                (char: { secondary: SecondaryAttributesEntity }) =>
-                    char.secondary.basicSpeed.totalLevel,
-            )
+            .setDependency((char: { secondary: SecondaryAttributesEntity }) => char.secondary.basicSpeed.totalLevel)
             .setAlias('Move')
             .setName('Basic Move')
             .setLevelCost(5),

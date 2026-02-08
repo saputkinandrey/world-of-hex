@@ -53,11 +53,7 @@ export const HonorActions: ActionDefinition[] = [
         requiresLocation: 'hall|court_square',
         socialImpact: { CREDIBILITY: 0.5, ORDER: 0.3 },
         lawEffect: { testimony: 'sworn', enforceable: true },
-        requiredMemes: [
-            health.sanitation_norms,
-            health.waste_handling,
-            comm.language.written,
-        ],
+        requiredMemes: [health.sanitation_norms, health.waste_handling, comm.language.written],
     },
     {
         tag: HonorActionTag.ACCEPT_DUEL_FORMAL,
@@ -89,11 +85,7 @@ export const HonorActions: ActionDefinition[] = [
         requiresLocation: 'hall|square',
         socialImpact: { TRUST: 0.3, RESENTMENT: -0.2 },
         lawEffect: { apologyRecord: 'filed', enforceable: true },
-        requiredMemes: [
-            health.sanitation_norms,
-            health.waste_handling,
-            comm.language.written,
-        ],
+        requiredMemes: [health.sanitation_norms, health.waste_handling, comm.language.written],
     },
     {
         tag: HonorActionTag.DEFEND_WEAK,
@@ -163,11 +155,7 @@ export const HonorActions: ActionDefinition[] = [
         requiresLocation: 'square|hall',
         socialImpact: { VISIBILITY: 0.3, TRUST: 0.2 },
         lawEffect: { codePosted: 'yes', enforceable: true },
-        requiredMemes: [
-            health.sanitation_norms,
-            health.waste_handling,
-            comm.language.written,
-        ],
+        requiredMemes: [health.sanitation_norms, health.waste_handling, comm.language.written],
     },
     {
         tag: HonorActionTag.HONOR_FAIR_CONTRACT,

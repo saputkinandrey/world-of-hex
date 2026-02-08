@@ -1,9 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import {
-    MongooseModuleOptions,
-    MongooseOptionsFactory,
-} from '@nestjs/mongoose';
+import { MongooseModuleOptions, MongooseOptionsFactory } from '@nestjs/mongoose';
 import { AllConfigType } from '../config/config.type';
 import mongooseAutoPopulate from 'mongoose-autopopulate';
 

@@ -1,10 +1,7 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { HydratedDocument } from 'mongoose';
 import { EntityDocumentHelper } from '../../utils/document-entity-helper';
-import {
-    TRADE_EFFECT_CATEGORIES,
-    type TradeEffectCategoryName,
-} from './trade-effect-key.schema';
+import { TRADE_EFFECT_CATEGORIES, type TradeEffectCategoryName } from './trade-effect-key.schema';
 
 @Schema({
     collection: 'trade_effect_categories',
@@ -29,5 +26,4 @@ export class TradeEffectCategory extends EntityDocumentHelper {
 
 export type TradeEffectCategoryDocument = HydratedDocument<TradeEffectCategory>;
 
-export const TradeEffectCategorySchema =
-    SchemaFactory.createForClass(TradeEffectCategory);
+export const TradeEffectCategorySchema = SchemaFactory.createForClass(TradeEffectCategory);

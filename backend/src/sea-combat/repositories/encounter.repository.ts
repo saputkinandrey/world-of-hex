@@ -12,23 +12,15 @@ export class EncounterRepository {
     ) {}
 
     async findOneById(encounterId: string) {
-        return this.encounterModel.findById(
-            encounterId,
-        ) as Promise<EncounterDocument>;
+        return this.encounterModel.findById(encounterId) as Promise<EncounterDocument>;
     }
 
     create(ship: Partial<Encounter>) {
         return this.encounterModel.create(ship);
     }
 
-    find(
-        filter: FilterQuery<Encounter>,
-        projection?: ProjectionType<Encounter>,
-        options?: QueryOptions<Encounter>,
-    ) {
-        return this.encounterModel.find(filter, projection, options) as Promise<
-            EncounterDocument[]
-        >;
+    find(filter: FilterQuery<Encounter>, projection?: ProjectionType<Encounter>, options?: QueryOptions<Encounter>) {
+        return this.encounterModel.find(filter, projection, options) as Promise<EncounterDocument[]>;
     }
 
     // async findOneById(id: string): Promise<EncounterModel> {

@@ -329,30 +329,15 @@ export const memeDeps: Record<MemeId, readonly (MemeId | MorphId)[]> = {
     [memes.tech.combat.venom_delivery]: [memes.tech.combat.bite_basic],
 
     [memes.tech.combat.unarmed_basic]: [memes.tech.combat.core],
-    [memes.tech.combat.melee_basic]: [
-        memes.tech.combat.core,
-        memes.tech.tool.use_basic,
-    ],
-    [memes.tech.combat.missile_basic]: [
-        memes.tech.combat.core,
-        memes.tech.throwing.basic,
-    ],
+    [memes.tech.combat.melee_basic]: [memes.tech.combat.core, memes.tech.tool.use_basic],
+    [memes.tech.combat.missile_basic]: [memes.tech.combat.core, memes.tech.throwing.basic],
 
     // === HUNTING
     [memes.tech.hunting.core]: [core.perception, core.motor_coordination],
     [memes.tech.hunting.tracking_basic]: [memes.tech.hunting.core],
-    [memes.tech.hunting.stalking_basic]: [
-        memes.tech.hunting.core,
-        memes.tech.hunting.tracking_basic,
-    ],
-    [memes.tech.hunting.trapping_basic]: [
-        memes.tech.hunting.core,
-        memes.tech.tool.use_basic,
-    ],
-    [memes.tech.hunting.missile_hunt_basic]: [
-        memes.tech.hunting.core,
-        memes.tech.combat.missile_basic,
-    ],
+    [memes.tech.hunting.stalking_basic]: [memes.tech.hunting.core, memes.tech.hunting.tracking_basic],
+    [memes.tech.hunting.trapping_basic]: [memes.tech.hunting.core, memes.tech.tool.use_basic],
+    [memes.tech.hunting.missile_hunt_basic]: [memes.tech.hunting.core, memes.tech.combat.missile_basic],
 
     // === Technology — tools ===
     [memes.tech.tool.use_basic]: [core.motor_coordination, IQ5],
@@ -377,9 +362,7 @@ export const memeDeps: Record<MemeId, readonly (MemeId | MorphId)[]> = {
     [memes.tech.food.preservation.salting]: [IQ8],
     [memes.tech.food.preservation.pickling]: [IQ8],
 
-    [memes.tech.food.sanitation.kitchen_hygiene]: [
-        memes.health.sanitation_norms,
-    ],
+    [memes.tech.food.sanitation.kitchen_hygiene]: [memes.health.sanitation_norms],
 
     // кулинарные приёмы: тепло приходит через зависимости, а не через расположение
     [memes.tech.food.culinary.core]: [memes.tech.heat.core],
@@ -400,37 +383,17 @@ export const memeDeps: Record<MemeId, readonly (MemeId | MorphId)[]> = {
     [memes.culture.justice_concept]: [memes.cog.standards.agreement],
 
     [memes.culture.ritual_basic]: [IQ6],
-    [memes.culture.oath_norm]: [
-        memes.culture.ritual_basic,
-        memes.comm.language.spoken,
-        IQ8,
-    ],
-    [memes.culture.vigil_ritual]: [
-        memes.culture.ritual_basic,
-        memes.cog.timekeeping.basic,
-    ],
+    [memes.culture.oath_norm]: [memes.culture.ritual_basic, memes.comm.language.spoken, IQ8],
+    [memes.culture.vigil_ritual]: [memes.culture.ritual_basic, memes.cog.timekeeping.basic],
 
-    [memes.record.ledgerkeeping]: [
-        memes.cog.number_concept,
-        memes.comm.language.written,
-    ],
-    [memes.record.boundary_marking]: [
-        memes.cog.space_mapping,
-        memes.cog.standards.agreement,
-    ],
+    [memes.record.ledgerkeeping]: [memes.cog.number_concept, memes.comm.language.written],
+    [memes.record.boundary_marking]: [memes.cog.space_mapping, memes.cog.standards.agreement],
 
     [memes.law.public_posting]: [memes.comm.language.written],
 
     [memes.econ.exchange_barter]: [IQ7],
-    [memes.econ.token_use]: [
-        memes.econ.exchange_barter,
-        memes.cog.number_concept,
-    ],
-    [memes.econ.market_norms]: [
-        memes.econ.token_use,
-        memes.org.scheduling,
-        IQ8,
-    ],
+    [memes.econ.token_use]: [memes.econ.exchange_barter, memes.cog.number_concept],
+    [memes.econ.market_norms]: [memes.econ.token_use, memes.org.scheduling, IQ8],
     [memes.econ.pooling_common_fund]: [memes.record.ledgerkeeping],
     [memes.econ.deposit_contract]: [memes.econ.pooling_common_fund, IQ9],
 
@@ -438,20 +401,11 @@ export const memeDeps: Record<MemeId, readonly (MemeId | MorphId)[]> = {
 
     // === ЭТОЛОГИЯ (без ссылок на soc.*)
     [memes.eth.sociality.solitary]: [], // норма вида
-    [memes.eth.sociality.cooperative]: [
-        memes.soc.shared_attention,
-        memes.comm.signaling,
-    ],
+    [memes.eth.sociality.cooperative]: [memes.soc.shared_attention, memes.comm.signaling],
 
     // === Тактики (общие, без привязки к домену; домен задаётся экшеном)
-    [memes.eth.tactics.ambush_stalk]: [
-        core.perception,
-        core.motor_coordination,
-    ],
-    [memes.eth.tactics.pursuit_chase]: [
-        core.perception,
-        core.motor_coordination,
-    ],
+    [memes.eth.tactics.ambush_stalk]: [core.perception, core.motor_coordination],
+    [memes.eth.tactics.pursuit_chase]: [core.perception, core.motor_coordination],
     [eth.tactics.constriction]: [core.motor_coordination],
     [memes.eth.maintenance.cleanliness_core]: [core.perception], // ощущать дискомфорт/паразитов
     [memes.eth.maintenance.thermoregulation]: [core.perception],
@@ -465,44 +419,23 @@ export const memeDeps: Record<MemeId, readonly (MemeId | MorphId)[]> = {
     [memes.eth.predation.drive.opportunistic]: [memes.eth.predation.core],
 
     // === Social
-    [memes.soc.networking.basic]: [
-        memes.soc.shared_attention,
-        memes.comm.signaling,
-    ],
-    [memes.soc.networking.coalition_building]: [
-        memes.soc.networking.basic,
-        memes.comm.language.spoken,
-    ],
+    [memes.soc.networking.basic]: [memes.soc.shared_attention, memes.comm.signaling],
+    [memes.soc.networking.coalition_building]: [memes.soc.networking.basic, memes.comm.language.spoken],
 
     // === Communication
-    [memes.comm.rhetoric.public_debate]: [
-        memes.comm.language.spoken,
-        memes.soc.shared_attention,
-    ],
+    [memes.comm.rhetoric.public_debate]: [memes.comm.language.spoken, memes.soc.shared_attention],
     [memes.comm.persuasion.basic]: [memes.comm.language.spoken],
 
     // === Culture — Competition
     [memes.culture.competition.ethos]: [memes.culture.ritual_basic],
-    [memes.culture.competition.fair_play_norm]: [
-        memes.culture.justice_concept,
-        memes.culture.competition.ethos,
-    ],
+    [memes.culture.competition.fair_play_norm]: [memes.culture.justice_concept, memes.culture.competition.ethos],
 
     // === Org
-    [memes.org.training.regimen_basic]: [
-        memes.org.scheduling,
-        memes.cog.timekeeping.basic,
-    ],
-    [memes.org.tournament.organizing_basic]: [
-        memes.org.scheduling,
-        memes.record.ledgerkeeping,
-    ],
+    [memes.org.training.regimen_basic]: [memes.org.scheduling, memes.cog.timekeeping.basic],
+    [memes.org.tournament.organizing_basic]: [memes.org.scheduling, memes.record.ledgerkeeping],
 
     // === Econ — Contracting/Bidding
-    [memes.econ.contracting.contract_basic]: [
-        memes.econ.market_norms,
-        memes.record.ledgerkeeping,
-    ],
+    [memes.econ.contracting.contract_basic]: [memes.econ.market_norms, memes.record.ledgerkeeping],
     [memes.econ.contracting.bidding_norm]: [
         memes.econ.contracting.contract_basic,
         memes.econ.exchange_barter,
@@ -512,10 +445,7 @@ export const memeDeps: Record<MemeId, readonly (MemeId | MorphId)[]> = {
     [memes.cog.innovation.basic]: [],
 
     // === Record
-    [memes.record.scoreboard.basic]: [
-        memes.comm.language.written,
-        memes.cog.number_concept,
-    ],
+    [memes.record.scoreboard.basic]: [memes.comm.language.written, memes.cog.number_concept],
     [memes.record.submissions_registry]: [memes.record.ledgerkeeping],
     [memes.record.contract_registry]: [memes.record.ledgerkeeping],
     [memes.record.innovation_register]: [memes.record.ledgerkeeping],
@@ -533,10 +463,7 @@ export function expandMemes(required: Iterable<MemeId>): Set<MemeId> {
     return need;
 }
 
-export function canPerform(
-    known: Set<MemeId>,
-    required: Iterable<MemeId>,
-): boolean {
+export function canPerform(known: Set<MemeId>, required: Iterable<MemeId>): boolean {
     for (const m of expandMemes(required)) if (!known.has(m)) return false;
     return true;
 }

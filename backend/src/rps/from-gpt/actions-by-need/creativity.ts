@@ -130,11 +130,7 @@ export const CreativityActions: ActionDefinition[] = [
             accessScope: 'square_stage',
         },
         lawEffect: { buskingPermit: 'approved', enforceable: true },
-        requiredMemes: [
-            health.sanitation_norms,
-            health.waste_handling,
-            comm.language.written,
-        ],
+        requiredMemes: [health.sanitation_norms, health.waste_handling, comm.language.written],
     },
     {
         tag: CreativityActionTag.HOST_SALON_OR_SHOWCASE,
@@ -283,10 +279,6 @@ export const CreativityActions: ActionDefinition[] = [
         },
         ownershipEffect: { artMark: 'registered', provenance: 'traceable' },
         lawEffect: { hallmarkRoll: 'updated', enforceable: true },
-        requiredMemes: [
-            record.ledgerkeeping,
-            econ.pooling_common_fund,
-            comm.language.written,
-        ],
+        requiredMemes: [record.ledgerkeeping, econ.pooling_common_fund, comm.language.written],
     },
 ];

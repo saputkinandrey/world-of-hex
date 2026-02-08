@@ -1,14 +1,6 @@
 import { ActionDefinition } from '../action-definition';
 import { AccountabilityActionTag } from '../action-tags';
-import {
-    cog,
-    comm,
-    culture,
-    econ,
-    health,
-    org,
-    record,
-} from '../../world/memes';
+import { cog, comm, culture, econ, health, org, record } from '../../world/memes';
 export const AccountabilityActions: ActionDefinition[] = [
     {
         tag: AccountabilityActionTag.DUTY_CHART_POST,
@@ -107,11 +99,7 @@ export const AccountabilityActions: ActionDefinition[] = [
         ownershipEffect: { actionItems: 'issued_named_owners' },
         needRework: true,
 
-        requiredMemes: [
-            health.sanitation_norms,
-            health.waste_handling,
-            comm.language.written,
-        ],
+        requiredMemes: [health.sanitation_norms, health.waste_handling, comm.language.written],
     },
     {
         tag: AccountabilityActionTag.INCIDENT_REPORT_FILE,
@@ -192,11 +180,7 @@ export const AccountabilityActions: ActionDefinition[] = [
         ownershipEffect: { reviewRoster: 'rotating_pairs' },
         needRework: true,
 
-        requiredMemes: [
-            comm.language.written,
-            org.duty_roster,
-            org.workshop_practice,
-        ],
+        requiredMemes: [comm.language.written, org.duty_roster, org.workshop_practice],
     },
     {
         tag: AccountabilityActionTag.ESCALATION_PATH_POST,
@@ -228,12 +212,7 @@ export const AccountabilityActions: ActionDefinition[] = [
         ownershipEffect: { boardState: 'kpi_marks_visible' },
         needRework: true,
 
-        requiredMemes: [
-            comm.language.written,
-            record.ledgerkeeping,
-            cog.number_concept,
-            econ.pooling_common_fund,
-        ],
+        requiredMemes: [comm.language.written, record.ledgerkeeping, cog.number_concept, econ.pooling_common_fund],
     },
     {
         tag: AccountabilityActionTag.OATH_OF_OFFICE_RENEW,
@@ -250,11 +229,7 @@ export const AccountabilityActions: ActionDefinition[] = [
         lawEffect: { oathRecord: 'renewed', enforceable: true },
         needRework: true,
 
-        requiredMemes: [
-            culture.vigil_ritual,
-            cog.timekeeping.basic,
-            comm.language.written,
-        ],
+        requiredMemes: [culture.vigil_ritual, cog.timekeeping.basic, comm.language.written],
     },
     {
         tag: AccountabilityActionTag.BUDGET_POUCH_SEALS,

@@ -26,9 +26,7 @@ class EnvironmentVariables {
             const errors = validateSync(config);
 
             if (errors.length > 0) {
-                throw new Error(
-                    `Environment validation failed: ${JSON.stringify(errors, null, 2)}`,
-                );
+                throw new Error(`Environment validation failed: ${JSON.stringify(errors, null, 2)}`);
             }
 
             EnvironmentVariables.instance = config;

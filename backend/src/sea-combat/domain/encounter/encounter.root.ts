@@ -16,10 +16,7 @@ import { ShipSpawnedEvent } from './events/ship.events';
 import { getActionEvent } from '../../../utils/action-event';
 import { randomChoice } from '../../../rps/utils/roll';
 import { AllDirections, Direction } from '../../types/direction.type';
-import {
-    SpawnTacticsOutcome,
-    spawnShipAtEncounter,
-} from '../../utils/spawn-ship-at-encounter.util';
+import { SpawnTacticsOutcome, spawnShipAtEncounter } from '../../utils/spawn-ship-at-encounter.util';
 import { ShipEncounterIntent } from '../../types/ship-encounter-intent.type';
 import { roll3d6UnderWithCrit } from '../../../rps/utils/roll';
 
@@ -106,15 +103,7 @@ export class EncounterAggregate extends AggregateRoot {
             ? ship.speed
             : seamanshipRoll.isCritFailure
               ? 0
-              : Math.min(
-                    ship.speed,
-                    Math.max(
-                        0,
-                        Math.floor(
-                            averageSpeed * (1 + seamanshipRoll.mos * 0.1),
-                        ),
-                    ),
-                );
+              : Math.min(ship.speed, Math.max(0, Math.floor(averageSpeed * (1 + seamanshipRoll.mos * 0.1))));
 
         const { position, direction } = spawnShipAtEncounter({
             radius: this.radius,
@@ -137,13 +126,7 @@ export class EncounterAggregate extends AggregateRoot {
             speed: startSpeed,
             intent: intent ?? null,
         });
-        return this.spawnShipAtPosition(
-            ship,
-            nextPosition,
-            nextDirection,
-            nextSpeed,
-            nextIntent ?? null,
-        );
+        return this.spawnShipAtPosition(ship, nextPosition, nextDirection, nextSpeed, nextIntent ?? null);
     }
 
     spawnShipAtPosition(
@@ -160,11 +143,7 @@ export class EncounterAggregate extends AggregateRoot {
             intent: intent ?? null,
         });
         shipEntity.setActualSpeed(speed).setActualDirection(direction);
-        bindChildActions(
-            this,
-            shipEntity,
-            `ship_${shipEntity.shipId ?? this.ships.length}`,
-        );
+        bindChildActions(this, shipEntity, `ship_${shipEntity.shipId ?? this.ships.length}`);
         this.ships.push(shipEntity);
         return this;
     }

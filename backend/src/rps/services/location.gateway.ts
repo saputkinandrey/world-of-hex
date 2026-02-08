@@ -22,28 +22,18 @@ export class LocationGateway implements OnModuleInit {
         private readonly playerRepository: PlayerRepository,
     ) {}
 
-    async processLoadLocation(
-        payload: LoadLocationMessagePayloadDto,
-    ): Promise<LoadLocationResponsePayloadDto> {
-        console.log(
-            `Player ${payload.userId} requested to download location ${payload.locationId}`,
-        );
+    async processLoadLocation(payload: LoadLocationMessagePayloadDto): Promise<LoadLocationResponsePayloadDto> {
+        console.log(`Player ${payload.userId} requested to download location ${payload.locationId}`);
 
         const player = await this.playerRepository.findOneById(payload.userId);
         if (!player) {
-            throw new Error(
-                'Unable to find user-connected with id ' + payload.userId,
-            );
+            throw new Error('Unable to find user-connected with id ' + payload.userId);
         }
 
-        return this.locationService
-            .loadLocation(payload.locationId)
-            .then((snapshot) => {
-                console.log(
-                    `LOCATION LOADED: ${snapshot.locationId} (${snapshot.locationName})`,
-                );
-                return snapshot;
-            });
+        return this.locationService.loadLocation(payload.locationId).then((snapshot) => {
+            console.log(`LOCATION LOADED: ${snapshot.locationId} (${snapshot.locationName})`);
+            return snapshot;
+        });
     }
 
     /**
@@ -53,9 +43,7 @@ export class LocationGateway implements OnModuleInit {
         [RpsWsMessage.USER_CONNECTED]: async (
             payload: UserConnectedMessagePayloadDto,
         ): Promise<RpsResponseDto<UserConnectedResponsePayloadDto>> => {
-            console.log(
-                `Player connected to LOCATION GATEWAY with ${payload.userId}`,
-            );
+            console.log(`Player connected to LOCATION GATEWAY with ${payload.userId}`);
             return Promise.resolve({
                 response: RpsWsResponse.USER_CONNECTED,
                 payload: true,

@@ -255,8 +255,6 @@ export const WaterActions: ActionDefinition[] = [
     BLESS_WATER,
 ];
 
-const WaterActionsByTag: Record<string, ActionDefinition> = Object.fromEntries(
-    WaterActions.map((a) => [a.tag, a]),
-);
+const WaterActionsByTag: Record<string, ActionDefinition> = Object.fromEntries(WaterActions.map((a) => [a.tag, a]));
 
 export default WaterActionsByTag;

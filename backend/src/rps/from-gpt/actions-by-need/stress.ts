@@ -14,11 +14,7 @@ export const StressActions: ActionDefinition[] = [
         },
         requiresLocation: 'quiet_corner|hearth',
         socialImpact: { CALM: 0.3 as any },
-        requiredMemes: [
-            culture.vigil_ritual,
-            cog.timekeeping.basic,
-            heat.space.hearth,
-        ],
+        requiredMemes: [culture.vigil_ritual, cog.timekeeping.basic, heat.space.hearth],
     },
     {
         tag: StressActionTag.WALK_SHORT_SOLO,
@@ -90,11 +86,7 @@ export const StressActions: ActionDefinition[] = [
         requiresLocation: 'bunks|hearth',
         socialImpact: { PRODUCTIVITY: 0.05 },
         ownershipEffect: { berthUse: 'short_rest' },
-        requiredMemes: [
-            culture.vigil_ritual,
-            cog.timekeeping.basic,
-            heat.space.hearth,
-        ],
+        requiredMemes: [culture.vigil_ritual, cog.timekeeping.basic, heat.space.hearth],
     },
     {
         tag: StressActionTag.SWITCH_TASK_SIMPLE,
@@ -150,12 +142,7 @@ export const StressActions: ActionDefinition[] = [
         requiresLocation: 'hearth|hall',
         socialImpact: { EMPATHY: 0.4 as any, GOSSIP: -0.1 as any },
         ownershipEffect: { circleState: 'vent_done' },
-        requiredMemes: [
-            culture.vigil_ritual,
-            cog.timekeeping.basic,
-            heat.space.hearth,
-            comm.language.written,
-        ],
+        requiredMemes: [culture.vigil_ritual, cog.timekeeping.basic, heat.space.hearth, comm.language.written],
     },
     {
         tag: StressActionTag.MUSIC_CALM_SESSION,
@@ -242,10 +229,6 @@ export const StressActions: ActionDefinition[] = [
         requiresLocation: 'hearth|bunks',
         socialImpact: { ROUTINE: 0.3 as any, PANIC: -0.1 as any },
         ownershipEffect: { curfewReady: 'true' },
-        requiredMemes: [
-            culture.vigil_ritual,
-            cog.timekeeping.basic,
-            heat.space.hearth,
-        ],
+        requiredMemes: [culture.vigil_ritual, cog.timekeeping.basic, heat.space.hearth],
     },
 ];

@@ -1,14 +1,6 @@
 import { ActionDefinition } from '../action-definition';
 import { DisciplineActionTag } from '../action-tags';
-import {
-    cog,
-    comm,
-    culture,
-    econ,
-    health,
-    record,
-    tech,
-} from '../../world/memes';
+import { cog, comm, culture, econ, health, record, tech } from '../../world/memes';
 export const DisciplineActions: ActionDefinition[] = [
     {
         tag: DisciplineActionTag.DAWN_ROLL_CALL,
@@ -23,11 +15,7 @@ export const DisciplineActions: ActionDefinition[] = [
         requiresLocation: 'yard|square',
         socialImpact: { ACCOUNTABILITY: 0.4 as any, COHESION: 0.2 },
         lawEffect: { rollCall: 'mandatory', enforceable: true },
-        requiredMemes: [
-            health.sanitation_norms,
-            health.waste_handling,
-            comm.language.written,
-        ],
+        requiredMemes: [health.sanitation_norms, health.waste_handling, comm.language.written],
     },
     {
         tag: DisciplineActionTag.CODE_RECITAL,
@@ -42,11 +30,7 @@ export const DisciplineActions: ActionDefinition[] = [
         requiresLocation: 'hall|temple',
         socialImpact: { RESPECT: 0.2, UNITY: 0.2 as any },
         lawEffect: { codeCharter: 'reaffirmed', enforceable: true },
-        requiredMemes: [
-            culture.vigil_ritual,
-            cog.timekeeping.basic,
-            comm.language.written,
-        ],
+        requiredMemes: [culture.vigil_ritual, cog.timekeeping.basic, comm.language.written],
     },
     {
         tag: DisciplineActionTag.PUNCTUALITY_CHECK,
@@ -116,11 +100,7 @@ export const DisciplineActions: ActionDefinition[] = [
         requiresLocation: 'workbench|gate',
         socialImpact: { RELIABILITY: 0.2 as any },
         ownershipEffect: { logbook: 'task_start_mark' },
-        requiredMemes: [
-            culture.vigil_ritual,
-            cog.timekeeping.basic,
-            record.boundary_marking,
-        ],
+        requiredMemes: [culture.vigil_ritual, cog.timekeeping.basic, record.boundary_marking],
     },
     {
         tag: DisciplineActionTag.CLEAN_AS_YOU_GO,
@@ -135,11 +115,7 @@ export const DisciplineActions: ActionDefinition[] = [
         tradeEffect: { rags: '-wear', soap: -1 | (0 as any) },
         socialImpact: { DIGNITY: 0.2 as any, RESPECT: 0.1 },
         ownershipEffect: { workspaceState: 'tidy' },
-        requiredMemes: [
-            health.sanitation_norms,
-            health.waste_handling,
-            tech.tool.use_basic,
-        ],
+        requiredMemes: [health.sanitation_norms, health.waste_handling, tech.tool.use_basic],
     },
     {
         tag: DisciplineActionTag.STRICT_BREAK_WINDOWS,
@@ -183,11 +159,7 @@ export const DisciplineActions: ActionDefinition[] = [
         requiresLocation: 'yard|hall',
         socialImpact: { COHESION: 0.3, RESENTMENT: -0.05 },
         lawEffect: { honorRoll: 'posted', enforceable: false },
-        requiredMemes: [
-            health.sanitation_norms,
-            health.waste_handling,
-            comm.language.written,
-        ],
+        requiredMemes: [health.sanitation_norms, health.waste_handling, comm.language.written],
     },
     {
         tag: DisciplineActionTag.SELF_DENIAL_DRILL,
@@ -247,12 +219,7 @@ export const DisciplineActions: ActionDefinition[] = [
         },
         socialImpact: { ACCOUNTABILITY: 0.3 as any },
         lawEffect: { pledgeBoard: 'posted', enforceable: true },
-        requiredMemes: [
-            comm.language.written,
-            record.ledgerkeeping,
-            econ.pooling_common_fund,
-            econ.deposit_contract,
-        ],
+        requiredMemes: [comm.language.written, record.ledgerkeeping, econ.pooling_common_fund, econ.deposit_contract],
     },
     {
         tag: DisciplineActionTag.WEEKLY_RETROSPECT,

@@ -17,13 +17,7 @@ export class LeveledEntity extends NamedCostEntity {
     baseLevel: number;
     totalLevel: number;
 
-    constructor({
-        level = 0,
-        levelCost = 0,
-        levelIncrease = 1,
-        baseLevel = 0,
-        ...rest
-    }: LeveledEntityInit = {}) {
+    constructor({ level = 0, levelCost = 0, levelIncrease = 1, baseLevel = 0, ...rest }: LeveledEntityInit = {}) {
         super(rest);
         this.setLevel(level)
             .setLevelCost(levelCost)
@@ -37,9 +31,7 @@ export class LeveledEntity extends NamedCostEntity {
         return this.setTotalLevel();
     }
 
-    setTotalLevel(
-        totalLevel: number = this.baseLevel + this.level * this.levelIncrease,
-    ): this {
+    setTotalLevel(totalLevel: number = this.baseLevel + this.level * this.levelIncrease): this {
         if (totalLevel !== this.baseLevel + this.level * this.levelIncrease) {
             this.totalLevel = totalLevel;
             this.setLevel((totalLevel - this.baseLevel) / this.levelIncrease);

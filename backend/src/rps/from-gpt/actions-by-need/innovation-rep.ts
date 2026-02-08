@@ -71,11 +71,7 @@ export const InnovationRepActions: ActionDefinition[] = [
         requiresLocation: 'square|fields|quarry',
         socialImpact: { VISIBILITY: 0.4 as any, COMMUNITY: 0.2 },
         ownershipEffect: { ordersIntent: '+prospects' },
-        requiredMemes: [
-            health.sanitation_norms,
-            health.waste_handling,
-            comm.language.written,
-        ],
+        requiredMemes: [health.sanitation_norms, health.waste_handling, comm.language.written],
     },
     {
         tag: InnovationRepActionTag.IMPROVEMENT_KATA,
@@ -214,12 +210,7 @@ export const InnovationRepActions: ActionDefinition[] = [
         socialImpact: { COMMUNITY: 0.3, RESPECT: 0.3 },
         ownershipEffect: { accessScope: 'tour', grantAccess: true },
         lawEffect: { safetyRule: 'visitors_brief', enforceable: true },
-        requiredMemes: [
-            heat.industrial,
-            fire.control,
-            comm.language.written,
-            org.workshop_practice,
-        ],
+        requiredMemes: [heat.industrial, fire.control, comm.language.written, org.workshop_practice],
     },
     {
         tag: InnovationRepActionTag.PATENT_SEAL_REGISTRY,
@@ -236,12 +227,7 @@ export const InnovationRepActions: ActionDefinition[] = [
         socialImpact: { STATUS: 0.3, RESPECT: 0.3 },
         lawEffect: { patentSeal: 'issued', enforceable: true },
         ownershipEffect: { rights: 'exclusive_craft_term' },
-        requiredMemes: [
-            comm.language.written,
-            record.ledgerkeeping,
-            econ.pooling_common_fund,
-            org.workshop_practice,
-        ],
+        requiredMemes: [comm.language.written, record.ledgerkeeping, econ.pooling_common_fund, org.workshop_practice],
     },
     {
         tag: InnovationRepActionTag.APPRENTICE_INNOVATOR_TRACK,

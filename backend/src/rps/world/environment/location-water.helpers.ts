@@ -1,11 +1,6 @@
 // world/environment/location-water.helpers.ts
 
-import type {
-    VolumeUnits,
-    HexId,
-    HexCoord,
-    HexContentInstance,
-} from '../hex.entity';
+import type { VolumeUnits, HexId, HexCoord, HexContentInstance } from '../hex.entity';
 import { HexEntity, makeHexId } from '../hex.entity';
 import type { WorldState } from '../world-state';
 import { LocationEntity } from '../locations/location.entity';
@@ -33,12 +28,7 @@ export function addWaterSourceToLocation(
         registerContent?: boolean;
     },
 ): WaterSourceEntity {
-    const {
-        contentId = `content:water:${params.id}`,
-        volume = 0,
-        registerContent = true,
-        ...sourceInit
-    } = params;
+    const { contentId = `content:water:${params.id}`, volume = 0, registerContent = true, ...sourceInit } = params;
 
     const world: WorldState = location.world;
 
@@ -69,10 +59,7 @@ export function addWaterSourceToLocation(
 }
 
 /** Найти все источники воды, привязанные к конкретному гексу. */
-export function findWaterSourcesInHex(
-    waterState: LocationWaterState,
-    hexId: HexId,
-): WaterSourceEntity[] {
+export function findWaterSourcesInHex(waterState: LocationWaterState, hexId: HexId): WaterSourceEntity[] {
     const result: WaterSourceEntity[] = [];
     for (const source of Object.values(waterState.waterSources)) {
         if (source.hexId === hexId) {
@@ -83,10 +70,7 @@ export function findWaterSourcesInHex(
 }
 
 /** Тик для воды в локации (восстановление и т.п.). */
-export function tickLocationWater(
-    waterState: LocationWaterState,
-    deltaTimeMs: number,
-): void {
+export function tickLocationWater(waterState: LocationWaterState, deltaTimeMs: number): void {
     if (!Number.isFinite(deltaTimeMs) || deltaTimeMs <= 0) return;
     const deltaHours = deltaTimeMs / (1000 * 60 * 60);
 

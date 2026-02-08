@@ -32,11 +32,7 @@ export const EfficiencyActions: ActionDefinition[] = [
         socialImpact: { TRUST: 0.1, RESENTMENT: -0.05 as any },
         lawEffect: { observePolicy: 'posted', enforceable: true },
         ownershipEffect: { timeLog: 'updated' },
-        requiredMemes: [
-            comm.language.written,
-            record.ledgerkeeping,
-            cog.number_concept,
-        ],
+        requiredMemes: [comm.language.written, record.ledgerkeeping, cog.number_concept],
     },
     {
         tag: EfficiencyActionTag['5S_SORT_SET_SHINE'],

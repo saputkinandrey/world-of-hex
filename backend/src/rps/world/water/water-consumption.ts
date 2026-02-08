@@ -2,12 +2,7 @@
 
 import { ActionContext } from '../actions/action-context';
 import { ActorEntity } from '../actor/actor.entity';
-import {
-    filterDrinkableItems,
-    getActorInventoryItems,
-    getHexItems,
-    ItemLike,
-} from '../items.helpers';
+import { filterDrinkableItems, getActorInventoryItems, getHexItems, ItemLike } from '../items.helpers';
 import { HexEntity } from '../hex.entity';
 import { getVisibleHexesForActor } from '../vision.helpers';
 
@@ -68,11 +63,7 @@ function consumeWaterFromItem(item: any, liters: number): void {
  *
  * Ничего не трогает в желудке и NEED-ах — только "физическое" списание ресурса.
  */
-export function drinkFromWorld(
-    actor: ActorEntity,
-    ctx: ActionContext,
-    requestedLiters: number,
-): DrinkResult {
+export function drinkFromWorld(actor: ActorEntity, ctx: ActionContext, requestedLiters: number): DrinkResult {
     let remaining = requestedLiters;
     let totalLiters = 0;
 
@@ -115,9 +106,7 @@ export function drinkFromWorld(
             typeof (ctx.hex as any).getDrinkableWaterLitersFor === 'function' &&
             typeof (ctx.hex as any).consumeDrinkableWater === 'function'
         ) {
-            const availHex = (ctx.hex as any).getDrinkableWaterLitersFor(
-                actor,
-            ) as number;
+            const availHex = (ctx.hex as any).getDrinkableWaterLitersFor(actor) as number;
             const takeHex = Math.min(availHex, remaining);
 
             if (takeHex > 0) {
@@ -145,18 +134,11 @@ function findDrinkableItemsInReach(
     const result: ItemLike[] = [];
 
     // 1) Всегда включаем свою флягу/бутылку в инвентаре
-    result.push(
-        ...filterDrinkableItems(getActorInventoryItems(actor, itemIndex)),
-    );
+    result.push(...filterDrinkableItems(getActorInventoryItems(actor, itemIndex)));
 
     // 2) Гексы, которые актор может видеть
     const allHexes: HexEntity[] = world.getAllHexes();
-    const visibleHexes = getVisibleHexesForActor(
-        actor,
-        originHex,
-        allHexes,
-        visionEnv,
-    );
+    const visibleHexes = getVisibleHexesForActor(actor, originHex, allHexes, visionEnv);
 
     for (const hex of visibleHexes) {
         result.push(...filterDrinkableItems(getHexItems(hex, itemIndex)));

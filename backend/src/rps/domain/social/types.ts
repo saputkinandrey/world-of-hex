@@ -87,10 +87,7 @@ export interface WeightedTag<T> {
 export class SocialRight implements WeightedTag<SocialRightTag> {
     tag: SocialRightTag;
     value: number; // от 0 до 1 или любая шкала, например, 0–100
-    constructor({
-        tag,
-        value = 1,
-    }: { tag?: SocialRightTag; value?: number } = {}) {
+    constructor({ tag, value = 1 }: { tag?: SocialRightTag; value?: number } = {}) {
         if (tag !== undefined) {
             this.setTag(tag);
         }
@@ -113,10 +110,7 @@ export class SocialRight implements WeightedTag<SocialRightTag> {
 export class SocialDuty implements WeightedTag<SocialDutyTag> {
     tag: SocialDutyTag;
     value: number; // от 0 до 1 или любая шкала, например, 0–100
-    constructor({
-        tag,
-        value = 1,
-    }: { tag?: SocialDutyTag; value?: number } = {}) {
+    constructor({ tag, value = 1 }: { tag?: SocialDutyTag; value?: number } = {}) {
         if (tag !== undefined) {
             this.setTag(tag);
         }
@@ -139,10 +133,7 @@ export class SocialDuty implements WeightedTag<SocialDutyTag> {
 export class SocialExpectation implements WeightedTag<SocialExpectationTag> {
     tag: SocialExpectationTag;
     value: number; // от 0 до 1 или любая шкала, например, 0–100
-    constructor({
-        tag,
-        value = 1,
-    }: { tag?: SocialExpectationTag; value?: number } = {}) {
+    constructor({ tag, value = 1 }: { tag?: SocialExpectationTag; value?: number } = {}) {
         if (tag !== undefined) {
             this.setTag(tag);
         }

@@ -145,10 +145,7 @@ export function zoneRank(z: NeedThresholdEnum): number {
     return NEED_THRESHOLD_RANK[z];
 }
 
-export function resolveZone(
-    value: number,
-    t: NeedThresholds,
-): NeedThresholdEnum {
+export function resolveZone(value: number, t: NeedThresholds): NeedThresholdEnum {
     if (value >= t.critical) return NeedThresholdEnum.CRITICAL;
     if (value >= t.severe) return NeedThresholdEnum.SEVERE;
     if (value >= t.impaired) return NeedThresholdEnum.IMPAIRED;

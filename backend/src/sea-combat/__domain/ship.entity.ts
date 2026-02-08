@@ -31,9 +31,7 @@ export class ShipEntity {
     }
 
     @ApiProperty()
-    skills: ShipSkillsEntity = new ShipSkillsEntity()
-        .setSeamanship(12)
-        .setTactics(10);
+    skills: ShipSkillsEntity = new ShipSkillsEntity().setSeamanship(12).setTactics(10);
 
     @ApiProperty()
     createdAt: Date;

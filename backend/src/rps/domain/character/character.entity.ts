@@ -1,14 +1,7 @@
 // src/character/character.entity.ts
 
-import {
-    CharacterInventory,
-    InventoryType,
-    ResourceType,
-} from './inventory/character-inventory.entity';
-import {
-    SampleRoles,
-    SocialRelationEntity,
-} from '../social/entities/social-relation.entity';
+import { CharacterInventory, InventoryType, ResourceType } from './inventory/character-inventory.entity';
+import { SampleRoles, SocialRelationEntity } from '../social/entities/social-relation.entity';
 import { TributePolicy } from '../social/types';
 import { PrimaryAttributesEntity } from './attributes/primary-attributes.entity';
 import { SecondaryAttributesEntity } from './attributes/secondary-attributes.entity';
@@ -51,9 +44,7 @@ export class CharacterEntity {
         primary?: PrimaryAttributesEntity;
         secondary?: SecondaryAttributesEntity;
     } = {}) {
-        this.setName(name)
-            .setPrimary(primary, true)
-            .setSecondary(secondary, true);
+        this.setName(name).setPrimary(primary, true).setSecondary(secondary, true);
     }
 
     setName(name: string): this {
@@ -67,38 +58,23 @@ export class CharacterEntity {
     }
 
     setSecondary(secondary: SecondaryAttributesEntity, copy = false): this {
-        this.secondary = copy
-            ? new SecondaryAttributesEntity(secondary)
-            : secondary;
+        this.secondary = copy ? new SecondaryAttributesEntity(secondary) : secondary;
         return this;
     }
 
     // 📦 инвентарь
     addResource(inventory: InventoryType, type: ResourceType, amount: number) {
-        const inv =
-            inventory === InventoryType.PRIVATE
-                ? this.privateInventory
-                : this.sharedInventory;
+        const inv = inventory === InventoryType.PRIVATE ? this.privateInventory : this.sharedInventory;
         inv[type] = (inv[type] || 0) + amount;
     }
 
-    removeResource(
-        inventory: InventoryType,
-        type: ResourceType,
-        amount: number,
-    ) {
-        const inv =
-            inventory === InventoryType.PRIVATE
-                ? this.privateInventory
-                : this.sharedInventory;
+    removeResource(inventory: InventoryType, type: ResourceType, amount: number) {
+        const inv = inventory === InventoryType.PRIVATE ? this.privateInventory : this.sharedInventory;
         inv[type] = Math.max(0, (inv[type] || 0) - amount);
     }
 
     getResource(inventory: InventoryType, type: ResourceType): number {
-        const inv =
-            inventory === InventoryType.PRIVATE
-                ? this.privateInventory
-                : this.sharedInventory;
+        const inv = inventory === InventoryType.PRIVATE ? this.privateInventory : this.sharedInventory;
         return inv[type] || 0;
     }
 
@@ -119,10 +95,7 @@ export class CharacterEntity {
         return this.subordinates.length < this.subordinateLimit;
     }
 
-    addSubordinate(
-        subordinate: CharacterEntity,
-        relation: SocialRelationEntity,
-    ): boolean {
+    addSubordinate(subordinate: CharacterEntity, relation: SocialRelationEntity): boolean {
         if (!this.canHaveMoreSubordinates()) return false;
         if (this.subordinates.includes(subordinate)) return false;
 

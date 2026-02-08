@@ -1,15 +1,6 @@
 import { ActionDefinition } from '../action-definition';
 import { NetworkActionTag } from '../action-tags';
-import {
-    cog,
-    comm,
-    culture,
-    econ,
-    health,
-    heat,
-    org,
-    record,
-} from '../../world/memes';
+import { cog, comm, culture, econ, health, heat, org, record } from '../../world/memes';
 export const NetworkActions: ActionDefinition[] = [
     {
         tag: NetworkActionTag.MARKET_MEET_AND_GREET,
@@ -39,11 +30,7 @@ export const NetworkActions: ActionDefinition[] = [
         socialImpact: { CREDIBILITY: 0.3, ACCESS: 0.3 as any },
         ownershipEffect: { letterState: 'sealed', chainOfCustody: 'tracked' },
         lawEffect: { sealRight: 'recognized', enforceable: true },
-        requiredMemes: [
-            comm.language.written,
-            record.ledgerkeeping,
-            econ.pooling_common_fund,
-        ],
+        requiredMemes: [comm.language.written, record.ledgerkeeping, econ.pooling_common_fund],
     },
     {
         tag: NetworkActionTag.HOST_GUEST_MERCHANT,
@@ -61,11 +48,7 @@ export const NetworkActions: ActionDefinition[] = [
         socialImpact: { HOSPITALITY: 0.5 as any, RESPECT: 0.2 },
         ownershipEffect: { guestBook: 'signed' },
         lawEffect: { guestRight: 'declared', enforceable: true },
-        requiredMemes: [
-            culture.vigil_ritual,
-            cog.timekeeping.basic,
-            heat.space.hearth,
-        ],
+        requiredMemes: [culture.vigil_ritual, cog.timekeeping.basic, heat.space.hearth],
     },
     {
         tag: NetworkActionTag.RECIPROCAL_FAVORS_LEDGER,
@@ -190,11 +173,7 @@ export const NetworkActions: ActionDefinition[] = [
         tradeEffect: { parchment: -1, ink: -1 },
         socialImpact: { MATCHING: 0.4 as any, RUMORS: -0.05 as any },
         ownershipEffect: { noticeBoard: 'intros_posted' },
-        requiredMemes: [
-            health.sanitation_norms,
-            health.waste_handling,
-            comm.language.written,
-        ],
+        requiredMemes: [health.sanitation_norms, health.waste_handling, comm.language.written],
     },
     {
         tag: NetworkActionTag.FESTIVAL_OF_ALLIANCES,
@@ -215,11 +194,7 @@ export const NetworkActions: ActionDefinition[] = [
         socialImpact: { COHESION: 0.5, RESPECT: 0.3 },
         ownershipEffect: { alliances: '+ties' },
         lawEffect: { guestRight: 'declared', enforceable: true },
-        requiredMemes: [
-            health.sanitation_norms,
-            health.waste_handling,
-            comm.language.written,
-        ],
+        requiredMemes: [health.sanitation_norms, health.waste_handling, comm.language.written],
     },
     {
         tag: NetworkActionTag.MESSENGER_EXCHANGE,
@@ -272,12 +247,7 @@ export const NetworkActions: ActionDefinition[] = [
         socialImpact: { LOYALTY: 0.4, COMMUNITY: 0.3 },
         lawEffect: { hornRight: 'mutual_aid_sworn', enforceable: true },
         ownershipEffect: { musterProtocol: 'shared' },
-        requiredMemes: [
-            comm.language.written,
-            record.ledgerkeeping,
-            econ.pooling_common_fund,
-            econ.deposit_contract,
-        ],
+        requiredMemes: [comm.language.written, record.ledgerkeeping, econ.pooling_common_fund, econ.deposit_contract],
     },
     {
         tag: NetworkActionTag.TRADE_ROUTE_MAPPING,

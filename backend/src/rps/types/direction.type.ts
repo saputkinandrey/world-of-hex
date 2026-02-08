@@ -45,14 +45,7 @@ export const DirectionToVectorEven = {
     [Direction.NW]: new Vector(-1, -1),
 };
 
-export const AllDirections = [
-    Direction.N,
-    Direction.NE,
-    Direction.SE,
-    Direction.S,
-    Direction.SW,
-    Direction.NW,
-];
+export const AllDirections = [Direction.N, Direction.NE, Direction.SE, Direction.S, Direction.SW, Direction.NW];
 
 export const DirectionTurnRight = {
     [Direction.N]: Direction.NE,

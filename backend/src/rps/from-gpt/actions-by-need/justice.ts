@@ -59,11 +59,7 @@ export const JusticeActions: ActionDefinition[] = [
         moralWeight: 0.4,
         visibleToOthers: true,
         requiresLocation: 'public_square',
-        requiredMemes: [
-            health.sanitation_norms,
-            health.waste_handling,
-            comm.language.written,
-        ],
+        requiredMemes: [health.sanitation_norms, health.waste_handling, comm.language.written],
     },
     {
         tag: JusticeActionTag.REPUTATION_RESTORATION,

@@ -1,15 +1,6 @@
 import { ActionDefinition } from '../action-definition';
 import { WasteActionTag } from '../action-tags';
-import {
-    comm,
-    econ,
-    fire,
-    health,
-    heat,
-    org,
-    record,
-    tech,
-} from '../../world/memes';
+import { comm, econ, fire, health, heat, org, record, tech } from '../../world/memes';
 export const WasteActions: ActionDefinition[] = [
     {
         tag: WasteActionTag.SCRAP_LEDGER_START,
@@ -29,12 +20,7 @@ export const WasteActions: ActionDefinition[] = [
         socialImpact: { WASTE: -0.3 as any, DISCIPLINE: 0.2 },
         ownershipEffect: { scrapLedger: 'categories_logged' },
         lawEffect: { scrapSortRule: 'posted', enforceable: true },
-        requiredMemes: [
-            health.sanitation_norms,
-            health.waste_handling,
-            comm.language.written,
-            record.ledgerkeeping,
-        ],
+        requiredMemes: [health.sanitation_norms, health.waste_handling, comm.language.written, record.ledgerkeeping],
     },
     {
         tag: WasteActionTag.RETURNABLE_CONTAINERS,
@@ -92,12 +78,7 @@ export const WasteActions: ActionDefinition[] = [
         tradeEffect: { nails: -1 | (0 as any), resin_or_glue: -1 | (0 as any) },
         socialImpact: { WASTE: -0.3 as any, WEALTH: 0.1 },
         ownershipEffect: { repairBench: 'set_with_log' },
-        requiredMemes: [
-            health.sanitation_norms,
-            health.waste_handling,
-            comm.language.written,
-            org.workshop_practice,
-        ],
+        requiredMemes: [health.sanitation_norms, health.waste_handling, comm.language.written, org.workshop_practice],
     },
     {
         tag: WasteActionTag.SPOILAGE_AUDIT,
@@ -109,12 +90,7 @@ export const WasteActions: ActionDefinition[] = [
         socialImpact: { WASTE: -0.25 as any, ACCOUNTABILITY: 0.1 as any },
         ownershipEffect: { spoilageReport: 'logged_actions_assigned' },
         risk: 0.05,
-        requiredMemes: [
-            health.sanitation_norms,
-            health.waste_handling,
-            comm.language.written,
-            record.ledgerkeeping,
-        ],
+        requiredMemes: [health.sanitation_norms, health.waste_handling, comm.language.written, record.ledgerkeeping],
     },
     {
         tag: WasteActionTag.RATION_PORTION_TOKENS,
@@ -188,12 +164,7 @@ export const WasteActions: ActionDefinition[] = [
         socialImpact: { WASTE: -0.25 as any, TRUST: 0.1 },
         ownershipEffect: { toolLedger: 'circulation_logged' },
         lawEffect: { borrowingRule: 'posted', enforceable: true },
-        requiredMemes: [
-            health.sanitation_norms,
-            health.waste_handling,
-            comm.language.written,
-            record.ledgerkeeping,
-        ],
+        requiredMemes: [health.sanitation_norms, health.waste_handling, comm.language.written, record.ledgerkeeping],
     },
     {
         tag: WasteActionTag.ASH_BRICK_PRESS,
@@ -214,12 +185,7 @@ export const WasteActions: ActionDefinition[] = [
         socialImpact: { WASTE: -0.35 as any, CULTURE: 0.1 },
         ownershipEffect: { brickStack: 'pressed_cured' },
         risk: 0.05,
-        requiredMemes: [
-            health.sanitation_norms,
-            health.waste_handling,
-            heat.industrial,
-            fire.control,
-        ],
+        requiredMemes: [health.sanitation_norms, health.waste_handling, heat.industrial, fire.control],
     },
     {
         tag: WasteActionTag.MANURE_MANAGEMENT,
@@ -231,11 +197,7 @@ export const WasteActions: ActionDefinition[] = [
         socialImpact: { WASTE: -0.35 as any, SAFETY: 0.1 },
         ownershipEffect: { manurePits: 'covered_and_marked' },
         lawEffect: { sanitationRule: 'enforced', enforceable: true },
-        requiredMemes: [
-            health.sanitation_norms,
-            health.waste_handling,
-            tech.tool.use_basic,
-        ],
+        requiredMemes: [health.sanitation_norms, health.waste_handling, tech.tool.use_basic],
     },
     {
         tag: WasteActionTag.REPAIR_CAFE_DAY,
@@ -255,11 +217,6 @@ export const WasteActions: ActionDefinition[] = [
         socialImpact: { WASTE: -0.3 as any, JOY: 0.1 },
         ownershipEffect: { repairedItems: 'tagged_returned' },
         risk: 0.04,
-        requiredMemes: [
-            health.sanitation_norms,
-            health.waste_handling,
-            comm.language.written,
-            org.workshop_practice,
-        ],
+        requiredMemes: [health.sanitation_norms, health.waste_handling, comm.language.written, org.workshop_practice],
     },
 ];

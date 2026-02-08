@@ -2,16 +2,20 @@ import { DomainEvent } from '@event-nest/core';
 import { ShipEntity } from '../../../__entities/ship.entity';
 import Vector from 'vector2js';
 import { Direction } from '../../../types/direction.type';
+import { ShipEncounterIntent } from '../../../types/ship-encounter-intent.type';
 
 @DomainEvent(ShipSpawnedEvent.name)
 export class ShipSpawnedEvent {
     constructor(
         public readonly ship: ShipEntity,
         public readonly position: Vector,
+        public readonly direction: Direction,
+        public readonly speed: number,
+        public readonly intent?: ShipEncounterIntent | null,
     ) {}
 
     static toArgs(event: ShipSpawnedEvent) {
-        return [event.ship, event.position];
+        return [event.ship, event.intent];
     }
 }
 

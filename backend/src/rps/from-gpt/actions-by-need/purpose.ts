@@ -137,11 +137,7 @@ export const PurposeActions: ActionDefinition[] = [
         socialImpact: { PURPOSE: 0.45, ACCOUNTABILITY: 0.5, VISIBILITY: 0.4 },
         tradeEffect: { ledger_update: 'milestones', spend_parchment: -1 },
         lawEffect: { assemblyRecord: 'progress_logged', enforceable: true },
-        requiredMemes: [
-            comm.language.written,
-            record.ledgerkeeping,
-            econ.pooling_common_fund,
-        ],
+        requiredMemes: [comm.language.written, record.ledgerkeeping, econ.pooling_common_fund],
     },
     {
         tag: PurposeActionTag.ADJUST_MISSION_SCOPE,
@@ -205,10 +201,6 @@ export const PurposeActions: ActionDefinition[] = [
         socialImpact: { PURPOSE: 0.8, COHESION: 0.5, JOY: 0.5 as any },
         tradeEffect: { spend_food: -4, spend_drink: -2 },
         lawEffect: { closureRecord: 'mission_complete', enforceable: true },
-        requiredMemes: [
-            culture.vigil_ritual,
-            cog.timekeeping.basic,
-            comm.language.written,
-        ],
+        requiredMemes: [culture.vigil_ritual, cog.timekeeping.basic, comm.language.written],
     },
 ];

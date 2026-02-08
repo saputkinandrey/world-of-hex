@@ -1,16 +1,6 @@
 import { ActionDefinition } from '../action-definition';
 import { IdentityActionTag } from '../action-tags';
-import {
-    cog,
-    comm,
-    culture,
-    econ,
-    fire,
-    health,
-    heat,
-    org,
-    record,
-} from '../../world/memes';
+import { cog, comm, culture, econ, fire, health, heat, org, record } from '../../world/memes';
 export const IdentityActions: ActionDefinition[] = [
     {
         tag: IdentityActionTag.DECLARE_CLAN_AFFILIATION,
@@ -25,11 +15,7 @@ export const IdentityActions: ActionDefinition[] = [
         requiresLocation: 'hall|square',
         socialImpact: { BELONGING: 0.4 as any, NETWORK: 0.2 },
         lawEffect: { clanRoll: 'updated', enforceable: true },
-        requiredMemes: [
-            health.sanitation_norms,
-            health.waste_handling,
-            comm.language.written,
-        ],
+        requiredMemes: [health.sanitation_norms, health.waste_handling, comm.language.written],
     },
     {
         tag: IdentityActionTag.WEAR_HERALDIC_MARKS,
@@ -60,12 +46,7 @@ export const IdentityActions: ActionDefinition[] = [
         socialImpact: { RESPECT: 0.3, COMMUNITY: 0.3 },
         ownershipEffect: { lineageScroll: 'updated' },
         lawEffect: { lineageRegistry: 'filed', enforceable: true },
-        requiredMemes: [
-            culture.vigil_ritual,
-            cog.timekeeping.basic,
-            heat.space.hearth,
-            comm.language.written,
-        ],
+        requiredMemes: [culture.vigil_ritual, cog.timekeeping.basic, heat.space.hearth, comm.language.written],
     },
     {
         tag: IdentityActionTag.RITE_OF_NAMING_OR_RENAMING,
@@ -82,11 +63,7 @@ export const IdentityActions: ActionDefinition[] = [
         socialImpact: { RESPECT: 0.3, DIGNITY: 0.3 as any },
         lawEffect: { nameRoll: 'amended', enforceable: true },
         ownershipEffect: { sealImprint: 'issued' },
-        requiredMemes: [
-            culture.vigil_ritual,
-            cog.timekeeping.basic,
-            comm.language.written,
-        ],
+        requiredMemes: [culture.vigil_ritual, cog.timekeeping.basic, comm.language.written],
     },
     {
         tag: IdentityActionTag.PERSONAL_CREST_DESIGN,
@@ -150,11 +127,7 @@ export const IdentityActions: ActionDefinition[] = [
         requiresLocation: 'temple|hall',
         socialImpact: { TRUST: 0.3, RESPECT: 0.3 },
         lawEffect: { oathRecord: 'sworn', enforceable: true },
-        requiredMemes: [
-            culture.vigil_ritual,
-            cog.timekeeping.basic,
-            comm.language.written,
-        ],
+        requiredMemes: [culture.vigil_ritual, cog.timekeeping.basic, comm.language.written],
     },
     {
         tag: IdentityActionTag.MENTOR_LINE_ACKNOWLEDGE,
@@ -202,11 +175,7 @@ export const IdentityActions: ActionDefinition[] = [
         requiresLocation: 'commons|fields|hall',
         socialImpact: { BELONGING: 0.4 as any, NETWORK: 0.2 },
         ownershipEffect: { commonsState: 'improved' },
-        requiredMemes: [
-            health.sanitation_norms,
-            health.waste_handling,
-            comm.language.written,
-        ],
+        requiredMemes: [health.sanitation_norms, health.waste_handling, comm.language.written],
     },
     {
         tag: IdentityActionTag.DIALECT_OR_SONG_KEEP,
@@ -221,12 +190,7 @@ export const IdentityActions: ActionDefinition[] = [
         requiresLocation: 'hearth|hall|green',
         socialImpact: { RESPECT: 0.2, COHESION: 0.3 },
         ownershipEffect: { repertoire: 'preserved' },
-        requiredMemes: [
-            culture.vigil_ritual,
-            cog.timekeeping.basic,
-            heat.space.hearth,
-            comm.language.written,
-        ],
+        requiredMemes: [culture.vigil_ritual, cog.timekeeping.basic, heat.space.hearth, comm.language.written],
     },
     {
         tag: IdentityActionTag.TOTEM_OBJECT_CONSECRATE,
@@ -267,12 +231,7 @@ export const IdentityActions: ActionDefinition[] = [
         socialImpact: { RESPECT: 0.4, NETWORK: 0.2 },
         lawEffect: { masteryRoll: 'updated', enforceable: true },
         ownershipEffect: { badgeRights: 'wear_in_ceremony' },
-        requiredMemes: [
-            health.sanitation_norms,
-            health.waste_handling,
-            comm.language.written,
-            org.workshop_practice,
-        ],
+        requiredMemes: [health.sanitation_norms, health.waste_handling, comm.language.written, org.workshop_practice],
     },
     {
         tag: IdentityActionTag.PERSONAL_CHRONICLE_ENTRY,
@@ -303,10 +262,6 @@ export const IdentityActions: ActionDefinition[] = [
         requiresLocation: 'hall|yard',
         socialImpact: { DIGNITY: 0.4 as any, CONFLICT: -0.1 as any },
         lawEffect: { boundaryNote: 'posted', enforceable: true },
-        requiredMemes: [
-            health.sanitation_norms,
-            health.waste_handling,
-            comm.language.written,
-        ],
+        requiredMemes: [health.sanitation_norms, health.waste_handling, comm.language.written],
     },
 ];

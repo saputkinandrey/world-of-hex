@@ -14,22 +14,10 @@ export class PrimaryAttributesEntity {
     ht: AttributeEntity;
 
     constructor({
-        st = new AttributeEntity()
-            .setLevelCost(10)
-            .setAlias('ST')
-            .setName('Strength'),
-        dx = new AttributeEntity()
-            .setLevelCost(20)
-            .setAlias('DX')
-            .setName('Dexterity'),
-        iq = new AttributeEntity()
-            .setLevelCost(20)
-            .setAlias('IQ')
-            .setName('Intelligence'),
-        ht = new AttributeEntity()
-            .setLevelCost(10)
-            .setAlias('HT')
-            .setName('Health'),
+        st = new AttributeEntity().setLevelCost(10).setAlias('ST').setName('Strength'),
+        dx = new AttributeEntity().setLevelCost(20).setAlias('DX').setName('Dexterity'),
+        iq = new AttributeEntity().setLevelCost(20).setAlias('IQ').setName('Intelligence'),
+        ht = new AttributeEntity().setLevelCost(10).setAlias('HT').setName('Health'),
     }: {
         st?: AttributeEntity;
         dx?: AttributeEntity;
