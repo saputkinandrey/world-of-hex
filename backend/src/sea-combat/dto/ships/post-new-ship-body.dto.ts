@@ -1,5 +1,5 @@
-import { ApiProperty } from '@nestjs/swagger';
-import { IsEnum, IsString } from 'class-validator';
+import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
+import { IsEnum, IsInt, IsOptional, IsString, Min } from 'class-validator';
 import { ShipType } from '../../types/ship-type.type';
 
 export class PostNewShipBodyDto {
@@ -10,4 +10,10 @@ export class PostNewShipBodyDto {
     @ApiProperty({ enum: ShipType })
     @IsEnum(ShipType)
     type: ShipType;
+
+    @ApiPropertyOptional()
+    @IsOptional()
+    @IsInt()
+    @Min(0)
+    tactics?: number;
 }

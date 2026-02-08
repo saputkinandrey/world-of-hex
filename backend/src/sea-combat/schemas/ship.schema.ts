@@ -30,6 +30,9 @@ export class Ship extends EntityDocumentHelper {
 
     @Prop()
     speed: number;
+
+    @Prop({ default: 10 })
+    tactics: number;
 }
 
 export const ShipSchema = SchemaFactory.createForClass(Ship);

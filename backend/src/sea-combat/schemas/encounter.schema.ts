@@ -5,6 +5,7 @@ import { Direction } from '../types/direction.type';
 import { Ship } from './ship.schema';
 import Vector from 'vector2js';
 import { withAggregateRoot } from '../../utils/with-aggregate-root.mixin';
+import { ShipEncounterIntent } from '../types/ship-encounter-intent.type';
 
 export type EncounterDocument = HydratedDocument<Encounter>;
 
@@ -20,6 +21,13 @@ export class ShipToEncounter {
 
     @Prop({ type: Ship })
     ship: Ship;
+
+    @Prop({
+        type: String,
+        enum: Object.values(ShipEncounterIntent),
+        default: null,
+    })
+    intent?: ShipEncounterIntent | null;
 }
 
 export class PlayerToEncounter extends EntityDocumentHelper {
@@ -54,6 +62,12 @@ export class Encounter extends EntityDocumentHelper {
         default: [],
     })
     ships: ShipToEncounter[];
+
+    @Prop({ type: Vector, default: () => new Vector(0, 0) })
+    center: Vector;
+
+    @Prop({ type: Direction })
+    windDirection: Direction;
 
     @Prop({})
     radius: number;

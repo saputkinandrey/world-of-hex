@@ -35,6 +35,7 @@ export class ShipsController {
                 name: body.name,
                 type: body.type,
                 speed: 5,
+                tactics: body.tactics ?? 10,
             })
             .then((res) => res.toJSON());
     }

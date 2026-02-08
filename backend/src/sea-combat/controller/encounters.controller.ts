@@ -2,7 +2,7 @@ import { Body, Controller, Get, Post } from '@nestjs/common';
 
 import { ApiTags } from '@nestjs/swagger';
 
-import { EncounterRepository } from '../repositories/encounter.repository';
+import { EncounterService } from '../services/encounter.service';
 import { PostNewEncounterBodyDto } from '../dto/encounters/post-new-encounter-body.dto';
 
 // @ApiBearerAuth()
@@ -14,26 +14,15 @@ import { PostNewEncounterBodyDto } from '../dto/encounters/post-new-encounter-bo
     // version: '1',
 })
 export class EncountersController {
-    constructor(private readonly encounterRepository: EncounterRepository) {}
+    constructor(private readonly encounterService: EncounterService) {}
 
     @Post()
     postNewEncounter(@Body() body: PostNewEncounterBodyDto) {
-        return this.encounterRepository
-            .create({
-                players: [],
-                ships: [],
-                radius: body.radius,
-                name: body.name,
-            })
-            .then((res) => res.toJSON());
+        return this.encounterService.createEncounter(body.name, body.radius).then((res) => res.toJSON());
     }
 
     @Get('list')
     getList() {
-        return this.encounterRepository
-            .find({}, {}, { sort: { createdAt: -1 } })
-            .then((result) => {
-                return result.map((document) => document.toJSON());
-            });
+        return this.encounterService.findAllEncounters().then((result) => result.map((document) => document.toJSON()));
     }
 }

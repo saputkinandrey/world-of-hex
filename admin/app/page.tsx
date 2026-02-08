@@ -42,9 +42,11 @@ type Ship = {
   name: string;
   type: string;
   speed: number;
+  tactics?: number;
 };
 
 const shipTypes = ['drakkar', 'galleon', 'steamship', 'trireme'];
+const encounterIntents = ['flee', 'pursue', 'circle'];
 
 export default function HomePage() {
   const apiBase = useMemo(
@@ -179,11 +181,13 @@ export default function HomePage() {
   const [playerName, setPlayerName] = useState('');
   const [shipName, setShipName] = useState('');
   const [shipType, setShipType] = useState(shipTypes[0]);
+  const [shipTactics, setShipTactics] = useState(10);
   const [ownPlayerId, setOwnPlayerId] = useState('');
   const [ownShipId, setOwnShipId] = useState('');
   const [encounterPlayerId, setEncounterPlayerId] = useState('');
   const [encounterId, setEncounterId] = useState('');
   const [encounterShipId, setEncounterShipId] = useState('');
+  const [encounterIntent, setEncounterIntent] = useState('');
 
   const normalizeId = (value: unknown) => {
     if (typeof value === 'string') {
@@ -315,9 +319,11 @@ export default function HomePage() {
       body: JSON.stringify({
         name: shipName.trim(),
         type: shipType,
+        tactics: Number(shipTactics),
       }),
     });
     setShipName('');
+    setShipTactics(10);
     await loadAll();
   };
 
@@ -337,6 +343,7 @@ export default function HomePage() {
     const playerId = normalizeId(encounterPlayerId).trim();
     const targetEncounterId = normalizeId(encounterId).trim();
     const shipId = normalizeId(encounterShipId).trim();
+    const intent = encounterIntent.trim();
     await fetchJson(`/sea-combat/players/${playerId}/join-encounter`, {
       method: 'POST',
       body: JSON.stringify({
@@ -344,19 +351,24 @@ export default function HomePage() {
       }),
     });
     if (shipId) {
+      const shipJoinBody: Record<string, string> = {
+        encounterId: targetEncounterId,
+      };
+      if (intent) {
+        shipJoinBody.intent = intent;
+      }
       await fetchJson(
         `/sea-combat/ship/${shipId}/join-encounter`,
         {
           method: 'POST',
-          body: JSON.stringify({
-            encounterId: targetEncounterId,
-          }),
+          body: JSON.stringify(shipJoinBody),
         },
       );
     }
     setEncounterPlayerId('');
     setEncounterId('');
     setEncounterShipId('');
+    setEncounterIntent('');
     await loadAll();
   };
 
@@ -491,6 +503,7 @@ export default function HomePage() {
                           normalizeId(event.target.value).trim(),
                         );
                         setEncounterShipId('');
+                        setEncounterIntent('');
                       }}
                     >
                       {players.map((player) => (
@@ -528,6 +541,24 @@ export default function HomePage() {
                       ))}
                     </TextField>
                     <TextField
+                      label="Intent"
+                      select
+                      value={encounterIntent}
+                      disabled={!encounterShipId}
+                      onChange={(event) =>
+                        setEncounterIntent(event.target.value)
+                      }
+                    >
+                      <MenuItem value="" disabled>
+                        Select Intent
+                      </MenuItem>
+                      {encounterIntents.map((intent) => (
+                        <MenuItem key={intent} value={intent}>
+                          {intent}
+                        </MenuItem>
+                      ))}
+                    </TextField>
+                    <TextField
                       label="Encounter"
                       select
                       value={encounterId}
@@ -551,7 +582,11 @@ export default function HomePage() {
                       <Button
                         variant="outlined"
                         onClick={joinEncounter}
-                        disabled={!encounterPlayerId || !encounterId}
+                        disabled={
+                          !encounterPlayerId ||
+                          !encounterId ||
+                          (encounterShipId && !encounterIntent)
+                        }
                       >
                         Join encounter
                       </Button>
@@ -730,6 +765,14 @@ export default function HomePage() {
                         </MenuItem>
                       ))}
                     </TextField>
+                    <TextField
+                      label="Tactics"
+                      type="number"
+                      value={shipTactics}
+                      onChange={(event) =>
+                        setShipTactics(Number(event.target.value))
+                      }
+                    />
                     <Button
                       variant="contained"
                       onClick={createShip}
@@ -769,7 +812,8 @@ export default function HomePage() {
                             </IconButton>
                           </Stack>
                           <Typography variant="caption" color="text.secondary">
-                            {ship._id} · {ship.type} · speed {ship.speed}
+                            {ship._id} · {ship.type} · speed {ship.speed} ·
+                            tactics {ship.tactics ?? '—'}
                           </Typography>
                           {shipOwnerById.has(ship._id) ? (
                             <Chip

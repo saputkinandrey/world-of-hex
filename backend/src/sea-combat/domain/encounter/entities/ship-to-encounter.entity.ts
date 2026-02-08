@@ -3,7 +3,6 @@ import { ShipEntity } from '../../../__domain/ship.entity';
 import { StreamAwareEntity } from '../../../../utils/stream-aware-entity';
 import { ModifierBucketEntity } from '../../../__domain/modifier-bucket.entity';
 import { roll3d6Under } from '../../../../rps/utils/roll';
-import { ShipSkillsEntity } from '../../../__domain/ship-skills.entity';
 import { ChildAction } from '../../../../utils/child-action.decorator';
 import { getOwnActionEvent } from '../../../../utils/action-event';
 import Vector from 'vector2js';
@@ -15,6 +14,7 @@ import {
     ShipTurnedLeftEvent,
     ShipTurnedRightEvent,
 } from '../events/ship.events';
+import { ShipEncounterIntent } from '../../../types/ship-encounter-intent.type';
 
 export class ShipToEncounterEntity extends StreamAwareEntity {
     constructor() {
@@ -31,7 +31,7 @@ export class ShipToEncounterEntity extends StreamAwareEntity {
 
     position: Vector;
 
-    skills: ShipSkillsEntity = new ShipSkillsEntity().setSeamanship(12);
+    intent: ShipEncounterIntent | null = null;
 
     encounterId: string;
 
@@ -72,7 +72,10 @@ export class ShipToEncounterEntity extends StreamAwareEntity {
         const action = getOwnActionEvent(this, ShipAcceleratedEvent);
         const { speed, seamanshipMoS } = action.setNamedArgs({
             speed: this.actualSpeed,
-            seamanshipMoS: roll3d6Under(this.skills.seamanship + this.modifierBucket.total('seamanship')),
+            seamanshipMoS: roll3d6Under(
+                this.ship.skills.seamanship +
+                    this.modifierBucket.total('seamanship'),
+            ),
         });
         const nextSpeed = seamanshipMoS >= 0 ? speed + 1 : speed;
         return this.setActualSpeed(nextSpeed);

@@ -7,8 +7,8 @@ import {
 import { ShipEntity } from './ship.entity';
 import { ModifierBucketEntity } from './modifier-bucket.entity';
 import { roll3d6Under } from '../../rps/utils/roll';
-import { ShipSkillsEntity } from './ship-skills.entity';
 import Vector from 'vector2js';
+import { ShipEncounterIntent } from '../types/ship-encounter-intent.type';
 
 const idType = String;
 
@@ -36,7 +36,7 @@ export class ShipToEncounterEntity {
     position: Vector;
 
     @ApiProperty()
-    skills: ShipSkillsEntity = new ShipSkillsEntity().setSeamanship(12);
+    intent: ShipEncounterIntent | null = null;
 
     @ApiProperty()
     actualSpeed: number = 0;
@@ -62,7 +62,7 @@ export class ShipToEncounterEntity {
     accelerate() {
         if (
             roll3d6Under(
-                this.skills.seamanship +
+                this.ship.skills.seamanship +
                     this.modifierBucket.total('seamanship'),
             ) >= 0
         )

@@ -10,7 +10,7 @@ import { ApiTags } from '@nestjs/swagger';
 
 import { EncounterService } from '../services/encounter.service';
 import { PlayerRepository } from '../../player/repositories/player.repository';
-import { PostJoinEncounterBodyDto } from '../dto/player/post-join-encounter-body.dto';
+import { PostShipJoinEncounterBodyDto } from '../dto/ship/post-ship-join-encounter-body.dto';
 import { PostLeaveEncounterBodyDto } from '../dto/player/post-leave-encounter-body.dto';
 import { ShipRepository } from '../repositories/ship.repository';
 import { PostShipChangeMovementDto } from '../dto/ship/post-ship-change-movement.dto';
@@ -33,7 +33,7 @@ export class ShipController {
     @Post('join-encounter')
     async postJoinEncounter(
         @Param('shipId') shipId: string,
-        @Body() body: PostJoinEncounterBodyDto,
+        @Body() body: PostShipJoinEncounterBodyDto,
     ) {
         const ship = await this.shipRepository.findOneById(shipId);
         if (!ship) {
@@ -49,7 +49,11 @@ export class ShipController {
             );
         }
 
-        await this.encounterService.shipJoinsEncounter(ship, encounter);
+        await this.encounterService.shipJoinsEncounter(
+            ship,
+            encounter,
+            body.intent,
+        );
     }
 
     @Post('leave-encounter')

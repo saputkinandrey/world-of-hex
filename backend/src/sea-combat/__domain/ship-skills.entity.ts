@@ -14,8 +14,16 @@ export class ShipSkillsEntity {
     @ApiProperty()
     seamanship: number;
 
+    @ApiProperty()
+    tactics: number;
+
     setSeamanship(value: number) {
         this.seamanship = value;
+        return this;
+    }
+
+    setTactics(value: number) {
+        this.tactics = value;
         return this;
     }
 
