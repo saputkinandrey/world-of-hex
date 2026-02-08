@@ -24,11 +24,10 @@ import {
 } from '@mui/material';
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 import LinkOffRoundedIcon from '@mui/icons-material/LinkOffRounded';
-import {
-  EncounterCard,
-  EncounterHexGrid,
+import { EncounterHexGrid } from '@wohex/ui';
+import EncounterCard, {
   type EncounterCardData,
-} from '@wohex/ui';
+} from '../components/EncounterCard';
 
 type Encounter = EncounterCardData;
 
@@ -60,6 +59,8 @@ export default function HomePage() {
   const [previewEncounter, setPreviewEncounter] =
     useState<Encounter | null>(null);
   const previewScrollRef = useRef<HTMLDivElement | null>(null);
+  const [previewContainer, setPreviewContainer] =
+    useState<HTMLDivElement | null>(null);
   const previewDragState = useRef<{
     startX: number;
     startY: number;
@@ -124,6 +125,44 @@ export default function HomePage() {
   }, [previewZoom]);
 
   useEffect(() => {
+    const container = previewContainer;
+    if (!container || !previewEncounter) {
+      return undefined;
+    }
+
+    const handleWheel = (event: WheelEvent) => {
+      event.preventDefault();
+      const rect = container.getBoundingClientRect();
+      const pointerX = event.clientX - rect.left;
+      const pointerY = event.clientY - rect.top;
+      const offsetX = pointerX + container.scrollLeft;
+      const offsetY = pointerY + container.scrollTop;
+      const currentZoom = previewZoomRef.current;
+      const zoomFactor = event.deltaY < 0 ? 1.1 : 0.9;
+      const nextZoom = Math.min(3, Math.max(0.5, currentZoom * zoomFactor));
+      if (nextZoom === currentZoom) {
+        return;
+      }
+      previewZoomRef.current = nextZoom;
+      setPreviewZoom(nextZoom);
+      const ratio = nextZoom / currentZoom;
+      window.requestAnimationFrame(() => {
+        const updated = previewScrollRef.current;
+        if (!updated) {
+          return;
+        }
+        updated.scrollLeft = offsetX * ratio - pointerX;
+        updated.scrollTop = offsetY * ratio - pointerY;
+      });
+    };
+
+    container.addEventListener('wheel', handleWheel, { passive: false });
+    return () => {
+      container.removeEventListener('wheel', handleWheel);
+    };
+  }, [previewContainer, previewEncounter]);
+
+  useEffect(() => {
     if (!previewEncounter) {
       return;
     }
@@ -142,12 +181,49 @@ export default function HomePage() {
   const [shipType, setShipType] = useState(shipTypes[0]);
   const [ownPlayerId, setOwnPlayerId] = useState('');
   const [ownShipId, setOwnShipId] = useState('');
+  const [encounterPlayerId, setEncounterPlayerId] = useState('');
+  const [encounterId, setEncounterId] = useState('');
+  const [encounterShipId, setEncounterShipId] = useState('');
+
+  const normalizeId = (value: unknown) => {
+    if (typeof value === 'string') {
+      return value;
+    }
+    if (value && typeof value === 'object') {
+      const record = value as Record<string, unknown>;
+      if (typeof record.$oid === 'string') {
+        return record.$oid;
+      }
+    }
+    try {
+      return JSON.stringify(value);
+    } catch {
+      return String(value);
+    }
+  };
 
   const shipNameById = useMemo(() => {
     const map = new Map<string, Ship>();
     ships.forEach((ship) => map.set(ship._id, ship));
     return map;
   }, [ships]);
+
+  const encounterPlayerShips = useMemo(() => {
+    const player = players.find((item) => item._id === encounterPlayerId);
+    if (!player?.ownedShips?.length) {
+      return [];
+    }
+    return player.ownedShips
+      .map((owned) => normalizeId(owned._id).trim())
+      .filter(Boolean)
+      .map((shipId) => {
+        const ship = shipNameById.get(shipId);
+        return {
+          _id: shipId,
+          label: ship ? `${ship.name} В· ${ship.type}` : shipId,
+        };
+      });
+  }, [encounterPlayerId, players, shipNameById]);
 
   const shipOwnerById = useMemo(() => {
     const map = new Map<string, Player>();
@@ -257,6 +333,68 @@ export default function HomePage() {
     await loadAll();
   };
 
+  const joinEncounter = async () => {
+    const playerId = normalizeId(encounterPlayerId).trim();
+    const targetEncounterId = normalizeId(encounterId).trim();
+    const shipId = normalizeId(encounterShipId).trim();
+    await fetchJson(`/sea-combat/players/${playerId}/join-encounter`, {
+      method: 'POST',
+      body: JSON.stringify({
+        encounterId: targetEncounterId,
+      }),
+    });
+    if (shipId) {
+      await fetchJson(
+        `/sea-combat/ship/${shipId}/join-encounter`,
+        {
+          method: 'POST',
+          body: JSON.stringify({
+            encounterId: targetEncounterId,
+          }),
+        },
+      );
+    }
+    setEncounterPlayerId('');
+    setEncounterId('');
+    setEncounterShipId('');
+    await loadAll();
+  };
+
+  const removeEncounterPlayer = async (
+    targetEncounterId: string,
+    playerId: string,
+  ) => {
+    const normalizedEncounterId = normalizeId(targetEncounterId).trim();
+    const normalizedPlayerId = normalizeId(playerId).trim();
+    const player = players.find((item) => item._id === normalizedPlayerId);
+    const ownedShipIds =
+      player?.ownedShips
+        ?.map((owned) => normalizeId(owned._id).trim())
+        .filter(Boolean) ?? [];
+    for (const shipId of ownedShipIds) {
+      try {
+        await fetchJson(`/sea-combat/ship/${shipId}/leave-encounter`, {
+          method: 'POST',
+          body: JSON.stringify({
+            shipId,
+            encounterId: normalizedEncounterId,
+          }),
+        });
+      } catch {
+        // Ship may not be in this encounter.
+      }
+    }
+    await fetchJson(
+      `/sea-combat/players/${normalizedPlayerId}/leave-encounter`,
+      {
+        method: 'POST',
+        body: JSON.stringify({
+          encounterId: normalizedEncounterId,
+        }),
+      },
+    );
+  };
+
   const deleteShip = async (shipId: string) => {
     if (!window.confirm('Delete this ship?')) {
       return;
@@ -344,11 +482,89 @@ export default function HomePage() {
                       Create encounter
                     </Button>
                     <Divider />
+                    <TextField
+                      label="Encounter player"
+                      select
+                      value={encounterPlayerId}
+                      onChange={(event) => {
+                        setEncounterPlayerId(
+                          normalizeId(event.target.value).trim(),
+                        );
+                        setEncounterShipId('');
+                      }}
+                    >
+                      {players.map((player) => (
+                        <MenuItem
+                          key={player._id}
+                          value={normalizeId(player._id)}
+                        >
+                          {player.name}
+                        </MenuItem>
+                      ))}
+                    </TextField>
+                    <TextField
+                      label="Encounter ship"
+                      select
+                      value={encounterShipId}
+                      disabled={!encounterPlayerId}
+                      onChange={(event) =>
+                        setEncounterShipId(
+                          normalizeId(event.target.value).trim(),
+                        )
+                      }
+                    >
+                      <MenuItem value="" disabled>
+                        Select Ship
+                      </MenuItem>
+                      {encounterPlayerShips.length === 0 ? (
+                        <MenuItem value="" disabled>
+                          No ships owned
+                        </MenuItem>
+                      ) : null}
+                      {encounterPlayerShips.map((ship) => (
+                        <MenuItem key={ship._id} value={ship._id}>
+                          {ship.label}
+                        </MenuItem>
+                      ))}
+                    </TextField>
+                    <TextField
+                      label="Encounter"
+                      select
+                      value={encounterId}
+                      disabled={!encounterPlayerId}
+                      onChange={(event) =>
+                        setEncounterId(
+                          normalizeId(event.target.value).trim(),
+                        )
+                      }
+                    >
+                      {encounters.map((enc) => (
+                        <MenuItem
+                          key={enc._id}
+                          value={normalizeId(enc._id)}
+                        >
+                          {enc.name ?? enc._id}
+                        </MenuItem>
+                      ))}
+                    </TextField>
+                    <Stack direction="row" spacing={1}>
+                      <Button
+                        variant="outlined"
+                        onClick={joinEncounter}
+                        disabled={!encounterPlayerId || !encounterId}
+                      >
+                        Join encounter
+                      </Button>
+                    </Stack>
+                    <Divider />
                     <Stack spacing={1}>
                       {encounters.map((enc) => (
                         <EncounterCard
                           key={enc._id}
                           encounter={enc}
+                          onRemovePlayer={(playerId) =>
+                            void removeEncounterPlayer(enc._id, playerId)
+                          }
                           onClick={() => setPreviewEncounter(enc)}
                         />
                       ))}
@@ -622,7 +838,11 @@ export default function HomePage() {
           {previewEncounter ? (
             <Box sx={{ display: 'grid', gap: 2 }}>
               <Box
-                ref={previewScrollRef}
+                component="div"
+                ref={(node: HTMLDivElement | null) => {
+                  previewScrollRef.current = node;
+                  setPreviewContainer(node);
+                }}
                 onMouseDown={(event) => {
                   if (event.button !== 0) {
                     return;
@@ -639,38 +859,6 @@ export default function HomePage() {
                     scrollTop: container.scrollTop,
                   };
                   setIsPreviewDragging(true);
-                }}
-                onWheel={(event) => {
-                  const container = previewScrollRef.current;
-                  if (!container) {
-                    return;
-                  }
-                  event.preventDefault();
-                  const rect = container.getBoundingClientRect();
-                  const pointerX = event.clientX - rect.left;
-                  const pointerY = event.clientY - rect.top;
-                  const offsetX = pointerX + container.scrollLeft;
-                  const offsetY = pointerY + container.scrollTop;
-                  const currentZoom = previewZoomRef.current;
-                  const zoomFactor = event.deltaY < 0 ? 1.1 : 0.9;
-                  const nextZoom = Math.min(
-                    3,
-                    Math.max(0.5, currentZoom * zoomFactor),
-                  );
-                  if (nextZoom === currentZoom) {
-                    return;
-                  }
-                  previewZoomRef.current = nextZoom;
-                  setPreviewZoom(nextZoom);
-                  const ratio = nextZoom / currentZoom;
-                  window.requestAnimationFrame(() => {
-                    const updated = previewScrollRef.current;
-                    if (!updated) {
-                      return;
-                    }
-                    updated.scrollLeft = offsetX * ratio - pointerX;
-                    updated.scrollTop = offsetY * ratio - pointerY;
-                  });
                 }}
                 sx={{
                   width: '100%',

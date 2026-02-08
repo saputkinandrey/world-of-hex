@@ -148,6 +148,21 @@ export class EncounterService {
     }
 
     async shipJoinsEncounter(ship: ShipDocument, encounter: EncounterDocument) {
+        const existingEncounters = await this.encounterRepository.find(
+            { 'ships.ship._id': ship._id },
+            { _id: 1 },
+            { limit: 1 },
+        );
+        if (existingEncounters.length > 0) {
+            const existingId = existingEncounters[0]._id?.toString();
+            const currentId = encounter._id?.toString();
+            if (existingId && existingId !== currentId) {
+                throw new Error(
+                    `Ship with id ${ship._id} already joined encounter ${existingId}`,
+                );
+            }
+        }
+
         let joinedShip = encounter.ships.find(
             (shp) => shp.ship._id === ship._id,
         );

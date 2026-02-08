@@ -20,7 +20,7 @@ import {
   Toolbar,
   Typography,
 } from "@mui/material";
-import { EncounterHexGrid, type EncounterCardData } from "@wohex/ui";
+import { EncounterHexGrid } from "@wohex/ui";
 
 type LogEntry = {
   ts: string;
@@ -30,11 +30,24 @@ type LogEntry = {
 type PlayerOption = {
   _id: string;
   name: string;
+  ownedShips?: Array<{ _id: unknown }>;
+};
+
+type ShipOption = {
+  _id: string;
+  name: string;
+  type?: string;
 };
 
 type SocketMeta = {
   endpoint: string;
   path: string;
+};
+
+type EncounterCardData = {
+  _id: string;
+  name: string;
+  radius: number;
 };
 
 const SOCKET_KEY = "__wohex_socket__";
@@ -96,6 +109,7 @@ const parseEncounterSnapshot = (payload: unknown): EncounterCardData | null => {
   return { _id: id, name, radius };
 };
 
+
 export default function HomePage() {
   const [url] = useState(
     process.env.NEXT_PUBLIC_SOCKET_URL ?? "http://localhost:3000",
@@ -114,9 +128,16 @@ export default function HomePage() {
   const [users, setUsers] = useState<PlayerOption[]>([]);
   const [usersLoading, setUsersLoading] = useState(false);
   const [usersError, setUsersError] = useState("");
+  const [ships, setShips] = useState<ShipOption[]>([]);
+  const [shipsLoading, setShipsLoading] = useState(false);
+  const [shipsError, setShipsError] = useState("");
   const [encounterId, setEncounterId] = useState("");
   const [selectedTokenId, setSelectedTokenId] = useState("");
   const [inputType, setInputType] = useState("");
+  const [selectedShipId, setSelectedShipId] = useState("");
+  const [encounters, setEncounters] = useState<EncounterCardData[]>([]);
+  const [encountersLoading, setEncountersLoading] = useState(false);
+  const [encountersError, setEncountersError] = useState("");
   const [encounterJson, setEncounterJson] = useState("");
   const [encounterSnapshot, setEncounterSnapshot] =
     useState<EncounterCardData | null>(null);
@@ -143,6 +164,45 @@ export default function HomePage() {
     userIdRef.current = userId;
   }, [userId]);
 
+  const shipById = useMemo(() => {
+    const map = new Map<string, ShipOption>();
+    ships.forEach((ship) => map.set(ship._id, ship));
+    return map;
+  }, [ships]);
+
+  const selectedPlayer = useMemo(
+    () => users.find((player) => player._id === userId),
+    [users, userId],
+  );
+
+  const ownedShips = useMemo(() => {
+    if (!selectedPlayer?.ownedShips?.length) {
+      return [];
+    }
+    return selectedPlayer.ownedShips
+      .map((owned) => normalizeId(owned._id).trim())
+      .filter(Boolean)
+      .map((id) => {
+        const ship = shipById.get(id);
+        return {
+          _id: id,
+          label: ship ? `${ship.name} • ${ship.type ?? "ship"}` : id,
+        };
+      });
+  }, [selectedPlayer, shipById]);
+
+  useEffect(() => {
+    if (
+      selectedShipId &&
+      !ownedShips.some((ship) => ship._id === selectedShipId)
+    ) {
+      setSelectedShipId("");
+      setEncounterId("");
+      setEncounterSnapshot(null);
+      setEncounterJson("");
+    }
+  }, [ownedShips, selectedShipId]);
+
   const loadUsers = async () => {
     setUsersLoading(true);
     setUsersError("");
@@ -157,6 +217,9 @@ export default function HomePage() {
       const normalized = data.map((player) => ({
         _id: normalizeId((player as PlayerOption)._id),
         name: player.name,
+        ownedShips: Array.isArray(player.ownedShips)
+          ? player.ownedShips
+          : [],
       }));
       setUsers(normalized);
       const current = normalizeId(userIdRef.current ?? "").trim();
@@ -171,8 +234,63 @@ export default function HomePage() {
     }
   };
 
+  const loadShips = async () => {
+    setShipsLoading(true);
+    setShipsError("");
+    try {
+      const response = await fetch(
+        `${apiBase.replace(/\/$/, "")}/sea-combat/ships/list`,
+      );
+      if (!response.ok) {
+        throw new Error(`HTTP ${response.status}`);
+      }
+      const data = (await response.json()) as ShipOption[];
+      const normalized = data.map((ship) => ({
+        _id: normalizeId((ship as ShipOption)._id),
+        name: ship.name,
+        type: ship.type,
+      }));
+      setShips(normalized);
+    } catch (err) {
+      setShipsError(String(err));
+      setShips([]);
+    } finally {
+      setShipsLoading(false);
+    }
+  };
+
+  const loadEncounters = async () => {
+    setEncountersLoading(true);
+    setEncountersError("");
+    try {
+      const response = await fetch(
+        `${apiBase.replace(/\/$/, "")}/sea-combat/encounters/list`,
+      );
+      if (!response.ok) {
+        throw new Error(`HTTP ${response.status}`);
+      }
+      const data = (await response.json()) as EncounterCardData[];
+      const normalized = data.map((encounter) => ({
+        _id: normalizeId((encounter as EncounterCardData)._id),
+        name: encounter.name,
+        radius:
+          typeof encounter.radius === "number"
+            ? encounter.radius
+            : Number(encounter.radius),
+      }));
+      setEncounters(normalized);
+    } catch (err) {
+      setEncountersError(String(err));
+      setEncounters([]);
+    } finally {
+      setEncountersLoading(false);
+    }
+  };
+
   useEffect(() => {
     loadUsers();
+    loadShips();
+    loadEncounters();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [apiBase]);
 
@@ -270,6 +388,10 @@ export default function HomePage() {
   const handleUserChange = (nextIndex: string) => {
     if (nextIndex === "") {
       setUserId("");
+      setSelectedShipId("");
+      setEncounterId("");
+      setEncounterSnapshot(null);
+      setEncounterJson("");
       return;
     }
     const index = Number(nextIndex);
@@ -277,6 +399,10 @@ export default function HomePage() {
     const nextUserId = normalizeId(selected?._id ?? "");
     const current = userIdRef.current;
     setUserId(nextUserId);
+    setSelectedShipId("");
+    setEncounterId("");
+    setEncounterSnapshot(null);
+    setEncounterJson("");
     if (!socket || !nextUserId) {
       return;
     }
@@ -296,6 +422,23 @@ export default function HomePage() {
     }
   };
 
+  const handleShipChange = (nextShipId: string) => {
+    const id = normalizeId(nextShipId).trim();
+    if (!id) {
+      setSelectedShipId("");
+      setEncounterId("");
+      setEncounterSnapshot(null);
+      setEncounterJson("");
+      return;
+    }
+    setSelectedShipId(id);
+    if (encounterId) {
+      setEncounterId("");
+      setEncounterSnapshot(null);
+      setEncounterJson("");
+    }
+  };
+
   const handleLoadEncounter = () => {
     if (!socket) {
       pushLog("emit failed: not connected");
@@ -309,6 +452,36 @@ export default function HomePage() {
     const data = { userId: currentUserId, encounterId: encounterId.trim() };
     socket.emit("load-encounter.message", data);
     pushLog(`emit load-encounter.message ${JSON.stringify(data)}`);
+  };
+
+  const handleEncounterChange = async (nextIndex: string) => {
+    if (nextIndex === "") {
+      setEncounterId("");
+      setEncounterSnapshot(null);
+      setEncounterJson("");
+      return;
+    }
+    const index = Number(nextIndex);
+    const selected = Number.isNaN(index) ? undefined : encounters[index];
+    const nextEncounterId = normalizeId(selected?._id ?? "");
+    if (nextEncounterId && nextEncounterId === encounterId) {
+      return;
+    }
+
+    setEncounterId(nextEncounterId);
+    setEncounterSnapshot(null);
+    setEncounterJson("");
+
+    const currentUserId = normalizeId(userIdRef.current ?? "").trim();
+    if (!currentUserId || !nextEncounterId) {
+      return;
+    }
+
+    if (socket) {
+      const data = { userId: currentUserId, encounterId: nextEncounterId };
+      socket.emit("load-encounter.message", data);
+      pushLog(`emit load-encounter.message ${JSON.stringify(data)}`);
+    }
   };
 
   const handleSendInput = () => {
@@ -391,10 +564,78 @@ export default function HomePage() {
                     </Typography>
                   )}
                   <TextField
-                    label="Encounter ID"
-                    value={encounterId}
-                    onChange={(event) => setEncounterId(event.target.value)}
-                  />
+                    label="Ship"
+                    select
+                    value={selectedShipId}
+                    onChange={(event) => handleShipChange(event.target.value)}
+                    disabled={
+                      usersLoading ||
+                      shipsLoading ||
+                      !socket ||
+                      !userId ||
+                      ownedShips.length === 0
+                    }
+                  >
+                    <MenuItem value="" disabled>
+                      Select Ship
+                    </MenuItem>
+                    {ownedShips.length === 0 && (
+                      <MenuItem value="">
+                        {shipsLoading ? "Loading..." : "No ships owned"}
+                      </MenuItem>
+                    )}
+                    {ownedShips.map((ship) => (
+                      <MenuItem key={ship._id} value={ship._id}>
+                        {ship.label}
+                      </MenuItem>
+                    ))}
+                  </TextField>
+                  {shipsError && (
+                    <Typography variant="caption" color="error">
+                      Ships load error: {shipsError}
+                    </Typography>
+                  )}
+                  <TextField
+                    label="Encounter"
+                    select
+                    value={
+                      encounterId
+                        ? String(
+                            encounters.findIndex(
+                              (encounter) => encounter._id === encounterId,
+                            ),
+                          )
+                        : ""
+                    }
+                    onChange={(event) =>
+                      void handleEncounterChange(event.target.value)
+                    }
+                    disabled={
+                      encountersLoading ||
+                      !socket ||
+                      !userId ||
+                      usersLoading
+                    }
+                  >
+                    <MenuItem value="" disabled>
+                      Select Encounter
+                    </MenuItem>
+                    {encounters.length === 0 && (
+                      <MenuItem value="">
+                        {encountersLoading ? "Loading..." : "No encounters"}
+                      </MenuItem>
+                    )}
+                    {encounters.map((encounter, index) => (
+                      <MenuItem key={encounter._id} value={String(index)}>
+                        {encounter.name || encounter._id}
+                      </MenuItem>
+                    ))}
+                  </TextField>
+                  {encountersError && (
+                    <Typography variant="caption" color="error">
+                      Encounters load error: {encountersError}
+                    </Typography>
+                  )}
                   <Stack direction="row" spacing={1}>
                     <Button
                       variant="outlined"

@@ -15,6 +15,8 @@ import { PlayerRepository } from '../../player/repositories/player.repository';
 import { PostOwnAShipBodyDto } from '../dto/player/post-own-a-ship-body.dto';
 import { ShipRepository } from '../repositories/ship.repository';
 import { PlayerService } from '../../player/services/player.service';
+import { EncounterService } from '../services/encounter.service';
+import { PostJoinEncounterBodyDto } from '../dto/player/post-join-encounter-body.dto';
 
 // @ApiBearerAuth()
 // @Roles(RoleEnum.admin)
@@ -29,6 +31,7 @@ export class PlayersController {
         private readonly playerRepository: PlayerRepository,
         public readonly shipRepository: ShipRepository,
         public readonly playerService: PlayerService,
+        public readonly encounterService: EncounterService,
     ) {}
 
     @Post(':playerId/own-a-ship')
@@ -49,6 +52,38 @@ export class PlayersController {
         }
 
         await this.playerService.ownAShip(player, ship);
+    }
+
+    @Post(':playerId/join-encounter')
+    async postJoinEncounter(
+        @Param('playerId') playerId: string,
+        @Body() body: PostJoinEncounterBodyDto,
+    ) {
+        const player = await this.playerRepository.findOneById(playerId);
+        if (!player) {
+            throw new NotFoundException(`Player with id ${playerId} not found`);
+        }
+
+        await this.encounterService.playerJoinsEncounter(
+            player,
+            body.encounterId,
+        );
+    }
+
+    @Post(':playerId/leave-encounter')
+    async postLeaveEncounter(
+        @Param('playerId') playerId: string,
+        @Body() body: PostJoinEncounterBodyDto,
+    ) {
+        const player = await this.playerRepository.findOneById(playerId);
+        if (!player) {
+            throw new NotFoundException(`Player with id ${playerId} not found`);
+        }
+
+        await this.encounterService.playerLeaveEncounter(
+            player,
+            body.encounterId,
+        );
     }
 
     @Delete(':playerId/own-a-ship/:shipId')

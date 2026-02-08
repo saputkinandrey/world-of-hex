@@ -1,4 +1,5 @@
-import 'dotenv/config';
+import path from 'node:path';
+import dotenv from 'dotenv';
 import mongoose from 'mongoose';
 
 type DbConfig = {
@@ -9,6 +10,8 @@ type DbConfig = {
   password?: string;
   name?: string;
 };
+
+dotenv.config({ path: path.resolve(__dirname, '../.env') });
 
 const collections = ['players', 'ships', 'encounters'];
 
@@ -21,21 +24,8 @@ const getConfig = (): DbConfig => ({
   name: process.env.DATABASE_NAME,
 });
 
-const buildMongoUri = (config: DbConfig) => {
-  if (config.url) {
-    return config.url;
-  }
-
-  const auth =
-    config.username && config.password
-      ? `${encodeURIComponent(config.username)}:${encodeURIComponent(
-          config.password,
-        )}@`
-      : '';
-
-  const dbName = config.name ? `/${config.name}` : '';
-  return `mongodb://${auth}${config.host}:${config.port}${dbName}`;
-};
+const buildMongoUri = (config: DbConfig) =>
+  config.url ?? `mongodb://${config.host}:${config.port}`;
 
 const dropCollections = async () => {
   const db = mongoose.connection.db;
@@ -64,7 +54,11 @@ const run = async () => {
   const config = getConfig();
   const uri = buildMongoUri(config);
 
-  await mongoose.connect(uri);
+  await mongoose.connect(uri, {
+    dbName: config.name,
+    user: config.username,
+    pass: config.password,
+  });
   try {
     await dropCollections();
   } finally {
