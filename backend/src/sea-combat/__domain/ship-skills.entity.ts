@@ -36,3 +36,6 @@ export class ShipSkillsEntity {
     @ApiProperty()
     deletedAt: Date;
 }
+
+export const SHIP_SKILL_KEYS = ['seamanship', 'tactics'] as const;
+export type ShipSkillKey = (typeof SHIP_SKILL_KEYS)[number];

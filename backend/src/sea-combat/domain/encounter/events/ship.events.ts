@@ -3,9 +3,13 @@ import { ShipEntity } from '../../../__entities/ship.entity';
 import Vector from 'vector2js';
 import { Direction } from '../../../types/direction.type';
 import { ShipEncounterIntent } from '../../../types/ship-encounter-intent.type';
+import { Roll3d6UnderWithCritResult } from '../../../../rps/utils/roll';
 
 @DomainEvent(ShipSpawnedEvent.name)
 export class ShipSpawnedEvent {
+    public readonly seamanshipRoll?: Roll3d6UnderWithCritResult;
+    public readonly tacticsRoll?: Roll3d6UnderWithCritResult;
+
     constructor(
         public readonly ship: ShipEntity,
         public readonly position: Vector,

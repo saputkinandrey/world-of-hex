@@ -24,6 +24,10 @@ export const clearCurrentActionEvent = (target: object) => {
     }
 };
 
+const getPendingActionEvent = (target: object): object | undefined => {
+    return (target as { [ACTION_EVENT_SYMBOL]?: object })[ACTION_EVENT_SYMBOL];
+};
+
 const createEventFromNamedArgs = <TEvent extends object, TArgs extends readonly unknown[], TNamed extends object>(
     EventClass: new (...args: TArgs) => TEvent,
     named: TNamed,
@@ -53,12 +57,48 @@ export const getActionEvent = <TEvent extends object, TArgs extends readonly unk
             if (currentEvent) {
                 return currentEvent as unknown as TNamed;
             }
+            const pending = getPendingActionEvent(target) as TEvent | undefined;
+            if (pending) {
+                const pendingRecord = pending as Record<string, unknown>;
+                for (const [key, value] of Object.entries(named)) {
+                    if (key in pendingRecord && pendingRecord[key] !== value) {
+                        throw new Error(`Action event ${EventClass.name} ${key} already set.`);
+                    }
+                }
+                Object.assign(pending as object, named);
+                return pending as unknown as TNamed;
+            }
             if (hasSet) {
                 throw new Error(`Action event ${EventClass.name} args already set.`);
             }
             hasSet = true;
-            setActionEvent(target, createEventFromNamedArgs<TEvent, TArgs, TNamed>(EventClass, named));
-            return named;
+            const event = createEventFromNamedArgs<TEvent, TArgs, TNamed>(EventClass, named);
+            setActionEvent(target, event);
+            return event as unknown as TNamed;
+        },
+        resolveNamedArgs: <TNamed extends object>(factory: () => TNamed) => {
+            if (currentEvent) {
+                return currentEvent as unknown as TNamed;
+            }
+            const named = factory();
+            const pending = getPendingActionEvent(target) as TEvent | undefined;
+            if (pending) {
+                const pendingRecord = pending as Record<string, unknown>;
+                for (const [key, value] of Object.entries(named)) {
+                    if (key in pendingRecord && pendingRecord[key] !== value) {
+                        throw new Error(`Action event ${EventClass.name} ${key} already set.`);
+                    }
+                }
+                Object.assign(pending as object, named);
+                return pending as unknown as TNamed;
+            }
+            if (hasSet) {
+                throw new Error(`Action event ${EventClass.name} args already set.`);
+            }
+            hasSet = true;
+            const event = createEventFromNamedArgs<TEvent, TArgs, TNamed>(EventClass, named);
+            setActionEvent(target, event);
+            return event as unknown as TNamed;
         },
     };
 };
@@ -105,6 +145,23 @@ export const getOwnActionEvent = <TEvent extends object, TArgs extends readonly 
             return base.setNamedArgs({
                 ...named,
                 [ownerKey]: ownerValue,
+            });
+        },
+        resolveNamedArgs: <TNamed extends object>(factory: () => TNamed) => {
+            const ownerKey = guarded.ownerKey as string;
+            const ownerValue = entityId;
+            return base.resolveNamedArgs(() => {
+                const named = factory();
+                if (
+                    Object.prototype.hasOwnProperty.call(named, ownerKey) &&
+                    (named as Record<string, unknown>)[ownerKey] !== ownerValue
+                ) {
+                    throw new ActionEventGuardError(`Action event ${EventClass.name} owner id mismatch`);
+                }
+                return {
+                    ...named,
+                    [ownerKey]: ownerValue,
+                };
             });
         },
     };

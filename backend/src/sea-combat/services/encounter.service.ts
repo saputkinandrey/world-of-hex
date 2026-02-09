@@ -1,4 +1,5 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Inject, Injectable, NotFoundException } from '@nestjs/common';
+import { EVENT_STORE, EventStore } from '@event-nest/core';
 
 import { EncounterRepository } from '../repositories/encounter.repository';
 
@@ -21,17 +22,25 @@ export class EncounterService {
 
     constructor(
         private readonly encounterRepository: EncounterRepository,
-        // private readonly eventStore: EventStore,
-        // private readonly eventBus: StoreEventBus,
+        @Inject(EVENT_STORE)
+        private readonly eventStore: EventStore,
     ) {}
+
+    private async loadEncounterAggregate(encounterId: string) {
+        const aggregate = this.eventStore.addPublisher(new EncounterAggregate(encounterId));
+        const events = await this.eventStore.findByAggregateRootId(EncounterAggregate, encounterId);
+        if (events.length === 0) {
+            throw new NotFoundException(`Encounter with id ${encounterId} not found`);
+        }
+        aggregate.reconstitute(events);
+        return aggregate;
+    }
 
     async createEncounter(name: string | null, radius: number) {
         const id = new Types.ObjectId().toHexString();
-        const encounterAggregate = new EncounterAggregate(id)
-            .setName(name)
-            .setRadius(radius)
-            .setCenter(new Vector(0, 0))
-            .reRollWindDirection();
+        const encounterAggregate = this.eventStore.addPublisher(new EncounterAggregate(id));
+        encounterAggregate.setName(name).moveCenter(new Vector(0, 0)).adjustRadius(radius).reRollWindDirection();
+        await encounterAggregate.commit();
 
         return this.encounterRepository.create({
             _id: encounterAggregate.id,
@@ -151,6 +160,12 @@ export class EncounterService {
         // check all ships for collisions
     }
 
+    async advanceTurn(encounterId: string) {
+        const aggregate = await this.loadEncounterAggregate(encounterId);
+        aggregate.advanceTurn();
+        await aggregate.commit();
+    }
+
     async shipJoinsEncounter(ship: ShipDocument, encounter: EncounterDocument, intent?: ShipEncounterIntent) {
         const existingEncounters = await this.encounterRepository.find(
             { 'ships.ship._id': ship._id },
@@ -169,16 +184,11 @@ export class EncounterService {
         if (joinedShip) {
             throw new Error(`Ship with id ${ship._id} already joined encounter ${encounter._id}`);
         } else {
-            const center = encounter.center ? new Vector(encounter.center.x, encounter.center.y) : new Vector(0, 0);
-            const aggregate = new EncounterAggregate(encounter._id?.toString() ?? new Types.ObjectId().toHexString())
-                .setName(encounter.name ?? null)
-                .setRadius(encounter.radius ?? 0)
-                .setCenter(center);
-
-            if (!encounter.windDirection) {
-                throw new Error(`Encounter ${encounter._id} has no windDirection set`);
+            const encounterId = encounter._id?.toString();
+            if (!encounterId) {
+                throw new Error('Encounter id is missing');
             }
-            aggregate.windrose.setDirection(encounter.windDirection);
+            const aggregate = await this.loadEncounterAggregate(encounterId);
 
             const shipEntity = Object.assign(new ShipEntity(), {
                 id: ship._id?.toString(),
@@ -201,6 +211,7 @@ export class EncounterService {
                 position: spawned.position,
                 intent: spawned.intent ?? null,
             } as ShipToEncounter);
+            await aggregate.commit();
         }
         return encounter.save();
     }

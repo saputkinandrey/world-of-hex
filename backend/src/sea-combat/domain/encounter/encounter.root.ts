@@ -6,6 +6,7 @@ import {
     EncounterCenterMovedEvent,
     EncounterRadiusAdjustedEvent,
     EncounterTurnEndedEvent,
+    EncounterTurnAdvancedEvent,
     EncounterTurnStartedEvent,
     EncounterWindDirectionReRolledEvent,
 } from './events/encounter.events';
@@ -15,10 +16,17 @@ import { ShipToEncounterEntity } from './entities/ship-to-encounter.entity';
 import { ShipSpawnedEvent } from './events/ship.events';
 import { getActionEvent } from '../../../utils/action-event';
 import { randomChoice } from '../../../rps/utils/roll';
-import { AllDirections, Direction } from '../../types/direction.type';
-import { SpawnTacticsOutcome, spawnShipAtEncounter } from '../../utils/spawn-ship-at-encounter.util';
+import {
+    AllDirections,
+    Direction,
+    DirectionToVectorOdd,
+    DirectionTurnLeft,
+    DirectionTurnRight,
+} from '../../types/direction.type';
 import { ShipEncounterIntent } from '../../types/ship-encounter-intent.type';
 import { roll3d6UnderWithCrit } from '../../../rps/utils/roll';
+
+type SpawnTacticsOutcome = 'critSuccess' | 'success' | 'failure' | 'critFailure';
 
 @AggregateRootName(EncounterAggregate.name)
 export class EncounterAggregate extends AggregateRoot {
@@ -43,6 +51,13 @@ export class EncounterAggregate extends AggregateRoot {
     @Action(EncounterTurnEndedEvent)
     endTurn() {
         this.ships.forEach((ship) => ship.endTurn());
+        return this;
+    }
+
+    @Action(EncounterTurnAdvancedEvent)
+    advanceTurn() {
+        this.startTurn();
+        this.endTurn();
         return this;
     }
 
@@ -78,74 +93,165 @@ export class EncounterAggregate extends AggregateRoot {
     @Action(EncounterWindDirectionReRolledEvent)
     reRollWindDirection(direction?: Direction) {
         const action = getActionEvent(this, EncounterWindDirectionReRolledEvent);
-        const { direction: nextDirection } = action.setNamedArgs({
+        const { direction: nextDirection } = action.resolveNamedArgs(() => ({
             direction: direction ?? randomChoice(AllDirections),
-        });
+        }));
         this.windrose.setDirection(nextDirection);
         return this;
     }
 
     @Action(ShipSpawnedEvent)
-    spawnShip(ship: ShipEntity, intent?: ShipEncounterIntent | null) {
+    spawnShip(inputShip: ShipEntity, inputIntent?: ShipEncounterIntent | null) {
         const action = getActionEvent(this, ShipSpawnedEvent);
-        const tacticsRoll = roll3d6UnderWithCrit(ship.skills.tactics);
-        const seamanshipRoll = roll3d6UnderWithCrit(ship.skills.seamanship);
-        const tacticsOutcome: SpawnTacticsOutcome = tacticsRoll.isCritSuccess
-            ? 'critSuccess'
-            : tacticsRoll.isCritFailure
-              ? 'critFailure'
-              : tacticsRoll.mos >= 0
-                ? 'success'
-                : 'failure';
+        const normalizedIntent = inputIntent ?? null;
 
-        const averageSpeed = ship.speed / 2;
-        const startSpeed = seamanshipRoll.isCritSuccess
-            ? ship.speed
-            : seamanshipRoll.isCritFailure
-              ? 0
-              : Math.min(ship.speed, Math.max(0, Math.floor(averageSpeed * (1 + seamanshipRoll.mos * 0.1))));
-
-        const { position, direction } = spawnShipAtEncounter({
-            radius: this.radius,
-            center: this.center,
-            intent: intent ?? null,
-            windDirection: this.windrose.direction,
-            tacticsOutcome,
-            speed: startSpeed,
+        const { ship, intent } = action.setNamedArgs({
+            ship: inputShip,
+            intent: normalizedIntent,
+        });
+        const { seamanshipRoll, tacticsRoll } = action.setNamedArgs({
+            seamanshipRoll: ship.rollSkill('seamanship'),
+            tacticsRoll: ship.rollSkill('tactics'),
+        });
+        const { speed } = action.setNamedArgs({
+            speed: ship.resolveStartSpeed(seamanshipRoll),
+        });
+        const spawn = this.spawnShipAtEncounter({
+            intent,
+            tacticsRoll,
+            speed,
+        });
+        const { position, direction } = action.setNamedArgs({
+            position: spawn.position,
+            direction: spawn.direction,
         });
 
-        const {
-            position: nextPosition,
-            direction: nextDirection,
-            speed: nextSpeed,
-            intent: nextIntent,
-        } = action.setNamedArgs({
-            ship,
-            position,
-            direction,
-            speed: startSpeed,
-            intent: intent ?? null,
-        });
-        return this.spawnShipAtPosition(ship, nextPosition, nextDirection, nextSpeed, nextIntent ?? null);
-    }
-
-    spawnShipAtPosition(
-        ship: ShipEntity,
-        position: Vector,
-        direction: Direction,
-        speed: number,
-        intent?: ShipEncounterIntent | null,
-    ) {
         const shipEntity = Object.assign(new ShipToEncounterEntity(), {
             ship,
             shipId: ship.id,
             position,
-            intent: intent ?? null,
+            intent,
         });
         shipEntity.setActualSpeed(speed).setActualDirection(direction);
         bindChildActions(this, shipEntity, `ship_${shipEntity.shipId ?? this.ships.length}`);
         this.ships.push(shipEntity);
         return this;
+    }
+
+    private resolveTacticsOutcome(tacticsRoll: ReturnType<typeof roll3d6UnderWithCrit>): SpawnTacticsOutcome {
+        if (tacticsRoll.isCritSuccess) {
+            return 'critSuccess';
+        }
+        if (tacticsRoll.isCritFailure) {
+            return 'critFailure';
+        }
+        return tacticsRoll.mos >= 0 ? 'success' : 'failure';
+    }
+
+    private spawnShipAtEncounter(options: {
+        intent: ShipEncounterIntent | null;
+        tacticsRoll?: ReturnType<typeof roll3d6UnderWithCrit>;
+        speed: number;
+    }) {
+        const center = this.center;
+        const distance = Math.max(0, this.radius - options.speed);
+        const windFrom = this.windrose.direction;
+        const tacticsOutcome = options.tacticsRoll ? this.resolveTacticsOutcome(options.tacticsRoll) : undefined;
+
+        if (!options.intent || !windFrom || !tacticsOutcome) {
+            return this.spawnFallback(center, distance);
+        }
+
+        if (options.intent === ShipEncounterIntent.FLEE) {
+            const heading = this.resolveHeadingFromWind(windFrom, tacticsOutcome);
+            const position = center.add(DirectionToVectorOdd[heading].mulScalar(distance));
+            return { position, direction: heading };
+        }
+
+        if (options.intent === ShipEncounterIntent.PURSUE) {
+            const heading = this.resolveHeadingFromWind(windFrom, tacticsOutcome);
+            const position = center.add(DirectionToVectorOdd[this.oppositeDirection(heading)].mulScalar(distance));
+            return { position, direction: heading };
+        }
+
+        if (options.intent === ShipEncounterIntent.CIRCLE) {
+            const radial = this.resolveHeadingFromWind(windFrom, tacticsOutcome);
+            const position = center.add(DirectionToVectorOdd[radial].mulScalar(distance));
+            const left = this.turnLeft(radial);
+            const right = this.turnRight(radial);
+
+            const leftRank = this.windRelationRank(left, windFrom);
+            const rightRank = this.windRelationRank(right, windFrom);
+            const isPositive = tacticsOutcome === 'critSuccess' || tacticsOutcome === 'success';
+            const direction = isPositive
+                ? leftRank >= rightRank
+                    ? left
+                    : right
+                : leftRank <= rightRank
+                  ? left
+                  : right;
+
+            return { position, direction };
+        }
+
+        return this.spawnFallback(center, distance);
+    }
+
+    private spawnFallback(center: Vector, distance: number) {
+        const direction = randomChoice(AllDirections);
+        const position = center.add(DirectionToVectorOdd[direction].mulScalar(distance));
+        return { position, direction };
+    }
+
+    private turnLeft(direction: Direction, times: number = 1) {
+        let current = direction;
+        for (let i = 0; i < times; i++) {
+            current = DirectionTurnLeft[current];
+        }
+        return current;
+    }
+
+    private turnRight(direction: Direction, times: number = 1) {
+        let current = direction;
+        for (let i = 0; i < times; i++) {
+            current = DirectionTurnRight[current];
+        }
+        return current;
+    }
+
+    private oppositeDirection(direction: Direction) {
+        return this.turnLeft(direction, 3);
+    }
+
+    private chooseSide(direction: Direction) {
+        return randomChoice([this.turnLeft(direction), this.turnRight(direction)]);
+    }
+
+    private windRelationRank(heading: Direction, windFrom: Direction) {
+        const tailwind = this.oppositeDirection(windFrom);
+        if (heading === tailwind) return 3;
+        if (heading === this.turnLeft(tailwind) || heading === this.turnRight(tailwind)) return 2;
+        if (heading === this.turnLeft(windFrom) || heading === this.turnRight(windFrom)) return 1;
+        return 0;
+    }
+
+    private resolveHeadingFromWind(windFrom: Direction, outcome: SpawnTacticsOutcome) {
+        const tailwind = this.oppositeDirection(windFrom);
+        const headwind = windFrom;
+        const sideBehind = this.chooseSide(tailwind);
+        const sideAhead = this.chooseSide(headwind);
+
+        switch (outcome) {
+            case 'critSuccess':
+                return tailwind;
+            case 'success':
+                return sideBehind;
+            case 'critFailure':
+                return headwind;
+            case 'failure':
+            default:
+                return sideAhead;
+        }
     }
 
     hasShipAtPosition(position: Vector): boolean {

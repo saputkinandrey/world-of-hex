@@ -14,7 +14,14 @@ export const roll3d6Under = (target: number) => {
     return target - rollXd6(3);
 };
 
-export const roll3d6UnderWithCrit = (target: number) => {
+export type Roll3d6UnderWithCritResult = {
+    roll: number;
+    mos: number;
+    isCritSuccess: boolean;
+    isCritFailure: boolean;
+};
+
+export const roll3d6UnderWithCrit = (target: number): Roll3d6UnderWithCritResult => {
     const roll = rollXd6(3);
     const mos = target - roll;
     const isCritSuccess = roll <= 4;

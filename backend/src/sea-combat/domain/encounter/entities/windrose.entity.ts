@@ -21,9 +21,9 @@ export class WindroseEntity extends StreamAwareEntity {
     @ChildAction(WindroseReRollDirectionEvent)
     reRollWindDirection(direction?: Direction) {
         const event = getActionEvent(this, WindroseReRollDirectionEvent);
-        const { direction: nextDirection } = event.setNamedArgs({
+        const { direction: nextDirection } = event.resolveNamedArgs(() => ({
             direction: direction ?? randomChoice(AllDirections),
-        });
+        }));
         return this.setDirection(nextDirection);
     }
 

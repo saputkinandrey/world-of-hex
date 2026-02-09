@@ -1,5 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { ShipSkillsEntity } from './ship-skills.entity';
+import { ShipSkillKey, ShipSkillsEntity } from './ship-skills.entity';
+import { roll3d6UnderWithCrit, Roll3d6UnderWithCritResult } from '../../rps/utils/roll';
 
 const idType = String;
 
@@ -42,6 +43,23 @@ export class ShipEntity {
 
     @ApiProperty()
     skills: ShipSkillsEntity = new ShipSkillsEntity().setSeamanship(12).setTactics(10);
+
+    rollSkill(skill: ShipSkillKey): Roll3d6UnderWithCritResult {
+        return roll3d6UnderWithCrit(this.skills[skill]);
+    }
+
+    resolveStartSpeed(seamanshipRoll: Roll3d6UnderWithCritResult) {
+        if (seamanshipRoll.isCritSuccess) {
+            return this.speed;
+        }
+        if (seamanshipRoll.isCritFailure) {
+            return 0;
+        }
+
+        const averageSpeed = this.speed / 2;
+        const nextSpeed = Math.floor(averageSpeed * (1 + seamanshipRoll.mos * 0.1));
+        return Math.min(this.speed, Math.max(0, nextSpeed));
+    }
 
     @ApiProperty()
     createdAt: Date;
