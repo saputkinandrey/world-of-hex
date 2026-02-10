@@ -20,6 +20,7 @@
 - `StreamAwareEntity`:
   - Set `ownerKey` explicitly via `setOwnerKey(...)`.
   - Do not rely on defaults; missing `ownerKey` should be treated as an error.
+- The most nested entity that owns the state is the source of truth for its events; do not mirror child-state events on parents. Parents may only delegate to child actions.
 
 ## Refactor Discipline
 - Do not extract a helper or utility unless there is real reuse, a clear testing win, or it reduces complexity at the call site.

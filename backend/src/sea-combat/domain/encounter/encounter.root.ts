@@ -8,7 +8,6 @@ import {
     EncounterTurnEndedEvent,
     EncounterTurnAdvancedEvent,
     EncounterTurnStartedEvent,
-    EncounterWindDirectionReRolledEvent,
 } from './events/encounter.events';
 import Vector from 'vector2js';
 import { ShipEntity } from '../../__entities/ship.entity';
@@ -90,13 +89,8 @@ export class EncounterAggregate extends AggregateRoot {
         return this.setCenter(nextCenter);
     }
 
-    @Action(EncounterWindDirectionReRolledEvent)
     reRollWindDirection(direction?: Direction) {
-        const action = getActionEvent(this, EncounterWindDirectionReRolledEvent);
-        const { direction: nextDirection } = action.resolveNamedArgs(() => ({
-            direction: direction ?? randomChoice(AllDirections),
-        }));
-        this.windrose.setDirection(nextDirection);
+        this.windrose.reRollWindDirection(direction);
         return this;
     }
 

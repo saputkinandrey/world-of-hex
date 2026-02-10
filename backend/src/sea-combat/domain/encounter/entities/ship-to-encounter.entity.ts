@@ -80,10 +80,10 @@ export class ShipToEncounterEntity extends StreamAwareEntity {
 
     @ChildAction(ShipDeceleratedEvent)
     decelerate() {
+        const action = getOwnActionEvent(this, ShipDeceleratedEvent);
         const nextSpeed = this.actualSpeed - 1;
         const success = nextSpeed >= 0;
         const appliedSpeed = success ? nextSpeed : this.actualSpeed;
-        const action = getOwnActionEvent(this, ShipDeceleratedEvent);
         const { speed } = action.setNamedArgs({
             speed: appliedSpeed,
             success,
@@ -93,10 +93,10 @@ export class ShipToEncounterEntity extends StreamAwareEntity {
 
     @ChildAction(ShipTurnedRightEvent)
     turnRight() {
+        const action = getOwnActionEvent(this, ShipTurnedRightEvent);
         const nextDirection = DirectionTurnRight[this.actualDirection];
         const nextSpeed = this.actualSpeed - 1;
         const appliedSpeed = nextSpeed >= 0 ? nextSpeed : this.actualSpeed;
-        const action = getOwnActionEvent(this, ShipTurnedRightEvent);
         const { direction, speed } = action.setNamedArgs({
             direction: nextDirection,
             speed: appliedSpeed,
@@ -106,10 +106,10 @@ export class ShipToEncounterEntity extends StreamAwareEntity {
 
     @ChildAction(ShipTurnedLeftEvent)
     turnLeft() {
+        const action = getOwnActionEvent(this, ShipTurnedLeftEvent);
         const nextDirection = DirectionTurnLeft[this.actualDirection];
         const nextSpeed = this.actualSpeed - 1;
         const appliedSpeed = nextSpeed >= 0 ? nextSpeed : this.actualSpeed;
-        const action = getOwnActionEvent(this, ShipTurnedLeftEvent);
         const { direction, speed } = action.setNamedArgs({
             direction: nextDirection,
             speed: appliedSpeed,

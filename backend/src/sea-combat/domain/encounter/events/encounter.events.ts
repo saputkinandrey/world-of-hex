@@ -1,6 +1,5 @@
 import { DomainEvent } from '@event-nest/core';
 import Vector from 'vector2js';
-import { Direction } from '../../../types/direction.type';
 
 @DomainEvent(EncounterTurnStartedEvent.name)
 export class EncounterTurnStartedEvent {}
@@ -22,14 +21,5 @@ export class EncounterCenterMovedEvent {
 
     static toArgs(event: EncounterCenterMovedEvent) {
         return [event.center];
-    }
-}
-
-@DomainEvent(EncounterWindDirectionReRolledEvent.name)
-export class EncounterWindDirectionReRolledEvent {
-    constructor(public readonly direction: Direction) {}
-
-    static toArgs(event: EncounterWindDirectionReRolledEvent) {
-        return [event.direction];
     }
 }
