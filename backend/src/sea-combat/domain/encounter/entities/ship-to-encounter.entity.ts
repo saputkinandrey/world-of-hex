@@ -1,9 +1,9 @@
 import { Direction, DirectionTurnLeft, DirectionTurnRight } from '../../../types/direction.type';
 import { ShipEntity } from '../../../__domain/ship.entity';
+import { ShipSkillKey } from '../../../__domain/ship-skills.entity';
 import { StreamAwareEntity } from '../../../../utils/stream-aware-entity';
-import { ModifierBucketEntity } from '../../../__domain/modifier-bucket.entity';
-import { roll3d6Under } from '../../../../rps/utils/roll';
-import { ChildAction } from '../../../../utils/child-action.decorator';
+import { ModifierBucketClearMode, ModifierBucketEntity } from '../../modifier-bucket.entity';
+import { bindChildActions, ChildAction, OnBind } from '../../../../utils/child-action.decorator';
 import { getOwnActionEvent } from '../../../../utils/action-event';
 import Vector from 'vector2js';
 import {
@@ -15,8 +15,9 @@ import {
     ShipTurnedRightEvent,
 } from '../events/ship.events';
 import { ShipEncounterIntent } from '../../../types/ship-encounter-intent.type';
+import { Roll3d6UnderWithCritResult } from '../../../../rps/utils/roll';
 
-export class ShipToEncounterEntity extends StreamAwareEntity {
+export class ShipToEncounterEntity extends StreamAwareEntity implements OnBind {
     constructor() {
         super();
         this.setOwnerKey('shipId');
@@ -49,6 +50,7 @@ export class ShipToEncounterEntity extends StreamAwareEntity {
     @ChildAction(ShipTurnEndedEvent)
     endTurn() {
         getOwnActionEvent(this, ShipTurnEndedEvent);
+        this.modifierBucket.clear(ModifierBucketClearMode.Expired);
         return this;
     }
 
@@ -70,12 +72,12 @@ export class ShipToEncounterEntity extends StreamAwareEntity {
     @ChildAction(ShipAcceleratedEvent)
     accelerate() {
         const action = getOwnActionEvent(this, ShipAcceleratedEvent);
-        const { speed, seamanshipMoS } = action.resolveNamedArgs(() => ({
-            speed: this.actualSpeed,
-            seamanshipMoS: roll3d6Under(this.ship.skills.seamanship + this.modifierBucket.total('seamanship')),
-        }));
-        const nextSpeed = seamanshipMoS >= 0 ? speed + 1 : speed;
-        return this.setActualSpeed(nextSpeed);
+        const { seamanshipRoll } = action.setNamedArgs({
+            seamanshipRoll: this.rollSkill('seamanship'),
+        });
+        const nextSpeed = seamanshipRoll.mos >= 0 ? this.actualSpeed + 1 : this.actualSpeed;
+        const appliedSpeed = Math.min(nextSpeed, this.ship.speed);
+        return this.setActualSpeed(appliedSpeed);
     }
 
     @ChildAction(ShipDeceleratedEvent)
@@ -120,6 +122,18 @@ export class ShipToEncounterEntity extends StreamAwareEntity {
     setActualDirection(direction: Direction) {
         this.actualDirection = direction;
         return this;
+    }
+
+    onBind(owner: object, childName: string) {
+        if (this.shipId) {
+            this.modifierBucket.shipId = this.shipId;
+        }
+        bindChildActions(owner, this.modifierBucket, `${childName}_bucket`);
+    }
+
+    rollSkill(skill: ShipSkillKey): Roll3d6UnderWithCritResult {
+        const modifier = this.modifierBucket.total(skill);
+        return this.ship.rollSkill(skill, modifier);
     }
 
     // guard/dispatch is handled by getOwnActionEvent()

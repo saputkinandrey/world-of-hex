@@ -21,9 +21,18 @@
   - Set `ownerKey` explicitly via `setOwnerKey(...)`.
   - Do not rely on defaults; missing `ownerKey` should be treated as an error.
 - The most nested entity that owns the state is the source of truth for its events; do not mirror child-state events on parents. Parents may only delegate to child actions.
+ - Event routing for entity trees:
+   - Bind each child via `bindChildActions(owner, child, name)`.
+   - Children that own further children should implement `OnBind` and bind their own descendants inside `onBind(...)`.
+   - Parents should not know about grandchildren; routing is chained via `OnBind`.
 
 ## Refactor Discipline
 - Do not extract a helper or utility unless there is real reuse, a clear testing win, or it reduces complexity at the call site.
 - Avoid adding indirection that hides core behavior; keep key logic close to the entity/aggregate that owns it.
 - Prefer passing raw domain data (for example, a roll result) and interpret it where it is used instead of normalizing early without reuse.
 - Avoid excessive duplication; only duplicate logic when it simplifies ownership or reduces coupling.
+- Do not propose duplication (including duplicating AGENTS rules) unless explicitly asked.
+
+## Skill Rolls
+- Do not call `roll3d6Under*` directly in actions; use the owning entity's skill-roll helper (e.g., `ShipEntity.rollSkill(...)`) and pass modifiers through it.
+- If a modifier bucket exists, the owning entity must encapsulate its use (e.g., expose `rollSkill(...)` that applies bucket totals); callers should not pass bucket totals around.

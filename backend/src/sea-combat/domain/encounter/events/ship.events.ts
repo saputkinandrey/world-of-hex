@@ -37,8 +37,7 @@ export class ShipTurnEndedEvent {
 export class ShipAcceleratedEvent {
     constructor(
         public readonly shipId: string,
-        public readonly speed: number,
-        public readonly seamanshipMoS: number,
+        public readonly seamanshipRoll: Roll3d6UnderWithCritResult,
     ) {}
 }
 

@@ -16,6 +16,10 @@ type ActionOptions<TEvent> = {
 const CHILD_ACTION_METADATA_KEY = 'wohex-child-action-meta';
 const OWNER_SYMBOL = Symbol('wohex-child-owner');
 
+export interface OnBind {
+    onBind?: (owner: object, childName: string) => void;
+}
+
 const createEventInstance = <TEvent>(EventClass: Class<TEvent>, args: unknown[]) => {
     if (args.length === 1) {
         return new EventClass(args[0] as never);
@@ -193,4 +197,6 @@ export const bindChildActions = (owner: object, child: object, childName: string
 
         ApplyEvent(meta.eventClass)(owner, handlerKey);
     });
+
+    (child as OnBind).onBind?.(owner, childName);
 };
