@@ -15,6 +15,7 @@ import Vector from 'vector2js';
 import { ShipPathDto } from '../dto/encounters/ship-path.dto';
 import { ShipsCollisionDto } from '../dto/encounters/ships-collision.dto';
 import { Types } from 'mongoose';
+import { toVector } from '../../utils/vector.schema';
 
 @Injectable()
 export class EncounterService {
@@ -141,14 +142,15 @@ export class EncounterService {
         }
 
         const paths = encounter.ships.map((ship: ShipToEncounter) => {
-            const path: Vector[] = [ship.position];
+            const startPosition = toVector(ship.position);
+            const path: Vector[] = [startPosition];
 
             for (let i = 0; i < ship.speed; i++) {
                 let nextStepPosition: Vector;
-                if (ship.position.x % 2 === 1) {
-                    nextStepPosition = ship.position.add(DirectionToVectorEven[ship.direction]);
+                if (startPosition.x % 2 === 1) {
+                    nextStepPosition = startPosition.add(DirectionToVectorEven[ship.direction]);
                 } else {
-                    nextStepPosition = ship.position.add(DirectionToVectorOdd[ship.direction]);
+                    nextStepPosition = startPosition.add(DirectionToVectorOdd[ship.direction]);
                 }
                 path.push(nextStepPosition);
             }

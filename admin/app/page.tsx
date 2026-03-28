@@ -585,7 +585,7 @@ export default function HomePage() {
                         disabled={
                           !encounterPlayerId ||
                           !encounterId ||
-                          (encounterShipId && !encounterIntent)
+                          (!!encounterShipId && !encounterIntent)
                         }
                       >
                         Join encounter

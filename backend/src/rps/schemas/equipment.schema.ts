@@ -3,14 +3,15 @@ import { HydratedDocument } from 'mongoose';
 import { EntityDocumentHelper } from '../../utils/document-entity-helper';
 import { Direction } from '../types/direction.type';
 import Vector from 'vector2js';
+import { VectorSchema } from '../../utils/vector.schema';
 
 export type EncounterDocument = HydratedDocument<Equipment>;
 
 export class ShipToEncounter {
-    @Prop({ type: Vector })
+    @Prop({ type: VectorSchema })
     position: Vector;
 
-    @Prop({ type: Direction })
+    @Prop({ type: String, enum: Object.values(Direction) })
     direction: Direction;
 
     @Prop({ type: Number })

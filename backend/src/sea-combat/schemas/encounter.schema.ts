@@ -6,14 +6,15 @@ import { Ship } from './ship.schema';
 import Vector from 'vector2js';
 import { withAggregateRoot } from '../../utils/with-aggregate-root.mixin';
 import { ShipEncounterIntent } from '../types/ship-encounter-intent.type';
+import { VectorSchema } from '../../utils/vector.schema';
 
 export type EncounterDocument = HydratedDocument<Encounter>;
 
 export class ShipToEncounter {
-    @Prop({ type: Vector })
+    @Prop({ type: VectorSchema })
     position: Vector;
 
-    @Prop({ type: Direction })
+    @Prop({ type: String, enum: Object.values(Direction) })
     direction: Direction;
 
     @Prop({ type: Number })
@@ -63,10 +64,10 @@ export class Encounter extends EntityDocumentHelper {
     })
     ships: ShipToEncounter[];
 
-    @Prop({ type: Vector, default: () => new Vector(0, 0) })
+    @Prop({ type: VectorSchema, default: () => ({ x: 0, y: 0 }) })
     center: Vector;
 
-    @Prop({ type: Direction })
+    @Prop({ type: String, enum: Object.values(Direction) })
     windDirection: Direction;
 
     @Prop({})
