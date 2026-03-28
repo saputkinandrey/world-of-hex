@@ -7,7 +7,7 @@ import { Encounter, EncounterDocument, PlayerToEncounter, ShipToEncounter } from
 import { Player } from '../../player/schemas/player.schema';
 import { ShipDocument } from '../schemas/ship.schema';
 import { ShipEncounterIntent } from '../types/ship-encounter-intent.type';
-import { DirectionToVectorEven, DirectionToVectorOdd } from '../types/direction.type';
+import { movePosition } from '../types/direction.type';
 import { EncounterAggregate } from '../domain/encounter/encounter.root';
 import { ShipEntity } from '../__entities/ship.entity';
 import { ShipSkillsEntity } from '../__entities/ship-skills.entity';
@@ -16,6 +16,8 @@ import { ShipPathDto } from '../dto/encounters/ship-path.dto';
 import { ShipsCollisionDto } from '../dto/encounters/ships-collision.dto';
 import { Types } from 'mongoose';
 import { toVector } from '../../utils/vector.schema';
+import { bindChildActions } from '../../utils/child-action.decorator';
+import { ShipToEncounterEntity } from '../domain/encounter/entities/ship-to-encounter.entity';
 
 @Injectable()
 export class EncounterService {
@@ -29,11 +31,57 @@ export class EncounterService {
 
     private async loadEncounterAggregate(encounterId: string) {
         const aggregate = this.eventStore.addPublisher(new EncounterAggregate(encounterId));
-        const events = await this.eventStore.findByAggregateRootId(EncounterAggregate, encounterId);
-        if (events.length === 0) {
+        const encounter = await this.encounterRepository.findOneById(encounterId);
+
+        if (!encounter) {
             throw new NotFoundException(`Encounter with id ${encounterId} not found`);
         }
-        aggregate.reconstitute(events);
+
+        return this.rebuildAggregateFromProjection(aggregate, encounter);
+    }
+
+    private async rebuildAggregateFromProjection(aggregate: EncounterAggregate, encounter: EncounterDocument) {
+        (aggregate as any)._version = await this.eventStore.findAggregateRootVersion(encounter._id.toString());
+        aggregate.setName(encounter.name ?? null);
+        aggregate.setRadius(encounter.radius);
+        aggregate.setCenter(toVector(encounter.center));
+
+        if (encounter.windDirection) {
+            aggregate.windrose.setDirection(encounter.windDirection);
+        }
+
+        aggregate.ships.length = 0;
+
+        encounter.ships.forEach((storedShip) => {
+            const shipId = storedShip.ship?._id?.toString();
+            if (!shipId) {
+                return;
+            }
+
+            const shipEntity = Object.assign(new ShipEntity(), {
+                id: shipId,
+                name: storedShip.ship.name,
+                speed: storedShip.ship.speed,
+                type: storedShip.ship.type,
+                skills: new ShipSkillsEntity().setSeamanship(12).setTactics(storedShip.ship.tactics ?? 10),
+            });
+
+            const shipToEncounter = Object.assign(new ShipToEncounterEntity(), {
+                ship: shipEntity,
+                shipId,
+                position: toVector(storedShip.position),
+                intent: storedShip.intent ?? null,
+            });
+
+            shipToEncounter.setActualSpeed(storedShip.speed ?? 0);
+            if (storedShip.direction) {
+                shipToEncounter.setActualDirection(storedShip.direction);
+            }
+
+            bindChildActions(aggregate, shipToEncounter, `ship_${shipId}`);
+            aggregate.ships.push(shipToEncounter);
+        });
+
         return aggregate;
     }
 
@@ -144,15 +192,12 @@ export class EncounterService {
         const paths = encounter.ships.map((ship: ShipToEncounter) => {
             const startPosition = toVector(ship.position);
             const path: Vector[] = [startPosition];
+            let currentPosition = startPosition;
 
             for (let i = 0; i < ship.speed; i++) {
-                let nextStepPosition: Vector;
-                if (startPosition.x % 2 === 1) {
-                    nextStepPosition = startPosition.add(DirectionToVectorEven[ship.direction]);
-                } else {
-                    nextStepPosition = startPosition.add(DirectionToVectorOdd[ship.direction]);
-                }
+                const nextStepPosition = movePosition(currentPosition, ship.direction, 1);
                 path.push(nextStepPosition);
+                currentPosition = nextStepPosition;
             }
             return { path, ship } as ShipPathDto;
         });

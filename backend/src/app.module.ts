@@ -3,6 +3,7 @@ import databaseConfig from './database/config/database.config';
 import appConfig from './config/app.config';
 import mailConfig from './mail/config/mail.config';
 import path from 'path';
+import { existsSync } from 'fs';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { HeaderResolver, I18nModule } from 'nestjs-i18n';
 import { MailModule } from './mail/mail.module';
@@ -27,6 +28,17 @@ import { RpsModule } from './rps/rps.module';
 const infrastructureDatabaseModule = MongooseModule.forRootAsync({
     useClass: MongooseConfigService,
 });
+
+const isProduction = environment.NODE_ENV === 'production';
+
+const resolveI18nPath = () => {
+    const preferredPath = path.resolve(process.cwd(), isProduction ? 'dist/i18n' : 'src/i18n');
+    if (existsSync(preferredPath)) {
+        return preferredPath;
+    }
+
+    return path.resolve(process.cwd(), 'src/i18n');
+};
 
 @Module({
     imports: [
@@ -103,8 +115,8 @@ const infrastructureDatabaseModule = MongooseModule.forRootAsync({
                     infer: true,
                 }),
                 loaderOptions: {
-                    path: path.join(__dirname, '../i18n'),
-                    watch: true,
+                    path: resolveI18nPath(),
+                    watch: !isProduction,
                 },
             }),
             resolvers: [

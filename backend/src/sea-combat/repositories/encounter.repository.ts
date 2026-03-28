@@ -23,6 +23,70 @@ export class EncounterRepository {
         return this.encounterModel.find(filter, projection, options) as Promise<EncounterDocument[]>;
     }
 
+    async removeShipReferencesFromAll(shipId: string) {
+        const encounters = await this.encounterModel.find({
+            $or: [{ 'ships.ship._id': shipId }, { 'players.selectedShip._id': shipId }],
+        });
+
+        let removedShipEntries = 0;
+        let clearedSelectedShips = 0;
+
+        for (const encounter of encounters) {
+            const originalShipCount = encounter.ships.length;
+            encounter.ships = encounter.ships.filter((entry) => entry.ship?._id?.toString() !== shipId);
+            removedShipEntries += originalShipCount - encounter.ships.length;
+            let clearedSelectedShipsInEncounter = 0;
+
+            encounter.players.forEach((player) => {
+                if (player.selectedShip?._id?.toString() !== shipId) {
+                    return;
+                }
+
+                player.selectedShip = null as any;
+                clearedSelectedShips += 1;
+                clearedSelectedShipsInEncounter += 1;
+            });
+
+            if (originalShipCount !== encounter.ships.length || clearedSelectedShipsInEncounter > 0) {
+                await encounter.save();
+            }
+        }
+
+        return {
+            removedShipEntries,
+            clearedSelectedShips,
+        };
+    }
+
+    async disconnectPlayerWithoutShips(playerId: string, ownedShipIds: string[]) {
+        const encounters = await this.encounterModel.find({ 'players._id': playerId });
+        const ownedShipIdSet = new Set(ownedShipIds);
+        let disconnectedPlayers = 0;
+
+        for (const encounter of encounters) {
+            const hasOwnedShipInEncounter = encounter.ships.some((entry) => {
+                const shipId = entry.ship?._id?.toString();
+                return Boolean(shipId && ownedShipIdSet.has(shipId));
+            });
+
+            if (hasOwnedShipInEncounter) {
+                continue;
+            }
+
+            const originalPlayerCount = encounter.players.length;
+            encounter.players = encounter.players.filter((player) => player._id?.toString() !== playerId);
+
+            if (encounter.players.length === originalPlayerCount) {
+                continue;
+            }
+
+            disconnectedPlayers += originalPlayerCount - encounter.players.length;
+            await encounter.save();
+        }
+
+        return disconnectedPlayers;
+    }
+
     // async findOneById(id: string): Promise<EncounterModel> {
     //   const encounters = new EncounterModel(id);
     //

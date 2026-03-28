@@ -5,6 +5,7 @@ import { ApiTags } from '@nestjs/swagger';
 import { ShipRepository } from '../repositories/ship.repository';
 import { PlayerRepository } from '../../player/repositories/player.repository';
 import { PostNewShipBodyDto } from '../dto/ships/post-new-ship-body.dto';
+import { EncounterRepository } from '../repositories/encounter.repository';
 
 // @ApiBearerAuth()
 // @Roles(RoleEnum.admin)
@@ -18,6 +19,7 @@ export class ShipsController {
     constructor(
         private readonly shipRepository: ShipRepository,
         private readonly playerRepository: PlayerRepository,
+        private readonly encounterRepository: EncounterRepository,
     ) {}
 
     @Post()
@@ -42,10 +44,30 @@ export class ShipsController {
     @Delete(':shipId')
     async deleteShip(@Param('shipId') shipId: string) {
         const ship = await this.shipRepository.findOneById(shipId);
-        if (!ship) {
+        const owner = ship ? await this.playerRepository.findOwnerByShipId(shipId) : null;
+        const remainingOwnedShipIds =
+            owner?.ownedShips
+                ?.map((owned) => owned._id?.toString())
+                .filter((ownedShipId): ownedShipId is string => Boolean(ownedShipId && ownedShipId !== shipId)) ?? [];
+
+        if (ship) {
+            await this.shipRepository.deleteById(shipId);
+        }
+
+        const playerCleanup = await this.playerRepository.removeShipFromAll(shipId);
+        const encounterCleanup = await this.encounterRepository.removeShipReferencesFromAll(shipId);
+        const disconnectedPlayers = owner
+            ? await this.encounterRepository.disconnectPlayerWithoutShips(owner._id.toString(), remainingOwnedShipIds)
+            : 0;
+
+        const cleanupCount =
+            (playerCleanup.modifiedCount ?? 0) +
+            encounterCleanup.removedShipEntries +
+            encounterCleanup.clearedSelectedShips +
+            disconnectedPlayers;
+
+        if (!ship && cleanupCount === 0) {
             throw new NotFoundException(`Ship with id ${shipId} not found`);
         }
-        await this.shipRepository.deleteById(shipId);
-        await this.playerRepository.removeShipFromAll(shipId);
     }
 }

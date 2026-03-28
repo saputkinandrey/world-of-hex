@@ -64,3 +64,21 @@ export const DirectionTurnLeft = {
     [Direction.SE]: Direction.NE,
     [Direction.NE]: Direction.N,
 };
+
+export const isOddColumn = (x: number) => Math.abs(x % 2) === 1;
+
+export const stepPosition = (position: Vector, direction: Direction) => {
+    const delta = isOddColumn(position.x) ? DirectionToVectorOdd[direction] : DirectionToVectorEven[direction];
+
+    return position.add(delta);
+};
+
+export const movePosition = (start: Vector, direction: Direction, steps: number) => {
+    let position = new Vector(start.x, start.y);
+
+    for (let i = 0; i < Math.max(0, steps); i += 1) {
+        position = stepPosition(position, direction);
+    }
+
+    return position;
+};

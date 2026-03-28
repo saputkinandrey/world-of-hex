@@ -18,9 +18,9 @@ import { randomChoice } from '../../../rps/utils/roll';
 import {
     AllDirections,
     Direction,
-    DirectionToVectorOdd,
     DirectionTurnLeft,
     DirectionTurnRight,
+    movePosition,
 } from '../../types/direction.type';
 import { ShipEncounterIntent } from '../../types/ship-encounter-intent.type';
 import { roll3d6UnderWithCrit } from '../../../rps/utils/roll';
@@ -148,7 +148,7 @@ export class EncounterAggregate extends AggregateRoot {
         speed: number;
     }) {
         const center = this.center;
-        const distance = Math.max(0, this.radius - options.speed);
+        const distance = this.resolveSpawnDistance(options.speed);
         const windFrom = this.windrose.direction;
         const tacticsOutcome = options.tacticsRoll ? this.resolveTacticsOutcome(options.tacticsRoll) : undefined;
 
@@ -158,19 +158,19 @@ export class EncounterAggregate extends AggregateRoot {
 
         if (options.intent === ShipEncounterIntent.FLEE) {
             const heading = this.resolveHeadingFromWind(windFrom, tacticsOutcome);
-            const position = center.add(DirectionToVectorOdd[heading].mulScalar(distance));
+            const position = movePosition(center, heading, distance);
             return { position, direction: heading };
         }
 
         if (options.intent === ShipEncounterIntent.PURSUE) {
             const heading = this.resolveHeadingFromWind(windFrom, tacticsOutcome);
-            const position = center.add(DirectionToVectorOdd[this.oppositeDirection(heading)].mulScalar(distance));
+            const position = movePosition(center, this.oppositeDirection(heading), distance);
             return { position, direction: heading };
         }
 
         if (options.intent === ShipEncounterIntent.CIRCLE) {
             const radial = this.resolveHeadingFromWind(windFrom, tacticsOutcome);
-            const position = center.add(DirectionToVectorOdd[radial].mulScalar(distance));
+            const position = movePosition(center, radial, distance);
             const left = this.turnLeft(radial);
             const right = this.turnRight(radial);
 
@@ -191,9 +191,16 @@ export class EncounterAggregate extends AggregateRoot {
         return this.spawnFallback(center, distance);
     }
 
+    private resolveSpawnDistance(speed: number) {
+        const safeDistance = Math.max(0, this.radius - speed);
+        const cappedDistance = this.radius > 0 ? Math.max(1, Math.floor(this.radius * 0.75)) : 0;
+
+        return Math.min(safeDistance, cappedDistance);
+    }
+
     private spawnFallback(center: Vector, distance: number) {
         const direction = randomChoice(AllDirections);
-        const position = center.add(DirectionToVectorOdd[direction].mulScalar(distance));
+        const position = movePosition(center, direction, distance);
         return { position, direction };
     }
 
