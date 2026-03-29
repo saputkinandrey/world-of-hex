@@ -10,19 +10,11 @@ import { ShipEncounterIntent } from '../types/ship-encounter-intent.type';
 import { EncounterAggregate } from '../domain/encounter/encounter.root';
 import { ShipEntity } from '../__entities/ship.entity';
 import { ShipSkillsEntity } from '../__entities/ship-skills.entity';
-import Vector from 'vector2js';
-import { ShipPathDto } from '../dto/encounters/ship-path.dto';
-import { ShipsCollisionDto } from '../dto/encounters/ships-collision.dto';
 import { Types } from 'mongoose';
 import { toVector } from '../../utils/vector.schema';
 import { bindChildActions } from '../../utils/child-action.decorator';
 import { ShipToEncounterEntity } from '../domain/encounter/entities/ship-to-encounter.entity';
-import {
-    axialToOffsetPoint,
-    distanceBetweenOffsetPoints,
-    moveOffsetPosition,
-    offsetToAxialPoint,
-} from '../utils/hex-coordinate.util';
+import { axialToOffsetPoint, distanceBetweenOffsetPoints, offsetToAxialPoint } from '../utils/hex-coordinate.util';
 import { PlayerRepository } from '../../player/repositories/player.repository';
 
 @Injectable()
@@ -36,7 +28,7 @@ export class EncounterService {
         private readonly eventStore: EventStore,
     ) {}
 
-    private async loadEncounterAggregate(encounterId: string) {
+    private async loadEncounterAggregateWithProjection(encounterId: string) {
         const aggregate = this.eventStore.addPublisher(new EncounterAggregate(encounterId));
         const encounter = await this.encounterRepository.findOneById(encounterId);
 
@@ -44,7 +36,17 @@ export class EncounterService {
             throw new NotFoundException(`Encounter with id ${encounterId} not found`);
         }
 
-        return this.rebuildAggregateFromProjection(aggregate, encounter);
+        await this.rebuildAggregateFromProjection(aggregate, encounter);
+
+        return {
+            aggregate,
+            encounter,
+        };
+    }
+
+    private async loadEncounterAggregate(encounterId: string) {
+        const { aggregate } = await this.loadEncounterAggregateWithProjection(encounterId);
+        return aggregate;
     }
 
     private async rebuildAggregateFromProjection(aggregate: EncounterAggregate, encounter: EncounterDocument) {
@@ -92,6 +94,35 @@ export class EncounterService {
         return aggregate;
     }
 
+    private synchronizeEncounterProjection(encounter: EncounterDocument, aggregate: EncounterAggregate) {
+        encounter.name = aggregate.name;
+        encounter.radius = aggregate.radius;
+        encounter.center = axialToOffsetPoint(aggregate.center) as any;
+        encounter.windDirection = aggregate.windrose.direction;
+
+        const shipStateById = new Map(aggregate.ships.map((ship) => [ship.shipId, ship]));
+
+        encounter.ships.forEach((storedShip) => {
+            const shipId = storedShip.ship?._id?.toString();
+            if (!shipId) {
+                return;
+            }
+
+            const aggregateShip = shipStateById.get(shipId);
+            if (!aggregateShip) {
+                return;
+            }
+
+            storedShip.position = axialToOffsetPoint(aggregateShip.position) as any;
+            storedShip.direction = aggregateShip.actualDirection;
+            storedShip.speed = aggregateShip.actualSpeed;
+            storedShip.intent = aggregateShip.intent ?? null;
+        });
+
+        encounter.markModified('ships');
+        encounter.markModified('center');
+    }
+
     async createEncounter(name: string | null, radius: number) {
         const id = new Types.ObjectId().toHexString();
         const encounterAggregate = this.eventStore.addPublisher(new EncounterAggregate(id));
@@ -116,108 +147,11 @@ export class EncounterService {
     async findAllEncounters() {
         return this.encounterRepository.find({}, {}, { sort: { createdAt: -1 } });
     }
-
-    checkForCollisions(paths: ShipPathDto[]): ShipsCollisionDto[] {
-        const findEqualVectors = (
-            vectors: Record<string, Vector>,
-        ): Record<string, { shipIds: string[]; position: Vector }> => {
-            // создаём карту: "x,y" → массив ключей
-            const map: Record<string, string[]> = {};
-
-            for (const [key, vec] of Object.entries(vectors)) {
-                const hash = vec.toString(); // например "2,3"
-                if (!map[hash]) {
-                    map[hash] = [];
-                }
-                map[hash].push(key);
-            }
-
-            // фильтруем только те, где больше одного ключа
-            const result: Record<string, { shipIds: string[]; position: Vector }> = {};
-            for (const [hash, keys] of Object.entries(map)) {
-                if (keys.length > 1) {
-                    result[hash] = {
-                        shipIds: keys,
-                        position: Vector.fromString(hash),
-                    };
-                }
-            }
-
-            return result;
-        };
-
-        const longestPath = Math.max(...paths.map((p) => p.path.length));
-        const collisions: ShipsCollisionDto[] = [];
-
-        let elapsedTime = 0;
-
-        for (let i = 0; i < longestPath; i++) {
-            elapsedTime += 1 / longestPath;
-            const currentPositions: Record<string, Vector> = {};
-
-            paths.forEach((path) => {
-                if (path.hasCollided) {
-                    return; // этот корабль уже "заморожен"
-                }
-                const shipStepTime = 1 / path.path.length;
-                const currentStep = Math.min(path.path.length - 1, Math.floor(elapsedTime / shipStepTime));
-                currentPositions[path.ship.ship._id] = path.path[currentStep];
-                path.currentStep = currentStep;
-            });
-            // here to stop movement for colliding ships and save these collisions to result
-            // check for collisions. If any two or more positions are equal collision occurred
-            const rawCollisions = findEqualVectors(currentPositions);
-
-            for (const { shipIds, position } of Object.values(rawCollisions)) {
-                // если нашли совпадение
-                const collidedShips = paths.filter((p) => shipIds.includes(p.ship.ship._id));
-
-                // помечаем — теперь они больше не двигаются
-                collidedShips.forEach((p) => {
-                    if (!p.hasCollided) {
-                        p.hasCollided = true;
-                    }
-                });
-
-                // фиксируем коллизию
-                collisions.push({
-                    ships: collidedShips.map((p) => p.ship),
-                    position,
-                });
-            }
-        }
-
-        return collisions;
-    }
-
-    async processEncounterTurn(encounterId: string) {
-        const encounter = await this.encounterRepository.findOneById(encounterId);
-        if (!encounter) {
-            throw new NotFoundException();
-        }
-
-        const paths = encounter.ships.map((ship: ShipToEncounter) => {
-            const startPosition = toVector(ship.position);
-            const path: Vector[] = [startPosition];
-            let currentPosition = startPosition;
-
-            for (let i = 0; i < ship.speed; i++) {
-                const nextStep = moveOffsetPosition(currentPosition, ship.direction, 1);
-                const nextStepPosition = new Vector(nextStep.x, nextStep.y);
-                path.push(nextStepPosition);
-                currentPosition = nextStepPosition;
-            }
-            return { path, ship } as ShipPathDto;
-        });
-
-        const collisions = this.checkForCollisions(paths);
-
-        // check all ships for collisions
-    }
-
     async advanceTurn(encounterId: string) {
-        const aggregate = await this.loadEncounterAggregate(encounterId);
+        const { aggregate, encounter } = await this.loadEncounterAggregateWithProjection(encounterId);
         aggregate.advanceTurn();
+        this.synchronizeEncounterProjection(encounter, aggregate);
+        await encounter.save();
         await aggregate.commit();
     }
 

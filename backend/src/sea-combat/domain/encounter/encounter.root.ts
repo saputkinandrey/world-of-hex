@@ -18,9 +18,20 @@ import { AllDirections, Direction, DirectionTurnLeft, DirectionTurnRight } from 
 import { ShipEncounterIntent } from '../../types/ship-encounter-intent.type';
 import { roll3d6UnderWithCrit } from '../../../rps/utils/roll';
 import type { AxialPoint } from '../../utils/hex-coordinate.util';
-import { moveAxialPosition, sameAxialPoint } from '../../utils/hex-coordinate.util';
+import {
+    distanceBetweenAxialPoints,
+    moveAxialPosition,
+    sameAxialPoint,
+    stepAxialPosition,
+} from '../../utils/hex-coordinate.util';
 
 type SpawnTacticsOutcome = 'critSuccess' | 'success' | 'failure' | 'critFailure';
+type ShipTurnPath = {
+    ship: ShipToEncounterEntity;
+    path: AxialPoint[];
+    currentStep: number;
+    hasCollided: boolean;
+};
 
 @AggregateRootName(EncounterAggregate.name)
 export class EncounterAggregate extends AggregateRoot {
@@ -38,19 +49,26 @@ export class EncounterAggregate extends AggregateRoot {
 
     @Action(EncounterTurnStartedEvent)
     startTurn() {
+        const action = getActionEvent(this, EncounterTurnStartedEvent);
+        action.setNamedArgs({});
         this.ships.forEach((ship) => ship.startTurn());
         return this;
     }
 
     @Action(EncounterTurnEndedEvent)
     endTurn() {
+        const action = getActionEvent(this, EncounterTurnEndedEvent);
+        action.setNamedArgs({});
         this.ships.forEach((ship) => ship.endTurn());
         return this;
     }
 
     @Action(EncounterTurnAdvancedEvent)
     advanceTurn() {
+        const action = getActionEvent(this, EncounterTurnAdvancedEvent);
+        action.setNamedArgs({});
         this.startTurn();
+        this.resolveShipMovements();
         this.endTurn();
         return this;
     }
@@ -252,5 +270,90 @@ export class EncounterAggregate extends AggregateRoot {
 
     hasShipAtPosition(position: AxialPoint): boolean {
         return this.ships.some((ship) => sameAxialPoint(ship.position, position));
+    }
+
+    private resolveShipMovements() {
+        if (this.ships.length === 0) {
+            return;
+        }
+
+        const paths = this.ships.map((ship) => this.buildShipTurnPath(ship));
+        this.applyCollisionStops(paths);
+
+        paths.forEach((path) => {
+            const finalPosition = path.path[path.currentStep] ?? path.path[path.path.length - 1];
+            path.ship.moveTo(finalPosition);
+        });
+    }
+
+    private buildShipTurnPath(ship: ShipToEncounterEntity): ShipTurnPath {
+        const path: AxialPoint[] = [{ ...ship.position }];
+        let currentPosition = { ...ship.position };
+        const speed = Math.max(0, ship.actualSpeed ?? 0);
+
+        for (let i = 0; i < speed; i += 1) {
+            const nextPosition = stepAxialPosition(currentPosition, ship.actualDirection);
+            if (distanceBetweenAxialPoints(nextPosition, this.center) > this.radius) {
+                break;
+            }
+            path.push(nextPosition);
+            currentPosition = nextPosition;
+        }
+
+        return {
+            ship,
+            path,
+            currentStep: 0,
+            hasCollided: false,
+        };
+    }
+
+    private applyCollisionStops(paths: ShipTurnPath[]) {
+        if (paths.length === 0) {
+            return;
+        }
+
+        const longestPath = Math.max(...paths.map((path) => path.path.length));
+        let elapsedTime = 0;
+
+        for (let i = 0; i < longestPath; i += 1) {
+            elapsedTime += 1 / longestPath;
+            const currentPositions = new Map<string, { shipIds: string[]; position: AxialPoint }>();
+
+            paths.forEach((path) => {
+                if (path.hasCollided) {
+                    return;
+                }
+
+                const shipStepTime = 1 / path.path.length;
+                const currentStep = Math.min(path.path.length - 1, Math.floor(elapsedTime / shipStepTime));
+                const position = path.path[currentStep];
+                const hash = `${position.q},${position.r}`;
+                const entry = currentPositions.get(hash);
+                path.currentStep = currentStep;
+
+                if (entry) {
+                    entry.shipIds.push(path.ship.shipId);
+                    return;
+                }
+
+                currentPositions.set(hash, {
+                    shipIds: [path.ship.shipId],
+                    position,
+                });
+            });
+
+            currentPositions.forEach(({ shipIds }) => {
+                if (shipIds.length < 2) {
+                    return;
+                }
+
+                paths.forEach((path) => {
+                    if (shipIds.includes(path.ship.shipId)) {
+                        path.hasCollided = true;
+                    }
+                });
+            });
+        }
     }
 }

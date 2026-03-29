@@ -33,6 +33,18 @@ export class ShipTurnEndedEvent {
     constructor(public readonly shipId: string) {}
 }
 
+@DomainEvent(ShipMovedEvent.name)
+export class ShipMovedEvent {
+    constructor(
+        public readonly shipId: string,
+        public readonly position: AxialPoint,
+    ) {}
+
+    static toArgs(event: ShipMovedEvent) {
+        return [event.position];
+    }
+}
+
 @DomainEvent(ShipAcceleratedEvent.name)
 export class ShipAcceleratedEvent {
     constructor(

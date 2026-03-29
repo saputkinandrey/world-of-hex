@@ -8,6 +8,7 @@ import { getOwnActionEvent } from '../../../../utils/action-event';
 import {
     ShipAcceleratedEvent,
     ShipDeceleratedEvent,
+    ShipMovedEvent,
     ShipTurnEndedEvent,
     ShipTurnStartedEvent,
     ShipTurnedLeftEvent,
@@ -40,6 +41,11 @@ export class ShipToEncounterEntity extends StreamAwareEntity implements OnBind {
 
     actualDirection: Direction = Direction.N;
 
+    setPosition(position: AxialPoint) {
+        this.position = position;
+        return this;
+    }
+
     @ChildAction(ShipTurnStartedEvent)
     startTurn() {
         getOwnActionEvent(this, ShipTurnStartedEvent);
@@ -52,6 +58,15 @@ export class ShipToEncounterEntity extends StreamAwareEntity implements OnBind {
         getOwnActionEvent(this, ShipTurnEndedEvent);
         this.modifierBucket.clear(ModifierBucketClearMode.Expired);
         return this;
+    }
+
+    @ChildAction(ShipMovedEvent)
+    moveTo(position: AxialPoint) {
+        const action = getOwnActionEvent(this, ShipMovedEvent);
+        const { position: nextPosition } = action.setNamedArgs({
+            position,
+        });
+        return this.setPosition(nextPosition);
     }
 
     setActualSpeed(speed: number) {

@@ -11,7 +11,6 @@ import {
     Container,
     Divider,
     Dialog,
-    DialogActions,
     DialogContent,
     DialogTitle,
     Grid,
@@ -88,6 +87,7 @@ export default function HomePage() {
     const [players, setPlayers] = useState<Player[]>([]);
     const [ships, setShips] = useState<Ship[]>([]);
     const [loading, setLoading] = useState(false);
+    const [isAdvancingTurn, setIsAdvancingTurn] = useState(false);
     const [previewEncounter, setPreviewEncounter] = useState<Encounter | null>(
         null,
     );
@@ -465,6 +465,26 @@ export default function HomePage() {
             });
         } finally {
             setLoading(false);
+        }
+    };
+
+    const advancePreviewEncounterTurn = async () => {
+        if (!previewEncounter) {
+            return;
+        }
+
+        setIsAdvancingTurn(true);
+        setPreviewShipPopover(null);
+        try {
+            await fetchJson(
+                `/sea-combat/encounters/${previewEncounter._id}/advance-turn`,
+                {
+                    method: "POST",
+                },
+            );
+            await loadAll();
+        } finally {
+            setIsAdvancingTurn(false);
         }
     };
 
@@ -1341,6 +1361,15 @@ export default function HomePage() {
                             </Typography>
                         ) : null}
                     </Box>
+                    <Button
+                        variant="outlined"
+                        disabled={!previewEncounter || isAdvancingTurn}
+                        onClick={() => {
+                            void advancePreviewEncounterTurn();
+                        }}
+                    >
+                        {isAdvancingTurn ? "Advancing..." : "Next Turn"}
+                    </Button>
                     <Button
                         onClick={() => {
                             setPreviewEncounter(null);
