@@ -1,5 +1,3 @@
-import Vector from 'vector2js';
-
 import { EncounterAggregate } from './encounter.root';
 import { Direction } from '../../types/direction.type';
 import { ShipEncounterIntent } from '../../types/ship-encounter-intent.type';
@@ -18,7 +16,7 @@ describe('EncounterAggregate spawn distance', () => {
 
     it('caps spawn distance at roughly 75 percent of encounter radius', () => {
         const encounter = new EncounterAggregate('encounter-test');
-        encounter.setCenter(new Vector(0, 0));
+        encounter.setCenter({ q: 0, r: 0 });
         encounter.setRadius(16);
         encounter.windrose.setDirection(Direction.S);
 
@@ -29,12 +27,12 @@ describe('EncounterAggregate spawn distance', () => {
         });
 
         expect(spawned.direction).toBe(Direction.N);
-        expect(spawned.position.toString()).toBe('0,-12');
+        expect(spawned.position).toEqual({ q: 0, r: -12 });
     });
 
     it('still respects the speed-based safety margin when it is tighter than the 75 percent cap', () => {
         const encounter = new EncounterAggregate('encounter-test');
-        encounter.setCenter(new Vector(0, 0));
+        encounter.setCenter({ q: 0, r: 0 });
         encounter.setRadius(16);
         encounter.windrose.setDirection(Direction.S);
 
@@ -45,6 +43,6 @@ describe('EncounterAggregate spawn distance', () => {
         });
 
         expect(spawned.direction).toBe(Direction.N);
-        expect(spawned.position.toString()).toBe('0,-11');
+        expect(spawned.position).toEqual({ q: 0, r: -11 });
     });
 });

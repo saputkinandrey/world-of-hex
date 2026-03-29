@@ -3,16 +3,15 @@ import { HydratedDocument } from 'mongoose';
 import { EntityDocumentHelper } from '../../utils/document-entity-helper';
 import { Direction } from '../types/direction.type';
 import { Ship } from './ship.schema';
-import Vector from 'vector2js';
 import { withAggregateRoot } from '../../utils/with-aggregate-root.mixin';
 import { ShipEncounterIntent } from '../types/ship-encounter-intent.type';
-import { VectorSchema } from '../../utils/vector.schema';
+import { VectorPoint, VectorSchema } from '../../utils/vector.schema';
 
 export type EncounterDocument = HydratedDocument<Encounter>;
 
 export class ShipToEncounter {
     @Prop({ type: VectorSchema })
-    position: Vector;
+    position: VectorPoint;
 
     @Prop({ type: String, enum: Object.values(Direction) })
     direction: Direction;
@@ -65,7 +64,7 @@ export class Encounter extends EntityDocumentHelper {
     ships: ShipToEncounter[];
 
     @Prop({ type: VectorSchema, default: () => ({ x: 0, y: 0 }) })
-    center: Vector;
+    center: VectorPoint;
 
     @Prop({ type: String, enum: Object.values(Direction) })
     windDirection: Direction;

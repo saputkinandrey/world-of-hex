@@ -16,6 +16,7 @@ import {
     DialogTitle,
     Grid,
     MenuItem,
+    Popover,
     Stack,
     TextField,
     Tab,
@@ -61,6 +62,7 @@ type EncounterShip = {
         _id?: string | null;
         name?: string | null;
         type?: string | null;
+        speed?: number | null;
     } | null;
 };
 
@@ -70,6 +72,14 @@ type EncounterCardData = {
     radius: number;
     center?: EncounterPoint | null;
     ships?: EncounterShip[];
+};
+
+type PreviewShipPopoverState = {
+    shipId: string;
+    anchorPosition: {
+        top: number;
+        left: number;
+    };
 };
 
 const SOCKET_KEY = "__wohex_socket__";
@@ -97,16 +107,18 @@ const setGlobalSocket = (socket: Socket | null, meta?: SocketMeta) => {
     }
 };
 
-const normalizeId = (value: unknown) => {
+const normalizeId = (value: unknown): string => {
+    if (value == null) return "";
     if (typeof value === "string") return value;
     if (value && typeof value === "object") {
         const record = value as Record<string, unknown>;
         if (typeof record.$oid === "string") return record.$oid;
     }
     try {
-        return JSON.stringify(value);
+        const serialized = JSON.stringify(value);
+        return typeof serialized === "string" ? serialized : "";
     } catch {
-        return String(value);
+        return String(value ?? "");
     }
 };
 
@@ -234,6 +246,8 @@ export default function HomePage() {
     const [activeTab, setActiveTab] = useState(0);
     const [previewEncounter, setPreviewEncounter] =
         useState<EncounterCardData | null>(null);
+    const [previewShipPopover, setPreviewShipPopover] =
+        useState<PreviewShipPopoverState | null>(null);
     const previewScrollRef = useRef<HTMLDivElement | null>(null);
     const [previewContainer, setPreviewContainer] =
         useState<HTMLDivElement | null>(null);
@@ -317,6 +331,25 @@ export default function HomePage() {
         });
     }, [previewEncounter, selectedShipId]);
 
+    const selectedPreviewShip = useMemo(() => {
+        if (!previewEncounter || !previewShipPopover) {
+            return null;
+        }
+
+        return (
+            previewEncounter.ships?.find((entry) => {
+                const shipId = normalizeId(entry.ship?._id).trim();
+                return shipId === previewShipPopover.shipId;
+            }) ?? null
+        );
+    }, [previewEncounter, previewShipPopover]);
+
+    const selectedPreviewShipIsOwn = useMemo(() => {
+        const shipId = normalizeId(selectedPreviewShip?.ship?._id).trim();
+
+        return Boolean(selectedShipId) && shipId === selectedShipId;
+    }, [selectedPreviewShip, selectedShipId]);
+
     const pushLog = (text: string) => {
         setLogs((prev) => [...prev, { ts: new Date().toISOString(), text }]);
     };
@@ -399,6 +432,7 @@ export default function HomePage() {
 
     useEffect(() => {
         if (!previewEncounter) {
+            setPreviewShipPopover(null);
             return;
         }
         previewZoomRef.current = 1;
@@ -1117,7 +1151,10 @@ export default function HomePage() {
 
             <Dialog
                 open={Boolean(previewEncounter)}
-                onClose={() => setPreviewEncounter(null)}
+                onClose={() => {
+                    setPreviewEncounter(null);
+                    setPreviewShipPopover(null);
+                }}
                 fullWidth
                 maxWidth="lg"
                 PaperProps={{ sx: { height: "90vh" } }}
@@ -1139,7 +1176,12 @@ export default function HomePage() {
                             </Typography>
                         ) : null}
                     </Box>
-                    <Button onClick={() => setPreviewEncounter(null)}>
+                    <Button
+                        onClick={() => {
+                            setPreviewEncounter(null);
+                            setPreviewShipPopover(null);
+                        }}
+                    >
                         Close
                     </Button>
                 </DialogTitle>
@@ -1211,10 +1253,127 @@ export default function HomePage() {
                                                 undefined
                                             }
                                             markers={previewMarkers}
+                                            selectedMarkerId={
+                                                previewShipPopover?.shipId ??
+                                                null
+                                            }
+                                            onMarkerClick={(marker, anchor) => {
+                                                setPreviewShipPopover({
+                                                    shipId: marker.id,
+                                                    anchorPosition: anchor,
+                                                });
+                                            }}
                                         />
                                     </Box>
                                 </Box>
                             </Box>
+                            <Popover
+                                open={Boolean(
+                                    previewShipPopover && selectedPreviewShip,
+                                )}
+                                onClose={() => setPreviewShipPopover(null)}
+                                PaperProps={{
+                                    sx: {
+                                        backgroundColor: (theme) =>
+                                            theme.palette.mode === "dark"
+                                                ? "#0a1816"
+                                                : theme.palette.background.paper,
+                                        backgroundImage: "none",
+                                        backdropFilter: "none",
+                                        opacity: 1,
+                                        border: "1px solid",
+                                        borderColor: "divider",
+                                        boxShadow: 12,
+                                    },
+                                }}
+                                anchorReference="anchorPosition"
+                                anchorPosition={
+                                    previewShipPopover?.anchorPosition
+                                }
+                                transformOrigin={{
+                                    vertical: "top",
+                                    horizontal: "left",
+                                }}
+                            >
+                                {selectedPreviewShip ? (
+                                    <Box
+                                        sx={{
+                                            p: 2,
+                                            minWidth: 260,
+                                            maxWidth: 320,
+                                            display: "grid",
+                                            gap: 1,
+                                        }}
+                                    >
+                                        <Box>
+                                            <Typography variant="subtitle1">
+                                                {selectedPreviewShip.ship
+                                                    ?.name ?? "Ship"}
+                                            </Typography>
+                                            <Typography
+                                                variant="caption"
+                                                color="text.secondary"
+                                            >
+                                                {normalizeId(
+                                                    selectedPreviewShip.ship
+                                                        ?._id,
+                                                ) || "unknown id"}
+                                            </Typography>
+                                        </Box>
+                                        <Stack
+                                            direction="row"
+                                            spacing={1}
+                                            flexWrap="wrap"
+                                            useFlexGap
+                                        >
+                                            {selectedPreviewShipIsOwn ? (
+                                                <Chip
+                                                    size="small"
+                                                    color="success"
+                                                    label="Your ship"
+                                                />
+                                            ) : null}
+                                            <Chip
+                                                size="small"
+                                                variant="outlined"
+                                                label={`Type: ${
+                                                    selectedPreviewShip.ship
+                                                        ?.type ?? "unknown"
+                                                }`}
+                                            />
+                                            <Chip
+                                                size="small"
+                                                variant="outlined"
+                                                label={`Dir: ${
+                                                    selectedPreviewShip.direction ??
+                                                    "unknown"
+                                                }`}
+                                            />
+                                            <Chip
+                                                size="small"
+                                                variant="outlined"
+                                                label={`Speed: ${
+                                                    selectedPreviewShip.speed ??
+                                                    "unknown"
+                                                }`}
+                                            />
+                                        </Stack>
+                                        <Typography variant="body2">
+                                            Intent:{" "}
+                                            {selectedPreviewShip.intent ??
+                                                "none"}
+                                        </Typography>
+                                        <Typography variant="body2">
+                                            Position: x{" "}
+                                            {selectedPreviewShip.position?.x ??
+                                                0}
+                                            , y{" "}
+                                            {selectedPreviewShip.position?.y ??
+                                                0}
+                                        </Typography>
+                                    </Box>
+                                ) : null}
+                            </Popover>
                         </Box>
                     ) : null}
                 </DialogContent>

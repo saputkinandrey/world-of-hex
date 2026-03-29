@@ -15,6 +15,11 @@ export class VectorDocument {
 
 export const VectorSchema = SchemaFactory.createForClass(VectorDocument);
 
+export type VectorPoint = {
+    x: number;
+    y: number;
+};
+
 export const toVector = (value: Pick<Vector, 'x' | 'y'> | null | undefined) => {
     if (value instanceof Vector) {
         return value;

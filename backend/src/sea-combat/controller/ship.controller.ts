@@ -8,6 +8,7 @@ import { PostShipJoinEncounterBodyDto } from '../dto/ship/post-ship-join-encount
 import { PostLeaveEncounterBodyDto } from '../dto/player/post-leave-encounter-body.dto';
 import { ShipRepository } from '../repositories/ship.repository';
 import { PostShipChangeMovementDto } from '../dto/ship/post-ship-change-movement.dto';
+import { PostShipUpdatePlacementDto } from '../dto/ship/post-ship-update-placement.dto';
 
 // @ApiBearerAuth()
 // @Roles(RoleEnum.admin)
@@ -37,14 +38,11 @@ export class ShipController {
         }
 
         await this.encounterService.shipJoinsEncounter(ship, encounter, body.intent);
+        return { ok: true };
     }
 
     @Post('leave-encounter')
-    async postLeaveEncounter(
-        @Param('encounterId') encounterId: string,
-        @Param('playerId') playerId: string,
-        @Body() body: PostLeaveEncounterBodyDto,
-    ) {
+    async postLeaveEncounter(@Body() body: PostLeaveEncounterBodyDto) {
         const ship = await this.shipRepository.findOneById(body.shipId);
         if (!ship) {
             throw new NotFoundException(`Ship with id ${body.shipId} not found`);
@@ -55,6 +53,7 @@ export class ShipController {
             throw new NotFoundException(`Encounter with id ${body.encounterId} not found`);
         }
         await this.encounterService.shipLeavesEncounter(ship, encounter);
+        return { ok: true };
     }
 
     @Post('change-movement')
@@ -72,5 +71,26 @@ export class ShipController {
         if (!player) {
             throw new NotFoundException(`Player with id ${playerId} not found`);
         }
+    }
+
+    @Post('update-placement')
+    async postUpdatePlacement(@Param('shipId') shipId: string, @Body() body: PostShipUpdatePlacementDto) {
+        const ship = await this.shipRepository.findOneById(shipId);
+        if (!ship) {
+            throw new NotFoundException(`Ship with id ${shipId} not found`);
+        }
+
+        const encounter = await this.encounterService.findOneById(body.encounterId);
+        if (!encounter) {
+            throw new NotFoundException(`Encounter with id ${body.encounterId} not found`);
+        }
+
+        return this.encounterService
+            .updateShipPlacement(ship, encounter, {
+                position: body.position,
+                direction: body.direction,
+                speed: body.speed,
+            })
+            .then((res) => res.toJSON());
     }
 }

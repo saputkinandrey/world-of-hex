@@ -1,5 +1,3 @@
-import Vector from 'vector2js';
-
 export enum Direction {
     N = 'N',
     NE = 'NE',
@@ -8,42 +6,6 @@ export enum Direction {
     SW = 'SW',
     NW = 'NW',
 }
-
-export const VectorOddToDirection = {
-    [new Vector(0, -1).toString()]: Direction.N,
-    [new Vector(1, 0).toString()]: Direction.NE,
-    [new Vector(1, 1).toString()]: Direction.SE,
-    [new Vector(0, 1).toString()]: Direction.S,
-    [new Vector(-1, 1).toString()]: Direction.SW,
-    [new Vector(-1, 0).toString()]: Direction.NW,
-};
-
-export const VectorEvenToDirection = {
-    [new Vector(0, -1).toString()]: Direction.N,
-    [new Vector(1, -1).toString()]: Direction.NE,
-    [new Vector(1, 0).toString()]: Direction.SE,
-    [new Vector(0, 1).toString()]: Direction.S,
-    [new Vector(-1, 0).toString()]: Direction.SW,
-    [new Vector(-1, -1).toString()]: Direction.NW,
-};
-
-export const DirectionToVectorOdd = {
-    [Direction.N]: new Vector(0, -1),
-    [Direction.NE]: new Vector(1, 0),
-    [Direction.SE]: new Vector(1, 1),
-    [Direction.S]: new Vector(0, 1),
-    [Direction.SW]: new Vector(-1, 1),
-    [Direction.NW]: new Vector(-1, 0),
-};
-
-export const DirectionToVectorEven = {
-    [Direction.N]: new Vector(0, -1),
-    [Direction.NE]: new Vector(1, -1),
-    [Direction.SE]: new Vector(1, 0),
-    [Direction.S]: new Vector(0, 1),
-    [Direction.SW]: new Vector(-1, 0),
-    [Direction.NW]: new Vector(-1, -1),
-};
 
 export const AllDirections = [Direction.N, Direction.NE, Direction.SE, Direction.S, Direction.SW, Direction.NW];
 
@@ -63,22 +25,4 @@ export const DirectionTurnLeft = {
     [Direction.S]: Direction.SE,
     [Direction.SE]: Direction.NE,
     [Direction.NE]: Direction.N,
-};
-
-export const isOddColumn = (x: number) => Math.abs(x % 2) === 1;
-
-export const stepPosition = (position: Vector, direction: Direction) => {
-    const delta = isOddColumn(position.x) ? DirectionToVectorOdd[direction] : DirectionToVectorEven[direction];
-
-    return position.add(delta);
-};
-
-export const movePosition = (start: Vector, direction: Direction, steps: number) => {
-    let position = new Vector(start.x, start.y);
-
-    for (let i = 0; i < Math.max(0, steps); i += 1) {
-        position = stepPosition(position, direction);
-    }
-
-    return position;
 };

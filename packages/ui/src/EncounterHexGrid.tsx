@@ -1,3 +1,6 @@
+"use client";
+
+import { useEffect, useMemo, useRef, useState } from "react";
 import { Box } from "@mui/material";
 import type { SxProps, Theme } from "@mui/material/styles";
 
@@ -21,6 +24,18 @@ export type EncounterHexGridMarker = {
     textColor?: string;
     direction?: string;
     arrowColor?: string;
+    speed?: number | null;
+};
+
+export type EncounterHexGridMarkerAnchor = {
+    left: number;
+    top: number;
+};
+
+export type EncounterHexGridMarkerPlacement = {
+    x: number;
+    y: number;
+    direction?: string;
 };
 
 export type EncounterHexGridProps = {
@@ -29,6 +44,16 @@ export type EncounterHexGridProps = {
     strokeWidth?: number;
     center?: EncounterGridPoint;
     markers?: EncounterHexGridMarker[];
+    selectedMarkerId?: string | null;
+    onMarkerClick?: (
+        marker: EncounterHexGridMarker,
+        anchor: EncounterHexGridMarkerAnchor,
+    ) => void;
+    onMarkerDrop?: (
+        marker: EncounterHexGridMarker,
+        placement: EncounterHexGridMarkerPlacement,
+    ) => void;
+    onMarkerDragStateChange?: (isDragging: boolean) => void;
     sx?: SxProps<Theme>;
     className?: string;
 };
@@ -50,6 +75,13 @@ const DIRECTION_TO_VECTOR: Record<string, DirectionVector> = {
     S: { x: 0, y: 1 },
     SW: { x: -HALF_SQRT_3, y: 0.5 },
     NW: { x: -HALF_SQRT_3, y: -0.5 },
+};
+
+const DIRECTION_ORDER = ["N", "NE", "SE", "S", "SW", "NW"] as const;
+
+type DragState = {
+    markerId: string;
+    placement: EncounterHexGridMarkerPlacement;
 };
 
 const buildHexGrid = (radius: number, size: number): HexGrid => {
@@ -104,6 +136,25 @@ const buildHexGrid = (radius: number, size: number): HexGrid => {
 
 const isOdd = (value: number) => Math.abs(value % 2) === 1;
 
+const normalizeDirection = (direction?: string) => {
+    const key = direction?.trim().toUpperCase();
+
+    return DIRECTION_ORDER.includes(key as (typeof DIRECTION_ORDER)[number])
+        ? key
+        : undefined;
+};
+
+const rotateDirection = (direction: string | undefined, step: number) => {
+    const normalized = normalizeDirection(direction) ?? "N";
+    const index = DIRECTION_ORDER.indexOf(
+        normalized as (typeof DIRECTION_ORDER)[number],
+    );
+    const nextIndex =
+        (index + step + DIRECTION_ORDER.length) % DIRECTION_ORDER.length;
+
+    return DIRECTION_ORDER[nextIndex];
+};
+
 const toDirectionVector = (direction?: string) => {
     const key = direction?.trim().toUpperCase();
     if (!key) {
@@ -129,16 +180,75 @@ const toOffsetPixel = (
     };
 };
 
+const toCube = (point: EncounterGridPoint) => {
+    const x = point.x;
+    const z = point.y - (point.x - (isOdd(point.x) ? 1 : 0)) / 2;
+    const y = -x - z;
+
+    return { x, y, z };
+};
+
+const distanceBetweenPoints = (
+    left: EncounterGridPoint,
+    right: EncounterGridPoint,
+) => {
+    const leftCube = toCube(left);
+    const rightCube = toCube(right);
+
+    return Math.max(
+        Math.abs(leftCube.x - rightCube.x),
+        Math.abs(leftCube.y - rightCube.y),
+        Math.abs(leftCube.z - rightCube.z),
+    );
+};
+
+const buildEncounterPoints = (center: EncounterGridPoint, radius: number) => {
+    const points: EncounterGridPoint[] = [];
+
+    for (let x = center.x - radius; x <= center.x + radius; x += 1) {
+        for (let y = center.y - radius; y <= center.y + radius; y += 1) {
+            const point = { x, y };
+            if (distanceBetweenPoints(point, center) <= radius) {
+                points.push(point);
+            }
+        }
+    }
+
+    return points;
+};
+
+const parseViewBox = (viewBox: string) => {
+    const [minX, minY, width, height] = viewBox.split(/\s+/).map(Number);
+
+    return { minX, minY, width, height };
+};
+
 export function EncounterHexGrid({
     radius,
     hexSize = 18,
     strokeWidth,
     center = { x: 0, y: 0 },
     markers = [],
+    selectedMarkerId,
+    onMarkerClick,
+    onMarkerDrop,
+    onMarkerDragStateChange,
     sx,
     className,
 }: EncounterHexGridProps) {
+    const rootRef = useRef<HTMLDivElement | null>(null);
+    const svgRef = useRef<SVGSVGElement | null>(null);
     const grid = buildHexGrid(radius, hexSize);
+    const candidatePoints = useMemo(
+        () => buildEncounterPoints(center, radius),
+        [center, radius],
+    );
+    const markersById = useMemo(
+        () => new Map(markers.map((marker) => [marker.id, marker])),
+        [markers],
+    );
+    const [dragState, setDragState] = useState<DragState | null>(null);
+    const dragStateRef = useRef<DragState | null>(null);
     const gridStroke = strokeWidth ?? Math.max(0.6, hexSize * 0.12);
     const markerRadius = Math.max(5, hexSize * 0.42);
     const badgeFontSize = Math.max(6, hexSize * 0.38);
@@ -148,9 +258,198 @@ export function EncounterHexGrid({
     const arrowHeadWidth = Math.max(4, hexSize * 0.26);
     const arrowStartDistance = markerRadius * 0.75;
     const arrowTipDistance = Math.max(markerRadius + 4, hexSize * 0.92);
+    const renderedMarkers = dragState
+        ? markers.map((marker) =>
+              marker.id === dragState.markerId
+                  ? {
+                        ...marker,
+                        x: dragState.placement.x,
+                        y: dragState.placement.y,
+                        direction: dragState.placement.direction,
+                    }
+                  : marker,
+          )
+        : markers;
+
+    useEffect(() => {
+        dragStateRef.current = dragState;
+    }, [dragState]);
+
+    useEffect(() => {
+        onMarkerDragStateChange?.(Boolean(dragState));
+
+        return () => {
+            onMarkerDragStateChange?.(false);
+        };
+    }, [dragState, onMarkerDragStateChange]);
+
+    useEffect(() => {
+        const root = rootRef.current;
+        if (!root || !onMarkerDrop) {
+            return undefined;
+        }
+
+        const handleWheel = (event: WheelEvent) => {
+            if (!dragStateRef.current) {
+                return;
+            }
+
+            event.preventDefault();
+            event.stopPropagation();
+            event.stopImmediatePropagation?.();
+            setDragState((current) =>
+                current
+                    ? {
+                          ...current,
+                          placement: {
+                              ...current.placement,
+                              direction: rotateDirection(
+                                  current.placement.direction,
+                                  event.deltaY > 0 ? 1 : -1,
+                              ),
+                          },
+                      }
+                    : current,
+            );
+        };
+
+        root.addEventListener("wheel", handleWheel, {
+            passive: false,
+            capture: true,
+        });
+
+        return () => {
+            root.removeEventListener("wheel", handleWheel, true);
+        };
+    }, [onMarkerDrop]);
+
+    useEffect(() => {
+        if (!dragState || !onMarkerDrop) {
+            return undefined;
+        }
+
+        const viewBox = parseViewBox(grid.viewBox);
+        const toSvgPoint = (clientX: number, clientY: number) => {
+            const svg = svgRef.current;
+            if (!svg) {
+                return null;
+            }
+
+            const rect = svg.getBoundingClientRect();
+            if (!rect.width || !rect.height) {
+                return null;
+            }
+
+            return {
+                x:
+                    viewBox.minX +
+                    ((clientX - rect.left) / rect.width) * viewBox.width,
+                y:
+                    viewBox.minY +
+                    ((clientY - rect.top) / rect.height) * viewBox.height,
+            };
+        };
+
+        const findNearestPoint = (
+            svgPoint: { x: number; y: number },
+        ): EncounterGridPoint | null => {
+            let nearestPoint: EncounterGridPoint | null = null;
+            let nearestDistance = Number.POSITIVE_INFINITY;
+
+            candidatePoints.forEach((point) => {
+                const pixel = toOffsetPixel(point, hexSize, center);
+                const dx = pixel.x - svgPoint.x;
+                const dy = pixel.y - svgPoint.y;
+                const distance = dx * dx + dy * dy;
+
+                if (distance < nearestDistance) {
+                    nearestDistance = distance;
+                    nearestPoint = point;
+                }
+            });
+
+            return nearestPoint;
+        };
+
+        const handleMove = (event: MouseEvent) => {
+            const svgPoint = toSvgPoint(event.clientX, event.clientY);
+            if (!svgPoint) {
+                return;
+            }
+
+            const nextPoint = findNearestPoint(svgPoint);
+            if (!nextPoint) {
+                return;
+            }
+
+            setDragState((current) =>
+                current
+                    ? {
+                          ...current,
+                          placement: {
+                              ...current.placement,
+                              x: nextPoint.x,
+                              y: nextPoint.y,
+                          },
+                      }
+                    : current,
+            );
+        };
+
+        const handleUp = (event: MouseEvent) => {
+            const current = dragStateRef.current;
+            dragStateRef.current = null;
+            setDragState(null);
+
+            if (!current) {
+                return;
+            }
+
+            const marker = markersById.get(current.markerId);
+            if (!marker) {
+                return;
+            }
+
+            const changed =
+                marker.x !== current.placement.x ||
+                marker.y !== current.placement.y ||
+                normalizeDirection(marker.direction) !==
+                    normalizeDirection(current.placement.direction);
+
+            if (changed) {
+                onMarkerDrop(marker, current.placement);
+                return;
+            }
+
+            if (onMarkerClick) {
+                onMarkerClick(marker, {
+                    left: event.clientX,
+                    top: event.clientY,
+                });
+            }
+        };
+
+        window.addEventListener("mousemove", handleMove);
+        window.addEventListener("mouseup", handleUp);
+
+        return () => {
+            window.removeEventListener("mousemove", handleMove);
+            window.removeEventListener("mouseup", handleUp);
+        };
+    }, [
+        candidatePoints,
+        center,
+        dragState,
+        grid.viewBox,
+        hexSize,
+        markersById,
+        onMarkerClick,
+        onMarkerDrop,
+    ]);
 
     return (
         <Box
+            ref={rootRef}
             className={className}
             sx={{
                 width: "100%",
@@ -163,6 +462,7 @@ export function EncounterHexGrid({
             }}
         >
             <svg
+                ref={svgRef}
                 viewBox={grid.viewBox}
                 width="100%"
                 height="100%"
@@ -180,8 +480,10 @@ export function EncounterHexGrid({
                         vectorEffect="non-scaling-stroke"
                     />
                 ))}
-                {markers.map((marker) => {
+                {renderedMarkers.map((marker) => {
                     const point = toOffsetPixel(marker, hexSize, center);
+                    const isSelected =
+                        (dragState?.markerId ?? selectedMarkerId) === marker.id;
                     const badgeText =
                         marker.badge ??
                         marker.label.trim().slice(0, 2).toUpperCase();
@@ -236,13 +538,66 @@ export function EncounterHexGrid({
                             transform={`translate(${point.x.toFixed(2)} ${point.y.toFixed(
                                 2,
                             )})`}
+                            role={onMarkerClick ? "button" : undefined}
+                            tabIndex={onMarkerClick ? 0 : undefined}
+                            style={{
+                                cursor: onMarkerClick ? "pointer" : "default",
+                            }}
+                            onMouseDown={(event) => {
+                                if (!onMarkerClick && !onMarkerDrop) {
+                                    return;
+                                }
+
+                                event.preventDefault();
+                                event.stopPropagation();
+                                if (event.button !== 0) {
+                                    return;
+                                }
+
+                                if (!onMarkerDrop) {
+                                    return;
+                                }
+
+                                setDragState({
+                                    markerId: marker.id,
+                                    placement: {
+                                        x: marker.x,
+                                        y: marker.y,
+                                        direction: normalizeDirection(
+                                            marker.direction,
+                                        ),
+                                    },
+                                });
+                            }}
+                            onKeyDown={(event) => {
+                                if (
+                                    !onMarkerClick ||
+                                    onMarkerDrop ||
+                                    (event.key !== "Enter" &&
+                                        event.key !== " ")
+                                ) {
+                                    return;
+                                }
+                                event.preventDefault();
+                                event.stopPropagation();
+                                const rect =
+                                    event.currentTarget.getBoundingClientRect();
+                                onMarkerClick(marker, {
+                                    left: rect.left + rect.width / 2,
+                                    top: rect.top + rect.height / 2,
+                                });
+                            }}
                         >
                             <title>{marker.title ?? marker.label}</title>
                             <circle
                                 r={markerRadius}
                                 fill={marker.fill ?? "#1d4d8f"}
                                 stroke={marker.stroke ?? "#f5f8ff"}
-                                strokeWidth={Math.max(1.2, hexSize * 0.08)}
+                                strokeWidth={
+                                    isSelected
+                                        ? Math.max(2.4, hexSize * 0.15)
+                                        : Math.max(1.2, hexSize * 0.08)
+                                }
                                 vectorEffect="non-scaling-stroke"
                             />
                             {arrow ? (

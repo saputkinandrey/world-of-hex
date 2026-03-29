@@ -48,6 +48,12 @@ export class EncounterRepository {
             });
 
             if (originalShipCount !== encounter.ships.length || clearedSelectedShipsInEncounter > 0) {
+                if (originalShipCount !== encounter.ships.length) {
+                    encounter.markModified('ships');
+                }
+                if (clearedSelectedShipsInEncounter > 0) {
+                    encounter.markModified('players');
+                }
                 await encounter.save();
             }
         }
@@ -81,6 +87,7 @@ export class EncounterRepository {
             }
 
             disconnectedPlayers += originalPlayerCount - encounter.players.length;
+            encounter.markModified('players');
             await encounter.save();
         }
 

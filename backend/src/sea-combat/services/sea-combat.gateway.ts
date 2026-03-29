@@ -85,6 +85,7 @@ export class SeaCombatGateway implements OnGatewayInit, OnGatewayConnection, OnG
         const player = await this.getPlayerOrThrow(payload.userId);
         const encounter = await this.getEncounterOrThrow(payload.encounterId);
         this.assertPlayerInEncounter(player, encounter, payload.encounterId);
+        this.assertPlayerHasShipInEncounter(player, encounter);
 
         return encounter;
     }
@@ -111,5 +112,22 @@ export class SeaCombatGateway implements OnGatewayInit, OnGatewayConnection, OnG
         }
 
         throw new Error(`Player ${player._id} not participating in encounter ${encounterId}`);
+    }
+
+    private assertPlayerHasShipInEncounter(player: any, encounter: any) {
+        const ownedShipIds = new Set(
+            player.ownedShips
+                ?.map((ship: any) => ship?._id?.toString())
+                .filter((shipId: string | undefined): shipId is string => Boolean(shipId)) ?? [],
+        );
+
+        const hasShipInEncounter =
+            encounter.ships?.some((entry: any) => ownedShipIds.has(entry.ship?._id?.toString())) ?? false;
+
+        if (hasShipInEncounter) {
+            return;
+        }
+
+        throw new Error('Cannot connect to an encounter with no ships assigned to the player');
     }
 }

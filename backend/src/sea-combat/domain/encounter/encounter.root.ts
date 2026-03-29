@@ -9,21 +9,16 @@ import {
     EncounterTurnAdvancedEvent,
     EncounterTurnStartedEvent,
 } from './events/encounter.events';
-import Vector from 'vector2js';
 import { ShipEntity } from '../../__entities/ship.entity';
 import { ShipToEncounterEntity } from './entities/ship-to-encounter.entity';
 import { ShipSpawnedEvent } from './events/ship.events';
 import { getActionEvent } from '../../../utils/action-event';
 import { randomChoice } from '../../../rps/utils/roll';
-import {
-    AllDirections,
-    Direction,
-    DirectionTurnLeft,
-    DirectionTurnRight,
-    movePosition,
-} from '../../types/direction.type';
+import { AllDirections, Direction, DirectionTurnLeft, DirectionTurnRight } from '../../types/direction.type';
 import { ShipEncounterIntent } from '../../types/ship-encounter-intent.type';
 import { roll3d6UnderWithCrit } from '../../../rps/utils/roll';
+import type { AxialPoint } from '../../utils/hex-coordinate.util';
+import { moveAxialPosition, sameAxialPoint } from '../../utils/hex-coordinate.util';
 
 type SpawnTacticsOutcome = 'critSuccess' | 'success' | 'failure' | 'critFailure';
 
@@ -33,7 +28,7 @@ export class EncounterAggregate extends AggregateRoot {
     readonly ships: ShipToEncounterEntity[] = [];
     radius: number = 0;
     name: string | null = null;
-    center: Vector = new Vector(0, 0);
+    center: AxialPoint = { q: 0, r: 0 };
 
     constructor(id: string) {
         super(id);
@@ -70,7 +65,7 @@ export class EncounterAggregate extends AggregateRoot {
         return this;
     }
 
-    setCenter(center: Vector) {
+    setCenter(center: AxialPoint) {
         this.center = center;
         return this;
     }
@@ -83,7 +78,7 @@ export class EncounterAggregate extends AggregateRoot {
     }
 
     @Action(EncounterCenterMovedEvent)
-    moveCenter(center: Vector) {
+    moveCenter(center: AxialPoint) {
         const action = getActionEvent(this, EncounterCenterMovedEvent);
         const { center: nextCenter } = action.setNamedArgs({ center });
         return this.setCenter(nextCenter);
@@ -158,19 +153,19 @@ export class EncounterAggregate extends AggregateRoot {
 
         if (options.intent === ShipEncounterIntent.FLEE) {
             const heading = this.resolveHeadingFromWind(windFrom, tacticsOutcome);
-            const position = movePosition(center, heading, distance);
+            const position = moveAxialPosition(center, heading, distance);
             return { position, direction: heading };
         }
 
         if (options.intent === ShipEncounterIntent.PURSUE) {
             const heading = this.resolveHeadingFromWind(windFrom, tacticsOutcome);
-            const position = movePosition(center, this.oppositeDirection(heading), distance);
+            const position = moveAxialPosition(center, this.oppositeDirection(heading), distance);
             return { position, direction: heading };
         }
 
         if (options.intent === ShipEncounterIntent.CIRCLE) {
             const radial = this.resolveHeadingFromWind(windFrom, tacticsOutcome);
-            const position = movePosition(center, radial, distance);
+            const position = moveAxialPosition(center, radial, distance);
             const left = this.turnLeft(radial);
             const right = this.turnRight(radial);
 
@@ -198,9 +193,9 @@ export class EncounterAggregate extends AggregateRoot {
         return Math.min(safeDistance, cappedDistance);
     }
 
-    private spawnFallback(center: Vector, distance: number) {
+    private spawnFallback(center: AxialPoint, distance: number) {
         const direction = randomChoice(AllDirections);
-        const position = movePosition(center, direction, distance);
+        const position = moveAxialPosition(center, direction, distance);
         return { position, direction };
     }
 
@@ -255,7 +250,7 @@ export class EncounterAggregate extends AggregateRoot {
         }
     }
 
-    hasShipAtPosition(position: Vector): boolean {
-        return this.ships.some((ship) => ship.position.equals(position));
+    hasShipAtPosition(position: AxialPoint): boolean {
+        return this.ships.some((ship) => sameAxialPoint(ship.position, position));
     }
 }

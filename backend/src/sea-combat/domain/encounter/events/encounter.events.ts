@@ -1,5 +1,5 @@
 import { DomainEvent } from '@event-nest/core';
-import Vector from 'vector2js';
+import type { AxialPoint } from '../../../utils/hex-coordinate.util';
 
 @DomainEvent(EncounterTurnStartedEvent.name)
 export class EncounterTurnStartedEvent {}
@@ -17,7 +17,7 @@ export class EncounterRadiusAdjustedEvent {
 
 @DomainEvent(EncounterCenterMovedEvent.name)
 export class EncounterCenterMovedEvent {
-    constructor(public readonly center: Vector) {}
+    constructor(public readonly center: AxialPoint) {}
 
     static toArgs(event: EncounterCenterMovedEvent) {
         return [event.center];

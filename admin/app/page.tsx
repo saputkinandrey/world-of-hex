@@ -17,6 +17,7 @@ import {
     Grid,
     IconButton,
     MenuItem,
+    Popover,
     Stack,
     TextField,
     Toolbar,
@@ -43,6 +44,7 @@ type EncounterShip = {
         _id?: string | null;
         name?: string | null;
         type?: string | null;
+        speed?: number | null;
     } | null;
 };
 
@@ -65,6 +67,14 @@ type Ship = {
     tactics?: number;
 };
 
+type PreviewShipPopoverState = {
+    shipId: string;
+    anchorPosition: {
+        top: number;
+        left: number;
+    };
+};
+
 const shipTypes = ["drakkar", "galleon", "steamship", "trireme"];
 const encounterIntents = ["flee", "pursue", "circle"];
 
@@ -81,9 +91,15 @@ export default function HomePage() {
     const [previewEncounter, setPreviewEncounter] = useState<Encounter | null>(
         null,
     );
+    const [previewShipPopover, setPreviewShipPopover] =
+        useState<PreviewShipPopoverState | null>(null);
     const previewScrollRef = useRef<HTMLDivElement | null>(null);
+    const previewEncounterIdRef = useRef<string | null>(null);
+    const shipPlacementRequestSeqRef = useRef(0);
     const [previewContainer, setPreviewContainer] =
         useState<HTMLDivElement | null>(null);
+    const [isPreviewMarkerDragging, setIsPreviewMarkerDragging] =
+        useState(false);
     const previewDragState = useRef<{
         startX: number;
         startY: number;
@@ -141,6 +157,7 @@ export default function HomePage() {
                 badge: badge || `S${(index + 1).toString().slice(-1)}`,
                 title: `${name} | dir: ${direction} | speed: ${speed} | intent: ${intent}`,
                 direction: entry.direction?.trim() || undefined,
+                speed: typeof entry.speed === "number" ? entry.speed : 0,
             };
         });
     }, [previewEncounter]);
@@ -177,56 +194,25 @@ export default function HomePage() {
     }, [previewZoom]);
 
     useEffect(() => {
-        const container = previewContainer;
-        if (!container || !previewEncounter) {
-            return undefined;
-        }
-
-        const handleWheel = (event: WheelEvent) => {
-            event.preventDefault();
-            const rect = container.getBoundingClientRect();
-            const pointerX = event.clientX - rect.left;
-            const pointerY = event.clientY - rect.top;
-            const offsetX = pointerX + container.scrollLeft;
-            const offsetY = pointerY + container.scrollTop;
-            const currentZoom = previewZoomRef.current;
-            const zoomFactor = event.deltaY < 0 ? 1.1 : 0.9;
-            const nextZoom = Math.min(
-                3,
-                Math.max(0.5, currentZoom * zoomFactor),
-            );
-            if (nextZoom === currentZoom) {
-                return;
-            }
-            previewZoomRef.current = nextZoom;
-            setPreviewZoom(nextZoom);
-            const ratio = nextZoom / currentZoom;
-            window.requestAnimationFrame(() => {
-                const updated = previewScrollRef.current;
-                if (!updated) {
-                    return;
-                }
-                updated.scrollLeft = offsetX * ratio - pointerX;
-                updated.scrollTop = offsetY * ratio - pointerY;
-            });
-        };
-
-        container.addEventListener("wheel", handleWheel, { passive: false });
-        return () => {
-            container.removeEventListener("wheel", handleWheel);
-        };
-    }, [previewContainer, previewEncounter]);
-
-    useEffect(() => {
         if (!previewEncounter) {
+            previewEncounterIdRef.current = null;
+            setPreviewShipPopover(null);
             return;
         }
+
+        if (previewEncounterIdRef.current === previewEncounter._id) {
+            return;
+        }
+
+        previewEncounterIdRef.current = previewEncounter._id;
         previewZoomRef.current = 1;
         setPreviewZoom(1);
-        if (previewScrollRef.current) {
-            previewScrollRef.current.scrollLeft = 0;
-            previewScrollRef.current.scrollTop = 0;
-        }
+        window.requestAnimationFrame(() => {
+            if (previewScrollRef.current) {
+                previewScrollRef.current.scrollLeft = 0;
+                previewScrollRef.current.scrollTop = 0;
+            }
+        });
     }, [previewEncounter]);
 
     const [encounterName, setEncounterName] = useState("");
@@ -242,7 +228,10 @@ export default function HomePage() {
     const [encounterShipId, setEncounterShipId] = useState("");
     const [encounterIntent, setEncounterIntent] = useState("");
 
-    const normalizeId = (value: unknown) => {
+    const normalizeId = (value: unknown): string => {
+        if (value == null) {
+            return "";
+        }
         if (typeof value === "string") {
             return value;
         }
@@ -253,9 +242,10 @@ export default function HomePage() {
             }
         }
         try {
-            return JSON.stringify(value);
+            const serialized = JSON.stringify(value);
+            return typeof serialized === "string" ? serialized : "";
         } catch {
-            return String(value);
+            return String(value ?? "");
         }
     };
 
@@ -294,6 +284,28 @@ export default function HomePage() {
         return map;
     }, [players]);
 
+    const selectedPreviewShip = useMemo(() => {
+        if (!previewEncounter || !previewShipPopover) {
+            return null;
+        }
+
+        return (
+            previewEncounter.ships?.find((entry) => {
+                const shipId = normalizeId(entry.ship?._id).trim();
+                return shipId === previewShipPopover.shipId;
+            }) ?? null
+        );
+    }, [previewEncounter, previewShipPopover]);
+
+    const selectedPreviewShipOwner = useMemo(() => {
+        const shipId = normalizeId(selectedPreviewShip?.ship?._id).trim();
+        if (!shipId) {
+            return null;
+        }
+
+        return shipOwnerById.get(shipId) ?? null;
+    }, [selectedPreviewShip, shipOwnerById]);
+
     const availableShips = useMemo(() => {
         const ownedIds = new Set<string>();
         players.forEach((player) => {
@@ -323,6 +335,112 @@ export default function HomePage() {
         return JSON.parse(text) as T;
     };
 
+    const applyEncounterUpdate = (updatedEncounter: Encounter) => {
+        setEncounters((current) =>
+            current.map((encounter) =>
+                encounter._id === updatedEncounter._id
+                    ? updatedEncounter
+                    : encounter,
+            ),
+        );
+        setPreviewEncounter((current) =>
+            current?._id === updatedEncounter._id ? updatedEncounter : current,
+        );
+    };
+
+    const patchEncounterShipLocally = (
+        encounterId: string,
+        shipId: string,
+        patch: Partial<EncounterShip>,
+    ) => {
+        const patchEncounter = (encounter: Encounter): Encounter =>
+            encounter._id !== encounterId
+                ? encounter
+                : {
+                      ...encounter,
+                      ships:
+                          encounter.ships?.map((entry) =>
+                              normalizeId(entry.ship?._id).trim() === shipId
+                                  ? { ...entry, ...patch }
+                                  : entry,
+                          ) ?? [],
+                  };
+
+        setEncounters((current) => current.map(patchEncounter));
+        setPreviewEncounter((current) =>
+            current ? patchEncounter(current) : current,
+        );
+    };
+
+    const updateEncounterShipPlacement = async (
+        shipId: string,
+        encounterId: string,
+        patch: {
+            position: EncounterPoint;
+            direction?: string;
+            speed?: number;
+        },
+    ) => {
+        const requestSeq = ++shipPlacementRequestSeqRef.current;
+
+        try {
+            const updatedEncounter = await fetchJson<Encounter>(
+                `/sea-combat/ship/${shipId}/update-placement`,
+                {
+                    method: "POST",
+                    body: JSON.stringify({
+                        encounterId,
+                        position: patch.position,
+                        direction: patch.direction,
+                        speed: patch.speed,
+                    }),
+                },
+            );
+
+            if (requestSeq === shipPlacementRequestSeqRef.current) {
+                applyEncounterUpdate(updatedEncounter);
+            }
+        } catch (error) {
+            await loadAll();
+            throw error;
+        }
+    };
+
+    const adjustSelectedPreviewShipSpeed = (deltaY: number) => {
+        if (isPreviewMarkerDragging || !previewEncounter || !selectedPreviewShip) {
+            return false;
+        }
+
+        const selectedShipId = normalizeId(selectedPreviewShip.ship?._id);
+        const selectedShipPosition = selectedPreviewShip.position;
+        if (!selectedShipId || !selectedShipPosition) {
+            return false;
+        }
+
+        const currentSpeed = selectedPreviewShip.speed ?? 0;
+        const maxSpeed = selectedPreviewShip.ship?.speed ?? currentSpeed;
+        const speedDelta = deltaY < 0 ? 1 : -1;
+        const nextSpeed = Math.max(
+            0,
+            Math.min(maxSpeed, currentSpeed + speedDelta),
+        );
+
+        if (nextSpeed === currentSpeed) {
+            return true;
+        }
+
+        patchEncounterShipLocally(previewEncounter._id, selectedShipId, {
+            speed: nextSpeed,
+        });
+        void updateEncounterShipPlacement(selectedShipId, previewEncounter._id, {
+            position: selectedShipPosition,
+            direction: selectedPreviewShip.direction ?? undefined,
+            speed: nextSpeed,
+        });
+
+        return true;
+    };
+
     const loadAll = async () => {
         setLoading(true);
         try {
@@ -334,10 +452,83 @@ export default function HomePage() {
             setEncounters(encountersData);
             setPlayers(playersData);
             setShips(shipsData);
+            setPreviewEncounter((current) => {
+                if (!current) {
+                    return current;
+                }
+
+                return (
+                    encountersData.find(
+                        (encounter) => encounter._id === current._id,
+                    ) ?? null
+                );
+            });
         } finally {
             setLoading(false);
         }
     };
+
+    useEffect(() => {
+        const container = previewContainer;
+        if (!container || !previewEncounter) {
+            return undefined;
+        }
+
+        const handleWheel = (event: WheelEvent) => {
+            if (event.defaultPrevented) {
+                return;
+            }
+
+            if (isPreviewMarkerDragging) {
+                event.preventDefault();
+                event.stopPropagation();
+                return;
+            }
+
+            if (adjustSelectedPreviewShipSpeed(event.deltaY)) {
+                event.preventDefault();
+                event.stopPropagation();
+                return;
+            }
+
+            event.preventDefault();
+            const rect = container.getBoundingClientRect();
+            const pointerX = event.clientX - rect.left;
+            const pointerY = event.clientY - rect.top;
+            const offsetX = pointerX + container.scrollLeft;
+            const offsetY = pointerY + container.scrollTop;
+            const currentZoom = previewZoomRef.current;
+            const zoomFactor = event.deltaY < 0 ? 1.1 : 0.9;
+            const nextZoom = Math.min(
+                3,
+                Math.max(0.5, currentZoom * zoomFactor),
+            );
+            if (nextZoom === currentZoom) {
+                return;
+            }
+            previewZoomRef.current = nextZoom;
+            setPreviewZoom(nextZoom);
+            const ratio = nextZoom / currentZoom;
+            window.requestAnimationFrame(() => {
+                const updated = previewScrollRef.current;
+                if (!updated) {
+                    return;
+                }
+                updated.scrollLeft = offsetX * ratio - pointerX;
+                updated.scrollTop = offsetY * ratio - pointerY;
+            });
+        };
+
+        container.addEventListener("wheel", handleWheel, { passive: false });
+        return () => {
+            container.removeEventListener("wheel", handleWheel);
+        };
+    }, [
+        adjustSelectedPreviewShipSpeed,
+        isPreviewMarkerDragging,
+        previewContainer,
+        previewEncounter,
+    ]);
 
     useEffect(() => {
         void loadAll();
@@ -474,6 +665,56 @@ export default function HomePage() {
             method: "DELETE",
         });
         await loadAll();
+    };
+
+    const removePreviewShipFromEncounter = async () => {
+        const encounterId = normalizeId(previewEncounter?._id).trim();
+        const shipId = normalizeId(selectedPreviewShip?.ship?._id).trim();
+        if (!encounterId || !shipId) {
+            return;
+        }
+
+        setPreviewShipPopover(null);
+        setEncounters((current) =>
+            current.map((encounter) =>
+                encounter._id !== encounterId
+                    ? encounter
+                    : {
+                          ...encounter,
+                          ships:
+                              encounter.ships?.filter(
+                                  (entry) =>
+                                      normalizeId(entry.ship?._id).trim() !==
+                                      shipId,
+                              ) ?? [],
+                      },
+            ),
+        );
+        setPreviewEncounter((current) =>
+            current?._id !== encounterId
+                ? current
+                : {
+                      ...current,
+                      ships:
+                          current.ships?.filter(
+                              (entry) =>
+                                  normalizeId(entry.ship?._id).trim() !==
+                                  shipId,
+                          ) ?? [],
+                  },
+        );
+
+        try {
+            await fetchJson(`/sea-combat/ship/${shipId}/leave-encounter`, {
+                method: "POST",
+                body: JSON.stringify({
+                    shipId,
+                    encounterId,
+                }),
+            });
+        } finally {
+            await loadAll();
+        }
     };
 
     const deletePlayer = async (playerId: string) => {
@@ -1075,7 +1316,10 @@ export default function HomePage() {
 
             <Dialog
                 open={Boolean(previewEncounter)}
-                onClose={() => setPreviewEncounter(null)}
+                onClose={() => {
+                    setPreviewEncounter(null);
+                    setPreviewShipPopover(null);
+                }}
                 fullWidth
                 maxWidth="lg"
                 PaperProps={{ sx: { height: "90vh" } }}
@@ -1097,7 +1341,12 @@ export default function HomePage() {
                             </Typography>
                         ) : null}
                     </Box>
-                    <Button onClick={() => setPreviewEncounter(null)}>
+                    <Button
+                        onClick={() => {
+                            setPreviewEncounter(null);
+                            setPreviewShipPopover(null);
+                        }}
+                    >
                         Close
                     </Button>
                 </DialogTitle>
@@ -1169,10 +1418,184 @@ export default function HomePage() {
                                                 undefined
                                             }
                                             markers={previewMarkers}
+                                            selectedMarkerId={
+                                                previewShipPopover?.shipId ??
+                                                null
+                                            }
+                                            onMarkerDragStateChange={
+                                                setIsPreviewMarkerDragging
+                                            }
+                                            onMarkerClick={(marker, anchor) => {
+                                                setPreviewShipPopover({
+                                                    shipId: marker.id,
+                                                    anchorPosition: anchor,
+                                                });
+                                            }}
+                                            onMarkerDrop={(
+                                                marker,
+                                                placement,
+                                            ) => {
+                                                patchEncounterShipLocally(
+                                                    previewEncounter._id,
+                                                    marker.id,
+                                                    {
+                                                        position: {
+                                                            x: placement.x,
+                                                            y: placement.y,
+                                                        },
+                                                        direction:
+                                                            placement.direction ??
+                                                            marker.direction ??
+                                                            null,
+                                                    },
+                                                );
+                                                void updateEncounterShipPlacement(
+                                                    marker.id,
+                                                    previewEncounter._id,
+                                                    {
+                                                        position: {
+                                                            x: placement.x,
+                                                            y: placement.y,
+                                                        },
+                                                        direction:
+                                                            placement.direction ??
+                                                            marker.direction ??
+                                                            undefined,
+                                                    },
+                                                );
+                                            }}
                                         />
                                     </Box>
                                 </Box>
                             </Box>
+                            <Popover
+                                open={Boolean(
+                                    previewShipPopover && selectedPreviewShip,
+                                )}
+                                onClose={() => setPreviewShipPopover(null)}
+                                PaperProps={{
+                                    sx: {
+                                        backgroundColor: (theme) =>
+                                            theme.palette.mode === "dark"
+                                                ? "#0a1816"
+                                                : theme.palette.background.paper,
+                                        backgroundImage: "none",
+                                        backdropFilter: "none",
+                                        opacity: 1,
+                                        border: "1px solid",
+                                        borderColor: "divider",
+                                        boxShadow: 12,
+                                    },
+                                }}
+                                anchorReference="anchorPosition"
+                                anchorPosition={
+                                    previewShipPopover?.anchorPosition
+                                }
+                                transformOrigin={{
+                                    vertical: "top",
+                                    horizontal: "left",
+                                }}
+                            >
+                                {selectedPreviewShip ? (
+                                    <Box
+                                        onWheel={(event) => {
+                                            if (
+                                                !adjustSelectedPreviewShipSpeed(
+                                                    event.deltaY,
+                                                )
+                                            ) {
+                                                return;
+                                            }
+
+                                            event.preventDefault();
+                                            event.stopPropagation();
+                                        }}
+                                        sx={{
+                                            p: 2,
+                                            minWidth: 260,
+                                            maxWidth: 320,
+                                            display: "grid",
+                                            gap: 1,
+                                        }}
+                                    >
+                                        <Box>
+                                            <Typography variant="subtitle1">
+                                                {selectedPreviewShip.ship
+                                                    ?.name ?? "Ship"}
+                                            </Typography>
+                                            <Typography
+                                                variant="caption"
+                                                color="text.secondary"
+                                            >
+                                                {normalizeId(
+                                                    selectedPreviewShip.ship
+                                                        ?._id,
+                                                ) || "unknown id"}
+                                            </Typography>
+                                        </Box>
+                                        <Stack
+                                            direction="row"
+                                            spacing={1}
+                                            flexWrap="wrap"
+                                            useFlexGap
+                                        >
+                                            <Chip
+                                                size="small"
+                                                variant="outlined"
+                                                label={`Type: ${
+                                                    selectedPreviewShip.ship
+                                                        ?.type ?? "unknown"
+                                                }`}
+                                            />
+                                            <Chip
+                                                size="small"
+                                                variant="outlined"
+                                                label={`Dir: ${
+                                                    selectedPreviewShip.direction ??
+                                                    "unknown"
+                                                }`}
+                                            />
+                                            <Chip
+                                                size="small"
+                                                variant="outlined"
+                                                label={`Speed: ${
+                                                    selectedPreviewShip.speed ??
+                                                    "unknown"
+                                                }`}
+                                            />
+                                        </Stack>
+                                        <Typography variant="body2">
+                                            Intent:{" "}
+                                            {selectedPreviewShip.intent ??
+                                                "none"}
+                                        </Typography>
+                                        <Typography variant="body2">
+                                            Position: x{" "}
+                                            {selectedPreviewShip.position?.x ??
+                                                0}
+                                            , y{" "}
+                                            {selectedPreviewShip.position?.y ??
+                                                0}
+                                        </Typography>
+                                        <Typography variant="body2">
+                                            Owner:{" "}
+                                            {selectedPreviewShipOwner?.name ??
+                                                "unknown"}
+                                        </Typography>
+                                        <Button
+                                            size="small"
+                                            variant="outlined"
+                                            color="error"
+                                            startIcon={<LinkOffRoundedIcon />}
+                                            onClick={() => {
+                                                void removePreviewShipFromEncounter();
+                                            }}
+                                        >
+                                            Remove From Encounter
+                                        </Button>
+                                    </Box>
+                                ) : null}
+                            </Popover>
                         </Box>
                     ) : null}
                 </DialogContent>

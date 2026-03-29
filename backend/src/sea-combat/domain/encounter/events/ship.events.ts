@@ -1,9 +1,9 @@
 import { DomainEvent } from '@event-nest/core';
 import { ShipEntity } from '../../../__entities/ship.entity';
-import Vector from 'vector2js';
 import { Direction } from '../../../types/direction.type';
 import { ShipEncounterIntent } from '../../../types/ship-encounter-intent.type';
 import { Roll3d6UnderWithCritResult } from '../../../../rps/utils/roll';
+import type { AxialPoint } from '../../../utils/hex-coordinate.util';
 
 @DomainEvent(ShipSpawnedEvent.name)
 export class ShipSpawnedEvent {
@@ -12,7 +12,7 @@ export class ShipSpawnedEvent {
 
     constructor(
         public readonly ship: ShipEntity,
-        public readonly position: Vector,
+        public readonly position: AxialPoint,
         public readonly direction: Direction,
         public readonly speed: number,
         public readonly intent?: ShipEncounterIntent | null,

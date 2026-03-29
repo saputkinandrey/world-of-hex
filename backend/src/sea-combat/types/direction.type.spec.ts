@@ -1,34 +1,43 @@
-import Vector from 'vector2js';
-
-import { Direction, movePosition, stepPosition } from './direction.type';
+import { Direction } from './direction.type';
+import {
+    moveAxialPosition,
+    moveOffsetPosition,
+    offsetToAxialPoint,
+    stepAxialPosition,
+} from '../utils/hex-coordinate.util';
 
 describe('direction movement helpers', () => {
-    it('moves north without changing column parity', () => {
-        const result = movePosition(new Vector(0, 0), Direction.N, 15);
+    it('moves north in axial space without parity branches', () => {
+        const result = moveAxialPosition({ q: 0, r: 0 }, Direction.N, 15);
 
-        expect(result.x).toBe(0);
-        expect(result.y).toBe(-15);
+        expect(result).toEqual({ q: 0, r: -15 });
     });
 
-    it('moves south-east step by step across alternating column parity', () => {
-        const result = movePosition(new Vector(0, 0), Direction.SE, 14);
+    it('keeps offset movement compatible through axial conversion', () => {
+        const result = moveOffsetPosition({ x: 0, y: 0 }, Direction.SE, 14);
 
-        expect(result.x).toBe(14);
-        expect(result.y).toBe(7);
+        expect(result).toEqual({ x: 14, y: 7 });
     });
 
-    it('moves north-west correctly through negative odd columns', () => {
-        const result = movePosition(new Vector(0, 0), Direction.NW, 13);
+    it('moves north-west correctly through negative odd columns in offset space', () => {
+        const result = moveOffsetPosition({ x: 0, y: 0 }, Direction.NW, 13);
 
-        expect(result.x).toBe(-13);
-        expect(result.y).toBe(-7);
+        expect(result).toEqual({ x: -13, y: -7 });
     });
 
-    it('steps from even and odd columns with different deltas', () => {
-        const fromEven = stepPosition(new Vector(0, 0), Direction.SE);
-        const fromOdd = stepPosition(new Vector(1, 0), Direction.SE);
+    it('represents south-east as one stable axial delta', () => {
+        const fromStart = stepAxialPosition({ q: 0, r: 0 }, Direction.SE);
+        const fromNext = stepAxialPosition({ q: 1, r: 0 }, Direction.SE);
 
-        expect(fromEven.toString()).toBe('1,0');
-        expect(fromOdd.toString()).toBe('2,1');
+        expect(fromStart).toEqual({ q: 1, r: 0 });
+        expect(fromNext).toEqual({ q: 2, r: 0 });
+    });
+
+    it('maps legacy odd-q offset coordinates to the same axial path', () => {
+        const fromEven = offsetToAxialPoint({ x: 0, y: 0 });
+        const fromOdd = offsetToAxialPoint({ x: 1, y: 0 });
+
+        expect(stepAxialPosition(fromEven, Direction.SE)).toEqual({ q: 1, r: 0 });
+        expect(stepAxialPosition(fromOdd, Direction.SE)).toEqual({ q: 2, r: 0 });
     });
 });

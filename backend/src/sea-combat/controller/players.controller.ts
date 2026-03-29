@@ -39,6 +39,7 @@ export class PlayersController {
         }
 
         await this.playerService.ownAShip(player, ship);
+        return { ok: true };
     }
 
     @Post(':playerId/join-encounter')
@@ -49,6 +50,7 @@ export class PlayersController {
         }
 
         await this.encounterService.playerJoinsEncounter(player, body.encounterId);
+        return { ok: true };
     }
 
     @Post(':playerId/leave-encounter')
@@ -59,6 +61,7 @@ export class PlayersController {
         }
 
         await this.encounterService.playerLeaveEncounter(player, body.encounterId);
+        return { ok: true };
     }
 
     @Delete(':playerId/own-a-ship/:shipId')
@@ -68,6 +71,7 @@ export class PlayersController {
             throw new NotFoundException(`Player with id ${playerId} not found`);
         }
         await this.playerService.unownShip(player, shipId);
+        return { ok: true };
     }
 
     @Delete(':playerId')
@@ -77,6 +81,7 @@ export class PlayersController {
             throw new NotFoundException(`Player with id ${playerId} not found`);
         }
         await this.playerRepository.deleteById(playerId);
+        return { ok: true };
     }
 
     @Post()

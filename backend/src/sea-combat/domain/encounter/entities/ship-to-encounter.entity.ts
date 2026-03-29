@@ -5,7 +5,6 @@ import { StreamAwareEntity } from '../../../../utils/stream-aware-entity';
 import { ModifierBucketClearMode, ModifierBucketEntity } from '../../modifier-bucket.entity';
 import { bindChildActions, ChildAction, OnBind } from '../../../../utils/child-action.decorator';
 import { getOwnActionEvent } from '../../../../utils/action-event';
-import Vector from 'vector2js';
 import {
     ShipAcceleratedEvent,
     ShipDeceleratedEvent,
@@ -16,6 +15,7 @@ import {
 } from '../events/ship.events';
 import { ShipEncounterIntent } from '../../../types/ship-encounter-intent.type';
 import { Roll3d6UnderWithCritResult } from '../../../../rps/utils/roll';
+import type { AxialPoint } from '../../../utils/hex-coordinate.util';
 
 export class ShipToEncounterEntity extends StreamAwareEntity implements OnBind {
     constructor() {
@@ -30,7 +30,7 @@ export class ShipToEncounterEntity extends StreamAwareEntity implements OnBind {
 
     ship: ShipEntity;
 
-    position: Vector;
+    position: AxialPoint;
 
     intent: ShipEncounterIntent | null = null;
 
