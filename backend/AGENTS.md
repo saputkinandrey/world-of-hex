@@ -33,6 +33,19 @@
 - Avoid excessive duplication; only duplicate logic when it simplifies ownership or reduces coupling.
 - Do not propose duplication (including duplicating AGENTS rules) unless explicitly asked.
 
+## Data & API Discipline
+- No silent fallback: for billing-critical data flows, do not return silent fallback values such as `0` or `null` when explicit failure is required.
+- Preserve auditability by default: when changing domain data, prefer creating new records or deactivating old state over overwriting historical records unless the task explicitly requires destructive replacement.
+- Include and response blast-radius check is mandatory: before replacing, narrowing, or duplicating any query include/select, DTO, response class, or serializer used by an existing endpoint, first identify which nested fields current consumers rely on.
+- If a shared include/select chain is replaced with a local or specialized one, explicitly compare the old and new response shapes and preserve all previously consumed nested relations unless the task explicitly requires removing them.
+- For endpoint contract changes caused by include/select refactors, verify both backend serialization and known frontend consumers so that previously used nested fields remain available.
+- When fixing one missing nested field in a payload, do not rebuild a working include/select chain from memory if an existing composed include can be reused.
+- Unbounded database reads are forbidden in application code and admin scripts; always apply an explicit limit, batching, pagination, cursor/chunk processing, or another bounded strategy when cardinality can materially grow.
+- Before adding any query intended to touch many records, explicitly consider worst-case dataset size and choose a bounded approach that cannot exhaust backend memory in a single request or job run.
+- Treat changes to caching, cache keys, invalidation, persistence, memoization, background jobs, and similar cross-cutting mechanisms as scope expansion unless the task explicitly requires them.
+- Repository boundary: do not use direct model access from services; go through a repository unless direct access inside an explicit transaction block is impractical.
+- Swagger sync is mandatory for public API changes: whenever a task changes request DTOs, response shapes, query/path params, or other externally visible API contracts, update the corresponding files under `swagger/` in the same task.
+
 ## Skill Rolls
 - Do not call `roll3d6Under*` directly in actions; use the owning entity's skill-roll helper (e.g., `ShipEntity.rollSkill(...)`) and pass modifiers through it.
 - If a modifier bucket exists, the owning entity must encapsulate its use (e.g., expose `rollSkill(...)` that applies bucket totals); callers should not pass bucket totals around.
