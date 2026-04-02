@@ -9,6 +9,7 @@ import {
     ShipAcceleratedEvent,
     ShipDeceleratedEvent,
     ShipMovedEvent,
+    ShipPlacementUpdatedEvent,
     ShipTurnEndedEvent,
     ShipTurnStartedEvent,
     ShipTurnedLeftEvent,
@@ -69,6 +70,19 @@ export class ShipToEncounterEntity extends StreamAwareEntity implements OnBind {
         return this.setPosition(nextPosition);
     }
 
+    @ChildAction(ShipPlacementUpdatedEvent)
+    updatePlacement(position: AxialPoint, direction: Direction, speed: number) {
+        const action = getOwnActionEvent(this, ShipPlacementUpdatedEvent);
+        const resolved = action.setNamedArgs({
+            position,
+            direction,
+            speed,
+        });
+        return this.setPosition(resolved.position)
+            .setActualDirection(resolved.direction)
+            .setActualSpeed(resolved.speed);
+    }
+
     setActualSpeed(speed: number) {
         if (speed < 0) {
             return this;
@@ -85,10 +99,10 @@ export class ShipToEncounterEntity extends StreamAwareEntity implements OnBind {
     }
 
     @ChildAction(ShipAcceleratedEvent)
-    accelerate() {
+    accelerate(seamanshipRollInput: Roll3d6UnderWithCritResult) {
         const action = getOwnActionEvent(this, ShipAcceleratedEvent);
         const { seamanshipRoll } = action.setNamedArgs({
-            seamanshipRoll: this.rollSkill('seamanship'),
+            seamanshipRoll: seamanshipRollInput,
         });
         const nextSpeed = seamanshipRoll.mos >= 0 ? this.actualSpeed + 1 : this.actualSpeed;
         const appliedSpeed = Math.min(nextSpeed, this.ship.speed);

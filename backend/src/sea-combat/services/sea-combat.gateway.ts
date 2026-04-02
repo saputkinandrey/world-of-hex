@@ -16,6 +16,8 @@ import { PlayerRepository } from '../../player/repositories/player.repository';
 import { LoadEncounterMessagePayloadDto } from '../dto/websockets/load-encounter-message.payload.dto';
 import { UserConnectedMessagePayloadDto } from '../dto/websockets/user-connected-message.payload.dto';
 import { LoadEncounterResponsePayloadDto } from '../dto/websockets/load-encounter-response.payload.dto';
+import { SendInputMessagePayloadDto } from '../dto/websockets/send-input-message.payload.dto';
+import { SendInputResponsePayloadDto } from '../dto/websockets/send-input-response.payload.dto';
 
 @WebSocketGateway({
     path: process.env.SEA_COMBAT_SOCKETIO_PATH || '/ws-sea-combat',
@@ -68,6 +70,19 @@ export class SeaCombatGateway implements OnGatewayInit, OnGatewayConnection, OnG
         }
     }
 
+    @SubscribeMessage(WSMessage.SEND_INPUT)
+    async onSendInput(
+        @MessageBody() payload: SendInputMessagePayloadDto,
+        @ConnectedSocket() client: Socket,
+    ): Promise<void> {
+        try {
+            const response = await this.processSendInput(payload);
+            this.emit(client, WSResponse.SEND_INPUT, response);
+        } catch (err: any) {
+            this.emitError(client, err);
+        }
+    }
+
     private emit(client: Socket, event: WSResponse, payload: unknown) {
         client.emit(event, payload);
     }
@@ -83,11 +98,33 @@ export class SeaCombatGateway implements OnGatewayInit, OnGatewayConnection, OnG
         this.logger.log(`Player ${payload.userId} requested to download encounter ${payload.encounterId}`);
 
         const player = await this.getPlayerOrThrow(payload.userId);
-        const encounter = await this.getEncounterOrThrow(payload.encounterId);
+        const encounter = await this.getEncounterViewOrThrow(payload.encounterId);
         this.assertPlayerInEncounter(player, encounter, payload.encounterId);
         this.assertPlayerHasShipInEncounter(player, encounter);
 
         return encounter;
+    }
+
+    private async processSendInput(payload: SendInputMessagePayloadDto): Promise<SendInputResponsePayloadDto> {
+        this.logger.log(
+            `Player ${payload.userId} submitted ${payload.inputType} for ${payload.selectedTokenId} in ${payload.encounterId}`,
+        );
+
+        const player = await this.getPlayerOrThrow(payload.userId);
+        const intent = await this.encounterService.submitPlayerShipIntent(player, {
+            encounterId: payload.encounterId,
+            shipId: payload.selectedTokenId,
+            intentType: payload.inputType,
+        });
+
+        return {
+            ok: true,
+            intentId: intent._id.toString(),
+            encounterId: intent.encounterId,
+            turnNumber: intent.turnNumber,
+            shipId: intent.shipId,
+            intentType: intent.intentType,
+        };
     }
 
     private async getPlayerOrThrow(userId: string) {
@@ -100,6 +137,14 @@ export class SeaCombatGateway implements OnGatewayInit, OnGatewayConnection, OnG
 
     private async getEncounterOrThrow(encounterId: string) {
         const encounter = await this.encounterService.findOneById(encounterId);
+        if (!encounter) {
+            throw new Error('Unable to find encounter with id ' + encounterId);
+        }
+        return encounter;
+    }
+
+    private async getEncounterViewOrThrow(encounterId: string) {
+        const encounter = await this.encounterService.findEncounterViewById(encounterId);
         if (!encounter) {
             throw new Error('Unable to find encounter with id ' + encounterId);
         }

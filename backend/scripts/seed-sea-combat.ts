@@ -7,6 +7,7 @@ import { Player, PlayerSchema } from '../src/player/schemas/player.schema';
 import { ShipType } from '../src/sea-combat/types/ship-type.type';
 import { EncounterAggregate } from '../src/sea-combat/domain/encounter/encounter.root';
 import { axialToOffsetPoint } from '../src/sea-combat/utils/hex-coordinate.util';
+import { Direction } from '../src/sea-combat/types/direction.type';
 
 type DbConfig = {
     url?: string;
@@ -45,7 +46,7 @@ const ensureEncounter = async (model: Model<Encounter>, name: string, radius: nu
         .setName(name)
         .setRadius(radius)
         .setCenter({ q: 0, r: 0 })
-        .reRollWindDirection();
+        .reRollWindDirection(Direction.N);
 
     return model.findOneAndUpdate(
         { name },

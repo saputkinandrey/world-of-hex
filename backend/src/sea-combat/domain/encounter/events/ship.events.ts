@@ -5,10 +5,15 @@ import { ShipEncounterIntent } from '../../../types/ship-encounter-intent.type';
 import { Roll3d6UnderWithCritResult } from '../../../../rps/utils/roll';
 import type { AxialPoint } from '../../../utils/hex-coordinate.util';
 
+type ShipSpawnRandomnessPayload = {
+    seamanshipRoll: Roll3d6UnderWithCritResult;
+    tacticsRoll: Roll3d6UnderWithCritResult;
+};
+
 @DomainEvent(ShipSpawnedEvent.name)
 export class ShipSpawnedEvent {
-    public readonly seamanshipRoll?: Roll3d6UnderWithCritResult;
-    public readonly tacticsRoll?: Roll3d6UnderWithCritResult;
+    public readonly seamanshipRoll!: Roll3d6UnderWithCritResult;
+    public readonly tacticsRoll!: Roll3d6UnderWithCritResult;
 
     constructor(
         public readonly ship: ShipEntity,
@@ -19,7 +24,12 @@ export class ShipSpawnedEvent {
     ) {}
 
     static toArgs(event: ShipSpawnedEvent) {
-        return [event.ship, event.intent];
+        const randomness: ShipSpawnRandomnessPayload = {
+            seamanshipRoll: event.seamanshipRoll,
+            tacticsRoll: event.tacticsRoll,
+        };
+
+        return [event.ship, event.intent, randomness];
     }
 }
 
@@ -45,12 +55,30 @@ export class ShipMovedEvent {
     }
 }
 
+@DomainEvent(ShipPlacementUpdatedEvent.name)
+export class ShipPlacementUpdatedEvent {
+    constructor(
+        public readonly shipId: string,
+        public readonly position: AxialPoint,
+        public readonly direction: Direction,
+        public readonly speed: number,
+    ) {}
+
+    static toArgs(event: ShipPlacementUpdatedEvent) {
+        return [event.position, event.direction, event.speed];
+    }
+}
+
 @DomainEvent(ShipAcceleratedEvent.name)
 export class ShipAcceleratedEvent {
     constructor(
         public readonly shipId: string,
         public readonly seamanshipRoll: Roll3d6UnderWithCritResult,
     ) {}
+
+    static toArgs(event: ShipAcceleratedEvent) {
+        return [event.seamanshipRoll];
+    }
 }
 
 @DomainEvent(ShipDeceleratedEvent.name)
@@ -78,4 +106,13 @@ export class ShipTurnedLeftEvent {
         public readonly direction: Direction,
         public readonly speed: number,
     ) {}
+}
+
+@DomainEvent(ShipRemovedEvent.name)
+export class ShipRemovedEvent {
+    constructor(public readonly shipId: string) {}
+
+    static toArgs(event: ShipRemovedEvent) {
+        return [event.shipId];
+    }
 }

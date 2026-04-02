@@ -47,9 +47,31 @@ type EncounterShip = {
     } | null;
 };
 
+type EncounterPendingSpawnShip = {
+    name?: string | null;
+    type?: string | null;
+    speed?: number | null;
+    tactics?: number | null;
+};
+
+type EncounterPendingIntentPayload = {
+    intent?: string | null;
+    ship?: EncounterPendingSpawnShip | null;
+};
+
+type EncounterPendingIntent = {
+    _id?: string | null;
+    actorId?: string | null;
+    actorType?: string | null;
+    shipId?: string | null;
+    intentType?: string | null;
+    payload?: EncounterPendingIntentPayload | null;
+};
+
 type Encounter = EncounterCardData & {
     center?: EncounterPoint | null;
     ships?: EncounterShip[];
+    pendingIntents?: EncounterPendingIntent[];
 };
 
 type Player = {
@@ -95,6 +117,7 @@ export default function HomePage() {
         useState<PreviewShipPopoverState | null>(null);
     const previewScrollRef = useRef<HTMLDivElement | null>(null);
     const previewEncounterIdRef = useRef<string | null>(null);
+    const previewEncounterRequestSeqRef = useRef(0);
     const shipPlacementRequestSeqRef = useRef(0);
     const [previewContainer, setPreviewContainer] =
         useState<HTMLDivElement | null>(null);
@@ -283,6 +306,13 @@ export default function HomePage() {
         });
         return map;
     }, [players]);
+    const playerById = useMemo(() => {
+        const map = new Map<string, Player>();
+        players.forEach((player) => {
+            map.set(player._id, player);
+        });
+        return map;
+    }, [players]);
 
     const selectedPreviewShip = useMemo(() => {
         if (!previewEncounter || !previewShipPopover) {
@@ -305,6 +335,40 @@ export default function HomePage() {
 
         return shipOwnerById.get(shipId) ?? null;
     }, [selectedPreviewShip, shipOwnerById]);
+    const pendingSpawnIntents = useMemo(() => {
+        if (!previewEncounter?.pendingIntents?.length) {
+            return [];
+        }
+
+        return previewEncounter.pendingIntents
+            .filter((intent) => intent.intentType === "spawn")
+            .map((intent, index) => {
+                const actorId = normalizeId(intent.actorId).trim();
+                const actorType = intent.actorType?.trim().toLowerCase() || "";
+                const ownerName =
+                    actorType === "player"
+                        ? playerById.get(actorId)?.name?.trim() || actorId
+                        : actorType === "admin"
+                          ? "Admin"
+                          : actorId || actorType || "Unknown";
+                const shipName =
+                    intent.payload?.ship?.name?.trim() ||
+                    normalizeId(intent.shipId).trim() ||
+                    `Pending ship ${index + 1}`;
+
+                return {
+                    id:
+                        normalizeId(intent._id).trim() ||
+                        `${normalizeId(intent.shipId).trim()}-${index}`,
+                    ownerName,
+                    shipName,
+                    shipType: intent.payload?.ship?.type?.trim() || "unknown",
+                    shipSpeed: intent.payload?.ship?.speed ?? null,
+                    shipTactics: intent.payload?.ship?.tactics ?? null,
+                    intentLabel: intent.payload?.intent?.trim() || "unknown",
+                };
+            });
+    }, [playerById, previewEncounter]);
 
     const availableShips = useMemo(() => {
         const ownedIds = new Set<string>();
@@ -335,16 +399,54 @@ export default function HomePage() {
         return JSON.parse(text) as T;
     };
 
+    const fetchEncounterPreview = async (encounterId: string) => {
+        return fetchJson<Encounter>(
+            `/sea-combat/encounters/${encounterId}/view`,
+        );
+    };
+
+    const openPreviewEncounter = async (encounter: Encounter) => {
+        setPreviewShipPopover(null);
+        setPreviewEncounter(encounter);
+
+        const encounterId = normalizeId(encounter._id).trim();
+        if (!encounterId) {
+            return;
+        }
+
+        const requestSeq = ++previewEncounterRequestSeqRef.current;
+        const detailedEncounter = await fetchEncounterPreview(encounterId);
+        if (requestSeq !== previewEncounterRequestSeqRef.current) {
+            return;
+        }
+
+        setPreviewEncounter(detailedEncounter);
+    };
+
     const applyEncounterUpdate = (updatedEncounter: Encounter) => {
         setEncounters((current) =>
             current.map((encounter) =>
                 encounter._id === updatedEncounter._id
-                    ? updatedEncounter
+                    ? {
+                          ...encounter,
+                          ...updatedEncounter,
+                          pendingIntents:
+                              updatedEncounter.pendingIntents ??
+                              encounter.pendingIntents,
+                      }
                     : encounter,
             ),
         );
         setPreviewEncounter((current) =>
-            current?._id === updatedEncounter._id ? updatedEncounter : current,
+            current?._id === updatedEncounter._id
+                ? {
+                      ...current,
+                      ...updatedEncounter,
+                      pendingIntents:
+                          updatedEncounter.pendingIntents ??
+                          current.pendingIntents,
+                  }
+                : current,
         );
     };
 
@@ -407,7 +509,11 @@ export default function HomePage() {
     };
 
     const adjustSelectedPreviewShipSpeed = (deltaY: number) => {
-        if (isPreviewMarkerDragging || !previewEncounter || !selectedPreviewShip) {
+        if (
+            isPreviewMarkerDragging ||
+            !previewEncounter ||
+            !selectedPreviewShip
+        ) {
             return false;
         }
 
@@ -432,11 +538,15 @@ export default function HomePage() {
         patchEncounterShipLocally(previewEncounter._id, selectedShipId, {
             speed: nextSpeed,
         });
-        void updateEncounterShipPlacement(selectedShipId, previewEncounter._id, {
-            position: selectedShipPosition,
-            direction: selectedPreviewShip.direction ?? undefined,
-            speed: nextSpeed,
-        });
+        void updateEncounterShipPlacement(
+            selectedShipId,
+            previewEncounter._id,
+            {
+                position: selectedShipPosition,
+                direction: selectedPreviewShip.direction ?? undefined,
+                speed: nextSpeed,
+            },
+        );
 
         return true;
     };
@@ -444,17 +554,26 @@ export default function HomePage() {
     const loadAll = async () => {
         setLoading(true);
         try {
-            const [encountersData, playersData, shipsData] = await Promise.all([
-                fetchJson<Encounter[]>("/sea-combat/encounters/list"),
-                fetchJson<Player[]>("/sea-combat/players/list"),
-                fetchJson<Ship[]>("/sea-combat/ships/list"),
-            ]);
+            const currentPreviewId = normalizeId(previewEncounter?._id).trim();
+            const [encountersData, playersData, shipsData, previewData] =
+                await Promise.all([
+                    fetchJson<Encounter[]>("/sea-combat/encounters/list"),
+                    fetchJson<Player[]>("/sea-combat/players/list"),
+                    fetchJson<Ship[]>("/sea-combat/ships/list"),
+                    currentPreviewId
+                        ? fetchEncounterPreview(currentPreviewId)
+                        : Promise.resolve(null),
+                ]);
             setEncounters(encountersData);
             setPlayers(playersData);
             setShips(shipsData);
             setPreviewEncounter((current) => {
                 if (!current) {
                     return current;
+                }
+
+                if (previewData && previewData._id === current._id) {
+                    return previewData;
                 }
 
                 return (
@@ -959,7 +1078,9 @@ export default function HomePage() {
                                                         )
                                                     }
                                                     onClick={() =>
-                                                        setPreviewEncounter(enc)
+                                                        void openPreviewEncounter(
+                                                            enc,
+                                                        )
                                                     }
                                                 />
                                             ))}
@@ -1337,6 +1458,7 @@ export default function HomePage() {
             <Dialog
                 open={Boolean(previewEncounter)}
                 onClose={() => {
+                    previewEncounterRequestSeqRef.current += 1;
                     setPreviewEncounter(null);
                     setPreviewShipPopover(null);
                 }}
@@ -1372,6 +1494,7 @@ export default function HomePage() {
                     </Button>
                     <Button
                         onClick={() => {
+                            previewEncounterRequestSeqRef.current += 1;
                             setPreviewEncounter(null);
                             setPreviewShipPopover(null);
                         }}
@@ -1382,6 +1505,82 @@ export default function HomePage() {
                 <DialogContent sx={{ overflow: "hidden" }}>
                     {previewEncounter ? (
                         <Box sx={{ display: "grid", gap: 2 }}>
+                            {pendingSpawnIntents.length > 0 ? (
+                                <Box
+                                    sx={{
+                                        borderRadius: 2,
+                                        border: "1px solid",
+                                        borderColor: "divider",
+                                        bgcolor: "background.paper",
+                                        p: 2,
+                                        display: "grid",
+                                        gap: 1,
+                                    }}
+                                >
+                                    <Typography variant="subtitle2">
+                                        Pending Spawns
+                                    </Typography>
+                                    <Typography
+                                        variant="caption"
+                                        color="text.secondary"
+                                    >
+                                        These ships are queued for the first
+                                        turn and are not yet part of the world
+                                        state.
+                                    </Typography>
+                                    <Stack spacing={1}>
+                                        {pendingSpawnIntents.map((intent) => (
+                                            <Box
+                                                key={intent.id}
+                                                sx={{
+                                                    borderRadius: 2,
+                                                    border: "1px solid",
+                                                    borderColor: "divider",
+                                                    px: 1.5,
+                                                    py: 1,
+                                                    display: "grid",
+                                                    gap: 0.75,
+                                                }}
+                                            >
+                                                <Typography variant="body2">
+                                                    {intent.shipName}
+                                                </Typography>
+                                                <Stack
+                                                    direction="row"
+                                                    spacing={1}
+                                                    flexWrap="wrap"
+                                                    useFlexGap
+                                                >
+                                                    <Chip
+                                                        size="small"
+                                                        variant="outlined"
+                                                        label={`Intent: ${intent.intentLabel}`}
+                                                    />
+                                                    <Chip
+                                                        size="small"
+                                                        variant="outlined"
+                                                        label={`Type: ${intent.shipType}`}
+                                                    />
+                                                    <Chip
+                                                        size="small"
+                                                        variant="outlined"
+                                                        label={`Owner: ${intent.ownerName}`}
+                                                    />
+                                                </Stack>
+                                                <Typography
+                                                    variant="caption"
+                                                    color="text.secondary"
+                                                >
+                                                    Speed{" "}
+                                                    {intent.shipSpeed ?? "—"} ·
+                                                    tactics{" "}
+                                                    {intent.shipTactics ?? "—"}
+                                                </Typography>
+                                            </Box>
+                                        ))}
+                                    </Stack>
+                                </Box>
+                            ) : null}
                             <Box
                                 component="div"
                                 ref={(node: HTMLDivElement | null) => {
@@ -1507,7 +1706,8 @@ export default function HomePage() {
                                         backgroundColor: (theme) =>
                                             theme.palette.mode === "dark"
                                                 ? "#0a1816"
-                                                : theme.palette.background.paper,
+                                                : theme.palette.background
+                                                      .paper,
                                         backgroundImage: "none",
                                         backdropFilter: "none",
                                         opacity: 1,

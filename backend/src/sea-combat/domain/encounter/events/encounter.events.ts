@@ -8,7 +8,9 @@ export class EncounterTurnStartedEvent {}
 export class EncounterTurnEndedEvent {}
 
 @DomainEvent(EncounterTurnAdvancedEvent.name)
-export class EncounterTurnAdvancedEvent {}
+export class EncounterTurnAdvancedEvent {
+    constructor(public readonly turnNumber: number) {}
+}
 
 @DomainEvent(EncounterRadiusAdjustedEvent.name)
 export class EncounterRadiusAdjustedEvent {

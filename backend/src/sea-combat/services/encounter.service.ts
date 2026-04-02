@@ -1,21 +1,93 @@
 import { BadRequestException, ConflictException, Inject, Injectable, NotFoundException } from '@nestjs/common';
 import { EVENT_STORE, EventStore } from '@event-nest/core';
+import { EventEmitter2 } from '@nestjs/event-emitter';
 
 import { EncounterRepository } from '../repositories/encounter.repository';
 
 import { Encounter, EncounterDocument, PlayerToEncounter, ShipToEncounter } from '../schemas/encounter.schema';
+import { PendingIntentDocument } from '../schemas/pending-intent.schema';
+import { TurnEntropyDocument } from '../schemas/turn-entropy.schema';
+import { TurnAdvanceRequestDocument } from '../schemas/turn-advance-request.schema';
 import { Player } from '../../player/schemas/player.schema';
 import { ShipDocument } from '../schemas/ship.schema';
 import { ShipEncounterIntent } from '../types/ship-encounter-intent.type';
 import { EncounterAggregate } from '../domain/encounter/encounter.root';
-import { ShipEntity } from '../__entities/ship.entity';
-import { ShipSkillsEntity } from '../__entities/ship-skills.entity';
+import { EncounterRuleViolationError } from '../domain/encounter/errors/encounter-rule-violation.error';
 import { Types } from 'mongoose';
 import { toVector } from '../../utils/vector.schema';
-import { bindChildActions } from '../../utils/child-action.decorator';
-import { ShipToEncounterEntity } from '../domain/encounter/entities/ship-to-encounter.entity';
-import { axialToOffsetPoint, distanceBetweenOffsetPoints, offsetToAxialPoint } from '../utils/hex-coordinate.util';
+import { axialToOffsetPoint, distanceBetweenAxialPoints, offsetToAxialPoint } from '../utils/hex-coordinate.util';
 import { PlayerRepository } from '../../player/repositories/player.repository';
+import { PendingIntentRepository } from '../repositories/pending-intent.repository';
+import {
+    EncounterActorType,
+    PendingIntentStatus,
+    PlayerShipIntentType,
+    PendingShipIntentType,
+    PendingShipSpawnIntentPayload,
+} from '../types/pending-intent.type';
+import { AllDirections, Direction } from '../types/direction.type';
+import { TurnEntropyRepository } from '../repositories/turn-entropy.repository';
+import { TurnAdvanceRequestStatus, TurnEntropyStatus, TurnTaskIntentInput } from '../types/turn-resolution.type';
+import { TurnAdvanceRequestRepository } from '../repositories/turn-advance-request.repository';
+import { EncounterEventReadRepository } from '../repositories/encounter-event-read.repository';
+import {
+    deserializeEncounterPendingIntents,
+    serializePendingIntentForTaskSignature,
+} from '../codecs/pending-intent.codec';
+import {
+    buildTurnTaskSignature,
+    createBootstrapEntropySea,
+    cursorFromTaskSignature,
+    resolveAddressedChoice,
+    resolveTurnTaskSeed,
+    stableHash,
+} from '../utils/turn-resolution.util';
+import { EncounterTurnAdvancedEvent } from '../domain/encounter/events/encounter.events';
+import {
+    ENCOUNTER_TURN_ADVANCE_REQUESTED_EVENT,
+    EncounterTurnAdvanceRequestedEvent,
+} from '../types/turn-advance-requested-event.type';
+import {
+    EncounterPendingIntent,
+    EncounterPendingIntentResolution,
+    PendingEncounterIntentRandomness,
+} from '../domain/encounter/types/encounter-pending-intent.type';
+
+type EncounterTurnContext = {
+    encounterId: string;
+    turnNumber: number;
+    aggregate: EncounterAggregate;
+    pendingIntents: PendingIntentDocument[];
+    pendingAdvanceRequests: TurnAdvanceRequestDocument[];
+    turnCutoff: Date;
+    taskSignatureHash: string;
+    turnEntropy: TurnEntropyDocument;
+};
+type PendingIntentActor = {
+    actorId: string;
+    actorType: EncounterActorType;
+};
+type SubmitPlayerShipIntentInput = {
+    encounterId: string;
+    shipId: string;
+    intentType: PlayerShipIntentType;
+};
+type OffsetPointInput = {
+    x: number;
+    y: number;
+};
+type ShipPlacementUpdate = {
+    position: OffsetPointInput;
+    direction?: string;
+    speed?: number;
+};
+type EncounterProjectionShipEntry = {
+    position: ReturnType<typeof axialToOffsetPoint>;
+    direction: Direction;
+    speed: number;
+    ship: ShipToEncounter['ship'];
+    intent?: ShipEncounterIntent | null;
+};
 
 @Injectable()
 export class EncounterService {
@@ -23,75 +95,178 @@ export class EncounterService {
 
     constructor(
         private readonly encounterRepository: EncounterRepository,
+        private readonly pendingIntentRepository: PendingIntentRepository,
+        private readonly turnEntropyRepository: TurnEntropyRepository,
+        private readonly turnAdvanceRequestRepository: TurnAdvanceRequestRepository,
+        private readonly encounterEventReadRepository: EncounterEventReadRepository,
         private readonly playerRepository: PlayerRepository,
+        private readonly eventEmitter: EventEmitter2,
         @Inject(EVENT_STORE)
         private readonly eventStore: EventStore,
     ) {}
 
-    private async loadEncounterAggregateWithProjection(encounterId: string) {
+    private async loadEncounterAggregate(encounterId: string) {
         const aggregate = this.eventStore.addPublisher(new EncounterAggregate(encounterId));
-        const encounter = await this.encounterRepository.findOneById(encounterId);
-
-        if (!encounter) {
+        const events = await this.eventStore.findByAggregateRootId(EncounterAggregate, encounterId);
+        if (events.length === 0) {
             throw new NotFoundException(`Encounter with id ${encounterId} not found`);
         }
+        aggregate.reconstitute(events);
+        return aggregate;
+    }
 
-        await this.rebuildAggregateFromProjection(aggregate, encounter);
+    private async resolveCurrentTurnNumber(encounterId: string) {
+        const turnAdvancedEvent = await this.encounterEventReadRepository.findLastEventOfType(
+            encounterId,
+            EncounterTurnAdvancedEvent,
+        );
+        if (!turnAdvancedEvent) {
+            return 0;
+        }
+
+        return turnAdvancedEvent.getPayloadAs(EncounterTurnAdvancedEvent).turnNumber;
+    }
+
+    private async loadEncounterTurnContext(
+        turnAdvanceRequest: TurnAdvanceRequestDocument,
+    ): Promise<EncounterTurnContext> {
+        const encounterId = turnAdvanceRequest.encounterId;
+        const turnNumber = turnAdvanceRequest.turnNumber;
+        const aggregate = await this.loadEncounterAggregate(encounterId);
+        if (aggregate.turnNumber !== turnNumber) {
+            throw new ConflictException(
+                `Encounter ${encounterId} is already on turn ${aggregate.turnNumber}, request ${turnAdvanceRequest._id} targets turn ${turnNumber}`,
+            );
+        }
+
+        const pendingAdvanceRequests = await this.turnAdvanceRequestRepository.findPendingByEncounterTurn(
+            encounterId,
+            turnNumber,
+        );
+        const turnCutoff = this.resolveTurnCutoff(encounterId, turnNumber, pendingAdvanceRequests);
+        const pendingIntents = await this.pendingIntentRepository.findActiveByEncounterTurnBefore(
+            encounterId,
+            turnNumber,
+            turnCutoff,
+        );
+        const taskSignatureHash = this.buildTurnTaskSignatureHash(encounterId, aggregate, pendingIntents, turnCutoff);
+        const turnEntropy = await this.ensureTurnEntropy(encounterId, turnNumber, taskSignatureHash);
 
         return {
+            encounterId,
+            turnNumber,
             aggregate,
-            encounter,
+            pendingIntents,
+            pendingAdvanceRequests,
+            turnCutoff,
+            taskSignatureHash,
+            turnEntropy,
         };
     }
 
-    private async loadEncounterAggregate(encounterId: string) {
-        const { aggregate } = await this.loadEncounterAggregateWithProjection(encounterId);
-        return aggregate;
-    }
-
-    private async rebuildAggregateFromProjection(aggregate: EncounterAggregate, encounter: EncounterDocument) {
-        (aggregate as any)._version = await this.eventStore.findAggregateRootVersion(encounter._id.toString());
-        aggregate.setName(encounter.name ?? null);
-        aggregate.setRadius(encounter.radius);
-        aggregate.setCenter(offsetToAxialPoint(toVector(encounter.center)));
-
-        if (encounter.windDirection) {
-            aggregate.windrose.setDirection(encounter.windDirection);
+    private resolveTurnCutoff(
+        encounterId: string,
+        turnNumber: number,
+        pendingAdvanceRequests: TurnAdvanceRequestDocument[],
+    ) {
+        const firstRequest = pendingAdvanceRequests[0];
+        if (!firstRequest?.createdAt) {
+            throw new ConflictException(`Encounter ${encounterId} turn ${turnNumber} has no pending advance request`);
         }
 
-        aggregate.ships.length = 0;
+        return firstRequest.createdAt;
+    }
 
-        encounter.ships.forEach((storedShip) => {
-            const shipId = storedShip.ship?._id?.toString();
-            if (!shipId) {
-                return;
-            }
-
-            const shipEntity = Object.assign(new ShipEntity(), {
-                id: shipId,
-                name: storedShip.ship.name,
-                speed: storedShip.ship.speed,
-                type: storedShip.ship.type,
-                skills: new ShipSkillsEntity().setSeamanship(12).setTactics(storedShip.ship.tactics ?? 10),
-            });
-
-            const shipToEncounter = Object.assign(new ShipToEncounterEntity(), {
-                ship: shipEntity,
-                shipId,
-                position: offsetToAxialPoint(toVector(storedShip.position)),
-                intent: storedShip.intent ?? null,
-            });
-
-            shipToEncounter.setActualSpeed(storedShip.speed ?? 0);
-            if (storedShip.direction) {
-                shipToEncounter.setActualDirection(storedShip.direction);
-            }
-
-            bindChildActions(aggregate, shipToEncounter, `ship_${shipId}`);
-            aggregate.ships.push(shipToEncounter);
+    private buildTurnTaskSignatureHash(
+        encounterId: string,
+        aggregate: EncounterAggregate,
+        pendingIntents: PendingIntentDocument[],
+        turnCutoff: Date,
+    ) {
+        return buildTurnTaskSignature({
+            encounterId,
+            turnNumber: aggregate.turnNumber,
+            turnCutoff: turnCutoff.toISOString(),
+            radius: aggregate.radius,
+            center: aggregate.center,
+            windDirection: aggregate.windrose.direction,
+            ships: aggregate.ships.map((ship) => ({
+                shipId: ship.shipId,
+                position: ship.position,
+                actualDirection: ship.actualDirection,
+                actualSpeed: ship.actualSpeed,
+                intent: ship.intent ?? null,
+            })),
+            intents: this.serializePendingIntentsForTaskSignature(pendingIntents),
         });
+    }
 
-        return aggregate;
+    private serializePendingIntentsForTaskSignature(pendingIntents: PendingIntentDocument[]): TurnTaskIntentInput[] {
+        return pendingIntents.map((intent) => serializePendingIntentForTaskSignature(intent));
+    }
+
+    private async ensureTurnEntropy(encounterId: string, turnNumber: number, taskSignatureHash: string) {
+        const existing = await this.turnEntropyRepository.findOneByEncounterTurn(encounterId, turnNumber);
+        if (existing) {
+            if (existing.taskSignatureHash !== taskSignatureHash) {
+                throw new ConflictException(
+                    `Encounter ${encounterId} turn ${turnNumber} has mismatched task signature for prepared entropy`,
+                );
+            }
+            return existing;
+        }
+
+        const previousTurnEntropy =
+            turnNumber > 0
+                ? await this.turnEntropyRepository.findOneByEncounterTurn(encounterId, turnNumber - 1)
+                : null;
+        const entropySea = previousTurnEntropy?.entropySea?.length
+            ? [...previousTurnEntropy.entropySea]
+            : createBootstrapEntropySea(encounterId);
+        const cursor = cursorFromTaskSignature(taskSignatureHash, entropySea.length);
+
+        return this.turnEntropyRepository.create({
+            encounterId,
+            turnNumber,
+            taskSignatureHash,
+            cursor,
+            entropySea,
+            status: TurnEntropyStatus.PREPARED,
+        });
+    }
+
+    private buildDirectActionTaskSeed(purpose: string, scope: Record<string, unknown>) {
+        return stableHash({
+            kind: 'sea-combat-direct-action',
+            version: 1,
+            purpose,
+            scope,
+        });
+    }
+
+    private resolveDirectActionDirection(
+        taskSeed: string,
+        purpose: string,
+        index: number,
+        scope: Record<string, unknown>,
+    ): Direction {
+        return resolveAddressedChoice(taskSeed, { purpose, index, scope }, AllDirections);
+    }
+
+    private buildEncounterProjectionShips(aggregate: EncounterAggregate): EncounterProjectionShipEntry[] {
+        return aggregate.ships.map((ship) => ({
+            position: axialToOffsetPoint(ship.position),
+            direction: ship.actualDirection,
+            speed: ship.actualSpeed,
+            ship: {
+                _id: ship.ship.id as never,
+                name: ship.ship.name,
+                speed: ship.ship.speed,
+                type: ship.ship.type,
+                tactics: ship.ship.skills.tactics,
+            } as ShipToEncounter['ship'],
+            intent: ship.intent ?? null,
+        }));
     }
 
     private synchronizeEncounterProjection(encounter: EncounterDocument, aggregate: EncounterAggregate) {
@@ -99,44 +274,101 @@ export class EncounterService {
         encounter.radius = aggregate.radius;
         encounter.center = axialToOffsetPoint(aggregate.center) as any;
         encounter.windDirection = aggregate.windrose.direction;
+        encounter.currentTurn = aggregate.turnNumber;
+        encounter.ships = this.buildEncounterProjectionShips(aggregate) as ShipToEncounter[];
 
-        const shipStateById = new Map(aggregate.ships.map((ship) => [ship.shipId, ship]));
-
-        encounter.ships.forEach((storedShip) => {
-            const shipId = storedShip.ship?._id?.toString();
-            if (!shipId) {
+        const activeShipIds = new Set(aggregate.ships.map((ship) => ship.shipId));
+        let playersChanged = false;
+        encounter.players.forEach((player) => {
+            const selectedShipId = player.selectedShip?._id?.toString();
+            if (!selectedShipId || activeShipIds.has(selectedShipId)) {
                 return;
             }
 
-            const aggregateShip = shipStateById.get(shipId);
-            if (!aggregateShip) {
-                return;
-            }
-
-            storedShip.position = axialToOffsetPoint(aggregateShip.position) as any;
-            storedShip.direction = aggregateShip.actualDirection;
-            storedShip.speed = aggregateShip.actualSpeed;
-            storedShip.intent = aggregateShip.intent ?? null;
+            player.selectedShip = null as never;
+            playersChanged = true;
         });
 
         encounter.markModified('ships');
         encounter.markModified('center');
+        if (playersChanged) {
+            encounter.markModified('players');
+        }
+    }
+
+    private async persistEncounterProjection(encounterId: string, aggregate: EncounterAggregate) {
+        const encounter = await this.encounterRepository.findOneById(encounterId);
+        if (!encounter) {
+            throw new NotFoundException(`Encounter projection with id ${encounterId} not found`);
+        }
+
+        this.synchronizeEncounterProjection(encounter, aggregate);
+        return encounter.save();
+    }
+
+    private buildPendingIntentRandomness(context: EncounterTurnContext): PendingEncounterIntentRandomness {
+        if (!context.turnEntropy.entropySea.length) {
+            throw new BadRequestException(
+                `Encounter ${context.encounterId} has no prepared entropy sea for turn ${context.aggregate.turnNumber}`,
+            );
+        }
+
+        return {
+            taskSeed: resolveTurnTaskSeed(context.turnEntropy.entropySea, context.turnEntropy.cursor),
+            taskSignatureHash: context.taskSignatureHash,
+        };
+    }
+
+    private deserializePendingTurnIntents(context: EncounterTurnContext): EncounterPendingIntent[] {
+        const randomness = this.buildPendingIntentRandomness(context);
+        return deserializeEncounterPendingIntents(context.pendingIntents, randomness);
+    }
+
+    private async persistPendingIntentResolutions(resolutions: EncounterPendingIntentResolution[]) {
+        for (const item of resolutions) {
+            await this.pendingIntentRepository.resolveIntent(item.intentId, item.status, item.resolutionReason);
+        }
+    }
+
+    private async markTurnResolutionCommitted(context: EncounterTurnContext) {
+        await this.turnAdvanceRequestRepository.updateManyStatus(
+            context.encounterId,
+            context.turnNumber,
+            TurnAdvanceRequestStatus.COMMITTED,
+        );
+        await this.turnEntropyRepository.updateStatus(context.turnEntropy._id.toString(), TurnEntropyStatus.CONSUMED);
     }
 
     async createEncounter(name: string | null, radius: number) {
         const id = new Types.ObjectId().toHexString();
         const encounterAggregate = this.eventStore.addPublisher(new EncounterAggregate(id));
-        encounterAggregate.setName(name).moveCenter({ q: 0, r: 0 }).adjustRadius(radius).reRollWindDirection();
+        const windDirection = this.resolveDirectActionDirection(
+            this.buildDirectActionTaskSeed('create-encounter', {
+                encounterId: id,
+                name: name ?? null,
+                radius,
+            }),
+            'create-encounter-wind-direction',
+            0,
+            {
+                encounterId: id,
+            },
+        );
+        encounterAggregate
+            .setName(name)
+            .moveCenter({ q: 0, r: 0 })
+            .adjustRadius(radius)
+            .reRollWindDirection(windDirection);
         await encounterAggregate.commit();
-
         return this.encounterRepository.create({
             _id: encounterAggregate.id,
             name: encounterAggregate.name,
             radius: encounterAggregate.radius,
+            currentTurn: encounterAggregate.turnNumber,
             center: axialToOffsetPoint(encounterAggregate.center),
             windDirection: encounterAggregate.windrose.direction,
             players: [],
-            ships: [],
+            ships: this.buildEncounterProjectionShips(encounterAggregate) as ShipToEncounter[],
         });
     }
 
@@ -147,16 +379,146 @@ export class EncounterService {
     async findAllEncounters() {
         return this.encounterRepository.find({}, {}, { sort: { createdAt: -1 } });
     }
+
+    async findEncounterViewById(encounterId: string) {
+        const encounter = await this.findOneById(encounterId);
+        if (!encounter) {
+            return null;
+        }
+
+        const pendingIntents = await this.pendingIntentRepository.findActiveByEncounterTurn(
+            encounterId,
+            encounter.currentTurn ?? 0,
+        );
+
+        return {
+            ...encounter.toJSON(),
+            pendingIntents: pendingIntents.map((intent) => intent.toJSON()),
+        };
+    }
+
+    async requestAdvanceTurn(encounterId: string) {
+        const turnNumber = await this.resolveCurrentTurnNumber(encounterId);
+        // TODO: This request is currently persisted and processed inside the same backend process.
+        // Keep it as a temporary prototype solution. Any move away from in-process delivery
+        // should happen only after the Godot client milestone, and the later P2P transport work
+        // should happen after the future P2P storage migration.
+        const turnAdvanceRequest = await this.turnAdvanceRequestRepository.create({
+            encounterId,
+            turnNumber,
+            status: TurnAdvanceRequestStatus.PENDING,
+        });
+        const event: EncounterTurnAdvanceRequestedEvent = {
+            requestId: turnAdvanceRequest._id.toString(),
+        };
+
+        await this.eventEmitter.emitAsync(ENCOUNTER_TURN_ADVANCE_REQUESTED_EVENT, event);
+        return turnAdvanceRequest;
+    }
+
+    async processAdvanceTurnRequest(requestId: string) {
+        const turnAdvanceRequest = await this.turnAdvanceRequestRepository.findOneById(requestId);
+        if (!turnAdvanceRequest) {
+            throw new NotFoundException(`Turn advance request with id ${requestId} not found`);
+        }
+        if (turnAdvanceRequest.status !== TurnAdvanceRequestStatus.PENDING) {
+            throw new ConflictException(
+                `Turn advance request ${requestId} is not pending and cannot be processed again`,
+            );
+        }
+
+        try {
+            const context = await this.loadEncounterTurnContext(turnAdvanceRequest);
+            const { aggregate } = context;
+            aggregate.setPendingIntents(this.deserializePendingTurnIntents(context));
+            aggregate.advanceTurn();
+            const intentResolutions = await aggregate.commitWithPendingIntentResolutions();
+            await this.persistEncounterProjection(context.encounterId, aggregate);
+            await this.markTurnResolutionCommitted(context);
+            await this.persistPendingIntentResolutions(intentResolutions);
+        } catch (error) {
+            await this.turnAdvanceRequestRepository.updateStatus(requestId, TurnAdvanceRequestStatus.REJECTED);
+            this.rethrowEncounterRuleViolation(error);
+        }
+    }
+
     async advanceTurn(encounterId: string) {
-        const { aggregate, encounter } = await this.loadEncounterAggregateWithProjection(encounterId);
-        aggregate.advanceTurn();
-        this.synchronizeEncounterProjection(encounter, aggregate);
-        await encounter.save();
-        await aggregate.commit();
+        return this.requestAdvanceTurn(encounterId);
+    }
+
+    async submitPlayerShipIntent(player: Player, input: SubmitPlayerShipIntentInput) {
+        const encounter = await this.encounterRepository.findOneById(input.encounterId);
+        if (!encounter) {
+            throw new NotFoundException(`Encounter with id ${input.encounterId} not found`);
+        }
+        const aggregate = await this.loadEncounterAggregate(input.encounterId);
+        const hasPendingAdvanceRequest = await this.turnAdvanceRequestRepository.hasPendingByEncounterTurn(
+            input.encounterId,
+            aggregate.turnNumber,
+        );
+        const targetTurnNumber = hasPendingAdvanceRequest ? aggregate.turnNumber + 1 : aggregate.turnNumber;
+
+        if (!this.isPlayerJoinedToEncounter(player, encounter)) {
+            throw new BadRequestException(`Player ${player._id} is not joined to encounter ${input.encounterId}`);
+        }
+
+        const ownedShipIds = new Set(
+            player.ownedShips
+                ?.map((ownedShip) => ownedShip?._id?.toString())
+                .filter((shipId): shipId is string => Boolean(shipId)) ?? [],
+        );
+
+        if (!ownedShipIds.has(input.shipId)) {
+            throw new BadRequestException(`Ship ${input.shipId} is not owned by player ${player._id}`);
+        }
+
+        const encounterShip = aggregate.ships.find((entry) => entry.shipId === input.shipId);
+        if (!encounterShip) {
+            throw new BadRequestException(`Ship ${input.shipId} is not joined to encounter ${input.encounterId}`);
+        }
+
+        const intent = await this.pendingIntentRepository.create({
+            encounterId: input.encounterId,
+            turnNumber: targetTurnNumber,
+            actorId: player._id.toString(),
+            actorType: EncounterActorType.PLAYER,
+            shipId: input.shipId,
+            intentType: input.intentType,
+            payload: {},
+            status: PendingIntentStatus.PENDING,
+        });
+
+        await this.pendingIntentRepository.supersedeOtherShipIntents(
+            input.encounterId,
+            targetTurnNumber,
+            input.shipId,
+            intent._id.toString(),
+        );
+
+        return intent;
     }
 
     async shipJoinsEncounter(ship: ShipDocument, encounter: EncounterDocument, intent?: ShipEncounterIntent) {
+        if (!intent) {
+            throw new BadRequestException('Ship encounter intent is required to queue a ship spawn');
+        }
+
+        const encounterId = encounter._id?.toString();
+        if (!encounterId) {
+            throw new Error('Encounter id is missing');
+        }
+        const aggregate = await this.loadEncounterAggregate(encounterId);
+        const hasPendingAdvanceRequest = await this.turnAdvanceRequestRepository.hasPendingByEncounterTurn(
+            encounterId,
+            aggregate.turnNumber,
+        );
+        this.assertCanQueueSpawnIntent(aggregate, encounterId, hasPendingAdvanceRequest);
+
         const shipId = ship._id?.toString();
+        const shipName = ship.name;
+        if (!shipName) {
+            throw new BadRequestException(`Ship ${ship._id} must have a name before queuing a spawn intent`);
+        }
         const existingEncounters = await this.encounterRepository.find(
             { 'ships.ship._id': ship._id },
             { _id: 1 },
@@ -170,58 +532,173 @@ export class EncounterService {
             }
         }
 
-        const joinedShip = encounter.ships.find((shp) => shp.ship?._id?.toString() === shipId);
+        const joinedShip = aggregate.ships.find((entry) => entry.shipId === shipId);
         if (joinedShip) {
             throw new Error(`Ship with id ${ship._id} already joined encounter ${encounter._id}`);
-        } else {
-            const encounterId = encounter._id?.toString();
-            if (!encounterId) {
-                throw new Error('Encounter id is missing');
-            }
-            const aggregate = await this.loadEncounterAggregate(encounterId);
-
-            const shipEntity = Object.assign(new ShipEntity(), {
-                id: ship._id?.toString(),
-                name: ship.name,
-                speed: ship.speed,
-                type: ship.type,
-                skills: new ShipSkillsEntity().setSeamanship(12).setTactics(ship.tactics ?? 10),
-            });
-
-            aggregate.spawnShip(shipEntity, intent ?? null);
-            const spawned = aggregate.ships.find((item) => item.shipId === shipEntity.id);
-            if (!spawned) {
-                throw new Error(`Failed to spawn ship ${ship._id} in encounter ${encounter._id}`);
-            }
-
-            encounter.ships.push({
-                ship: ship,
-                speed: spawned.actualSpeed,
-                direction: spawned.actualDirection,
-                position: axialToOffsetPoint(spawned.position),
-                intent: spawned.intent ?? null,
-            } as ShipToEncounter);
-            await aggregate.commit();
         }
-        return encounter.save();
+        await this.assertShipHasNoActiveSpawnIntentElsewhere(shipId, encounterId);
+        await this.assertShipOwnerHasNoOtherShipInEncounter(shipId, aggregate, encounterId);
+
+        const actor = await this.resolveSpawnIntentActor(shipId);
+        const queuedIntent = await this.pendingIntentRepository.create({
+            encounterId,
+            turnNumber: aggregate.turnNumber,
+            actorId: actor.actorId,
+            actorType: actor.actorType,
+            shipId,
+            intentType: PendingShipIntentType.SPAWN,
+            payload: {
+                intent,
+                ship: {
+                    name: shipName,
+                    speed: ship.speed,
+                    type: ship.type,
+                    tactics: ship.tactics ?? 10,
+                },
+            } satisfies PendingShipSpawnIntentPayload,
+            status: PendingIntentStatus.PENDING,
+        });
+
+        await this.pendingIntentRepository.supersedeOtherShipIntents(
+            encounterId,
+            aggregate.turnNumber,
+            shipId,
+            queuedIntent._id.toString(),
+        );
+        return queuedIntent;
+    }
+
+    private assertCanQueueSpawnIntent(
+        aggregate: EncounterAggregate,
+        encounterId: string,
+        hasPendingAdvanceRequest: boolean,
+    ) {
+        try {
+            aggregate.assertCanQueueSpawnIntent(hasPendingAdvanceRequest);
+        } catch (error) {
+            if (error instanceof EncounterRuleViolationError) {
+                throw new ConflictException(error.message);
+            }
+
+            const message =
+                error instanceof Error ? error.message : `Cannot queue ship spawn for encounter ${encounterId}`;
+            throw new Error(message);
+        }
+    }
+
+    private rethrowEncounterRuleViolation(error: unknown): never {
+        if (error instanceof EncounterRuleViolationError) {
+            throw new ConflictException(error.message);
+        }
+
+        throw error;
+    }
+
+    private async assertShipOwnerHasNoOtherShipInEncounter(
+        shipId: string | undefined,
+        aggregate: EncounterAggregate,
+        encounterId: string,
+    ) {
+        if (!shipId) {
+            return;
+        }
+
+        const owner = await this.playerRepository.findOwnerByShipId(shipId);
+        if (!owner) {
+            return;
+        }
+
+        const ownedShipIds = new Set(
+            owner.ownedShips
+                ?.map((ownedShip) => ownedShip?._id?.toString())
+                .filter((ownedShipId): ownedShipId is string => Boolean(ownedShipId)) ?? [],
+        );
+        const conflictingShip = aggregate.ships.find((joinedShip) => {
+            const joinedShipId = joinedShip.shipId;
+            return Boolean(joinedShipId && joinedShipId !== shipId && ownedShipIds.has(joinedShipId));
+        });
+
+        if (!conflictingShip) {
+            const pendingIntents = await this.pendingIntentRepository.findActiveByEncounterTurn(
+                encounterId,
+                aggregate.turnNumber,
+            );
+            const conflictingPendingIntent = pendingIntents.find((pendingIntent) => {
+                return (
+                    pendingIntent.intentType === PendingShipIntentType.SPAWN &&
+                    pendingIntent.shipId !== shipId &&
+                    ownedShipIds.has(pendingIntent.shipId)
+                );
+            });
+            if (!conflictingPendingIntent) {
+                return;
+            }
+
+            throw new ConflictException(
+                `Player ${owner._id} already has pending ship ${conflictingPendingIntent.shipId} for encounter ${encounterId}`,
+            );
+        }
+
+        throw new ConflictException(
+            `Player ${owner._id} already has ship ${conflictingShip.shipId} in encounter ${encounterId}`,
+        );
+    }
+
+    private async resolveSpawnIntentActor(shipId: string | undefined): Promise<PendingIntentActor> {
+        if (!shipId) {
+            throw new BadRequestException('Ship id is required to queue a spawn intent');
+        }
+
+        const owner = await this.playerRepository.findOwnerByShipId(shipId);
+        if (owner) {
+            return {
+                actorId: owner._id.toString(),
+                actorType: EncounterActorType.PLAYER,
+            };
+        }
+
+        return {
+            actorId: shipId,
+            actorType: EncounterActorType.ADMIN,
+        };
+    }
+
+    private async assertShipHasNoActiveSpawnIntentElsewhere(shipId: string | undefined, encounterId: string) {
+        if (!shipId) {
+            return;
+        }
+
+        const existingSpawnIntent = await this.pendingIntentRepository.findActiveByShipIdAndIntentType(
+            shipId,
+            PendingShipIntentType.SPAWN,
+        );
+        if (!existingSpawnIntent) {
+            return;
+        }
+        if (existingSpawnIntent.encounterId === encounterId) {
+            return;
+        }
+
+        throw new ConflictException(
+            `Ship ${shipId} already has a pending spawn intent in encounter ${existingSpawnIntent.encounterId}`,
+        );
     }
 
     async shipLeavesEncounter(ship: ShipDocument, encounter: EncounterDocument) {
         const shipId = ship._id?.toString();
-        const joinedShip = encounter.ships.find((shp) => shp.ship?._id?.toString() === shipId);
+        if (!shipId) {
+            throw new BadRequestException('Ship id is required');
+        }
+
+        const aggregate = await this.loadEncounterAggregate(encounter._id.toString());
+        const joinedShip = aggregate.ships.find((entry) => entry.shipId === shipId);
         if (!joinedShip) {
             throw new Error(`Ship with id ${ship._id} not joined encounter ${encounter._id}`);
         }
 
-        encounter.ships = encounter.ships.filter((shp) => {
-            return shp.ship?._id?.toString() !== shipId;
-        });
-        encounter.markModified('ships');
-
-        const savedEncounter = await encounter.save();
-        if (!shipId) {
-            return savedEncounter;
-        }
+        aggregate.removeShip(shipId);
+        await aggregate.commit();
+        const savedEncounter = await this.persistEncounterProjection(encounter._id.toString(), aggregate);
 
         try {
             const owner = await this.playerRepository.findOwnerByShipId(shipId);
@@ -243,54 +720,49 @@ export class EncounterService {
         return savedEncounter;
     }
 
-    async updateShipPlacement(
-        ship: ShipDocument,
-        encounter: EncounterDocument,
-        update: {
-            position: { x: number; y: number };
-            direction?: string;
-            speed?: number;
-        },
-    ) {
-        const joinedShip = encounter.ships.find((entry) => entry.ship?._id?.toString() === ship._id?.toString());
+    async updateShipPlacement(ship: ShipDocument, encounter: EncounterDocument, update: ShipPlacementUpdate) {
+        const shipId = ship._id?.toString();
+        if (!shipId) {
+            throw new BadRequestException('Ship id is required');
+        }
+
+        const aggregate = await this.loadEncounterAggregate(encounter._id.toString());
+        const joinedShip = aggregate.ships.find((entry) => entry.shipId === shipId);
         if (!joinedShip) {
             throw new NotFoundException(`Ship with id ${ship._id} not joined encounter ${encounter._id}`);
         }
 
-        const nextPosition = toVector(update.position);
-        const distanceFromCenter = distanceBetweenOffsetPoints(nextPosition, toVector(encounter.center));
-        if (distanceFromCenter > encounter.radius) {
+        const nextPosition = offsetToAxialPoint(toVector(update.position));
+        const distanceFromCenter = distanceBetweenAxialPoints(nextPosition, aggregate.center);
+        if (distanceFromCenter > aggregate.radius) {
             throw new BadRequestException(
-                `Position ${nextPosition.toString()} is outside encounter radius ${encounter.radius}`,
+                `Position (${nextPosition.q}, ${nextPosition.r}) is outside encounter radius ${aggregate.radius}`,
             );
         }
 
-        const hasCollision = encounter.ships.some((entry) => {
-            if (entry.ship?._id?.toString() === ship._id?.toString()) {
+        const hasCollision = aggregate.ships.some((entry) => {
+            if (entry.shipId === shipId) {
                 return false;
             }
 
-            return toVector(entry.position).equals(nextPosition);
+            return entry.position.q === nextPosition.q && entry.position.r === nextPosition.r;
         });
         if (hasCollision) {
-            throw new ConflictException(`Position ${nextPosition.toString()} is already occupied`);
+            throw new ConflictException(`Position (${nextPosition.q}, ${nextPosition.r}) is already occupied`);
         }
 
+        const nextSpeed = typeof update.speed === 'number' ? update.speed : joinedShip.actualSpeed;
         if (typeof update.speed === 'number') {
             const maxSpeed = joinedShip.ship?.speed ?? ship.speed ?? 0;
             if (update.speed < 0 || update.speed > maxSpeed) {
                 throw new BadRequestException(`Speed ${update.speed} is outside allowed range 0..${maxSpeed}`);
             }
-            joinedShip.speed = update.speed;
         }
 
-        if (update.direction) {
-            joinedShip.direction = update.direction as any;
-        }
-
-        joinedShip.position = nextPosition as any;
-        encounter.markModified('ships');
-        return encounter.save();
+        const nextDirection = (update.direction as Direction | undefined) ?? joinedShip.actualDirection;
+        joinedShip.updatePlacement(nextPosition, nextDirection, nextSpeed);
+        await aggregate.commit();
+        return this.persistEncounterProjection(encounter._id.toString(), aggregate);
     }
 
     isPlayerJoinedToEncounter(player: Player, encounter: EncounterDocument) {

@@ -3,7 +3,6 @@ import { HydratedDocument } from 'mongoose';
 import { EntityDocumentHelper } from '../../utils/document-entity-helper';
 import { Direction } from '../types/direction.type';
 import { Ship } from './ship.schema';
-import { withAggregateRoot } from '../../utils/with-aggregate-root.mixin';
 import { ShipEncounterIntent } from '../types/ship-encounter-intent.type';
 import { VectorPoint, VectorSchema } from '../../utils/vector.schema';
 
@@ -69,6 +68,9 @@ export class Encounter extends EntityDocumentHelper {
     @Prop({ type: String, enum: Object.values(Direction) })
     windDirection: Direction;
 
+    @Prop({ type: Number, default: 0, min: 0 })
+    currentTurn: number;
+
     @Prop({})
     radius: number;
 
@@ -77,7 +79,5 @@ export class Encounter extends EntityDocumentHelper {
     })
     name: string | null;
 }
-
-const EncounterAR = withAggregateRoot(Encounter);
 
 export const EncounterSchema = SchemaFactory.createForClass(Encounter);

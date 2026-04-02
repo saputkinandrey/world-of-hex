@@ -1,5 +1,4 @@
-import { AllDirections, Direction, DirectionTurnLeft, DirectionTurnRight } from '../../../types/direction.type';
-import { randomChoice } from '../../../../rps/utils/roll';
+import { Direction, DirectionTurnLeft, DirectionTurnRight } from '../../../types/direction.type';
 import { WindroseReRollDirectionEvent, WindroseTurnLeftEvent, WindroseTurnRightEvent } from '../events/windrose.events';
 import { ChildAction } from '../../../../utils/child-action.decorator';
 import { getActionEvent } from '../../../../utils/action-event';
@@ -11,7 +10,7 @@ export class WindroseEntity extends StreamAwareEntity {
         this.setOwnerKey(null);
     }
 
-    direction: Direction = randomChoice(AllDirections);
+    direction: Direction = Direction.N;
 
     setDirection(direction: Direction) {
         this.direction = direction;
@@ -19,10 +18,10 @@ export class WindroseEntity extends StreamAwareEntity {
     }
 
     @ChildAction(WindroseReRollDirectionEvent)
-    reRollWindDirection(direction?: Direction) {
+    reRollWindDirection(direction: Direction) {
         const event = getActionEvent(this, WindroseReRollDirectionEvent);
         const { direction: nextDirection } = event.setNamedArgs({
-            direction: direction ?? randomChoice(AllDirections),
+            direction,
         });
         return this.setDirection(nextDirection);
     }

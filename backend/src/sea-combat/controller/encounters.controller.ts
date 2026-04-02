@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Get, NotFoundException, Param, Post } from '@nestjs/common';
 
 import { ApiTags } from '@nestjs/swagger';
 
@@ -23,13 +23,21 @@ export class EncountersController {
 
     @Post(':encounterId/advance-turn')
     postAdvanceTurn(@Param('encounterId') encounterId: string) {
-        return this.encounterService.advanceTurn(encounterId).then(() => ({
-            ok: true,
-        }));
+        return this.encounterService.requestAdvanceTurn(encounterId).then((request) => request.toJSON());
     }
 
     @Get('list')
     getList() {
         return this.encounterService.findAllEncounters().then((result) => result.map((document) => document.toJSON()));
+    }
+
+    @Get(':encounterId/view')
+    async getView(@Param('encounterId') encounterId: string) {
+        const encounter = await this.encounterService.findEncounterViewById(encounterId);
+        if (!encounter) {
+            throw new NotFoundException(`Encounter with id ${encounterId} not found`);
+        }
+
+        return encounter;
     }
 }
