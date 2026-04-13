@@ -9,6 +9,9 @@ import { ShipRepository } from '../repositories/ship.repository';
 import { PlayerService } from '../../player/services/player.service';
 import { EncounterService } from '../services/encounter.service';
 import { PostJoinEncounterBodyDto } from '../dto/player/post-join-encounter-body.dto';
+import { EncounterRepository } from '../repositories/encounter.repository';
+import { PendingIntentRepository } from '../repositories/pending-intent.repository';
+import { EncounterActorType } from '../types/pending-intent.type';
 
 // @ApiBearerAuth()
 // @Roles(RoleEnum.admin)
@@ -24,6 +27,8 @@ export class PlayersController {
         public readonly shipRepository: ShipRepository,
         public readonly playerService: PlayerService,
         public readonly encounterService: EncounterService,
+        private readonly encounterRepository: EncounterRepository,
+        private readonly pendingIntentRepository: PendingIntentRepository,
     ) {}
 
     @Post(':playerId/own-a-ship')
@@ -80,8 +85,23 @@ export class PlayersController {
         if (!player) {
             throw new NotFoundException(`Player with id ${playerId} not found`);
         }
-        await this.playerRepository.deleteById(playerId);
-        return { ok: true };
+
+        const encounterCleanup = await this.encounterRepository.removePlayerReferencesFromAll(playerId);
+        const pendingIntentCleanup = await this.pendingIntentRepository.cancelActorIntents(
+            playerId,
+            EncounterActorType.PLAYER,
+            `Actor ${playerId} was deleted`,
+        );
+        const deletedPlayer = await this.playerRepository.deleteById(playerId);
+        if (!deletedPlayer) {
+            throw new NotFoundException(`Player with id ${playerId} not found`);
+        }
+
+        return {
+            playerId,
+            removedEncounterPlayerEntries: encounterCleanup.removedPlayerEntries,
+            cancelledPendingIntents: pendingIntentCleanup.modifiedCount ?? 0,
+        };
     }
 
     @Post()

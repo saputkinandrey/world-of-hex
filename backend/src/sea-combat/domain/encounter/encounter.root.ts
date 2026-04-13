@@ -1,4 +1,4 @@
-import { AggregateRoot, AggregateRootName } from '@event-nest/core';
+import { AggregateRoot, AggregateRootName, ApplyEvent } from '@event-nest/core';
 import { WindroseEntity } from './entities/windrose.entity';
 import { bindChildActions } from '../../../utils/child-action.decorator';
 import { Action } from '../../../utils/event-action.decorator';
@@ -11,8 +11,19 @@ import {
 } from './events/encounter.events';
 import { ShipEntity } from '../../__entities/ship.entity';
 import { ShipToEncounterEntity } from './entities/ship-to-encounter.entity';
-import { ShipRemovedEvent, ShipSpawnedEvent } from './events/ship.events';
-import { getActionEvent } from '../../../utils/action-event';
+import {
+    ShipAcceleratedEvent,
+    ShipDeceleratedEvent,
+    ShipMovedEvent,
+    ShipPlacementUpdatedEvent,
+    ShipRemovedEvent,
+    ShipSpawnedEvent,
+    ShipTurnEndedEvent,
+    ShipTurnStartedEvent,
+    ShipTurnedLeftEvent,
+    ShipTurnedRightEvent,
+} from './events/ship.events';
+import { getActionEvent, isReplayingAction } from '../../../utils/action-event';
 import { AllDirections, Direction, DirectionTurnLeft, DirectionTurnRight } from '../../types/direction.type';
 import { PendingIntentStatus, PendingShipIntentType } from '../../types/pending-intent.type';
 import { ShipEncounterIntent } from '../../types/ship-encounter-intent.type';
@@ -28,6 +39,12 @@ import {
     PendingEncounterShipSpawnIntent,
 } from './types/encounter-pending-intent.type';
 import { EncounterRuleViolationError } from './errors/encounter-rule-violation.error';
+import {
+    ModifierAddedEvent,
+    ModifierBucketClearedEvent,
+    ModifierBucketTurnStartedEvent,
+} from './events/modifier-bucket.events';
+import { ShipSkillsEntity } from '../../__entities/ship-skills.entity';
 
 type SpawnTacticsOutcome = 'critSuccess' | 'success' | 'failure' | 'critFailure';
 type ShipSpawnPlacementOptions = {
@@ -57,6 +74,9 @@ type ShipTurnPath = {
     currentStep: number;
     hasCollided: boolean;
 };
+type SerializedShipEntity = ShipEntity & {
+    skills: ShipSkillsEntity;
+};
 
 @AggregateRootName(EncounterAggregate.name)
 export class EncounterAggregate extends AggregateRoot {
@@ -77,6 +97,10 @@ export class EncounterAggregate extends AggregateRoot {
 
     @Action(EncounterTurnStartedEvent)
     startTurn() {
+        if (isReplayingAction(this)) {
+            return this;
+        }
+
         const action = getActionEvent(this, EncounterTurnStartedEvent);
         action.setNamedArgs({});
         this.ships.forEach((ship) => ship.startTurn());
@@ -85,6 +109,10 @@ export class EncounterAggregate extends AggregateRoot {
 
     @Action(EncounterTurnEndedEvent)
     endTurn() {
+        if (isReplayingAction(this)) {
+            return this;
+        }
+
         const action = getActionEvent(this, EncounterTurnEndedEvent);
         action.setNamedArgs({});
         this.ships.forEach((ship) => ship.endTurn());
@@ -93,17 +121,24 @@ export class EncounterAggregate extends AggregateRoot {
 
     @Action(EncounterTurnAdvancedEvent)
     advanceTurn() {
+        const advancingFromTurnNumber = this.turnNumber;
+        this.assertCanAdvanceTurn(advancingFromTurnNumber);
+
         const action = getActionEvent(this, EncounterTurnAdvancedEvent);
         const resolved = action.setNamedArgs({
-            turnNumber: this.turnNumber + 1,
+            turnNumber: advancingFromTurnNumber + 1,
         });
-        this.assertCanAdvanceTurn();
+        if (isReplayingAction(this, EncounterTurnAdvancedEvent) && !this.isValidTurnNumber(resolved.turnNumber)) {
+            return this;
+        }
+
+        this.setTurnNumber(resolved.turnNumber);
         this.startTurn();
         this.resolveShipMovements();
-        this.processPendingIntents();
+        this.processPendingIntents(advancingFromTurnNumber);
         this.endTurn();
         this.pendingIntents = [];
-        return this.setTurnNumber(resolved.turnNumber);
+        return this;
     }
 
     setPendingIntents(intents: EncounterPendingIntent[]) {
@@ -121,6 +156,10 @@ export class EncounterAggregate extends AggregateRoot {
         const resolutions = this.pendingIntentResolutions.slice();
         this.pendingIntentResolutions = [];
         return resolutions;
+    }
+
+    private isValidTurnNumber(turnNumber: unknown): turnNumber is number {
+        return typeof turnNumber === 'number' && Number.isInteger(turnNumber) && turnNumber >= 0;
     }
 
     setTurnNumber(turnNumber: number) {
@@ -184,12 +223,13 @@ export class EncounterAggregate extends AggregateRoot {
             ship: inputShip,
             intent: inputIntent,
         });
+        const normalizedShip = this.hydrateShipEntity(ship);
         const { seamanshipRoll, tacticsRoll } = action.setNamedArgs({
             seamanshipRoll: inputRandomness.seamanshipRoll,
             tacticsRoll: inputRandomness.tacticsRoll,
         });
         const { speed } = action.setNamedArgs({
-            speed: ship.resolveStartSpeed(seamanshipRoll),
+            speed: normalizedShip.resolveStartSpeed(seamanshipRoll),
         });
         const spawn = this.spawnShipAtEncounter({
             intent,
@@ -202,8 +242,8 @@ export class EncounterAggregate extends AggregateRoot {
         });
 
         const shipEntity = Object.assign(new ShipToEncounterEntity(), {
-            ship,
-            shipId: ship.id,
+            ship: normalizedShip,
+            shipId: normalizedShip.id,
             position,
             intent,
         });
@@ -227,6 +267,91 @@ export class EncounterAggregate extends AggregateRoot {
         return this;
     }
 
+    @ApplyEvent(ShipTurnStartedEvent)
+    applyShipTurnStarted(event: ShipTurnStartedEvent) {
+        this.requireShip(event.shipId).startTurn(event);
+        return this;
+    }
+
+    @ApplyEvent(ShipTurnEndedEvent)
+    applyShipTurnEnded(event: ShipTurnEndedEvent) {
+        this.requireShip(event.shipId).endTurn(event);
+        return this;
+    }
+
+    @ApplyEvent(ShipMovedEvent)
+    applyShipMoved(event: ShipMovedEvent) {
+        this.requireShip(event.shipId).moveTo(event);
+        return this;
+    }
+
+    @ApplyEvent(ShipPlacementUpdatedEvent)
+    applyShipPlacementUpdated(event: ShipPlacementUpdatedEvent) {
+        this.requireShip(event.shipId).updatePlacement(event);
+        return this;
+    }
+
+    @ApplyEvent(ShipAcceleratedEvent)
+    applyShipAccelerated(event: ShipAcceleratedEvent) {
+        this.requireShip(event.shipId).accelerate(event);
+        return this;
+    }
+
+    @ApplyEvent(ShipDeceleratedEvent)
+    applyShipDecelerated(event: ShipDeceleratedEvent) {
+        this.requireShip(event.shipId).decelerate(event);
+        return this;
+    }
+
+    @ApplyEvent(ShipTurnedRightEvent)
+    applyShipTurnedRight(event: ShipTurnedRightEvent) {
+        this.requireShip(event.shipId).turnRight(event);
+        return this;
+    }
+
+    @ApplyEvent(ShipTurnedLeftEvent)
+    applyShipTurnedLeft(event: ShipTurnedLeftEvent) {
+        this.requireShip(event.shipId).turnLeft(event);
+        return this;
+    }
+
+    @ApplyEvent(ModifierAddedEvent)
+    applyModifierAdded(event: ModifierAddedEvent) {
+        this.requireShip(event.shipId).modifierBucket.addModifier(event);
+        return this;
+    }
+
+    @ApplyEvent(ModifierBucketTurnStartedEvent)
+    applyModifierBucketTurnStarted(event: ModifierBucketTurnStartedEvent) {
+        this.requireShip(event.shipId).modifierBucket.startTurn(event);
+        return this;
+    }
+
+    @ApplyEvent(ModifierBucketClearedEvent)
+    applyModifierBucketCleared(event: ModifierBucketClearedEvent) {
+        this.requireShip(event.shipId).modifierBucket.clear(event);
+        return this;
+    }
+
+    private requireShip(shipId: string): ShipToEncounterEntity {
+        const ship = this.ships.find((entry) => entry.shipId === shipId);
+        if (!ship) {
+            throw new Error(`Ship ${shipId} is not present in encounter ${this.id}`);
+        }
+        return ship;
+    }
+
+    private hydrateShipEntity(ship: ShipEntity): ShipEntity {
+        if (ship instanceof ShipEntity) {
+            return ship;
+        }
+
+        const serializedShip = ship as SerializedShipEntity;
+        return Object.assign(new ShipEntity(), ship, {
+            skills: Object.assign(new ShipSkillsEntity(), serializedShip.skills),
+        });
+    }
+
     private resolveTacticsOutcome(tacticsRoll: ReturnType<typeof roll3d6UnderWithCrit>): SpawnTacticsOutcome {
         if (tacticsRoll.isCritSuccess) {
             return 'critSuccess';
@@ -237,7 +362,11 @@ export class EncounterAggregate extends AggregateRoot {
         return tacticsRoll.mos >= 0 ? 'success' : 'failure';
     }
 
-    private processPendingIntents() {
+    private processPendingIntents(advancingFromTurnNumber: number) {
+        if (isReplayingAction(this, EncounterTurnAdvancedEvent)) {
+            return;
+        }
+
         this.pendingIntentResolutions = [];
         const orderedSpawnIntents = this.buildPendingSpawnIntentOrder();
         const orderedSpawnIntentIds = new Set(orderedSpawnIntents.map((entry) => entry.intent.intentId));
@@ -251,7 +380,7 @@ export class EncounterAggregate extends AggregateRoot {
                 };
             }
 
-            const resolution = this.resolvePendingIntent(entry.intent);
+            const resolution = this.resolvePendingIntent(entry.intent, advancingFromTurnNumber);
             if (resolution.status === PendingIntentStatus.CONSUMED) {
                 spawnedActorIds.add(entry.intent.actorId);
             }
@@ -263,7 +392,7 @@ export class EncounterAggregate extends AggregateRoot {
             .sort(
                 (left, right) => left.shipId.localeCompare(right.shipId) || left.intentId.localeCompare(right.intentId),
             )
-            .map((intent) => this.resolvePendingIntent(intent));
+            .map((intent) => this.resolvePendingIntent(intent, advancingFromTurnNumber));
 
         this.pendingIntentResolutions = [...spawnResolutions, ...nonSpawnResolutions];
     }
@@ -312,12 +441,16 @@ export class EncounterAggregate extends AggregateRoot {
         return 2;
     }
 
-    private isDeploymentTurn() {
-        return this.turnNumber === 0;
+    private isDeploymentTurn(turnNumber: number = this.turnNumber) {
+        return turnNumber === 0;
     }
 
-    private assertCanAdvanceTurn() {
-        if (!this.isDeploymentTurn()) {
+    private assertCanAdvanceTurn(advancingFromTurnNumber: number) {
+        if (isReplayingAction(this, EncounterTurnAdvancedEvent)) {
+            return;
+        }
+
+        if (!this.isDeploymentTurn(advancingFromTurnNumber)) {
             return;
         }
 
@@ -333,9 +466,12 @@ export class EncounterAggregate extends AggregateRoot {
         );
     }
 
-    private resolvePendingIntent(intent: EncounterPendingIntent): EncounterPendingIntentResolution {
+    private resolvePendingIntent(
+        intent: EncounterPendingIntent,
+        advancingFromTurnNumber: number,
+    ): EncounterPendingIntentResolution {
         if (intent.intentType === PendingShipIntentType.SPAWN) {
-            if (!this.isDeploymentTurn()) {
+            if (!this.isDeploymentTurn(advancingFromTurnNumber)) {
                 return {
                     intentId: intent.intentId,
                     status: PendingIntentStatus.REJECTED,
@@ -644,6 +780,10 @@ export class EncounterAggregate extends AggregateRoot {
     }
 
     private resolveShipMovements() {
+        if (isReplayingAction(this, EncounterTurnAdvancedEvent)) {
+            return;
+        }
+
         if (this.ships.length === 0) {
             return;
         }

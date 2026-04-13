@@ -8,6 +8,11 @@
     "scripts": {
         "build:docker": "npm run build && npm run docker",
         "docker": "docker compose --env-file .env -f docker-compose.document.yaml up -d --build",
+        "docker:up": "powershell -ExecutionPolicy Bypass -File ./scripts/docker-up.ps1",
+        "docker:logs": "powershell -ExecutionPolicy Bypass -File ./scripts/docker-logs.ps1",
+        "docker:logs:api": "powershell -ExecutionPolicy Bypass -File ./scripts/docker-logs.ps1 -Service api -Tail 200",
+        "docker:logs:mongo": "powershell -ExecutionPolicy Bypass -File ./scripts/docker-logs.ps1 -Service mongo -Tail 200",
+        "mongo:query": "powershell -ExecutionPolicy Bypass -File ./scripts/mongo-query.ps1",
         "seed:create:document": "hygen seeds create-document",
         "generate:resource:document": "hygen generate document-resource",
         "postgenerate:resource:document": "npm run lint -- --fix",

@@ -1,4 +1,4 @@
-import { Body, Controller, Get, NotFoundException, Param, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, NotFoundException, Param, Post } from '@nestjs/common';
 
 import { ApiTags } from '@nestjs/swagger';
 
@@ -24,6 +24,16 @@ export class EncountersController {
     @Post(':encounterId/advance-turn')
     postAdvanceTurn(@Param('encounterId') encounterId: string) {
         return this.encounterService.requestAdvanceTurn(encounterId).then((request) => request.toJSON());
+    }
+
+    @Delete(':encounterId/pending-intents/:intentId')
+    deletePendingIntent(@Param('encounterId') encounterId: string, @Param('intentId') intentId: string) {
+        return this.encounterService.cancelPendingIntent(encounterId, intentId).then((intent) => intent.toJSON());
+    }
+
+    @Delete(':encounterId')
+    deleteEncounter(@Param('encounterId') encounterId: string) {
+        return this.encounterService.deleteEncounter(encounterId);
     }
 
     @Get('list')

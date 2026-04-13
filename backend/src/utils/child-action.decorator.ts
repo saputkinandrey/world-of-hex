@@ -5,6 +5,7 @@ import {
     ActionEventGuardError,
     clearCurrentActionEvent,
     consumeActionEvent,
+    setActionEvent,
     setCurrentActionEvent,
 } from './action-event';
 
@@ -145,20 +146,28 @@ export const ChildAction = <TEvent>(...decoratorArgs: ActionDecoratorArgs<TEvent
                 return result;
             }
 
-            const result = original.call(this, ...args);
-            const pendingEvent = consumeActionEvent(this);
-            const event =
-                pendingEvent ?? (result instanceof eventClass ? result : createEventInstance(eventClass, args));
+            const suspendedPendingEvent = consumeActionEvent(this);
 
-            const ownerStreams = collectStreams(owner);
-            const childStreams = collectStreams(this);
-            mergeEventStreams(event, [...ownerStreams, ...childStreams]);
+            try {
+                const result = original.call(this, ...args);
+                const pendingEvent = consumeActionEvent(this);
+                const event =
+                    pendingEvent ?? (result instanceof eventClass ? result : createEventInstance(eventClass, args));
 
-            if (owner && typeof (owner as { append?: (e: object) => void }).append === 'function') {
-                (owner as { append: (e: object) => void }).append(event as object);
+                const ownerStreams = collectStreams(owner);
+                const childStreams = collectStreams(this);
+                mergeEventStreams(event, [...ownerStreams, ...childStreams]);
+
+                if (owner && typeof (owner as { append?: (e: object) => void }).append === 'function') {
+                    (owner as { append: (e: object) => void }).append(event as object);
+                }
+
+                return result instanceof eventClass || pendingEvent ? this : result;
+            } finally {
+                if (suspendedPendingEvent) {
+                    setActionEvent(this as object, suspendedPendingEvent);
+                }
             }
-
-            return result instanceof eventClass || pendingEvent ? this : result;
         };
 
         descriptor.value = wrapped as unknown as typeof descriptor.value;

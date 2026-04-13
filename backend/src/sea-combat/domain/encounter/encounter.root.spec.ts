@@ -3,6 +3,11 @@ import { bindChildActions } from '../../../utils/child-action.decorator';
 import { ShipEntity } from '../../__entities/ship.entity';
 import { ShipSkillsEntity } from '../../__entities/ship-skills.entity';
 import { ShipToEncounterEntity } from './entities/ship-to-encounter.entity';
+import {
+    EncounterTurnAdvancedEvent,
+    EncounterTurnEndedEvent,
+    EncounterTurnStartedEvent,
+} from './events/encounter.events';
 import { Direction } from '../../types/direction.type';
 import { EncounterActorType, PendingIntentStatus, PendingShipIntentType } from '../../types/pending-intent.type';
 import { ShipEncounterIntent } from '../../types/ship-encounter-intent.type';
@@ -208,6 +213,53 @@ describe('EncounterAggregate spawn distance', () => {
         expect(encounter.turnNumber).toBe(5);
     });
 
+    it('keeps nested aggregate actions from consuming the pending turn advance event', () => {
+        const encounter = new EncounterAggregate('encounter-test');
+        encounter.setTurnNumber(1);
+
+        encounter.advanceTurn();
+
+        const payloads = encounter.uncommittedEvents.map((event) => event.payload);
+        const turnAdvancedEvents = payloads.filter(
+            (payload): payload is EncounterTurnAdvancedEvent => payload instanceof EncounterTurnAdvancedEvent,
+        );
+
+        expect(turnAdvancedEvents).toHaveLength(1);
+        expect(turnAdvancedEvents[0].turnNumber).toBe(2);
+        expect(payloads.some((payload) => payload instanceof EncounterTurnStartedEvent)).toBe(true);
+        expect(payloads.some((payload) => payload instanceof EncounterTurnEndedEvent)).toBe(true);
+    });
+
+    it('replays EncounterTurnAdvancedEvent without rerunning movement logic', () => {
+        const encounter = new EncounterAggregate('encounter-test');
+        const ship = makeEncounterShip({
+            shipId: 'ship-1',
+            position: { q: 0, r: 0 },
+            direction: Direction.SE,
+            speed: 2,
+        });
+
+        encounter.setCenter({ q: 0, r: 0 });
+        encounter.setRadius(16);
+        encounter.setTurnNumber(1);
+        bindChildActions(encounter, ship, 'ship_ship-1');
+        encounter.ships.push(ship);
+
+        (encounter as any).advanceTurn(new EncounterTurnAdvancedEvent(2));
+
+        expect(encounter.turnNumber).toBe(2);
+        expect(ship.position).toEqual({ q: 0, r: 0 });
+    });
+
+    it('ignores malformed replayed EncounterTurnAdvancedEvent payloads', () => {
+        const encounter = new EncounterAggregate('encounter-test');
+        encounter.setTurnNumber(2);
+
+        (encounter as any).advanceTurn(new EncounterTurnAdvancedEvent(null as never));
+
+        expect(encounter.turnNumber).toBe(2);
+    });
+
     it('starts encounters on deployment turn 0', () => {
         const encounter = new EncounterAggregate('encounter-test');
 
@@ -323,5 +375,60 @@ describe('EncounterAggregate spawn distance', () => {
 
         expect(() => encounter.advanceTurn()).toThrow('cannot start turn 1');
         expect(encounter.turnNumber).toBe(0);
+    });
+
+    it('still materializes deployment spawns when turn number is advanced at the start of advanceTurn', () => {
+        const encounter = new EncounterAggregate('encounter-test');
+        const firstShip = Object.assign(new ShipEntity(), {
+            id: 'ship-1',
+            name: 'ship-1',
+            speed: 6,
+            type: 'drakkar',
+            skills: new ShipSkillsEntity().setSeamanship(12).setTactics(10),
+        });
+        const secondShip = Object.assign(new ShipEntity(), {
+            id: 'ship-2',
+            name: 'ship-2',
+            speed: 6,
+            type: 'drakkar',
+            skills: new ShipSkillsEntity().setSeamanship(12).setTactics(10),
+        });
+
+        encounter.setCenter({ q: 0, r: 0 });
+        encounter.setRadius(16);
+        encounter.windrose.setDirection(Direction.S);
+        encounter.setPendingIntents([
+            {
+                intentId: 'intent-1',
+                actorId: 'actor-1',
+                actorType: EncounterActorType.ADMIN,
+                shipId: 'ship-1',
+                intentType: PendingShipIntentType.SPAWN,
+                encounterIntent: ShipEncounterIntent.FLEE,
+                ship: firstShip,
+                randomness: {
+                    taskSeed: 'seed-1',
+                    taskSignatureHash: 'signature-1',
+                },
+            },
+            {
+                intentId: 'intent-2',
+                actorId: 'actor-2',
+                actorType: EncounterActorType.ADMIN,
+                shipId: 'ship-2',
+                intentType: PendingShipIntentType.SPAWN,
+                encounterIntent: ShipEncounterIntent.PURSUE,
+                ship: secondShip,
+                randomness: {
+                    taskSeed: 'seed-2',
+                    taskSignatureHash: 'signature-2',
+                },
+            },
+        ]);
+
+        encounter.advanceTurn();
+
+        expect(encounter.turnNumber).toBe(1);
+        expect(encounter.ships).toHaveLength(2);
     });
 });

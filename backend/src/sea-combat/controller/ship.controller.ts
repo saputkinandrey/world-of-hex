@@ -37,8 +37,9 @@ export class ShipController {
             throw new NotFoundException(`Encounter with id ${body.encounterId} not found`);
         }
 
-        await this.encounterService.shipJoinsEncounter(ship, encounter, body.intent);
-        return { ok: true };
+        return this.encounterService
+            .shipJoinsEncounter(ship, encounter, body.intent)
+            .then((queuedIntent) => queuedIntent.toJSON());
     }
 
     @Post('leave-encounter')

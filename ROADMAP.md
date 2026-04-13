@@ -11,11 +11,12 @@ The project is still in prototype stage.
 
 Current focus:
 
-- make encounter timeline movement actually work end-to-end
+- make ship spawn and per-turn forward movement actually work end-to-end
 - stabilize the sea-combat core loop
 - keep the command side event-sourced
 - keep player actions as pending intents
 - improve admin tooling for encounter orchestration
+- make the client update from websocket state on every processed turn
 - avoid architecture that blocks later P2P migration
 
 At the current stage, encounters only support sea-combat rules.
@@ -30,10 +31,11 @@ The immediate project goal is to make encounter movement work correctly on a tur
 
 This means:
 
-- turns can be requested and processed coherently
+- ships spawn into encounters correctly
+- ships move forward correctly on each processed turn
 - player intents affect the next valid turn instead of mutating the world immediately
 - admin actions can still directly correct the world state
-- movement, facing, speed, spawn, and turn progression behave as a usable end-to-end loop
+- the client receives updated encounter state through websocket delivery on every processed turn
 
 Until that loop is stable, the project should treat broader gameplay expansion as deferred.
 
@@ -57,9 +59,10 @@ This secondary goal must not override the primary prototype-delivery goal, but i
 Before moving to broader API and client work, the project should have:
 
 - coherent turn request and turn processing flow
-- stable pending intent handling
-- deterministic movement resolution
+- stable pending intent handling for spawn and movement
+- deterministic movement resolution from turn to turn
 - usable deployment-turn spawn flow
+- websocket-driven client state refresh on every processed turn
 - enough admin tooling to inspect and correct encounter state
 
 ### Gate 2: Websocket API Prototype
@@ -129,7 +132,9 @@ The current phase should be considered complete only when:
 - an encounter can be prepared
 - at least two ships can queue spawn into turn 0
 - turn 1 can start successfully
+- ships spawn into battle correctly from deployment turn 0
 - movement over turns works from queued player intents plus admin corrections
+- the client receives a websocket state update on each processed turn
 - the admin UI can observe and steer the flow
 - the web client can exercise the intended websocket interaction path
 
@@ -208,6 +213,8 @@ The current phase should be considered complete only when:
 - avoid any single-node authoritative freeze of turn input
 - keep projections disposable and rebuildable from durable logs
 - keep runtime behavior deterministic enough that several workers can independently compute the same turn result
+- replace ad-hoc per-method replay guards with a replay context that can feed already-committed events back into the same domain algorithm instead of creating new ones
+- make replay consume matching historical events in order and fail explicitly when the runtime algorithm no longer matches the stored event history
 - move seed selection away from request/task signatures and anchor it in already committed entropy/world state
 - keep used entropy auditable for replay while preventing client-side control over future random outcomes
 - replace application-level full-stream scans for queries like "last event of type for aggregate" with storage-native reads suited to the future P2P event-log model
@@ -220,6 +227,7 @@ The current phase should be considered complete only when:
 - move more runtime metadata to append-only records where that helps deterministic replay and distributed validation
 - move pending intents out of the separate Mongo collection and into the encounter event stream once the storage layer can support that cleanly
 - treat the current separate pending-intent collection as a temporary storage compromise rather than the target architecture
+- give domain entities explicit static hydration factories so each entity owns reconstruction of its own runtime instance instead of scattering `Object.assign(...)` rehydration in aggregates and services
 
 ### Request Transport Evolution
 

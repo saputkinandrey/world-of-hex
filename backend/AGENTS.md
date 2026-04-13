@@ -36,6 +36,9 @@
 ## Data & API Discipline
 - No silent fallback: for billing-critical data flows, do not return silent fallback values such as `0` or `null` when explicit failure is required.
 - Preserve auditability by default: when changing domain data, prefer creating new records or deactivating old state over overwriting historical records unless the task explicitly requires destructive replacement.
+- Treat embedded encounter documents, pending intent collections, and other denormalized records as application-managed consistency boundaries; do not assume the database will clean them up.
+- For delete or disconnect flows, explicitly trace every known holder of the deleted identity, including read-model embeddings and queued pending records.
+- Prefer idempotent cleanup helpers for denormalized state so cleanup can be safely retried after partial failures.
 - Include and response blast-radius check is mandatory: before replacing, narrowing, or duplicating any query include/select, DTO, response class, or serializer used by an existing endpoint, first identify which nested fields current consumers rely on.
 - If a shared include/select chain is replaced with a local or specialized one, explicitly compare the old and new response shapes and preserve all previously consumed nested relations unless the task explicitly requires removing them.
 - For endpoint contract changes caused by include/select refactors, verify both backend serialization and known frontend consumers so that previously used nested fields remain available.

@@ -19,6 +19,7 @@ import { TurnAdvanceRequest, TurnAdvanceRequestSchema } from './schemas/turn-adv
 import { TurnAdvanceRequestRepository } from './repositories/turn-advance-request.repository';
 import { EncounterEventReadRepository } from './repositories/encounter-event-read.repository';
 import { EncounterTurnAdvanceListener } from './services/encounter-turn-advance.listener';
+import { EncounterCleanupRepository } from './repositories/encounter-cleanup.repository';
 
 @Module({
     imports: [
@@ -34,6 +35,7 @@ import { EncounterTurnAdvanceListener } from './services/encounter-turn-advance.
     providers: [
         EncounterService,
         EncounterRepository,
+        EncounterCleanupRepository,
         EncounterEventReadRepository,
         PendingIntentRepository,
         TurnEntropyRepository,

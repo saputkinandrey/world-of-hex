@@ -3,6 +3,10 @@ import { InjectModel } from '@nestjs/mongoose';
 import { FilterQuery, Model, ProjectionType, QueryOptions } from 'mongoose';
 import { Encounter, EncounterDocument } from '../schemas/encounter.schema';
 
+type RemovePlayerReferencesFromAllResult = {
+    removedPlayerEntries: number;
+};
+
 @Injectable()
 export class EncounterRepository {
     // private readonly aggregate: 'encounters';
@@ -21,6 +25,28 @@ export class EncounterRepository {
 
     find(filter: FilterQuery<Encounter>, projection?: ProjectionType<Encounter>, options?: QueryOptions<Encounter>) {
         return this.encounterModel.find(filter, projection, options) as Promise<EncounterDocument[]>;
+    }
+
+    async removePlayerReferencesFromAll(playerId: string): Promise<RemovePlayerReferencesFromAllResult> {
+        const encounters = await this.encounterModel.find({ 'players._id': playerId });
+        let removedPlayerEntries = 0;
+
+        for (const encounter of encounters) {
+            const originalPlayerCount = encounter.players.length;
+            encounter.players = encounter.players.filter((player) => player._id?.toString() !== playerId);
+
+            if (encounter.players.length === originalPlayerCount) {
+                continue;
+            }
+
+            removedPlayerEntries += originalPlayerCount - encounter.players.length;
+            encounter.markModified('players');
+            await encounter.save();
+        }
+
+        return {
+            removedPlayerEntries,
+        };
     }
 
     async removeShipReferencesFromAll(shipId: string) {

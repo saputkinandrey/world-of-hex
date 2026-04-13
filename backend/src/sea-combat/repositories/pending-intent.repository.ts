@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { PendingIntent, PendingIntentDocument } from '../schemas/pending-intent.schema';
-import { PendingIntentStatus, PendingShipIntentType } from '../types/pending-intent.type';
+import { EncounterActorType, PendingIntentStatus, PendingShipIntentType } from '../types/pending-intent.type';
 
 @Injectable()
 export class PendingIntentRepository {
@@ -13,6 +13,20 @@ export class PendingIntentRepository {
 
     create(intent: Partial<PendingIntent>) {
         return this.pendingIntentModel.create(intent);
+    }
+
+    findOneById(intentId: string) {
+        return this.pendingIntentModel.findById(intentId).exec() as Promise<PendingIntentDocument | null>;
+    }
+
+    findActiveByEncounter(encounterId: string) {
+        return this.pendingIntentModel
+            .find({
+                encounterId,
+                status: PendingIntentStatus.PENDING,
+            })
+            .sort({ turnNumber: 1, shipId: 1, createdAt: 1, _id: 1 })
+            .exec() as Promise<PendingIntentDocument[]>;
     }
 
     findActiveByEncounterTurn(encounterId: string, turnNumber: number) {
@@ -108,6 +122,22 @@ export class PendingIntentRepository {
                 encounterId,
                 turnNumber,
                 shipId,
+                status: PendingIntentStatus.PENDING,
+            },
+            {
+                $set: {
+                    status: PendingIntentStatus.CANCELLED,
+                    resolutionReason,
+                },
+            },
+        );
+    }
+
+    async cancelActorIntents(actorId: string, actorType: EncounterActorType, resolutionReason: string) {
+        return this.pendingIntentModel.updateMany(
+            {
+                actorId,
+                actorType,
                 status: PendingIntentStatus.PENDING,
             },
             {

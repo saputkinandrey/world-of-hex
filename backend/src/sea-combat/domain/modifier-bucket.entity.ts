@@ -30,29 +30,37 @@ export class ModifierBucketEntity extends StreamAwareEntity {
 
     modifiers: ModifierEntity[] = [];
 
+    addModifier(modifier: ModifierEntity): this;
+    addModifier(event: ModifierAddedEvent): this;
     @ChildAction(ModifierAddedEvent)
-    addModifier(modifier: ModifierEntity) {
+    addModifier(modifierOrEvent: ModifierEntity | ModifierAddedEvent) {
+        const nextModifier = modifierOrEvent instanceof ModifierAddedEvent ? modifierOrEvent.modifier : modifierOrEvent;
         const action = getOwnActionEvent(this, ModifierAddedEvent);
-        const { modifier: nextModifier } = action.setNamedArgs({
-            modifier,
+        const { modifier: resolvedModifier } = action.setNamedArgs({
+            modifier: nextModifier,
         });
-        return this.applyAddModifier(nextModifier);
+        return this.applyAddModifier(resolvedModifier);
     }
 
+    startTurn(): this;
+    startTurn(event: ModifierBucketTurnStartedEvent): this;
     @ChildAction(ModifierBucketTurnStartedEvent)
-    startTurn() {
+    startTurn(_event?: ModifierBucketTurnStartedEvent) {
         const action = getOwnActionEvent(this, ModifierBucketTurnStartedEvent);
         action.setNamedArgs({});
         return this.applyStartTurn();
     }
 
+    clear(mode: ModifierBucketClearMode): this;
+    clear(event: ModifierBucketClearedEvent): this;
     @ChildAction(ModifierBucketClearedEvent)
-    clear(mode: ModifierBucketClearMode = ModifierBucketClearMode.All) {
+    clear(modeOrEvent: ModifierBucketClearMode | ModifierBucketClearedEvent = ModifierBucketClearMode.All) {
+        const nextMode = modeOrEvent instanceof ModifierBucketClearedEvent ? modeOrEvent.mode : modeOrEvent;
         const action = getOwnActionEvent(this, ModifierBucketClearedEvent);
-        const { mode: nextMode } = action.setNamedArgs({
-            mode,
+        const { mode: resolvedMode } = action.setNamedArgs({
+            mode: nextMode,
         });
-        return this.applyClear(nextMode);
+        return this.applyClear(resolvedMode);
     }
 
     total(target: string | null = null) {

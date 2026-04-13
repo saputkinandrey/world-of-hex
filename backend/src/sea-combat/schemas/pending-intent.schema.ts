@@ -18,7 +18,7 @@ export class PendingIntent extends EntityDocumentHelper {
     @Prop({ type: String, required: true, index: true })
     encounterId: string;
 
-    @Prop({ type: Number, required: true, min: 1, index: true })
+    @Prop({ type: Number, required: true, min: 0, index: true })
     turnNumber: number;
 
     @Prop({ type: String, required: true, index: true })

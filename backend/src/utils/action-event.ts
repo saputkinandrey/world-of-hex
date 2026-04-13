@@ -17,6 +17,22 @@ export const getCurrentActionEvent = (target: object): object | undefined => {
     return (target as { [CURRENT_ACTION_EVENT_SYMBOL]?: object })[CURRENT_ACTION_EVENT_SYMBOL];
 };
 
+export const isReplayingAction = <TEvent extends object, TArgs extends readonly unknown[]>(
+    target: object,
+    EventClass?: new (...args: TArgs) => TEvent,
+) => {
+    const currentEvent = getCurrentActionEvent(target);
+    if (!currentEvent) {
+        return false;
+    }
+
+    if (!EventClass) {
+        return true;
+    }
+
+    return currentEvent instanceof EventClass;
+};
+
 export const clearCurrentActionEvent = (target: object) => {
     const store = target as { [CURRENT_ACTION_EVENT_SYMBOL]?: object };
     if (store[CURRENT_ACTION_EVENT_SYMBOL]) {
@@ -40,23 +56,36 @@ export const getActionEvent = <TEvent extends object, TArgs extends readonly unk
     target: object,
     EventClass: new (...args: TArgs) => TEvent,
 ) => {
-    const currentEvent = getCurrentActionEvent(target) as TEvent | undefined;
+    const currentEvent = getCurrentActionEvent(target);
+    const replayEvent = currentEvent instanceof EventClass ? (currentEvent as TEvent) : undefined;
     let hasSet = false;
+    const throwReplayMismatch = () => {
+        if (!currentEvent) {
+            return;
+        }
+
+        const currentEventName =
+            (currentEvent as { constructor?: { name?: string } }).constructor?.name ?? 'UnknownEvent';
+        throw new Error(`Cannot resolve action event ${EventClass.name} while replaying ${currentEventName}.`);
+    };
     return {
         setArgs: (...args: TArgs) => {
-            if (!currentEvent) {
-                if (hasSet) {
-                    throw new Error(`Action event ${EventClass.name} args already set.`);
-                }
-                hasSet = true;
-                setActionEvent(target, new EventClass(...args));
+            if (replayEvent) {
+                return args;
             }
+            throwReplayMismatch();
+            if (hasSet) {
+                throw new Error(`Action event ${EventClass.name} args already set.`);
+            }
+            hasSet = true;
+            setActionEvent(target, new EventClass(...args));
             return args;
         },
         setNamedArgs: <TNamed extends object>(named: TNamed) => {
-            if (currentEvent) {
-                return currentEvent as unknown as TNamed;
+            if (replayEvent) {
+                return replayEvent as unknown as TNamed;
             }
+            throwReplayMismatch();
             const pending = getPendingActionEvent(target) as TEvent | undefined;
             if (pending) {
                 const pendingRecord = pending as Record<string, unknown>;
@@ -77,9 +106,10 @@ export const getActionEvent = <TEvent extends object, TArgs extends readonly unk
             return event as unknown as TNamed;
         },
         resolveNamedArgs: <TNamed extends object>(factory: () => TNamed) => {
-            if (currentEvent) {
-                return currentEvent as unknown as TNamed;
+            if (replayEvent) {
+                return replayEvent as unknown as TNamed;
             }
+            throwReplayMismatch();
             const named = factory();
             const pending = getPendingActionEvent(target) as TEvent | undefined;
             if (pending) {

@@ -88,6 +88,9 @@ type ServiceDependencies = {
     encounterEventReadRepository: {
         findLastEventOfType: jest.Mock;
     };
+    encounterCleanupRepository: {
+        deleteEncounterData: jest.Mock;
+    };
     playerRepository: {
         findOwnerByShipId: jest.Mock;
     };
@@ -168,6 +171,9 @@ const makeDependencies = (): ServiceDependencies => ({
     encounterEventReadRepository: {
         findLastEventOfType: jest.fn().mockResolvedValue(null),
     },
+    encounterCleanupRepository: {
+        deleteEncounterData: jest.fn().mockResolvedValue(undefined),
+    },
     playerRepository: {
         findOwnerByShipId: jest.fn().mockResolvedValue(null),
     },
@@ -194,6 +200,7 @@ const makeService = (dependencies: ServiceDependencies) =>
         dependencies.turnEntropyRepository as never,
         dependencies.turnAdvanceRequestRepository as never,
         dependencies.encounterEventReadRepository as never,
+        dependencies.encounterCleanupRepository as never,
         dependencies.playerRepository as never,
         dependencies.eventEmitter as unknown as EventEmitter2,
         dependencies.eventStore as never,
@@ -318,6 +325,35 @@ describe('EncounterService ship spawn intents', () => {
                 requestId: 'request-1',
             },
         );
+    });
+
+    it('falls back to the last valid turn-advance event when the latest one is malformed', async () => {
+        const dependencies = makeDependencies();
+        const service = makeService(dependencies);
+        const validEvent = StoredEvent.fromPublishedEvent(
+            'event-1',
+            'encounter-1',
+            EncounterAggregate.name,
+            new EncounterTurnAdvancedEvent(4),
+            new Date('2026-04-13T11:00:00.000Z'),
+        );
+        const malformedEvent = StoredEvent.fromPublishedEvent(
+            'event-2',
+            'encounter-1',
+            EncounterAggregate.name,
+            new EncounterTurnAdvancedEvent(null as never),
+            new Date('2026-04-13T11:01:00.000Z'),
+        );
+        dependencies.encounterEventReadRepository.findLastEventOfType.mockResolvedValue(malformedEvent);
+        dependencies.eventStore.findByAggregateRootId.mockResolvedValue([validEvent, malformedEvent]);
+
+        await service.requestAdvanceTurn('encounter-1');
+
+        expect(dependencies.turnAdvanceRequestRepository.create).toHaveBeenCalledWith({
+            encounterId: 'encounter-1',
+            turnNumber: 4,
+            status: TurnAdvanceRequestStatus.PENDING,
+        });
     });
 
     it('blocks the first turn until at least two ship spawn intents are pending during request processing', async () => {

@@ -9,6 +9,16 @@ Monorepo for the current game prototype.
 - `web-client` - Next.js player client
 - `packages/ui` - shared UI components
 
+## Local Tooling
+
+- Prefer stable repo-local wrapper commands for repeated local workflows instead of long ad-hoc shell commands.
+- In `backend`, use fixed commands such as:
+  - `npm run docker:up`
+  - `npm run docker:logs:api`
+  - `npm run docker:logs:mongo`
+  - `npm run mongo:query`
+- When a local Mongo query needs changing input, keep the query body in `backend/tmp/mongo-query.js` and the optional database name in `backend/tmp/mongo-query.database.txt` instead of passing changing CLI arguments.
+
 ## Current Architecture Decisions
 
 ### Backend

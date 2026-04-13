@@ -61,17 +61,34 @@ type EncounterPendingIntentPayload = {
 
 type EncounterPendingIntent = {
     _id?: string | null;
+    turnNumber?: number | null;
     actorId?: string | null;
     actorType?: string | null;
     shipId?: string | null;
     intentType?: string | null;
     payload?: EncounterPendingIntentPayload | null;
+    status?: string | null;
+    resolutionReason?: string | null;
+    createdAt?: string | null;
 };
 
 type Encounter = EncounterCardData & {
     center?: EncounterPoint | null;
     ships?: EncounterShip[];
     pendingIntents?: EncounterPendingIntent[];
+};
+
+type PendingIntentPreviewEntry = {
+    id: string;
+    turnNumber: number | null;
+    ownerName: string;
+    shipName: string;
+    intentTypeLabel: string;
+    encounterIntentLabel: string | null;
+    shipType: string | null;
+    shipSpeed: number | null;
+    shipTactics: number | null;
+    createdAtLabel: string | null;
 };
 
 type Player = {
@@ -94,6 +111,10 @@ type PreviewShipPopoverState = {
         top: number;
         left: number;
     };
+};
+
+type LoadAllOptions = {
+    previewEncounterId?: string | null;
 };
 
 const shipTypes = ["drakkar", "galleon", "steamship", "trireme"];
@@ -272,6 +293,24 @@ export default function HomePage() {
         }
     };
 
+    const formatPendingIntentType = (value?: string | null): string => {
+        const normalized = value?.trim().toLowerCase() || "";
+        switch (normalized) {
+            case "spawn":
+                return "spawn";
+            case "accelerate":
+                return "accelerate";
+            case "decelerate":
+                return "decelerate";
+            case "turn-left":
+                return "turn left";
+            case "turn-right":
+                return "turn right";
+            default:
+                return normalized || "unknown";
+        }
+    };
+
     const shipNameById = useMemo(() => {
         const map = new Map<string, Ship>();
         ships.forEach((ship) => map.set(ship._id, ship));
@@ -335,40 +374,46 @@ export default function HomePage() {
 
         return shipOwnerById.get(shipId) ?? null;
     }, [selectedPreviewShip, shipOwnerById]);
-    const pendingSpawnIntents = useMemo(() => {
+    const pendingIntentEntries = useMemo<PendingIntentPreviewEntry[]>(() => {
         if (!previewEncounter?.pendingIntents?.length) {
             return [];
         }
 
-        return previewEncounter.pendingIntents
-            .filter((intent) => intent.intentType === "spawn")
-            .map((intent, index) => {
-                const actorId = normalizeId(intent.actorId).trim();
-                const actorType = intent.actorType?.trim().toLowerCase() || "";
-                const ownerName =
-                    actorType === "player"
-                        ? playerById.get(actorId)?.name?.trim() || actorId
-                        : actorType === "admin"
-                          ? "Admin"
-                          : actorId || actorType || "Unknown";
-                const shipName =
-                    intent.payload?.ship?.name?.trim() ||
-                    normalizeId(intent.shipId).trim() ||
-                    `Pending ship ${index + 1}`;
+        return previewEncounter.pendingIntents.map((intent, index) => {
+            const actorId = normalizeId(intent.actorId).trim();
+            const actorType = intent.actorType?.trim().toLowerCase() || "";
+            const ownerName =
+                actorType === "player"
+                    ? playerById.get(actorId)?.name?.trim() || actorId
+                    : actorType === "admin"
+                      ? "Admin"
+                      : actorId || actorType || "Unknown";
+            const shipId = normalizeId(intent.shipId).trim();
+            const shipName =
+                intent.payload?.ship?.name?.trim() ||
+                shipNameById.get(shipId)?.name?.trim() ||
+                `Pending ship ${index + 1}`;
+            const createdAtLabel = intent.createdAt
+                ? new Date(intent.createdAt).toLocaleString()
+                : null;
 
-                return {
-                    id:
-                        normalizeId(intent._id).trim() ||
-                        `${normalizeId(intent.shipId).trim()}-${index}`,
-                    ownerName,
-                    shipName,
-                    shipType: intent.payload?.ship?.type?.trim() || "unknown",
-                    shipSpeed: intent.payload?.ship?.speed ?? null,
-                    shipTactics: intent.payload?.ship?.tactics ?? null,
-                    intentLabel: intent.payload?.intent?.trim() || "unknown",
-                };
-            });
-    }, [playerById, previewEncounter]);
+            return {
+                id: normalizeId(intent._id).trim() || `${shipId}-${index}`,
+                turnNumber:
+                    typeof intent.turnNumber === "number"
+                        ? intent.turnNumber
+                        : null,
+                ownerName,
+                shipName,
+                shipType: intent.payload?.ship?.type?.trim() || null,
+                shipSpeed: intent.payload?.ship?.speed ?? null,
+                shipTactics: intent.payload?.ship?.tactics ?? null,
+                intentTypeLabel: formatPendingIntentType(intent.intentType),
+                encounterIntentLabel: intent.payload?.intent?.trim() || null,
+                createdAtLabel,
+            };
+        });
+    }, [playerById, previewEncounter, shipNameById]);
 
     const availableShips = useMemo(() => {
         const ownedIds = new Set<string>();
@@ -551,10 +596,12 @@ export default function HomePage() {
         return true;
     };
 
-    const loadAll = async () => {
+    const loadAll = async (options?: LoadAllOptions) => {
         setLoading(true);
         try {
-            const currentPreviewId = normalizeId(previewEncounter?._id).trim();
+            const currentPreviewId = normalizeId(
+                options?.previewEncounterId ?? previewEncounter?._id,
+            ).trim();
             const [encountersData, playersData, shipsData, previewData] =
                 await Promise.all([
                     fetchJson<Encounter[]>("/sea-combat/encounters/list"),
@@ -804,6 +851,55 @@ export default function HomePage() {
             method: "DELETE",
         });
         await loadAll();
+    };
+
+    const cancelPendingIntent = async (intentId: string) => {
+        const encounterId = normalizeId(previewEncounter?._id).trim();
+        const normalizedIntentId = normalizeId(intentId).trim();
+        if (!encounterId || !normalizedIntentId) {
+            return;
+        }
+        if (!window.confirm("Cancel this pending intent?")) {
+            return;
+        }
+
+        await fetchJson(
+            `/sea-combat/encounters/${encounterId}/pending-intents/${normalizedIntentId}`,
+            {
+                method: "DELETE",
+            },
+        );
+        await loadAll();
+    };
+
+    const deleteEncounter = async (encounterId: string) => {
+        const normalizedEncounterId = normalizeId(encounterId).trim();
+        if (!normalizedEncounterId) {
+            return;
+        }
+
+        if (!window.confirm("Delete this encounter?")) {
+            return;
+        }
+
+        const isPreviewEncounter =
+            normalizeId(previewEncounter?._id).trim() === normalizedEncounterId;
+
+        if (isPreviewEncounter) {
+            previewEncounterRequestSeqRef.current += 1;
+            previewEncounterIdRef.current = null;
+            setPreviewEncounter(null);
+            setPreviewShipPopover(null);
+        }
+
+        await fetchJson(`/sea-combat/encounters/${normalizedEncounterId}`, {
+            method: "DELETE",
+        });
+        await loadAll({
+            previewEncounterId: isPreviewEncounter
+                ? null
+                : normalizeId(previewEncounter?._id).trim(),
+        });
     };
 
     const removePreviewShipFromEncounter = async () => {
@@ -1069,6 +1165,11 @@ export default function HomePage() {
                                                 <EncounterCard
                                                     key={enc._id}
                                                     encounter={enc}
+                                                    onDelete={() =>
+                                                        void deleteEncounter(
+                                                            enc._id,
+                                                        )
+                                                    }
                                                     onRemovePlayer={(
                                                         playerId,
                                                     ) =>
@@ -1493,6 +1594,19 @@ export default function HomePage() {
                         {isAdvancingTurn ? "Advancing..." : "Next Turn"}
                     </Button>
                     <Button
+                        color="error"
+                        disabled={!previewEncounter || isAdvancingTurn}
+                        onClick={() => {
+                            if (!previewEncounter) {
+                                return;
+                            }
+
+                            void deleteEncounter(previewEncounter._id);
+                        }}
+                    >
+                        Delete
+                    </Button>
+                    <Button
                         onClick={() => {
                             previewEncounterRequestSeqRef.current += 1;
                             setPreviewEncounter(null);
@@ -1505,7 +1619,7 @@ export default function HomePage() {
                 <DialogContent sx={{ overflow: "hidden" }}>
                     {previewEncounter ? (
                         <Box sx={{ display: "grid", gap: 2 }}>
-                            {pendingSpawnIntents.length > 0 ? (
+                            {pendingIntentEntries.length > 0 ? (
                                 <Box
                                     sx={{
                                         borderRadius: 2,
@@ -1518,18 +1632,18 @@ export default function HomePage() {
                                     }}
                                 >
                                     <Typography variant="subtitle2">
-                                        Pending Spawns
+                                        Pending Intents
                                     </Typography>
                                     <Typography
                                         variant="caption"
                                         color="text.secondary"
                                     >
-                                        These ships are queued for the first
-                                        turn and are not yet part of the world
-                                        state.
+                                        Spawn deployment and queued ship actions
+                                        that are not yet committed into the
+                                        encounter state.
                                     </Typography>
                                     <Stack spacing={1}>
-                                        {pendingSpawnIntents.map((intent) => (
+                                        {pendingIntentEntries.map((intent) => (
                                             <Box
                                                 key={intent.id}
                                                 sx={{
@@ -1542,9 +1656,27 @@ export default function HomePage() {
                                                     gap: 0.75,
                                                 }}
                                             >
-                                                <Typography variant="body2">
-                                                    {intent.shipName}
-                                                </Typography>
+                                                <Stack
+                                                    direction="row"
+                                                    justifyContent="space-between"
+                                                    alignItems="center"
+                                                    spacing={1}
+                                                >
+                                                    <Typography variant="body2">
+                                                        {intent.shipName}
+                                                    </Typography>
+                                                    <Button
+                                                        size="small"
+                                                        color="error"
+                                                        onClick={() => {
+                                                            void cancelPendingIntent(
+                                                                intent.id,
+                                                            );
+                                                        }}
+                                                    >
+                                                        Cancel
+                                                    </Button>
+                                                </Stack>
                                                 <Stack
                                                     direction="row"
                                                     spacing={1}
@@ -1554,28 +1686,49 @@ export default function HomePage() {
                                                     <Chip
                                                         size="small"
                                                         variant="outlined"
-                                                        label={`Intent: ${intent.intentLabel}`}
+                                                        label={`Turn: ${
+                                                            intent.turnNumber ??
+                                                            "?"
+                                                        }`}
                                                     />
                                                     <Chip
                                                         size="small"
                                                         variant="outlined"
-                                                        label={`Type: ${intent.shipType}`}
+                                                        label={`Type: ${intent.intentTypeLabel}`}
                                                     />
                                                     <Chip
                                                         size="small"
                                                         variant="outlined"
                                                         label={`Owner: ${intent.ownerName}`}
                                                     />
+                                                    {intent.encounterIntentLabel ? (
+                                                        <Chip
+                                                            size="small"
+                                                            variant="outlined"
+                                                            label={`Encounter intent: ${intent.encounterIntentLabel}`}
+                                                        />
+                                                    ) : null}
                                                 </Stack>
                                                 <Typography
                                                     variant="caption"
                                                     color="text.secondary"
                                                 >
-                                                    Speed{" "}
-                                                    {intent.shipSpeed ?? "—"} ·
+                                                    Ship type{" "}
+                                                    {intent.shipType ?? "�"} �
+                                                    speed{" "}
+                                                    {intent.shipSpeed ?? "�"} �
                                                     tactics{" "}
-                                                    {intent.shipTactics ?? "—"}
+                                                    {intent.shipTactics ?? "�"}
                                                 </Typography>
+                                                {intent.createdAtLabel ? (
+                                                    <Typography
+                                                        variant="caption"
+                                                        color="text.secondary"
+                                                    >
+                                                        Queued at{" "}
+                                                        {intent.createdAtLabel}
+                                                    </Typography>
+                                                ) : null}
                                             </Box>
                                         ))}
                                     </Stack>

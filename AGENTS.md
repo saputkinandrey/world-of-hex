@@ -5,6 +5,16 @@
 - Default to ASCII in new content.
 - Always run Prettier after backend changes (use the project's formatter even for small edits).
 - Nested `AGENTS.md` apply to their subtree and override this file on conflicts.
+- Treat commands starting with `docker compose` as pre-approved local workflow for this project; do not stop to ask for permission before running them.
+- For repeated local tooling, prefer stable wrapper commands such as fixed `npm run ...` aliases over long ad-hoc shell commands.
+- When shell tooling needs dynamic input, prefer reading it from repo-local files rather than embedding long changing arguments directly in the command line.
+
+## Agent Tooling Workflow
+- Prefer stable repo-local wrappers for repeated local operations so command prefixes stay short and reusable.
+- Prefer commands such as `npm run mongo:query`, `npm run docker:logs:api`, `npm run docker:logs:mongo`, and `npm run docker:up` over long inline `docker compose ...` or `mongosh --eval ...` commands.
+- When a local query or script needs changing input, put that input into repo-local files instead of passing it as changing shell arguments.
+- For Mongo inspection in `backend`, keep the query body in `backend/tmp/mongo-query.js` and optional database name in `backend/tmp/mongo-query.database.txt`, then run the stable wrapper `npm run mongo:query`.
+- Prefer adding a new fixed wrapper command over repeatedly inventing new long shell commands for the same local workflow.
 
 ## SOW Feature Assessment
 - Use strict status mapping: `done`, `partial`, `not done`.
@@ -39,6 +49,8 @@
 - Scope-first: if the user marks behavior as out of scope or unsupported, do not add logic branches or tests for it.
 - User intent overrides inferred best practice when they conflict.
 - Single-step correction: after user correction, move directly to the requested final behavior without intermediate alternatives.
+- You may enrich repo-local Markdown documentation files such as `AGENTS.md`, `README.md`, and `ROADMAP.md` without asking for permission first when doing so preserves or improves project clarity.
+- Ask for permission before changing Markdown documentation in a way that would remove information, reduce detail, or weaken previously recorded constraints.
 
 ## Implementation Discipline
 - Do not suppress errors: do not swallow exceptions, replace original failures with generic ones, or log without preserving actionable error context unless explicitly requested.
@@ -57,6 +69,10 @@
 - If a proposed fix touches more layers than the reported defect naturally spans, stop and reassess scope before editing.
 - Tests mirror scope: add tests only for supported scenarios inside current task scope.
 - Explicit unsupported behavior must fail with a clear error instead of implicit behavior.
+- Treat denormalized data as application-owned consistency work: do not assume the database will clean up embedded references, queued work, or cross-document read models.
+- For delete, disconnect, unown, or similar destructive flows, explicitly identify every known reference holder and pending record that can outlive the source entity.
+- Prefer idempotent cleanup steps for denormalized state so partial-failure recovery can safely rerun the same cleanup path.
+- When removing an actor or entity, cancel or resolve pending work that still references it instead of leaving orphaned queued records behind.
 
 ## Project Stage Assumption
 - The project is not in production yet.

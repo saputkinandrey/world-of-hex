@@ -4,6 +4,7 @@ import {
     ActionEventGuardError,
     clearCurrentActionEvent,
     consumeActionEvent,
+    setActionEvent,
     setCurrentActionEvent,
 } from './action-event';
 
@@ -130,18 +131,26 @@ export const Action = <TEvent>(...decoratorArgs: ActionDecoratorArgs<TEvent>): M
                 return result;
             }
 
-            const result = original.call(this, ...args);
-            const pendingEvent = consumeActionEvent(this);
-            const event =
-                pendingEvent ?? (result instanceof eventClass ? result : createEventInstance(eventClass, args));
+            const suspendedPendingEvent = consumeActionEvent(this);
 
-            mergeEventStreams(event, collectStreams(this));
+            try {
+                const result = original.call(this, ...args);
+                const pendingEvent = consumeActionEvent(this);
+                const event =
+                    pendingEvent ?? (result instanceof eventClass ? result : createEventInstance(eventClass, args));
 
-            if (typeof (this as { append?: (e: object) => void }).append === 'function') {
-                (this as { append: (e: object) => void }).append(event as object);
+                mergeEventStreams(event, collectStreams(this));
+
+                if (typeof (this as { append?: (e: object) => void }).append === 'function') {
+                    (this as { append: (e: object) => void }).append(event as object);
+                }
+
+                return result instanceof eventClass || pendingEvent ? this : result;
+            } finally {
+                if (suspendedPendingEvent) {
+                    setActionEvent(this as object, suspendedPendingEvent);
+                }
             }
-
-            return result instanceof eventClass || pendingEvent ? this : result;
         };
 
         descriptor.value = wrapped as unknown as typeof descriptor.value;

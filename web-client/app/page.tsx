@@ -82,9 +82,19 @@ type PreviewShipPopoverState = {
     };
 };
 
+type QueueSpawnIntentResponse = {
+    shipId: string;
+    encounterId: string;
+    turnNumber: number;
+    intentId: string;
+    intentType: "spawn";
+    encounterIntent: "flee" | "pursue" | "circle";
+};
+
 const SOCKET_KEY = "__wohex_socket__";
 const SOCKET_META_KEY = "__wohex_socket_meta__";
 const socketHandlers = new WeakSet<Socket>();
+const spawnEncounterIntentOptions = ["flee", "pursue", "circle"] as const;
 
 const getGlobalSocket = () =>
     (globalThis as Record<string, unknown>)[SOCKET_KEY] as Socket | undefined;
@@ -209,6 +219,51 @@ const parseEncounterSnapshot = (payload: unknown): EncounterCardData | null => {
     };
 };
 
+const parseQueueSpawnIntentResponse = (
+    payload: unknown,
+): QueueSpawnIntentResponse | null => {
+    if (!payload || typeof payload !== "object") {
+        return null;
+    }
+
+    const record = payload as Record<string, unknown>;
+    const shipId = normalizeId(record.shipId ?? "").trim();
+    const encounterId = normalizeId(record.encounterId ?? "").trim();
+    const intentId = normalizeId(record.intentId ?? "").trim();
+    const turnNumberRaw = record.turnNumber;
+    const turnNumber =
+        typeof turnNumberRaw === "number"
+            ? turnNumberRaw
+            : Number(turnNumberRaw);
+
+    if (
+        !shipId ||
+        !encounterId ||
+        !intentId ||
+        !Number.isFinite(turnNumber) ||
+        record.intentType !== "spawn"
+    ) {
+        return null;
+    }
+
+    if (
+        record.encounterIntent !== "flee" &&
+        record.encounterIntent !== "pursue" &&
+        record.encounterIntent !== "circle"
+    ) {
+        return null;
+    }
+
+    return {
+        shipId,
+        encounterId,
+        turnNumber,
+        intentId,
+        intentType: "spawn",
+        encounterIntent: record.encounterIntent,
+    };
+};
+
 export default function HomePage() {
     const [url] = useState(
         process.env.NEXT_PUBLIC_SOCKET_URL ?? "http://localhost:3000",
@@ -240,6 +295,7 @@ export default function HomePage() {
     const [encounterJson, setEncounterJson] = useState("");
     const [encounterSnapshot, setEncounterSnapshot] =
         useState<EncounterCardData | null>(null);
+    const [spawnIntent, setSpawnIntent] = useState("");
     const [status, setStatus] = useState("disconnected");
     const [logs, setLogs] = useState<LogEntry[]>([]);
     const [socket, setSocket] = useState<Socket | null>(null);
@@ -352,6 +408,23 @@ export default function HomePage() {
 
     const pushLog = (text: string) => {
         setLogs((prev) => [...prev, { ts: new Date().toISOString(), text }]);
+    };
+
+    const applyEncounterSnapshot = (payload: unknown) => {
+        setEncounterJson(JSON.stringify(payload, null, 2));
+        const nextSnapshot = parseEncounterSnapshot(payload);
+        setEncounterSnapshot(nextSnapshot);
+        setPreviewEncounter((currentPreview) => {
+            if (
+                !currentPreview ||
+                !nextSnapshot ||
+                currentPreview._id !== nextSnapshot._id
+            ) {
+                return currentPreview;
+            }
+
+            return nextSnapshot;
+        });
     };
 
     useEffect(() => {
@@ -476,6 +549,7 @@ export default function HomePage() {
             !ownedShips.some((ship) => ship._id === selectedShipId)
         ) {
             setSelectedShipId("");
+            setSpawnIntent("");
             setEncounterId("");
             setEncounterSnapshot(null);
             setEncounterJson("");
@@ -600,8 +674,26 @@ export default function HomePage() {
             if (event === "load-encounter.response") {
                 const payload =
                     Array.isArray(args) && args.length === 1 ? args[0] : args;
-                setEncounterJson(JSON.stringify(payload, null, 2));
-                setEncounterSnapshot(parseEncounterSnapshot(payload));
+                applyEncounterSnapshot(payload);
+                return;
+            }
+
+            if (event === "queue-spawn-intent.response") {
+                const payload =
+                    Array.isArray(args) && args.length === 1 ? args[0] : args;
+                const queuedIntent = parseQueueSpawnIntentResponse(payload);
+                if (!queuedIntent) {
+                    return;
+                }
+                setSelectedTokenId(queuedIntent.shipId);
+                setSpawnIntent(queuedIntent.encounterIntent);
+                return;
+            }
+
+            if (event === "turn-advanced.response") {
+                const payload =
+                    Array.isArray(args) && args.length === 1 ? args[0] : args;
+                applyEncounterSnapshot(payload);
             }
         });
     };
@@ -683,6 +775,7 @@ export default function HomePage() {
         const current = userIdRef.current;
         setUserId(nextUserId);
         setSelectedShipId("");
+        setSpawnIntent("");
         setEncounterId("");
         setEncounterSnapshot(null);
         setEncounterJson("");
@@ -709,6 +802,7 @@ export default function HomePage() {
         const id = normalizeId(nextShipId).trim();
         if (!id) {
             setSelectedShipId("");
+            setSpawnIntent("");
             setEncounterId("");
             setEncounterSnapshot(null);
             setEncounterJson("");
@@ -735,6 +829,36 @@ export default function HomePage() {
         const data = { userId: currentUserId, encounterId: encounterId.trim() };
         socket.emit("load-encounter.message", data);
         pushLog(`emit load-encounter.message ${JSON.stringify(data)}`);
+    };
+
+    const handleQueueSpawnIntent = () => {
+        if (!socket) {
+            pushLog("emit failed: not connected");
+            return;
+        }
+        const currentUserId = normalizeId(userId).trim();
+        const shipId = normalizeId(selectedShipId).trim();
+        const targetEncounterId = encounterId.trim();
+        const encounterIntent = spawnIntent.trim();
+        if (
+            !currentUserId ||
+            !shipId ||
+            !targetEncounterId ||
+            !encounterIntent
+        ) {
+            pushLog(
+                "emit failed: userId, shipId, encounterId or spawn intent is empty",
+            );
+            return;
+        }
+        const data = {
+            userId: currentUserId,
+            encounterId: targetEncounterId,
+            shipId,
+            intent: encounterIntent,
+        };
+        socket.emit("queue-spawn-intent.message", data);
+        pushLog(`emit queue-spawn-intent.message ${JSON.stringify(data)}`);
     };
 
     const handleEncounterChange = async (nextIndex: string) => {
@@ -967,6 +1091,47 @@ export default function HomePage() {
                                             {encountersError}
                                         </Typography>
                                     )}
+                                    <TextField
+                                        label="Spawn Intent"
+                                        select
+                                        value={spawnIntent}
+                                        onChange={(event) =>
+                                            setSpawnIntent(event.target.value)
+                                        }
+                                        disabled={
+                                            !socket ||
+                                            !userId ||
+                                            !selectedShipId ||
+                                            !encounterId
+                                        }
+                                    >
+                                        <MenuItem value="" disabled>
+                                            Select Spawn Intent
+                                        </MenuItem>
+                                        {spawnEncounterIntentOptions.map(
+                                            (intentOption) => (
+                                                <MenuItem
+                                                    key={intentOption}
+                                                    value={intentOption}
+                                                >
+                                                    {intentOption}
+                                                </MenuItem>
+                                            ),
+                                        )}
+                                    </TextField>
+                                    <Button
+                                        variant="outlined"
+                                        onClick={handleQueueSpawnIntent}
+                                        disabled={
+                                            !socket ||
+                                            !userId ||
+                                            !selectedShipId ||
+                                            !encounterId ||
+                                            !spawnIntent
+                                        }
+                                    >
+                                        queue-spawn-intent.message
+                                    </Button>
                                     <Stack direction="row" spacing={1}>
                                         <Button
                                             variant="outlined"

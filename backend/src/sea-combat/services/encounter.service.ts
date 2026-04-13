@@ -30,6 +30,7 @@ import { TurnEntropyRepository } from '../repositories/turn-entropy.repository';
 import { TurnAdvanceRequestStatus, TurnEntropyStatus, TurnTaskIntentInput } from '../types/turn-resolution.type';
 import { TurnAdvanceRequestRepository } from '../repositories/turn-advance-request.repository';
 import { EncounterEventReadRepository } from '../repositories/encounter-event-read.repository';
+import { EncounterCleanupRepository } from '../repositories/encounter-cleanup.repository';
 import {
     deserializeEncounterPendingIntents,
     serializePendingIntentForTaskSignature,
@@ -62,6 +63,9 @@ type EncounterTurnContext = {
     turnCutoff: Date;
     taskSignatureHash: string;
     turnEntropy: TurnEntropyDocument;
+};
+type ProcessAdvanceTurnRequestResult = {
+    encounterId: string;
 };
 type PendingIntentActor = {
     actorId: string;
@@ -99,6 +103,7 @@ export class EncounterService {
         private readonly turnEntropyRepository: TurnEntropyRepository,
         private readonly turnAdvanceRequestRepository: TurnAdvanceRequestRepository,
         private readonly encounterEventReadRepository: EncounterEventReadRepository,
+        private readonly encounterCleanupRepository: EncounterCleanupRepository,
         private readonly playerRepository: PlayerRepository,
         private readonly eventEmitter: EventEmitter2,
         @Inject(EVENT_STORE)
@@ -120,11 +125,25 @@ export class EncounterService {
             encounterId,
             EncounterTurnAdvancedEvent,
         );
-        if (!turnAdvancedEvent) {
-            return 0;
+        const lastTurnNumber = turnAdvancedEvent?.getPayloadAs(EncounterTurnAdvancedEvent).turnNumber;
+        if (this.isValidTurnNumber(lastTurnNumber)) {
+            return lastTurnNumber;
         }
 
-        return turnAdvancedEvent.getPayloadAs(EncounterTurnAdvancedEvent).turnNumber;
+        const events = await this.eventStore.findByAggregateRootId(EncounterAggregate, encounterId);
+        for (let index = events.length - 1; index >= 0; index -= 1) {
+            const event = events[index];
+            if (event.eventName !== EncounterTurnAdvancedEvent.name) {
+                continue;
+            }
+
+            const turnNumber = event.getPayloadAs(EncounterTurnAdvancedEvent).turnNumber;
+            if (this.isValidTurnNumber(turnNumber)) {
+                return turnNumber;
+            }
+        }
+
+        return 0;
     }
 
     private async loadEncounterTurnContext(
@@ -242,6 +261,10 @@ export class EncounterService {
             purpose,
             scope,
         });
+    }
+
+    private isValidTurnNumber(turnNumber: unknown): turnNumber is number {
+        return typeof turnNumber === 'number' && Number.isInteger(turnNumber) && turnNumber >= 0;
     }
 
     private resolveDirectActionDirection(
@@ -380,21 +403,43 @@ export class EncounterService {
         return this.encounterRepository.find({}, {}, { sort: { createdAt: -1 } });
     }
 
+    async deleteEncounter(encounterId: string) {
+        return this.encounterCleanupRepository.deleteEncounter(encounterId);
+    }
+
     async findEncounterViewById(encounterId: string) {
         const encounter = await this.findOneById(encounterId);
         if (!encounter) {
             return null;
         }
 
-        const pendingIntents = await this.pendingIntentRepository.findActiveByEncounterTurn(
-            encounterId,
-            encounter.currentTurn ?? 0,
-        );
+        const pendingIntents = await this.pendingIntentRepository.findActiveByEncounter(encounterId);
 
         return {
             ...encounter.toJSON(),
             pendingIntents: pendingIntents.map((intent) => intent.toJSON()),
         };
+    }
+
+    async cancelPendingIntent(encounterId: string, intentId: string) {
+        const pendingIntent = await this.pendingIntentRepository.findOneById(intentId);
+        if (!pendingIntent || pendingIntent.encounterId !== encounterId) {
+            throw new NotFoundException(`Pending intent ${intentId} for encounter ${encounterId} not found`);
+        }
+        if (pendingIntent.status !== PendingIntentStatus.PENDING) {
+            throw new ConflictException(`Pending intent ${intentId} is not cancellable anymore`);
+        }
+
+        const updatedIntent = await this.pendingIntentRepository.resolveIntent(
+            intentId,
+            PendingIntentStatus.CANCELLED,
+            'Cancelled by admin',
+        );
+        if (!updatedIntent) {
+            throw new NotFoundException(`Pending intent ${intentId} not found during cancellation`);
+        }
+
+        return updatedIntent;
     }
 
     async requestAdvanceTurn(encounterId: string) {
@@ -416,7 +461,7 @@ export class EncounterService {
         return turnAdvanceRequest;
     }
 
-    async processAdvanceTurnRequest(requestId: string) {
+    async processAdvanceTurnRequest(requestId: string): Promise<ProcessAdvanceTurnRequestResult> {
         const turnAdvanceRequest = await this.turnAdvanceRequestRepository.findOneById(requestId);
         if (!turnAdvanceRequest) {
             throw new NotFoundException(`Turn advance request with id ${requestId} not found`);
@@ -436,14 +481,13 @@ export class EncounterService {
             await this.persistEncounterProjection(context.encounterId, aggregate);
             await this.markTurnResolutionCommitted(context);
             await this.persistPendingIntentResolutions(intentResolutions);
+            return {
+                encounterId: context.encounterId,
+            };
         } catch (error) {
             await this.turnAdvanceRequestRepository.updateStatus(requestId, TurnAdvanceRequestStatus.REJECTED);
             this.rethrowEncounterRuleViolation(error);
         }
-    }
-
-    async advanceTurn(encounterId: string) {
-        return this.requestAdvanceTurn(encounterId);
     }
 
     async submitPlayerShipIntent(player: Player, input: SubmitPlayerShipIntentInput) {
