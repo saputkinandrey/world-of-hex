@@ -50,43 +50,23 @@ export class EncounterRepository {
     }
 
     async removeShipReferencesFromAll(shipId: string) {
-        const encounters = await this.encounterModel.find({
-            $or: [{ 'ships.ship._id': shipId }, { 'players.selectedShip._id': shipId }],
-        });
+        const encounters = await this.encounterModel.find({ 'ships.ship._id': shipId });
 
         let removedShipEntries = 0;
-        let clearedSelectedShips = 0;
 
         for (const encounter of encounters) {
             const originalShipCount = encounter.ships.length;
             encounter.ships = encounter.ships.filter((entry) => entry.ship?._id?.toString() !== shipId);
             removedShipEntries += originalShipCount - encounter.ships.length;
-            let clearedSelectedShipsInEncounter = 0;
 
-            encounter.players.forEach((player) => {
-                if (player.selectedShip?._id?.toString() !== shipId) {
-                    return;
-                }
-
-                player.selectedShip = null as any;
-                clearedSelectedShips += 1;
-                clearedSelectedShipsInEncounter += 1;
-            });
-
-            if (originalShipCount !== encounter.ships.length || clearedSelectedShipsInEncounter > 0) {
-                if (originalShipCount !== encounter.ships.length) {
-                    encounter.markModified('ships');
-                }
-                if (clearedSelectedShipsInEncounter > 0) {
-                    encounter.markModified('players');
-                }
+            if (originalShipCount !== encounter.ships.length) {
+                encounter.markModified('ships');
                 await encounter.save();
             }
         }
 
         return {
             removedShipEntries,
-            clearedSelectedShips,
         };
     }
 

@@ -5,10 +5,13 @@ export enum WSMessage {
     QUEUE_SPAWN_INTENT = 'queue-spawn-intent.message',
 }
 
+export enum WSServerMessage {
+    NEXT_TURN = 'next-turn.message',
+}
+
 export enum WSResponse {
     USER_CONNECTED = 'user-connected.response',
     LOAD_ENCOUNTER = 'load-encounter.response',
     SEND_INPUT = 'send-input.response',
     QUEUE_SPAWN_INTENT = 'queue-spawn-intent.response',
-    TURN_ADVANCED = 'turn-advanced.response',
 }

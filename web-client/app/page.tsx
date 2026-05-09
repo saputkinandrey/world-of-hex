@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { io, type Socket } from "socket.io-client";
 import {
     AppBar,
@@ -9,7 +9,6 @@ import {
     Card,
     CardContent,
     Chip,
-    Container,
     Divider,
     Dialog,
     DialogContent,
@@ -18,13 +17,17 @@ import {
     MenuItem,
     Popover,
     Stack,
-    TextField,
     Tab,
     Tabs,
+    TextField,
     Toolbar,
     Typography,
 } from "@mui/material";
-import { EncounterHexGrid } from "@wohex/ui";
+import {
+    EncounterHexGrid,
+    type EncounterHexGridHighlight,
+    type EncounterHexGridPath,
+} from "@wohex/ui";
 
 type LogEntry = {
     ts: string;
@@ -58,6 +61,7 @@ type EncounterShip = {
     direction?: string | null;
     speed?: number | null;
     intent?: string | null;
+    target?: ShipCaptainTarget | null;
     ship?: {
         _id?: string | null;
         name?: string | null;
@@ -66,12 +70,154 @@ type EncounterShip = {
     } | null;
 };
 
+type EncounterProjectedTrajectory = {
+    shipId?: string | null;
+    shipName?: string | null;
+    points?: EncounterPoint[] | null;
+    stepPositions?: EncounterPoint[] | null;
+    nextStartPosition?: EncounterPoint | null;
+};
+
+type EncounterPredictedCrossing = {
+    substep?: number | null;
+    point?: EncounterPoint | null;
+    shipIds?: string[] | null;
+    shipNames?: string[] | null;
+};
+
 type EncounterCardData = {
     _id: string;
     name: string;
     radius: number;
+    currentTurn: number;
+    windDirection?: string | null;
     center?: EncounterPoint | null;
     ships?: EncounterShip[];
+    projectedTrajectories?: EncounterProjectedTrajectory[];
+    predictedCrossings?: EncounterPredictedCrossing[];
+    actionForecasts?: EncounterActionForecast[];
+    lastTurnRollResults?: EncounterLastTurnRollResult[];
+};
+
+type EncounterTurnDeltaData = {
+    encounterId: string;
+    currentTurn: number;
+    windDirection?: string | null;
+    ships: EncounterShip[];
+    removedShipIds: string[];
+    resolvedTrajectories: EncounterProjectedTrajectory[];
+    resolvedCrossings: EncounterPredictedCrossing[];
+    projectedTrajectories: EncounterProjectedTrajectory[];
+    predictedCrossings: EncounterPredictedCrossing[];
+    actionForecasts: EncounterActionForecast[];
+    lastTurnRollResults: EncounterLastTurnRollResult[];
+};
+
+type WorkspaceShipEntry = {
+    shipId: string;
+    name: string;
+    type: string;
+    direction: string;
+    speed: number | null;
+    intent: string | null;
+    target: ShipCaptainTarget | null;
+    isOwnedBySelectedPlayer: boolean;
+};
+
+type WorkspaceProjectedTrajectoryEntry = {
+    id: string;
+    shipId: string;
+    shipName: string;
+    points: EncounterPoint[];
+    stepPositions: EncounterPoint[];
+    nextStartPosition: EncounterPoint | null;
+    isOwnedBySelectedPlayer: boolean;
+};
+
+type WorkspacePredictedCrossingEntry = {
+    id: string;
+    substep: number;
+    point: EncounterPoint;
+    shipIds: string[];
+    shipNames: string[];
+};
+
+type EncounterActionForecast = {
+    shipId?: string | null;
+    shipName?: string | null;
+    captainIntent?: string | null;
+    helmsmanIntent?: string | null;
+    boatswainIntent?: string | null;
+    label?: string | null;
+    available?: boolean | null;
+    requiresRoll?: boolean | null;
+    successChance?: number | null;
+    target?: number | null;
+    baseSkill?: number | null;
+    modifierTotal?: number | null;
+    windModifier?: number | null;
+    note?: string | null;
+};
+
+type EncounterLastTurnRollResult = {
+    shipId?: string | null;
+    shipName?: string | null;
+    turnNumber?: number | null;
+    actionKey?: string | null;
+    label?: string | null;
+    direction?: string | null;
+    roll?: number | null;
+    target?: number | null;
+    mos?: number | null;
+    success?: boolean | null;
+    isCritSuccess?: boolean | null;
+    isCritFailure?: boolean | null;
+    windModifier?: number | null;
+    note?: string | null;
+};
+
+type WorkspaceActionForecastEntry = {
+    id: string;
+    shipId: string;
+    label: string;
+    captainIntent: string | null;
+    helmsmanIntent: string;
+    boatswainIntent: string;
+    available: boolean;
+    requiresRoll: boolean;
+    successChance: number | null;
+    target: number | null;
+    baseSkill: number | null;
+    modifierTotal: number | null;
+    windModifier: number | null;
+    note: string | null;
+};
+
+type WorkspaceLastTurnRollResultEntry = {
+    id: string;
+    shipId: string;
+    turnNumber: number;
+    label: string;
+    roll: number;
+    target: number;
+    mos: number;
+    success: boolean;
+    isCritSuccess: boolean;
+    isCritFailure: boolean;
+    windModifier: number;
+    note: string | null;
+};
+
+type ForecastChanceTone = "default" | "success" | "warning" | "error";
+type TrajectoryPlaybackMode = "preview" | "turn-transition";
+
+type TrajectoryPlaybackState = {
+    mode: TrajectoryPlaybackMode;
+    substep: number;
+    stepCount: number;
+    trajectories: WorkspaceProjectedTrajectoryEntry[];
+    crossings: WorkspacePredictedCrossingEntry[];
+    pendingDelta: EncounterTurnDeltaData | null;
 };
 
 type PreviewShipPopoverState = {
@@ -91,10 +237,250 @@ type QueueSpawnIntentResponse = {
     encounterIntent: "flee" | "pursue" | "circle";
 };
 
+type ShipCaptainTargetType =
+    | "specific-ship"
+    | "nearest-enemy"
+    | "enemy-center-of-mass";
+
+type ShipCaptainTarget = {
+    type?: ShipCaptainTargetType | null;
+    shipId?: string | null;
+};
+
+type SendInputResponse = {
+    ok?: boolean | null;
+    shipId?: string | null;
+    target?: ShipCaptainTarget | null;
+    actionForecasts?: EncounterActionForecast[] | null;
+};
+
+type AppScreenTab = "lobby" | "encounter" | "debug";
+
+type ShipSelectOption = {
+    _id: string;
+    label: string;
+};
+
 const SOCKET_KEY = "__wohex_socket__";
 const SOCKET_META_KEY = "__wohex_socket_meta__";
+const TURN_PLAYBACK_STEP_DURATION_MS = 100;
 const socketHandlers = new WeakSet<Socket>();
 const spawnEncounterIntentOptions = ["flee", "pursue", "circle"] as const;
+const captainIntentOptions = ["flee", "pursue", "circle"] as const;
+const captainTargetTypeOptions = [
+    "nearest-enemy",
+    "enemy-center-of-mass",
+    "specific-ship",
+] as const;
+const helmsmanIntentOptions = [
+    "helmsman-obey-captain",
+    "helmsman-forward",
+    "helmsman-turn-left",
+    "helmsman-turn-right",
+] as const;
+const boatswainIntentOptions = [
+    "boatswain-obey-captain",
+    "boatswain-hold",
+    "boatswain-accelerate",
+    "boatswain-decelerate",
+] as const;
+
+const formatHelmsmanIntentLabel = (value: string) => {
+    switch (value) {
+        case "helmsman-obey-captain":
+            return "Obey Captain";
+        case "helmsman-forward":
+            return "Forward";
+        case "helmsman-turn-left":
+            return "Turn Left";
+        case "helmsman-turn-right":
+            return "Turn Right";
+        default:
+            return value;
+    }
+};
+
+const formatCaptainIntentLabel = (value: string) => {
+    switch (value) {
+        case "flee":
+            return "Flee";
+        case "pursue":
+            return "Pursue";
+        case "circle":
+            return "Circle";
+        default:
+            return value;
+    }
+};
+
+const formatCaptainTargetTypeLabel = (value: string) => {
+    switch (value) {
+        case "nearest-enemy":
+            return "Nearest Enemy";
+        case "enemy-center-of-mass":
+            return "Enemy Center of Mass";
+        case "specific-ship":
+            return "Specific Ship";
+        default:
+            return value;
+    }
+};
+
+const isTurningHelmsmanIntent = (value: string) =>
+    value === "helmsman-turn-left" || value === "helmsman-turn-right";
+
+const normalizeDirection = (value?: string | null) => {
+    const key = value?.trim().toUpperCase() ?? "";
+    return ["N", "NE", "SE", "S", "SW", "NW"].includes(key) ? key : null;
+};
+
+const normalizeBoatswainIntentForTurnContext = (
+    helmsmanIntent: string,
+    boatswainIntent: string,
+) => {
+    if (
+        isTurningHelmsmanIntent(helmsmanIntent) &&
+        boatswainIntent === "boatswain-decelerate"
+    ) {
+        return "boatswain-accelerate";
+    }
+
+    return boatswainIntent;
+};
+
+const resolveBoatswainIntentOptions = (helmsmanIntent: string) =>
+    isTurningHelmsmanIntent(helmsmanIntent)
+        ? boatswainIntentOptions.filter(
+              (option) => option !== "boatswain-decelerate",
+          )
+        : boatswainIntentOptions;
+
+const formatBoatswainIntentLabel = (value: string, helmsmanIntent?: string) => {
+    if (value === "boatswain-obey-captain") {
+        return "Obey Captain";
+    }
+
+    if (isTurningHelmsmanIntent(helmsmanIntent ?? "")) {
+        switch (value) {
+            case "boatswain-hold":
+                return "Slow Down";
+            case "boatswain-accelerate":
+                return "Keep Speed";
+            case "boatswain-decelerate":
+                return "Slow Down";
+            default:
+                return value;
+        }
+    }
+
+    switch (value) {
+        case "boatswain-hold":
+            return "Hold Speed";
+        case "boatswain-accelerate":
+            return "Accelerate";
+        case "boatswain-decelerate":
+            return "Decelerate";
+        default:
+            return value;
+    }
+};
+
+const formatSignedNumber = (value: number | null | undefined) => {
+    if (typeof value !== "number" || !Number.isFinite(value)) {
+        return "0";
+    }
+
+    if (value > 0) {
+        return `+${value}`;
+    }
+
+    return String(value);
+};
+
+const WIND_FLOW_ARROW_BY_DIRECTION: Record<string, string> = {
+    N: "↓",
+    NE: "↙",
+    SE: "↖",
+    S: "↑",
+    SW: "↗",
+    NW: "↘",
+};
+
+const formatWindDirectionLabel = (direction?: string | null) => {
+    const normalizedDirection = normalizeDirection(direction);
+    if (!normalizedDirection) {
+        return "Wind unknown";
+    }
+
+    return `Wind ${normalizedDirection} ${WIND_FLOW_ARROW_BY_DIRECTION[normalizedDirection] ?? ""}`.trim();
+};
+
+const formatRollTargetLabel = (target: number | null | undefined) => {
+    if (typeof target !== "number" || !Number.isFinite(target)) {
+        return "Unknown";
+    }
+
+    return `${target}-`;
+};
+
+const resolveForecastChanceTone = (
+    successChance: number | null | undefined,
+): ForecastChanceTone => {
+    if (typeof successChance !== "number" || !Number.isFinite(successChance)) {
+        return "default";
+    }
+
+    if (successChance >= 65) {
+        return "success";
+    }
+    if (successChance >= 35) {
+        return "warning";
+    }
+
+    return "error";
+};
+
+const resolveEncounterLabel = (encounter: {
+    _id?: string | null;
+    name?: string | null;
+}) => {
+    const name = encounter.name?.trim();
+    if (name) {
+        return name;
+    }
+
+    const id = normalizeId(encounter._id).trim();
+    if (!id) {
+        return "Encounter";
+    }
+
+    return `Encounter ${id.slice(0, 8)}`;
+};
+
+const describeShipCaptainTarget = (
+    target: ShipCaptainTarget | null | undefined,
+    ships: WorkspaceShipEntry[],
+) => {
+    if (!target?.type) {
+        return "Nearest Enemy";
+    }
+
+    if (target.type !== "specific-ship") {
+        return formatCaptainTargetTypeLabel(target.type);
+    }
+
+    const targetShipId = normalizeId(target.shipId).trim();
+    if (!targetShipId) {
+        return "Specific Ship";
+    }
+
+    const targetShip = ships.find((ship) => ship.shipId === targetShipId);
+    if (!targetShip) {
+        return `Specific Ship (${targetShipId.slice(0, 8)})`;
+    }
+
+    return `${targetShip.name} (${targetShip.isOwnedBySelectedPlayer ? "friendly" : "enemy"})`;
+};
 
 const getGlobalSocket = () =>
     (globalThis as Record<string, unknown>)[SOCKET_KEY] as Socket | undefined;
@@ -148,6 +534,30 @@ const parseEncounterPoint = (value: unknown): EncounterPoint | null => {
     return { x, y };
 };
 
+const parseShipCaptainTarget = (value: unknown): ShipCaptainTarget | null => {
+    if (!value || typeof value !== "object") {
+        return null;
+    }
+
+    const record = value as Record<string, unknown>;
+    const targetType = typeof record.type === "string" ? record.type : null;
+    if (
+        targetType !== "specific-ship" &&
+        targetType !== "nearest-enemy" &&
+        targetType !== "enemy-center-of-mass"
+    ) {
+        return null;
+    }
+
+    return {
+        type: targetType,
+        shipId:
+            targetType === "specific-ship"
+                ? normalizeId(record.shipId).trim() || null
+                : null,
+    };
+};
+
 const parseEncounterShip = (value: unknown): EncounterShip | null => {
     if (!value || typeof value !== "object") {
         return null;
@@ -167,6 +577,7 @@ const parseEncounterShip = (value: unknown): EncounterShip | null => {
             typeof record.direction === "string" ? record.direction : null,
         speed: Number.isFinite(speed) ? speed : null,
         intent: typeof record.intent === "string" ? record.intent : null,
+        target: parseShipCaptainTarget(record.target),
         ship: shipRecord
             ? {
                   _id:
@@ -186,6 +597,253 @@ const parseEncounterShip = (value: unknown): EncounterShip | null => {
     };
 };
 
+const parseEncounterProjectedTrajectory = (
+    value: unknown,
+): EncounterProjectedTrajectory | null => {
+    if (!value || typeof value !== "object") {
+        return null;
+    }
+
+    const record = value as Record<string, unknown>;
+    const shipId = normalizeId(record.shipId).trim();
+    if (!shipId) {
+        return null;
+    }
+
+    const points = Array.isArray(record.points)
+        ? record.points
+              .map((point) => parseEncounterPoint(point))
+              .filter((point): point is EncounterPoint => point !== null)
+        : [];
+    const stepPositions = Array.isArray(record.stepPositions)
+        ? record.stepPositions
+              .map((point) => parseEncounterPoint(point))
+              .filter((point): point is EncounterPoint => point !== null)
+        : [];
+
+    return {
+        shipId,
+        shipName:
+            typeof record.shipName === "string" ? record.shipName : null,
+        points,
+        stepPositions,
+        nextStartPosition: parseEncounterPoint(record.nextStartPosition),
+    };
+};
+
+const parseEncounterPredictedCrossing = (
+    value: unknown,
+): EncounterPredictedCrossing | null => {
+    if (!value || typeof value !== "object") {
+        return null;
+    }
+
+    const record = value as Record<string, unknown>;
+    const point = parseEncounterPoint(record.point);
+    const substepRaw = record.substep;
+    const substep =
+        typeof substepRaw === "number" ? substepRaw : Number(substepRaw);
+    if (!point) {
+        return null;
+    }
+    if (!Number.isFinite(substep)) {
+        return null;
+    }
+
+    return {
+        substep,
+        point,
+        shipIds: Array.isArray(record.shipIds)
+            ? record.shipIds
+                  .map((shipId) => normalizeId(shipId).trim())
+                  .filter(Boolean)
+            : [],
+        shipNames: Array.isArray(record.shipNames)
+            ? record.shipNames.filter(
+                  (shipName): shipName is string =>
+                      typeof shipName === "string" && shipName.trim().length > 0,
+              )
+            : [],
+    };
+};
+
+const buildWorkspaceProjectedTrajectories = (
+    trajectories: EncounterProjectedTrajectory[],
+    ownedShipIds: Set<string>,
+): WorkspaceProjectedTrajectoryEntry[] =>
+    trajectories.flatMap((entry, index) => {
+        const shipId = normalizeId(entry.shipId).trim();
+        const points = Array.isArray(entry.points)
+            ? entry.points.filter(Boolean)
+            : [];
+        if (!shipId || points.length === 0) {
+            return [];
+        }
+
+        return [
+            {
+                id: `${shipId}-trajectory`,
+                shipId,
+                shipName: entry.shipName?.trim() || `Ship ${index + 1}`,
+                points,
+                stepPositions: Array.isArray(entry.stepPositions)
+                    ? entry.stepPositions.filter(Boolean)
+                    : [],
+                nextStartPosition: entry.nextStartPosition ?? null,
+                isOwnedBySelectedPlayer: ownedShipIds.has(shipId),
+            },
+        ];
+    });
+
+const buildWorkspacePredictedCrossings = (
+    crossings: EncounterPredictedCrossing[],
+): WorkspacePredictedCrossingEntry[] =>
+    crossings.flatMap((entry, index) => {
+        const point = entry.point;
+        const shipIds = Array.isArray(entry.shipIds)
+            ? entry.shipIds.filter(Boolean)
+            : [];
+        const shipNames = Array.isArray(entry.shipNames)
+            ? entry.shipNames.filter(Boolean)
+            : [];
+
+        if (!point || shipIds.length < 2) {
+            return [];
+        }
+
+        return [
+            {
+                id: `intersection-${point.x}:${point.y}:${index}`,
+                substep:
+                    typeof entry.substep === "number" ? entry.substep : 0,
+                point,
+                shipIds,
+                shipNames,
+            },
+        ];
+    });
+
+const parseEncounterActionForecast = (
+    value: unknown,
+): EncounterActionForecast | null => {
+    if (!value || typeof value !== "object") {
+        return null;
+    }
+
+    const record = value as Record<string, unknown>;
+    const shipId = normalizeId(record.shipId).trim();
+    if (!shipId) {
+        return null;
+    }
+
+    return {
+        shipId,
+        shipName:
+            typeof record.shipName === "string" ? record.shipName : null,
+        captainIntent:
+            typeof record.captainIntent === "string"
+                ? record.captainIntent
+                : null,
+        helmsmanIntent:
+            typeof record.helmsmanIntent === "string"
+                ? record.helmsmanIntent
+                : null,
+        boatswainIntent:
+            typeof record.boatswainIntent === "string"
+                ? record.boatswainIntent
+                : null,
+        label: typeof record.label === "string" ? record.label : null,
+        available:
+            typeof record.available === "boolean" ? record.available : null,
+        requiresRoll:
+            typeof record.requiresRoll === "boolean"
+                ? record.requiresRoll
+                : null,
+        successChance:
+            typeof record.successChance === "number"
+                ? record.successChance
+                : record.successChance == null
+                  ? null
+                  : Number(record.successChance),
+        target:
+            typeof record.target === "number"
+                ? record.target
+                : record.target == null
+                  ? null
+                  : Number(record.target),
+        baseSkill:
+            typeof record.baseSkill === "number"
+                ? record.baseSkill
+                : record.baseSkill == null
+                  ? null
+                  : Number(record.baseSkill),
+        modifierTotal:
+            typeof record.modifierTotal === "number"
+                ? record.modifierTotal
+                : record.modifierTotal == null
+                  ? null
+                  : Number(record.modifierTotal),
+        windModifier:
+            typeof record.windModifier === "number"
+                ? record.windModifier
+                : record.windModifier == null
+                  ? null
+                  : Number(record.windModifier),
+        note: typeof record.note === "string" ? record.note : null,
+    };
+};
+
+const parseEncounterLastTurnRollResult = (
+    value: unknown,
+): EncounterLastTurnRollResult | null => {
+    if (!value || typeof value !== "object") {
+        return null;
+    }
+
+    const record = value as Record<string, unknown>;
+    const shipId = normalizeId(record.shipId).trim();
+    if (!shipId) {
+        return null;
+    }
+
+    return {
+        shipId,
+        shipName:
+            typeof record.shipName === "string" ? record.shipName : null,
+        turnNumber:
+            typeof record.turnNumber === "number"
+                ? record.turnNumber
+                : Number(record.turnNumber),
+        actionKey:
+            typeof record.actionKey === "string" ? record.actionKey : null,
+        label: typeof record.label === "string" ? record.label : null,
+        direction:
+            typeof record.direction === "string" ? record.direction : null,
+        roll:
+            typeof record.roll === "number" ? record.roll : Number(record.roll),
+        target:
+            typeof record.target === "number"
+                ? record.target
+                : Number(record.target),
+        mos: typeof record.mos === "number" ? record.mos : Number(record.mos),
+        success:
+            typeof record.success === "boolean" ? record.success : null,
+        isCritSuccess:
+            typeof record.isCritSuccess === "boolean"
+                ? record.isCritSuccess
+                : null,
+        isCritFailure:
+            typeof record.isCritFailure === "boolean"
+                ? record.isCritFailure
+                : null,
+        windModifier:
+            typeof record.windModifier === "number"
+                ? record.windModifier
+                : Number(record.windModifier),
+        note: typeof record.note === "string" ? record.note : null,
+    };
+};
+
 const parseEncounterSnapshot = (payload: unknown): EncounterCardData | null => {
     if (!payload || typeof payload !== "object") {
         return null;
@@ -197,25 +855,75 @@ const parseEncounterSnapshot = (payload: unknown): EncounterCardData | null => {
     const radiusRaw = record.radius;
     const radius =
         typeof radiusRaw === "number" ? radiusRaw : Number(radiusRaw);
-    if (!id || !Number.isFinite(radius)) {
+    const currentTurnRaw = record.currentTurn;
+    const currentTurn =
+        typeof currentTurnRaw === "number"
+            ? currentTurnRaw
+            : Number(currentTurnRaw);
+    if (!id || !Number.isFinite(radius) || !Number.isFinite(currentTurn)) {
         return null;
     }
-    const name =
-        typeof record.name === "string" && record.name.trim()
-            ? record.name
-            : "Encounter";
+    const name = resolveEncounterLabel({
+        _id: id,
+        name: typeof record.name === "string" ? record.name : null,
+    });
     const ships = Array.isArray(record.ships)
         ? record.ships
               .map((ship) => parseEncounterShip(ship))
               .filter((ship): ship is EncounterShip => ship !== null)
+        : [];
+    const projectedTrajectories = Array.isArray(record.projectedTrajectories)
+        ? record.projectedTrajectories
+              .map((entry) => parseEncounterProjectedTrajectory(entry))
+              .filter(
+                  (
+                      entry,
+                  ): entry is EncounterProjectedTrajectory => entry !== null,
+              )
+        : [];
+    const predictedCrossings = Array.isArray(record.predictedCrossings)
+        ? record.predictedCrossings
+              .map((entry) => parseEncounterPredictedCrossing(entry))
+              .filter(
+                  (
+                      entry,
+                  ): entry is EncounterPredictedCrossing => entry !== null,
+              )
+        : [];
+    const actionForecasts = Array.isArray(record.actionForecasts)
+        ? record.actionForecasts
+              .map((entry) => parseEncounterActionForecast(entry))
+              .filter(
+                  (
+                      entry,
+                  ): entry is EncounterActionForecast => entry !== null,
+              )
+        : [];
+    const lastTurnRollResults = Array.isArray(record.lastTurnRollResults)
+        ? record.lastTurnRollResults
+              .map((entry) => parseEncounterLastTurnRollResult(entry))
+              .filter(
+                  (
+                      entry,
+                  ): entry is EncounterLastTurnRollResult => entry !== null,
+              )
         : [];
 
     return {
         _id: id,
         name,
         radius,
+        currentTurn,
+        windDirection:
+            typeof record.windDirection === "string"
+                ? record.windDirection
+                : null,
         center: parseEncounterPoint(record.center),
         ships,
+        projectedTrajectories,
+        predictedCrossings,
+        actionForecasts,
+        lastTurnRollResults,
     };
 };
 
@@ -264,7 +972,200 @@ const parseQueueSpawnIntentResponse = (
     };
 };
 
+const parseSendInputResponse = (payload: unknown): SendInputResponse | null => {
+    if (!payload || typeof payload !== "object") {
+        return null;
+    }
+
+    const record = payload as Record<string, unknown>;
+
+    return {
+        ok: record.ok === true,
+        shipId: normalizeId(record.shipId).trim() || null,
+        target: parseShipCaptainTarget(record.target),
+        actionForecasts: Array.isArray(record.actionForecasts)
+            ? record.actionForecasts
+                  .map((entry) => parseEncounterActionForecast(entry))
+                  .filter(
+                      (
+                          entry,
+                      ): entry is EncounterActionForecast => entry !== null,
+                  )
+            : null,
+    };
+};
+
+const parseEncounterTurnDelta = (
+    payload: unknown,
+): EncounterTurnDeltaData | null => {
+    if (!payload || typeof payload !== "object") {
+        return null;
+    }
+
+    const record = payload as Record<string, unknown>;
+    const encounterId = normalizeId(record.encounterId).trim();
+    const currentTurnRaw = record.currentTurn;
+    const currentTurn =
+        typeof currentTurnRaw === "number"
+            ? currentTurnRaw
+            : Number(currentTurnRaw);
+
+    if (!encounterId || !Number.isFinite(currentTurn)) {
+        return null;
+    }
+
+    return {
+        encounterId,
+        currentTurn,
+        windDirection:
+            typeof record.windDirection === "string"
+                ? record.windDirection
+                : null,
+        ships: Array.isArray(record.ships)
+            ? record.ships
+                  .map((ship) => parseEncounterShip(ship))
+                  .filter((ship): ship is EncounterShip => ship !== null)
+            : [],
+        removedShipIds: Array.isArray(record.removedShipIds)
+            ? record.removedShipIds
+                  .map((shipId) => normalizeId(shipId).trim())
+                  .filter(Boolean)
+            : [],
+        resolvedTrajectories: Array.isArray(record.resolvedTrajectories)
+            ? record.resolvedTrajectories
+                  .map((entry) => parseEncounterProjectedTrajectory(entry))
+                  .filter(
+                      (
+                          entry,
+                      ): entry is EncounterProjectedTrajectory => entry !== null,
+                  )
+            : [],
+        resolvedCrossings: Array.isArray(record.resolvedCrossings)
+            ? record.resolvedCrossings
+                  .map((entry) => parseEncounterPredictedCrossing(entry))
+                  .filter(
+                      (
+                          entry,
+                      ): entry is EncounterPredictedCrossing => entry !== null,
+                  )
+            : [],
+        projectedTrajectories: Array.isArray(record.projectedTrajectories)
+            ? record.projectedTrajectories
+                  .map((entry) => parseEncounterProjectedTrajectory(entry))
+                  .filter(
+                      (
+                          entry,
+                      ): entry is EncounterProjectedTrajectory => entry !== null,
+                  )
+            : [],
+        predictedCrossings: Array.isArray(record.predictedCrossings)
+            ? record.predictedCrossings
+                  .map((entry) => parseEncounterPredictedCrossing(entry))
+                  .filter(
+                      (
+                          entry,
+                      ): entry is EncounterPredictedCrossing => entry !== null,
+                  )
+            : [],
+        actionForecasts: Array.isArray(record.actionForecasts)
+            ? record.actionForecasts
+                  .map((entry) => parseEncounterActionForecast(entry))
+                  .filter(
+                      (
+                          entry,
+                      ): entry is EncounterActionForecast => entry !== null,
+                  )
+            : [],
+        lastTurnRollResults: Array.isArray(record.lastTurnRollResults)
+            ? record.lastTurnRollResults
+                  .map((entry) => parseEncounterLastTurnRollResult(entry))
+                  .filter(
+                      (
+                          entry,
+                      ): entry is EncounterLastTurnRollResult => entry !== null,
+                  )
+            : [],
+    };
+};
+
+const applyEncounterTurnDeltaToSnapshot = (
+    currentSnapshot: EncounterCardData | null,
+    delta: EncounterTurnDeltaData,
+): EncounterCardData | null => {
+    if (!currentSnapshot || currentSnapshot._id !== delta.encounterId) {
+        return currentSnapshot;
+    }
+
+    const shipsById = new Map<string, EncounterShip>();
+    (currentSnapshot.ships ?? []).forEach((ship) => {
+        const shipId = normalizeId(ship.ship?._id).trim();
+        if (!shipId) {
+            return;
+        }
+
+        shipsById.set(shipId, ship);
+    });
+
+    delta.removedShipIds.forEach((shipId) => {
+        shipsById.delete(shipId);
+    });
+
+    delta.ships.forEach((ship) => {
+        const shipId = normalizeId(ship.ship?._id).trim();
+        if (!shipId) {
+            return;
+        }
+
+        shipsById.set(shipId, ship);
+    });
+
+    return {
+        ...currentSnapshot,
+        currentTurn: delta.currentTurn,
+        windDirection: delta.windDirection ?? currentSnapshot.windDirection,
+        ships: Array.from(shipsById.values()),
+        projectedTrajectories: delta.projectedTrajectories,
+        predictedCrossings: delta.predictedCrossings,
+        actionForecasts: delta.actionForecasts,
+        lastTurnRollResults: delta.lastTurnRollResults,
+    };
+};
+
+const applySendInputResponseToSnapshot = (
+    currentSnapshot: EncounterCardData | null,
+    response: SendInputResponse,
+): EncounterCardData | null => {
+    if (!currentSnapshot || !response.shipId) {
+        return currentSnapshot;
+    }
+
+    const nextShips = (currentSnapshot.ships ?? []).map((ship) => {
+        const shipId = normalizeId(ship.ship?._id).trim();
+        if (shipId !== response.shipId) {
+            return ship;
+        }
+
+        return {
+            ...ship,
+            target: response.target ?? ship.target ?? null,
+        };
+    });
+
+    const otherForecasts = (currentSnapshot.actionForecasts ?? []).filter(
+        (forecast) => normalizeId(forecast.shipId).trim() !== response.shipId,
+    );
+
+    return {
+        ...currentSnapshot,
+        ships: nextShips,
+        actionForecasts: response.actionForecasts
+            ? [...otherForecasts, ...response.actionForecasts]
+            : currentSnapshot.actionForecasts,
+    };
+};
+
 export default function HomePage() {
+    const [screenTab, setScreenTab] = useState<AppScreenTab>("encounter");
     const [url] = useState(
         process.env.NEXT_PUBLIC_SOCKET_URL ?? "http://localhost:3000",
     );
@@ -277,8 +1178,10 @@ export default function HomePage() {
     const [namespace] = useState("/");
     const [eventName, setEventName] = useState("ping");
     const [payload, setPayload] = useState("{}");
+    const [lobbyUserId, setLobbyUserId] = useState("");
+    const [lobbyShipId, setLobbyShipId] = useState("");
+    const [lobbyEncounterId, setLobbyEncounterId] = useState("");
     const [userId, setUserId] = useState("");
-    const userIdRef = useRef(userId);
     const [users, setUsers] = useState<PlayerOption[]>([]);
     const [usersLoading, setUsersLoading] = useState(false);
     const [usersError, setUsersError] = useState("");
@@ -287,8 +1190,12 @@ export default function HomePage() {
     const [shipsError, setShipsError] = useState("");
     const [encounterId, setEncounterId] = useState("");
     const [selectedTokenId, setSelectedTokenId] = useState("");
-    const [inputType, setInputType] = useState("");
-    const [selectedShipId, setSelectedShipId] = useState("");
+    const [captainIntent, setCaptainIntent] = useState("flee");
+    const [captainTargetType, setCaptainTargetType] =
+        useState<ShipCaptainTargetType>("nearest-enemy");
+    const [captainTargetShipId, setCaptainTargetShipId] = useState("");
+    const [helmsmanIntent, setHelmsmanIntent] = useState("helmsman-obey-captain");
+    const [boatswainIntent, setBoatswainIntent] = useState("boatswain-obey-captain");
     const [encounters, setEncounters] = useState<EncounterCardData[]>([]);
     const [encountersLoading, setEncountersLoading] = useState(false);
     const [encountersError, setEncountersError] = useState("");
@@ -299,7 +1206,8 @@ export default function HomePage() {
     const [status, setStatus] = useState("disconnected");
     const [logs, setLogs] = useState<LogEntry[]>([]);
     const [socket, setSocket] = useState<Socket | null>(null);
-    const [activeTab, setActiveTab] = useState(0);
+    const [trajectoryPlayback, setTrajectoryPlayback] =
+        useState<TrajectoryPlaybackState | null>(null);
     const [previewEncounter, setPreviewEncounter] =
         useState<EncounterCardData | null>(null);
     const [previewShipPopover, setPreviewShipPopover] =
@@ -361,7 +1269,7 @@ export default function HomePage() {
             const intent = entry.intent?.trim() || "None";
             const shipId = entry.ship?._id?.trim() || "";
             const isOwnShip =
-                Boolean(selectedShipId) && shipId === selectedShipId;
+                Boolean(selectedTokenId) && shipId === selectedTokenId;
             const badge = name
                 .split(/\s+/)
                 .filter(Boolean)
@@ -385,7 +1293,7 @@ export default function HomePage() {
                 },
             ];
         });
-    }, [previewEncounter, selectedShipId]);
+    }, [previewEncounter, selectedTokenId]);
 
     const selectedPreviewShip = useMemo(() => {
         if (!previewEncounter || !previewShipPopover) {
@@ -403,16 +1311,26 @@ export default function HomePage() {
     const selectedPreviewShipIsOwn = useMemo(() => {
         const shipId = normalizeId(selectedPreviewShip?.ship?._id).trim();
 
-        return Boolean(selectedShipId) && shipId === selectedShipId;
-    }, [selectedPreviewShip, selectedShipId]);
+        return Boolean(selectedTokenId) && shipId === selectedTokenId;
+    }, [selectedPreviewShip, selectedTokenId]);
 
     const pushLog = (text: string) => {
         setLogs((prev) => [...prev, { ts: new Date().toISOString(), text }]);
     };
 
+    const finalizeTurnPlayback = useCallback((delta: EncounterTurnDeltaData) => {
+        setEncounterSnapshot((currentSnapshot) =>
+            applyEncounterTurnDeltaToSnapshot(currentSnapshot, delta),
+        );
+        setPreviewEncounter((currentPreview) =>
+            applyEncounterTurnDeltaToSnapshot(currentPreview, delta),
+        );
+    }, []);
+
     const applyEncounterSnapshot = (payload: unknown) => {
         setEncounterJson(JSON.stringify(payload, null, 2));
         const nextSnapshot = parseEncounterSnapshot(payload);
+        setTrajectoryPlayback(null);
         setEncounterSnapshot(nextSnapshot);
         setPreviewEncounter((currentPreview) => {
             if (
@@ -427,9 +1345,40 @@ export default function HomePage() {
         });
     };
 
-    useEffect(() => {
-        userIdRef.current = userId;
-    }, [userId]);
+    const applyEncounterTurnDelta = (payload: unknown) => {
+        setEncounterJson(JSON.stringify(payload, null, 2));
+        const nextDelta = parseEncounterTurnDelta(payload);
+        if (!nextDelta) {
+            return;
+        }
+        const ownedShipIds = new Set(ownedShips.map((ship) => ship._id));
+        const resolvedTrajectories = buildWorkspaceProjectedTrajectories(
+            nextDelta.resolvedTrajectories,
+            ownedShipIds,
+        );
+        const resolvedCrossings = buildWorkspacePredictedCrossings(
+            nextDelta.resolvedCrossings,
+        );
+        const playbackStepCount = resolvedTrajectories.reduce(
+            (currentMax, trajectory) =>
+                Math.max(currentMax, trajectory.stepPositions.length),
+            0,
+        );
+
+        if (playbackStepCount <= 1) {
+            finalizeTurnPlayback(nextDelta);
+            return;
+        }
+
+        setTrajectoryPlayback({
+            mode: "turn-transition",
+            substep: 1,
+            stepCount: playbackStepCount,
+            trajectories: resolvedTrajectories,
+            crossings: resolvedCrossings,
+            pendingDelta: nextDelta,
+        });
+    };
 
     useEffect(() => {
         if (!isPreviewDragging) {
@@ -522,39 +1471,596 @@ export default function HomePage() {
         return map;
     }, [ships]);
 
-    const selectedPlayer = useMemo(
+    const lobbySelectedPlayer = useMemo(
+        () => users.find((player) => player._id === lobbyUserId),
+        [users, lobbyUserId],
+    );
+    const workspaceSelectedPlayer = useMemo(
         () => users.find((player) => player._id === userId),
         [users, userId],
     );
-
-    const ownedShips = useMemo(() => {
-        if (!selectedPlayer?.ownedShips?.length) {
+    const lobbyOwnedShips = useMemo<ShipSelectOption[]>(() => {
+        if (!lobbySelectedPlayer?.ownedShips?.length) {
             return [];
         }
-        return selectedPlayer.ownedShips
+        return lobbySelectedPlayer.ownedShips
             .map((owned) => normalizeId(owned._id).trim())
             .filter(Boolean)
             .map((id) => {
                 const ship = shipById.get(id);
                 return {
                     _id: id,
-                    label: ship ? `${ship.name} • ${ship.type ?? "ship"}` : id,
+                    label: ship ? `${ship.name} - ${ship.type ?? "ship"}` : id,
                 };
             });
-    }, [selectedPlayer, shipById]);
+    }, [lobbySelectedPlayer, shipById]);
+    const ownedShips = useMemo<ShipSelectOption[]>(() => {
+        if (!workspaceSelectedPlayer?.ownedShips?.length) {
+            return [];
+        }
+        return workspaceSelectedPlayer.ownedShips
+            .map((owned) => normalizeId(owned._id).trim())
+            .filter(Boolean)
+            .map((id) => {
+                const ship = shipById.get(id);
+                return {
+                    _id: id,
+                    label: ship ? `${ship.name} - ${ship.type ?? "ship"}` : id,
+                };
+            });
+    }, [workspaceSelectedPlayer, shipById]);
+    const encounterShips = useMemo<WorkspaceShipEntry[]>(() => {
+        if (!encounterSnapshot?.ships?.length) {
+            return [];
+        }
+
+        const ownedShipIds = new Set(ownedShips.map((ship) => ship._id));
+        return encounterSnapshot.ships.map((ship, index) => {
+            const shipId = normalizeId(ship.ship?._id).trim();
+            return {
+                shipId,
+                name: ship.ship?.name?.trim() || `Ship ${index + 1}`,
+                type: ship.ship?.type?.trim() || "ship",
+                direction: ship.direction?.trim() || "Unknown",
+                speed: typeof ship.speed === "number" ? ship.speed : null,
+                intent: ship.intent?.trim() || null,
+                target: ship.target ?? null,
+                isOwnedBySelectedPlayer: ownedShipIds.has(shipId),
+            };
+        });
+    }, [encounterSnapshot, ownedShips]);
+    const ownEncounterShips = useMemo(
+        () => encounterShips.filter((ship) => ship.isOwnedBySelectedPlayer),
+        [encounterShips],
+    );
+    const selectedEncounterShip = useMemo(
+        () =>
+            encounterShips.find((ship) => ship.shipId === selectedTokenId) ??
+            null,
+        [encounterShips, selectedTokenId],
+    );
+    const selectableCaptainTargetShips = useMemo(
+        () =>
+            encounterShips
+                .filter((ship) => ship.shipId !== selectedTokenId)
+                .map((ship) => ({
+                    shipId: ship.shipId,
+                    label: `${ship.name} - ${ship.isOwnedBySelectedPlayer ? "friendly" : "enemy"}`,
+                })),
+        [encounterShips, selectedTokenId],
+    );
+    const projectedTrajectories = useMemo<WorkspaceProjectedTrajectoryEntry[]>(
+        () => {
+            if (!encounterSnapshot?.projectedTrajectories?.length) {
+                return [];
+            }
+
+            return buildWorkspaceProjectedTrajectories(
+                encounterSnapshot.projectedTrajectories,
+                new Set(ownedShips.map((ship) => ship._id)),
+            );
+        },
+        [encounterSnapshot, ownedShips],
+    );
+    const trajectoryIntersections = useMemo<WorkspacePredictedCrossingEntry[]>(
+        () =>
+            buildWorkspacePredictedCrossings(
+                encounterSnapshot?.predictedCrossings ?? [],
+            ),
+        [encounterSnapshot],
+    );
+    const projectedTrajectoryStepCount = useMemo(() => {
+        const maxStepCount = projectedTrajectories.reduce(
+            (currentMax, trajectory) =>
+                Math.max(currentMax, trajectory.stepPositions.length),
+            0,
+        );
+
+        return Math.max(1, maxStepCount);
+    }, [projectedTrajectories]);
+    const trajectoryPaths = useMemo<EncounterHexGridPath[]>(
+        () =>
+            projectedTrajectories.map((trajectory) => ({
+                id: trajectory.id,
+                points: trajectory.points,
+                stroke: trajectory.isOwnedBySelectedPlayer
+                    ? "#2e7d32"
+                    : "#c62828",
+                fill: trajectory.isOwnedBySelectedPlayer
+                    ? "#bbf7d0"
+                    : "#fecaca",
+                lineOpacity: 0.55,
+                pointOpacity: 0.24,
+                dashed: trajectory.points.length <= 1,
+            })),
+        [projectedTrajectories],
+    );
+    const activePlaybackSubstep = trajectoryPlayback?.substep ?? 0;
+    const activePlaybackTrajectories = trajectoryPlayback?.trajectories ?? [];
+    const activePlaybackCrossings = trajectoryPlayback?.crossings ?? [];
+    const trajectoryHighlights = useMemo<EncounterHexGridHighlight[]>(
+        () =>
+            trajectoryIntersections.map((entry) => ({
+                id: entry.id,
+                x: entry.point.x,
+                y: entry.point.y,
+                label: "X",
+                title: `Predicted intersection on step ${entry.substep}: ${entry.shipNames.join(" x ")}`,
+                fill: "rgba(245, 158, 11, 0.1)",
+                stroke: "#f59e0b",
+                textColor: "#b45309",
+                radiusScale: 0.85,
+            })),
+        [trajectoryIntersections],
+    );
+    const playbackCrossingHighlights = useMemo<EncounterHexGridHighlight[]>(
+        () =>
+            activePlaybackCrossings.map((entry) => ({
+                id: `${entry.id}-playback`,
+                x: entry.point.x,
+                y: entry.point.y,
+                label: "X",
+                title: `Encounter on step ${entry.substep}: ${entry.shipNames.join(" x ")}`,
+                fill:
+                    entry.substep === activePlaybackSubstep
+                        ? "rgba(245, 158, 11, 0.24)"
+                        : "rgba(245, 158, 11, 0.1)",
+                stroke: "#f59e0b",
+                textColor: "#b45309",
+                radiusScale:
+                    entry.substep === activePlaybackSubstep ? 1.1 : 0.85,
+            })),
+        [activePlaybackCrossings, activePlaybackSubstep],
+    );
+    const trajectoryPlaybackHighlights = useMemo<EncounterHexGridHighlight[]>(
+        () =>
+            activePlaybackTrajectories.flatMap((trajectory) => {
+                const activePoint =
+                    trajectory.stepPositions[activePlaybackSubstep - 1] ??
+                    trajectory.nextStartPosition;
+
+                if (!activePoint) {
+                    return [];
+                }
+
+                const badge = trajectory.shipName
+                    .split(/\s+/)
+                    .filter(Boolean)
+                    .slice(0, 2)
+                    .map((part) => part[0]?.toUpperCase() ?? "")
+                    .join("")
+                    .slice(0, 2);
+
+                return [
+                    {
+                        id: `${trajectory.id}-preview-step`,
+                        x: activePoint.x,
+                        y: activePoint.y,
+                        label: badge || "S",
+                        title: `${trajectory.shipName} position on step ${activePlaybackSubstep}`,
+                        fill: trajectory.isOwnedBySelectedPlayer
+                            ? "rgba(46, 125, 50, 0.18)"
+                            : "rgba(198, 40, 40, 0.18)",
+                        stroke: trajectory.isOwnedBySelectedPlayer
+                            ? "#2e7d32"
+                            : "#c62828",
+                        textColor: trajectory.isOwnedBySelectedPlayer
+                            ? "#166534"
+                            : "#991b1b",
+                        radiusScale: 0.92,
+                    },
+                ];
+            }),
+        [activePlaybackSubstep, activePlaybackTrajectories],
+    );
+    const selectedShipTrajectoryIntersections = useMemo(
+        () =>
+            trajectoryIntersections.filter((entry) =>
+                entry.shipIds.includes(selectedTokenId),
+            ),
+        [selectedTokenId, trajectoryIntersections],
+    );
+    const selectedShipProjectedTrajectory = useMemo(
+        () =>
+            projectedTrajectories.find(
+                (trajectory) => trajectory.shipId === selectedTokenId,
+            ) ?? null,
+        [projectedTrajectories, selectedTokenId],
+    );
+    const selectedShipPlaybackTrajectory = useMemo(
+        () =>
+            activePlaybackTrajectories.find(
+                (trajectory) => trajectory.shipId === selectedTokenId,
+            ) ?? null,
+        [activePlaybackTrajectories, selectedTokenId],
+    );
+    const workspaceActionForecasts = useMemo<WorkspaceActionForecastEntry[]>(
+        () =>
+            (encounterSnapshot?.actionForecasts ?? []).flatMap(
+                (forecast, index) => {
+                    const shipId = normalizeId(forecast.shipId).trim();
+                    const captainIntent = forecast.captainIntent?.trim() || null;
+                    const helmsmanIntent = forecast.helmsmanIntent?.trim();
+                    const boatswainIntent = forecast.boatswainIntent?.trim();
+                    if (!shipId || !helmsmanIntent || !boatswainIntent) {
+                        return [];
+                    }
+
+                    return [
+                        {
+                            id: `${shipId}-${helmsmanIntent}-${boatswainIntent}-${index}`,
+                            shipId,
+                            label:
+                                forecast.label?.trim() ||
+                                `${helmsmanIntent} / ${boatswainIntent}`,
+                            captainIntent,
+                            helmsmanIntent,
+                            boatswainIntent,
+                            available: forecast.available !== false,
+                            requiresRoll: forecast.requiresRoll === true,
+                            successChance:
+                                typeof forecast.successChance === "number"
+                                    ? forecast.successChance
+                                    : null,
+                            target:
+                                typeof forecast.target === "number"
+                                    ? forecast.target
+                                    : null,
+                            baseSkill:
+                                typeof forecast.baseSkill === "number"
+                                    ? forecast.baseSkill
+                                    : null,
+                            modifierTotal:
+                                typeof forecast.modifierTotal === "number"
+                                    ? forecast.modifierTotal
+                                    : null,
+                            windModifier:
+                                typeof forecast.windModifier === "number"
+                                    ? forecast.windModifier
+                                    : null,
+                            note: forecast.note?.trim() || null,
+                        },
+                    ];
+                },
+            ),
+        [encounterSnapshot],
+    );
+    const selectedActionForecast = useMemo(
+        () => {
+            const captainForecast =
+                workspaceActionForecasts.find(
+                    (forecast) =>
+                        forecast.shipId === selectedTokenId &&
+                        forecast.captainIntent === captainIntent,
+                ) ?? null;
+            const usesCaptainForHelmsman =
+                helmsmanIntent === "helmsman-obey-captain";
+            const usesCaptainForBoatswain =
+                boatswainIntent === "boatswain-obey-captain";
+
+            if (
+                captainForecast &&
+                (usesCaptainForHelmsman || usesCaptainForBoatswain)
+            ) {
+                return captainForecast;
+            }
+
+            return (
+                workspaceActionForecasts.find(
+                    (forecast) =>
+                        forecast.shipId === selectedTokenId &&
+                        forecast.captainIntent === null &&
+                        forecast.helmsmanIntent === helmsmanIntent &&
+                        forecast.boatswainIntent ===
+                            normalizeBoatswainIntentForTurnContext(
+                                helmsmanIntent,
+                                boatswainIntent,
+                            ),
+                ) ?? null
+            );
+        },
+        [
+            captainIntent,
+            boatswainIntent,
+            helmsmanIntent,
+            selectedTokenId,
+            workspaceActionForecasts,
+        ],
+    );
+    const workspaceLastTurnRollResults =
+        useMemo<WorkspaceLastTurnRollResultEntry[]>(
+            () =>
+                (encounterSnapshot?.lastTurnRollResults ?? []).flatMap(
+                    (result, index) => {
+                        const shipId = normalizeId(result.shipId).trim();
+                        const turnNumber =
+                            typeof result.turnNumber === "number"
+                                ? result.turnNumber
+                                : Number(result.turnNumber);
+                        const roll =
+                            typeof result.roll === "number"
+                                ? result.roll
+                                : Number(result.roll);
+                        const target =
+                            typeof result.target === "number"
+                                ? result.target
+                                : Number(result.target);
+                        const mos =
+                            typeof result.mos === "number"
+                                ? result.mos
+                                : Number(result.mos);
+                        const windModifier =
+                            typeof result.windModifier === "number"
+                                ? result.windModifier
+                                : Number(result.windModifier);
+                        if (
+                            !shipId ||
+                            !Number.isFinite(turnNumber) ||
+                            !Number.isFinite(roll) ||
+                            !Number.isFinite(target) ||
+                            !Number.isFinite(mos) ||
+                            !Number.isFinite(windModifier)
+                        ) {
+                            return [];
+                        }
+
+                        return [
+                            {
+                                id: `${shipId}-${result.actionKey ?? "roll"}-${index}`,
+                                shipId,
+                                turnNumber,
+                                label:
+                                    result.label?.trim() ||
+                                    result.actionKey?.trim() ||
+                                    "Roll",
+                                roll,
+                                target,
+                                mos,
+                                success: result.success === true,
+                                isCritSuccess:
+                                    result.isCritSuccess === true,
+                                isCritFailure:
+                                    result.isCritFailure === true,
+                                windModifier,
+                                note: result.note?.trim() || null,
+                            },
+                        ];
+                    },
+                ),
+            [encounterSnapshot],
+        );
+    const selectedShipLastTurnRollResults = useMemo(
+        () =>
+            workspaceLastTurnRollResults.filter(
+                (result) => result.shipId === selectedTokenId,
+            ),
+        [selectedTokenId, workspaceLastTurnRollResults],
+    );
+    const selectedShipPlaybackStepPosition = useMemo(() => {
+        if (!selectedShipPlaybackTrajectory) {
+            return null;
+        }
+
+        return (
+            selectedShipPlaybackTrajectory.stepPositions[
+                activePlaybackSubstep - 1
+            ] ?? selectedShipPlaybackTrajectory.nextStartPosition
+        );
+    }, [activePlaybackSubstep, selectedShipPlaybackTrajectory]);
+    const selectedLastTurnRollSummary = useMemo(
+        () => selectedShipLastTurnRollResults[0] ?? null,
+        [selectedShipLastTurnRollResults],
+    );
+    const workspaceMarkers = useMemo(() => {
+        if (!encounterSnapshot?.ships?.length) {
+            return [];
+        }
+
+        const ownedShipIds = new Set(ownedShips.map((ship) => ship._id));
+        const animatedShipIds =
+            trajectoryPlayback?.mode === "turn-transition"
+                ? new Set(
+                      trajectoryPlayback.trajectories.map(
+                          (trajectory) => trajectory.shipId,
+                      ),
+                  )
+                : null;
+        return encounterSnapshot.ships.flatMap((entry, index) => {
+            if (!entry.position) {
+                return [];
+            }
+
+            const shipId = normalizeId(entry.ship?._id).trim();
+            if (animatedShipIds?.has(shipId)) {
+                return [];
+            }
+            const isOwnedBySelectedPlayer = ownedShipIds.has(shipId);
+            const name = entry.ship?.name?.trim() || `Ship ${index + 1}`;
+            const badge = name
+                .split(/\s+/)
+                .filter(Boolean)
+                .slice(0, 2)
+                .map((part) => part[0]?.toUpperCase() ?? "")
+                .join("")
+                .slice(0, 2);
+
+            return [
+                {
+                    id: shipId || `${name}-${index}`,
+                    x: entry.position.x,
+                    y: entry.position.y,
+                    label: name,
+                    badge: badge || `S${(index + 1).toString().slice(-1)}`,
+                    title: `${name} | dir: ${entry.direction ?? "Unknown"} | speed: ${entry.speed ?? "Unknown"}`,
+                    direction: entry.direction?.trim() || undefined,
+                    fill: isOwnedBySelectedPlayer ? "#2e7d32" : "#c62828",
+                    stroke: isOwnedBySelectedPlayer ? "#dcfce7" : "#fecaca",
+                    arrowColor: isOwnedBySelectedPlayer ? "#166534" : "#991b1b",
+                },
+            ];
+        });
+    }, [encounterSnapshot, ownedShips, trajectoryPlayback]);
+    const workspaceReady =
+        Boolean(userId) &&
+        Boolean(encounterId) &&
+        encounterSnapshot?._id === encounterId;
+
+    useEffect(() => {
+        if (!trajectoryPlayback) {
+            return undefined;
+        }
+
+        const timer = window.setTimeout(() => {
+            if (trajectoryPlayback.substep >= trajectoryPlayback.stepCount) {
+                if (
+                    trajectoryPlayback.mode === "turn-transition" &&
+                    trajectoryPlayback.pendingDelta
+                ) {
+                    finalizeTurnPlayback(trajectoryPlayback.pendingDelta);
+                }
+                setTrajectoryPlayback(null);
+                return;
+            }
+
+            setTrajectoryPlayback((currentPlayback) => {
+                if (!currentPlayback) {
+                    return currentPlayback;
+                }
+
+                return {
+                    ...currentPlayback,
+                    substep: currentPlayback.substep + 1,
+                };
+            });
+        }, TURN_PLAYBACK_STEP_DURATION_MS);
+
+        return () => {
+            window.clearTimeout(timer);
+        };
+    }, [finalizeTurnPlayback, trajectoryPlayback]);
+
+    useEffect(() => {
+        if (!isTurningHelmsmanIntent(helmsmanIntent)) {
+            return;
+        }
+
+        setBoatswainIntent((currentIntent) =>
+            normalizeBoatswainIntentForTurnContext(
+                helmsmanIntent,
+                currentIntent,
+            ),
+        );
+    }, [helmsmanIntent]);
+
+    useEffect(() => {
+        if (!selectedEncounterShip?.isOwnedBySelectedPlayer) {
+            return;
+        }
+
+        const shipIntent = selectedEncounterShip.intent?.trim().toLowerCase();
+        if (
+            shipIntent === "flee" ||
+            shipIntent === "pursue" ||
+            shipIntent === "circle"
+        ) {
+            setCaptainIntent(shipIntent);
+        }
+
+        const shipTarget = selectedEncounterShip.target;
+        if (
+            shipTarget?.type === "specific-ship" ||
+            shipTarget?.type === "nearest-enemy" ||
+            shipTarget?.type === "enemy-center-of-mass"
+        ) {
+            setCaptainTargetType(shipTarget.type);
+            setCaptainTargetShipId(
+                shipTarget.type === "specific-ship"
+                    ? normalizeId(shipTarget.shipId).trim()
+                    : "",
+            );
+            return;
+        }
+
+        setCaptainTargetType("nearest-enemy");
+        setCaptainTargetShipId("");
+    }, [selectedEncounterShip]);
+
+    const visibleBoatswainIntentOptions = useMemo(
+        () => resolveBoatswainIntentOptions(helmsmanIntent),
+        [helmsmanIntent],
+    );
+
+    useEffect(() => {
+        if (captainTargetType !== "specific-ship") {
+            if (captainTargetShipId) {
+                setCaptainTargetShipId("");
+            }
+            return;
+        }
+
+        if (
+            captainTargetShipId &&
+            selectableCaptainTargetShips.some(
+                (ship) => ship.shipId === captainTargetShipId,
+            )
+        ) {
+            return;
+        }
+
+        setCaptainTargetShipId(selectableCaptainTargetShips[0]?.shipId ?? "");
+    }, [
+        captainTargetShipId,
+        captainTargetType,
+        selectableCaptainTargetShips,
+    ]);
 
     useEffect(() => {
         if (
-            selectedShipId &&
-            !ownedShips.some((ship) => ship._id === selectedShipId)
+            lobbyShipId &&
+            !lobbyOwnedShips.some((ship) => ship._id === lobbyShipId)
         ) {
-            setSelectedShipId("");
+            setLobbyShipId("");
             setSpawnIntent("");
-            setEncounterId("");
-            setEncounterSnapshot(null);
-            setEncounterJson("");
+            setLobbyEncounterId("");
         }
-    }, [ownedShips, selectedShipId]);
+    }, [lobbyOwnedShips, lobbyShipId]);
+    useEffect(() => {
+        if (encounterShips.length === 0) {
+            setSelectedTokenId("");
+            return;
+        }
+
+        if (
+            selectedTokenId &&
+            encounterShips.some((ship) => ship.shipId === selectedTokenId)
+        ) {
+            return;
+        }
+
+        const preferredShip =
+            ownEncounterShips[0] ?? encounterShips[0];
+        setSelectedTokenId(preferredShip.shipId);
+    }, [encounterShips, ownEncounterShips, selectedTokenId]);
 
     const loadUsers = async () => {
         setUsersLoading(true);
@@ -575,13 +2081,6 @@ export default function HomePage() {
                     : [],
             }));
             setUsers(normalized);
-            const current = normalizeId(userIdRef.current ?? "").trim();
-            if (
-                !current ||
-                !normalized.some((player) => player._id === current)
-            ) {
-                setUserId("");
-            }
         } catch (err) {
             setUsersError(String(err));
             setUsers([]);
@@ -628,11 +2127,15 @@ export default function HomePage() {
             const data = (await response.json()) as EncounterCardData[];
             const normalized = data.map((encounter) => ({
                 _id: normalizeId((encounter as EncounterCardData)._id),
-                name: encounter.name,
+                name: resolveEncounterLabel(encounter),
                 radius:
                     typeof encounter.radius === "number"
                         ? encounter.radius
                         : Number(encounter.radius),
+                currentTurn:
+                    typeof encounter.currentTurn === "number"
+                        ? encounter.currentTurn
+                        : Number(encounter.currentTurn ?? 0),
             }));
             setEncounters(normalized);
         } catch (err) {
@@ -657,13 +2160,6 @@ export default function HomePage() {
         next.on("connect", () => {
             setStatus(`connected: ${next.id}`);
             pushLog(`connect ${next.id}`);
-            const currentUserId = normalizeId(userIdRef.current ?? "").trim();
-            if (!currentUserId || currentUserId === "[object Object]") {
-                return;
-            }
-            const data = { userId: currentUserId };
-            next.emit("user-connected.message", data);
-            pushLog(`emit user-connected.message ${JSON.stringify(data)}`);
         });
         next.on("disconnect", (reason) => {
             setStatus(`disconnected: ${reason}`);
@@ -685,15 +2181,31 @@ export default function HomePage() {
                 if (!queuedIntent) {
                     return;
                 }
-                setSelectedTokenId(queuedIntent.shipId);
                 setSpawnIntent(queuedIntent.encounterIntent);
                 return;
             }
 
-            if (event === "turn-advanced.response") {
+            if (event === "send-input.response") {
                 const payload =
                     Array.isArray(args) && args.length === 1 ? args[0] : args;
-                applyEncounterSnapshot(payload);
+                const response = parseSendInputResponse(payload);
+                if (!response?.ok) {
+                    return;
+                }
+
+                setEncounterSnapshot((currentSnapshot) =>
+                    applySendInputResponseToSnapshot(
+                        currentSnapshot,
+                        response,
+                    ),
+                );
+                return;
+            }
+
+            if (event === "next-turn.message") {
+                const payload =
+                    Array.isArray(args) && args.length === 1 ? args[0] : args;
+                applyEncounterTurnDelta(payload);
             }
         });
     };
@@ -745,25 +2257,44 @@ export default function HomePage() {
         }
     };
 
-    const handleUserConnected = () => {
+    const emitUserConnected = (nextUserId: string) => {
         if (!socket) {
             pushLog("emit failed: not connected");
-            return;
+            return false;
         }
-        const currentUserId = normalizeId(userId).trim();
-        if (!currentUserId) {
+
+        const normalizedUserId = normalizeId(nextUserId).trim();
+        if (!normalizedUserId) {
             pushLog("emit failed: userId is empty");
-            return;
+            return false;
         }
-        const data = { userId: currentUserId };
+
+        const data = { userId: normalizedUserId };
         socket.emit("user-connected.message", data);
         pushLog(`emit user-connected.message ${JSON.stringify(data)}`);
+        return true;
     };
 
-    const handleUserChange = (nextIndex: string) => {
+    const handleLobbyUserChange = (nextIndex: string) => {
+        if (nextIndex === "") {
+            setLobbyUserId("");
+            setLobbyShipId("");
+            setLobbyEncounterId("");
+            setSpawnIntent("");
+            return;
+        }
+        const index = Number(nextIndex);
+        const selected = Number.isNaN(index) ? undefined : users[index];
+        const nextUserId = normalizeId(selected?._id ?? "");
+        setLobbyUserId(nextUserId);
+        setLobbyShipId("");
+        setLobbyEncounterId("");
+        setSpawnIntent("");
+    };
+
+    const handleWorkspaceUserChange = (nextIndex: string) => {
         if (nextIndex === "") {
             setUserId("");
-            setSelectedShipId("");
             setEncounterId("");
             setEncounterSnapshot(null);
             setEncounterJson("");
@@ -772,63 +2303,25 @@ export default function HomePage() {
         const index = Number(nextIndex);
         const selected = Number.isNaN(index) ? undefined : users[index];
         const nextUserId = normalizeId(selected?._id ?? "");
-        const current = userIdRef.current;
         setUserId(nextUserId);
-        setSelectedShipId("");
-        setSpawnIntent("");
         setEncounterId("");
+        setTrajectoryPlayback(null);
         setEncounterSnapshot(null);
         setEncounterJson("");
-        if (!socket || !nextUserId) {
-            return;
-        }
-        if (current && current !== nextUserId) {
-            pushLog(`relogin: ${current} -> ${nextUserId}`);
-            socket.disconnect();
-            setGlobalSocket(null);
-            setSocket(null);
-            setStatus("disconnected");
-            setTimeout(() => handleConnect(), 0);
-            return;
-        }
-        if (!current) {
-            const data = { userId: nextUserId };
-            socket.emit("user-connected.message", data);
-            pushLog(`emit user-connected.message ${JSON.stringify(data)}`);
-        }
     };
 
-    const handleShipChange = (nextShipId: string) => {
+    const handleLobbyShipChange = (nextShipId: string) => {
         const id = normalizeId(nextShipId).trim();
         if (!id) {
-            setSelectedShipId("");
+            setLobbyShipId("");
             setSpawnIntent("");
-            setEncounterId("");
-            setEncounterSnapshot(null);
-            setEncounterJson("");
+            setLobbyEncounterId("");
             return;
         }
-        setSelectedShipId(id);
-        if (encounterId) {
-            setEncounterId("");
-            setEncounterSnapshot(null);
-            setEncounterJson("");
+        setLobbyShipId(id);
+        if (lobbyEncounterId) {
+            setLobbyEncounterId("");
         }
-    };
-
-    const handleLoadEncounter = () => {
-        if (!socket) {
-            pushLog("emit failed: not connected");
-            return;
-        }
-        const currentUserId = normalizeId(userId).trim();
-        if (!currentUserId || !encounterId.trim()) {
-            pushLog("emit failed: userId or encounterId is empty");
-            return;
-        }
-        const data = { userId: currentUserId, encounterId: encounterId.trim() };
-        socket.emit("load-encounter.message", data);
-        pushLog(`emit load-encounter.message ${JSON.stringify(data)}`);
     };
 
     const handleQueueSpawnIntent = () => {
@@ -836,9 +2329,9 @@ export default function HomePage() {
             pushLog("emit failed: not connected");
             return;
         }
-        const currentUserId = normalizeId(userId).trim();
-        const shipId = normalizeId(selectedShipId).trim();
-        const targetEncounterId = encounterId.trim();
+        const currentUserId = normalizeId(lobbyUserId).trim();
+        const shipId = normalizeId(lobbyShipId).trim();
+        const targetEncounterId = lobbyEncounterId.trim();
         const encounterIntent = spawnIntent.trim();
         if (
             !currentUserId ||
@@ -851,6 +2344,7 @@ export default function HomePage() {
             );
             return;
         }
+        emitUserConnected(currentUserId);
         const data = {
             userId: currentUserId,
             encounterId: targetEncounterId,
@@ -861,7 +2355,18 @@ export default function HomePage() {
         pushLog(`emit queue-spawn-intent.message ${JSON.stringify(data)}`);
     };
 
-    const handleEncounterChange = async (nextIndex: string) => {
+    const handleLobbyEncounterChange = (nextIndex: string) => {
+        if (nextIndex === "") {
+            setLobbyEncounterId("");
+            return;
+        }
+        const index = Number(nextIndex);
+        const selected = Number.isNaN(index) ? undefined : encounters[index];
+        const nextEncounterId = normalizeId(selected?._id ?? "");
+        setLobbyEncounterId(nextEncounterId);
+    };
+
+    const handleWorkspaceEncounterChange = (nextIndex: string) => {
         if (nextIndex === "") {
             setEncounterId("");
             setEncounterSnapshot(null);
@@ -876,22 +2381,49 @@ export default function HomePage() {
         }
 
         setEncounterId(nextEncounterId);
+        setTrajectoryPlayback(null);
         setEncounterSnapshot(null);
         setEncounterJson("");
+    };
 
-        const currentUserId = normalizeId(userIdRef.current ?? "").trim();
-        if (!currentUserId || !nextEncounterId) {
+    const handleOpenEncounter = () => {
+        if (!socket) {
+            pushLog("emit failed: not connected");
             return;
         }
 
-        if (socket) {
-            const data = {
-                userId: currentUserId,
-                encounterId: nextEncounterId,
-            };
-            socket.emit("load-encounter.message", data);
-            pushLog(`emit load-encounter.message ${JSON.stringify(data)}`);
+        const currentUserId = normalizeId(userId).trim();
+        const currentEncounterId = encounterId.trim();
+        if (!currentUserId || !currentEncounterId) {
+            pushLog("emit failed: player or encounter is empty");
+            return;
         }
+
+        setTrajectoryPlayback(null);
+        setEncounterSnapshot(null);
+        setEncounterJson("");
+        emitUserConnected(currentUserId);
+        const data = {
+            userId: currentUserId,
+            encounterId: currentEncounterId,
+        };
+        socket.emit("load-encounter.message", data);
+        pushLog(`emit load-encounter.message ${JSON.stringify(data)}`);
+    };
+
+    const handlePlayTrajectoryPreview = () => {
+        if (!workspaceReady || projectedTrajectoryStepCount <= 1) {
+            return;
+        }
+
+        setTrajectoryPlayback({
+            mode: "preview",
+            substep: 1,
+            stepCount: projectedTrajectoryStepCount,
+            trajectories: projectedTrajectories,
+            crossings: trajectoryIntersections,
+            pendingDelta: null,
+        });
     };
 
     const handleSendInput = () => {
@@ -900,15 +2432,36 @@ export default function HomePage() {
             return;
         }
         const currentUserId = normalizeId(userId).trim();
-        if (!currentUserId || !encounterId.trim()) {
-            pushLog("emit failed: userId or encounterId is empty");
+        const currentEncounterId = encounterId.trim();
+        const shipId = selectedTokenId.trim();
+        if (!currentUserId || !currentEncounterId || !shipId) {
+            pushLog("emit failed: userId, encounterId or selected ship is empty");
             return;
         }
+        const normalizedTargetShipId =
+            captainTargetType === "specific-ship"
+                ? normalizeId(captainTargetShipId).trim()
+                : "";
+        if (captainTargetType === "specific-ship" && !normalizedTargetShipId) {
+            pushLog("emit failed: specific ship target is empty");
+            return;
+        }
+        emitUserConnected(currentUserId);
         const data = {
             userId: currentUserId,
-            encounterId: encounterId.trim(),
-            selectedTokenId: selectedTokenId.trim(),
-            inputType: inputType.trim(),
+            encounterId: currentEncounterId,
+            selectedTokenId: shipId,
+            captainIntent: captainIntent.trim(),
+            helmsmanIntent: helmsmanIntent.trim(),
+            boatswainIntent: normalizeBoatswainIntentForTurnContext(
+                helmsmanIntent.trim(),
+                boatswainIntent.trim(),
+            ),
+            targetType: captainTargetType,
+            targetShipId:
+                captainTargetType === "specific-ship"
+                    ? normalizedTargetShipId
+                    : null,
         };
         socket.emit("send-input.message", data);
         pushLog(`emit send-input.message ${JSON.stringify(data)}`);
@@ -935,35 +2488,69 @@ export default function HomePage() {
                 </Toolbar>
             </AppBar>
 
-            <Container sx={{ py: 6 }}>
+            <Box
+                sx={{
+                    px: { xs: 2, md: 3 },
+                    py: 3,
+                    minHeight: "calc(100vh - 64px)",
+                }}
+            >
+                <Box
+                    sx={{
+                        borderBottom: "1px solid",
+                        borderColor: "divider",
+                        mb: 3,
+                    }}
+                >
+                    <Tabs
+                        value={screenTab}
+                        onChange={(_event, nextValue) =>
+                            setScreenTab(nextValue as AppScreenTab)
+                        }
+                        variant="scrollable"
+                        allowScrollButtonsMobile
+                    >
+                        <Tab value="lobby" label="Lobby" />
+                        <Tab value="encounter" label="Encounter" />
+                        <Tab value="debug" label="Debug" />
+                    </Tabs>
+                </Box>
                 <Grid container spacing={3}>
-                    <Grid item xs={12} lg={4}>
+                    <Grid
+                        item
+                        xs={12}
+                        sx={{ display: screenTab === "lobby" ? "block" : "none" }}
+                    >
                         <Card className="glass">
-                            <CardContent>
-                                <Typography variant="h5">Session</Typography>
+                            <CardContent sx={{ p: { xs: 2.5, md: 4 } }}>
+                                <Typography variant="h4">Lobby / Spawn Queue</Typography>
                                 <Typography
                                     color="text.secondary"
                                     sx={{ mb: 2 }}
                                 >
-                                    Connect players and send commands.
+                                    Queue deployment spawns here. This screen
+                                    must not open or refresh the encounter
+                                    workspace.
                                 </Typography>
                                 <Stack spacing={2}>
                                     <TextField
-                                        label="User"
+                                        label="Player"
                                         select
                                         value={
-                                            userId
+                                            lobbyUserId
                                                 ? String(
                                                       users.findIndex(
                                                           (user) =>
                                                               user._id ===
-                                                              userId,
+                                                              lobbyUserId,
                                                       ),
                                                   )
                                                 : ""
                                         }
                                         onChange={(event) =>
-                                            handleUserChange(event.target.value)
+                                            handleLobbyUserChange(
+                                                event.target.value,
+                                            )
                                         }
                                         disabled={usersLoading || !socket}
                                     >
@@ -997,29 +2584,31 @@ export default function HomePage() {
                                     <TextField
                                         label="Ship"
                                         select
-                                        value={selectedShipId}
+                                        value={lobbyShipId}
                                         onChange={(event) =>
-                                            handleShipChange(event.target.value)
+                                            handleLobbyShipChange(
+                                                event.target.value,
+                                            )
                                         }
                                         disabled={
                                             usersLoading ||
                                             shipsLoading ||
                                             !socket ||
-                                            !userId ||
-                                            ownedShips.length === 0
+                                            !lobbyUserId ||
+                                            lobbyOwnedShips.length === 0
                                         }
                                     >
                                         <MenuItem value="" disabled>
                                             Select Ship
                                         </MenuItem>
-                                        {ownedShips.length === 0 && (
+                                        {lobbyOwnedShips.length === 0 && (
                                             <MenuItem value="">
                                                 {shipsLoading
                                                     ? "Loading..."
                                                     : "No ships owned"}
                                             </MenuItem>
                                         )}
-                                        {ownedShips.map((ship) => (
+                                        {lobbyOwnedShips.map((ship) => (
                                             <MenuItem
                                                 key={ship._id}
                                                 value={ship._id}
@@ -1040,25 +2629,25 @@ export default function HomePage() {
                                         label="Encounter"
                                         select
                                         value={
-                                            encounterId
+                                            lobbyEncounterId
                                                 ? String(
                                                       encounters.findIndex(
                                                           (encounter) =>
                                                               encounter._id ===
-                                                              encounterId,
+                                                              lobbyEncounterId,
                                                       ),
                                                   )
                                                 : ""
                                         }
                                         onChange={(event) =>
-                                            void handleEncounterChange(
+                                            handleLobbyEncounterChange(
                                                 event.target.value,
                                             )
                                         }
                                         disabled={
                                             encountersLoading ||
                                             !socket ||
-                                            !userId ||
+                                            !lobbyUserId ||
                                             usersLoading
                                         }
                                     >
@@ -1077,8 +2666,9 @@ export default function HomePage() {
                                                 key={encounter._id}
                                                 value={String(index)}
                                             >
-                                                {encounter.name ||
-                                                    encounter._id}
+                                                {resolveEncounterLabel(
+                                                    encounter,
+                                                )}
                                             </MenuItem>
                                         ))}
                                     </TextField>
@@ -1100,9 +2690,9 @@ export default function HomePage() {
                                         }
                                         disabled={
                                             !socket ||
-                                            !userId ||
-                                            !selectedShipId ||
-                                            !encounterId
+                                            !lobbyUserId ||
+                                            !lobbyShipId ||
+                                            !lobbyEncounterId
                                         }
                                     >
                                         <MenuItem value="" disabled>
@@ -1120,199 +2710,1052 @@ export default function HomePage() {
                                         )}
                                     </TextField>
                                     <Button
-                                        variant="outlined"
+                                        variant="contained"
                                         onClick={handleQueueSpawnIntent}
                                         disabled={
                                             !socket ||
-                                            !userId ||
-                                            !selectedShipId ||
-                                            !encounterId ||
+                                            !lobbyUserId ||
+                                            !lobbyShipId ||
+                                            !lobbyEncounterId ||
                                             !spawnIntent
                                         }
                                     >
-                                        queue-spawn-intent.message
+                                        Queue Spawn
                                     </Button>
-                                    <Stack direction="row" spacing={1}>
-                                        <Button
-                                            variant="outlined"
-                                            onClick={handleUserConnected}
-                                            disabled={!socket}
+                                    <Typography
+                                        variant="caption"
+                                        color="text.secondary"
+                                    >
+                                        The encounter screen has its own player
+                                        and encounter controls. Lobby actions
+                                        stay local to the lobby flow.
+                                    </Typography>
+                                </Stack>
+                            </CardContent>
+                        </Card>
+                    </Grid>
+
+                    <Grid
+                        item
+                        xs={12}
+                        lg={8}
+                        sx={{
+                            display:
+                                screenTab === "encounter" ? "block" : "none",
+                        }}
+                    >
+                        <Card
+                            className="glass"
+                            sx={{
+                                minHeight: "calc(100vh - 210px)",
+                                display: "flex",
+                            }}
+                        >
+                            <CardContent
+                                sx={{
+                                    p: { xs: 2.5, md: 3 },
+                                    display: "grid",
+                                    gap: 2,
+                                    flex: 1,
+                                }}
+                            >
+                                <Typography variant="h4">
+                                    Encounter Workspace
+                                </Typography>
+                                <Typography
+                                    color="text.secondary"
+                                    sx={{ mb: 1 }}
+                                >
+                                    Select player and encounter here, then
+                                    explicitly open the battle context. This
+                                    screen owns the encounter controls.
+                                </Typography>
+                                <Grid container spacing={2}>
+                                    <Grid item xs={12} md={4}>
+                                        <TextField
+                                            label="Player"
+                                            select
+                                            fullWidth
+                                            value={
+                                                userId
+                                                    ? String(
+                                                          users.findIndex(
+                                                              (user) =>
+                                                                  user._id ===
+                                                                  userId,
+                                                          ),
+                                                      )
+                                                    : ""
+                                            }
+                                            onChange={(event) =>
+                                                handleWorkspaceUserChange(
+                                                    event.target.value,
+                                                )
+                                            }
+                                            disabled={usersLoading || !socket}
                                         >
-                                            user-connected.message
-                                        </Button>
-                                        <Button
-                                            variant="outlined"
-                                            onClick={handleLoadEncounter}
-                                            disabled={!socket}
+                                            <MenuItem value="" disabled>
+                                                Select Player
+                                            </MenuItem>
+                                            {users.map((user, index) => (
+                                                <MenuItem
+                                                    key={user._id}
+                                                    value={String(index)}
+                                                >
+                                                    {user.name}
+                                                </MenuItem>
+                                            ))}
+                                        </TextField>
+                                    </Grid>
+                                    <Grid item xs={12} md={5}>
+                                        <TextField
+                                            label="Encounter"
+                                            select
+                                            fullWidth
+                                            value={
+                                                encounterId
+                                                    ? String(
+                                                          encounters.findIndex(
+                                                              (encounter) =>
+                                                                  encounter._id ===
+                                                                  encounterId,
+                                                          ),
+                                                      )
+                                                    : ""
+                                            }
+                                            onChange={(event) =>
+                                                handleWorkspaceEncounterChange(
+                                                    event.target.value,
+                                                )
+                                            }
+                                            disabled={
+                                                encountersLoading ||
+                                                !socket ||
+                                                !userId
+                                            }
                                         >
-                                            load-encounter.message
+                                            <MenuItem value="" disabled>
+                                                Select Encounter
+                                            </MenuItem>
+                                            {encounters.map(
+                                                (encounter, index) => (
+                                                    <MenuItem
+                                                        key={encounter._id}
+                                                        value={String(index)}
+                                                    >
+                                                        {resolveEncounterLabel(
+                                                            encounter,
+                                                        )}
+                                                    </MenuItem>
+                                                ),
+                                            )}
+                                        </TextField>
+                                    </Grid>
+                                    <Grid item xs={12} md={3}>
+                                        <Button
+                                            variant="contained"
+                                            fullWidth
+                                            sx={{ height: "100%" }}
+                                            onClick={handleOpenEncounter}
+                                            disabled={
+                                                !socket ||
+                                                !userId ||
+                                                !encounterId
+                                            }
+                                        >
+                                            Open Encounter
                                         </Button>
-                                    </Stack>
-                                    <Divider />
+                                    </Grid>
+                                </Grid>
+                                <Stack
+                                    direction={{ xs: "column", sm: "row" }}
+                                    spacing={1}
+                                    alignItems={{
+                                        xs: "flex-start",
+                                        sm: "center",
+                                    }}
+                                    useFlexGap
+                                    flexWrap="wrap"
+                                >
+                                    <Chip
+                                        label={`Player: ${
+                                            workspaceSelectedPlayer?.name ??
+                                            "not selected"
+                                        }`}
+                                        variant="outlined"
+                                    />
+                                    <Chip
+                                        label={`Encounter: ${
+                                            encounterSnapshot
+                                                ? resolveEncounterLabel(
+                                                      encounterSnapshot,
+                                                  )
+                                                : "not loaded"
+                                        }`}
+                                        variant="outlined"
+                                    />
+                                    <Chip
+                                        label={`Turn ${encounterSnapshot?.currentTurn ?? 0}`}
+                                        color="primary"
+                                        variant="outlined"
+                                    />
+                                    <Chip
+                                        label={formatWindDirectionLabel(
+                                            encounterSnapshot?.windDirection,
+                                        )}
+                                        variant="outlined"
+                                    />
+                                    {trajectoryPlayback ? (
+                                        <Chip
+                                            label={`${
+                                                trajectoryPlayback.mode ===
+                                                "turn-transition"
+                                                    ? "Turn step"
+                                                    : "Preview step"
+                                            } ${trajectoryPlayback.substep}/${trajectoryPlayback.stepCount}`}
+                                            variant="outlined"
+                                            color="secondary"
+                                        />
+                                    ) : null}
+                                    <Button
+                                        size="small"
+                                        variant="outlined"
+                                        onClick={handlePlayTrajectoryPreview}
+                                        disabled={
+                                            !workspaceReady ||
+                                            projectedTrajectoryStepCount <= 1 ||
+                                            trajectoryPlayback !== null
+                                        }
+                                    >
+                                        Play Preview
+                                    </Button>
+                                    <Button
+                                        size="small"
+                                        variant="outlined"
+                                        onClick={() =>
+                                            setPreviewEncounter(
+                                                encounterSnapshot,
+                                            )
+                                        }
+                                        disabled={!workspaceReady}
+                                    >
+                                        Expand Grid
+                                    </Button>
+                                </Stack>
+                                {!workspaceReady ? (
+                                    <Box
+                                        sx={{
+                                            minHeight: 520,
+                                            borderRadius: 3,
+                                            border: "1px solid",
+                                            borderColor: "divider",
+                                            background:
+                                                "linear-gradient(180deg, rgba(12,34,33,0.06) 0%, rgba(12,34,33,0.02) 100%)",
+                                            display: "flex",
+                                            alignItems: "center",
+                                            justifyContent: "center",
+                                            p: 3,
+                                            textAlign: "center",
+                                            color: "text.secondary",
+                                        }}
+                                    >
+                                        Select a player and encounter here,
+                                        then press Open Encounter.
+                                    </Box>
+                                ) : (
+                                    <Box
+                                        sx={{
+                                            minHeight: 520,
+                                            borderRadius: 3,
+                                            border: "1px solid",
+                                            borderColor: "divider",
+                                            background:
+                                                "linear-gradient(180deg, rgba(12,34,33,0.06) 0%, rgba(12,34,33,0.02) 100%)",
+                                            overflow: "auto",
+                                            p: 2,
+                                        }}
+                                    >
+                                        <EncounterHexGrid
+                                            radius={encounterSnapshot.radius}
+                                            center={
+                                                encounterSnapshot.center ??
+                                                undefined
+                                            }
+                                            markers={workspaceMarkers}
+                                            paths={trajectoryPaths}
+                                            highlights={[
+                                                ...trajectoryHighlights,
+                                                ...playbackCrossingHighlights,
+                                                ...trajectoryPlaybackHighlights,
+                                            ]}
+                                            selectedMarkerId={
+                                                selectedTokenId || null
+                                            }
+                                            onMarkerClick={(marker) =>
+                                                setSelectedTokenId(marker.id)
+                                            }
+                                        />
+                                    </Box>
+                                )}
+                            </CardContent>
+                        </Card>
+                    </Grid>
+                    <Grid
+                        item
+                        xs={12}
+                        lg={4}
+                        sx={{
+                            display:
+                                screenTab === "encounter" ? "block" : "none",
+                        }}
+                    >
+                        <Card className="glass">
+                            <CardContent sx={{ p: { xs: 2.5, md: 3 } }}>
+                                <Typography variant="h5">
+                                    Ship Control Panel
+                                </Typography>
+                                <Typography
+                                    color="text.secondary"
+                                    sx={{ mb: 2 }}
+                                >
+                                    Inspect any ship in the encounter. Orders
+                                    remain available only for friendly ships.
+                                </Typography>
+                                <Stack spacing={2}>
                                     <TextField
-                                        label="Selected Token ID"
+                                        select
+                                        label="Ship In Encounter"
                                         value={selectedTokenId}
                                         onChange={(event) =>
                                             setSelectedTokenId(
                                                 event.target.value,
                                             )
                                         }
-                                    />
-                                    <TextField
-                                        label="Input Type"
-                                        value={inputType}
-                                        onChange={(event) =>
-                                            setInputType(event.target.value)
-                                        }
-                                    />
-                                    <Button
-                                        variant="outlined"
-                                        onClick={handleSendInput}
-                                        disabled={!socket}
+                                        disabled={encounterShips.length === 0}
                                     >
-                                        send-input.message
-                                    </Button>
-                                    <Divider />
+                                        {encounterShips.length === 0 ? (
+                                            <MenuItem value="" disabled>
+                                                No ships in encounter
+                                            </MenuItem>
+                                        ) : null}
+                                        {encounterShips.map((ship) => (
+                                            <MenuItem
+                                                key={ship.shipId}
+                                                value={ship.shipId}
+                                            >
+                                                {ship.name} -{" "}
+                                                {ship.isOwnedBySelectedPlayer
+                                                    ? "friendly"
+                                                    : "enemy"}
+                                            </MenuItem>
+                                        ))}
+                                    </TextField>
+                                    {selectedEncounterShip ? (
+                                        <Box
+                                            sx={{
+                                                borderRadius: 2,
+                                                border: "1px solid",
+                                                borderColor: "divider",
+                                                p: 2,
+                                                display: "grid",
+                                                gap: 1,
+                                            }}
+                                        >
+                                            <Typography variant="h6">
+                                                {selectedEncounterShip.name}
+                                            </Typography>
+                                            <Stack
+                                                direction="row"
+                                                spacing={1}
+                                                useFlexGap
+                                                flexWrap="wrap"
+                                            >
+                                                <Chip
+                                                    size="small"
+                                                    variant="outlined"
+                                                    label={`Type: ${selectedEncounterShip.type}`}
+                                                />
+                                                <Chip
+                                                    size="small"
+                                                    color={
+                                                        selectedEncounterShip.isOwnedBySelectedPlayer
+                                                            ? "success"
+                                                            : "default"
+                                                    }
+                                                    label={
+                                                        selectedEncounterShip.isOwnedBySelectedPlayer
+                                                            ? "Friendly"
+                                                            : "Enemy"
+                                                    }
+                                                />
+                                            </Stack>
+                                            <Typography variant="body2">
+                                                Direction:{" "}
+                                                {selectedEncounterShip.direction}
+                                            </Typography>
+                                            <Typography variant="body2">
+                                                Speed:{" "}
+                                                {selectedEncounterShip.speed ??
+                                                    "Unknown"}
+                                            </Typography>
+                                            <Typography variant="body2">
+                                                Encounter intent:{" "}
+                                                {selectedEncounterShip.intent ??
+                                                    "None"}
+                                            </Typography>
+                                            <Typography variant="body2">
+                                                Captain target:{" "}
+                                                {describeShipCaptainTarget(
+                                                    selectedEncounterShip.target,
+                                                    encounterShips,
+                                                )}
+                                            </Typography>
+                                            <Typography variant="body2">
+                                                Next start position:{" "}
+                                                {selectedShipProjectedTrajectory?.nextStartPosition
+                                                    ? `x ${selectedShipProjectedTrajectory.nextStartPosition.x}, y ${selectedShipProjectedTrajectory.nextStartPosition.y}`
+                                                    : "Unknown"}
+                                            </Typography>
+                                            {trajectoryPlayback ? (
+                                                <Typography variant="body2">
+                                                    {trajectoryPlayback.mode ===
+                                                    "turn-transition"
+                                                        ? "Turn step"
+                                                        : "Preview step"}{" "}
+                                                    {trajectoryPlayback.substep}:{" "}
+                                                    {selectedShipPlaybackStepPosition
+                                                        ? `x ${selectedShipPlaybackStepPosition.x}, y ${selectedShipPlaybackStepPosition.y}`
+                                                        : "Unknown"}
+                                                </Typography>
+                                            ) : null}
+                                            <Typography variant="body2">
+                                                {formatWindDirectionLabel(
+                                                    encounterSnapshot?.windDirection,
+                                                )}
+                                            </Typography>
+                                            {selectedEncounterShip.isOwnedBySelectedPlayer ? (
+                                                <>
+                                                    <Typography variant="body2">
+                                                        Current order:{" "}
+                                                        {`Captain: ${formatCaptainIntentLabel(
+                                                            captainIntent,
+                                                        )} | Target: ${describeShipCaptainTarget(
+                                                            {
+                                                                type: captainTargetType,
+                                                                shipId:
+                                                                    captainTargetType ===
+                                                                    "specific-ship"
+                                                                        ? captainTargetShipId
+                                                                        : null,
+                                                            },
+                                                            encounterShips,
+                                                        )} | Helmsman: ${formatHelmsmanIntentLabel(
+                                                            helmsmanIntent,
+                                                        )} | Boatswain: ${formatBoatswainIntentLabel(
+                                                            boatswainIntent,
+                                                            helmsmanIntent,
+                                                        )}`}
+                                                    </Typography>
+                                                    <Typography variant="body2">
+                                                        Current order wind effect:{" "}
+                                                        {selectedActionForecast?.requiresRoll
+                                                            ? `${formatSignedNumber(
+                                                                  selectedActionForecast.windModifier,
+                                                              )} seamanship`
+                                                            : "No wind roll modifier"}
+                                                    </Typography>
+                                                    {selectedActionForecast?.available &&
+                                                    selectedActionForecast.requiresRoll ? (
+                                                        <Stack
+                                                            direction="row"
+                                                            spacing={1}
+                                                            useFlexGap
+                                                            flexWrap="wrap"
+                                                        >
+                                                            <Chip
+                                                                size="small"
+                                                                variant="outlined"
+                                                                label={`Target ${formatRollTargetLabel(
+                                                                    selectedActionForecast.target,
+                                                                )}`}
+                                                            />
+                                                            <Chip
+                                                                size="small"
+                                                                color={resolveForecastChanceTone(
+                                                                    selectedActionForecast.successChance,
+                                                                )}
+                                                                label={
+                                                                    selectedActionForecast.successChance !=
+                                                                    null
+                                                                        ? `Chance ${selectedActionForecast.successChance}%`
+                                                                        : "Chance Unknown"
+                                                                }
+                                                            />
+                                                        </Stack>
+                                                    ) : (
+                                                        <Typography variant="body2">
+                                                            Current order chance:{" "}
+                                                            {selectedActionForecast
+                                                                ? selectedActionForecast.available
+                                                                    ? selectedActionForecast.requiresRoll
+                                                                        ? `${selectedActionForecast.successChance ?? "Unknown"}%`
+                                                                        : "Automatic"
+                                                                    : selectedActionForecast.note ??
+                                                                      "Unavailable"
+                                                                : "Forecast unavailable"}
+                                                        </Typography>
+                                                    )}
+                                                    <Typography variant="body2">
+                                                        Last roll summary:{" "}
+                                                        {selectedLastTurnRollSummary
+                                                            ? `${selectedLastTurnRollSummary.label} ${
+                                                                  selectedLastTurnRollSummary.success
+                                                                      ? "success"
+                                                                      : "failure"
+                                                              } (${selectedLastTurnRollSummary.roll} vs ${
+                                                                  selectedLastTurnRollSummary.target
+                                                              }, wind ${formatSignedNumber(
+                                                                  selectedLastTurnRollSummary.windModifier,
+                                                              )})`
+                                                            : "No roll-driven outcome on the previous turn"}
+                                                    </Typography>
+                                                </>
+                                            ) : null}
+                                            {selectedShipTrajectoryIntersections.length ? (
+                                                <Box
+                                                    sx={{
+                                                        borderRadius: 2,
+                                                        border: "1px dashed",
+                                                        borderColor:
+                                                            "warning.main",
+                                                        p: 1.5,
+                                                        mt: 0.5,
+                                                    }}
+                                                >
+                                                    <Typography variant="subtitle2">
+                                                        Predicted Crossings
+                                                    </Typography>
+                                                    <Stack
+                                                        spacing={0.5}
+                                                        sx={{ mt: 0.5 }}
+                                                    >
+                                                        {selectedShipTrajectoryIntersections.map(
+                                                            (entry) => (
+                                                                <Typography
+                                                                    key={
+                                                                        entry.id
+                                                                    }
+                                                                    variant="caption"
+                                                                    color="text.secondary"
+                                                                >
+                                                                    {entry.shipNames.join(
+                                                                        " x ",
+                                                                    )}{" "}
+                                                                    at x{" "}
+                                                                    {
+                                                                        entry
+                                                                            .point
+                                                                            .x
+                                                                    }
+                                                                    , y{" "}
+                                                                    {
+                                                                        entry
+                                                                            .point
+                                                                            .y
+                                                                    }
+                                                                    {" "}on
+                                                                    {" "}step{" "}
+                                                                    {
+                                                                        entry
+                                                                            .substep
+                                                                    }
+                                                                </Typography>
+                                                            ),
+                                                        )}
+                                                    </Stack>
+                                                </Box>
+                                            ) : null}
+                                        </Box>
+                                    ) : (
+                                        <Typography color="text.secondary">
+                                            Pick a ship from the grid or the
+                                            list to inspect it.
+                                        </Typography>
+                                    )}
+                                    {selectedEncounterShip?.isOwnedBySelectedPlayer ? (
+                                        <Box
+                                            sx={{
+                                                borderRadius: 2,
+                                                border: "1px solid",
+                                                borderColor:
+                                                    selectedActionForecast?.available !==
+                                                    false
+                                                        ? "divider"
+                                                        : "warning.main",
+                                                p: 2,
+                                                display: "grid",
+                                                gap: 0.75,
+                                            }}
+                                        >
+                                            <Typography variant="subtitle2">
+                                                Current Order Forecast
+                                            </Typography>
+                                            {selectedActionForecast ? (
+                                                <>
+                                                    <Typography variant="body2">
+                                                        {selectedActionForecast.label}
+                                                    </Typography>
+                                                    {!selectedActionForecast.available ? (
+                                                        <Typography
+                                                            variant="body2"
+                                                            color="warning.main"
+                                                        >
+                                                            Unavailable
+                                                            {selectedActionForecast.note
+                                                                ? `: ${selectedActionForecast.note}`
+                                                                : ""}
+                                                        </Typography>
+                                                    ) : selectedActionForecast.requiresRoll ? (
+                                                        <>
+                                                            <Stack
+                                                                direction="row"
+                                                                spacing={1}
+                                                                useFlexGap
+                                                                flexWrap="wrap"
+                                                            >
+                                                                <Chip
+                                                                    size="small"
+                                                                    variant="outlined"
+                                                                    label={`Target ${formatRollTargetLabel(
+                                                                        selectedActionForecast.target,
+                                                                    )}`}
+                                                                />
+                                                                <Chip
+                                                                    size="small"
+                                                                    color={resolveForecastChanceTone(
+                                                                        selectedActionForecast.successChance,
+                                                                    )}
+                                                                    label={`${
+                                                                        selectedActionForecast.successChance !=
+                                                                        null
+                                                                            ? `${selectedActionForecast.successChance}%`
+                                                                            : "Unknown"
+                                                                    }`}
+                                                                />
+                                                            </Stack>
+                                                            <Typography variant="body2">
+                                                                Seamanship base:{" "}
+                                                                {selectedActionForecast.baseSkill ??
+                                                                    "Unknown"}
+                                                            </Typography>
+                                                            <Typography variant="body2">
+                                                                Modifier total:{" "}
+                                                                {formatSignedNumber(
+                                                                    selectedActionForecast.modifierTotal,
+                                                                )}
+                                                            </Typography>
+                                                            <Typography variant="body2">
+                                                                Wind modifier:{" "}
+                                                                {formatSignedNumber(
+                                                                    selectedActionForecast.windModifier,
+                                                                )}
+                                                            </Typography>
+                                                            {selectedActionForecast.note ? (
+                                                                <Typography
+                                                                    variant="caption"
+                                                                    color="text.secondary"
+                                                                >
+                                                                    {
+                                                                        selectedActionForecast.note
+                                                                    }
+                                                                </Typography>
+                                                            ) : null}
+                                                        </>
+                                                    ) : (
+                                                        <>
+                                                            <Typography variant="body2">
+                                                                Automatic
+                                                            </Typography>
+                                                            {selectedActionForecast.note ? (
+                                                                <Typography
+                                                                    variant="caption"
+                                                                    color="text.secondary"
+                                                                >
+                                                                    {
+                                                                        selectedActionForecast.note
+                                                                    }
+                                                                </Typography>
+                                                            ) : null}
+                                                        </>
+                                                    )}
+                                                </>
+                                            ) : (
+                                                <Typography
+                                                    variant="body2"
+                                                    color="warning.main"
+                                                >
+                                                    Forecast unavailable from
+                                                    backend for the currently
+                                                    selected order.
+                                                </Typography>
+                                            )}
+                                        </Box>
+                                    ) : null}
+                                    {selectedShipLastTurnRollResults.length ? (
+                                        <Box
+                                            sx={{
+                                                borderRadius: 2,
+                                                border: "1px solid",
+                                                borderColor: "divider",
+                                                p: 2,
+                                                display: "grid",
+                                                gap: 1,
+                                            }}
+                                        >
+                                            <Typography variant="subtitle2">
+                                                Last Turn Roll Results
+                                            </Typography>
+                                            <Stack spacing={1}>
+                                                {selectedShipLastTurnRollResults.map(
+                                                    (result) => (
+                                                        <Box
+                                                            key={result.id}
+                                                            sx={{
+                                                                borderRadius: 1.5,
+                                                                border: "1px dashed",
+                                                                borderColor:
+                                                                    result.success
+                                                                        ? "success.main"
+                                                                        : "error.main",
+                                                                p: 1.25,
+                                                                display: "grid",
+                                                                gap: 0.25,
+                                                            }}
+                                                        >
+                                                            <Typography variant="body2">
+                                                                {result.label}
+                                                            </Typography>
+                                                            <Typography
+                                                                variant="caption"
+                                                                color="text.secondary"
+                                                            >
+                                                                Turn{" "}
+                                                                {result.turnNumber}
+                                                            </Typography>
+                                                            <Typography variant="caption">
+                                                                Roll{" "}
+                                                                {result.roll} vs{" "}
+                                                                {result.target}
+                                                                {" | "}
+                                                                {result.success
+                                                                    ? "Success"
+                                                                    : "Failure"}
+                                                                {" | "}
+                                                                MoS{" "}
+                                                                {formatSignedNumber(
+                                                                    result.mos,
+                                                                )}
+                                                            </Typography>
+                                                            <Typography variant="caption">
+                                                                Wind modifier{" "}
+                                                                {formatSignedNumber(
+                                                                    result.windModifier,
+                                                                )}
+                                                            </Typography>
+                                                            {result.isCritSuccess ? (
+                                                                <Typography
+                                                                    variant="caption"
+                                                                    color="success.main"
+                                                                >
+                                                                    Critical success
+                                                                </Typography>
+                                                            ) : null}
+                                                            {result.isCritFailure ? (
+                                                                <Typography
+                                                                    variant="caption"
+                                                                    color="error.main"
+                                                                >
+                                                                    Critical failure
+                                                                </Typography>
+                                                            ) : null}
+                                                            {result.note ? (
+                                                                <Typography
+                                                                    variant="caption"
+                                                                    color="text.secondary"
+                                                                >
+                                                                    {result.note}
+                                                                </Typography>
+                                                            ) : null}
+                                                        </Box>
+                                                    ),
+                                                )}
+                                            </Stack>
+                                        </Box>
+                                    ) : selectedEncounterShip ? (
+                                        <Box
+                                            sx={{
+                                                borderRadius: 2,
+                                                border: "1px solid",
+                                                borderColor: "divider",
+                                                p: 2,
+                                            }}
+                                        >
+                                            <Typography
+                                                variant="subtitle2"
+                                                sx={{ mb: 0.5 }}
+                                            >
+                                                Last Turn Roll Results
+                                            </Typography>
+                                            <Typography
+                                                variant="body2"
+                                                color="text.secondary"
+                                            >
+                                                No roll-driven outcomes were
+                                                recorded for this ship on the
+                                                previous turn.
+                                            </Typography>
+                                        </Box>
+                                    ) : null}
                                     <TextField
-                                        label="Custom Event"
-                                        value={eventName}
+                                        select
+                                        label="Captain Target"
+                                        value={captainTargetType}
                                         onChange={(event) =>
-                                            setEventName(event.target.value)
+                                            setCaptainTargetType(
+                                                event.target
+                                                    .value as ShipCaptainTargetType,
+                                            )
                                         }
-                                    />
+                                        disabled={
+                                            !selectedEncounterShip?.isOwnedBySelectedPlayer
+                                        }
+                                    >
+                                        {captainTargetTypeOptions.map(
+                                            (option) => (
+                                                <MenuItem
+                                                    key={option}
+                                                    value={option}
+                                                >
+                                                    {formatCaptainTargetTypeLabel(
+                                                        option,
+                                                    )}
+                                                </MenuItem>
+                                            ),
+                                        )}
+                                    </TextField>
+                                    {captainTargetType === "specific-ship" ? (
+                                        <TextField
+                                            select
+                                            label="Target Ship"
+                                            value={captainTargetShipId}
+                                            onChange={(event) =>
+                                                setCaptainTargetShipId(
+                                                    event.target.value,
+                                                )
+                                            }
+                                            disabled={
+                                                !selectedEncounterShip?.isOwnedBySelectedPlayer ||
+                                                selectableCaptainTargetShips.length ===
+                                                    0
+                                            }
+                                        >
+                                            {selectableCaptainTargetShips.length ===
+                                            0 ? (
+                                                <MenuItem value="" disabled>
+                                                    No valid target ships
+                                                </MenuItem>
+                                            ) : null}
+                                            {selectableCaptainTargetShips.map(
+                                                (ship) => (
+                                                    <MenuItem
+                                                        key={ship.shipId}
+                                                        value={ship.shipId}
+                                                    >
+                                                        {ship.label}
+                                                    </MenuItem>
+                                                ),
+                                            )}
+                                        </TextField>
+                                    ) : null}
                                     <TextField
-                                        label="Custom Payload (JSON)"
-                                        multiline
-                                        rows={6}
-                                        value={payload}
+                                        select
+                                        label="Captain Tactic"
+                                        value={captainIntent}
                                         onChange={(event) =>
-                                            setPayload(event.target.value)
+                                            setCaptainIntent(event.target.value)
                                         }
-                                    />
+                                        disabled={
+                                            !selectedEncounterShip?.isOwnedBySelectedPlayer
+                                        }
+                                    >
+                                        {captainIntentOptions.map((option) => (
+                                            <MenuItem
+                                                key={option}
+                                                value={option}
+                                            >
+                                                {formatCaptainIntentLabel(
+                                                    option,
+                                                )}
+                                            </MenuItem>
+                                        ))}
+                                    </TextField>
+                                    <TextField
+                                        select
+                                        label="Helmsman Intent"
+                                        value={helmsmanIntent}
+                                        onChange={(event) =>
+                                            setHelmsmanIntent(event.target.value)
+                                        }
+                                        disabled={
+                                            !selectedEncounterShip?.isOwnedBySelectedPlayer
+                                        }
+                                    >
+                                        {helmsmanIntentOptions.map((option) => (
+                                            <MenuItem
+                                                key={option}
+                                                value={option}
+                                            >
+                                                {formatHelmsmanIntentLabel(
+                                                    option,
+                                                )}
+                                            </MenuItem>
+                                        ))}
+                                    </TextField>
+                                    <TextField
+                                        select
+                                        label="Boatswain Intent"
+                                        value={boatswainIntent}
+                                        onChange={(event) =>
+                                            setBoatswainIntent(event.target.value)
+                                        }
+                                        disabled={
+                                            !selectedEncounterShip?.isOwnedBySelectedPlayer
+                                        }
+                                    >
+                                        {visibleBoatswainIntentOptions.map(
+                                            (option) => (
+                                                <MenuItem
+                                                    key={option}
+                                                    value={option}
+                                                >
+                                                    {formatBoatswainIntentLabel(
+                                                        option,
+                                                        helmsmanIntent,
+                                                    )}
+                                                </MenuItem>
+                                            ),
+                                        )}
+                                    </TextField>
                                     <Button
                                         variant="contained"
-                                        onClick={handleEmit}
-                                        disabled={!socket}
+                                        onClick={handleSendInput}
+                                        disabled={
+                                            !socket ||
+                                            !selectedEncounterShip?.isOwnedBySelectedPlayer
+                                        }
                                     >
-                                        Emit Custom
+                                        Submit Orders
                                     </Button>
+                                    {!selectedEncounterShip?.isOwnedBySelectedPlayer &&
+                                    selectedEncounterShip ? (
+                                        <Typography
+                                            variant="caption"
+                                            color="text.secondary"
+                                        >
+                                            Enemy ships are inspectable, but
+                                            only friendly ships can receive
+                                            orders.
+                                        </Typography>
+                                    ) : null}
                                 </Stack>
                             </CardContent>
                         </Card>
                     </Grid>
-
-                    <Grid item xs={12} lg={8}>
+                    <Grid
+                        item
+                        xs={12}
+                        sx={{ display: screenTab === "debug" ? "block" : "none" }}
+                    >
                         <Card className="glass">
                             <CardContent>
-                                <Typography variant="h5">Logs</Typography>
+                                <Typography variant="h5">
+                                    Debug / Transport
+                                </Typography>
                                 <Typography
                                     color="text.secondary"
                                     sx={{ mb: 2 }}
                                 >
-                                    Socket events and the latest encounter
-                                    snapshot.
+                                    Socket logs and low-level emit tools stay
+                                    separate from the main gameplay flow.
                                 </Typography>
-                                <Tabs
-                                    value={activeTab}
-                                    onChange={(_, next) => setActiveTab(next)}
-                                    variant="fullWidth"
-                                    sx={{ mb: 2 }}
-                                >
-                                    <Tab label="Logs" />
-                                    <Tab label="Encounter" />
-                                </Tabs>
-                                {activeTab === 0 ? (
-                                    <Box className="log">
-                                        {logs.map((entry, index) => (
-                                            <div key={`${entry.ts}-${index}`}>
-                                                [{entry.ts}] {entry.text}
-                                            </div>
-                                        ))}
-                                    </Box>
-                                ) : (
-                                    <Stack spacing={2}>
-                                        <Box
-                                            sx={{
-                                                height: 320,
-                                                borderRadius: 2,
-                                                border: "1px dashed",
-                                                borderColor: "divider",
-                                                bgcolor: "background.default",
-                                                p: 1,
-                                            }}
+                                <Grid container spacing={2}>
+                                    <Grid item xs={12} xl={6}>
+                                        <Typography
+                                            variant="subtitle2"
+                                            sx={{ mb: 1 }}
                                         >
-                                            {encounterSnapshot ? (
-                                                <EncounterHexGrid
-                                                    radius={
-                                                        encounterSnapshot.radius
-                                                    }
-                                                />
-                                            ) : (
-                                                <Box
-                                                    sx={{
-                                                        height: "100%",
-                                                        display: "flex",
-                                                        alignItems: "center",
-                                                        justifyContent:
-                                                            "center",
-                                                        color: "text.secondary",
-                                                    }}
+                                            Logs
+                                        </Typography>
+                                        <Box className="log">
+                                            {logs.map((entry, index) => (
+                                                <div
+                                                    key={`${entry.ts}-${index}`}
                                                 >
-                                                    No encounter loaded
-                                                </Box>
-                                            )}
+                                                    [{entry.ts}] {entry.text}
+                                                </div>
+                                            ))}
                                         </Box>
-                                        {encounterSnapshot ? (
-                                            <Stack
-                                                direction={{
-                                                    xs: "column",
-                                                    sm: "row",
-                                                }}
-                                                spacing={1}
-                                                alignItems={{
-                                                    xs: "flex-start",
-                                                    sm: "center",
-                                                }}
-                                            >
+                                    </Grid>
+                                    <Grid item xs={12} xl={6}>
+                                        <Stack spacing={2}>
+                                            <Box>
                                                 <Typography
-                                                    variant="caption"
-                                                    color="text.secondary"
+                                                    variant="subtitle2"
+                                                    sx={{ mb: 1 }}
                                                 >
-                                                    {encounterSnapshot._id} -
-                                                    radius{" "}
-                                                    {encounterSnapshot.radius}
-                                                </Typography>
-                                                <Button
-                                                    size="small"
-                                                    variant="outlined"
-                                                    onClick={() =>
-                                                        setPreviewEncounter(
-                                                            encounterSnapshot,
-                                                        )
-                                                    }
-                                                >
-                                                    Open map
-                                                </Button>
-                                            </Stack>
-                                        ) : null}
-                                        {encounterJson ? (
-                                            <>
-                                                <Divider />
-                                                <Typography variant="subtitle2">
                                                     Encounter Payload
                                                 </Typography>
                                                 <Box className="log">
-                                                    {encounterJson}
+                                                    {encounterJson ||
+                                                        "No encounter payload loaded"}
                                                 </Box>
-                                            </>
-                                        ) : null}
-                                    </Stack>
-                                )}
+                                            </Box>
+                                            <Divider />
+                                            <TextField
+                                                label="Custom Event"
+                                                value={eventName}
+                                                onChange={(event) =>
+                                                    setEventName(
+                                                        event.target.value,
+                                                    )
+                                                }
+                                            />
+                                            <TextField
+                                                label="Custom Payload (JSON)"
+                                                multiline
+                                                rows={6}
+                                                value={payload}
+                                                onChange={(event) =>
+                                                    setPayload(
+                                                        event.target.value,
+                                                    )
+                                                }
+                                            />
+                                            <Button
+                                                variant="contained"
+                                                onClick={handleEmit}
+                                                disabled={!socket}
+                                            >
+                                                Emit Custom
+                                            </Button>
+                                        </Stack>
+                                    </Grid>
+                                </Grid>
                             </CardContent>
                         </Card>
                     </Grid>
                 </Grid>
-            </Container>
+            </Box>
 
             <Dialog
                 open={Boolean(previewEncounter)}

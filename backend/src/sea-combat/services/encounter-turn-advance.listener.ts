@@ -23,6 +23,7 @@ export class EncounterTurnAdvanceListener {
         const result = await this.encounterService.processAdvanceTurnRequest(event.requestId);
         const processedEvent: EncounterTurnProcessedEvent = {
             encounterId: result.encounterId,
+            turnDelta: result.turnDelta,
         };
 
         await this.eventEmitter.emitAsync(ENCOUNTER_TURN_PROCESSED_EVENT, processedEvent);

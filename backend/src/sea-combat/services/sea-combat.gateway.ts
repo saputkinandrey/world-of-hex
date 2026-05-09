@@ -11,7 +11,7 @@ import {
 } from '@nestjs/websockets';
 import { OnEvent } from '@nestjs/event-emitter';
 import { Server, Socket } from 'socket.io';
-import { WSMessage, WSResponse } from '../types/gateway-events.type';
+import { WSMessage, WSResponse, WSServerMessage } from '../types/gateway-events.type';
 import { EncounterService } from './encounter.service';
 import { PlayerRepository } from '../../player/repositories/player.repository';
 import { ShipRepository } from '../repositories/ship.repository';
@@ -22,6 +22,7 @@ import { SendInputMessagePayloadDto } from '../dto/websockets/send-input-message
 import { SendInputResponsePayloadDto } from '../dto/websockets/send-input-response.payload.dto';
 import { QueueSpawnIntentMessagePayloadDto } from '../dto/websockets/queue-spawn-intent-message.payload.dto';
 import { QueueSpawnIntentResponsePayloadDto } from '../dto/websockets/queue-spawn-intent-response.payload.dto';
+import { NextTurnMessagePayloadDto } from '../dto/websockets/next-turn-message.payload.dto';
 import { PendingShipIntentType } from '../types/pending-intent.type';
 import {
     EncounterTurnProcessedEvent,
@@ -29,8 +30,12 @@ import {
 } from '../types/encounter-turn-processed-event.type';
 
 const CURRENT_ENCOUNTER_ROOM_KEY = 'currentEncounterRoom';
+type GatewaySocketLike = {
+    data: Record<string, unknown>;
+    emit: (event: string, payload: unknown) => void;
+};
 
-type SocketDataWithEncounterRoom = {
+type SocketDataWithEncounterContext = {
     [CURRENT_ENCOUNTER_ROOM_KEY]?: string;
 };
 
@@ -115,15 +120,19 @@ export class SeaCombatGateway implements OnGatewayInit, OnGatewayConnection, OnG
 
     @OnEvent(ENCOUNTER_TURN_PROCESSED_EVENT)
     async onEncounterTurnProcessed(event: EncounterTurnProcessedEvent): Promise<void> {
-        const encounter = await this.getEncounterViewOrThrow(event.encounterId);
-        this.server.to(this.buildEncounterRoom(event.encounterId)).emit(WSResponse.TURN_ADVANCED, encounter);
+        const sockets = await this.server.in(this.buildEncounterRoom(event.encounterId)).fetchSockets();
+        const payload: NextTurnMessagePayloadDto = event.turnDelta;
+
+        for (const socket of sockets) {
+            this.emit(socket, WSServerMessage.NEXT_TURN, payload);
+        }
     }
 
-    private emit(client: Socket, event: WSResponse, payload: unknown) {
+    private emit(client: GatewaySocketLike, event: WSResponse | WSServerMessage, payload: unknown) {
         client.emit(event, payload);
     }
 
-    private emitError(client: Socket, err: unknown) {
+    private emitError(client: GatewaySocketLike, err: unknown) {
         const message = err instanceof Error ? err.message : 'Unknown error';
         client.emit('error', { message });
     }
@@ -136,9 +145,8 @@ export class SeaCombatGateway implements OnGatewayInit, OnGatewayConnection, OnG
         const player = await this.getPlayerOrThrow(payload.userId);
         const encounter = await this.getEncounterViewOrThrow(payload.encounterId);
         this.assertPlayerInEncounter(player, encounter, payload.encounterId);
-        this.assertPlayerHasShipInEncounter(player, encounter);
 
-        return encounter;
+        return this.getPlayerEncounterViewOrThrow(payload.userId, payload.encounterId);
     }
 
     private buildEncounterRoom(encounterId: string) {
@@ -146,7 +154,7 @@ export class SeaCombatGateway implements OnGatewayInit, OnGatewayConnection, OnG
     }
 
     private async joinEncounterRoom(client: Socket, encounterId: string) {
-        const socketData = client.data as SocketDataWithEncounterRoom;
+        const socketData = client.data as SocketDataWithEncounterContext;
         const nextRoom = this.buildEncounterRoom(encounterId);
         const currentRoom = socketData[CURRENT_ENCOUNTER_ROOM_KEY];
         if (currentRoom && currentRoom !== nextRoom) {
@@ -158,24 +166,57 @@ export class SeaCombatGateway implements OnGatewayInit, OnGatewayConnection, OnG
     }
 
     private async processSendInput(payload: SendInputMessagePayloadDto): Promise<SendInputResponsePayloadDto> {
-        this.logger.log(
-            `Player ${payload.userId} submitted ${payload.inputType} for ${payload.selectedTokenId} in ${payload.encounterId}`,
-        );
-
         const player = await this.getPlayerOrThrow(payload.userId);
-        const intent = await this.encounterService.submitPlayerShipIntent(player, {
-            encounterId: payload.encounterId,
-            shipId: payload.selectedTokenId,
-            intentType: payload.inputType,
-        });
+        const hasCaptainIntent = Boolean(payload.captainIntent);
+        const hasOfficerIntents = Boolean(payload.helmsmanIntent && payload.boatswainIntent);
+        const hasTargetUpdate = Boolean(payload.targetType);
+
+        if (!hasCaptainIntent && !hasOfficerIntents && !hasTargetUpdate) {
+            throw new Error('Send input requires captainIntent, officer intents, target update, or a combination');
+        }
+
+        let targetUpdateResult: Awaited<ReturnType<EncounterService['setPlayerShipCaptainTarget']>> | null = null;
+
+        if (payload.targetType) {
+            this.logger.log(
+                `Player ${payload.userId} updated target ${payload.targetType}/${payload.targetShipId ?? 'null'} for ${payload.selectedTokenId} in ${payload.encounterId}`,
+            );
+            targetUpdateResult = await this.encounterService.setPlayerShipCaptainTarget(player, {
+                encounterId: payload.encounterId,
+                shipId: payload.selectedTokenId,
+                targetType: payload.targetType,
+                targetShipId: payload.targetShipId ?? null,
+            });
+        }
+
+        if (payload.captainIntent) {
+            this.logger.log(
+                `Player ${payload.userId} submitted captain tactic ${payload.captainIntent} for ${payload.selectedTokenId} in ${payload.encounterId}`,
+            );
+            await this.encounterService.submitPlayerShipCaptainIntent(player, {
+                encounterId: payload.encounterId,
+                shipId: payload.selectedTokenId,
+                captainIntent: payload.captainIntent,
+            });
+        }
+
+        if (payload.helmsmanIntent && payload.boatswainIntent) {
+            this.logger.log(
+                `Player ${payload.userId} submitted maneuver ${payload.helmsmanIntent}/${payload.boatswainIntent} for ${payload.selectedTokenId} in ${payload.encounterId}`,
+            );
+            await this.encounterService.submitPlayerShipManeuverIntents(player, {
+                encounterId: payload.encounterId,
+                shipId: payload.selectedTokenId,
+                helmsmanIntent: payload.helmsmanIntent,
+                boatswainIntent: payload.boatswainIntent,
+            });
+        }
 
         return {
             ok: true,
-            intentId: intent._id.toString(),
-            encounterId: intent.encounterId,
-            turnNumber: intent.turnNumber,
-            shipId: intent.shipId,
-            intentType: intent.intentType,
+            shipId: targetUpdateResult?.shipId,
+            target: targetUpdateResult?.target ?? null,
+            actionForecasts: targetUpdateResult?.actionForecasts,
         };
     }
 
@@ -188,8 +229,11 @@ export class SeaCombatGateway implements OnGatewayInit, OnGatewayConnection, OnG
 
         const player = await this.getPlayerOrThrow(payload.userId);
         const encounter = await this.getEncounterOrThrow(payload.encounterId);
-        this.assertPlayerInEncounter(player, encounter, payload.encounterId);
         this.assertPlayerOwnsShip(player, payload.shipId);
+
+        if (!this.encounterService.isPlayerJoinedToEncounter(player, encounter)) {
+            await this.encounterService.playerJoinsEncounter(player, payload.encounterId);
+        }
 
         const ship = await this.getShipOrThrow(payload.shipId);
         const intent = await this.encounterService.shipJoinsEncounter(ship, encounter, payload.intent);
@@ -236,29 +280,21 @@ export class SeaCombatGateway implements OnGatewayInit, OnGatewayConnection, OnG
         return encounter;
     }
 
+    private async getPlayerEncounterViewOrThrow(userId: string, encounterId: string) {
+        const encounter = await this.encounterService.findPlayerEncounterViewById(userId, encounterId);
+        if (!encounter) {
+            throw new Error(`Unable to find encounter workspace for player ${userId} in encounter ${encounterId}`);
+        }
+
+        return encounter;
+    }
+
     private assertPlayerInEncounter(player: any, encounter: any, encounterId: string) {
         if (this.encounterService.isPlayerJoinedToEncounter(player, encounter)) {
             return;
         }
 
         throw new Error(`Player ${player._id} not participating in encounter ${encounterId}`);
-    }
-
-    private assertPlayerHasShipInEncounter(player: any, encounter: any) {
-        const ownedShipIds = new Set(
-            player.ownedShips
-                ?.map((ship: any) => ship?._id?.toString())
-                .filter((shipId: string | undefined): shipId is string => Boolean(shipId)) ?? [],
-        );
-
-        const hasShipInEncounter =
-            encounter.ships?.some((entry: any) => ownedShipIds.has(entry.ship?._id?.toString())) ?? false;
-
-        if (hasShipInEncounter) {
-            return;
-        }
-
-        throw new Error('Cannot connect to an encounter with no ships assigned to the player');
     }
 
     private assertPlayerOwnsShip(player: any, shipId: string) {

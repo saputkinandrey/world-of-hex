@@ -253,8 +253,15 @@ export default function HomePage() {
         setPreviewZoom(1);
         window.requestAnimationFrame(() => {
             if (previewScrollRef.current) {
-                previewScrollRef.current.scrollLeft = 0;
-                previewScrollRef.current.scrollTop = 0;
+                const container = previewScrollRef.current;
+                container.scrollLeft = Math.max(
+                    0,
+                    (container.scrollWidth - container.clientWidth) / 2,
+                );
+                container.scrollTop = Math.max(
+                    0,
+                    (container.scrollHeight - container.clientHeight) / 2,
+                );
             }
         });
     }, [previewEncounter]);
@@ -297,17 +304,21 @@ export default function HomePage() {
         const normalized = value?.trim().toLowerCase() || "";
         switch (normalized) {
             case "spawn":
-                return "spawn";
-            case "accelerate":
-                return "accelerate";
-            case "decelerate":
-                return "decelerate";
-            case "turn-left":
-                return "turn left";
-            case "turn-right":
-                return "turn right";
+                return "Spawn";
+            case "helmsman-forward":
+                return "Helmsman: Forward";
+            case "helmsman-turn-left":
+                return "Helmsman: Turn Left";
+            case "helmsman-turn-right":
+                return "Helmsman: Turn Right";
+            case "boatswain-hold":
+                return "Boatswain: Hold";
+            case "boatswain-accelerate":
+                return "Boatswain: Accelerate";
+            case "boatswain-decelerate":
+                return "Boatswain: Decelerate";
             default:
-                return normalized || "unknown";
+                return normalized || "Unknown";
         }
     };
 
@@ -329,7 +340,7 @@ export default function HomePage() {
                 const ship = shipNameById.get(shipId);
                 return {
                     _id: shipId,
-                    label: ship ? `${ship.name} В· ${ship.type}` : shipId,
+                    label: ship ? `${ship.name} - ${ship.type}` : shipId,
                 };
             });
     }, [encounterPlayerId, players, shipNameById]);
@@ -977,7 +988,7 @@ export default function HomePage() {
             <AppBar position="sticky" color="transparent" elevation={0}>
                 <Toolbar sx={{ gap: 2 }}>
                     <Typography variant="h6" sx={{ fontWeight: 700 }}>
-                        World of Hex · Control Deck
+                        World of Hex | Control Deck
                     </Typography>
                     <Chip
                         label={loading ? "Syncing..." : "Live"}
@@ -1236,7 +1247,7 @@ export default function HomePage() {
                                                     key={player._id}
                                                     value={player._id}
                                                 >
-                                                    {player.name} · {player._id}
+                                                    {player.name} | {player._id}
                                                 </MenuItem>
                                             ))}
                                         </TextField>
@@ -1254,7 +1265,7 @@ export default function HomePage() {
                                                     key={ship._id}
                                                     value={ship._id}
                                                 >
-                                                    {ship.name} · {ship.type}
+                                                    {ship.name} - {ship.type}
                                                 </MenuItem>
                                             ))}
                                         </TextField>
@@ -1494,10 +1505,10 @@ export default function HomePage() {
                                                         variant="caption"
                                                         color="text.secondary"
                                                     >
-                                                        {ship._id} · {ship.type}{" "}
-                                                        · speed {ship.speed} ·
+                                                        {ship._id} | {ship.type}{" "}
+                                                        | speed {ship.speed} |
                                                         tactics{" "}
-                                                        {ship.tactics ?? "—"}
+                                                        {ship.tactics ?? "-"}
                                                     </Typography>
                                                     {shipOwnerById.has(
                                                         ship._id,
@@ -1542,7 +1553,7 @@ export default function HomePage() {
                                                                 mt: 1,
                                                                 height: 32,
                                                             }}
-                                                            label="Owner: —"
+                                                            label="Owner: -"
                                                         />
                                                     )}
                                                 </Box>
@@ -1564,8 +1575,14 @@ export default function HomePage() {
                     setPreviewShipPopover(null);
                 }}
                 fullWidth
-                maxWidth="lg"
-                PaperProps={{ sx: { height: "90vh" } }}
+                maxWidth={false}
+                PaperProps={{
+                    sx: {
+                        width: "90vw",
+                        maxWidth: "90vw",
+                        height: "90vh",
+                    },
+                }}
             >
                 <DialogTitle
                     sx={{ display: "flex", alignItems: "center", gap: 2 }}
@@ -1616,125 +1633,26 @@ export default function HomePage() {
                         Close
                     </Button>
                 </DialogTitle>
-                <DialogContent sx={{ overflow: "hidden" }}>
+                <DialogContent sx={{ overflow: "hidden", pb: 3 }}>
                     {previewEncounter ? (
-                        <Box sx={{ display: "grid", gap: 2 }}>
-                            {pendingIntentEntries.length > 0 ? (
-                                <Box
-                                    sx={{
-                                        borderRadius: 2,
-                                        border: "1px solid",
-                                        borderColor: "divider",
-                                        bgcolor: "background.paper",
-                                        p: 2,
-                                        display: "grid",
-                                        gap: 1,
-                                    }}
-                                >
-                                    <Typography variant="subtitle2">
-                                        Pending Intents
-                                    </Typography>
-                                    <Typography
-                                        variant="caption"
-                                        color="text.secondary"
-                                    >
-                                        Spawn deployment and queued ship actions
-                                        that are not yet committed into the
-                                        encounter state.
-                                    </Typography>
-                                    <Stack spacing={1}>
-                                        {pendingIntentEntries.map((intent) => (
-                                            <Box
-                                                key={intent.id}
-                                                sx={{
-                                                    borderRadius: 2,
-                                                    border: "1px solid",
-                                                    borderColor: "divider",
-                                                    px: 1.5,
-                                                    py: 1,
-                                                    display: "grid",
-                                                    gap: 0.75,
-                                                }}
-                                            >
-                                                <Stack
-                                                    direction="row"
-                                                    justifyContent="space-between"
-                                                    alignItems="center"
-                                                    spacing={1}
-                                                >
-                                                    <Typography variant="body2">
-                                                        {intent.shipName}
-                                                    </Typography>
-                                                    <Button
-                                                        size="small"
-                                                        color="error"
-                                                        onClick={() => {
-                                                            void cancelPendingIntent(
-                                                                intent.id,
-                                                            );
-                                                        }}
-                                                    >
-                                                        Cancel
-                                                    </Button>
-                                                </Stack>
-                                                <Stack
-                                                    direction="row"
-                                                    spacing={1}
-                                                    flexWrap="wrap"
-                                                    useFlexGap
-                                                >
-                                                    <Chip
-                                                        size="small"
-                                                        variant="outlined"
-                                                        label={`Turn: ${
-                                                            intent.turnNumber ??
-                                                            "?"
-                                                        }`}
-                                                    />
-                                                    <Chip
-                                                        size="small"
-                                                        variant="outlined"
-                                                        label={`Type: ${intent.intentTypeLabel}`}
-                                                    />
-                                                    <Chip
-                                                        size="small"
-                                                        variant="outlined"
-                                                        label={`Owner: ${intent.ownerName}`}
-                                                    />
-                                                    {intent.encounterIntentLabel ? (
-                                                        <Chip
-                                                            size="small"
-                                                            variant="outlined"
-                                                            label={`Encounter intent: ${intent.encounterIntentLabel}`}
-                                                        />
-                                                    ) : null}
-                                                </Stack>
-                                                <Typography
-                                                    variant="caption"
-                                                    color="text.secondary"
-                                                >
-                                                    Ship type{" "}
-                                                    {intent.shipType ?? "�"} �
-                                                    speed{" "}
-                                                    {intent.shipSpeed ?? "�"} �
-                                                    tactics{" "}
-                                                    {intent.shipTactics ?? "�"}
-                                                </Typography>
-                                                {intent.createdAtLabel ? (
-                                                    <Typography
-                                                        variant="caption"
-                                                        color="text.secondary"
-                                                    >
-                                                        Queued at{" "}
-                                                        {intent.createdAtLabel}
-                                                    </Typography>
-                                                ) : null}
-                                            </Box>
-                                        ))}
-                                    </Stack>
-                                </Box>
-                            ) : null}
+                        <Box
+                            sx={{
+                                display: "grid",
+                                gap: 2,
+                                gridTemplateColumns: {
+                                    xs: "1fr",
+                                    lg: "minmax(0, 1fr) 360px",
+                                },
+                                alignItems: "start",
+                            }}
+                        >
                             <Box
+                                sx={{
+                                    minWidth: 0,
+                                    height: { xs: "56vh", lg: "72vh" },
+                                }}
+                            >
+                                <Box
                                 component="div"
                                 ref={(node: HTMLDivElement | null) => {
                                     previewScrollRef.current = node;
@@ -1759,7 +1677,7 @@ export default function HomePage() {
                                 }}
                                 sx={{
                                     width: "100%",
-                                    height: "70vh",
+                                    height: "100%",
                                     borderRadius: 2,
                                     border: "1px dashed",
                                     borderColor: "divider",
@@ -1847,6 +1765,150 @@ export default function HomePage() {
                                             }}
                                         />
                                     </Box>
+                                </Box>
+                            </Box>
+                            </Box>
+                            <Box
+                                sx={{
+                                    borderRadius: 2,
+                                    border: "1px solid",
+                                    borderColor: "divider",
+                                    bgcolor: "background.paper",
+                                    p: 2,
+                                    display: "grid",
+                                    gap: 1.5,
+                                    minHeight: 0,
+                                    maxHeight: { xs: "none", lg: "72vh" },
+                                    overflow: "hidden",
+                                }}
+                            >
+                                <Box sx={{ display: "grid", gap: 0.5 }}>
+                                    <Typography variant="subtitle1">
+                                        Pending Intents
+                                    </Typography>
+                                    <Typography
+                                        variant="caption"
+                                        color="text.secondary"
+                                    >
+                                        Spawn deployment and queued ship actions
+                                        that are not yet committed into the
+                                        encounter state.
+                                    </Typography>
+                                </Box>
+                                <Box
+                                    sx={{
+                                        minHeight: 0,
+                                        overflow: "auto",
+                                        pr: 0.5,
+                                        display: "grid",
+                                        gap: 1,
+                                    }}
+                                >
+                                    {pendingIntentEntries.length > 0 ? (
+                                        pendingIntentEntries.map((intent) => (
+                                            <Box
+                                                key={intent.id}
+                                                sx={{
+                                                    borderRadius: 2,
+                                                    border: "1px solid",
+                                                    borderColor: "divider",
+                                                    px: 1.5,
+                                                    py: 1,
+                                                    display: "grid",
+                                                    gap: 0.75,
+                                                }}
+                                            >
+                                                <Stack
+                                                    direction="row"
+                                                    justifyContent="space-between"
+                                                    alignItems="center"
+                                                    spacing={1}
+                                                >
+                                                    <Box
+                                                        sx={{
+                                                            minWidth: 0,
+                                                            display: "grid",
+                                                            gap: 0.25,
+                                                        }}
+                                                    >
+                                                        <Typography
+                                                            variant="body2"
+                                                            noWrap
+                                                        >
+                                                            {intent.shipName}
+                                                        </Typography>
+                                                        <Typography
+                                                            variant="caption"
+                                                            color="text.secondary"
+                                                        >
+                                                            Turn {intent.turnNumber ?? "?"} | {intent.intentTypeLabel}
+                                                        </Typography>
+                                                    </Box>
+                                                    <Button
+                                                        size="small"
+                                                        color="error"
+                                                        onClick={() => {
+                                                            void cancelPendingIntent(
+                                                                intent.id,
+                                                            );
+                                                        }}
+                                                    >
+                                                        Cancel
+                                                    </Button>
+                                                </Stack>
+                                                <Stack
+                                                    direction="row"
+                                                    spacing={1}
+                                                    flexWrap="wrap"
+                                                    useFlexGap
+                                                >
+                                                    <Chip
+                                                        size="small"
+                                                        variant="outlined"
+                                                        label={`Owner: ${intent.ownerName}`}
+                                                    />
+                                                    {intent.encounterIntentLabel ? (
+                                                        <Chip
+                                                            size="small"
+                                                            variant="outlined"
+                                                            label={`Encounter intent: ${intent.encounterIntentLabel}`}
+                                                        />
+                                                    ) : null}
+                                                </Stack>
+                                                <Typography
+                                                    variant="caption"
+                                                    color="text.secondary"
+                                                >
+                                                    Type: {intent.shipType ?? "-"} | speed {intent.shipSpeed ?? "-"} | tactics {intent.shipTactics ?? "-"}
+                                                </Typography>
+                                                {intent.createdAtLabel ? (
+                                                    <Typography
+                                                        variant="caption"
+                                                        color="text.secondary"
+                                                    >
+                                                        Queued at {intent.createdAtLabel}
+                                                    </Typography>
+                                                ) : null}
+                                            </Box>
+                                        ))
+                                    ) : (
+                                        <Box
+                                            sx={{
+                                                borderRadius: 2,
+                                                border: "1px dashed",
+                                                borderColor: "divider",
+                                                px: 2,
+                                                py: 3,
+                                            }}
+                                        >
+                                            <Typography
+                                                variant="body2"
+                                                color="text.secondary"
+                                            >
+                                                No pending intents for this encounter.
+                                            </Typography>
+                                        </Box>
+                                    )}
                                 </Box>
                             </Box>
                             <Popover

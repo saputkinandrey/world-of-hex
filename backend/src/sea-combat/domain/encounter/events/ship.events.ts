@@ -2,6 +2,7 @@ import { DomainEvent } from '@event-nest/core';
 import { ShipEntity } from '../../../__entities/ship.entity';
 import { Direction } from '../../../types/direction.type';
 import { ShipEncounterIntent } from '../../../types/ship-encounter-intent.type';
+import { ShipCaptainTarget } from '../../../types/ship-captain-target.type';
 import { Roll3d6UnderWithCritResult } from '../../../../rps/utils/roll';
 import type { AxialPoint } from '../../../utils/hex-coordinate.util';
 
@@ -55,6 +56,30 @@ export class ShipMovedEvent {
     }
 }
 
+@DomainEvent(ShipIntentChangedEvent.name)
+export class ShipIntentChangedEvent {
+    constructor(
+        public readonly shipId: string,
+        public readonly intent: ShipEncounterIntent | null,
+    ) {}
+
+    static toArgs(event: ShipIntentChangedEvent) {
+        return [event.intent];
+    }
+}
+
+@DomainEvent(ShipTargetChangedEvent.name)
+export class ShipTargetChangedEvent {
+    constructor(
+        public readonly shipId: string,
+        public readonly target: ShipCaptainTarget,
+    ) {}
+
+    static toArgs(event: ShipTargetChangedEvent) {
+        return [event.target];
+    }
+}
+
 @DomainEvent(ShipPlacementUpdatedEvent.name)
 export class ShipPlacementUpdatedEvent {
     constructor(
@@ -85,9 +110,14 @@ export class ShipAcceleratedEvent {
 export class ShipDeceleratedEvent {
     constructor(
         public readonly shipId: string,
+        public readonly seamanshipRoll: Roll3d6UnderWithCritResult,
         public readonly speed: number,
         public readonly success: boolean,
     ) {}
+
+    static toArgs(event: ShipDeceleratedEvent) {
+        return [event.seamanshipRoll];
+    }
 }
 
 @DomainEvent(ShipTurnedRightEvent.name)
@@ -96,7 +126,12 @@ export class ShipTurnedRightEvent {
         public readonly shipId: string,
         public readonly direction: Direction,
         public readonly speed: number,
+        public readonly seamanshipRoll: Roll3d6UnderWithCritResult | null,
     ) {}
+
+    static toArgs(event: ShipTurnedRightEvent) {
+        return event.seamanshipRoll ? [event.seamanshipRoll] : [];
+    }
 }
 
 @DomainEvent(ShipTurnedLeftEvent.name)
@@ -105,7 +140,12 @@ export class ShipTurnedLeftEvent {
         public readonly shipId: string,
         public readonly direction: Direction,
         public readonly speed: number,
+        public readonly seamanshipRoll: Roll3d6UnderWithCritResult | null,
     ) {}
+
+    static toArgs(event: ShipTurnedLeftEvent) {
+        return event.seamanshipRoll ? [event.seamanshipRoll] : [];
+    }
 }
 
 @DomainEvent(ShipRemovedEvent.name)

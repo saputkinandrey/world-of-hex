@@ -124,6 +124,9 @@ At that stage, the Godot client should consume the existing API instead of redef
 - keep committed state and player-requested state clearly separated
 - avoid leaking admin-only controls into the client
 - use the web client as the main prototyping client for the websocket API until the sea-combat rules and API are stable
+- do not keep next-turn preview animation running in a constant loop
+- use fixed-step movement data mainly for animating real turn transitions after server push
+- if manual preview playback exists, keep it explicit and one-shot rather than automatic background motion
 
 ### Delivery Criteria For The Current Phase
 
@@ -169,7 +172,15 @@ The current phase should be considered complete only when:
 - expand deterministic action resolution beyond movement and spawn
 - keep all non-deterministic outcomes derived from shared entropy inputs
 - continue storing roll outcomes as explicit facts where replay determinism requires it
+- before expanding combat vocabulary further, improve combat transparency in the client:
+  - show wind direction
+  - show previous-turn roll results where they mattered
+  - show predicted success chances for current actions
+- after that, reintroduce `flee` / `pursue` / `circle` as captain-owned top-level tactical intents that derive lower-level officer intents
+- after movement is extended beyond strictly forward motion, implement ship fitting / modules as the next subsystem
+- only after the module system exists, move on to the first combat skeleton
 - finish the rules that represent the core mechanics of sea combat before opening wider gameplay scope
+- track this work in [ROADMAP.sea-combat-rules.md](./ROADMAP.sea-combat-rules.md)
 
 ### Pending Intent Dispatch
 

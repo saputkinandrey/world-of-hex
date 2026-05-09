@@ -34,7 +34,7 @@ describe('turn resolution utilities', () => {
                     actorId: 'player-1',
                     actorType: EncounterActorType.PLAYER,
                     shipId: 'ship-1',
-                    intentType: PendingShipIntentType.ACCELERATE,
+                    intentType: PendingShipIntentType.BOATSWAIN_ACCELERATE,
                     payload: {},
                 },
             ],

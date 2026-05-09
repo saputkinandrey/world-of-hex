@@ -1,10 +1,9 @@
-import { PendingShipIntentType } from '../../types/pending-intent.type';
+import { EncounterActionForecast } from '../../types/encounter-workspace-view.type';
+import { ShipCaptainTarget } from '../../types/ship-captain-target.type';
 
 export type SendInputResponsePayloadDto = {
     ok: true;
-    intentId: string;
-    encounterId: string;
-    turnNumber: number;
-    shipId: string;
-    intentType: PendingShipIntentType;
+    shipId?: string;
+    target?: ShipCaptainTarget | null;
+    actionForecasts?: EncounterActionForecast[];
 };

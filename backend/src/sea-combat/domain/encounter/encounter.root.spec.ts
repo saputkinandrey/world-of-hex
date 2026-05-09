@@ -204,6 +204,34 @@ describe('EncounterAggregate spawn distance', () => {
         expect(rightShip.position).toEqual({ q: 1, r: 0 });
     });
 
+    it('does not collide ships that only pass through the same hex on different substeps', () => {
+        const encounter = new EncounterAggregate('encounter-test');
+        const slowShip = makeEncounterShip({
+            shipId: 'ship-slow',
+            position: { q: 0, r: 2 },
+            direction: Direction.N,
+            speed: 1,
+        });
+        const fastShip = makeEncounterShip({
+            shipId: 'ship-fast',
+            position: { q: 0, r: 0 },
+            direction: Direction.S,
+            speed: 2,
+        });
+
+        encounter.setCenter({ q: 0, r: 0 });
+        encounter.setRadius(16);
+        encounter.setTurnNumber(1);
+        bindChildActions(encounter, slowShip, 'ship_ship-slow');
+        bindChildActions(encounter, fastShip, 'ship_ship-fast');
+        encounter.ships.push(slowShip, fastShip);
+
+        encounter.advanceTurn();
+
+        expect(slowShip.position).toEqual({ q: 0, r: 1 });
+        expect(fastShip.position).toEqual({ q: 0, r: 2 });
+    });
+
     it('increments the encounter turn number during advanceTurn', () => {
         const encounter = new EncounterAggregate('encounter-test');
         encounter.setTurnNumber(4);
@@ -288,7 +316,7 @@ describe('EncounterAggregate spawn distance', () => {
                 actorId: 'player-1',
                 actorType: EncounterActorType.PLAYER,
                 shipId: 'ship-1',
-                intentType: PendingShipIntentType.ACCELERATE,
+                intentType: PendingShipIntentType.BOATSWAIN_ACCELERATE,
                 randomness: {
                     taskSeed: 'seed-1',
                     taskSignatureHash: 'signature-1',
@@ -330,7 +358,7 @@ describe('EncounterAggregate spawn distance', () => {
                 actorId: 'player-1',
                 actorType: EncounterActorType.PLAYER,
                 shipId: 'ship-1',
-                intentType: PendingShipIntentType.ACCELERATE,
+                intentType: PendingShipIntentType.BOATSWAIN_ACCELERATE,
                 randomness: {
                     taskSeed: 'seed-1',
                     taskSignatureHash: 'signature-1',
@@ -342,6 +370,213 @@ describe('EncounterAggregate spawn distance', () => {
         encounter.advanceTurn();
 
         expect(ship.position).toEqual({ q: 1, r: 0 });
+    });
+
+    it('turns left with deceleration when helmsman turns and boatswain holds', () => {
+        const encounter = new EncounterAggregate('encounter-test');
+        const ship = makeEncounterShip({
+            shipId: 'ship-1',
+            position: { q: 0, r: 0 },
+            direction: Direction.SE,
+            speed: 1,
+            maxSpeed: 4,
+        });
+
+        encounter.setCenter({ q: 0, r: 0 });
+        encounter.setRadius(16);
+        encounter.setTurnNumber(1);
+        bindChildActions(encounter, ship, 'ship_ship-1');
+        encounter.ships.push(ship);
+        encounter.setPendingIntents([
+            {
+                intentId: 'intent-helmsman',
+                actorId: 'player-1',
+                actorType: EncounterActorType.PLAYER,
+                shipId: 'ship-1',
+                intentType: PendingShipIntentType.HELMSMAN_TURN_LEFT,
+                randomness: {
+                    taskSeed: 'seed-turn-left',
+                    taskSignatureHash: 'signature-turn-left',
+                },
+            },
+            {
+                intentId: 'intent-boatswain',
+                actorId: 'player-1',
+                actorType: EncounterActorType.PLAYER,
+                shipId: 'ship-1',
+                intentType: PendingShipIntentType.BOATSWAIN_HOLD,
+                randomness: {
+                    taskSeed: 'seed-turn-left',
+                    taskSignatureHash: 'signature-turn-left',
+                },
+            },
+        ]);
+
+        encounter.advanceTurn();
+
+        expect(ship.position).toEqual({ q: 1, r: 0 });
+        expect(ship.actualDirection).toBe(Direction.NE);
+        expect(ship.actualSpeed).toBe(0);
+        expect((encounter as any).consumePendingIntentResolutions()).toEqual([
+            {
+                intentId: 'intent-helmsman',
+                status: PendingIntentStatus.CONSUMED,
+            },
+            {
+                intentId: 'intent-boatswain',
+                status: PendingIntentStatus.CONSUMED,
+            },
+        ]);
+    });
+
+    it('preserves speed on a turn when boatswain acceleration succeeds', () => {
+        const encounter = new EncounterAggregate('encounter-test');
+        const ship = makeEncounterShip({
+            shipId: 'ship-1',
+            position: { q: 0, r: 0 },
+            direction: Direction.SE,
+            speed: 1,
+            maxSpeed: 4,
+        });
+
+        ship.ship.skills.setSeamanship(30);
+        encounter.setCenter({ q: 0, r: 0 });
+        encounter.setRadius(16);
+        encounter.setTurnNumber(1);
+        bindChildActions(encounter, ship, 'ship_ship-1');
+        encounter.ships.push(ship);
+        encounter.setPendingIntents([
+            {
+                intentId: 'intent-helmsman',
+                actorId: 'player-1',
+                actorType: EncounterActorType.PLAYER,
+                shipId: 'ship-1',
+                intentType: PendingShipIntentType.HELMSMAN_TURN_LEFT,
+                randomness: {
+                    taskSeed: 'seed-turn-left-keep-speed',
+                    taskSignatureHash: 'signature-turn-left-keep-speed',
+                },
+            },
+            {
+                intentId: 'intent-boatswain',
+                actorId: 'player-1',
+                actorType: EncounterActorType.PLAYER,
+                shipId: 'ship-1',
+                intentType: PendingShipIntentType.BOATSWAIN_ACCELERATE,
+                randomness: {
+                    taskSeed: 'seed-turn-left-keep-speed',
+                    taskSignatureHash: 'signature-turn-left-keep-speed',
+                },
+            },
+        ]);
+
+        encounter.advanceTurn();
+
+        expect(ship.position).toEqual({ q: 1, r: 0 });
+        expect(ship.actualDirection).toBe(Direction.NE);
+        expect(ship.actualSpeed).toBe(1);
+    });
+
+    it('uses reverse wind modifiers for deceleration rolls', () => {
+        const encounter = new EncounterAggregate('encounter-test');
+        const ship = makeEncounterShip({
+            shipId: 'ship-1',
+            position: { q: 0, r: 0 },
+            direction: Direction.N,
+            speed: 1,
+            maxSpeed: 4,
+        });
+
+        ship.ship.skills.setSeamanship(0);
+        encounter.setCenter({ q: 0, r: 0 });
+        encounter.setRadius(16);
+        encounter.setTurnNumber(1);
+        encounter.windrose.setDirection(Direction.S);
+        bindChildActions(encounter, ship, 'ship_ship-1');
+        encounter.ships.push(ship);
+        encounter.setPendingIntents([
+            {
+                intentId: 'intent-boatswain',
+                actorId: 'player-1',
+                actorType: EncounterActorType.PLAYER,
+                shipId: 'ship-1',
+                intentType: PendingShipIntentType.BOATSWAIN_DECELERATE,
+                randomness: {
+                    taskSeed: 'seed-decelerate',
+                    taskSignatureHash: 'signature-decelerate',
+                },
+            },
+        ]);
+
+        encounter.advanceTurn();
+
+        expect(ship.position).toEqual({ q: 0, r: -1 });
+        expect(ship.actualSpeed).toBe(1);
+        expect((encounter as any).consumePendingIntentResolutions()).toEqual([
+            {
+                intentId: 'intent-boatswain',
+                status: PendingIntentStatus.CONSUMED,
+            },
+        ]);
+    });
+
+    it('normalizes turn and decelerate to the keep-speed turn maneuver', () => {
+        const encounter = new EncounterAggregate('encounter-test');
+        const ship = makeEncounterShip({
+            shipId: 'ship-1',
+            position: { q: 0, r: 0 },
+            direction: Direction.N,
+            speed: 2,
+            maxSpeed: 4,
+        });
+
+        ship.ship.skills.setSeamanship(30);
+        encounter.setCenter({ q: 0, r: 0 });
+        encounter.setRadius(16);
+        encounter.setTurnNumber(1);
+        encounter.windrose.setDirection(Direction.S);
+        bindChildActions(encounter, ship, 'ship_ship-1');
+        encounter.ships.push(ship);
+        encounter.setPendingIntents([
+            {
+                intentId: 'intent-helmsman',
+                actorId: 'player-1',
+                actorType: EncounterActorType.PLAYER,
+                shipId: 'ship-1',
+                intentType: PendingShipIntentType.HELMSMAN_TURN_RIGHT,
+                randomness: {
+                    taskSeed: 'seed-turn-right-decelerate',
+                    taskSignatureHash: 'signature-turn-right-decelerate',
+                },
+            },
+            {
+                intentId: 'intent-boatswain',
+                actorId: 'player-1',
+                actorType: EncounterActorType.PLAYER,
+                shipId: 'ship-1',
+                intentType: PendingShipIntentType.BOATSWAIN_DECELERATE,
+                randomness: {
+                    taskSeed: 'seed-turn-right-decelerate',
+                    taskSignatureHash: 'signature-turn-right-decelerate',
+                },
+            },
+        ]);
+
+        encounter.advanceTurn();
+
+        expect(ship.position).toEqual({ q: 0, r: -2 });
+        expect(ship.actualDirection).toBe(Direction.NE);
+        expect(ship.actualSpeed).toBe(2);
+        expect((encounter as any).consumePendingIntentResolutions()).toEqual([
+            {
+                intentId: 'intent-helmsman',
+                status: PendingIntentStatus.CONSUMED,
+            },
+            {
+                intentId: 'intent-boatswain',
+                status: PendingIntentStatus.CONSUMED,
+            },
+        ]);
     });
 
     it('does not leave deployment turn without at least two pending ship spawns', () => {
@@ -430,5 +665,72 @@ describe('EncounterAggregate spawn distance', () => {
 
         expect(encounter.turnNumber).toBe(1);
         expect(encounter.ships).toHaveLength(2);
+    });
+
+    it('materializes multiple deployment spawns for the same actor when they target different ships', () => {
+        const encounter = new EncounterAggregate('encounter-test');
+        const firstShip = Object.assign(new ShipEntity(), {
+            id: 'ship-1',
+            name: 'ship-1',
+            speed: 6,
+            type: 'drakkar',
+            skills: new ShipSkillsEntity().setSeamanship(12).setTactics(10),
+        });
+        const secondShip = Object.assign(new ShipEntity(), {
+            id: 'ship-2',
+            name: 'ship-2',
+            speed: 6,
+            type: 'drakkar',
+            skills: new ShipSkillsEntity().setSeamanship(12).setTactics(10),
+        });
+
+        encounter.setCenter({ q: 0, r: 0 });
+        encounter.setRadius(16);
+        encounter.windrose.setDirection(Direction.S);
+        encounter.setPendingIntents([
+            {
+                intentId: 'intent-1',
+                actorId: 'actor-1',
+                actorType: EncounterActorType.PLAYER,
+                shipId: 'ship-1',
+                intentType: PendingShipIntentType.SPAWN,
+                encounterIntent: ShipEncounterIntent.FLEE,
+                ship: firstShip,
+                randomness: {
+                    taskSeed: 'seed-1',
+                    taskSignatureHash: 'signature-1',
+                },
+            },
+            {
+                intentId: 'intent-2',
+                actorId: 'actor-1',
+                actorType: EncounterActorType.PLAYER,
+                shipId: 'ship-2',
+                intentType: PendingShipIntentType.SPAWN,
+                encounterIntent: ShipEncounterIntent.PURSUE,
+                ship: secondShip,
+                randomness: {
+                    taskSeed: 'seed-2',
+                    taskSignatureHash: 'signature-2',
+                },
+            },
+        ]);
+
+        encounter.advanceTurn();
+
+        expect(encounter.turnNumber).toBe(1);
+        expect(encounter.ships).toHaveLength(2);
+        expect((encounter as any).consumePendingIntentResolutions()).toEqual(
+            expect.arrayContaining([
+                {
+                    intentId: 'intent-1',
+                    status: PendingIntentStatus.CONSUMED,
+                },
+                {
+                    intentId: 'intent-2',
+                    status: PendingIntentStatus.CONSUMED,
+                },
+            ]),
+        );
     });
 });

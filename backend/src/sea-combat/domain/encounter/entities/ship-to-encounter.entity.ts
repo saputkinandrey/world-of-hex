@@ -8,16 +8,25 @@ import { getOwnActionEvent, isReplayingAction } from '../../../../utils/action-e
 import {
     ShipAcceleratedEvent,
     ShipDeceleratedEvent,
+    ShipIntentChangedEvent,
     ShipMovedEvent,
     ShipPlacementUpdatedEvent,
     ShipTurnEndedEvent,
+    ShipTargetChangedEvent,
     ShipTurnStartedEvent,
     ShipTurnedLeftEvent,
     ShipTurnedRightEvent,
 } from '../events/ship.events';
 import { ShipEncounterIntent } from '../../../types/ship-encounter-intent.type';
+import {
+    DEFAULT_SHIP_CAPTAIN_TARGET,
+    ShipCaptainTarget,
+    createShipCaptainTarget,
+} from '../../../types/ship-captain-target.type';
 import { Roll3d6UnderWithCritResult } from '../../../../rps/utils/roll';
 import type { AxialPoint } from '../../../utils/hex-coordinate.util';
+
+type OptionalSeamanshipRoll = Roll3d6UnderWithCritResult | null;
 
 export class ShipToEncounterEntity extends StreamAwareEntity implements OnBind {
     constructor() {
@@ -36,6 +45,8 @@ export class ShipToEncounterEntity extends StreamAwareEntity implements OnBind {
 
     intent: ShipEncounterIntent | null = null;
 
+    target: ShipCaptainTarget = createShipCaptainTarget(DEFAULT_SHIP_CAPTAIN_TARGET.type);
+
     encounterId: string;
 
     actualSpeed: number = 0;
@@ -47,11 +58,37 @@ export class ShipToEncounterEntity extends StreamAwareEntity implements OnBind {
         return this;
     }
 
+    setIntent(intent: ShipEncounterIntent | null): this;
+    setIntent(event: ShipIntentChangedEvent): this;
+    @ChildAction(ShipIntentChangedEvent)
+    setIntent(intentOrEvent: ShipEncounterIntent | null | ShipIntentChangedEvent) {
+        const intent = intentOrEvent instanceof ShipIntentChangedEvent ? intentOrEvent.intent : intentOrEvent;
+        const action = getOwnActionEvent(this, ShipIntentChangedEvent);
+        const resolved = action.setNamedArgs({
+            intent,
+        });
+        this.intent = resolved.intent;
+        return this;
+    }
+
+    setTarget(target: ShipCaptainTarget): this;
+    setTarget(event: ShipTargetChangedEvent): this;
+    @ChildAction(ShipTargetChangedEvent)
+    setTarget(targetOrEvent: ShipCaptainTarget | ShipTargetChangedEvent) {
+        const target = targetOrEvent instanceof ShipTargetChangedEvent ? targetOrEvent.target : targetOrEvent;
+        const action = getOwnActionEvent(this, ShipTargetChangedEvent);
+        const resolved = action.setNamedArgs({
+            target,
+        });
+        this.target = createShipCaptainTarget(resolved.target.type, resolved.target.shipId);
+        return this;
+    }
+
     startTurn(): this;
     startTurn(event: ShipTurnStartedEvent): this;
     @ChildAction(ShipTurnStartedEvent)
-    startTurn(_event?: ShipTurnStartedEvent) {
-        if (isReplayingAction(this)) {
+    startTurn(event?: ShipTurnStartedEvent) {
+        if (event instanceof ShipTurnStartedEvent || isReplayingAction(this)) {
             return this;
         }
 
@@ -64,8 +101,8 @@ export class ShipToEncounterEntity extends StreamAwareEntity implements OnBind {
     endTurn(): this;
     endTurn(event: ShipTurnEndedEvent): this;
     @ChildAction(ShipTurnEndedEvent)
-    endTurn(_event?: ShipTurnEndedEvent) {
-        if (isReplayingAction(this)) {
+    endTurn(event?: ShipTurnEndedEvent) {
+        if (event instanceof ShipTurnEndedEvent || isReplayingAction(this)) {
             return this;
         }
 
@@ -113,12 +150,10 @@ export class ShipToEncounterEntity extends StreamAwareEntity implements OnBind {
     setActualSpeed(speed: number) {
         if (speed < 0) {
             return this;
-            // throw new Error('Speed must be greater than 0');
         }
 
         if (speed > this.ship.speed) {
             return this;
-            // throw new Error(`Can't set speed greater than ${this.ship.speed}`);
         }
 
         this.actualSpeed = speed;
@@ -142,15 +177,20 @@ export class ShipToEncounterEntity extends StreamAwareEntity implements OnBind {
         return this.setActualSpeed(appliedSpeed);
     }
 
-    decelerate(): this;
+    decelerate(seamanshipRollInput: Roll3d6UnderWithCritResult): this;
     decelerate(event: ShipDeceleratedEvent): this;
     @ChildAction(ShipDeceleratedEvent)
-    decelerate(_event?: ShipDeceleratedEvent) {
+    decelerate(seamanshipRollOrEvent: Roll3d6UnderWithCritResult | ShipDeceleratedEvent) {
+        const seamanshipRollInput =
+            seamanshipRollOrEvent instanceof ShipDeceleratedEvent
+                ? seamanshipRollOrEvent.seamanshipRoll
+                : seamanshipRollOrEvent;
         const action = getOwnActionEvent(this, ShipDeceleratedEvent);
-        const nextSpeed = this.actualSpeed - 1;
-        const success = nextSpeed >= 0;
-        const appliedSpeed = success ? nextSpeed : this.actualSpeed;
+        const success = seamanshipRollInput.mos >= 0;
+        const nextSpeed = success ? this.actualSpeed - 1 : this.actualSpeed;
+        const appliedSpeed = nextSpeed >= 0 ? nextSpeed : this.actualSpeed;
         const { speed } = action.setNamedArgs({
+            seamanshipRoll: seamanshipRollInput,
             speed: appliedSpeed,
             success,
         });
@@ -158,31 +198,35 @@ export class ShipToEncounterEntity extends StreamAwareEntity implements OnBind {
     }
 
     turnRight(): this;
+    turnRight(seamanshipRollInput: Roll3d6UnderWithCritResult): this;
     turnRight(event: ShipTurnedRightEvent): this;
     @ChildAction(ShipTurnedRightEvent)
-    turnRight(_event?: ShipTurnedRightEvent) {
+    turnRight(seamanshipRollOrEvent?: Roll3d6UnderWithCritResult | ShipTurnedRightEvent) {
+        const seamanshipRollInput = this.resolveTurnSeamanshipRoll(seamanshipRollOrEvent);
         const action = getOwnActionEvent(this, ShipTurnedRightEvent);
         const nextDirection = DirectionTurnRight[this.actualDirection];
-        const nextSpeed = this.actualSpeed - 1;
-        const appliedSpeed = nextSpeed >= 0 ? nextSpeed : this.actualSpeed;
+        const nextSpeed = this.resolveTurnSpeed(seamanshipRollInput);
         const { direction, speed } = action.setNamedArgs({
             direction: nextDirection,
-            speed: appliedSpeed,
+            speed: nextSpeed,
+            seamanshipRoll: seamanshipRollInput,
         });
         return this.setActualSpeed(speed).setActualDirection(direction);
     }
 
     turnLeft(): this;
+    turnLeft(seamanshipRollInput: Roll3d6UnderWithCritResult): this;
     turnLeft(event: ShipTurnedLeftEvent): this;
     @ChildAction(ShipTurnedLeftEvent)
-    turnLeft(_event?: ShipTurnedLeftEvent) {
+    turnLeft(seamanshipRollOrEvent?: Roll3d6UnderWithCritResult | ShipTurnedLeftEvent) {
+        const seamanshipRollInput = this.resolveTurnSeamanshipRoll(seamanshipRollOrEvent);
         const action = getOwnActionEvent(this, ShipTurnedLeftEvent);
         const nextDirection = DirectionTurnLeft[this.actualDirection];
-        const nextSpeed = this.actualSpeed - 1;
-        const appliedSpeed = nextSpeed >= 0 ? nextSpeed : this.actualSpeed;
+        const nextSpeed = this.resolveTurnSpeed(seamanshipRollInput);
         const { direction, speed } = action.setNamedArgs({
             direction: nextDirection,
-            speed: appliedSpeed,
+            speed: nextSpeed,
+            seamanshipRoll: seamanshipRollInput,
         });
         return this.setActualSpeed(speed).setActualDirection(direction);
     }
@@ -202,6 +246,28 @@ export class ShipToEncounterEntity extends StreamAwareEntity implements OnBind {
     rollSkill(skill: ShipSkillKey): Roll3d6UnderWithCritResult {
         const modifier = this.modifierBucket.total(skill);
         return this.ship.rollSkill(skill, modifier);
+    }
+
+    private resolveTurnSeamanshipRoll(
+        seamanshipRollOrEvent: Roll3d6UnderWithCritResult | ShipTurnedLeftEvent | ShipTurnedRightEvent | undefined,
+    ): OptionalSeamanshipRoll {
+        if (
+            seamanshipRollOrEvent instanceof ShipTurnedLeftEvent ||
+            seamanshipRollOrEvent instanceof ShipTurnedRightEvent
+        ) {
+            return seamanshipRollOrEvent.seamanshipRoll;
+        }
+
+        return seamanshipRollOrEvent ?? null;
+    }
+
+    private resolveTurnSpeed(seamanshipRoll: OptionalSeamanshipRoll) {
+        if (seamanshipRoll && seamanshipRoll.mos >= 0) {
+            return this.actualSpeed;
+        }
+
+        const nextSpeed = this.actualSpeed - 1;
+        return nextSpeed >= 0 ? nextSpeed : this.actualSpeed;
     }
 
     // guard/dispatch is handled by getOwnActionEvent()

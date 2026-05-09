@@ -38,12 +38,36 @@ export type EncounterHexGridMarkerPlacement = {
     direction?: string;
 };
 
+export type EncounterHexGridPath = {
+    id: string;
+    points: EncounterGridPoint[];
+    stroke?: string;
+    fill?: string;
+    lineOpacity?: number;
+    pointOpacity?: number;
+    dashed?: boolean;
+};
+
+export type EncounterHexGridHighlight = {
+    id: string;
+    x: number;
+    y: number;
+    label?: string;
+    title?: string;
+    fill?: string;
+    stroke?: string;
+    textColor?: string;
+    radiusScale?: number;
+};
+
 export type EncounterHexGridProps = {
     radius: number;
     hexSize?: number;
     strokeWidth?: number;
     center?: EncounterGridPoint;
     markers?: EncounterHexGridMarker[];
+    paths?: EncounterHexGridPath[];
+    highlights?: EncounterHexGridHighlight[];
     selectedMarkerId?: string | null;
     onMarkerClick?: (
         marker: EncounterHexGridMarker,
@@ -229,6 +253,8 @@ export function EncounterHexGrid({
     strokeWidth,
     center = { x: 0, y: 0 },
     markers = [],
+    paths = [],
+    highlights = [],
     selectedMarkerId,
     onMarkerClick,
     onMarkerDrop,
@@ -258,6 +284,11 @@ export function EncounterHexGrid({
     const arrowHeadWidth = Math.max(4, hexSize * 0.26);
     const arrowStartDistance = markerRadius * 0.75;
     const arrowTipDistance = Math.max(markerRadius + 4, hexSize * 0.92);
+    const pathStrokeWidth = Math.max(1.2, hexSize * 0.12);
+    const pathPointRadius = Math.max(1.5, hexSize * 0.13);
+    const pathFinalPointRadius = Math.max(3.2, hexSize * 0.22);
+    const highlightRadius = Math.max(6, hexSize * 0.38);
+    const highlightFontSize = Math.max(7, hexSize * 0.34);
     const renderedMarkers = dragState
         ? markers.map((marker) =>
               marker.id === dragState.markerId
@@ -480,6 +511,81 @@ export function EncounterHexGrid({
                         vectorEffect="non-scaling-stroke"
                     />
                 ))}
+                {paths.map((path) => {
+                    const projectedPoints = path.points.map((point) =>
+                        toOffsetPixel(point, hexSize, center),
+                    );
+                    const finalPoint = projectedPoints.at(-1) ?? null;
+                    const polylinePoints = projectedPoints
+                        .map((point) => `${point.x.toFixed(2)},${point.y.toFixed(2)}`)
+                        .join(" ");
+                    return (
+                        <g key={path.id} pointerEvents="none">
+                            {projectedPoints.length > 1 ? (
+                                <polyline
+                                    points={polylinePoints}
+                                    fill="none"
+                                    stroke={path.stroke ?? "#64748b"}
+                                    strokeWidth={pathStrokeWidth}
+                                    strokeOpacity={path.lineOpacity ?? 0.65}
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                    strokeDasharray={path.dashed ? "6 6" : undefined}
+                                    vectorEffect="non-scaling-stroke"
+                                />
+                            ) : null}
+                            {projectedPoints.map((point, index) => {
+                                const isFinalPoint = index === projectedPoints.length - 1;
+                                return (
+                                    <circle
+                                        key={`${path.id}-${index}`}
+                                        cx={point.x.toFixed(2)}
+                                        cy={point.y.toFixed(2)}
+                                        r={isFinalPoint ? pathFinalPointRadius : pathPointRadius}
+                                        fill={path.fill ?? path.stroke ?? "#64748b"}
+                                        fillOpacity={path.pointOpacity ?? (isFinalPoint ? 0.6 : 0.28)}
+                                        stroke={path.stroke ?? "#64748b"}
+                                        strokeOpacity={isFinalPoint ? 0.95 : 0.55}
+                                        strokeWidth={isFinalPoint ? pathStrokeWidth : Math.max(0.8, pathStrokeWidth * 0.7)}
+                                        vectorEffect="non-scaling-stroke"
+                                    />
+                                );
+                            })}
+                        </g>
+                    );
+                })}
+                {highlights.map((highlight) => {
+                    const point = toOffsetPixel(highlight, hexSize, center);
+                    const radiusScale = highlight.radiusScale ?? 1;
+                    const radius = highlightRadius * radiusScale;
+                    return (
+                        <g key={highlight.id} transform={`translate(${point.x.toFixed(2)} ${point.y.toFixed(2)})`} pointerEvents="none">
+                            <title>{highlight.title ?? highlight.label ?? highlight.id}</title>
+                            <circle
+                                r={radius}
+                                fill={highlight.fill ?? "rgba(245, 158, 11, 0.18)"}
+                                stroke={highlight.stroke ?? "#f59e0b"}
+                                strokeWidth={Math.max(1.2, hexSize * 0.12)}
+                                strokeDasharray="4 3"
+                                vectorEffect="non-scaling-stroke"
+                            />
+                            {highlight.label ? (
+                                <text
+                                    x="0"
+                                    y="0"
+                                    fill={highlight.textColor ?? "#b45309"}
+                                    fontSize={highlightFontSize}
+                                    fontWeight="700"
+                                    textAnchor="middle"
+                                    dominantBaseline="central"
+                                    pointerEvents="none"
+                                >
+                                    {highlight.label}
+                                </text>
+                            ) : null}
+                        </g>
+                    );
+                })}
                 {renderedMarkers.map((marker) => {
                     const point = toOffsetPixel(marker, hexSize, center);
                     const isSelected =

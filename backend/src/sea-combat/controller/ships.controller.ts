@@ -61,10 +61,7 @@ export class ShipsController {
             : 0;
 
         const cleanupCount =
-            (playerCleanup.modifiedCount ?? 0) +
-            encounterCleanup.removedShipEntries +
-            encounterCleanup.clearedSelectedShips +
-            disconnectedPlayers;
+            (playerCleanup.modifiedCount ?? 0) + encounterCleanup.removedShipEntries + disconnectedPlayers;
 
         if (!ship && cleanupCount === 0) {
             throw new NotFoundException(`Ship with id ${shipId} not found`);

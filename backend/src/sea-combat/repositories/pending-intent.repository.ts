@@ -62,12 +62,19 @@ export class PendingIntentRepository {
             .exec() as Promise<PendingIntentDocument | null>;
     }
 
-    async supersedeOtherShipIntents(encounterId: string, turnNumber: number, shipId: string, nextIntentId: string) {
+    async supersedeOtherShipIntentsByType(
+        encounterId: string,
+        turnNumber: number,
+        shipId: string,
+        nextIntentId: string,
+        intentTypes: PendingShipIntentType[],
+    ) {
         return this.pendingIntentModel.updateMany(
             {
                 encounterId,
                 turnNumber,
                 shipId,
+                intentType: { $in: intentTypes },
                 status: PendingIntentStatus.PENDING,
                 _id: { $ne: nextIntentId },
             },
@@ -75,7 +82,7 @@ export class PendingIntentRepository {
                 $set: {
                     status: PendingIntentStatus.SUPERSEDED,
                     supersededByIntentId: nextIntentId,
-                    resolutionReason: 'Replaced by a newer intent for the same ship and turn',
+                    resolutionReason: 'Replaced by a newer intent for the same ship, turn, and officer group',
                 },
             },
         );

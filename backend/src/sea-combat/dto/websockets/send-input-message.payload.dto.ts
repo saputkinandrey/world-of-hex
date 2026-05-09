@@ -1,6 +1,11 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsEnum, IsString } from 'class-validator';
-import { PlayerShipIntentType } from '../../types/pending-intent.type';
+import { IsEnum, IsOptional, IsString } from 'class-validator';
+import {
+    PlayerShipBoatswainIntentType,
+    PlayerShipCaptainIntentType,
+    PlayerShipHelmsmanIntentType,
+} from '../../types/pending-intent.type';
+import { ShipCaptainTargetType } from '../../types/ship-captain-target.type';
 
 export class SendInputMessagePayloadDto {
     @ApiProperty()
@@ -15,7 +20,28 @@ export class SendInputMessagePayloadDto {
     @IsString()
     selectedTokenId: string;
 
-    @ApiProperty({ enum: PlayerShipIntentType })
-    @IsEnum(PlayerShipIntentType)
-    inputType: PlayerShipIntentType;
+    @ApiProperty({ enum: PlayerShipCaptainIntentType, required: false })
+    @IsOptional()
+    @IsEnum(PlayerShipCaptainIntentType)
+    captainIntent?: PlayerShipCaptainIntentType;
+
+    @ApiProperty({ enum: PlayerShipHelmsmanIntentType, required: false })
+    @IsOptional()
+    @IsEnum(PlayerShipHelmsmanIntentType)
+    helmsmanIntent?: PlayerShipHelmsmanIntentType;
+
+    @ApiProperty({ enum: PlayerShipBoatswainIntentType, required: false })
+    @IsOptional()
+    @IsEnum(PlayerShipBoatswainIntentType)
+    boatswainIntent?: PlayerShipBoatswainIntentType;
+
+    @ApiProperty({ enum: ShipCaptainTargetType, required: false })
+    @IsOptional()
+    @IsEnum(ShipCaptainTargetType)
+    targetType?: ShipCaptainTargetType;
+
+    @ApiProperty({ required: false, nullable: true })
+    @IsOptional()
+    @IsString()
+    targetShipId?: string | null;
 }

@@ -1,15 +1,22 @@
 import { SeaCombatGateway } from './sea-combat.gateway';
 import { ShipEncounterIntent } from '../types/ship-encounter-intent.type';
-import { WSResponse } from '../types/gateway-events.type';
-import { PendingShipIntentType } from '../types/pending-intent.type';
+import { WSServerMessage, WSResponse } from '../types/gateway-events.type';
+import { PendingShipIntentType, PlayerShipCaptainIntentType } from '../types/pending-intent.type';
 import { EncounterTurnProcessedEvent } from '../types/encounter-turn-processed-event.type';
+import { ShipType } from '../types/ship-type.type';
+import { Direction } from '../types/direction.type';
+import { ShipCaptainTargetType } from '../types/ship-captain-target.type';
 
 type GatewayDependencies = {
     encounterService: {
         findOneById: jest.Mock;
         findEncounterViewById: jest.Mock;
+        findPlayerEncounterViewById: jest.Mock;
         isPlayerJoinedToEncounter: jest.Mock;
-        submitPlayerShipIntent: jest.Mock;
+        playerJoinsEncounter: jest.Mock;
+        submitPlayerShipManeuverIntents: jest.Mock;
+        submitPlayerShipCaptainIntent: jest.Mock;
+        setPlayerShipCaptainTarget: jest.Mock;
         shipJoinsEncounter: jest.Mock;
     };
     playerRepository: {
@@ -29,19 +36,23 @@ type SocketStub = {
 };
 
 type ServerRoomStub = {
-    emit: jest.Mock;
+    fetchSockets: jest.Mock;
 };
 
 type ServerStub = {
-    to: jest.Mock<ServerRoomStub, [string]>;
+    in: jest.Mock<ServerRoomStub, [string]>;
 };
 
 const makeDependencies = (): GatewayDependencies => ({
     encounterService: {
         findOneById: jest.fn(),
         findEncounterViewById: jest.fn(),
+        findPlayerEncounterViewById: jest.fn(),
         isPlayerJoinedToEncounter: jest.fn().mockReturnValue(true),
-        submitPlayerShipIntent: jest.fn(),
+        playerJoinsEncounter: jest.fn(),
+        submitPlayerShipManeuverIntents: jest.fn(),
+        submitPlayerShipCaptainIntent: jest.fn(),
+        setPlayerShipCaptainTarget: jest.fn(),
         shipJoinsEncounter: jest.fn(),
     },
     playerRepository: {
@@ -69,16 +80,153 @@ const makeSocket = (): SocketStub => ({
 
 const makeServer = (): ServerStub => {
     const room = {
-        emit: jest.fn(),
+        fetchSockets: jest.fn().mockResolvedValue([]),
     };
 
     return {
-        to: jest.fn().mockReturnValue(room),
+        in: jest.fn().mockReturnValue(room),
     };
 };
 
 describe('SeaCombatGateway queue spawn intent', () => {
-    it('queues a spawn intent for a joined player-owned ship', async () => {
+    it('submits officer-owned maneuver intents for a joined player-owned ship', async () => {
+        const dependencies = makeDependencies();
+        const gateway = makeGateway(dependencies);
+        const player = {
+            _id: 'player-1',
+            ownedShips: [{ _id: 'ship-1' }],
+        };
+        const encounterView = {
+            _id: 'encounter-1',
+            ships: [{ ship: { _id: 'ship-1' } }],
+        };
+        const client = makeSocket();
+
+        dependencies.playerRepository.findOneById.mockResolvedValue(player);
+        dependencies.encounterService.findEncounterViewById.mockResolvedValue(encounterView);
+        dependencies.encounterService.submitPlayerShipManeuverIntents.mockResolvedValue([]);
+
+        await gateway.onSendInput(
+            {
+                userId: 'player-1',
+                encounterId: 'encounter-1',
+                selectedTokenId: 'ship-1',
+                helmsmanIntent: PendingShipIntentType.HELMSMAN_FORWARD,
+                boatswainIntent: PendingShipIntentType.BOATSWAIN_HOLD,
+            },
+            client as never,
+        );
+
+        expect(dependencies.encounterService.submitPlayerShipManeuverIntents).toHaveBeenCalledWith(player, {
+            encounterId: 'encounter-1',
+            shipId: 'ship-1',
+            helmsmanIntent: PendingShipIntentType.HELMSMAN_FORWARD,
+            boatswainIntent: PendingShipIntentType.BOATSWAIN_HOLD,
+        });
+        expect(client.emit).toHaveBeenCalledWith(WSResponse.SEND_INPUT, {
+            ok: true,
+            target: null,
+        });
+        expect(client.emit).not.toHaveBeenCalledWith(WSResponse.LOAD_ENCOUNTER, expect.anything());
+        expect(dependencies.encounterService.findPlayerEncounterViewById).not.toHaveBeenCalled();
+    });
+
+    it('submits a captain tactic for a joined player-owned ship', async () => {
+        const dependencies = makeDependencies();
+        const gateway = makeGateway(dependencies);
+        const player = {
+            _id: 'player-1',
+            ownedShips: [{ _id: 'ship-1' }],
+        };
+        const encounterView = {
+            _id: 'encounter-1',
+            ships: [{ ship: { _id: 'ship-1' } }],
+        };
+        const client = makeSocket();
+
+        dependencies.playerRepository.findOneById.mockResolvedValue(player);
+        dependencies.encounterService.findEncounterViewById.mockResolvedValue(encounterView);
+        dependencies.encounterService.submitPlayerShipCaptainIntent.mockResolvedValue({});
+
+        await gateway.onSendInput(
+            {
+                userId: 'player-1',
+                encounterId: 'encounter-1',
+                selectedTokenId: 'ship-1',
+                captainIntent: PlayerShipCaptainIntentType.PURSUE,
+            },
+            client as never,
+        );
+
+        expect(dependencies.encounterService.submitPlayerShipCaptainIntent).toHaveBeenCalledWith(player, {
+            encounterId: 'encounter-1',
+            shipId: 'ship-1',
+            captainIntent: PlayerShipCaptainIntentType.PURSUE,
+        });
+        expect(client.emit).toHaveBeenCalledWith(WSResponse.SEND_INPUT, {
+            ok: true,
+            target: null,
+        });
+    });
+
+    it('updates a ship target and returns refreshed ship forecast payload', async () => {
+        const dependencies = makeDependencies();
+        const gateway = makeGateway(dependencies);
+        const player = {
+            _id: 'player-1',
+            ownedShips: [{ _id: 'ship-1' }],
+        };
+        const client = makeSocket();
+
+        dependencies.playerRepository.findOneById.mockResolvedValue(player);
+        dependencies.encounterService.setPlayerShipCaptainTarget.mockResolvedValue({
+            shipId: 'ship-1',
+            target: {
+                type: ShipCaptainTargetType.SPECIFIC_SHIP,
+                shipId: 'ship-2',
+            },
+            actionForecasts: [
+                {
+                    shipId: 'ship-1',
+                    label: 'Captain: Pursue',
+                },
+            ],
+        });
+
+        await gateway.onSendInput(
+            {
+                userId: 'player-1',
+                encounterId: 'encounter-1',
+                selectedTokenId: 'ship-1',
+                targetType: ShipCaptainTargetType.SPECIFIC_SHIP,
+                targetShipId: 'ship-2',
+            },
+            client as never,
+        );
+
+        expect(dependencies.encounterService.setPlayerShipCaptainTarget).toHaveBeenCalledWith(player, {
+            encounterId: 'encounter-1',
+            shipId: 'ship-1',
+            targetType: ShipCaptainTargetType.SPECIFIC_SHIP,
+            targetShipId: 'ship-2',
+        });
+        expect(client.emit).toHaveBeenCalledWith(WSResponse.SEND_INPUT, {
+            ok: true,
+            shipId: 'ship-1',
+            target: {
+                type: ShipCaptainTargetType.SPECIFIC_SHIP,
+                shipId: 'ship-2',
+            },
+            actionForecasts: [
+                {
+                    shipId: 'ship-1',
+                    label: 'Captain: Pursue',
+                },
+            ],
+        });
+    });
+
+    it('queues a spawn intent and auto-joins the player when needed', async () => {
         const dependencies = makeDependencies();
         const gateway = makeGateway(dependencies);
         const player = {
@@ -87,7 +235,7 @@ describe('SeaCombatGateway queue spawn intent', () => {
         };
         const encounter = {
             _id: 'encounter-1',
-            players: [{ _id: 'player-1' }],
+            players: [],
         };
         const ship = {
             _id: 'ship-1',
@@ -104,6 +252,7 @@ describe('SeaCombatGateway queue spawn intent', () => {
 
         dependencies.playerRepository.findOneById.mockResolvedValue(player);
         dependencies.encounterService.findOneById.mockResolvedValue(encounter);
+        dependencies.encounterService.isPlayerJoinedToEncounter.mockReturnValue(false);
         dependencies.shipRepository.findOneById.mockResolvedValue(ship);
         dependencies.encounterService.shipJoinsEncounter.mockResolvedValue(queuedIntent);
 
@@ -117,6 +266,7 @@ describe('SeaCombatGateway queue spawn intent', () => {
             client as never,
         );
 
+        expect(dependencies.encounterService.playerJoinsEncounter).toHaveBeenCalledWith(player, 'encounter-1');
         expect(dependencies.encounterService.shipJoinsEncounter).toHaveBeenCalledWith(
             ship,
             encounter,
@@ -132,7 +282,7 @@ describe('SeaCombatGateway queue spawn intent', () => {
         });
     });
 
-    it('joins the encounter room after a successful load', async () => {
+    it('joins the encounter room after a successful load even before ships materialize', async () => {
         const dependencies = makeDependencies();
         const gateway = makeGateway(dependencies);
         const player = {
@@ -141,12 +291,21 @@ describe('SeaCombatGateway queue spawn intent', () => {
         };
         const encounterView = {
             _id: 'encounter-1',
-            ships: [{ ship: { _id: 'ship-1' } }],
+            ships: [],
+            pendingIntents: [
+                {
+                    _id: 'intent-1',
+                    shipId: 'ship-1',
+                    actorId: 'player-1',
+                    intentType: PendingShipIntentType.SPAWN,
+                },
+            ],
         };
         const client = makeSocket();
 
         dependencies.playerRepository.findOneById.mockResolvedValue(player);
         dependencies.encounterService.findEncounterViewById.mockResolvedValue(encounterView);
+        dependencies.encounterService.findPlayerEncounterViewById.mockResolvedValue(encounterView);
 
         await gateway.onLoadEncounter(
             {
@@ -160,25 +319,56 @@ describe('SeaCombatGateway queue spawn intent', () => {
         expect(client.emit).toHaveBeenCalledWith(WSResponse.LOAD_ENCOUNTER, encounterView);
     });
 
-    it('broadcasts the refreshed encounter view to the encounter room after turn processing', async () => {
+    it('emits next-turn messages to every socket in the encounter room after turn processing', async () => {
         const dependencies = makeDependencies();
         const gateway = makeGateway(dependencies);
         const server = makeServer();
-        const encounterView = {
-            _id: 'encounter-1',
-            ships: [{ ship: { _id: 'ship-1' } }],
-        };
+        const socketOne = makeSocket();
+        const socketTwo = makeSocket();
         const event: EncounterTurnProcessedEvent = {
             encounterId: 'encounter-1',
+            turnDelta: {
+                encounterId: 'encounter-1',
+                currentTurn: 2,
+                windDirection: Direction.N,
+                ships: [
+                    {
+                        ship: {
+                            _id: 'ship-1',
+                            name: 'Ashen Tide',
+                            type: ShipType.STEAMSHIP,
+                            speed: 3,
+                            tactics: 10,
+                        },
+                        position: { x: 2, y: 1 },
+                        direction: Direction.SE,
+                        speed: 3,
+                        intent: ShipEncounterIntent.FLEE,
+                        target: {
+                            type: ShipCaptainTargetType.NEAREST_ENEMY,
+                            shipId: null,
+                        },
+                    },
+                ],
+                removedShipIds: [],
+                resolvedTrajectories: [],
+                resolvedCrossings: [],
+                projectedTrajectories: [],
+                predictedCrossings: [],
+                actionForecasts: [],
+                lastTurnRollResults: [],
+            },
         };
 
         gateway.server = server as never;
-        dependencies.encounterService.findEncounterViewById.mockResolvedValue(encounterView);
+        server.in.mockReturnValue({
+            fetchSockets: jest.fn().mockResolvedValue([socketOne, socketTwo]),
+        });
 
         await gateway.onEncounterTurnProcessed(event);
 
-        expect(server.to).toHaveBeenCalledWith('sea-combat:encounter:encounter-1');
-        const room = server.to.mock.results[0]?.value as ServerRoomStub;
-        expect(room.emit).toHaveBeenCalledWith(WSResponse.TURN_ADVANCED, encounterView);
+        expect(server.in).toHaveBeenCalledWith('sea-combat:encounter:encounter-1');
+        expect(socketOne.emit).toHaveBeenCalledWith(WSServerMessage.NEXT_TURN, event.turnDelta);
+        expect(socketTwo.emit).toHaveBeenCalledWith(WSServerMessage.NEXT_TURN, event.turnDelta);
     });
 });

@@ -14,9 +14,11 @@ import { ShipToEncounterEntity } from './entities/ship-to-encounter.entity';
 import {
     ShipAcceleratedEvent,
     ShipDeceleratedEvent,
+    ShipIntentChangedEvent,
     ShipMovedEvent,
     ShipPlacementUpdatedEvent,
     ShipRemovedEvent,
+    ShipTargetChangedEvent,
     ShipSpawnedEvent,
     ShipTurnEndedEvent,
     ShipTurnStartedEvent,
@@ -25,17 +27,33 @@ import {
 } from './events/ship.events';
 import { getActionEvent, isReplayingAction } from '../../../utils/action-event';
 import { AllDirections, Direction, DirectionTurnLeft, DirectionTurnRight } from '../../types/direction.type';
-import { PendingIntentStatus, PendingShipIntentType } from '../../types/pending-intent.type';
+import {
+    PendingIntentStatus,
+    isCaptainPendingShipIntentType,
+    PendingShipBoatswainIntentType,
+    PendingShipHelmsmanIntentType,
+    PendingShipIntentType,
+    isBoatswainPendingShipIntentType,
+    isHelmsmanPendingShipIntentType,
+} from '../../types/pending-intent.type';
 import { ShipEncounterIntent } from '../../types/ship-encounter-intent.type';
+import { ShipCaptainTarget } from '../../types/ship-captain-target.type';
 import { Roll3d6UnderWithCritResult, roll3d6UnderWithCrit } from '../../../rps/utils/roll';
 import type { AxialPoint } from '../../utils/hex-coordinate.util';
 import { distanceBetweenAxialPoints, moveAxialPosition, stepAxialPosition } from '../../utils/hex-coordinate.util';
+import { buildEncounterMovementTimeline } from '../../utils/encounter-movement-timeline.util';
+import { deriveCaptainShipOrders } from '../../utils/captain-intent.util';
 import { roll3d6UnderWithAddressedEntropy } from '../../utils/turn-resolution.util';
 import {
     EncounterPendingIntent,
     EncounterPendingIntentResolution,
+    EncounterPendingShipManeuverGroup,
+    EncounterPendingShipManeuverIntent,
     EncounterPendingSpawnIntentOrderEntry,
     EncounterShipSpawnRandomness,
+    PendingEncounterShipCaptainIntent,
+    PendingEncounterShipBoatswainIntent,
+    PendingEncounterShipHelmsmanIntent,
     PendingEncounterShipSpawnIntent,
 } from './types/encounter-pending-intent.type';
 import { EncounterRuleViolationError } from './errors/encounter-rule-violation.error';
@@ -68,15 +86,29 @@ type SpawnCandidateBuildInput = {
     intent: ShipEncounterIntent;
     windFrom: Direction;
 };
-type ShipTurnPath = {
-    ship: ShipToEncounterEntity;
-    path: AxialPoint[];
-    currentStep: number;
-    hasCollided: boolean;
-};
 type SerializedShipEntity = ShipEntity & {
     skills: ShipSkillsEntity;
 };
+type ShipManeuverResolutionInput = {
+    ship: ShipToEncounterEntity;
+    captainIntent: PendingEncounterShipCaptainIntent | null;
+    helmsmanIntent: PendingEncounterShipHelmsmanIntent | null;
+    boatswainIntent: PendingEncounterShipBoatswainIntent | null;
+    derivedCaptainOrders: DerivedCaptainShipManeuver | null;
+};
+type DerivedCaptainShipManeuver = {
+    captainIntent: ShipEncounterIntent;
+    helmsmanIntentType: PendingShipHelmsmanIntentType;
+    boatswainIntentType: PendingShipBoatswainIntentType;
+};
+type ShipManeuverResolutionResult = {
+    resolutions: EncounterPendingIntentResolution[];
+};
+
+const TAILWIND_SEAMANSHIP_MODIFIER = 6;
+const REAR_SIDE_WIND_SEAMANSHIP_MODIFIER = 2;
+const FRONT_SIDE_WIND_SEAMANSHIP_MODIFIER = -2;
+const HEADWIND_SEAMANSHIP_MODIFIER = -6;
 
 @AggregateRootName(EncounterAggregate.name)
 export class EncounterAggregate extends AggregateRoot {
@@ -285,6 +317,18 @@ export class EncounterAggregate extends AggregateRoot {
         return this;
     }
 
+    @ApplyEvent(ShipIntentChangedEvent)
+    applyShipIntentChanged(event: ShipIntentChangedEvent) {
+        this.requireShip(event.shipId).setIntent(event);
+        return this;
+    }
+
+    @ApplyEvent(ShipTargetChangedEvent)
+    applyShipTargetChanged(event: ShipTargetChangedEvent) {
+        this.requireShip(event.shipId).setTarget(event);
+        return this;
+    }
+
     @ApplyEvent(ShipPlacementUpdatedEvent)
     applyShipPlacementUpdated(event: ShipPlacementUpdatedEvent) {
         this.requireShip(event.shipId).updatePlacement(event);
@@ -341,6 +385,11 @@ export class EncounterAggregate extends AggregateRoot {
         return ship;
     }
 
+    setShipCaptainTarget(shipId: string, target: ShipCaptainTarget) {
+        this.requireShip(shipId).setTarget(target);
+        return this;
+    }
+
     private hydrateShipEntity(ship: ShipEntity): ShipEntity {
         if (ship instanceof ShipEntity) {
             return ship;
@@ -370,31 +419,120 @@ export class EncounterAggregate extends AggregateRoot {
         this.pendingIntentResolutions = [];
         const orderedSpawnIntents = this.buildPendingSpawnIntentOrder();
         const orderedSpawnIntentIds = new Set(orderedSpawnIntents.map((entry) => entry.intent.intentId));
-        const spawnedActorIds = new Set<string>();
         const spawnResolutions = orderedSpawnIntents.map((entry) => {
-            if (spawnedActorIds.has(entry.intent.actorId)) {
-                return {
-                    intentId: entry.intent.intentId,
-                    status: PendingIntentStatus.REJECTED,
-                    resolutionReason: `Actor ${entry.intent.actorId} cannot spawn more than one ship in encounter ${this.id}`,
-                };
-            }
-
-            const resolution = this.resolvePendingIntent(entry.intent, advancingFromTurnNumber);
-            if (resolution.status === PendingIntentStatus.CONSUMED) {
-                spawnedActorIds.add(entry.intent.actorId);
-            }
-
+            const resolution = this.resolvePendingSpawnIntent(entry.intent, advancingFromTurnNumber);
             return resolution;
         });
-        const nonSpawnResolutions = this.pendingIntents
-            .filter((intent) => !orderedSpawnIntentIds.has(intent.intentId))
-            .sort(
-                (left, right) => left.shipId.localeCompare(right.shipId) || left.intentId.localeCompare(right.intentId),
-            )
-            .map((intent) => this.resolvePendingIntent(intent, advancingFromTurnNumber));
+        const nonSpawnResolutions = this.resolvePendingShipManeuvers(orderedSpawnIntentIds);
 
         this.pendingIntentResolutions = [...spawnResolutions, ...nonSpawnResolutions];
+    }
+
+    private resolvePendingShipManeuvers(orderedSpawnIntentIds: Set<string>) {
+        const groupedManeuvers = this.buildPendingShipManeuverGroups(
+            this.pendingIntents
+                .filter(
+                    (intent): intent is EncounterPendingShipManeuverIntent =>
+                        !orderedSpawnIntentIds.has(intent.intentId) &&
+                        intent.intentType !== PendingShipIntentType.SPAWN,
+                )
+                .sort(
+                    (left, right) =>
+                        left.shipId.localeCompare(right.shipId) || left.intentId.localeCompare(right.intentId),
+                ),
+        );
+
+        return groupedManeuvers.flatMap((group) => this.resolvePendingShipManeuverGroup(group));
+    }
+
+    private buildPendingShipManeuverGroups(
+        intents: EncounterPendingShipManeuverIntent[],
+    ): EncounterPendingShipManeuverGroup[] {
+        const groups = new Map<string, EncounterPendingShipManeuverGroup>();
+        intents.forEach((intent) => {
+            let group = groups.get(intent.shipId);
+            if (!group) {
+                group = {
+                    shipId: intent.shipId,
+                    captainIntents: [],
+                    helmsmanIntents: [],
+                    boatswainIntents: [],
+                };
+                groups.set(intent.shipId, group);
+            }
+
+            if (isCaptainPendingShipIntentType(intent.intentType)) {
+                group.captainIntents.push(intent as PendingEncounterShipCaptainIntent);
+                return;
+            }
+
+            if (isHelmsmanPendingShipIntentType(intent.intentType)) {
+                group.helmsmanIntents.push(intent as PendingEncounterShipHelmsmanIntent);
+                return;
+            }
+
+            if (isBoatswainPendingShipIntentType(intent.intentType)) {
+                group.boatswainIntents.push(intent as PendingEncounterShipBoatswainIntent);
+            }
+        });
+
+        return Array.from(groups.values()).sort((left, right) => left.shipId.localeCompare(right.shipId));
+    }
+
+    private resolvePendingShipManeuverGroup(group: EncounterPendingShipManeuverGroup) {
+        const duplicateResolutions = [
+            ...group.captainIntents
+                .slice(0, -1)
+                .map((intent) =>
+                    this.buildRejectedIntentResolution(
+                        intent.intentId,
+                        `Ship ${group.shipId} has multiple pending captain intents for the same turn`,
+                    ),
+                ),
+            ...group.helmsmanIntents
+                .slice(0, -1)
+                .map((intent) =>
+                    this.buildRejectedIntentResolution(
+                        intent.intentId,
+                        `Ship ${group.shipId} has multiple pending helmsman intents for the same turn`,
+                    ),
+                ),
+            ...group.boatswainIntents
+                .slice(0, -1)
+                .map((intent) =>
+                    this.buildRejectedIntentResolution(
+                        intent.intentId,
+                        `Ship ${group.shipId} has multiple pending boatswain intents for the same turn`,
+                    ),
+                ),
+        ];
+        const captainIntent = group.captainIntents.at(-1) ?? null;
+        const helmsmanIntent = group.helmsmanIntents.at(-1) ?? null;
+        const boatswainIntent = group.boatswainIntents.at(-1) ?? null;
+        const ship = this.ships.find((entry) => entry.shipId === group.shipId);
+
+        if (!ship) {
+            return [
+                ...duplicateResolutions,
+                ...this.buildMissingShipIntentResolutions(captainIntent, helmsmanIntent, boatswainIntent, group.shipId),
+            ];
+        }
+
+        const effectiveCaptainTactic = captainIntent?.captainIntent ?? ship.intent ?? null;
+        const derivedCaptainOrders = effectiveCaptainTactic
+            ? this.deriveCaptainShipManeuver(ship, effectiveCaptainTactic)
+            : null;
+
+        return [
+            ...duplicateResolutions,
+            ...this.resolveShipManeuver({
+                ship,
+                captainIntent,
+                helmsmanIntent,
+                boatswainIntent,
+                derivedCaptainOrders,
+            }).resolutions,
+        ];
     }
 
     private buildPendingSpawnIntentOrder(): EncounterPendingSpawnIntentOrderEntry[] {
@@ -466,91 +604,312 @@ export class EncounterAggregate extends AggregateRoot {
         );
     }
 
-    private resolvePendingIntent(
-        intent: EncounterPendingIntent,
+    private resolvePendingSpawnIntent(
+        intent: PendingEncounterShipSpawnIntent,
         advancingFromTurnNumber: number,
     ): EncounterPendingIntentResolution {
-        if (intent.intentType === PendingShipIntentType.SPAWN) {
-            if (!this.isDeploymentTurn(advancingFromTurnNumber)) {
-                return {
-                    intentId: intent.intentId,
-                    status: PendingIntentStatus.REJECTED,
-                    resolutionReason: `Ship spawn intent ${intent.intentId} is only valid during deployment turn 0`,
-                };
-            }
-
-            if (this.ships.some((entry) => entry.shipId === intent.shipId)) {
-                return {
-                    intentId: intent.intentId,
-                    status: PendingIntentStatus.REJECTED,
-                    resolutionReason: `Ship ${intent.shipId} is already spawned in encounter ${this.id}`,
-                };
-            }
-
-            const seamanshipRoll = this.resolvePendingIntentRoll(
-                intent,
-                'spawn-seamanship',
-                0,
-                intent.ship.skills.seamanship,
+        if (!this.isDeploymentTurn(advancingFromTurnNumber)) {
+            return this.buildRejectedIntentResolution(
+                intent.intentId,
+                `Ship spawn intent ${intent.intentId} is only valid during deployment turn 0`,
             );
-            const tacticsRoll = this.resolvePendingIntentRoll(intent, 'spawn-tactics', 0, intent.ship.skills.tactics);
+        }
 
-            this.spawnShip(intent.ship, intent.encounterIntent, {
-                seamanshipRoll,
-                tacticsRoll,
-            });
+        if (this.ships.some((entry) => entry.shipId === intent.shipId)) {
+            return this.buildRejectedIntentResolution(
+                intent.intentId,
+                `Ship ${intent.shipId} is already spawned in encounter ${this.id}`,
+            );
+        }
 
-            if (!this.ships.find((entry) => entry.shipId === intent.shipId)) {
-                throw new Error(`Failed to materialize spawned ship ${intent.shipId} in encounter ${this.id}`);
+        const seamanshipRoll = this.resolvePendingIntentRoll(
+            intent,
+            'spawn-seamanship',
+            0,
+            intent.ship.skills.seamanship,
+        );
+        const tacticsRoll = this.resolvePendingIntentRoll(intent, 'spawn-tactics', 0, intent.ship.skills.tactics);
+
+        this.spawnShip(intent.ship, intent.encounterIntent, {
+            seamanshipRoll,
+            tacticsRoll,
+        });
+
+        if (!this.ships.find((entry) => entry.shipId === intent.shipId)) {
+            throw new Error(`Failed to materialize spawned ship ${intent.shipId} in encounter ${this.id}`);
+        }
+
+        return this.buildConsumedIntentResolution(intent.intentId);
+    }
+
+    private resolveShipManeuver(input: ShipManeuverResolutionInput): ShipManeuverResolutionResult {
+        const helmsmanIntentType =
+            this.resolveEffectiveHelmsmanIntentType(input.helmsmanIntent, input.derivedCaptainOrders) ??
+            input.derivedCaptainOrders?.helmsmanIntentType ??
+            PendingShipIntentType.HELMSMAN_FORWARD;
+        const boatswainIntentType = this.normalizeBoatswainIntentTypeForManeuver(
+            helmsmanIntentType,
+            this.resolveEffectiveBoatswainIntentType(input.boatswainIntent, input.derivedCaptainOrders) ??
+                input.derivedCaptainOrders?.boatswainIntentType ??
+                PendingShipIntentType.BOATSWAIN_HOLD,
+        );
+        const rollIntent = input.boatswainIntent ?? input.helmsmanIntent ?? input.captainIntent;
+
+        if (input.captainIntent) {
+            if (input.ship.intent !== input.captainIntent.captainIntent) {
+                input.ship.setIntent(input.captainIntent.captainIntent);
             }
+        }
 
+        if (this.isTurningHelmsmanIntentType(helmsmanIntentType) && input.ship.actualSpeed < 1) {
             return {
-                intentId: intent.intentId,
-                status: PendingIntentStatus.CONSUMED,
+                resolutions: this.buildResolvedShipManeuverIntents(
+                    input,
+                    PendingIntentStatus.REJECTED,
+                    `Ship ${input.ship.shipId} must have speed at least 1 to turn`,
+                ),
             };
         }
 
-        const ship = this.ships.find((entry) => entry.shipId === intent.shipId);
-        if (!ship) {
-            return {
-                intentId: intent.intentId,
-                status: PendingIntentStatus.REJECTED,
-                resolutionReason: `Ship ${intent.shipId} is not available in encounter ${this.id}`,
-            };
-        }
-
-        switch (intent.intentType) {
-            case PendingShipIntentType.ACCELERATE: {
-                const seamanshipRoll = this.resolvePendingIntentRoll(
-                    intent,
-                    'accelerate-seamanship',
-                    0,
-                    ship.ship.skills.seamanship + ship.modifierBucket.total('seamanship'),
+        if (helmsmanIntentType === PendingShipIntentType.HELMSMAN_FORWARD) {
+            if (boatswainIntentType === PendingShipIntentType.BOATSWAIN_ACCELERATE) {
+                input.ship.accelerate(
+                    this.resolveShipManeuverRoll(
+                        input.ship,
+                        rollIntent,
+                        'boatswain-accelerate',
+                        this.resolveShipSeamanshipTarget(input.ship, this.resolveWindSeamanshipModifier(input.ship)),
+                    ),
                 );
-                ship.accelerate(seamanshipRoll);
-                break;
             }
-            case PendingShipIntentType.DECELERATE:
-                ship.decelerate();
-                break;
-            case PendingShipIntentType.TURN_LEFT:
-                ship.turnLeft();
-                break;
-            case PendingShipIntentType.TURN_RIGHT:
-                ship.turnRight();
-                break;
-            default:
-                const unsupportedIntent = intent as { intentId: string; intentType: string };
-                return {
-                    intentId: unsupportedIntent.intentId,
-                    status: PendingIntentStatus.REJECTED,
-                    resolutionReason: `Unsupported intent type ${unsupportedIntent.intentType}`,
-                };
+
+            if (boatswainIntentType === PendingShipIntentType.BOATSWAIN_DECELERATE) {
+                input.ship.decelerate(
+                    this.resolveShipManeuverRoll(
+                        input.ship,
+                        rollIntent,
+                        'boatswain-decelerate',
+                        this.resolveShipSeamanshipTarget(input.ship, -this.resolveWindSeamanshipModifier(input.ship)),
+                    ),
+                );
+            }
+
+            return {
+                resolutions: this.buildResolvedShipManeuverIntents(input, PendingIntentStatus.CONSUMED),
+            };
+        }
+
+        if (helmsmanIntentType === PendingShipIntentType.HELMSMAN_TURN_LEFT) {
+            if (boatswainIntentType === PendingShipIntentType.BOATSWAIN_ACCELERATE) {
+                input.ship.turnLeft(
+                    this.resolveShipManeuverRoll(
+                        input.ship,
+                        rollIntent,
+                        'helmsman-turn-left-keep-speed',
+                        this.resolveShipSeamanshipTarget(input.ship, this.resolveWindSeamanshipModifier(input.ship)),
+                    ),
+                );
+            } else {
+                input.ship.turnLeft();
+            }
+
+            return {
+                resolutions: this.buildResolvedShipManeuverIntents(input, PendingIntentStatus.CONSUMED),
+            };
+        }
+
+        if (helmsmanIntentType === PendingShipIntentType.HELMSMAN_TURN_RIGHT) {
+            if (boatswainIntentType === PendingShipIntentType.BOATSWAIN_ACCELERATE) {
+                input.ship.turnRight(
+                    this.resolveShipManeuverRoll(
+                        input.ship,
+                        rollIntent,
+                        'helmsman-turn-right-keep-speed',
+                        this.resolveShipSeamanshipTarget(input.ship, this.resolveWindSeamanshipModifier(input.ship)),
+                    ),
+                );
+            } else {
+                input.ship.turnRight();
+            }
+
+            return {
+                resolutions: this.buildResolvedShipManeuverIntents(input, PendingIntentStatus.CONSUMED),
+            };
         }
 
         return {
-            intentId: intent.intentId,
+            resolutions: this.buildResolvedShipManeuverIntents(
+                input,
+                PendingIntentStatus.REJECTED,
+                `Unsupported intent type ${helmsmanIntentType}/${boatswainIntentType}`,
+            ),
+        };
+    }
+
+    private buildResolvedShipManeuverIntents(
+        input: ShipManeuverResolutionInput,
+        status: PendingIntentStatus,
+        resolutionReason?: string,
+    ) {
+        return [input.captainIntent, input.helmsmanIntent, input.boatswainIntent]
+            .filter((intent): intent is EncounterPendingShipManeuverIntent => Boolean(intent))
+            .map((intent) =>
+                status === PendingIntentStatus.CONSUMED
+                    ? this.buildConsumedIntentResolution(intent.intentId)
+                    : this.buildRejectedIntentResolution(intent.intentId, resolutionReason ?? 'Intent rejected'),
+            );
+    }
+
+    private resolveShipManeuverRoll(
+        ship: ShipToEncounterEntity,
+        intent: EncounterPendingShipManeuverIntent | null,
+        purpose: string,
+        target: number,
+    ) {
+        if (!intent) {
+            throw new Error(`Ship ${ship.shipId} is missing the intent needed for maneuver roll ${purpose}`);
+        }
+
+        return this.resolvePendingIntentRoll(intent, purpose, 0, target);
+    }
+
+    private resolveShipSeamanshipTarget(ship: ShipToEncounterEntity, windModifier: number) {
+        return ship.ship.skills.seamanship + ship.modifierBucket.total('seamanship') + windModifier;
+    }
+
+    private resolveWindSeamanshipModifier(ship: ShipToEncounterEntity) {
+        const bowIndex = AllDirections.indexOf(ship.actualDirection);
+        const windIndex = AllDirections.indexOf(this.windrose.direction);
+        const relativeWindIndex = (windIndex - bowIndex + AllDirections.length) % AllDirections.length;
+
+        if (relativeWindIndex === 3) {
+            return TAILWIND_SEAMANSHIP_MODIFIER;
+        }
+        if (relativeWindIndex === 2 || relativeWindIndex === 4) {
+            return REAR_SIDE_WIND_SEAMANSHIP_MODIFIER;
+        }
+        if (relativeWindIndex === 1 || relativeWindIndex === 5) {
+            return FRONT_SIDE_WIND_SEAMANSHIP_MODIFIER;
+        }
+
+        return HEADWIND_SEAMANSHIP_MODIFIER;
+    }
+
+    private isTurningHelmsmanIntentType(intentType: PendingShipHelmsmanIntentType) {
+        return (
+            intentType === PendingShipIntentType.HELMSMAN_TURN_LEFT ||
+            intentType === PendingShipIntentType.HELMSMAN_TURN_RIGHT
+        );
+    }
+
+    private normalizeBoatswainIntentTypeForManeuver(
+        helmsmanIntentType: PendingShipHelmsmanIntentType,
+        boatswainIntentType:
+            | PendingShipIntentType.BOATSWAIN_OBEY_CAPTAIN
+            | PendingShipIntentType.BOATSWAIN_HOLD
+            | PendingShipIntentType.BOATSWAIN_ACCELERATE
+            | PendingShipIntentType.BOATSWAIN_DECELERATE,
+    ) {
+        if (
+            this.isTurningHelmsmanIntentType(helmsmanIntentType) &&
+            boatswainIntentType === PendingShipIntentType.BOATSWAIN_DECELERATE
+        ) {
+            return PendingShipIntentType.BOATSWAIN_ACCELERATE;
+        }
+
+        return boatswainIntentType;
+    }
+
+    private deriveCaptainShipManeuver(
+        ship: ShipToEncounterEntity,
+        captainIntent: ShipEncounterIntent,
+    ): DerivedCaptainShipManeuver {
+        const otherShips = this.ships
+            .filter((entry) => entry.shipId !== ship.shipId)
+            .map((entry) => ({
+                shipId: entry.shipId,
+                position: entry.position,
+                direction: entry.actualDirection,
+                speed: entry.actualSpeed,
+            }));
+        const derivedOrders = deriveCaptainShipOrders({
+            captainIntent,
+            ship: {
+                shipId: ship.shipId,
+                position: ship.position,
+                direction: ship.actualDirection,
+                speed: ship.actualSpeed,
+            },
+            target: ship.target,
+            otherShips,
+        });
+
+        return {
+            captainIntent,
+            helmsmanIntentType: derivedOrders.helmsmanIntent,
+            boatswainIntentType: derivedOrders.boatswainIntent,
+        };
+    }
+
+    private resolveEffectiveHelmsmanIntentType(
+        helmsmanIntent: PendingEncounterShipHelmsmanIntent | null,
+        derivedCaptainOrders: DerivedCaptainShipManeuver | null,
+    ) {
+        if (!helmsmanIntent) {
+            return derivedCaptainOrders?.helmsmanIntentType ?? null;
+        }
+        if (helmsmanIntent.intentType === PendingShipIntentType.HELMSMAN_OBEY_CAPTAIN) {
+            return derivedCaptainOrders?.helmsmanIntentType ?? PendingShipIntentType.HELMSMAN_FORWARD;
+        }
+
+        return helmsmanIntent.intentType;
+    }
+
+    private resolveEffectiveBoatswainIntentType(
+        boatswainIntent: PendingEncounterShipBoatswainIntent | null,
+        derivedCaptainOrders: DerivedCaptainShipManeuver | null,
+    ) {
+        if (!boatswainIntent) {
+            return derivedCaptainOrders?.boatswainIntentType ?? null;
+        }
+        if (boatswainIntent.intentType === PendingShipIntentType.BOATSWAIN_OBEY_CAPTAIN) {
+            return derivedCaptainOrders?.boatswainIntentType ?? PendingShipIntentType.BOATSWAIN_HOLD;
+        }
+
+        return boatswainIntent.intentType;
+    }
+
+    private buildMissingShipIntentResolutions(
+        captainIntent: PendingEncounterShipCaptainIntent | null,
+        helmsmanIntent: PendingEncounterShipHelmsmanIntent | null,
+        boatswainIntent: PendingEncounterShipBoatswainIntent | null,
+        shipId: string,
+    ) {
+        return [captainIntent, helmsmanIntent, boatswainIntent]
+            .filter((intent): intent is EncounterPendingShipManeuverIntent => Boolean(intent))
+            .map((intent) =>
+                this.buildRejectedIntentResolution(
+                    intent.intentId,
+                    `Ship ${shipId} is not available in encounter ${this.id}`,
+                ),
+            );
+    }
+
+    private buildConsumedIntentResolution(intentId: string): EncounterPendingIntentResolution {
+        return {
+            intentId,
             status: PendingIntentStatus.CONSUMED,
+        };
+    }
+
+    private buildRejectedIntentResolution(
+        intentId: string,
+        resolutionReason: string,
+    ): EncounterPendingIntentResolution {
+        return {
+            intentId,
+            status: PendingIntentStatus.REJECTED,
+            resolutionReason,
         };
     }
 
@@ -788,83 +1147,22 @@ export class EncounterAggregate extends AggregateRoot {
             return;
         }
 
-        const paths = this.ships.map((ship) => this.buildShipTurnPath(ship));
-        this.applyCollisionStops(paths);
-
-        paths.forEach((path) => {
-            const finalPosition = path.path[path.currentStep] ?? path.path[path.path.length - 1];
-            path.ship.moveTo(finalPosition);
+        const movementTimeline = buildEncounterMovementTimeline({
+            center: this.center,
+            radius: this.radius,
+            ships: this.ships.map((ship) => ({
+                shipId: ship.shipId,
+                position: ship.position,
+                direction: ship.actualDirection,
+                speed: ship.actualSpeed,
+            })),
         });
-    }
 
-    private buildShipTurnPath(ship: ShipToEncounterEntity): ShipTurnPath {
-        const path: AxialPoint[] = [{ ...ship.position }];
-        let currentPosition = { ...ship.position };
-        const speed = Math.max(0, ship.actualSpeed ?? 0);
+        const finalPositionsByShipId = new Map(movementTimeline.ships.map((ship) => [ship.shipId, ship.finalPosition]));
 
-        for (let i = 0; i < speed; i += 1) {
-            const nextPosition = stepAxialPosition(currentPosition, ship.actualDirection);
-            if (distanceBetweenAxialPoints(nextPosition, this.center) > this.radius) {
-                break;
-            }
-            path.push(nextPosition);
-            currentPosition = nextPosition;
-        }
-
-        return {
-            ship,
-            path,
-            currentStep: 0,
-            hasCollided: false,
-        };
-    }
-
-    private applyCollisionStops(paths: ShipTurnPath[]) {
-        if (paths.length === 0) {
-            return;
-        }
-
-        const longestPath = Math.max(...paths.map((path) => path.path.length));
-        let elapsedTime = 0;
-
-        for (let i = 0; i < longestPath; i += 1) {
-            elapsedTime += 1 / longestPath;
-            const currentPositions = new Map<string, { shipIds: string[]; position: AxialPoint }>();
-
-            paths.forEach((path) => {
-                if (path.hasCollided) {
-                    return;
-                }
-
-                const shipStepTime = 1 / path.path.length;
-                const currentStep = Math.min(path.path.length - 1, Math.floor(elapsedTime / shipStepTime));
-                const position = path.path[currentStep];
-                const hash = `${position.q},${position.r}`;
-                const entry = currentPositions.get(hash);
-                path.currentStep = currentStep;
-
-                if (entry) {
-                    entry.shipIds.push(path.ship.shipId);
-                    return;
-                }
-
-                currentPositions.set(hash, {
-                    shipIds: [path.ship.shipId],
-                    position,
-                });
-            });
-
-            currentPositions.forEach(({ shipIds }) => {
-                if (shipIds.length < 2) {
-                    return;
-                }
-
-                paths.forEach((path) => {
-                    if (shipIds.includes(path.ship.shipId)) {
-                        path.hasCollided = true;
-                    }
-                });
-            });
-        }
+        this.ships.forEach((ship) => {
+            const finalPosition = finalPositionsByShipId.get(ship.shipId) ?? ship.position;
+            ship.moveTo(finalPosition);
+        });
     }
 }

@@ -36,6 +36,16 @@ Monorepo for the current game prototype.
 - Admin actions are authoritative world mutations and go through domain actions/events.
 - Player actions are not direct world mutations. They are stored as pending intents.
 - Pending intents are deserialized into transient aggregate input and are resolved by `EncounterAggregate` during `advanceTurn()`, not by service-layer branching.
+- Ship maneuver intents are officer-owned rather than flat ship-level combined actions:
+  - `helmsman` owns heading intent:
+    - `forward`
+    - `turn-left`
+    - `turn-right`
+  - `boatswain` owns speed-management intent:
+    - `hold`
+    - `accelerate`
+    - `decelerate`
+- The encounter aggregate derives the actual maneuver from the combination of those officer intents.
 - A player may have at most one ship in a single encounter.
 
 ### Turn Processing

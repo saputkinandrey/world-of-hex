@@ -1,6 +1,3 @@
-import { Encounter } from '../../schemas/encounter.schema';
-import { PendingIntent } from '../../schemas/pending-intent.schema';
+import { EncounterWorkspaceView } from '../../types/encounter-workspace-view.type';
 
-export type LoadEncounterResponsePayloadDto = Encounter & {
-    pendingIntents?: PendingIntent[];
-};
+export type LoadEncounterResponsePayloadDto = EncounterWorkspaceView;

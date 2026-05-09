@@ -6,7 +6,11 @@ import {
     PendingEncounterIntentRandomness,
 } from '../domain/encounter/types/encounter-pending-intent.type';
 import { PendingIntentDocument } from '../schemas/pending-intent.schema';
-import { PendingShipIntentType, PendingShipSpawnIntentPayload } from '../types/pending-intent.type';
+import {
+    PendingShipIntentType,
+    PendingShipSpawnIntentPayload,
+    resolveShipEncounterIntentFromCaptainPendingIntentType,
+} from '../types/pending-intent.type';
 import { ShipEncounterIntent } from '../types/ship-encounter-intent.type';
 import { ShipType } from '../types/ship-type.type';
 import { TurnTaskIntentInput } from '../types/turn-resolution.type';
@@ -97,35 +101,100 @@ const pendingIntentCodecs: Record<PendingShipIntentType, PendingIntentCodecEntry
             };
         },
     },
-    [PendingShipIntentType.ACCELERATE]: {
+    [PendingShipIntentType.CAPTAIN_FLEE]: {
         deserialize(intent, randomness) {
             return {
                 ...baseEncounterPendingIntent(intent, randomness),
-                intentType: PendingShipIntentType.ACCELERATE,
+                intentType: PendingShipIntentType.CAPTAIN_FLEE,
+                captainIntent: resolveShipEncounterIntentFromCaptainPendingIntentType(
+                    PendingShipIntentType.CAPTAIN_FLEE,
+                ),
             };
         },
     },
-    [PendingShipIntentType.DECELERATE]: {
+    [PendingShipIntentType.CAPTAIN_PURSUE]: {
         deserialize(intent, randomness) {
             return {
                 ...baseEncounterPendingIntent(intent, randomness),
-                intentType: PendingShipIntentType.DECELERATE,
+                intentType: PendingShipIntentType.CAPTAIN_PURSUE,
+                captainIntent: resolveShipEncounterIntentFromCaptainPendingIntentType(
+                    PendingShipIntentType.CAPTAIN_PURSUE,
+                ),
             };
         },
     },
-    [PendingShipIntentType.TURN_LEFT]: {
+    [PendingShipIntentType.CAPTAIN_CIRCLE]: {
         deserialize(intent, randomness) {
             return {
                 ...baseEncounterPendingIntent(intent, randomness),
-                intentType: PendingShipIntentType.TURN_LEFT,
+                intentType: PendingShipIntentType.CAPTAIN_CIRCLE,
+                captainIntent: resolveShipEncounterIntentFromCaptainPendingIntentType(
+                    PendingShipIntentType.CAPTAIN_CIRCLE,
+                ),
             };
         },
     },
-    [PendingShipIntentType.TURN_RIGHT]: {
+    [PendingShipIntentType.HELMSMAN_FORWARD]: {
         deserialize(intent, randomness) {
             return {
                 ...baseEncounterPendingIntent(intent, randomness),
-                intentType: PendingShipIntentType.TURN_RIGHT,
+                intentType: PendingShipIntentType.HELMSMAN_FORWARD,
+            };
+        },
+    },
+    [PendingShipIntentType.HELMSMAN_OBEY_CAPTAIN]: {
+        deserialize(intent, randomness) {
+            return {
+                ...baseEncounterPendingIntent(intent, randomness),
+                intentType: PendingShipIntentType.HELMSMAN_OBEY_CAPTAIN,
+            };
+        },
+    },
+    [PendingShipIntentType.HELMSMAN_TURN_LEFT]: {
+        deserialize(intent, randomness) {
+            return {
+                ...baseEncounterPendingIntent(intent, randomness),
+                intentType: PendingShipIntentType.HELMSMAN_TURN_LEFT,
+            };
+        },
+    },
+    [PendingShipIntentType.HELMSMAN_TURN_RIGHT]: {
+        deserialize(intent, randomness) {
+            return {
+                ...baseEncounterPendingIntent(intent, randomness),
+                intentType: PendingShipIntentType.HELMSMAN_TURN_RIGHT,
+            };
+        },
+    },
+    [PendingShipIntentType.BOATSWAIN_HOLD]: {
+        deserialize(intent, randomness) {
+            return {
+                ...baseEncounterPendingIntent(intent, randomness),
+                intentType: PendingShipIntentType.BOATSWAIN_HOLD,
+            };
+        },
+    },
+    [PendingShipIntentType.BOATSWAIN_OBEY_CAPTAIN]: {
+        deserialize(intent, randomness) {
+            return {
+                ...baseEncounterPendingIntent(intent, randomness),
+                intentType: PendingShipIntentType.BOATSWAIN_OBEY_CAPTAIN,
+            };
+        },
+    },
+    [PendingShipIntentType.BOATSWAIN_ACCELERATE]: {
+        deserialize(intent, randomness) {
+            return {
+                ...baseEncounterPendingIntent(intent, randomness),
+                intentType: PendingShipIntentType.BOATSWAIN_ACCELERATE,
+            };
+        },
+    },
+    [PendingShipIntentType.BOATSWAIN_DECELERATE]: {
+        deserialize(intent, randomness) {
+            return {
+                ...baseEncounterPendingIntent(intent, randomness),
+                intentType: PendingShipIntentType.BOATSWAIN_DECELERATE,
             };
         },
     },
