@@ -58,6 +58,10 @@ func _process(_delta):
 	if not _transport_type == TransportType.WEBSOCKET:
 		return
 
+	if _websocket == null:
+		state = State.DISCONNECTED
+		return
+
 	_websocket.poll()
 	var _socket_state := _websocket.get_ready_state()
 	if _socket_state == WebSocketPeer.STATE_OPEN:
@@ -174,7 +178,12 @@ func _send_data_response(response: String):
 func _upgrade_transport():
 	_clear_requests()
 	_websocket = WebSocketPeer.new()
-	_websocket.connect_to_url(_get_url())
+	var error: Error = _websocket.connect_to_url(_get_url())
+	if error != OK:
+		push_error("An error occurred in WebSocket connection, error code = %d" % error)
+		engine_close()
+		return
+
 	engine_transport_upgraded.emit()
 
 
@@ -286,10 +295,17 @@ func _get_packet_type(data: String) -> EnginePacketType:
 
 
 func _clear_requests():
-	for request in [_polling_http_request, _send_data_http_request]:
+	for request in [_polling_http_request, _send_data_http_request, _close_http_request]:
 		if not request == null:
 			request.clear()
+	_polling_http_request = null
+	_send_data_http_request = null
+	_close_http_request = null
 
 
 func _websocket_send(type: EnginePacketType, payload: String = ""):
+	if _websocket == null:
+		push_error("Cannot send EngineIO websocket packet: websocket is not initialized")
+		return
+
 	_websocket.send_text("%s%s" % [type, payload])

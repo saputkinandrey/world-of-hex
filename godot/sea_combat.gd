@@ -15,11 +15,7 @@ func spawnShipToken(shipToEnc: ShipToEncounterEntity):
     pass
 
 func connectToEncounter(encounterId: String) -> void:
-    self.ws_node.sendMessage(
-        LoadEncounterMessage.new()
-            .setUserId(Global.player.player._id)
-            .setEncounterId(encounterId)
-    )
+    self.ws_node.load_encounter(encounterId)
     pass
 
 func activate() -> void:
