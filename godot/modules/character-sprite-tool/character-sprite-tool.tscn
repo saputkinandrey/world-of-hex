@@ -1,0 +1,1419 @@
+[gd_scene format=3 uid="uid://d13hcqehcghsy"]
+
+[ext_resource type="Script" uid="uid://jv0v1m2nxp13" path="res://modules/character-sprite-tool/character-sprite-tool.gd" id="1_character_sprite_tool"]
+[ext_resource type="Script" uid="uid://cq22f46pqe7wu" path="res://modules/character-sprite/character-sprite.entity.gd" id="2_character_sprite"]
+[ext_resource type="Texture2D" uid="uid://bxohvuvs7v63b" path="res://assets/Character/Character1/idle/Char1_south_idle/Char1_body.png" id="3_body"]
+[ext_resource type="Texture2D" uid="uid://catx3en7cdnum" path="res://assets/Character/Character1/idle/Char1_south_idle/Char1_boots1.png" id="4_boots"]
+[ext_resource type="Texture2D" uid="uid://bgcnjnvpth5tl" path="res://assets/Character/Character1/idle/Char1_south_idle/Char1_pants1.png" id="5_pants"]
+[ext_resource type="Texture2D" uid="uid://byutbjjaqwo7y" path="res://assets/Character/Character1/idle/Char1_south_idle/Char1_Shirts1.png" id="6_shirts"]
+[ext_resource type="Texture2D" uid="uid://wp131it0550f" path="res://assets/Character/Character1/idle/Char1_south_idle/Char1_armor1.png" id="7_armor"]
+[ext_resource type="Texture2D" uid="uid://bt83tpjctfw15" path="res://assets/Character/Character1/idle/Char1_south_idle/Char1_beard_blck.png" id="8_beard"]
+[ext_resource type="Texture2D" uid="uid://bu0c2bejxw0tu" path="res://assets/Character/Character1/idle/Char1_south_idle/Char1_mustache_blck.png" id="9_mustache"]
+[ext_resource type="Texture2D" uid="uid://hg3ox8vctuwg" path="res://assets/Character/Character1/idle/Char1_south_idle/Char1_sideburns_blck.png" id="10_sideburns"]
+[ext_resource type="Texture2D" uid="uid://dt42w44f2ka4g" path="res://assets/Character/Character1/idle/Char1_south_idle/Char1_eyes1.png" id="11_eyes"]
+[ext_resource type="Texture2D" uid="uid://dpbl2ji5xqxla" path="res://assets/Character/Character1/idle/Char1_south_idle/Char1_eyebrows1.png" id="12_eyebrows"]
+[ext_resource type="Texture2D" uid="uid://bebiasc5otxg3" path="res://assets/Character/Character1/idle/Char1_south_idle/Char1_eye_bandage.png" id="13_eye_bandage"]
+[ext_resource type="Texture2D" uid="uid://donr7wg3f4pwu" path="res://assets/Character/Character1/idle/Char1_south_idle/Char1_hair_blck.png" id="14_hair"]
+[ext_resource type="Texture2D" uid="uid://by65nr3mjjof5" path="res://assets/Character/Character1/idle/Char1_south_idle/Char1_bandana.png" id="15_bandana"]
+[ext_resource type="Texture2D" uid="uid://brqq1x87cx1he" path="res://assets/Character/Character1/idle/Char1_south_idle/Char1_weapon1.png" id="16_weapon"]
+[ext_resource type="Texture2D" uid="uid://dau5t86ljmcnw" path="res://assets/Character/Character1/idle/Char1_south_idle/Char1_head_bandage.png" id="19_head_bandage"]
+[ext_resource type="Texture2D" path="res://assets/Character/scale_reference.jpg" id="20_formation_reference"]
+
+[node name="CharacterSpriteTool" type="Control" unique_id=1132995361]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_character_sprite_tool")
+
+[node name="Background" type="ColorRect" parent="." unique_id=826358627]
+z_index = -1000
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.08, 0.09, 0.1, 1)
+
+[node name="Controls" type="VBoxContainer" parent="." unique_id=652438028]
+z_index = 1000
+custom_minimum_size = Vector2(280, 746)
+layout_mode = 0
+offset_left = 16.0
+offset_top = 16.0
+offset_right = 296.0
+offset_bottom = 762.0
+theme_override_constants/separation = 4
+
+[node name="Title" type="Label" parent="Controls" unique_id=462811279]
+custom_minimum_size = Vector2(280, 24)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+text = "Character Sprite Tool"
+horizontal_alignment = 1
+
+[node name="SpawnLabel" type="Label" parent="Controls"]
+custom_minimum_size = Vector2(280, 18)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+text = "Spawn"
+
+[node name="SpawnOption" type="OptionButton" parent="Controls"]
+custom_minimum_size = Vector2(280, 28)
+layout_mode = 2
+selected = 2
+item_count = 4
+popup/item_0/text = "Top"
+popup/item_0/id = 0
+popup/item_1/text = "Right"
+popup/item_1/id = 1
+popup/item_2/text = "Bot"
+popup/item_2/id = 2
+popup/item_3/text = "Left"
+popup/item_3/id = 3
+
+[node name="PoseLabel" type="Label" parent="Controls" unique_id=517172168]
+custom_minimum_size = Vector2(280, 18)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+text = "Pose"
+
+[node name="PoseOption" type="OptionButton" parent="Controls" unique_id=317401933]
+custom_minimum_size = Vector2(280, 28)
+layout_mode = 2
+selected = 0
+item_count = 8
+popup/item_0/text = "idle"
+popup/item_0/id = 0
+popup/item_1/text = "walk"
+popup/item_1/id = 1
+popup/item_2/text = "aim-pistol"
+popup/item_2/id = 2
+popup/item_3/text = "longarm"
+popup/item_3/id = 3
+popup/item_4/text = "aim-2-pistols"
+popup/item_4/id = 4
+popup/item_5/text = "flinch"
+popup/item_5/id = 5
+popup/item_6/text = "swing-1h"
+popup/item_6/id = 6
+popup/item_7/text = "thrust-1h"
+popup/item_7/id = 7
+
+[node name="DirectionLabel" type="Label" parent="Controls" unique_id=1646629453]
+custom_minimum_size = Vector2(280, 18)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+text = "Direction"
+
+[node name="DirectionOption" type="OptionButton" parent="Controls" unique_id=349183635]
+custom_minimum_size = Vector2(280, 28)
+layout_mode = 2
+selected = 0
+item_count = 6
+popup/item_0/text = "south"
+popup/item_0/id = 0
+popup/item_1/text = "north"
+popup/item_1/id = 1
+popup/item_2/text = "south_west"
+popup/item_2/id = 2
+popup/item_3/text = "north_west"
+popup/item_3/id = 3
+popup/item_4/text = "south_east"
+popup/item_4/id = 4
+popup/item_5/text = "north_east"
+popup/item_5/id = 5
+
+[node name="WeaponTypeLabel" type="Label" parent="Controls" unique_id=178341075]
+custom_minimum_size = Vector2(280, 18)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+text = "Weapon 1"
+
+[node name="WeaponTypeOption" type="OptionButton" parent="Controls" unique_id=479587841]
+custom_minimum_size = Vector2(280, 28)
+layout_mode = 2
+selected = 1
+item_count = 6
+popup/item_0/text = "none"
+popup/item_0/id = 0
+popup/item_1/text = "musket"
+popup/item_1/id = 1
+popup/item_2/text = "cutlass left"
+popup/item_2/id = 2
+popup/item_3/text = "cutlass right"
+popup/item_3/id = 3
+popup/item_4/text = "pistol left"
+popup/item_4/id = 4
+popup/item_5/text = "pistol right"
+popup/item_5/id = 5
+
+[node name="WeaponTypeSecondaryLabel" type="Label" parent="Controls" unique_id=1025758041]
+custom_minimum_size = Vector2(280, 18)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+text = "Weapon 2"
+
+[node name="WeaponTypeSecondaryOption" type="OptionButton" parent="Controls" unique_id=1943488661]
+custom_minimum_size = Vector2(280, 28)
+layout_mode = 2
+selected = 0
+item_count = 6
+popup/item_0/text = "none"
+popup/item_0/id = 0
+popup/item_1/text = "musket"
+popup/item_1/id = 1
+popup/item_2/text = "cutlass left"
+popup/item_2/id = 2
+popup/item_3/text = "cutlass right"
+popup/item_3/id = 3
+popup/item_4/text = "pistol left"
+popup/item_4/id = 4
+popup/item_5/text = "pistol right"
+popup/item_5/id = 5
+
+[node name="LayerControlsGrid" type="GridContainer" parent="Controls" unique_id=1987247760]
+custom_minimum_size = Vector2(280, 476)
+layout_mode = 2
+theme_override_constants/h_separation = 6
+theme_override_constants/v_separation = 4
+columns = 4
+
+[node name="LayerHeader" type="Label" parent="Controls/LayerControlsGrid" unique_id=290121014]
+custom_minimum_size = Vector2(84, 24)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+text = "Layer"
+
+[node name="VisibleHeader" type="Label" parent="Controls/LayerControlsGrid" unique_id=2078688456]
+custom_minimum_size = Vector2(48, 24)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+text = "On"
+horizontal_alignment = 1
+
+[node name="ZHeader" type="Label" parent="Controls/LayerControlsGrid" unique_id=615373198]
+custom_minimum_size = Vector2(52, 24)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+text = "Z"
+horizontal_alignment = 1
+
+[node name="OptionHeader" type="Label" parent="Controls/LayerControlsGrid" unique_id=275428829]
+custom_minimum_size = Vector2(68, 24)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+text = "Option"
+horizontal_alignment = 1
+
+[node name="BodyLabel" type="Label" parent="Controls/LayerControlsGrid" unique_id=64638684]
+custom_minimum_size = Vector2(84, 28)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+text = "Body"
+
+[node name="BodyToggle" type="CheckButton" parent="Controls/LayerControlsGrid" unique_id=2090348433]
+custom_minimum_size = Vector2(48, 28)
+layout_mode = 2
+button_pressed = true
+
+[node name="BodyZIndex" type="SpinBox" parent="Controls/LayerControlsGrid" unique_id=258857469]
+custom_minimum_size = Vector2(52, 28)
+layout_mode = 2
+allow_greater = true
+allow_lesser = true
+
+[node name="SkinColorOption" type="OptionButton" parent="Controls/LayerControlsGrid" unique_id=600724652]
+custom_minimum_size = Vector2(68, 28)
+layout_mode = 2
+selected = 0
+item_count = 5
+popup/item_0/text = "tone 1"
+popup/item_0/id = 0
+popup/item_1/text = "tone 2"
+popup/item_1/id = 1
+popup/item_2/text = "tone 3"
+popup/item_2/id = 2
+popup/item_3/text = "tone 4"
+popup/item_3/id = 3
+popup/item_4/text = "tone 5"
+popup/item_4/id = 4
+
+[node name="BootsLabel" type="Label" parent="Controls/LayerControlsGrid" unique_id=1527736210]
+custom_minimum_size = Vector2(84, 28)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+text = "Boots"
+
+[node name="BootsToggle" type="CheckButton" parent="Controls/LayerControlsGrid" unique_id=1086443357]
+custom_minimum_size = Vector2(48, 28)
+layout_mode = 2
+button_pressed = true
+
+[node name="BootsZIndex" type="SpinBox" parent="Controls/LayerControlsGrid" unique_id=484716060]
+custom_minimum_size = Vector2(52, 28)
+layout_mode = 2
+value = 10.0
+allow_greater = true
+allow_lesser = true
+
+[node name="BootsColorOption" type="OptionButton" parent="Controls/LayerControlsGrid" unique_id=1004946336]
+custom_minimum_size = Vector2(68, 28)
+layout_mode = 2
+selected = 0
+item_count = 5
+popup/item_0/text = "yellow"
+popup/item_0/id = 0
+popup/item_1/text = "black"
+popup/item_1/id = 1
+popup/item_2/text = "blue"
+popup/item_2/id = 2
+popup/item_3/text = "red"
+popup/item_3/id = 3
+popup/item_4/text = "green"
+popup/item_4/id = 4
+
+[node name="PantsLabel" type="Label" parent="Controls/LayerControlsGrid" unique_id=314311316]
+custom_minimum_size = Vector2(84, 28)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+text = "Pants"
+
+[node name="PantsToggle" type="CheckButton" parent="Controls/LayerControlsGrid" unique_id=1680430114]
+custom_minimum_size = Vector2(48, 28)
+layout_mode = 2
+button_pressed = true
+
+[node name="PantsZIndex" type="SpinBox" parent="Controls/LayerControlsGrid" unique_id=531850395]
+custom_minimum_size = Vector2(52, 28)
+layout_mode = 2
+value = 20.0
+allow_greater = true
+allow_lesser = true
+
+[node name="PantsColorOption" type="OptionButton" parent="Controls/LayerControlsGrid" unique_id=773378779]
+custom_minimum_size = Vector2(68, 28)
+layout_mode = 2
+selected = 0
+item_count = 5
+popup/item_0/text = "gray"
+popup/item_0/id = 0
+popup/item_1/text = "black"
+popup/item_1/id = 1
+popup/item_2/text = "blue"
+popup/item_2/id = 2
+popup/item_3/text = "red"
+popup/item_3/id = 3
+popup/item_4/text = "green"
+popup/item_4/id = 4
+
+[node name="ShirtsLabel" type="Label" parent="Controls/LayerControlsGrid" unique_id=893470236]
+custom_minimum_size = Vector2(84, 28)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+text = "Shirts"
+
+[node name="ShirtsToggle" type="CheckButton" parent="Controls/LayerControlsGrid" unique_id=7544518]
+custom_minimum_size = Vector2(48, 28)
+layout_mode = 2
+button_pressed = true
+
+[node name="ShirtsZIndex" type="SpinBox" parent="Controls/LayerControlsGrid" unique_id=773967281]
+custom_minimum_size = Vector2(52, 28)
+layout_mode = 2
+value = 30.0
+allow_greater = true
+allow_lesser = true
+
+[node name="ShirtColorOption" type="OptionButton" parent="Controls/LayerControlsGrid" unique_id=693717276]
+custom_minimum_size = Vector2(68, 28)
+layout_mode = 2
+selected = 0
+item_count = 5
+popup/item_0/text = "white"
+popup/item_0/id = 0
+popup/item_1/text = "black"
+popup/item_1/id = 1
+popup/item_2/text = "blue"
+popup/item_2/id = 2
+popup/item_3/text = "orange"
+popup/item_3/id = 3
+popup/item_4/text = "green"
+popup/item_4/id = 4
+
+[node name="HairLabel" type="Label" parent="Controls/LayerControlsGrid" unique_id=1588415539]
+custom_minimum_size = Vector2(84, 28)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+text = "Hair"
+
+[node name="HairToggle" type="CheckButton" parent="Controls/LayerControlsGrid" unique_id=505183072]
+custom_minimum_size = Vector2(48, 28)
+layout_mode = 2
+button_pressed = true
+
+[node name="HairZIndex" type="SpinBox" parent="Controls/LayerControlsGrid" unique_id=189488433]
+custom_minimum_size = Vector2(52, 28)
+layout_mode = 2
+value = 110.0
+allow_greater = true
+allow_lesser = true
+
+[node name="HairOptions" type="HBoxContainer" parent="Controls/LayerControlsGrid" unique_id=338229111]
+custom_minimum_size = Vector2(136, 28)
+layout_mode = 2
+
+[node name="HairStyleOption" type="OptionButton" parent="Controls/LayerControlsGrid/HairOptions" unique_id=1047579174]
+custom_minimum_size = Vector2(68, 28)
+layout_mode = 2
+selected = 0
+item_count = 8
+popup/item_0/text = "style 1"
+popup/item_0/id = 0
+popup/item_1/text = "style 2"
+popup/item_1/id = 1
+popup/item_2/text = "style 3"
+popup/item_2/id = 2
+popup/item_3/text = "style 4"
+popup/item_3/id = 3
+popup/item_4/text = "style 5"
+popup/item_4/id = 4
+popup/item_5/text = "style 6"
+popup/item_5/id = 5
+popup/item_6/text = "style 7"
+popup/item_6/id = 6
+popup/item_7/text = "style 8"
+popup/item_7/id = 7
+
+[node name="HairColorOption" type="OptionButton" parent="Controls/LayerControlsGrid/HairOptions" unique_id=89617888]
+custom_minimum_size = Vector2(68, 28)
+layout_mode = 2
+selected = 0
+item_count = 4
+popup/item_0/text = "black"
+popup/item_0/id = 0
+popup/item_1/text = "blond"
+popup/item_1/id = 1
+popup/item_2/text = "brown"
+popup/item_2/id = 2
+popup/item_3/text = "red"
+popup/item_3/id = 3
+
+[node name="BeardLabel" type="Label" parent="Controls/LayerControlsGrid" unique_id=217516519]
+custom_minimum_size = Vector2(84, 28)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+text = "Beard"
+
+[node name="BeardToggle" type="CheckButton" parent="Controls/LayerControlsGrid" unique_id=1436141080]
+custom_minimum_size = Vector2(48, 28)
+layout_mode = 2
+
+[node name="BeardZIndex" type="SpinBox" parent="Controls/LayerControlsGrid" unique_id=1329993708]
+custom_minimum_size = Vector2(52, 28)
+layout_mode = 2
+value = 50.0
+allow_greater = true
+allow_lesser = true
+
+[node name="BeardOptions" type="HBoxContainer" parent="Controls/LayerControlsGrid" unique_id=11208616]
+custom_minimum_size = Vector2(136, 28)
+layout_mode = 2
+
+[node name="BeardStyleOption" type="OptionButton" parent="Controls/LayerControlsGrid/BeardOptions" unique_id=495942984]
+custom_minimum_size = Vector2(68, 28)
+layout_mode = 2
+selected = 0
+item_count = 6
+popup/item_0/text = "style 1"
+popup/item_0/id = 0
+popup/item_1/text = "style 2"
+popup/item_1/id = 1
+popup/item_2/text = "style 3"
+popup/item_2/id = 2
+popup/item_3/text = "style 4"
+popup/item_3/id = 3
+popup/item_4/text = "style 5"
+popup/item_4/id = 4
+popup/item_5/text = "style 6"
+popup/item_5/id = 5
+
+[node name="BeardColorOption" type="OptionButton" parent="Controls/LayerControlsGrid/BeardOptions" unique_id=1856441349]
+custom_minimum_size = Vector2(68, 28)
+layout_mode = 2
+selected = 0
+item_count = 4
+popup/item_0/text = "black"
+popup/item_0/id = 0
+popup/item_1/text = "blond"
+popup/item_1/id = 1
+popup/item_2/text = "brown"
+popup/item_2/id = 2
+popup/item_3/text = "red"
+popup/item_3/id = 3
+
+[node name="MustacheLabel" type="Label" parent="Controls/LayerControlsGrid" unique_id=1948259741]
+custom_minimum_size = Vector2(84, 28)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+text = "Mustache"
+
+[node name="MustacheToggle" type="CheckButton" parent="Controls/LayerControlsGrid" unique_id=2115873992]
+custom_minimum_size = Vector2(48, 28)
+layout_mode = 2
+
+[node name="MustacheZIndex" type="SpinBox" parent="Controls/LayerControlsGrid" unique_id=945143139]
+custom_minimum_size = Vector2(52, 28)
+layout_mode = 2
+value = 60.0
+allow_greater = true
+allow_lesser = true
+
+[node name="MustacheOptions" type="HBoxContainer" parent="Controls/LayerControlsGrid" unique_id=1066964827]
+custom_minimum_size = Vector2(136, 28)
+layout_mode = 2
+
+[node name="MustacheStyleOption" type="OptionButton" parent="Controls/LayerControlsGrid/MustacheOptions" unique_id=391377548]
+custom_minimum_size = Vector2(68, 28)
+layout_mode = 2
+selected = 0
+item_count = 4
+popup/item_0/text = "style 1"
+popup/item_0/id = 0
+popup/item_1/text = "style 2"
+popup/item_1/id = 1
+popup/item_2/text = "style 3"
+popup/item_2/id = 2
+popup/item_3/text = "style 4"
+popup/item_3/id = 3
+
+[node name="MustacheColorOption" type="OptionButton" parent="Controls/LayerControlsGrid/MustacheOptions" unique_id=1825156127]
+custom_minimum_size = Vector2(68, 28)
+layout_mode = 2
+selected = 0
+item_count = 4
+popup/item_0/text = "black"
+popup/item_0/id = 0
+popup/item_1/text = "blond"
+popup/item_1/id = 1
+popup/item_2/text = "brown"
+popup/item_2/id = 2
+popup/item_3/text = "red"
+popup/item_3/id = 3
+
+[node name="SideburnsLabel" type="Label" parent="Controls/LayerControlsGrid" unique_id=537614229]
+custom_minimum_size = Vector2(84, 28)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+text = "Sideburns"
+
+[node name="SideburnsToggle" type="CheckButton" parent="Controls/LayerControlsGrid" unique_id=48938082]
+custom_minimum_size = Vector2(48, 28)
+layout_mode = 2
+
+[node name="SideburnsZIndex" type="SpinBox" parent="Controls/LayerControlsGrid" unique_id=1394944824]
+custom_minimum_size = Vector2(52, 28)
+layout_mode = 2
+value = 70.0
+allow_greater = true
+allow_lesser = true
+
+[node name="SideburnsOptions" type="HBoxContainer" parent="Controls/LayerControlsGrid" unique_id=1983810144]
+custom_minimum_size = Vector2(136, 28)
+layout_mode = 2
+
+[node name="SideburnsStyleOption" type="OptionButton" parent="Controls/LayerControlsGrid/SideburnsOptions" unique_id=1289816590]
+custom_minimum_size = Vector2(68, 28)
+layout_mode = 2
+selected = 0
+item_count = 3
+popup/item_0/text = "style 1"
+popup/item_0/id = 0
+popup/item_1/text = "style 2"
+popup/item_1/id = 1
+popup/item_2/text = "style 3"
+popup/item_2/id = 2
+
+[node name="SideburnsColorOption" type="OptionButton" parent="Controls/LayerControlsGrid/SideburnsOptions" unique_id=638737036]
+custom_minimum_size = Vector2(68, 28)
+layout_mode = 2
+selected = 0
+item_count = 4
+popup/item_0/text = "black"
+popup/item_0/id = 0
+popup/item_1/text = "blond"
+popup/item_1/id = 1
+popup/item_2/text = "brown"
+popup/item_2/id = 2
+popup/item_3/text = "red"
+popup/item_3/id = 3
+
+[node name="ArmorLabel" type="Label" parent="Controls/LayerControlsGrid" unique_id=337110494]
+custom_minimum_size = Vector2(84, 28)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+text = "Armor"
+
+[node name="ArmorToggle" type="CheckButton" parent="Controls/LayerControlsGrid" unique_id=168305889]
+custom_minimum_size = Vector2(48, 28)
+layout_mode = 2
+
+[node name="ArmorZIndex" type="SpinBox" parent="Controls/LayerControlsGrid" unique_id=874104651]
+custom_minimum_size = Vector2(52, 28)
+layout_mode = 2
+value = 40.0
+allow_greater = true
+allow_lesser = true
+
+[node name="ArmorVariantOption" type="OptionButton" parent="Controls/LayerControlsGrid" unique_id=754327973]
+custom_minimum_size = Vector2(68, 28)
+layout_mode = 2
+selected = 0
+item_count = 2
+popup/item_0/text = "Hauberk"
+popup/item_0/id = 0
+popup/item_1/text = "Uniform"
+popup/item_1/id = 1
+
+[node name="UniformColorLabel" type="Label" parent="Controls/LayerControlsGrid" unique_id=1444226342]
+custom_minimum_size = Vector2(84, 28)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+text = "Uniform clr"
+
+[node name="UniformColorToggleSpacer" type="Control" parent="Controls/LayerControlsGrid" unique_id=604064797]
+custom_minimum_size = Vector2(48, 28)
+layout_mode = 2
+
+[node name="UniformColorZSpacer" type="Control" parent="Controls/LayerControlsGrid" unique_id=1529729171]
+custom_minimum_size = Vector2(52, 28)
+layout_mode = 2
+
+[node name="UniformColorOption" type="OptionButton" parent="Controls/LayerControlsGrid" unique_id=1995423499]
+custom_minimum_size = Vector2(68, 28)
+layout_mode = 2
+selected = 0
+item_count = 5
+popup/item_0/text = "gray"
+popup/item_0/id = 0
+popup/item_1/text = "blue"
+popup/item_1/id = 1
+popup/item_2/text = "red"
+popup/item_2/id = 2
+popup/item_3/text = "green"
+popup/item_3/id = 3
+popup/item_4/text = "brown"
+popup/item_4/id = 4
+
+[node name="EyeBandageLabel" type="Label" parent="Controls/LayerControlsGrid" unique_id=289064249]
+custom_minimum_size = Vector2(84, 28)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+text = "Eye bandage"
+
+[node name="EyeBandageToggle" type="CheckButton" parent="Controls/LayerControlsGrid" unique_id=2057287631]
+custom_minimum_size = Vector2(48, 28)
+layout_mode = 2
+
+[node name="EyeBandageZIndex" type="SpinBox" parent="Controls/LayerControlsGrid" unique_id=842411386]
+custom_minimum_size = Vector2(52, 28)
+layout_mode = 2
+value = 100.0
+allow_greater = true
+allow_lesser = true
+
+[node name="EyeBandageColorOption" type="OptionButton" parent="Controls/LayerControlsGrid" unique_id=413732915]
+custom_minimum_size = Vector2(68, 28)
+layout_mode = 2
+selected = 0
+item_count = 4
+popup/item_0/text = "black"
+popup/item_0/id = 0
+popup/item_1/text = "red"
+popup/item_1/id = 1
+popup/item_2/text = "green"
+popup/item_2/id = 2
+popup/item_3/text = "brown"
+popup/item_3/id = 3
+
+[node name="EyesLabel" type="Label" parent="Controls/LayerControlsGrid" unique_id=334454689]
+custom_minimum_size = Vector2(84, 28)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+text = "Eyes"
+
+[node name="EyesToggle" type="CheckButton" parent="Controls/LayerControlsGrid" unique_id=1116933404]
+custom_minimum_size = Vector2(48, 28)
+layout_mode = 2
+button_pressed = true
+
+[node name="EyesZIndex" type="SpinBox" parent="Controls/LayerControlsGrid" unique_id=237353882]
+custom_minimum_size = Vector2(52, 28)
+layout_mode = 2
+value = 80.0
+allow_greater = true
+allow_lesser = true
+
+[node name="EyeColorOption" type="OptionButton" parent="Controls/LayerControlsGrid" unique_id=1057249976]
+custom_minimum_size = Vector2(68, 28)
+layout_mode = 2
+selected = 0
+item_count = 4
+popup/item_0/text = "blue"
+popup/item_0/id = 0
+popup/item_1/text = "black"
+popup/item_1/id = 1
+popup/item_2/text = "green"
+popup/item_2/id = 2
+popup/item_3/text = "brown"
+popup/item_3/id = 3
+
+[node name="EyebrowsLabel" type="Label" parent="Controls/LayerControlsGrid" unique_id=810784533]
+custom_minimum_size = Vector2(84, 28)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+text = "Eyebrows"
+
+[node name="EyebrowsToggle" type="CheckButton" parent="Controls/LayerControlsGrid" unique_id=1158653704]
+custom_minimum_size = Vector2(48, 28)
+layout_mode = 2
+button_pressed = true
+
+[node name="EyebrowsZIndex" type="SpinBox" parent="Controls/LayerControlsGrid" unique_id=1436534952]
+custom_minimum_size = Vector2(52, 28)
+layout_mode = 2
+value = 90.0
+allow_greater = true
+allow_lesser = true
+
+[node name="EyebrowColorOption" type="OptionButton" parent="Controls/LayerControlsGrid" unique_id=2087139077]
+custom_minimum_size = Vector2(68, 28)
+layout_mode = 2
+selected = 0
+item_count = 4
+popup/item_0/text = "black"
+popup/item_0/id = 0
+popup/item_1/text = "red"
+popup/item_1/id = 1
+popup/item_2/text = "blond"
+popup/item_2/id = 2
+popup/item_3/text = "brown"
+popup/item_3/id = 3
+
+[node name="HeadwearLabel" type="Label" parent="Controls/LayerControlsGrid" unique_id=918895938]
+custom_minimum_size = Vector2(84, 28)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+text = "Headwear"
+
+[node name="HeadwearToggle" type="CheckButton" parent="Controls/LayerControlsGrid" unique_id=1472949054]
+custom_minimum_size = Vector2(48, 28)
+layout_mode = 2
+button_pressed = true
+
+[node name="HeadwearZIndex" type="SpinBox" parent="Controls/LayerControlsGrid" unique_id=1718990296]
+custom_minimum_size = Vector2(52, 28)
+layout_mode = 2
+value = 120.0
+allow_greater = true
+allow_lesser = true
+
+[node name="HeadwearOption" type="OptionButton" parent="Controls/LayerControlsGrid" unique_id=1326202810]
+custom_minimum_size = Vector2(68, 28)
+layout_mode = 2
+selected = 0
+item_count = 4
+popup/item_0/text = "none"
+popup/item_0/id = 0
+popup/item_1/text = "bandana"
+popup/item_1/id = 1
+popup/item_2/text = "tricorn"
+popup/item_2/id = 2
+popup/item_3/text = "helmet"
+popup/item_3/id = 3
+
+[node name="BandanaColorLabel" type="Label" parent="Controls/LayerControlsGrid" unique_id=1018215417]
+custom_minimum_size = Vector2(84, 28)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+text = "Bandana clr"
+
+[node name="BandanaColorToggleSpacer" type="Control" parent="Controls/LayerControlsGrid" unique_id=1952159648]
+custom_minimum_size = Vector2(48, 28)
+layout_mode = 2
+
+[node name="BandanaColorZSpacer" type="Control" parent="Controls/LayerControlsGrid" unique_id=1986752891]
+custom_minimum_size = Vector2(52, 28)
+layout_mode = 2
+
+[node name="BandanaColorOption" type="OptionButton" parent="Controls/LayerControlsGrid" unique_id=1278786902]
+custom_minimum_size = Vector2(68, 28)
+layout_mode = 2
+selected = 0
+item_count = 4
+popup/item_0/text = "red"
+popup/item_0/id = 0
+popup/item_1/text = "blue"
+popup/item_1/id = 1
+popup/item_2/text = "green"
+popup/item_2/id = 2
+popup/item_3/text = "gray"
+popup/item_3/id = 3
+
+[node name="TricornColorLabel" type="Label" parent="Controls/LayerControlsGrid" unique_id=1570840172]
+custom_minimum_size = Vector2(84, 28)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+text = "Tricorn clr"
+
+[node name="TricornColorToggleSpacer" type="Control" parent="Controls/LayerControlsGrid" unique_id=1964570191]
+custom_minimum_size = Vector2(48, 28)
+layout_mode = 2
+
+[node name="TricornColorZSpacer" type="Control" parent="Controls/LayerControlsGrid" unique_id=813887282]
+custom_minimum_size = Vector2(52, 28)
+layout_mode = 2
+
+[node name="TricornColorOption" type="OptionButton" parent="Controls/LayerControlsGrid" unique_id=2143684785]
+custom_minimum_size = Vector2(68, 28)
+layout_mode = 2
+selected = 0
+item_count = 4
+popup/item_0/text = "red"
+popup/item_0/id = 0
+popup/item_1/text = "blue"
+popup/item_1/id = 1
+popup/item_2/text = "green"
+popup/item_2/id = 2
+popup/item_3/text = "gray"
+popup/item_3/id = 3
+
+[node name="HelmetVariantLabel" type="Label" parent="Controls/LayerControlsGrid" unique_id=648594672]
+custom_minimum_size = Vector2(84, 28)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+text = "Helmet var"
+
+[node name="HelmetVariantToggleSpacer" type="Control" parent="Controls/LayerControlsGrid" unique_id=1831348867]
+custom_minimum_size = Vector2(48, 28)
+layout_mode = 2
+
+[node name="HelmetVariantZSpacer" type="Control" parent="Controls/LayerControlsGrid" unique_id=948607766]
+custom_minimum_size = Vector2(52, 28)
+layout_mode = 2
+
+[node name="HelmetVariantOption" type="OptionButton" parent="Controls/LayerControlsGrid" unique_id=648940608]
+custom_minimum_size = Vector2(68, 28)
+layout_mode = 2
+selected = 0
+item_count = 2
+popup/item_0/text = "Coif"
+popup/item_0/id = 0
+popup/item_1/text = "Vendel Helm"
+popup/item_1/id = 1
+
+[node name="HeadBandageLabel" type="Label" parent="Controls/LayerControlsGrid" unique_id=408985381]
+custom_minimum_size = Vector2(84, 28)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+text = "Head band"
+
+[node name="HeadBandageToggle" type="CheckButton" parent="Controls/LayerControlsGrid" unique_id=1342748553]
+custom_minimum_size = Vector2(48, 28)
+layout_mode = 2
+
+[node name="HeadBandageZIndex" type="SpinBox" parent="Controls/LayerControlsGrid" unique_id=854990273]
+custom_minimum_size = Vector2(52, 28)
+layout_mode = 2
+value = 130.0
+allow_greater = true
+allow_lesser = true
+
+[node name="HeadBandageColorOption" type="OptionButton" parent="Controls/LayerControlsGrid" unique_id=1738216202]
+custom_minimum_size = Vector2(68, 28)
+layout_mode = 2
+selected = 0
+item_count = 4
+popup/item_0/text = "blue"
+popup/item_0/id = 0
+popup/item_1/text = "red"
+popup/item_1/id = 1
+popup/item_2/text = "gray"
+popup/item_2/id = 2
+popup/item_3/text = "green"
+popup/item_3/id = 3
+
+[node name="WeaponLabel" type="Label" parent="Controls/LayerControlsGrid" unique_id=1891747951]
+custom_minimum_size = Vector2(84, 28)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+text = "Weapon"
+
+[node name="WeaponToggle" type="CheckButton" parent="Controls/LayerControlsGrid" unique_id=647301825]
+custom_minimum_size = Vector2(48, 28)
+layout_mode = 2
+button_pressed = true
+
+[node name="WeaponZIndex" type="SpinBox" parent="Controls/LayerControlsGrid" unique_id=824793946]
+custom_minimum_size = Vector2(52, 28)
+layout_mode = 2
+value = -10.0
+allow_greater = true
+allow_lesser = true
+
+[node name="WeaponOptionSpacer" type="Control" parent="Controls/LayerControlsGrid" unique_id=1351916641]
+custom_minimum_size = Vector2(68, 28)
+layout_mode = 2
+
+[node name="OffsetControls" type="VBoxContainer" parent="." unique_id=119951488]
+z_index = 1000
+custom_minimum_size = Vector2(440, 264)
+layout_mode = 0
+offset_left = 1120.0
+offset_top = 16.0
+offset_right = 1560.0
+offset_bottom = 280.0
+theme_override_constants/separation = 4
+
+[node name="OffsetsLabel" type="Label" parent="OffsetControls" unique_id=963844805]
+custom_minimum_size = Vector2(440, 18)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+text = "Offsets"
+
+[node name="OffsetsGrid" type="GridContainer" parent="OffsetControls" unique_id=1568511714]
+custom_minimum_size = Vector2(440, 176)
+layout_mode = 2
+theme_override_constants/h_separation = 6
+theme_override_constants/v_separation = 4
+columns = 5
+
+[node name="OffsetNameHeader" type="Label" parent="OffsetControls/OffsetsGrid" unique_id=113182816]
+custom_minimum_size = Vector2(116, 24)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+text = "Name"
+
+[node name="OffsetXHeader" type="Label" parent="OffsetControls/OffsetsGrid" unique_id=1928520849]
+custom_minimum_size = Vector2(76, 24)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+text = "X"
+horizontal_alignment = 1
+
+[node name="OffsetYHeader" type="Label" parent="OffsetControls/OffsetsGrid" unique_id=329391634]
+custom_minimum_size = Vector2(76, 24)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+text = "Y"
+horizontal_alignment = 1
+
+[node name="HelmetOffsetXHeader" type="Label" parent="OffsetControls/OffsetsGrid" unique_id=748955894]
+custom_minimum_size = Vector2(76, 24)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+text = "Helmet X"
+horizontal_alignment = 1
+
+[node name="HelmetOffsetYHeader" type="Label" parent="OffsetControls/OffsetsGrid" unique_id=4795634]
+custom_minimum_size = Vector2(76, 24)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+text = "Helmet Y"
+horizontal_alignment = 1
+
+[node name="SpriteOffsetLabel" type="Label" parent="OffsetControls/OffsetsGrid"]
+custom_minimum_size = Vector2(116, 28)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+text = "Sprite"
+
+[node name="SpriteOffsetX" type="SpinBox" parent="OffsetControls/OffsetsGrid"]
+custom_minimum_size = Vector2(76, 28)
+layout_mode = 2
+value = 8.0
+allow_greater = true
+allow_lesser = true
+
+[node name="SpriteOffsetY" type="SpinBox" parent="OffsetControls/OffsetsGrid"]
+custom_minimum_size = Vector2(76, 28)
+layout_mode = 2
+value = 20.0
+allow_greater = true
+allow_lesser = true
+
+[node name="SpriteHelmetOffsetXSpacer" type="Control" parent="OffsetControls/OffsetsGrid"]
+custom_minimum_size = Vector2(76, 28)
+layout_mode = 2
+
+[node name="SpriteHelmetOffsetYSpacer" type="Control" parent="OffsetControls/OffsetsGrid"]
+custom_minimum_size = Vector2(76, 28)
+layout_mode = 2
+
+[node name="SpriteScaleLabel" type="Label" parent="OffsetControls/OffsetsGrid"]
+custom_minimum_size = Vector2(116, 28)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+text = "Scale"
+
+[node name="SpriteScale" type="SpinBox" parent="OffsetControls/OffsetsGrid"]
+custom_minimum_size = Vector2(76, 28)
+layout_mode = 2
+min_value = 0.1
+max_value = 8.0
+step = 0.1
+value = 0.9
+
+[node name="SpriteScaleYSpacer" type="Control" parent="OffsetControls/OffsetsGrid"]
+custom_minimum_size = Vector2(76, 28)
+layout_mode = 2
+
+[node name="SpriteScaleHelmetOffsetXSpacer" type="Control" parent="OffsetControls/OffsetsGrid"]
+custom_minimum_size = Vector2(76, 28)
+layout_mode = 2
+
+[node name="SpriteScaleHelmetOffsetYSpacer" type="Control" parent="OffsetControls/OffsetsGrid"]
+custom_minimum_size = Vector2(76, 28)
+layout_mode = 2
+
+[node name="FormationReferenceLabel" type="Label" parent="OffsetControls/OffsetsGrid"]
+custom_minimum_size = Vector2(116, 28)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+text = "Reference"
+
+[node name="FormationReferenceOffsetX" type="SpinBox" parent="OffsetControls/OffsetsGrid"]
+custom_minimum_size = Vector2(76, 28)
+layout_mode = 2
+allow_greater = true
+allow_lesser = true
+
+[node name="FormationReferenceOffsetY" type="SpinBox" parent="OffsetControls/OffsetsGrid"]
+custom_minimum_size = Vector2(76, 28)
+layout_mode = 2
+allow_greater = true
+allow_lesser = true
+
+[node name="FormationReferenceScale" type="SpinBox" parent="OffsetControls/OffsetsGrid"]
+custom_minimum_size = Vector2(76, 28)
+layout_mode = 2
+min_value = 0.1
+max_value = 8.0
+step = 0.1
+value = 0.3
+
+[node name="FormationReferenceToggle" type="CheckButton" parent="OffsetControls/OffsetsGrid"]
+custom_minimum_size = Vector2(76, 28)
+layout_mode = 2
+button_pressed = true
+
+[node name="FaceOffsetLabel" type="Label" parent="OffsetControls/OffsetsGrid" unique_id=2044151057]
+custom_minimum_size = Vector2(116, 28)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+text = "Face"
+
+[node name="FaceOffsetX" type="SpinBox" parent="OffsetControls/OffsetsGrid" unique_id=43960192]
+custom_minimum_size = Vector2(76, 28)
+layout_mode = 2
+allow_greater = true
+allow_lesser = true
+
+[node name="FaceOffsetY" type="SpinBox" parent="OffsetControls/OffsetsGrid" unique_id=659395586]
+custom_minimum_size = Vector2(76, 28)
+layout_mode = 2
+value = 7.0
+allow_greater = true
+allow_lesser = true
+
+[node name="FaceHelmetOffsetXSpacer" type="Control" parent="OffsetControls/OffsetsGrid" unique_id=176844407]
+custom_minimum_size = Vector2(76, 28)
+layout_mode = 2
+
+[node name="FaceHelmetOffsetYSpacer" type="Control" parent="OffsetControls/OffsetsGrid" unique_id=1374674004]
+custom_minimum_size = Vector2(76, 28)
+layout_mode = 2
+
+[node name="HeadwearOffsetLabel" type="Label" parent="OffsetControls/OffsetsGrid" unique_id=1366080998]
+custom_minimum_size = Vector2(116, 28)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+text = "Headwear"
+
+[node name="HeadwearOffsetX" type="SpinBox" parent="OffsetControls/OffsetsGrid" unique_id=1778231030]
+custom_minimum_size = Vector2(76, 28)
+layout_mode = 2
+allow_greater = true
+allow_lesser = true
+
+[node name="HeadwearOffsetY" type="SpinBox" parent="OffsetControls/OffsetsGrid" unique_id=1415360132]
+custom_minimum_size = Vector2(76, 28)
+layout_mode = 2
+allow_greater = true
+allow_lesser = true
+
+[node name="HelmetOffsetX" type="SpinBox" parent="OffsetControls/OffsetsGrid" unique_id=1772700874]
+custom_minimum_size = Vector2(76, 28)
+layout_mode = 2
+allow_greater = true
+allow_lesser = true
+
+[node name="HelmetOffsetY" type="SpinBox" parent="OffsetControls/OffsetsGrid" unique_id=1588234126]
+custom_minimum_size = Vector2(76, 28)
+layout_mode = 2
+allow_greater = true
+allow_lesser = true
+
+[node name="WeaponOffsetLabel" type="Label" parent="OffsetControls/OffsetsGrid" unique_id=551931687]
+custom_minimum_size = Vector2(116, 28)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+text = "Weapon"
+
+[node name="WeaponOffsetX" type="SpinBox" parent="OffsetControls/OffsetsGrid" unique_id=354423261]
+custom_minimum_size = Vector2(76, 28)
+layout_mode = 2
+allow_greater = true
+allow_lesser = true
+
+[node name="WeaponOffsetY" type="SpinBox" parent="OffsetControls/OffsetsGrid" unique_id=44856443]
+custom_minimum_size = Vector2(76, 28)
+layout_mode = 2
+value = 7.0
+allow_greater = true
+allow_lesser = true
+
+[node name="WeaponHelmetOffsetXSpacer" type="Control" parent="OffsetControls/OffsetsGrid" unique_id=1276624935]
+custom_minimum_size = Vector2(76, 28)
+layout_mode = 2
+
+[node name="WeaponHelmetOffsetYSpacer" type="Control" parent="OffsetControls/OffsetsGrid" unique_id=196790016]
+custom_minimum_size = Vector2(76, 28)
+layout_mode = 2
+
+[node name="ClothingOffsetLabel" type="Label" parent="OffsetControls/OffsetsGrid" unique_id=1126760300]
+custom_minimum_size = Vector2(116, 28)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+text = "Clothing"
+
+[node name="ClothingOffsetX" type="SpinBox" parent="OffsetControls/OffsetsGrid" unique_id=1106935198]
+custom_minimum_size = Vector2(76, 28)
+layout_mode = 2
+allow_greater = true
+allow_lesser = true
+
+[node name="ClothingOffsetY" type="SpinBox" parent="OffsetControls/OffsetsGrid" unique_id=1644383408]
+custom_minimum_size = Vector2(76, 28)
+layout_mode = 2
+allow_greater = true
+allow_lesser = true
+
+[node name="ClothingHelmetOffsetXSpacer" type="Control" parent="OffsetControls/OffsetsGrid" unique_id=772963149]
+custom_minimum_size = Vector2(76, 28)
+layout_mode = 2
+
+[node name="ClothingHelmetOffsetYSpacer" type="Control" parent="OffsetControls/OffsetsGrid" unique_id=331440434]
+custom_minimum_size = Vector2(76, 28)
+layout_mode = 2
+
+[node name="WeaponFrameMapControls" type="VBoxContainer" parent="." unique_id=748022145]
+z_index = 1000
+custom_minimum_size = Vector2(280, 268)
+layout_mode = 0
+offset_left = 1280.0
+offset_top = 352.0
+offset_right = 1560.0
+offset_bottom = 620.0
+theme_override_constants/separation = 4
+
+[node name="WeaponFrameMapTitle" type="Label" parent="WeaponFrameMapControls" unique_id=294789742]
+custom_minimum_size = Vector2(280, 18)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+text = "Weapon frame map"
+
+[node name="WeaponSheetLabel" type="Label" parent="WeaponFrameMapControls" unique_id=519114587]
+custom_minimum_size = Vector2(280, 40)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+text = "idle/Char1_south_idle/Char1_weapon1.png"
+autowrap_mode = 2
+
+[node name="WeaponFrameMapGrid" type="GridContainer" parent="WeaponFrameMapControls" unique_id=766408911]
+custom_minimum_size = Vector2(280, 204)
+layout_mode = 2
+theme_override_constants/h_separation = 6
+theme_override_constants/v_separation = 4
+columns = 2
+
+[node name="WeaponNameHeader" type="Label" parent="WeaponFrameMapControls/WeaponFrameMapGrid" unique_id=1127220858]
+custom_minimum_size = Vector2(176, 24)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+text = "Weapon"
+
+[node name="WeaponFrameHeader" type="Label" parent="WeaponFrameMapControls/WeaponFrameMapGrid" unique_id=249706445]
+custom_minimum_size = Vector2(96, 24)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+text = "Frame"
+horizontal_alignment = 1
+
+[node name="WeaponFrameCountLabel" type="Label" parent="WeaponFrameMapControls/WeaponFrameMapGrid" unique_id=1113887816]
+custom_minimum_size = Vector2(176, 28)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+text = "frame count"
+
+[node name="WeaponFrameCount" type="SpinBox" parent="WeaponFrameMapControls/WeaponFrameMapGrid" unique_id=678920846]
+custom_minimum_size = Vector2(96, 28)
+layout_mode = 2
+min_value = 1.0
+max_value = 64.0
+value = 5.0
+
+[node name="MusketFrameLabel" type="Label" parent="WeaponFrameMapControls/WeaponFrameMapGrid" unique_id=1534408353]
+custom_minimum_size = Vector2(176, 28)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+text = "musket"
+
+[node name="MusketFrame" type="SpinBox" parent="WeaponFrameMapControls/WeaponFrameMapGrid" unique_id=1046530082]
+custom_minimum_size = Vector2(96, 28)
+layout_mode = 2
+max_value = 4.0
+
+[node name="CutlassLeftFrameLabel" type="Label" parent="WeaponFrameMapControls/WeaponFrameMapGrid" unique_id=1304494843]
+custom_minimum_size = Vector2(176, 28)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+text = "cutlass left"
+
+[node name="CutlassLeftFrame" type="SpinBox" parent="WeaponFrameMapControls/WeaponFrameMapGrid" unique_id=54204866]
+custom_minimum_size = Vector2(96, 28)
+layout_mode = 2
+max_value = 4.0
+value = 1.0
+
+[node name="CutlassRightFrameLabel" type="Label" parent="WeaponFrameMapControls/WeaponFrameMapGrid" unique_id=1597469470]
+custom_minimum_size = Vector2(176, 28)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+text = "cutlass right"
+
+[node name="CutlassRightFrame" type="SpinBox" parent="WeaponFrameMapControls/WeaponFrameMapGrid" unique_id=1377994366]
+custom_minimum_size = Vector2(96, 28)
+layout_mode = 2
+max_value = 4.0
+value = 2.0
+
+[node name="PistolLeftFrameLabel" type="Label" parent="WeaponFrameMapControls/WeaponFrameMapGrid" unique_id=823638615]
+custom_minimum_size = Vector2(176, 28)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+text = "pistol left"
+
+[node name="PistolLeftFrame" type="SpinBox" parent="WeaponFrameMapControls/WeaponFrameMapGrid" unique_id=1495773823]
+custom_minimum_size = Vector2(96, 28)
+layout_mode = 2
+max_value = 4.0
+value = 3.0
+
+[node name="PistolRightFrameLabel" type="Label" parent="WeaponFrameMapControls/WeaponFrameMapGrid" unique_id=1688079301]
+custom_minimum_size = Vector2(176, 28)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+text = "pistol right"
+
+[node name="PistolRightFrame" type="SpinBox" parent="WeaponFrameMapControls/WeaponFrameMapGrid" unique_id=704322503]
+custom_minimum_size = Vector2(96, 28)
+layout_mode = 2
+max_value = 4.0
+value = 4.0
+
+[node name="PreviewOrigin" type="Node2D" parent="." unique_id=776658549]
+position = Vector2(760, 430)
+scale = Vector2(3, 3)
+
+[node name="CharacterSpriteEntity" type="Node2D" parent="PreviewOrigin" unique_id=1247094433]
+script = ExtResource("2_character_sprite")
+sprite_scale = 0.9
+
+[node name="FormationReference" type="Sprite2D" parent="PreviewOrigin/CharacterSpriteEntity"]
+z_index = -95
+modulate = Color(1, 1, 1, 0.25)
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("20_formation_reference")
+
+[node name="Body" type="Sprite2D" parent="PreviewOrigin/CharacterSpriteEntity" unique_id=2121525452]
+texture = ExtResource("3_body")
+hframes = 5
+
+[node name="Boots" type="Sprite2D" parent="PreviewOrigin/CharacterSpriteEntity" unique_id=381828782]
+z_index = 10
+texture = ExtResource("4_boots")
+hframes = 5
+
+[node name="Pants" type="Sprite2D" parent="PreviewOrigin/CharacterSpriteEntity" unique_id=441149802]
+z_index = 20
+texture = ExtResource("5_pants")
+hframes = 5
+
+[node name="Shirts" type="Sprite2D" parent="PreviewOrigin/CharacterSpriteEntity" unique_id=1080015970]
+z_index = 30
+texture = ExtResource("6_shirts")
+hframes = 5
+
+[node name="Armor" type="Sprite2D" parent="PreviewOrigin/CharacterSpriteEntity" unique_id=1092952969]
+visible = false
+z_index = 40
+texture = ExtResource("7_armor")
+hframes = 6
+
+[node name="Beard" type="Sprite2D" parent="PreviewOrigin/CharacterSpriteEntity" unique_id=1384075752]
+visible = false
+z_index = 50
+texture = ExtResource("8_beard")
+hframes = 6
+
+[node name="Mustache" type="Sprite2D" parent="PreviewOrigin/CharacterSpriteEntity" unique_id=1482261426]
+visible = false
+z_index = 60
+texture = ExtResource("9_mustache")
+hframes = 4
+
+[node name="Sideburns" type="Sprite2D" parent="PreviewOrigin/CharacterSpriteEntity" unique_id=604968959]
+visible = false
+z_index = 70
+texture = ExtResource("10_sideburns")
+hframes = 3
+
+[node name="Eyes" type="Sprite2D" parent="PreviewOrigin/CharacterSpriteEntity" unique_id=508745554]
+visible = false
+z_index = 80
+texture = ExtResource("11_eyes")
+hframes = 4
+
+[node name="Eyebrows" type="Sprite2D" parent="PreviewOrigin/CharacterSpriteEntity" unique_id=150220788]
+z_index = 90
+texture = ExtResource("12_eyebrows")
+hframes = 4
+
+[node name="EyeBandage" type="Sprite2D" parent="PreviewOrigin/CharacterSpriteEntity" unique_id=2087666873]
+visible = false
+z_index = 100
+texture = ExtResource("13_eye_bandage")
+hframes = 4
+
+[node name="Hair" type="Sprite2D" parent="PreviewOrigin/CharacterSpriteEntity" unique_id=1922275903]
+visible = false
+z_index = 110
+texture = ExtResource("14_hair")
+hframes = 8
+
+[node name="Headwear" type="Sprite2D" parent="PreviewOrigin/CharacterSpriteEntity" unique_id=1606502886]
+visible = false
+z_index = 120
+texture = ExtResource("15_bandana")
+hframes = 4
+
+[node name="HeadBandage" type="Sprite2D" parent="PreviewOrigin/CharacterSpriteEntity" unique_id=2084992192]
+visible = false
+z_index = 130
+texture = ExtResource("19_head_bandage")
+hframes = 4
+
+[node name="Weapon" type="Sprite2D" parent="PreviewOrigin/CharacterSpriteEntity" unique_id=485462030]
+z_index = -10
+texture = ExtResource("16_weapon")
+hframes = 5
+
+[node name="WeaponSecondary" type="Sprite2D" parent="PreviewOrigin/CharacterSpriteEntity" unique_id=1215089537]
+z_index = -10
+texture = ExtResource("16_weapon")
+hframes = 5
+
+[connection signal="item_selected" from="Controls/PoseOption" to="." method="_on_pose_selected"]
+[connection signal="item_selected" from="Controls/DirectionOption" to="." method="_on_direction_selected"]
+[connection signal="item_selected" from="Controls/SpawnOption" to="." method="_on_spawn_selected"]
+[connection signal="item_selected" from="Controls/WeaponTypeOption" to="." method="_on_weapon_type_selected"]
+[connection signal="item_selected" from="Controls/WeaponTypeSecondaryOption" to="." method="_on_weapon_type_secondary_selected"]
+[connection signal="toggled" from="Controls/LayerControlsGrid/BodyToggle" to="." method="_on_show_body_toggled"]
+[connection signal="value_changed" from="Controls/LayerControlsGrid/BodyZIndex" to="." method="_on_body_z_index_changed"]
+[connection signal="item_selected" from="Controls/LayerControlsGrid/SkinColorOption" to="." method="_on_skin_color_selected"]
+[connection signal="toggled" from="Controls/LayerControlsGrid/BootsToggle" to="." method="_on_show_boots_toggled"]
+[connection signal="value_changed" from="Controls/LayerControlsGrid/BootsZIndex" to="." method="_on_boots_z_index_changed"]
+[connection signal="item_selected" from="Controls/LayerControlsGrid/BootsColorOption" to="." method="_on_boots_color_selected"]
+[connection signal="toggled" from="Controls/LayerControlsGrid/PantsToggle" to="." method="_on_show_pants_toggled"]
+[connection signal="value_changed" from="Controls/LayerControlsGrid/PantsZIndex" to="." method="_on_pants_z_index_changed"]
+[connection signal="item_selected" from="Controls/LayerControlsGrid/PantsColorOption" to="." method="_on_pants_color_selected"]
+[connection signal="toggled" from="Controls/LayerControlsGrid/ShirtsToggle" to="." method="_on_show_shirts_toggled"]
+[connection signal="value_changed" from="Controls/LayerControlsGrid/ShirtsZIndex" to="." method="_on_shirts_z_index_changed"]
+[connection signal="item_selected" from="Controls/LayerControlsGrid/ShirtColorOption" to="." method="_on_shirt_color_selected"]
+[connection signal="toggled" from="Controls/LayerControlsGrid/HairToggle" to="." method="_on_show_hair_toggled"]
+[connection signal="value_changed" from="Controls/LayerControlsGrid/HairZIndex" to="." method="_on_hair_z_index_changed"]
+[connection signal="item_selected" from="Controls/LayerControlsGrid/HairOptions/HairStyleOption" to="." method="_on_hair_style_selected"]
+[connection signal="item_selected" from="Controls/LayerControlsGrid/HairOptions/HairColorOption" to="." method="_on_hair_color_selected"]
+[connection signal="toggled" from="Controls/LayerControlsGrid/BeardToggle" to="." method="_on_show_beard_toggled"]
+[connection signal="value_changed" from="Controls/LayerControlsGrid/BeardZIndex" to="." method="_on_beard_z_index_changed"]
+[connection signal="item_selected" from="Controls/LayerControlsGrid/BeardOptions/BeardStyleOption" to="." method="_on_beard_style_selected"]
+[connection signal="item_selected" from="Controls/LayerControlsGrid/BeardOptions/BeardColorOption" to="." method="_on_beard_color_selected"]
+[connection signal="toggled" from="Controls/LayerControlsGrid/MustacheToggle" to="." method="_on_show_mustache_toggled"]
+[connection signal="value_changed" from="Controls/LayerControlsGrid/MustacheZIndex" to="." method="_on_mustache_z_index_changed"]
+[connection signal="item_selected" from="Controls/LayerControlsGrid/MustacheOptions/MustacheStyleOption" to="." method="_on_mustache_style_selected"]
+[connection signal="item_selected" from="Controls/LayerControlsGrid/MustacheOptions/MustacheColorOption" to="." method="_on_mustache_color_selected"]
+[connection signal="toggled" from="Controls/LayerControlsGrid/SideburnsToggle" to="." method="_on_show_sideburns_toggled"]
+[connection signal="value_changed" from="Controls/LayerControlsGrid/SideburnsZIndex" to="." method="_on_sideburns_z_index_changed"]
+[connection signal="item_selected" from="Controls/LayerControlsGrid/SideburnsOptions/SideburnsStyleOption" to="." method="_on_sideburns_style_selected"]
+[connection signal="item_selected" from="Controls/LayerControlsGrid/SideburnsOptions/SideburnsColorOption" to="." method="_on_sideburns_color_selected"]
+[connection signal="toggled" from="Controls/LayerControlsGrid/ArmorToggle" to="." method="_on_show_armor_toggled"]
+[connection signal="value_changed" from="Controls/LayerControlsGrid/ArmorZIndex" to="." method="_on_armor_z_index_changed"]
+[connection signal="item_selected" from="Controls/LayerControlsGrid/ArmorVariantOption" to="." method="_on_armor_variant_selected"]
+[connection signal="item_selected" from="Controls/LayerControlsGrid/UniformColorOption" to="." method="_on_uniform_color_selected"]
+[connection signal="toggled" from="Controls/LayerControlsGrid/EyeBandageToggle" to="." method="_on_show_eye_bandage_toggled"]
+[connection signal="value_changed" from="Controls/LayerControlsGrid/EyeBandageZIndex" to="." method="_on_eye_bandage_z_index_changed"]
+[connection signal="item_selected" from="Controls/LayerControlsGrid/EyeBandageColorOption" to="." method="_on_eye_bandage_color_selected"]
+[connection signal="toggled" from="Controls/LayerControlsGrid/EyesToggle" to="." method="_on_show_eyes_toggled"]
+[connection signal="value_changed" from="Controls/LayerControlsGrid/EyesZIndex" to="." method="_on_eyes_z_index_changed"]
+[connection signal="item_selected" from="Controls/LayerControlsGrid/EyeColorOption" to="." method="_on_eye_color_selected"]
+[connection signal="toggled" from="Controls/LayerControlsGrid/EyebrowsToggle" to="." method="_on_show_eyebrows_toggled"]
+[connection signal="value_changed" from="Controls/LayerControlsGrid/EyebrowsZIndex" to="." method="_on_eyebrows_z_index_changed"]
+[connection signal="item_selected" from="Controls/LayerControlsGrid/EyebrowColorOption" to="." method="_on_eyebrow_color_selected"]
+[connection signal="toggled" from="Controls/LayerControlsGrid/HeadwearToggle" to="." method="_on_show_headwear_toggled"]
+[connection signal="value_changed" from="Controls/LayerControlsGrid/HeadwearZIndex" to="." method="_on_headwear_z_index_changed"]
+[connection signal="item_selected" from="Controls/LayerControlsGrid/HeadwearOption" to="." method="_on_headwear_selected"]
+[connection signal="item_selected" from="Controls/LayerControlsGrid/BandanaColorOption" to="." method="_on_bandana_color_selected"]
+[connection signal="item_selected" from="Controls/LayerControlsGrid/TricornColorOption" to="." method="_on_tricorn_color_selected"]
+[connection signal="item_selected" from="Controls/LayerControlsGrid/HelmetVariantOption" to="." method="_on_helmet_variant_selected"]
+[connection signal="toggled" from="Controls/LayerControlsGrid/HeadBandageToggle" to="." method="_on_show_head_bandage_toggled"]
+[connection signal="value_changed" from="Controls/LayerControlsGrid/HeadBandageZIndex" to="." method="_on_head_bandage_z_index_changed"]
+[connection signal="item_selected" from="Controls/LayerControlsGrid/HeadBandageColorOption" to="." method="_on_head_bandage_color_selected"]
+[connection signal="toggled" from="Controls/LayerControlsGrid/WeaponToggle" to="." method="_on_show_weapon_toggled"]
+[connection signal="value_changed" from="Controls/LayerControlsGrid/WeaponZIndex" to="." method="_on_weapon_z_index_changed"]
+[connection signal="value_changed" from="OffsetControls/OffsetsGrid/SpriteOffsetX" to="." method="_on_sprite_offset_x_changed"]
+[connection signal="value_changed" from="OffsetControls/OffsetsGrid/SpriteOffsetY" to="." method="_on_sprite_offset_y_changed"]
+[connection signal="value_changed" from="OffsetControls/OffsetsGrid/SpriteScale" to="." method="_on_sprite_scale_changed"]
+[connection signal="value_changed" from="OffsetControls/OffsetsGrid/FormationReferenceOffsetX" to="." method="_on_formation_reference_offset_x_changed"]
+[connection signal="value_changed" from="OffsetControls/OffsetsGrid/FormationReferenceOffsetY" to="." method="_on_formation_reference_offset_y_changed"]
+[connection signal="value_changed" from="OffsetControls/OffsetsGrid/FormationReferenceScale" to="." method="_on_formation_reference_scale_changed"]
+[connection signal="toggled" from="OffsetControls/OffsetsGrid/FormationReferenceToggle" to="." method="_on_show_formation_reference_toggled"]
+[connection signal="value_changed" from="OffsetControls/OffsetsGrid/FaceOffsetX" to="." method="_on_face_offset_x_changed"]
+[connection signal="value_changed" from="OffsetControls/OffsetsGrid/FaceOffsetY" to="." method="_on_face_offset_y_changed"]
+[connection signal="value_changed" from="OffsetControls/OffsetsGrid/HeadwearOffsetX" to="." method="_on_headwear_offset_x_changed"]
+[connection signal="value_changed" from="OffsetControls/OffsetsGrid/HeadwearOffsetY" to="." method="_on_headwear_offset_y_changed"]
+[connection signal="value_changed" from="OffsetControls/OffsetsGrid/HelmetOffsetX" to="." method="_on_helmet_offset_x_changed"]
+[connection signal="value_changed" from="OffsetControls/OffsetsGrid/HelmetOffsetY" to="." method="_on_helmet_offset_y_changed"]
+[connection signal="value_changed" from="OffsetControls/OffsetsGrid/WeaponOffsetX" to="." method="_on_weapon_offset_x_changed"]
+[connection signal="value_changed" from="OffsetControls/OffsetsGrid/WeaponOffsetY" to="." method="_on_weapon_offset_y_changed"]
+[connection signal="value_changed" from="OffsetControls/OffsetsGrid/ClothingOffsetX" to="." method="_on_clothing_offset_x_changed"]
+[connection signal="value_changed" from="OffsetControls/OffsetsGrid/ClothingOffsetY" to="." method="_on_clothing_offset_y_changed"]
+[connection signal="value_changed" from="WeaponFrameMapControls/WeaponFrameMapGrid/WeaponFrameCount" to="." method="_on_weapon_frame_count_changed"]
+[connection signal="value_changed" from="WeaponFrameMapControls/WeaponFrameMapGrid/MusketFrame" to="." method="_on_musket_frame_changed"]
+[connection signal="value_changed" from="WeaponFrameMapControls/WeaponFrameMapGrid/CutlassLeftFrame" to="." method="_on_cutlass_left_frame_changed"]
+[connection signal="value_changed" from="WeaponFrameMapControls/WeaponFrameMapGrid/CutlassRightFrame" to="." method="_on_cutlass_right_frame_changed"]
+[connection signal="value_changed" from="WeaponFrameMapControls/WeaponFrameMapGrid/PistolLeftFrame" to="." method="_on_pistol_left_frame_changed"]
+[connection signal="value_changed" from="WeaponFrameMapControls/WeaponFrameMapGrid/PistolRightFrame" to="." method="_on_pistol_right_frame_changed"]

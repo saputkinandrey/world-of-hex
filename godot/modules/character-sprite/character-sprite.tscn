@@ -1,0 +1,119 @@
+[gd_scene format=3 uid="uid://dbee1w42e53qu"]
+
+[ext_resource type="Script" uid="uid://cq22f46pqe7wu" path="res://modules/character-sprite/character-sprite.entity.gd" id="1_character_sprite"]
+[ext_resource type="Texture2D" uid="uid://bxohvuvs7v63b" path="res://assets/Character/Character1/idle/Char1_south_idle/Char1_body.png" id="2_body"]
+[ext_resource type="Texture2D" uid="uid://catx3en7cdnum" path="res://assets/Character/Character1/idle/Char1_south_idle/Char1_boots1.png" id="3_boots"]
+[ext_resource type="Texture2D" uid="uid://bgcnjnvpth5tl" path="res://assets/Character/Character1/idle/Char1_south_idle/Char1_pants1.png" id="4_pants"]
+[ext_resource type="Texture2D" uid="uid://byutbjjaqwo7y" path="res://assets/Character/Character1/idle/Char1_south_idle/Char1_Shirts1.png" id="5_shirts"]
+[ext_resource type="Texture2D" uid="uid://wp131it0550f" path="res://assets/Character/Character1/idle/Char1_south_idle/Char1_armor1.png" id="6_armor"]
+[ext_resource type="Texture2D" uid="uid://bt83tpjctfw15" path="res://assets/Character/Character1/idle/Char1_south_idle/Char1_beard_blck.png" id="7_beard"]
+[ext_resource type="Texture2D" uid="uid://bu0c2bejxw0tu" path="res://assets/Character/Character1/idle/Char1_south_idle/Char1_mustache_blck.png" id="8_mustache"]
+[ext_resource type="Texture2D" uid="uid://hg3ox8vctuwg" path="res://assets/Character/Character1/idle/Char1_south_idle/Char1_sideburns_blck.png" id="9_sideburns"]
+[ext_resource type="Texture2D" uid="uid://dt42w44f2ka4g" path="res://assets/Character/Character1/idle/Char1_south_idle/Char1_eyes1.png" id="10_eyes"]
+[ext_resource type="Texture2D" uid="uid://dpbl2ji5xqxla" path="res://assets/Character/Character1/idle/Char1_south_idle/Char1_eyebrows1.png" id="11_eyebrows"]
+[ext_resource type="Texture2D" uid="uid://bebiasc5otxg3" path="res://assets/Character/Character1/idle/Char1_south_idle/Char1_eye_bandage.png" id="12_eye_bandage"]
+[ext_resource type="Texture2D" uid="uid://donr7wg3f4pwu" path="res://assets/Character/Character1/idle/Char1_south_idle/Char1_hair_blck.png" id="13_hair"]
+[ext_resource type="Texture2D" uid="uid://by65nr3mjjof5" path="res://assets/Character/Character1/idle/Char1_south_idle/Char1_bandana.png" id="14_bandana"]
+[ext_resource type="Texture2D" uid="uid://brqq1x87cx1he" path="res://assets/Character/Character1/idle/Char1_south_idle/Char1_weapon1.png" id="15_weapon"]
+[ext_resource type="Texture2D" path="res://assets/Character/Character1/idle/Char1_south_idle/Char1_helmet1.png" id="16_helmet"]
+[ext_resource type="Texture2D" path="res://assets/Character/Character1/idle/Char1_south_idle/Char1_tricorn.png" id="17_tricorn"]
+[ext_resource type="Texture2D" path="res://assets/Character/Character1/idle/Char1_south_idle/Char1_head_bandage.png" id="18_head_bandage"]
+[ext_resource type="Texture2D" path="res://assets/Character/scale_reference.jpg" id="19_formation_reference"]
+
+[node name="CharacterSpriteEntity" type="Node2D" unique_id=450977928]
+script = ExtResource("1_character_sprite")
+sprite_scale = 0.9
+
+[node name="FormationReference" type="Sprite2D" parent="."]
+z_index = -95
+modulate = Color(1, 1, 1, 0.25)
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("19_formation_reference")
+
+[node name="Body" type="Sprite2D" parent="." unique_id=1108321927]
+texture = ExtResource("2_body")
+hframes = 5
+
+[node name="Boots" type="Sprite2D" parent="." unique_id=845637314]
+z_index = 10
+texture = ExtResource("3_boots")
+hframes = 5
+
+[node name="Pants" type="Sprite2D" parent="." unique_id=386054213]
+z_index = 20
+texture = ExtResource("4_pants")
+hframes = 5
+
+[node name="Shirts" type="Sprite2D" parent="." unique_id=416592812]
+z_index = 30
+texture = ExtResource("5_shirts")
+hframes = 5
+
+[node name="Armor" type="Sprite2D" parent="." unique_id=1546393967]
+visible = false
+z_index = 40
+texture = ExtResource("6_armor")
+hframes = 6
+
+[node name="Beard" type="Sprite2D" parent="." unique_id=931086547]
+visible = false
+z_index = 50
+texture = ExtResource("7_beard")
+hframes = 6
+
+[node name="Mustache" type="Sprite2D" parent="." unique_id=1243561398]
+visible = false
+z_index = 60
+texture = ExtResource("8_mustache")
+hframes = 4
+
+[node name="Sideburns" type="Sprite2D" parent="." unique_id=1715997558]
+visible = false
+z_index = 70
+texture = ExtResource("9_sideburns")
+hframes = 3
+
+[node name="Eyes" type="Sprite2D" parent="." unique_id=1993659753]
+visible = false
+z_index = 80
+texture = ExtResource("10_eyes")
+hframes = 4
+
+[node name="Eyebrows" type="Sprite2D" parent="." unique_id=61522076]
+z_index = 90
+texture = ExtResource("11_eyebrows")
+hframes = 4
+
+[node name="EyeBandage" type="Sprite2D" parent="." unique_id=1047093993]
+visible = false
+z_index = 100
+texture = ExtResource("12_eye_bandage")
+hframes = 4
+
+[node name="Hair" type="Sprite2D" parent="." unique_id=2068482492]
+visible = false
+z_index = 110
+texture = ExtResource("13_hair")
+hframes = 8
+
+[node name="Headwear" type="Sprite2D" parent="." unique_id=774234601]
+visible = false
+z_index = 120
+texture = ExtResource("14_bandana")
+hframes = 4
+
+[node name="HeadBandage" type="Sprite2D" parent="."]
+visible = false
+z_index = 130
+texture = ExtResource("18_head_bandage")
+hframes = 4
+
+[node name="Weapon" type="Sprite2D" parent="." unique_id=1448851893]
+z_index = -10
+texture = ExtResource("15_weapon")
+hframes = 5
+
+[node name="WeaponSecondary" type="Sprite2D" parent="."]
+z_index = -10
+texture = ExtResource("15_weapon")
+hframes = 5
