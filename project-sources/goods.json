@@ -1,0 +1,1131 @@
+{
+  "sheet": "GOODS",
+  "calculationRules": {
+    "effectiveStatus": "effectiveStatus is the extracted price status used for multiplier lookup. For materialized goods, effectiveStatus is stored on each materials item. statusAdjustment is retained when present as the source modifier; semantic categories are stored separately in categories.",
+    "statusMultiplier": "Look up effectiveStatus in statuses.",
+    "pricePerPound": "basePrice * statusMultiplier. For item-priced rows with unitQuantity, use basePrice * statusMultiplier / unitQuantity.",
+    "quart": "pricePerPound * 2",
+    "gallon": "quart * 4",
+    "ton": "pricePerPound * 2000",
+    "ounce": "pricePerPound / 100 * 6",
+    "shot": "ounce * 10 / 6",
+    "glass": "shot * 5",
+    "crate": "pricePerPound * 300",
+    "barrelOrSack": "pricePerPound * 150",
+    "basket": "barrelOrSack / 10"
+  },
+  "goods": [
+    {
+      "name": "Сено",
+      "basePrice": 0.5,
+      "effectiveStatus": 0,
+      "statusAdjustment": 0,
+      "lot": "2d тюков",
+      "categories": [
+        "Корм",
+        "Растительное сырье"
+      ]
+    },
+    {
+      "name": "Овес",
+      "basePrice": 2,
+      "effectiveStatus": 0,
+      "statusAdjustment": 0,
+      "lot": "8d мешков",
+      "categories": [
+        "Корм",
+        "Зерно",
+        "Еда"
+      ]
+    },
+    {
+      "name": "Яблоки",
+      "basePrice": 2.5,
+      "effectiveStatus": 0,
+      "statusAdjustment": 0,
+      "categories": [
+        "Корм",
+        "Фрукты",
+        "Еда"
+      ],
+      "lotOptions": [
+        "6d ящиков",
+        "8d ящиков"
+      ]
+    },
+    {
+      "name": "Древесина",
+      "basePrice": 0.25,
+      "statusAdjustment": 0,
+      "lot": "2d тонн",
+      "categories": [
+        "Древесина",
+        "Топливо",
+        "Строительные материалы",
+        "Сырье"
+      ],
+      "materials": [
+        {
+          "name": "Дуб",
+          "effectiveStatus": 0
+        },
+        {
+          "name": "Сосна",
+          "effectiveStatus": 0
+        },
+        {
+          "name": "Радужное дерево",
+          "effectiveStatus": 5,
+          "categories": [
+            "Магические материалы"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Древесный Уголь",
+      "basePrice": 4.2,
+      "effectiveStatus": 0,
+      "statusAdjustment": 0,
+      "lot": "8d мешков",
+      "categories": [
+        "Топливо"
+      ]
+    },
+    {
+      "name": "Земляное Масло",
+      "basePrice": 20.16,
+      "effectiveStatus": -1,
+      "statusAdjustment": -1,
+      "lot": "5d бочек",
+      "categories": [
+        "Топливо",
+        "Нефтепродукты"
+      ]
+    },
+    {
+      "name": "Керосин",
+      "basePrice": 20.16,
+      "effectiveStatus": 1,
+      "statusAdjustment": 1,
+      "lot": "1d бочек",
+      "categories": [
+        "Топливо",
+        "Нефтепродукты"
+      ]
+    },
+    {
+      "name": "Мазут",
+      "basePrice": 20.16,
+      "effectiveStatus": -2,
+      "statusAdjustment": -2,
+      "lot": "4d бочек",
+      "categories": [
+        "Топливо",
+        "Нефтепродукты"
+      ]
+    },
+    {
+      "name": "Китовый жир",
+      "basePrice": 25.76,
+      "effectiveStatus": 1,
+      "statusAdjustment": 1,
+      "lot": "1d бочек",
+      "categories": [
+        "Топливо",
+        "Жиры",
+        "Животное сырье"
+      ]
+    },
+    {
+      "name": "Тонкая Доска",
+      "basePrice": 5.2,
+      "statusAdjustment": 0,
+      "categories": [
+        "Древесина",
+        "Пиломатериалы",
+        "Строительные материалы"
+      ],
+      "materials": [
+        {
+          "name": "Дуб",
+          "effectiveStatus": 0
+        },
+        {
+          "name": "Сосна",
+          "effectiveStatus": 0
+        },
+        {
+          "name": "Радужное дерево",
+          "effectiveStatus": 5,
+          "categories": [
+            "Магические материалы"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Средняя Доска",
+      "basePrice": 2.7,
+      "statusAdjustment": 0,
+      "categories": [
+        "Древесина",
+        "Пиломатериалы",
+        "Строительные материалы"
+      ],
+      "materials": [
+        {
+          "name": "Дуб",
+          "effectiveStatus": 0
+        },
+        {
+          "name": "Сосна",
+          "effectiveStatus": 0
+        },
+        {
+          "name": "Радужное дерево",
+          "effectiveStatus": 5,
+          "categories": [
+            "Магические материалы"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Толстая Доска",
+      "basePrice": 1.45,
+      "statusAdjustment": 0,
+      "categories": [
+        "Древесина",
+        "Пиломатериалы",
+        "Строительные материалы"
+      ],
+      "materials": [
+        {
+          "name": "Дуб",
+          "effectiveStatus": 0
+        },
+        {
+          "name": "Сосна",
+          "effectiveStatus": 0
+        },
+        {
+          "name": "Радужное дерево",
+          "effectiveStatus": 5,
+          "categories": [
+            "Магические материалы"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Малая Деревянная балка",
+      "basePrice": 0.85,
+      "statusAdjustment": 0,
+      "categories": [
+        "Древесина",
+        "Пиломатериалы",
+        "Строительные материалы"
+      ],
+      "materials": [
+        {
+          "name": "Дуб",
+          "effectiveStatus": 0
+        },
+        {
+          "name": "Сосна",
+          "effectiveStatus": 0
+        },
+        {
+          "name": "Радужное дерево",
+          "effectiveStatus": 5,
+          "categories": [
+            "Магические материалы"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Большая Деревянная балка",
+      "basePrice": 0.4,
+      "statusAdjustment": 0,
+      "categories": [
+        "Древесина",
+        "Пиломатериалы",
+        "Строительные материалы"
+      ],
+      "materials": [
+        {
+          "name": "Дуб",
+          "effectiveStatus": 0
+        },
+        {
+          "name": "Сосна",
+          "effectiveStatus": 0
+        },
+        {
+          "name": "Радужное дерево",
+          "effectiveStatus": 5,
+          "categories": [
+            "Магические материалы"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Смола",
+      "basePrice": 4,
+      "statusAdjustment": 0,
+      "categories": [
+        "Древесина",
+        "Смола",
+        "Сырье"
+      ],
+      "materials": [
+        {
+          "name": "Дуб",
+          "effectiveStatus": 0
+        },
+        {
+          "name": "Сосна",
+          "effectiveStatus": 0
+        },
+        {
+          "name": "Радужное дерево",
+          "effectiveStatus": 5,
+          "categories": [
+            "Магические материалы"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Лоза",
+      "basePrice": 0.8,
+      "statusAdjustment": 0,
+      "categories": [
+        "Древесина",
+        "Лоза",
+        "Сырье"
+      ],
+      "materials": [
+        {
+          "name": "Дуб",
+          "effectiveStatus": 0
+        },
+        {
+          "name": "Сосна",
+          "effectiveStatus": 0
+        },
+        {
+          "name": "Радужное дерево",
+          "effectiveStatus": 5,
+          "categories": [
+            "Магические материалы"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Инструменты",
+      "basePrice": 22.5,
+      "effectiveStatus": 0,
+      "statusAdjustment": 0,
+      "lot": "4d ящиков",
+      "categories": [
+        "Инструменты",
+        "Ремесленные изделия"
+      ]
+    },
+    {
+      "name": "Качественные Инструменты",
+      "basePrice": 22.5,
+      "effectiveStatus": 1,
+      "statusAdjustment": 1,
+      "lot": "2d ящиков",
+      "categories": [
+        "Инструменты",
+        "Ремесленные изделия",
+        "Качественный товар"
+      ]
+    },
+    {
+      "name": "Ячмень",
+      "basePrice": 2,
+      "effectiveStatus": 0,
+      "statusAdjustment": 0,
+      "lot": "8d мешков",
+      "categories": [
+        "Зерно",
+        "Еда"
+      ]
+    },
+    {
+      "name": "Бобовые",
+      "basePrice": 2,
+      "effectiveStatus": 0,
+      "statusAdjustment": 0,
+      "lot": "8d мешков",
+      "categories": [
+        "Бобовые",
+        "Еда"
+      ]
+    },
+    {
+      "name": "Кукуруза",
+      "basePrice": 2,
+      "effectiveStatus": 0,
+      "statusAdjustment": 0,
+      "lot": "8d мешков",
+      "categories": [
+        "Зерно",
+        "Еда"
+      ]
+    },
+    {
+      "name": "Рис",
+      "basePrice": 2,
+      "effectiveStatus": 0,
+      "statusAdjustment": 0,
+      "lot": "8d мешков",
+      "categories": [
+        "Зерно",
+        "Еда"
+      ]
+    },
+    {
+      "name": "Пшеница",
+      "basePrice": 2,
+      "effectiveStatus": 0,
+      "statusAdjustment": 0,
+      "lot": "8d мешков",
+      "categories": [
+        "Зерно",
+        "Еда"
+      ]
+    },
+    {
+      "name": "Собачья Упряжка",
+      "basePrice": 400,
+      "categories": [
+        "Транспорт",
+        "Сухопутный транспорт"
+      ]
+    },
+    {
+      "name": "Дешевый фальшион",
+      "basePrice": 160,
+      "categories": [
+        "Оружие",
+        "Холодное оружие"
+      ]
+    },
+    {
+      "name": "Ломовая Лошадь",
+      "basePrice": 2000,
+      "effectiveStatus": 0,
+      "statusAdjustment": 0,
+      "categories": [
+        "Животные",
+        "Транспорт",
+        "Тягловая сила"
+      ]
+    },
+    {
+      "name": "Картофель",
+      "basePrice": 2,
+      "effectiveStatus": 0,
+      "statusAdjustment": 0,
+      "lot": "8d мешков",
+      "categories": [
+        "Овощи",
+        "Еда"
+      ]
+    },
+    {
+      "name": "Палладийские вазы",
+      "basePrice": 100,
+      "effectiveStatus": 2,
+      "statusAdjustment": 2,
+      "categories": [
+        "Роскошь",
+        "Керамика",
+        "Ремесленные изделия"
+      ]
+    },
+    {
+      "name": "Дикарские Маски из татуированной кожи",
+      "basePrice": 100,
+      "effectiveStatus": 2,
+      "statusAdjustment": 2,
+      "categories": [
+        "Роскошь",
+        "Кожаные изделия",
+        "Ремесленные изделия"
+      ]
+    },
+    {
+      "name": "Абидосское золото",
+      "basePrice": 100,
+      "effectiveStatus": 2,
+      "statusAdjustment": 2,
+      "categories": [
+        "Роскошь",
+        "Драгоценности",
+        "Металл"
+      ]
+    },
+    {
+      "name": "Индейские Тотемы",
+      "basePrice": 100,
+      "effectiveStatus": 2,
+      "statusAdjustment": 2,
+      "categories": [
+        "Роскошь",
+        "Ритуальные предметы",
+        "Ремесленные изделия"
+      ]
+    },
+    {
+      "name": "Ретанские Фигурки из китовой кости",
+      "basePrice": 100,
+      "effectiveStatus": 2,
+      "statusAdjustment": 2,
+      "categories": [
+        "Роскошь",
+        "Кость",
+        "Ремесленные изделия"
+      ]
+    },
+    {
+      "name": "Табак",
+      "basePrice": 12,
+      "effectiveStatus": 1,
+      "statusAdjustment": 1,
+      "categories": [
+        "Табак",
+        "Растительное сырье",
+        "Роскошь"
+      ]
+    },
+    {
+      "name": "Экзотические Фрукты",
+      "basePrice": 5,
+      "effectiveStatus": 2,
+      "statusAdjustment": 2,
+      "categories": [
+        "Фрукты",
+        "Еда",
+        "Роскошь"
+      ]
+    },
+    {
+      "name": "Говядина",
+      "basePrice": 8,
+      "effectiveStatus": 1,
+      "statusAdjustment": 1,
+      "categories": [
+        "Мясо",
+        "Еда"
+      ]
+    },
+    {
+      "name": "Свинина",
+      "basePrice": 8,
+      "effectiveStatus": 1,
+      "statusAdjustment": 1,
+      "categories": [
+        "Мясо",
+        "Еда"
+      ]
+    },
+    {
+      "name": "Курятина",
+      "basePrice": 8,
+      "effectiveStatus": 1,
+      "statusAdjustment": 1,
+      "categories": [
+        "Мясо",
+        "Еда"
+      ]
+    },
+    {
+      "name": "Баранина",
+      "basePrice": 8,
+      "effectiveStatus": 1,
+      "statusAdjustment": 1,
+      "categories": [
+        "Мясо",
+        "Еда"
+      ]
+    },
+    {
+      "name": "Вяленная рыба",
+      "basePrice": 18,
+      "effectiveStatus": 0,
+      "statusAdjustment": 0,
+      "categories": [
+        "Рыба",
+        "Еда",
+        "Консервы"
+      ]
+    },
+    {
+      "name": "Соленая рыба",
+      "basePrice": 18,
+      "effectiveStatus": -1,
+      "statusAdjustment": -1,
+      "categories": [
+        "Рыба",
+        "Еда",
+        "Консервы"
+      ]
+    },
+    {
+      "name": "Свежее мясо",
+      "basePrice": 8,
+      "effectiveStatus": 0,
+      "statusAdjustment": 0,
+      "categories": [
+        "Мясо",
+        "Еда",
+        "Скоропортящееся"
+      ]
+    },
+    {
+      "name": "Солонина",
+      "basePrice": 18,
+      "effectiveStatus": 0,
+      "statusAdjustment": 0,
+      "categories": [
+        "Мясо",
+        "Еда",
+        "Консервы"
+      ]
+    },
+    {
+      "name": "Мясные деликатесы",
+      "basePrice": 18,
+      "effectiveStatus": 2,
+      "statusAdjustment": 2,
+      "categories": [
+        "Мясо",
+        "Еда",
+        "Роскошь"
+      ]
+    },
+    {
+      "name": "Соль",
+      "basePrice": 16,
+      "effectiveStatus": 0,
+      "statusAdjustment": 0,
+      "categories": [
+        "Специи",
+        "Консерванты",
+        "Еда"
+      ]
+    },
+    {
+      "name": "Мёд",
+      "basePrice": 16,
+      "effectiveStatus": 1,
+      "statusAdjustment": 1,
+      "categories": [
+        "Подсластители",
+        "Еда"
+      ]
+    },
+    {
+      "name": "Миндаль",
+      "basePrice": 16,
+      "effectiveStatus": 1,
+      "statusAdjustment": 1,
+      "categories": [
+        "Орехи",
+        "Еда"
+      ]
+    },
+    {
+      "name": "Хмель",
+      "basePrice": 16,
+      "effectiveStatus": 1,
+      "statusAdjustment": 1,
+      "categories": [
+        "Растительное сырье",
+        "Сырье для алкоголя"
+      ]
+    },
+    {
+      "name": "Чеснок",
+      "basePrice": 16,
+      "effectiveStatus": 0,
+      "statusAdjustment": 0,
+      "categories": [
+        "Овощи",
+        "Специи",
+        "Еда"
+      ]
+    },
+    {
+      "name": "Мускатный орех",
+      "basePrice": 16,
+      "effectiveStatus": 1,
+      "statusAdjustment": 1,
+      "categories": [
+        "Специи",
+        "Еда",
+        "Роскошь"
+      ]
+    },
+    {
+      "name": "Имбирь",
+      "basePrice": 16,
+      "effectiveStatus": 1,
+      "statusAdjustment": 1,
+      "categories": [
+        "Специи",
+        "Еда",
+        "Роскошь"
+      ]
+    },
+    {
+      "name": "Гарум",
+      "basePrice": 16,
+      "effectiveStatus": 0,
+      "statusAdjustment": 0,
+      "categories": [
+        "Соусы",
+        "Рыба",
+        "Еда"
+      ]
+    },
+    {
+      "name": "Сахар",
+      "basePrice": 16,
+      "effectiveStatus": 1,
+      "statusAdjustment": 1,
+      "categories": [
+        "Подсластители",
+        "Еда",
+        "Роскошь"
+      ]
+    },
+    {
+      "name": "Соевый Соус",
+      "basePrice": 16,
+      "effectiveStatus": 0,
+      "statusAdjustment": 0,
+      "categories": [
+        "Соусы",
+        "Еда"
+      ]
+    },
+    {
+      "name": "Горчица",
+      "basePrice": 16,
+      "effectiveStatus": 0,
+      "statusAdjustment": 0,
+      "categories": [
+        "Соусы",
+        "Специи",
+        "Еда"
+      ]
+    },
+    {
+      "name": "Перец",
+      "basePrice": 16,
+      "effectiveStatus": 0,
+      "statusAdjustment": 0,
+      "categories": [
+        "Специи",
+        "Еда",
+        "Роскошь"
+      ]
+    },
+    {
+      "name": "Оливки",
+      "basePrice": 11,
+      "effectiveStatus": 0,
+      "statusAdjustment": 0,
+      "lot": "6d ящиков",
+      "categories": [
+        "Фрукты",
+        "Еда",
+        "Масличные культуры"
+      ]
+    },
+    {
+      "name": "Агава",
+      "basePrice": 2.5,
+      "effectiveStatus": 0,
+      "statusAdjustment": 0,
+      "categories": [
+        "Растительное сырье",
+        "Подсластители",
+        "Сырье для алкоголя"
+      ]
+    },
+    {
+      "name": "Виноград",
+      "basePrice": 5,
+      "effectiveStatus": 1,
+      "statusAdjustment": 1,
+      "lot": "6d ящиков",
+      "categories": [
+        "Фрукты",
+        "Еда",
+        "Сырье для алкоголя"
+      ]
+    },
+    {
+      "name": "Сортовый Виноград",
+      "basePrice": 5,
+      "effectiveStatus": 2,
+      "statusAdjustment": 2,
+      "lot": "1d ящиков",
+      "categories": [
+        "Фрукты",
+        "Еда",
+        "Сырье для алкоголя",
+        "Роскошь"
+      ]
+    },
+    {
+      "name": "Грог",
+      "basePrice": 6,
+      "effectiveStatus": 1,
+      "statusAdjustment": 1,
+      "categories": [
+        "Алкоголь",
+        "Слабоалкогольные напитки"
+      ]
+    },
+    {
+      "name": "Пиво",
+      "basePrice": 6,
+      "effectiveStatus": 1,
+      "statusAdjustment": 1,
+      "categories": [
+        "Алкоголь",
+        "Слабоалкогольные напитки",
+        "Пиво"
+      ]
+    },
+    {
+      "name": "Сидр",
+      "basePrice": 6,
+      "effectiveStatus": 1,
+      "statusAdjustment": 1,
+      "categories": [
+        "Алкоголь",
+        "Слабоалкогольные напитки",
+        "Фрукты"
+      ]
+    },
+    {
+      "name": "Рецина",
+      "basePrice": 6,
+      "effectiveStatus": 1,
+      "statusAdjustment": 1,
+      "categories": [
+        "Алкоголь",
+        "Слабоалкогольные напитки",
+        "Вино"
+      ]
+    },
+    {
+      "name": "Саке",
+      "basePrice": 6,
+      "effectiveStatus": 1,
+      "statusAdjustment": 1,
+      "categories": [
+        "Алкоголь",
+        "Слабоалкогольные напитки",
+        "Рис"
+      ]
+    },
+    {
+      "name": "Пульке",
+      "basePrice": 6,
+      "effectiveStatus": 1,
+      "statusAdjustment": 1,
+      "categories": [
+        "Алкоголь",
+        "Слабоалкогольные напитки",
+        "Агава"
+      ]
+    },
+    {
+      "name": "Хмельное Пиво",
+      "basePrice": 6,
+      "effectiveStatus": 2,
+      "statusAdjustment": 1,
+      "categories": [
+        "Алкоголь",
+        "Слабоалкогольные напитки",
+        "Пиво"
+      ]
+    },
+    {
+      "name": "Сортовое Вино",
+      "basePrice": 6,
+      "effectiveStatus": 3,
+      "statusAdjustment": 2,
+      "categories": [
+        "Алкоголь",
+        "Вино",
+        "Роскошь"
+      ]
+    },
+    {
+      "name": "Выдержанное Сортовое Вино",
+      "basePrice": 6,
+      "effectiveStatus": 4,
+      "statusAdjustment": 3,
+      "categories": [
+        "Алкоголь",
+        "Вино",
+        "Роскошь"
+      ]
+    },
+    {
+      "name": "Ром",
+      "basePrice": 60,
+      "effectiveStatus": 1,
+      "categories": [
+        "Алкоголь",
+        "Крепкий алкоголь"
+      ]
+    },
+    {
+      "name": "Виски",
+      "basePrice": 60,
+      "effectiveStatus": 2,
+      "categories": [
+        "Алкоголь",
+        "Крепкий алкоголь"
+      ]
+    },
+    {
+      "name": "Бренди",
+      "basePrice": 60,
+      "effectiveStatus": 3,
+      "categories": [
+        "Алкоголь",
+        "Крепкий алкоголь",
+        "Виноград"
+      ]
+    },
+    {
+      "name": "Палладийский Бренди",
+      "basePrice": 60,
+      "effectiveStatus": 4,
+      "categories": [
+        "Алкоголь",
+        "Крепкий алкоголь",
+        "Виноград",
+        "Роскошь"
+      ]
+    },
+    {
+      "name": "Травяной сбор",
+      "basePrice": 25,
+      "effectiveStatus": 0,
+      "statusAdjustment": 0,
+      "categories": [
+        "Чай",
+        "Напитки",
+        "Растительное сырье"
+      ]
+    },
+    {
+      "name": "Чайная пыль",
+      "basePrice": 25,
+      "effectiveStatus": 1,
+      "statusAdjustment": 1,
+      "categories": [
+        "Чай",
+        "Напитки",
+        "Растительное сырье"
+      ]
+    },
+    {
+      "name": "Листовой Чай",
+      "basePrice": 25,
+      "effectiveStatus": 2,
+      "statusAdjustment": 2,
+      "categories": [
+        "Чай",
+        "Напитки",
+        "Растительное сырье",
+        "Роскошь"
+      ]
+    },
+    {
+      "name": "Отборный Листовой Чай",
+      "basePrice": 25,
+      "effectiveStatus": 3,
+      "statusAdjustment": 3,
+      "categories": [
+        "Чай",
+        "Напитки",
+        "Растительное сырье",
+        "Роскошь"
+      ]
+    },
+    {
+      "name": "Милость Неру",
+      "basePrice": 3300,
+      "effectiveStatus": 0,
+      "unitQuantity": 1,
+      "basePriceAppliesToUnitQuantity": true,
+      "categories": [
+        "Артефакты",
+        "Магические предметы",
+        "Роскошь"
+      ]
+    },
+    {
+      "name": "Длань Ра",
+      "basePrice": 663,
+      "effectiveStatus": 0,
+      "unitQuantity": 1,
+      "basePriceAppliesToUnitQuantity": true,
+      "categories": [
+        "Артефакты",
+        "Магические предметы",
+        "Роскошь"
+      ]
+    },
+    {
+      "name": "Серьга увертливости",
+      "basePrice": 2214,
+      "effectiveStatus": 0,
+      "unitQuantity": 0.01,
+      "basePriceAppliesToUnitQuantity": true,
+      "categories": [
+        "Артефакты",
+        "Магические предметы",
+        "Роскошь"
+      ]
+    },
+    {
+      "name": "Girard LeMat",
+      "basePrice": 250,
+      "unitQuantity": 3.7,
+      "basePriceAppliesToUnitQuantity": true,
+      "categories": [
+        "Оружие",
+        "Огнестрельное оружие"
+      ]
+    },
+    {
+      "name": "Remington Rolling Block",
+      "basePrice": 650,
+      "unitQuantity": 9.2,
+      "basePriceAppliesToUnitQuantity": true,
+      "categories": [
+        "Оружие",
+        "Огнестрельное оружие"
+      ]
+    },
+    {
+      "name": "Lefaucheux Mle 1854",
+      "basePrice": 270,
+      "unitQuantity": 2.3,
+      "basePriceAppliesToUnitQuantity": true,
+      "categories": [
+        "Оружие",
+        "Огнестрельное оружие"
+      ]
+    },
+    {
+      "name": "Военный пистолет",
+      "basePrice": 250,
+      "unitQuantity": 2.75,
+      "basePriceAppliesToUnitQuantity": true,
+      "categories": [
+        "Оружие",
+        "Огнестрельное оружие"
+      ]
+    },
+    {
+      "name": "Пистолет \"утиная лапка\"",
+      "basePrice": 150,
+      "unitQuantity": 1.9,
+      "basePriceAppliesToUnitQuantity": true,
+      "categories": [
+        "Оружие",
+        "Огнестрельное оружие"
+      ]
+    },
+    {
+      "name": "Солнцезащитные очки в футляре",
+      "basePrice": 400,
+      "unitQuantity": 1,
+      "basePriceAppliesToUnitQuantity": true,
+      "categories": [
+        "Аксессуары",
+        "Оптика",
+        "Роскошь"
+      ]
+    },
+    {
+      "name": "Солнцезащитные очки",
+      "basePrice": 350,
+      "unitQuantity": 0.25,
+      "basePriceAppliesToUnitQuantity": true,
+      "categories": [
+        "Аксессуары",
+        "Оптика",
+        "Роскошь"
+      ]
+    },
+    {
+      "name": "Слиток",
+      "categories": [
+        "Металл",
+        "Слиток",
+        "Сырье"
+      ],
+      "materials": [
+        {
+          "name": "Железо",
+          "effectiveStatus": 0,
+          "basePrice": 15,
+          "statusAdjustment": 0
+        },
+        {
+          "name": "Железо",
+          "effectiveStatus": 1,
+          "basePrice": 15,
+          "statusAdjustment": 1,
+          "variant": "Качественное",
+          "categories": [
+            "Качественный материал"
+          ]
+        },
+        {
+          "name": "Сталь",
+          "effectiveStatus": 2,
+          "basePrice": 10,
+          "statusAdjustment": 2,
+          "categories": [
+            "Сталь"
+          ]
+        },
+        {
+          "name": "Сталь",
+          "effectiveStatus": 3,
+          "basePrice": 12.5,
+          "statusAdjustment": 3,
+          "variant": "Закаленная",
+          "categories": [
+            "Сталь",
+            "Качественный материал"
+          ]
+        }
+      ]
+    }
+  ]
+}

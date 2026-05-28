@@ -1,0 +1,469 @@
+{
+  "currencyDefinitionSheet": "Валюты",
+  "extractionRules": [
+    "Currency definitions are taken from sheet \"Валюты\" column B.",
+    "Rows with material in column A or numeric base value in column C are treated as defined currencies.",
+    "Additional standalone currency names from the same sheet are included when they are not recognized region/header labels.",
+    "Cost usages are taken from cells adjacent to or below labels exactly equal to \"Валюта\"."
+  ],
+  "currencies": [
+    {
+      "name": "Асс",
+      "materials": [
+        "медь"
+      ],
+      "baseValues": [
+        {
+          "value": 12.0,
+          "material": "медь",
+          "region": "Империя"
+        }
+      ],
+      "regions": [
+        "Империя"
+      ]
+    },
+    {
+      "name": "Ауреус",
+      "materials": [
+        "золото"
+      ],
+      "baseValues": [
+        {
+          "value": 4800.0,
+          "material": "золото",
+          "region": "Империя"
+        }
+      ],
+      "regions": [
+        "Империя"
+      ]
+    },
+    {
+      "name": "Бит",
+      "materials": [
+        "медь"
+      ],
+      "baseValues": [
+        {
+          "value": 1.0,
+          "material": "медь",
+          "region": "Вольные Острова"
+        }
+      ],
+      "regions": [
+        "Вольные Острова"
+      ]
+    },
+    {
+      "name": "Дебен",
+      "materials": [
+        "медь"
+      ],
+      "baseValues": [
+        {
+          "value": 6.0,
+          "material": "медь",
+          "region": "Абидос"
+        }
+      ],
+      "regions": [
+        "Абидос"
+      ]
+    },
+    {
+      "name": "Денарий",
+      "materials": [
+        "серебро"
+      ],
+      "baseValues": [
+        {
+          "value": 192.0,
+          "material": "серебро",
+          "region": "Империя"
+        }
+      ],
+      "regions": [
+        "Империя"
+      ]
+    },
+    {
+      "name": "Динар",
+      "materials": [],
+      "baseValues": [],
+      "regions": [
+        "Неизвестно"
+      ]
+    },
+    {
+      "name": "Доллар",
+      "materials": [],
+      "baseValues": [],
+      "regions": [
+        "Неизвестно"
+      ]
+    },
+    {
+      "name": "Драхма",
+      "materials": [
+        "серебро"
+      ],
+      "baseValues": [
+        {
+          "value": 96.0,
+          "material": "серебро",
+          "region": "Абидос"
+        },
+        {
+          "value": 96.0,
+          "material": "серебро",
+          "region": "Итака, Палладия"
+        }
+      ],
+      "regions": [
+        "Абидос",
+        "Итака, Палладия"
+      ]
+    },
+    {
+      "name": "Дукат",
+      "materials": [
+        "золото"
+      ],
+      "baseValues": [
+        {
+          "value": 512.0,
+          "material": "золото",
+          "region": "Вольные Острова"
+        }
+      ],
+      "regions": [
+        "Вольные Острова"
+      ]
+    },
+    {
+      "name": "Дупондий",
+      "materials": [
+        "медь"
+      ],
+      "baseValues": [
+        {
+          "value": 24.0,
+          "material": "медь",
+          "region": "Империя"
+        }
+      ],
+      "regions": [
+        "Империя"
+      ]
+    },
+    {
+      "name": "Кварт",
+      "materials": [
+        "медь"
+      ],
+      "baseValues": [
+        {
+          "value": 2.0,
+          "material": "медь",
+          "region": "Вольные Острова"
+        }
+      ],
+      "regions": [
+        "Вольные Острова"
+      ]
+    },
+    {
+      "name": "Куруш",
+      "materials": [],
+      "baseValues": [],
+      "regions": [
+        "Неизвестно"
+      ]
+    },
+    {
+      "name": "Лепта",
+      "materials": [
+        "медь"
+      ],
+      "baseValues": [
+        {
+          "value": 1.0,
+          "material": "медь",
+          "region": "Абидос"
+        },
+        {
+          "value": 1.0,
+          "material": "медь",
+          "region": "Итака, Палладия"
+        }
+      ],
+      "regions": [
+        "Абидос",
+        "Итака, Палладия"
+      ]
+    },
+    {
+      "name": "Лира",
+      "materials": [],
+      "baseValues": [],
+      "regions": [
+        "Неизвестно"
+      ]
+    },
+    {
+      "name": "Мина",
+      "materials": [
+        "серебро"
+      ],
+      "baseValues": [
+        {
+          "value": 9600.0,
+          "material": "серебро",
+          "region": "Абидос"
+        },
+        {
+          "value": 9600.0,
+          "material": "серебро",
+          "region": "Итака, Палладия"
+        },
+        {
+          "value": 9600.0,
+          "material": "серебро",
+          "region": "Неизвестно"
+        }
+      ],
+      "regions": [
+        "Абидос",
+        "Итака, Палладия",
+        "Неизвестно"
+      ]
+    },
+    {
+      "name": "Обол",
+      "materials": [
+        "медь"
+      ],
+      "baseValues": [
+        {
+          "value": 16.0,
+          "material": "медь",
+          "region": "Итака, Палладия"
+        }
+      ],
+      "regions": [
+        "Итака, Палладия"
+      ]
+    },
+    {
+      "name": "Пиастр",
+      "materials": [
+        "серебро"
+      ],
+      "baseValues": [
+        {
+          "value": 64.0,
+          "material": "серебро",
+          "region": "Вольные Острова"
+        }
+      ],
+      "regions": [
+        "Вольные Острова"
+      ]
+    },
+    {
+      "name": "Сестерций",
+      "materials": [
+        "серебро"
+      ],
+      "baseValues": [
+        {
+          "value": 48.0,
+          "material": "серебро",
+          "region": "Империя"
+        }
+      ],
+      "regions": [
+        "Империя"
+      ]
+    },
+    {
+      "name": "Сикль",
+      "materials": [
+        "серебро"
+      ],
+      "baseValues": [
+        {
+          "value": 160.0,
+          "material": "серебро",
+          "region": "Неизвестно"
+        }
+      ],
+      "regions": [
+        "Неизвестно"
+      ]
+    },
+    {
+      "name": "Талант",
+      "materials": [
+        "золото"
+      ],
+      "baseValues": [
+        {
+          "value": 576000.0,
+          "material": "золото",
+          "region": "Абидос"
+        },
+        {
+          "value": 576000.0,
+          "material": "золото",
+          "region": "Итака, Палладия"
+        },
+        {
+          "value": 576000.0,
+          "material": "золото",
+          "region": "Неизвестно"
+        }
+      ],
+      "regions": [
+        "Абидос",
+        "Итака, Палладия",
+        "Неизвестно"
+      ]
+    },
+    {
+      "name": "Токен",
+      "materials": [
+        "медь"
+      ],
+      "baseValues": [
+        {
+          "value": 8.0,
+          "material": "медь",
+          "region": "Вольные Острова"
+        }
+      ],
+      "regions": [
+        "Вольные Острова"
+      ]
+    },
+    {
+      "name": "Унция",
+      "materials": [
+        "медь"
+      ],
+      "baseValues": [
+        {
+          "value": 1.0,
+          "material": "медь",
+          "region": "Империя"
+        }
+      ],
+      "regions": [
+        "Империя"
+      ]
+    },
+    {
+      "name": "Уттату",
+      "materials": [
+        "серебро"
+      ],
+      "baseValues": [
+        {
+          "value": 40.0,
+          "material": "серебро",
+          "region": "Неизвестно"
+        }
+      ],
+      "regions": [
+        "Неизвестно"
+      ]
+    },
+    {
+      "name": "Фунт",
+      "materials": [],
+      "baseValues": [],
+      "regions": [
+        "Неизвестно"
+      ]
+    },
+    {
+      "name": "Халк",
+      "materials": [
+        "медь"
+      ],
+      "baseValues": [
+        {
+          "value": 2.0,
+          "material": "медь",
+          "region": "Абидос"
+        },
+        {
+          "value": 2.0,
+          "material": "медь",
+          "region": "Итака, Палладия"
+        }
+      ],
+      "regions": [
+        "Абидос",
+        "Итака, Палладия"
+      ]
+    },
+    {
+      "name": "Хедж",
+      "materials": [
+        "серебро"
+      ],
+      "baseValues": [
+        {
+          "value": 24.0,
+          "material": "серебро",
+          "region": "Абидос"
+        }
+      ],
+      "regions": [
+        "Абидос"
+      ]
+    },
+    {
+      "name": "Цент",
+      "materials": [],
+      "baseValues": [],
+      "regions": [
+        "Неизвестно"
+      ]
+    }
+  ],
+  "costCurrencyUsages": [
+    {
+      "currency": "Бит"
+    },
+    {
+      "currency": "Драхма"
+    },
+    {
+      "currency": "Дукат"
+    },
+    {
+      "currency": "Дупондий"
+    },
+    {
+      "currency": "Кварт"
+    },
+    {
+      "currency": "Лепта"
+    },
+    {
+      "currency": "Обол"
+    },
+    {
+      "currency": "Пиастр"
+    },
+    {
+      "currency": "Токен"
+    },
+    {
+      "currency": "Халк"
+    }
+  ]
+}

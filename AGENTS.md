@@ -16,6 +16,11 @@
 - For Mongo inspection in `backend`, keep the query body in `backend/tmp/mongo-query.js` and optional database name in `backend/tmp/mongo-query.database.txt`, then run the stable wrapper `npm run mongo:query`.
 - Prefer adding a new fixed wrapper command over repeatedly inventing new long shell commands for the same local workflow.
 
+## Project Sources
+- Treat `project-sources/roleplaying-systems.xlsx` as an important project data source. It contains multiple roleplaying systems planned for future implementation in this project.
+- Treat `project-sources/culinary-system-world-of-hex.docx` as an important project data source for the culinary system in the World of Hex setting.
+- When a task touches mechanics covered by these files, inspect the relevant source before assessing or implementing behavior.
+
 ## SOW Feature Assessment
 - Use strict status mapping: `done`, `partial`, `not done`.
 - Do not invent requirements that are not explicitly present in SOW text.

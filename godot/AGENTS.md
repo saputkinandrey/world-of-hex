@@ -5,6 +5,9 @@
 - Prefer explicit nodes in `.tscn` scenes so their names, hierarchy, visibility, transforms, and rendering order are inspectable in the editor.
 - If runtime node creation is explicitly requested, keep it narrow and document which nodes are dynamic and why.
 
+## Implementation Research
+- Priority instruction: before implementing functionality that has no existing project analogue, consult the relevant official documentation first and base the implementation on the documented engine/API behavior instead of guessing.
+
 ## Sprite Assets
 - Do not add silent fallback asset paths, fallback sprites, fallback pose assets, or fallback direction assets unless the user explicitly requests that fallback behavior.
 - If a pose, direction, layer, or variant has no matching asset, keep that absence explicit instead of rendering a different pose's asset.
