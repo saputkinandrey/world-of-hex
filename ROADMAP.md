@@ -248,8 +248,23 @@ The current phase should be considered complete only when:
 - after migrating the storage model toward the P2P database layer:
     - move request delivery to a P2P transport
     - candidates:
-        - P2P pubsub
-        - P2P REST/RPC
+    - P2P pubsub
+    - P2P REST/RPC
+
+### Settlement Culinary Model
+
+- keep expanding the settlement calculator ingredient model systematically instead of adding every missing recipe ingredient ad hoc
+- after the systematic ingredient taxonomy is in place, revisit bean dishes and add any remaining out-of-scope ingredients
+- currently known missing high-priority bean-dish ingredients:
+  - tomato / tomato paste
+  - sesame / tahini
+  - lemon or another sour juice
+  - sugar / molasses
+  - coconut milk
+- currently known missing medium-priority bean-dish ingredients:
+  - pasta / noodles
+  - bacon / smoked pork / ham
+  - parsley, cilantro, basil, thyme
 
 ### Larger World Simulation
 

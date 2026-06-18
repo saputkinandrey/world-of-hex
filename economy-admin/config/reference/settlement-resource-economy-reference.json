@@ -1,0 +1,237 @@
+{
+  "id": "settlement-resource-economy-reference",
+  "status": "reference-only",
+  "source": "Roleplaying.xlsx / settlement resource economy notes",
+  "scope": "Natural resource and settlement economy management data. This data is not part of ECONOMY_ADMIN runtime config and is not imported by the admin.",
+  "areaTypes": [
+    "Холмы",
+    "Луг",
+    "Заводь",
+    "Река",
+    "Озеро",
+    "Болото",
+    "Опушка",
+    "Лес",
+    "Поле",
+    "Чаща",
+    "Джунгли",
+    "Горы"
+  ],
+  "areaComposition": [
+    {
+      "areaType": "Холмы",
+      "units": 3
+    },
+    {
+      "areaType": "Луг",
+      "units": 4
+    },
+    {
+      "areaType": "Заводь",
+      "units": 2
+    },
+    {
+      "areaType": "Река",
+      "units": 1
+    },
+    {
+      "areaType": "Опушка",
+      "units": 3
+    },
+    {
+      "areaType": "Лес",
+      "units": 2
+    },
+    {
+      "areaType": "Поле",
+      "units": 5
+    }
+  ],
+  "professions": [
+    {
+      "profession": "Herbalist",
+      "workers": 2
+    },
+    {
+      "profession": "Gatherer (Равнины)",
+      "workers": 3
+    },
+    {
+      "profession": "Gatherer (Болота)",
+      "workers": 2
+    },
+    {
+      "profession": "Gatherer (Леса)",
+      "workers": 2
+    },
+    {
+      "profession": "Fisherman",
+      "workers": 2
+    },
+    {
+      "profession": "Forester",
+      "workers": 1
+    },
+    {
+      "profession": "Beekeeper",
+      "workers": 1
+    }
+  ],
+  "gatheringRules": [
+    {
+      "areaType": "Холмы",
+      "profession": "Herbalist",
+      "resource": "Травы"
+    },
+    {
+      "areaType": "Холмы",
+      "profession": "Gatherer (Равнины)",
+      "resource": "Пенька"
+    },
+    {
+      "areaType": "Луг",
+      "profession": "Herbalist",
+      "resource": "Травы"
+    },
+    {
+      "areaType": "Луг",
+      "profession": "Gatherer (Равнины)",
+      "resource": "Сено"
+    },
+    {
+      "areaType": "Заводь",
+      "profession": "Herbalist",
+      "resource": "Травы"
+    },
+    {
+      "areaType": "Заводь",
+      "profession": "Gatherer (Болота)",
+      "resource": "Ягоды"
+    },
+    {
+      "areaType": "Заводь",
+      "profession": "Gatherer (Болота)",
+      "resource": "Тростник"
+    },
+    {
+      "areaType": "Заводь",
+      "profession": "Fisherman",
+      "resource": "Рыба"
+    },
+    {
+      "areaType": "Река",
+      "profession": "Herbalist",
+      "resource": "Травы"
+    },
+    {
+      "areaType": "Река",
+      "profession": "Fisherman",
+      "resource": "Рыба"
+    },
+    {
+      "areaType": "Озеро",
+      "profession": "Herbalist",
+      "resource": "Травы"
+    },
+    {
+      "areaType": "Озеро",
+      "profession": "Gatherer (Болота)",
+      "resource": "Ягоды"
+    },
+    {
+      "areaType": "Озеро",
+      "profession": "Gatherer (Болота)",
+      "resource": "Тростник"
+    },
+    {
+      "areaType": "Озеро",
+      "profession": "Fisherman",
+      "resource": "Рыба"
+    },
+    {
+      "areaType": "Болото",
+      "profession": "Herbalist",
+      "resource": "Травы"
+    },
+    {
+      "areaType": "Болото",
+      "profession": "Gatherer (Болота)",
+      "resource": "Ягоды"
+    },
+    {
+      "areaType": "Болото",
+      "profession": "Gatherer (Болота)",
+      "resource": "Тростник"
+    },
+    {
+      "areaType": "Опушка",
+      "profession": "Herbalist",
+      "resource": "Травы"
+    },
+    {
+      "areaType": "Опушка",
+      "profession": "Gatherer (Леса)",
+      "resource": "Валежник"
+    },
+    {
+      "areaType": "Опушка",
+      "profession": "Forester",
+      "resource": "Древесина"
+    },
+    {
+      "areaType": "Лес",
+      "profession": "Herbalist",
+      "resource": "Травы"
+    },
+    {
+      "areaType": "Лес",
+      "profession": "Gatherer (Леса)",
+      "resource": "Валежник"
+    },
+    {
+      "areaType": "Лес",
+      "profession": "Forester",
+      "resource": "Древесина"
+    },
+    {
+      "areaType": "Лес",
+      "profession": "Beekeeper",
+      "resource": "Мед"
+    },
+    {
+      "areaType": "Чаща",
+      "profession": "Herbalist",
+      "resource": "Травы"
+    },
+    {
+      "areaType": "Чаща",
+      "profession": "Gatherer (Леса)",
+      "resource": "Ягоды"
+    },
+    {
+      "areaType": "Чаща",
+      "profession": "Gatherer (Леса)",
+      "resource": "Валежник"
+    },
+    {
+      "areaType": "Чаща",
+      "profession": "Forester",
+      "resource": "Древесина"
+    },
+    {
+      "areaType": "Чаща",
+      "profession": "Beekeeper",
+      "resource": "Мед"
+    },
+    {
+      "areaType": "Горы",
+      "profession": "Herbalist",
+      "resource": "Травы"
+    },
+    {
+      "areaType": "Поле",
+      "profession": "Gatherer (Равнины)",
+      "resource": "Зерновые"
+    }
+  ]
+}
