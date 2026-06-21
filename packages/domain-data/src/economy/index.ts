@@ -9,7 +9,7 @@ import rationTemplatesJson from "./data/ration-templates.json";
 import selectedIdsJson from "./data/selected-ids.json";
 import skillsJson from "./data/skills.json";
 import techniquesJson from "./data/techniques.json";
-import type { EconomyAdminConfig } from "./entities";
+import type { DomainAdminConfig } from "./entities";
 
 export * from "./entities";
 
@@ -47,4 +47,4 @@ export const defaultEconomyConfig = {
     skills: skillsJson,
     selectedTechniqueId: selectedIdsJson.selectedTechniqueId,
     techniques: techniquesJson,
-} as EconomyAdminConfig;
+} as DomainAdminConfig;

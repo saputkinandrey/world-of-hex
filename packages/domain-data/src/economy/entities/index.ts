@@ -2,5 +2,5 @@ export type { ConsumerAgeBand, ConsumerNeedProfile, ConfigConsumerNeedProfile } 
 export type { Good, GoodLevel, GoodProfile, LegacyGood } from './goods';
 export type { ProductionChain, ProductionGoodQuantity, ProductionRecipe } from './production';
 export type { RationItem, RationLineResult, RationResult, RationTemplate } from './rations';
-export type { Biome, EconomyAdminConfig } from './economy-admin-config';
+export type { Biome, DomainAdminConfig } from './domain-admin-config';
 export type { CharacterSkill, CharacterTechnique, SkillDefault } from './skills';

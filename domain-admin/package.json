@@ -1,0 +1,34 @@
+{
+    "name": "world-of-hex-domain-admin",
+    "private": true,
+    "version": "0.1.0",
+    "type": "module",
+    "scripts": {
+        "predev": "npm --prefix ../packages/domain-data run build && node scripts/align-react.mjs",
+        "dev": "node scripts/next-watch.mjs --port=3002 --debounce=2000",
+        "prebuild": "npm --prefix ../packages/domain-data run build && node scripts/align-react.mjs",
+        "build": "next build",
+        "prestart": "npm --prefix ../packages/domain-data run build && node scripts/align-react.mjs",
+        "start": "next start -p 3002",
+        "pretest": "npm --prefix ../packages/domain-data run build",
+        "test": "node scripts/test-ration-quantity-step.mjs && node scripts/test-ration-good-type-filter.mjs && node scripts/test-ration-vp-chip-placement.mjs && node scripts/test-ration-spice-solver-limit.mjs && node scripts/test-ration-cost-solver-goal.mjs && node scripts/test-ration-water-solver-goal.mjs && node scripts/test-ration-calculator-boundary.mjs && node scripts/test-entity-types-boundary.mjs && node scripts/test-config-sync-performance.mjs && node scripts/test-biome-level-rule.mjs && node scripts/test-good-profile-schema.mjs && node scripts/test-good-price-schema.mjs && node scripts/test-legume-representatives.mjs && node scripts/test-legume-dishes.mjs && node scripts/test-legume-intermediates.mjs && node scripts/test-spice-ingredients.mjs && node scripts/test-water-processing.mjs && node scripts/test-onion-ingredients.mjs && node scripts/test-pepper-ingredients.mjs && node scripts/test-fermented-foods.mjs && node scripts/test-recipe-proportions-duration.mjs && node scripts/test-skills-db.mjs && node scripts/test-techniques.mjs && node scripts/test-world-traits.mjs && node scripts/test-behavior-actions.mjs && node scripts/test-creature-species.mjs && node scripts/test-consumer-profiles.mjs",
+        "lint": "next lint"
+    },
+    "dependencies": {
+        "@emotion/react": "11.11.4",
+        "@emotion/styled": "11.11.5",
+        "@mui/icons-material": "5.16.7",
+        "@mui/material": "5.16.7",
+        "@wohex/domain-data": "file:../packages/domain-data",
+        "@wohex/ui": "file:../packages/ui",
+        "next": "14.2.15",
+        "styled-jsx": "^5.1.1"
+    },
+    "devDependencies": {
+        "@types/node": "22.15.30",
+        "@types/react": "18.3.12",
+        "@types/react-dom": "18.3.1",
+        "chokidar": "3.6.0",
+        "typescript": "5.8.3"
+    }
+}

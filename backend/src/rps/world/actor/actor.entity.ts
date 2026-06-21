@@ -9,7 +9,7 @@ import { CreatureTemplateEntity } from '../../domain/character/creature-template
 import { ActionTag } from '../actions/action-tags';
 import { MemeId } from '../memes';
 import { getLeveledMorphLevel, leveledMorphPrefix, LeveledMorphTemplateId, MorphId } from '../morphs';
-import { estimateStomachCapacityLb, SIZE_MODIFIER_MORPH_PREFIX } from '@wohex/domain-data/rps';
+import { estimateStomachCapacityLbFromMorphIds, SIZE_MODIFIER_MORPH_PREFIX } from '@wohex/domain-data/rps';
 
 /**
  * Пищевая ценность ресурса / приёма пищи.
@@ -161,16 +161,15 @@ export function getSizeModifierFromMorphs(actor: ActorEntity): number | undefine
 
 /**
  * Stomach capacity in pounds for the actor.
- * SM0 uses 1 lb. Other SM values use SR-table linear measurement and
- * square-cube volume scaling from the shared domain-data helper.
+ * ST10/Average build at 145 lb uses 1 lb; capacity scales linearly with body weight.
  */
 export function getStomachCapacityLb(actor: ActorEntity): number {
-    const sm = getSizeModifierFromMorphs(actor);
-    if (sm === undefined) {
-        throw new Error('Cannot estimate stomach capacity without explicit size modifier morph.');
+    const estimate = estimateStomachCapacityLbFromMorphIds(actor.getProfileMorphIds());
+    if (!estimate) {
+        throw new Error('Cannot estimate stomach capacity without explicit ST morph.');
     }
 
-    return estimateStomachCapacityLb(sm).capacityLb;
+    return estimate.capacityLb;
 }
 
 /**

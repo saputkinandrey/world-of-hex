@@ -1,0 +1,43 @@
+{
+  "id": "domain-admin-spec-audit-reference",
+  "status": "reference-only",
+  "source": "Implementation audit notes for DOMAIN_ADMIN",
+  "scope": "Developer-side audit notes. This data is not part of DOMAIN_ADMIN runtime config and is not imported by the admin.",
+  "specificationPhases": [
+    {
+      "id": "domain-admin.phase.1",
+      "title": "Ration and consumer needs",
+      "status": "ready first",
+      "priority": 1,
+      "implemented": "done"
+    },
+    {
+      "id": "domain-admin.phase.2",
+      "title": "Consumer population composition",
+      "status": "needs design cleanup",
+      "priority": 2,
+      "implemented": "done"
+    },
+    {
+      "id": "audit.spec",
+      "title": "Domain admin data audit",
+      "status": "added for quality control",
+      "priority": 1,
+      "implemented": "done"
+    }
+  ],
+  "specificationIssues": [
+    {
+      "id": "issue.units.food_quantity",
+      "title": "Food quantity unit unclear",
+      "priority": 1,
+      "handling": "Kept as explicit ration points; weight remains quantity x 0.2 lbs until units are canonized."
+    },
+    {
+      "id": "issue.race_target_needs",
+      "title": "Race target needs not cleanly linked",
+      "priority": 1,
+      "handling": "Exposed target protein/energy/weight as editable inputs instead of hiding a weak race lookup."
+    }
+  ]
+}

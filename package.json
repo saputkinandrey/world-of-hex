@@ -4,7 +4,7 @@
   "version": "0.1.0",
   "workspaces": [
     "admin",
-    "economy-admin",
+    "domain-admin",
     "heightmap-generator",
     "web-client",
     "packages/*"
@@ -13,7 +13,7 @@
     "backend:dev": "npm --prefix backend run start:dev",
     "infra:up": "docker compose --env-file backend/.env -f backend/docker-compose.document.yaml up -d mongo redis",
     "admin:dev": "npm --prefix admin run dev",
-    "economy-admin:dev": "npm --prefix economy-admin run dev",
+    "domain-admin:dev": "npm --prefix domain-admin run dev",
     "heightmap:dev": "npm --prefix heightmap-generator run dev",
     "heightmap:generate": "npm --prefix heightmap-generator run generate --",
     "web-client:dev": "npm --prefix web-client run dev"

@@ -10,7 +10,11 @@ import {
 } from '../world/actor/actor.entity';
 import type { CreatureTemplateEntity } from '../domain/character/creature-template.entity';
 import type { CharacterEntity } from '../domain/character/character.entity';
-import { estimateDailyFoodMassNeedLb, estimateHexVolume } from '@wohex/domain-data/rps';
+import {
+    estimateDailyFoodMassNeedLbFromStrengthAndBuild,
+    estimateHexVolume,
+    getStrengthFromMorphIds,
+} from '@wohex/domain-data/rps';
 
 /**
  * Хелпер, который знает, как из доменных сущностей собрать ActorEntity
@@ -40,11 +44,16 @@ export class ActorFactoryHelper {
             carryVolumeCapacity: volumeEstimate.carryVolumeCapacity,
         });
 
+        const strength = getStrengthFromMorphIds(template.morphIds) ?? template.primary?.st?.totalLevel;
+        if (strength === undefined || !Number.isFinite(strength)) {
+            throw new Error(`Cannot estimate daily food mass for template ${template.name} without explicit ST.`);
+        }
+
         const nutritionNeeds: NutritionNeeds = {
             energyPerDay: 10,
             proteinPerDay: 1,
             waterPerDay: 0.5,
-            massPerDayLb: estimateDailyFoodMassNeedLb(template.sizeModifier),
+            massPerDayLb: estimateDailyFoodMassNeedLbFromStrengthAndBuild(strength),
         };
 
         const consumptionPerTurn: NutritionContent = {

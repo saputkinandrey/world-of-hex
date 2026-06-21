@@ -1,0 +1,13 @@
+{
+  "id": "palladia-family-approximation",
+  "status": "reference-only",
+  "source": "Roleplaying.xlsx / Palladia family composition notes",
+  "scope": "Statistical approximation for one concrete culture. This data is not part of DOMAIN_ADMIN runtime config and is not imported by the admin.",
+  "bands": [
+    { "band": "Senior", "label": "Senior", "min": 0, "max": 1, "workforceMultiplier": 0.5, "consumptionMultiplier": 0.9 },
+    { "band": "Adult", "label": "Adults", "min": 2, "max": 40, "workforceMultiplier": 1, "consumptionMultiplier": 1 },
+    { "band": "Infant", "label": "Infants", "min": 0, "max": 160, "workforceMultiplier": -0.25, "consumptionMultiplier": 0 },
+    { "band": "Child", "label": "Children", "min": 0, "max": 120, "workforceMultiplier": 0.25, "consumptionMultiplier": 0.8 },
+    { "band": "Teenager", "label": "Teenagers", "min": 0, "max": 80, "workforceMultiplier": 0.75, "consumptionMultiplier": 1 }
+  ]
+}
