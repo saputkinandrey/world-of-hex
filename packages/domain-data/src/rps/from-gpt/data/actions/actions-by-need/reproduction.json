@@ -1,0 +1,187 @@
+{
+    "exports": {
+        "ReproductionActions": [
+            {
+                "tag": "SEEK_PARTNER",
+                "costEnergy": -0.3,
+                "costTime": 2,
+                "rewardSecondary": {
+                    "REPRODUCTION": 0.5,
+                    "SOCIAL": 0.4,
+                    "MOOD": 0.3
+                },
+                "skillRequired": "Charm",
+                "locationType": "community"
+            },
+            {
+                "tag": "FLIRT",
+                "costEnergy": -0.1,
+                "costTime": 0.5,
+                "rewardSecondary": {
+                    "REPRODUCTION": 0.3,
+                    "MOOD": 0.4,
+                    "SOCIAL": 0.2
+                },
+                "skillRequired": "Empathy",
+                "targetType": "OTHER"
+            },
+            {
+                "tag": "GIFT_TO_PARTNER",
+                "costEnergy": -0.15,
+                "costTime": 0.5,
+                "rewardSecondary": {
+                    "REPRODUCTION": 0.4,
+                    "TRUST": 0.3,
+                    "MOOD": 0.2
+                },
+                "requiresItem": ["gift"],
+                "targetType": "OTHER"
+            },
+            {
+                "tag": "COURTSHIP_RITUAL",
+                "costEnergy": -0.4,
+                "costTime": 3,
+                "rewardSecondary": {
+                    "REPRODUCTION": 0.6,
+                    "SOCIAL": 0.5,
+                    "SPIRIT": 0.3
+                },
+                "locationType": "ritual_site"
+            },
+            {
+                "tag": "SHOW_STRENGTH",
+                "costEnergy": -0.3,
+                "costTime": 1,
+                "rewardSecondary": {
+                    "REPRODUCTION": 0.4,
+                    "STATUS": 0.3
+                },
+                "skillRequired": "Athletics"
+            },
+            {
+                "tag": "BUILD_HOME_FOR_FAMILY",
+                "costEnergy": -0.6,
+                "costTime": 6,
+                "rewardSecondary": {
+                    "REPRODUCTION": 0.8,
+                    "SECURITY": 0.5,
+                    "STATUS": 0.3
+                },
+                "locationType": "settlement"
+            },
+            {
+                "tag": "FORM_UNION",
+                "costEnergy": -0.2,
+                "costTime": 2,
+                "rewardSecondary": {
+                    "REPRODUCTION": 0.7,
+                    "LOVE": 0.8,
+                    "SOCIAL": 0.4
+                },
+                "locationType": "community",
+                "targetType": "OTHER",
+                "moralWeight": 0.3
+            },
+            {
+                "tag": "MAKE_LOVE",
+                "costEnergy": -0.5,
+                "costTime": 1.5,
+                "rewardSecondary": {
+                    "REPRODUCTION": 1,
+                    "LOVE": 0.6,
+                    "MOOD": 0.3
+                },
+                "targetType": "OTHER"
+            },
+            {
+                "tag": "ATTEMPT_CONCEPTION",
+                "costEnergy": -0.6,
+                "costTime": 1.5,
+                "rewardSecondary": {
+                    "REPRODUCTION": 1.2,
+                    "FAMILY": 0.6
+                },
+                "targetType": "OTHER",
+                "risk": 0.3
+            },
+            {
+                "tag": "CARE_FOR_PARTNER",
+                "costEnergy": -0.2,
+                "costTime": 1,
+                "rewardSecondary": {
+                    "REPRODUCTION": 0.5,
+                    "LOVE": 0.4,
+                    "TRUST": 0.3
+                },
+                "targetType": "OTHER"
+            },
+            {
+                "tag": "CARE_FOR_CHILD",
+                "costEnergy": -0.4,
+                "costTime": 3,
+                "rewardSecondary": {
+                    "REPRODUCTION": 0.8,
+                    "LOVE": 0.6,
+                    "FAMILY": 0.8
+                },
+                "targetType": "FAMILY"
+            },
+            {
+                "tag": "TEACH_CHILD",
+                "costEnergy": -0.3,
+                "costTime": 2,
+                "rewardSecondary": {
+                    "REPRODUCTION": 0.6,
+                    "KNOWLEDGE": 0.5,
+                    "FAMILY": 0.5
+                },
+                "targetType": "FAMILY"
+            },
+            {
+                "tag": "CELEBRATE_FERTILITY",
+                "costEnergy": -0.3,
+                "costTime": 2.5,
+                "rewardSecondary": {
+                    "REPRODUCTION": 0.7,
+                    "SPIRIT": 0.5,
+                    "SOCIAL": 0.4
+                },
+                "locationType": "ritual_site"
+            },
+            {
+                "tag": "DEFEND_FAMILY",
+                "costEnergy": -0.6,
+                "costTime": 1.5,
+                "rewardSecondary": {
+                    "REPRODUCTION": 0.7,
+                    "SECURITY": 0.8,
+                    "HONOR": 0.5
+                },
+                "risk": 0.4,
+                "locationType": "home"
+            },
+            {
+                "tag": "SEEK_MIDWIFE",
+                "costEnergy": -0.3,
+                "costTime": 3,
+                "rewardSecondary": {
+                    "REPRODUCTION": 0.6,
+                    "HEALTH": 0.5,
+                    "FAMILY": 0.4
+                },
+                "targetType": "OTHER"
+            },
+            {
+                "tag": "BLESS_CHILD",
+                "costEnergy": -0.1,
+                "costTime": 1,
+                "rewardSecondary": {
+                    "REPRODUCTION": 0.5,
+                    "SPIRIT": 0.6,
+                    "FAMILY": 0.4
+                },
+                "locationType": "temple"
+            }
+        ]
+    }
+}

@@ -1,0 +1,76 @@
+{
+  "id": "animal.mammal.canine",
+  "name": "Canine",
+  "kind": "template",
+  "parentId": "animal.mammal",
+  "defaultActorName": "Canine%N%",
+  "memes": [
+    "eth.sociality.cooperative",
+    "tech.combat.bite_basic",
+    "tech.hunting.core",
+    "tech.hunting.tracking_basic",
+    "eth.predation.drive.prey_drive",
+    "eth.predation.drive.scavenging",
+    "eth.tactics.pursuit_chase"
+  ],
+  "morphs": [
+    "eth.predation.core",
+    "morph.body_plan.tetrapod_large_ground",
+    "morph.locomotion.walk_quadruped",
+    "morph.manip.forepaws_non_manip",
+    "morph.natural_weapon.bite_medium",
+    "morph.sense.olfaction_tracking",
+    "morph.sense.vision_binocular"
+  ],
+  "traits": [],
+  "actions": [
+    {
+      "group": "actions-by-need",
+      "moduleName": "food-hunt",
+      "exportName": "HUNT_ACTIVE_FORAGE"
+    },
+    {
+      "group": "etho",
+      "moduleName": "action-universal",
+      "exportName": "SCENT_TRAIL_TRACK"
+    },
+    {
+      "group": "etho",
+      "moduleName": "action-universal",
+      "exportName": "NOCTURNAL_FORAGE"
+    },
+    {
+      "group": "etho",
+      "moduleName": "action-universal",
+      "exportName": "BASK_SUN_THERMOREGULATE"
+    },
+    {
+      "group": "etho",
+      "moduleName": "action-universal",
+      "exportName": "SEEK_COOL_SHELTER"
+    },
+    {
+      "group": "etho",
+      "moduleName": "action-small-vertebrate",
+      "exportName": "SHORT_DASH_ATTACK"
+    }
+  ],
+  "nutritionNeedsPerDay": {
+    "energyPerDay": 0,
+    "proteinPerDay": 0,
+    "waterPerDay": 0,
+    "massPerDayLb": 0
+  },
+  "consumptionPerTurn": {
+    "energy": 0,
+    "protein": 0,
+    "water": 0,
+    "massLb": 0
+  },
+  "physical": {
+    "baseVolume": 0,
+    "minVolume": 0,
+    "carryVolumeCapacity": 0
+  },
+  "notes": "Broad canine template: mammalian pursuit/scavenging predator baseline without selecting a concrete dog or wolf species."
+}

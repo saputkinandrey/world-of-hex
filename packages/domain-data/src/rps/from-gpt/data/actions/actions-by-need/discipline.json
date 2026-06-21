@@ -1,0 +1,371 @@
+{
+    "exports": {
+        "DisciplineActions": [
+            {
+                "tag": "DAWN_ROLL_CALL",
+                "costEnergy": -0.08,
+                "costTime": 0.7,
+                "rewardSecondary": {
+                    "DISCIPLINE": 0.55,
+                    "ORDER": 0.5,
+                    "STABILITY": 0.3,
+                    "TRUST": 0.2
+                },
+                "requiresLocation": "yard|square",
+                "socialImpact": {
+                    "ACCOUNTABILITY": 0.4,
+                    "COHESION": 0.2
+                },
+                "lawEffect": {
+                    "rollCall": "mandatory",
+                    "enforceable": true
+                },
+                "requiredMemes": [
+                    "health.sanitation_norms",
+                    "health.waste_handling",
+                    "comm.language.written"
+                ]
+            },
+            {
+                "tag": "CODE_RECITAL",
+                "costEnergy": -0.06,
+                "costTime": 0.6,
+                "rewardSecondary": {
+                    "DISCIPLINE": 0.55,
+                    "CLARITY": 0.4,
+                    "INTEGRITY": 0.3,
+                    "IDENTITY": 0.2
+                },
+                "requiresLocation": "hall|temple",
+                "socialImpact": {
+                    "RESPECT": 0.2,
+                    "UNITY": 0.2
+                },
+                "lawEffect": {
+                    "codeCharter": "reaffirmed",
+                    "enforceable": true
+                },
+                "requiredMemes": [
+                    "culture.vigil_ritual",
+                    "cog.timekeeping.basic",
+                    "comm.language.written"
+                ]
+            },
+            {
+                "tag": "PUNCTUALITY_CHECK",
+                "costEnergy": -0.05,
+                "costTime": 0.5,
+                "rewardSecondary": {
+                    "DISCIPLINE": 0.5,
+                    "ORDER": 0.4,
+                    "TRUST": 0.2,
+                    "PRODUCTIVITY": 0.2
+                },
+                "socialImpact": {
+                    "PUNCTUALITY": 0.4,
+                    "RESENTMENT": -0.05
+                },
+                "lawEffect": {
+                    "latePolicy": "warning|fine",
+                    "enforceable": true
+                }
+            },
+            {
+                "tag": "UNIFORM_STANDARD_CHECK",
+                "costEnergy": -0.08,
+                "costTime": 0.7,
+                "rewardSecondary": {
+                    "DISCIPLINE": 0.55,
+                    "ORDER": 0.3,
+                    "RESPECT": 0.2,
+                    "SAFETY": 0.1
+                },
+                "tradeEffect": {
+                    "linen": "-wear",
+                    "polish": -1
+                },
+                "socialImpact": {
+                    "DIGNITY": 0.2,
+                    "STATUS": 0.1
+                },
+                "lawEffect": {
+                    "dressCode": "posted",
+                    "enforceable": true
+                }
+            },
+            {
+                "tag": "DRILL_BASIC_FORMS",
+                "costEnergy": -0.18,
+                "costTime": 1.2,
+                "rewardSecondary": {
+                    "DISCIPLINE": 0.65,
+                    "COURAGE": 0.3,
+                    "ORDER": 0.3,
+                    "READINESS": 0.3
+                },
+                "requiresLocation": "yard|field",
+                "socialImpact": {
+                    "COHESION": 0.3,
+                    "RESPECT": 0.2
+                },
+                "ownershipEffect": {
+                    "drillLog": "updated"
+                },
+                "requiredMemes": [
+                    "health.sanitation_norms",
+                    "health.waste_handling"
+                ]
+            },
+            {
+                "tag": "SILENCE_INTERVALS",
+                "costEnergy": -0.04,
+                "costTime": 0.5,
+                "rewardSecondary": {
+                    "DISCIPLINE": 0.55,
+                    "FOCUS": 0.35,
+                    "ORDER": 0.25,
+                    "CLARITY": 0.2
+                },
+                "socialImpact": {
+                    "CALM": 0.3
+                },
+                "lawEffect": {
+                    "quietHours": "posted",
+                    "enforceable": true
+                }
+            },
+            {
+                "tag": "TASK_START_RITUAL",
+                "costEnergy": -0.06,
+                "costTime": 0.6,
+                "rewardSecondary": {
+                    "DISCIPLINE": 0.6,
+                    "FOCUS": 0.3,
+                    "ORDER": 0.3,
+                    "PRODUCTIVITY": 0.2
+                },
+                "requiresLocation": "workbench|gate",
+                "socialImpact": {
+                    "RELIABILITY": 0.2
+                },
+                "ownershipEffect": {
+                    "logbook": "task_start_mark"
+                },
+                "requiredMemes": [
+                    "culture.vigil_ritual",
+                    "cog.timekeeping.basic",
+                    "record.boundary_marking"
+                ]
+            },
+            {
+                "tag": "CLEAN_AS_YOU_GO",
+                "costEnergy": -0.12,
+                "costTime": 0.9,
+                "rewardSecondary": {
+                    "DISCIPLINE": 0.6,
+                    "ORDER": 0.5,
+                    "HYGIENE": 0.3,
+                    "QUALITY": 0.2
+                },
+                "tradeEffect": {
+                    "rags": "-wear",
+                    "soap": -1
+                },
+                "socialImpact": {
+                    "DIGNITY": 0.2,
+                    "RESPECT": 0.1
+                },
+                "ownershipEffect": {
+                    "workspaceState": "tidy"
+                },
+                "requiredMemes": [
+                    "health.sanitation_norms",
+                    "health.waste_handling",
+                    "tech.tool.use_basic"
+                ]
+            },
+            {
+                "tag": "STRICT_BREAK_WINDOWS",
+                "costEnergy": -0.05,
+                "costTime": 0.5,
+                "rewardSecondary": {
+                    "DISCIPLINE": 0.55,
+                    "ORDER": 0.4,
+                    "STABILITY": 0.3,
+                    "PRODUCTIVITY": 0.2
+                },
+                "socialImpact": {
+                    "PUNCTUALITY": 0.3,
+                    "RESENTMENT": -0.05
+                },
+                "lawEffect": {
+                    "breakPolicy": "posted",
+                    "enforceable": true
+                }
+            },
+            {
+                "tag": "CONSEQUENCE_LEDGER",
+                "costEnergy": -0.1,
+                "costTime": 0.9,
+                "rewardSecondary": {
+                    "DISCIPLINE": 0.6,
+                    "CLARITY": 0.5,
+                    "ORDER": 0.4,
+                    "TRUST": 0.2
+                },
+                "tradeEffect": {
+                    "parchment": -1,
+                    "ink": -1
+                },
+                "socialImpact": {
+                    "TRANSPARENCY": 0.3,
+                    "FEAR": 0.05
+                },
+                "ownershipEffect": {
+                    "disciplineLog": "updated"
+                },
+                "lawEffect": {
+                    "penaltyScale": "posted",
+                    "enforceable": true
+                },
+                "requiredMemes": [
+                    "comm.language.written",
+                    "record.ledgerkeeping"
+                ]
+            },
+            {
+                "tag": "PRAISE_PUBLIC_GOOD",
+                "costEnergy": -0.06,
+                "costTime": 0.6,
+                "rewardSecondary": {
+                    "DISCIPLINE": 0.65,
+                    "MORALE": 0.4,
+                    "TRUST": 0.2,
+                    "ORDER": 0.2
+                },
+                "requiresLocation": "yard|hall",
+                "socialImpact": {
+                    "COHESION": 0.3,
+                    "RESENTMENT": -0.05
+                },
+                "lawEffect": {
+                    "honorRoll": "posted",
+                    "enforceable": false
+                },
+                "requiredMemes": [
+                    "health.sanitation_norms",
+                    "health.waste_handling",
+                    "comm.language.written"
+                ]
+            },
+            {
+                "tag": "SELF_DENIAL_DRILL",
+                "costEnergy": -0.12,
+                "costTime": 0.8,
+                "risk": 0.06,
+                "rewardSecondary": {
+                    "DISCIPLINE": 0.6,
+                    "COURAGE": 0.3,
+                    "RESILIENCE": 0.3,
+                    "FOCUS": 0.2
+                },
+                "socialImpact": {
+                    "RESPECT": 0.2,
+                    "AUSTERITY": 0.3
+                },
+                "lawEffect": {
+                    "excessBan": "observed",
+                    "enforceable": false
+                }
+            },
+            {
+                "tag": "CURFEW_OBSERVANCE",
+                "costEnergy": -0.04,
+                "costTime": 0.5,
+                "rewardSecondary": {
+                    "DISCIPLINE": 0.55,
+                    "ORDER": 0.4,
+                    "SECURITY": 0.2,
+                    "STABILITY": 0.2
+                },
+                "socialImpact": {
+                    "TRUST": 0.1,
+                    "PANIC": -0.05
+                },
+                "lawEffect": {
+                    "curfew": "active",
+                    "enforceable": true
+                }
+            },
+            {
+                "tag": "EQUIPMENT_CHECK_IN_OUT",
+                "costEnergy": -0.1,
+                "costTime": 0.9,
+                "rewardSecondary": {
+                    "DISCIPLINE": 0.6,
+                    "ORDER": 0.4,
+                    "TRUST": 0.3,
+                    "STABILITY": 0.2
+                },
+                "ownershipEffect": {
+                    "gearLedger": "in_out",
+                    "accessScope": "stores",
+                    "grantAccess": true
+                },
+                "socialImpact": {
+                    "RESPONSIBILITY": 0.3,
+                    "LOSS": -0.1
+                },
+                "lawEffect": {
+                    "depositRule": "posted",
+                    "enforceable": true
+                }
+            },
+            {
+                "tag": "TASK_TIME_PLEDGE",
+                "costEnergy": -0.08,
+                "costTime": 0.8,
+                "risk": 0.06,
+                "rewardSecondary": {
+                    "DISCIPLINE": 0.65,
+                    "FOCUS": 0.3,
+                    "TRUST": 0.2,
+                    "PRODUCTIVITY": 0.2
+                },
+                "socialImpact": {
+                    "ACCOUNTABILITY": 0.3
+                },
+                "lawEffect": {
+                    "pledgeBoard": "posted",
+                    "enforceable": true
+                },
+                "requiredMemes": [
+                    "comm.language.written",
+                    "record.ledgerkeeping",
+                    "econ.pooling_common_fund",
+                    "econ.deposit_contract"
+                ]
+            },
+            {
+                "tag": "WEEKLY_RETROSPECT",
+                "costEnergy": -0.12,
+                "costTime": 1,
+                "rewardSecondary": {
+                    "DISCIPLINE": 0.7,
+                    "CLARITY": 0.5,
+                    "ORDER": 0.4,
+                    "RESILIENCE": 0.3
+                },
+                "requiresLocation": "hall|workyard",
+                "socialImpact": {
+                    "COHESION": 0.3,
+                    "TRUST": 0.2
+                },
+                "ownershipEffect": {
+                    "actionItems": "issued"
+                },
+                "requiredMemes": ["comm.language.written"]
+            }
+        ]
+    }
+}

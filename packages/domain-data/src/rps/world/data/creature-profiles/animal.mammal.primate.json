@@ -1,0 +1,50 @@
+{
+  "id": "animal.mammal.primate",
+  "name": "Primate",
+  "kind": "template",
+  "parentId": "animal.mammal",
+  "defaultActorName": "Primate%N%",
+  "memes": [
+    "eth.sociality.cooperative"
+  ],
+  "morphs": [
+    "cog.iq4",
+    "morph.body_plan.tetrapod_climber",
+    "morph.locomotion.climb_rough_surface",
+    "morph.locomotion.walk_biped",
+    "morph.manip.hands_grasping",
+    "morph.sense.vision_binocular",
+    "morph.sense.vision_color_rich"
+  ],
+  "traits": [],
+  "actions": [
+    {
+      "group": "etho",
+      "moduleName": "action-universal",
+      "exportName": "BASK_SUN_THERMOREGULATE"
+    },
+    {
+      "group": "etho",
+      "moduleName": "action-universal",
+      "exportName": "SEEK_COOL_SHELTER"
+    }
+  ],
+  "nutritionNeedsPerDay": {
+    "energyPerDay": 0,
+    "proteinPerDay": 0,
+    "waterPerDay": 0,
+    "massPerDayLb": 0
+  },
+  "consumptionPerTurn": {
+    "energy": 0,
+    "protein": 0,
+    "water": 0,
+    "massLb": 0
+  },
+  "physical": {
+    "baseVolume": 0,
+    "minVolume": 0,
+    "carryVolumeCapacity": 0
+  },
+  "notes": "Broad primate template: grasping hands, climbing, binocular/color vision and elevated cognition. Tool/culture traits belong to child species or cultures."
+}

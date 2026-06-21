@@ -1,0 +1,293 @@
+{
+    "eth.sociality.solitary": {
+        "present": [{ "need": "PRIVACY", "weight": 0.15 }]
+    },
+    "eth.sociality.cooperative": {
+        "present": [
+            { "need": "BELONGING", "weight": 0.3 },
+            { "need": "COMMUNITY", "weight": 0.25 },
+            { "need": "LOYALTY", "weight": 0.2 }
+        ]
+    },
+    "eth.territory_marking": {
+        "present": [
+            { "need": "PROPERTY", "weight": 0.1 },
+            { "need": "CONTROL", "weight": 0.1 },
+            { "need": "SECURITY", "weight": 0.05 }
+        ]
+    },
+    "eth.predation.drive.prey_drive": {
+        "present": [
+            { "need": "FOOD", "weight": 0.25 },
+            { "need": "CURIOSITY", "weight": 0.1 }
+        ]
+    },
+    "eth.predation.drive.opportunistic": {
+        "present": [{ "need": "FOOD", "weight": 0.15 }]
+    },
+    "eth.predation.drive.scavenging": {
+        "present": [{ "need": "FOOD", "weight": 0.15 }]
+    },
+    "eth.predation.drive.play_predation": {
+        "present": [
+            { "need": "MASTERY", "weight": 0.2 },
+            { "need": "CURIOSITY", "weight": 0.15 }
+        ]
+    },
+    "eth.tactics.ambush_stalk": {
+        "present": [
+            { "need": "FOCUS", "weight": 0.1 },
+            { "need": "SAFETY", "weight": 0.05 }
+        ]
+    },
+    "eth.tactics.pursuit_chase": {
+        "present": [{ "need": "ENERGY", "weight": -0.05 }]
+    },
+    "eth.tactics.constriction": {
+        "present": [{ "need": "SAFETY", "weight": 0.05 }]
+    },
+    "tech.combat.core": {
+        "present": [{ "need": "SAFETY", "weight": 0.1 }]
+    },
+    "tech.combat.bite_basic": {
+        "present": [{ "need": "SAFETY", "weight": 0.05 }]
+    },
+    "tech.combat.venom_delivery": {
+        "present": [{ "need": "SAFETY", "weight": 0.05 }]
+    },
+    "tech.hunting.core": {
+        "present": [
+            { "need": "FOOD", "weight": 0.2 },
+            { "need": "FOCUS", "weight": 0.05 }
+        ]
+    },
+    "tech.hunting.tracking_basic": {
+        "present": [{ "need": "FOCUS", "weight": 0.1 }]
+    },
+    "tech.hunting.stalking_basic": {
+        "present": [
+            { "need": "FOCUS", "weight": 0.1 },
+            { "need": "SAFETY", "weight": 0.05 }
+        ]
+    },
+    "tech.hunting.trapping_basic": {
+        "present": [{ "need": "EFFICIENCY", "weight": 0.1 }]
+    },
+    "tech.hunting.missile_hunt_basic": {
+        "present": [{ "need": "SAFETY", "weight": 0.05 }]
+    },
+    "health.hygiene_tools": {
+        "present": [{ "need": "HYGIENE", "weight": 0.15 }]
+    },
+    "health.sanitation_norms": {
+        "present": [
+            { "need": "HYGIENE", "weight": 0.25 },
+            { "need": "HEALTH", "weight": 0.1 }
+        ]
+    },
+    "health.waste_handling": {
+        "present": [
+            { "need": "WASTE", "weight": 0.2 },
+            { "need": "HYGIENE", "weight": 0.1 }
+        ]
+    },
+    "health.waste_sorting": {
+        "present": [{ "need": "WASTE", "weight": 0.15 }]
+    },
+    "health.first_aid_basic": {
+        "present": [{ "need": "HEALTH", "weight": 0.2 }]
+    },
+    "health.herbal_knowledge": {
+        "present": [{ "need": "HEALTH", "weight": 0.1 }]
+    },
+    "soc.shared_attention": {
+        "present": [{ "need": "SOCIAL", "weight": 0.15 }]
+    },
+    "soc.networking.basic": {
+        "present": [
+            { "need": "NETWORK", "weight": 0.2 },
+            { "need": "SOCIAL", "weight": 0.1 }
+        ]
+    },
+    "soc.networking.coalition_building": {
+        "present": [
+            { "need": "NETWORK", "weight": 0.25 },
+            { "need": "POWER", "weight": 0.1 }
+        ]
+    },
+    "comm.signaling": {
+        "present": [{ "need": "SOCIAL", "weight": 0.1 }]
+    },
+    "comm.language.spoken": {
+        "present": [
+            { "need": "SOCIAL", "weight": 0.15 },
+            { "need": "CLARITY", "weight": 0.1 }
+        ]
+    },
+    "comm.language.written": {
+        "present": [
+            { "need": "KNOWLEDGE", "weight": 0.15 },
+            { "need": "LEGACY", "weight": 0.1 }
+        ]
+    },
+    "comm.persuasion.basic": {
+        "present": [
+            { "need": "POWER", "weight": 0.05 },
+            { "need": "STATUS", "weight": 0.05 }
+        ]
+    },
+    "comm.rhetoric.public_debate": {
+        "present": [
+            { "need": "STATUS", "weight": 0.1 },
+            { "need": "RESPECT", "weight": 0.1 }
+        ]
+    },
+    "culture.ritual_basic": {
+        "present": [
+            { "need": "CULTURE", "weight": 0.15 },
+            { "need": "TRADITION", "weight": 0.15 },
+            { "need": "SPIRIT", "weight": 0.05 }
+        ]
+    },
+    "culture.vigil_ritual": {
+        "present": [
+            { "need": "DISCIPLINE", "weight": 0.1 },
+            { "need": "SPIRIT", "weight": 0.1 }
+        ]
+    },
+    "culture.oath_norm": {
+        "present": [
+            { "need": "HONOR", "weight": 0.2 },
+            { "need": "INTEGRITY", "weight": 0.15 }
+        ]
+    },
+    "culture.justice_concept": {
+        "present": [
+            { "need": "JUSTICE", "weight": 0.2 },
+            { "need": "FAIRNESS", "weight": 0.15 }
+        ]
+    },
+    "culture.competition.ethos": {
+        "present": [{ "need": "COMPETITION", "weight": 0.2 }]
+    },
+    "culture.competition.fair_play_norm": {
+        "present": [
+            { "need": "FAIRNESS", "weight": 0.15 },
+            { "need": "INTEGRITY", "weight": 0.1 }
+        ]
+    },
+    "econ.exchange_barter": {
+        "present": [{ "need": "WEALTH", "weight": 0.15 }]
+    },
+    "econ.market_norms": {
+        "present": [
+            { "need": "WEALTH", "weight": 0.2 },
+            { "need": "ORDER", "weight": 0.1 }
+        ]
+    },
+    "econ.contracting.contract_basic": {
+        "present": [
+            { "need": "ACCOUNTABILITY", "weight": 0.15 },
+            { "need": "TRUST", "weight": 0.1 }
+        ]
+    },
+    "econ.contracting.bidding_norm": {
+        "present": [{ "need": "COMPETITION", "weight": 0.1 }]
+    },
+    "econ.pooling_common_fund": {
+        "present": [
+            { "need": "COMMUNITY", "weight": 0.15 },
+            { "need": "TRUST", "weight": 0.1 }
+        ]
+    },
+    "econ.deposit_contract": {
+        "present": [
+            { "need": "PROPERTY", "weight": 0.15 },
+            { "need": "SECURITY", "weight": 0.1 }
+        ]
+    },
+    "org.scheduling": {
+        "present": [
+            { "need": "ORDER", "weight": 0.15 },
+            { "need": "EFFICIENCY", "weight": 0.1 }
+        ]
+    },
+    "org.duty_roster": {
+        "present": [
+            { "need": "ACCOUNTABILITY", "weight": 0.1 },
+            { "need": "READINESS", "weight": 0.1 }
+        ]
+    },
+    "org.training.regimen_basic": {
+        "present": [
+            { "need": "MASTERY", "weight": 0.15 },
+            { "need": "DISCIPLINE", "weight": 0.1 }
+        ]
+    },
+    "org.workshop_practice": {
+        "present": [
+            { "need": "PRODUCTIVITY", "weight": 0.15 },
+            { "need": "QUALITY", "weight": 0.1 }
+        ]
+    },
+    "record.ledgerkeeping": {
+        "present": [
+            { "need": "ACCOUNTABILITY", "weight": 0.1 },
+            { "need": "ORDER", "weight": 0.1 }
+        ]
+    },
+    "record.innovation_register": {
+        "present": [{ "need": "INNOVATION_REP", "weight": 0.2 }]
+    },
+    "record.boundary_marking": {
+        "present": [
+            { "need": "PROPERTY", "weight": 0.1 },
+            { "need": "CONTROL", "weight": 0.05 }
+        ]
+    },
+    "record.scoreboard.basic": {
+        "present": [
+            { "need": "COMPETITION", "weight": 0.1 },
+            { "need": "STATUS", "weight": 0.05 }
+        ]
+    },
+    "law.public_posting": {
+        "present": [
+            { "need": "LAW", "weight": 0.2 },
+            { "need": "CLARITY", "weight": 0.1 }
+        ]
+    },
+    "cog.innovation.basic": {
+        "present": [
+            { "need": "CURIOSITY", "weight": 0.1 },
+            { "need": "CREATIVITY", "weight": 0.15 }
+        ]
+    },
+    "cog.measurement.rudimentary": {
+        "present": [{ "need": "CLARITY", "weight": 0.1 }]
+    },
+    "cog.number_concept": {
+        "present": [{ "need": "CLARITY", "weight": 0.05 }]
+    },
+    "tech.tool.making": {
+        "present": [
+            { "need": "PRODUCTIVITY", "weight": 0.1 },
+            { "need": "CREATIVITY", "weight": 0.05 }
+        ]
+    },
+    "tech.food.sanitation.kitchen_hygiene": {
+        "present": [{ "need": "HYGIENE", "weight": 0.1 }]
+    },
+    "tech.food.preservation.drying": {
+        "present": [{ "need": "RESILIENCE", "weight": 0.1 }]
+    },
+    "tech.food.preservation.fermentation": {
+        "present": [{ "need": "RESILIENCE", "weight": 0.1 }]
+    },
+    "tech.food.preservation.pickling": {
+        "present": [{ "need": "RESILIENCE", "weight": 0.1 }]
+    },
+    "tech.food.preservation.salty": {
+        "present": [{ "need": "RESILIENCE", "weight": 0.1 }]
+    }
+}

@@ -4,7 +4,7 @@ import {
   solveRationQuantities,
   type RationCalculatorItem,
 } from './ration-calculator';
-import defaultConfigJson from '../config/default-economy-admin-config.json';
+import { defaultEconomyConfig, defaultEconomyConfigFilePath } from '@wohex/domain-data/economy';
 import type {
   ConfigConsumerNeedProfile,
   ConsumerNeedProfile,
@@ -12,12 +12,12 @@ import type {
   GoodLevel,
   GoodProfile,
   LegacyGood,
-  ProductionStep,
+  ProductionRecipe,
   RationItem,
   RationResult,
   RationTemplate,
   EconomyAdminConfig,
-} from '../entities';
+} from '@wohex/domain-data/economy';
 
 export interface ConfigFileApiResponse {
   config?: EconomyAdminConfig;
@@ -28,7 +28,7 @@ export interface ConfigFileApiResponse {
 const storageKey = 'wohex.economy-admin.config.v1';
 const filePathStorageKey = 'wohex.economy-admin.config-file-path.v1';
 const configFileApiPath = '/api/config';
-const defaultConfigFilePath = 'economy-admin/config/default-economy-admin-config.json';
+const defaultConfigFilePath = defaultEconomyConfigFilePath;
 const configSyncDebounceMs = 250;
 const percentFactor = 100;
 const spiceGoodType = 'Специи';
@@ -51,7 +51,7 @@ const cloneConfig = (config: EconomyAdminConfig): EconomyAdminConfig => {
   return JSON.parse(JSON.stringify(config)) as EconomyAdminConfig;
 };
 
-const defaultConfig = cloneConfig(defaultConfigJson as EconomyAdminConfig);
+const defaultConfig = cloneConfig(defaultEconomyConfig);
 
 const formatNumber = (value: number, digits = 2): string => {
   return new Intl.NumberFormat('ru-RU', { maximumFractionDigits: digits }).format(
@@ -162,6 +162,7 @@ const normalizeConfig = (config: EconomyAdminConfig): EconomyAdminConfig => {
   normalized.goods = normalized.goods ?? legacyConfig.foodItems ?? [];
   normalized.consumers = normalized.consumers ?? [];
   normalized.skills = normalized.skills ?? [];
+  normalized.techniques = normalized.techniques ?? [];
   normalized.rationTemplates = normalized.rationTemplates ?? [];
   normalized.productionChains = normalized.productionChains ?? [];
   normalized.goods = normalized.goods.filter((good) => !removedGenericGoodFallbacks.has(good.id));
@@ -213,7 +214,6 @@ const normalizeConfig = (config: EconomyAdminConfig): EconomyAdminConfig => {
     category: skill.category || 'General',
     attribute: skill.attribute || 'Unspecified',
     difficulty: skill.difficulty || 'Unspecified',
-    gurpsCode: skill.gurpsCode || '',
     description: skill.description || '',
     sourceSystem: skill.sourceSystem || 'Custom',
     defaults: (skill.defaults ?? []).map((skillDefault) => ({
@@ -266,38 +266,38 @@ const normalizeConfig = (config: EconomyAdminConfig): EconomyAdminConfig => {
   const goodIds = new Set(normalized.goods.map((good) => good.id));
   normalized.productionChains = normalized.productionChains.map((chain) => ({
     ...chain,
-    steps: (chain.steps ?? [])
-      .map((step) => {
-        const legacyStep = step as ProductionStep & {
+    recipes: chain.recipes
+      .map((recipe) => {
+        const legacyRecipe = recipe as ProductionRecipe & {
           inputGoodId?: string;
           inputQuantity?: number;
           outputGoodId?: string;
           outputQuantity?: number;
         };
         const inputs =
-          step.inputs ??
-          (legacyStep.inputGoodId
+          recipe.inputs ??
+          (legacyRecipe.inputGoodId
             ? [
                 {
-                  id: `${step.id}-input-1`,
-                  goodId: legacyStep.inputGoodId,
-                  quantity: legacyStep.inputQuantity ?? 1,
+                  id: `${recipe.id}-input-1`,
+                  goodId: legacyRecipe.inputGoodId,
+                  quantity: legacyRecipe.inputQuantity ?? 1,
                 },
               ]
             : []);
         const outputs =
-          step.outputs ??
-          (legacyStep.outputGoodId
+          recipe.outputs ??
+          (legacyRecipe.outputGoodId
             ? [
                 {
-                  id: `${step.id}-output-1`,
-                  goodId: legacyStep.outputGoodId,
-                  quantity: legacyStep.outputQuantity ?? 1,
+                  id: `${recipe.id}-output-1`,
+                  goodId: legacyRecipe.outputGoodId,
+                  quantity: legacyRecipe.outputQuantity ?? 1,
                 },
               ]
             : []);
         return {
-          id: step.id,
+          id: recipe.id,
           inputs: inputs
             .filter((input) => goodIds.has(input.goodId))
             .map((input) => ({
@@ -311,15 +311,33 @@ const normalizeConfig = (config: EconomyAdminConfig): EconomyAdminConfig => {
               quantity: Math.round(Math.max(0, output.quantity)),
             })),
           preservesInputs:
-            typeof step.preservesInputs === 'boolean'
-              ? step.preservesInputs
+            typeof recipe.preservesInputs === 'boolean'
+              ? recipe.preservesInputs
               : outputs.some((output) => inputs.some((input) => input.goodId === output.goodId)),
-          durationMinutes: Number.isFinite(step.durationMinutes) ? Math.max(0, step.durationMinutes) : 0,
-          note: step.note ?? '',
+          durationMinutes: Number.isFinite(recipe.durationMinutes) ? Math.max(0, recipe.durationMinutes) : 0,
+          note: recipe.note ?? '',
         };
       })
-      .filter((step) => step.inputs.length > 0 && step.outputs.length > 0),
+      .filter((recipe) => recipe.inputs.length > 0 && recipe.outputs.length > 0),
   }));
+  const productionRecipeIds = new Set(normalized.productionChains.flatMap((chain) => chain.recipes.map((recipe) => recipe.id)));
+  const skillIds = new Set(normalized.skills.map((skill) => skill.id));
+  normalized.techniques = normalized.techniques
+    .filter((technique) => productionRecipeIds.has(technique.productionRecipeId))
+    .map((technique) => ({
+      ...technique,
+      name: technique.name || 'Unnamed technique',
+      baseSkillId: skillIds.has(technique.baseSkillId) ? technique.baseSkillId : normalized.skills[0]?.id ?? '',
+      difficultyPenalty: Number.isFinite(technique.difficultyPenalty) ? Math.round(technique.difficultyPenalty) : -1,
+      maxRelativeLevel: Number.isFinite(technique.maxRelativeLevel) ? Math.round(technique.maxRelativeLevel) : 0,
+      prerequisiteTechniqueIds: (technique.prerequisiteTechniqueIds ?? []).filter((techniqueId) =>
+        normalized.techniques.some((candidate) => candidate.id === techniqueId),
+      ),
+      notes: technique.notes ?? '',
+    }));
+  if (!normalized.selectedTechniqueId || !normalized.techniques.some((technique) => technique.id === normalized.selectedTechniqueId)) {
+    normalized.selectedTechniqueId = normalized.techniques[0]?.id ?? '';
+  }
   return normalized;
 };
 

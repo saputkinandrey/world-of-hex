@@ -1,0 +1,50 @@
+{
+  "id": "animal.mammal.primate.human",
+  "name": "Human",
+  "kind": "template",
+  "parentId": "animal.mammal.primate",
+  "defaultActorName": "Human%N%",
+  "memes": [],
+  "morphs": [
+    "cog.iq10",
+    "morph.size.sm.0",
+    "morph.body_plan.humanoid",
+    "morph.locomotion.walk_biped",
+    "morph.manip.hands_grasping",
+    "morph.integument.skin_bare"
+  ],
+  "traits": [],
+  "actions": [
+    {
+      "group": "etho",
+      "moduleName": "action-universal",
+      "exportName": "BASK_SUN_THERMOREGULATE"
+    },
+    {
+      "group": "etho",
+      "moduleName": "action-universal",
+      "exportName": "SEEK_COOL_SHELTER"
+    }
+  ],
+  "nutritionNeedsPerDay": {
+    "energyPerDay": 60,
+    "proteinPerDay": 10,
+    "waterPerDay": 30,
+    "massPerDayLb": 3
+  },
+  "consumptionPerTurn": {
+    "energy": 2.5,
+    "protein": 0.4166666666666667,
+    "water": 1.25,
+    "massLb": 0.125
+  },
+  "physical": {
+    "baseVolume": 1,
+    "minVolume": 0.5,
+    "carryVolumeCapacity": 4,
+    "averageWeightLb": 145,
+    "averageLengthFt": 2,
+    "averageHeightFt": 5.5
+  },
+  "notes": "Human biological template. Culture, language, writing, tool industries and social institutions should be modeled in child culture/species templates rather than on this root."
+}

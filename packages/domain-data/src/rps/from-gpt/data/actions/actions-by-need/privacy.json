@@ -1,0 +1,422 @@
+{
+    "exports": {
+        "PrivacyActions": [
+            {
+                "tag": "CREATE_PRIVATE_QUARTERS",
+                "costEnergy": -0.18,
+                "costTime": 1.8,
+                "rewardSecondary": {
+                    "PRIVACY": 0.85,
+                    "STABILITY": 0.4,
+                    "SECURITY": 0.3,
+                    "CONTROL": 0.3
+                },
+                "requiresLocation": "house|longhouse|barracks",
+                "tradeEffect": {
+                    "curtains": -1,
+                    "chest": -1,
+                    "rugs": -1
+                },
+                "socialImpact": {
+                    "RESPECT": 0.2,
+                    "CONFLICT": -0.05
+                },
+                "ownershipEffect": {
+                    "roomState": "private_quarters",
+                    "accessScope": "owner_only"
+                },
+                "lawEffect": {
+                    "trespassRule": "posted",
+                    "enforceable": true
+                }
+            },
+            {
+                "tag": "SET_SCREEN_PARTITIONS",
+                "costEnergy": -0.14,
+                "costTime": 1.2,
+                "rewardSecondary": {
+                    "PRIVACY": 0.7,
+                    "CONTROL": 0.3,
+                    "STABILITY": 0.3,
+                    "CLARITY": 0.2
+                },
+                "tradeEffect": {
+                    "screens": -1,
+                    "rope": -1,
+                    "stakes": "-N"
+                },
+                "socialImpact": {
+                    "BOUNDARIES": 0.3
+                },
+                "ownershipEffect": {
+                    "areaDivision": "partitioned"
+                }
+            },
+            {
+                "tag": "SECURE_STORAGE_CHEST",
+                "costEnergy": -0.12,
+                "costTime": 1,
+                "rewardSecondary": {
+                    "PRIVACY": 0.7,
+                    "SECURITY": 0.4,
+                    "TRUST": 0.2,
+                    "STABILITY": 0.2
+                },
+                "tradeEffect": {
+                    "chest": -1,
+                    "lock_or_seal": -1
+                },
+                "socialImpact": {
+                    "THEFT": -0.1,
+                    "RESPECT": 0.1
+                },
+                "ownershipEffect": {
+                    "chestState": "locked|sealed",
+                    "accessScope": "owner_only"
+                },
+                "lawEffect": {
+                    "sealTamperPenalty": "fine|shame",
+                    "enforceable": true
+                },
+                "requiredMemes": [
+                    "record.ledgerkeeping",
+                    "econ.pooling_common_fund"
+                ]
+            },
+            {
+                "tag": "QUIET_ZONE_DECLARATION",
+                "costEnergy": -0.06,
+                "costTime": 0.6,
+                "rewardSecondary": {
+                    "PRIVACY": 0.6,
+                    "CLARITY": 0.3,
+                    "STABILITY": 0.3,
+                    "TRUST": 0.2
+                },
+                "requiresLocation": "hall|library|hearth",
+                "socialImpact": {
+                    "CALM": 0.3,
+                    "RESPECT": 0.2
+                },
+                "lawEffect": {
+                    "quietHours": "posted",
+                    "enforceable": true
+                },
+                "ownershipEffect": {
+                    "accessScope": "quiet_zone",
+                    "grantAccess": true
+                },
+                "requiredMemes": [
+                    "culture.vigil_ritual",
+                    "cog.timekeeping.basic",
+                    "tech.heat.space.hearth",
+                    "comm.language.written"
+                ]
+            },
+            {
+                "tag": "PRIVATE_COUNSEL_MEET",
+                "costEnergy": -0.08,
+                "costTime": 0.9,
+                "rewardSecondary": {
+                    "PRIVACY": 0.7,
+                    "TRUST": 0.4,
+                    "INTEGRITY": 0.3,
+                    "CLARITY": 0.2
+                },
+                "requiresLocation": "side_room|sacristy|study",
+                "socialImpact": {
+                    "GOSSIP": -0.1
+                },
+                "lawEffect": {
+                    "confidentialityRule": "affirmed",
+                    "enforceable": true
+                }
+            },
+            {
+                "tag": "REDACT_SENSITIVE_RECORDS",
+                "costEnergy": -0.1,
+                "costTime": 1,
+                "rewardSecondary": {
+                    "PRIVACY": 0.65,
+                    "INTEGRITY": 0.4,
+                    "TRUST": 0.3,
+                    "ORDER": 0.2
+                },
+                "tradeEffect": {
+                    "ink": -1,
+                    "wax": -1
+                },
+                "socialImpact": {
+                    "TRANSPARENCY": 0.2,
+                    "HARM": -0.1
+                },
+                "ownershipEffect": {
+                    "ledgerState": "redacted",
+                    "accessScope": "need_to_know"
+                },
+                "lawEffect": {
+                    "privacyRoll": "updated",
+                    "enforceable": true
+                },
+                "requiredMemes": [
+                    "comm.language.written",
+                    "record.ledgerkeeping",
+                    "econ.pooling_common_fund"
+                ]
+            },
+            {
+                "tag": "CONFIDE_TRUSTED_CONFIDANT",
+                "costEnergy": -0.06,
+                "costTime": 0.8,
+                "risk": 0.06,
+                "rewardSecondary": {
+                    "PRIVACY": 0.7,
+                    "TRUST": 0.4,
+                    "RESILIENCE": 0.2,
+                    "CLARITY": 0.2
+                },
+                "requiresSkill": "empathy|counsel",
+                "socialImpact": {
+                    "BOND": 0.3,
+                    "GOSSIP": -0.05
+                },
+                "lawEffect": {
+                    "oathOfSilence": "sworn",
+                    "enforceable": false
+                }
+            },
+            {
+                "tag": "PERSONAL_TIME_BLOCK",
+                "costEnergy": -0.04,
+                "costTime": 0.5,
+                "rewardSecondary": {
+                    "PRIVACY": 0.6,
+                    "STABILITY": 0.3,
+                    "CONTROL": 0.3,
+                    "FOCUS": 0.2
+                },
+                "socialImpact": {
+                    "RESPECT": 0.2,
+                    "CONFLICT": -0.05
+                },
+                "lawEffect": {
+                    "doNotDisturb": "posted",
+                    "enforceable": true
+                }
+            },
+            {
+                "tag": "MARKET_PRIVACY_CURTAIN",
+                "costEnergy": -0.08,
+                "costTime": 0.8,
+                "rewardSecondary": {
+                    "PRIVACY": 0.65,
+                    "TRUST": 0.3,
+                    "SECURITY": 0.2,
+                    "FAIRNESS": 0.2
+                },
+                "requiresLocation": "market|stall",
+                "tradeEffect": {
+                    "curtain": -1,
+                    "hooks": -1
+                },
+                "socialImpact": {
+                    "GOSSIP": -0.1,
+                    "CREDIBILITY": 0.1
+                },
+                "ownershipEffect": {
+                    "boothState": "curtained"
+                },
+                "lawEffect": {
+                    "marketEtiquette": "observed",
+                    "enforceable": true
+                }
+            },
+            {
+                "tag": "SOUND_DAMPENING_MATS",
+                "costEnergy": -0.12,
+                "costTime": 1,
+                "rewardSecondary": {
+                    "PRIVACY": 0.65,
+                    "STABILITY": 0.3,
+                    "CONTROL": 0.2,
+                    "HEALTH": 0.1
+                },
+                "tradeEffect": {
+                    "hay_bales": "-N",
+                    "felt_mats": "-N"
+                },
+                "socialImpact": {
+                    "CALM": 0.3
+                },
+                "ownershipEffect": {
+                    "roomAcoustics": "dampened"
+                }
+            },
+            {
+                "tag": "CONTROL_VISITORS_LEDGER",
+                "costEnergy": -0.1,
+                "costTime": 0.9,
+                "rewardSecondary": {
+                    "PRIVACY": 0.65,
+                    "SECURITY": 0.3,
+                    "CLARITY": 0.3,
+                    "TRUST": 0.2
+                },
+                "tradeEffect": {
+                    "parchment": -1,
+                    "ink": -1
+                },
+                "socialImpact": {
+                    "ABUSE": -0.1,
+                    "RESPECT": 0.1
+                },
+                "ownershipEffect": {
+                    "visitorLog": "active",
+                    "accessScope": "gate_clerk"
+                },
+                "lawEffect": {
+                    "entryRule": "sign_in_required",
+                    "enforceable": true
+                },
+                "requiredMemes": [
+                    "comm.language.written",
+                    "record.ledgerkeeping"
+                ]
+            },
+            {
+                "tag": "SEALED_LETTER_SERVICE",
+                "costEnergy": -0.08,
+                "costTime": 0.9,
+                "rewardSecondary": {
+                    "PRIVACY": 0.7,
+                    "TRUST": 0.4,
+                    "INTEGRITY": 0.3,
+                    "STABILITY": 0.2
+                },
+                "tradeEffect": {
+                    "wax": -1,
+                    "ribbon": -1,
+                    "messenger_fee": -1
+                },
+                "socialImpact": {
+                    "GOSSIP": -0.15,
+                    "CREDIBILITY": 0.2
+                },
+                "ownershipEffect": {
+                    "letterState": "sealed",
+                    "chainOfCustody": "tracked"
+                },
+                "lawEffect": {
+                    "tamperPenalty": "severe",
+                    "enforceable": true
+                },
+                "requiredMemes": [
+                    "record.ledgerkeeping",
+                    "econ.pooling_common_fund"
+                ]
+            },
+            {
+                "tag": "MASK_IDENTITY_ATTIRE",
+                "costEnergy": -0.06,
+                "costTime": 0.6,
+                "risk": 0.06,
+                "rewardSecondary": {
+                    "CONTROL": 0.3,
+                    "SECURITY": 0.2,
+                    "RESILIENCE": 0.1,
+                    "PRIVACY": 0.6
+                },
+                "tradeEffect": {
+                    "hood_cloak": -1,
+                    "veil": -1
+                },
+                "socialImpact": {
+                    "VISIBILITY": -0.2,
+                    "RESPECT": 0.1
+                },
+                "lawEffect": {
+                    "maskRule": "allowed_within_market",
+                    "enforceable": true
+                }
+            },
+            {
+                "tag": "BATHING_SCHEDULE_SEPARATE",
+                "costEnergy": -0.06,
+                "costTime": 0.7,
+                "rewardSecondary": {
+                    "PRIVACY": 0.7,
+                    "RESPECT": 0.3,
+                    "HEALTH": 0.2,
+                    "STABILITY": 0.2
+                },
+                "requiresLocation": "baths|river_hut",
+                "socialImpact": {
+                    "CONFLICT": -0.1,
+                    "DIGNITY": 0.3
+                },
+                "lawEffect": {
+                    "bathRoster": "posted",
+                    "enforceable": true
+                }
+            },
+            {
+                "tag": "WINDOW_SHUTTERS_PROTOCOL",
+                "costEnergy": -0.05,
+                "costTime": 0.5,
+                "rewardSecondary": {
+                    "CONTROL": 0.25,
+                    "SECURITY": 0.2,
+                    "STABILITY": 0.2,
+                    "PRIVACY": 0.55
+                },
+                "tradeEffect": {
+                    "shutters": -1,
+                    "cords": -1
+                },
+                "socialImpact": {
+                    "GAZE": -0.2,
+                    "RESPECT": 0.1
+                },
+                "ownershipEffect": {
+                    "homeState": "shutters_rule_active"
+                },
+                "lawEffect": {
+                    "nightPrivacy": "observed",
+                    "enforceable": true
+                },
+                "requiredMemes": [
+                    "culture.vigil_ritual",
+                    "cog.timekeeping.basic"
+                ]
+            },
+            {
+                "tag": "SECLUDED_PATH_MAPPING",
+                "costEnergy": -0.12,
+                "costTime": 1.2,
+                "risk": 0.06,
+                "rewardSecondary": {
+                    "PRIVACY": 0.7,
+                    "CONTROL": 0.3,
+                    "SECURITY": 0.2,
+                    "CLARITY": 0.2
+                },
+                "tradeEffect": {
+                    "parchment": -1,
+                    "ink": -1,
+                    "chalk": -1
+                },
+                "socialImpact": {
+                    "CONFLICT": -0.05
+                },
+                "ownershipEffect": {
+                    "routeMap": "secluded_paths_marked"
+                },
+                "lawEffect": {
+                    "accessRule": "private_paths_respected",
+                    "enforceable": true
+                },
+                "requiredMemes": ["comm.language.written"]
+            }
+        ]
+    }
+}

@@ -1,0 +1,55 @@
+{
+  "id": "animal.mammal.rodent",
+  "name": "Rodent",
+  "kind": "template",
+  "parentId": "animal.mammal",
+  "defaultActorName": "Rodent%N%",
+  "memes": [],
+  "morphs": [
+    "morph.body_plan.tetrapod_small_ground",
+    "morph.locomotion.walk_quadruped",
+    "morph.locomotion.burrow_dig",
+    "morph.locomotion.climb_rough_surface",
+    "morph.manip.forepaws_non_manip",
+    "morph.natural_weapon.bite_small",
+    "morph.natural_weapon.claws_small",
+    "morph.sense.olfaction_tracking",
+    "morph.sense.vibration_ground"
+  ],
+  "traits": [],
+  "actions": [
+    {
+      "group": "etho",
+      "moduleName": "action-universal",
+      "exportName": "VIBRATION_ALERT_HIDE"
+    },
+    {
+      "group": "etho",
+      "moduleName": "action-universal",
+      "exportName": "BASK_SUN_THERMOREGULATE"
+    },
+    {
+      "group": "etho",
+      "moduleName": "action-universal",
+      "exportName": "SEEK_COOL_SHELTER"
+    }
+  ],
+  "nutritionNeedsPerDay": {
+    "energyPerDay": 0,
+    "proteinPerDay": 0,
+    "waterPerDay": 0,
+    "massPerDayLb": 0
+  },
+  "consumptionPerTurn": {
+    "energy": 0,
+    "protein": 0,
+    "water": 0,
+    "massLb": 0
+  },
+  "physical": {
+    "baseVolume": 0,
+    "minVolume": 0,
+    "carryVolumeCapacity": 0
+  },
+  "notes": "Broad rodent template: small gnawing mammal baseline. Sociality, climbing and aquatic specializations should be refined in child templates."
+}

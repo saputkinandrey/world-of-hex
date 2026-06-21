@@ -1,0 +1,421 @@
+{
+    "exports": {
+        "FearActions": [
+            {
+                "tag": "LIGHT_TORCHES",
+                "costEnergy": -0.06,
+                "costTime": 0.6,
+                "rewardSecondary": {
+                    "FEAR": 0.55,
+                    "SECURITY": 0.4,
+                    "STABILITY": 0.2,
+                    "MOOD": 0.15
+                },
+                "tradeEffect": {
+                    "lamp_oil": -1,
+                    "torches": -1
+                },
+                "socialImpact": {
+                    "READINESS": 0.2,
+                    "COMMUNITY": 0.1
+                },
+                "lawEffect": {
+                    "fireSafety": "observed",
+                    "enforceable": true
+                },
+                "ownershipEffect": {
+                    "accessScope": "streets|gates",
+                    "grantAccess": true
+                }
+            },
+            {
+                "tag": "HOLD_FORMATION_DRILL",
+                "costEnergy": -0.18,
+                "costTime": 1.4,
+                "risk": 0.06,
+                "rewardSecondary": {
+                    "FEAR": 0.7,
+                    "COURAGE": 0.4,
+                    "DISCIPLINE": 0.4,
+                    "READINESS": 0.4
+                },
+                "requiresLocation": "yard|square",
+                "socialImpact": {
+                    "TRUST": 0.2,
+                    "ORDER": 0.3
+                },
+                "lawEffect": {
+                    "militiaCode": "drill_logged",
+                    "enforceable": true
+                },
+                "requiredMemes": [
+                    "health.sanitation_norms",
+                    "health.waste_handling",
+                    "comm.language.written"
+                ]
+            },
+            {
+                "tag": "REASSURE_PUBLIC_SPEECH",
+                "costEnergy": -0.08,
+                "costTime": 0.9,
+                "risk": 0.08,
+                "rewardSecondary": {
+                    "FEAR": 0.6,
+                    "STABILITY": 0.3,
+                    "CLARITY": 0.3,
+                    "COMMUNITY": 0.2
+                },
+                "requiresLocation": "hall|square",
+                "socialImpact": {
+                    "PANIC": -0.3,
+                    "TRUST": 0.3
+                },
+                "lawEffect": {
+                    "speechRule": "no_false_claims",
+                    "enforceable": true
+                },
+                "requiredMemes": [
+                    "health.sanitation_norms",
+                    "health.waste_handling",
+                    "comm.language.written"
+                ]
+            },
+            {
+                "tag": "ESCORT_VULNERABLE",
+                "costEnergy": -0.14,
+                "costTime": 1.2,
+                "risk": 0.12,
+                "rewardSecondary": {
+                    "FEAR": 0.75,
+                    "SECURITY": 0.4,
+                    "COMMUNITY": 0.3,
+                    "HONOR": 0.2
+                },
+                "socialImpact": {
+                    "RESPECT": 0.2,
+                    "TRUST": 0.3
+                },
+                "ownershipEffect": {
+                    "accessScope": "safe_corridors",
+                    "grantAccess": true
+                },
+                "lawEffect": {
+                    "escortRoster": "logged",
+                    "enforceable": true
+                }
+            },
+            {
+                "tag": "MAP_SAFE_ROUTE",
+                "costEnergy": -0.16,
+                "costTime": 1.6,
+                "rewardSecondary": {
+                    "FEAR": 0.7,
+                    "CONTROL": 0.3,
+                    "ORDER": 0.3,
+                    "READINESS": 0.4
+                },
+                "tradeEffect": {
+                    "chalk": -1,
+                    "parchment": -1,
+                    "ink": -1
+                },
+                "socialImpact": {
+                    "TRUST": 0.2,
+                    "COHESION": 0.2
+                },
+                "ownershipEffect": {
+                    "mapSheet": "safe_route_v1",
+                    "accessScope": "notice_board"
+                },
+                "lawEffect": {
+                    "routeRegistry": "filed",
+                    "enforceable": true
+                },
+                "requiredMemes": ["comm.language.written"]
+            },
+            {
+                "tag": "WARD_SIGNS_PLACEMENT",
+                "costEnergy": -0.1,
+                "costTime": 1,
+                "rewardSecondary": {
+                    "FEAR": 0.6,
+                    "SPIRIT": 0.2,
+                    "STABILITY": 0.2,
+                    "RESILIENCE": 0.2
+                },
+                "tradeEffect": {
+                    "paint": -1,
+                    "charms": -1
+                },
+                "socialImpact": {
+                    "HOPE": 0.2,
+                    "COMMUNITY": 0.1
+                },
+                "lawEffect": {
+                    "superstitionBan": "symbolic_allowed",
+                    "enforceable": true
+                }
+            },
+            {
+                "tag": "SET_TRAPS_EARLY_WARNING",
+                "costEnergy": -0.2,
+                "costTime": 1.6,
+                "risk": 0.12,
+                "rewardSecondary": {
+                    "FEAR": 0.75,
+                    "SECURITY": 0.4,
+                    "CONTROL": 0.3,
+                    "READINESS": 0.4
+                },
+                "requiresItem": ["wire|bells|snares"],
+                "tradeEffect": {
+                    "wire": -1,
+                    "bells": -1
+                },
+                "socialImpact": {
+                    "PANIC": -0.1,
+                    "TRUST": 0.2
+                },
+                "lawEffect": {
+                    "trapNotice": "posted",
+                    "enforceable": true
+                }
+            },
+            {
+                "tag": "NIGHT_WATCH_ROTATION",
+                "costEnergy": -0.22,
+                "costTime": 2,
+                "risk": 0.1,
+                "rewardSecondary": {
+                    "FEAR": 0.8,
+                    "SECURITY": 0.5,
+                    "READINESS": 0.5,
+                    "STABILITY": 0.3
+                },
+                "requiresLocation": "walls|streets|gates",
+                "socialImpact": {
+                    "TRUST": 0.3,
+                    "COMMUNITY": 0.2
+                },
+                "lawEffect": {
+                    "watchRoster": "posted",
+                    "enforceable": true
+                },
+                "ownershipEffect": {
+                    "accessScope": "watch_posts",
+                    "grantAccess": true
+                },
+                "requiredMemes": [
+                    "health.sanitation_norms",
+                    "health.waste_handling",
+                    "org.scheduling",
+                    "comm.language.written",
+                    "culture.vigil_ritual",
+                    "cog.timekeeping.basic"
+                ]
+            },
+            {
+                "tag": "FORTIFY_DOORS_WINDOWS",
+                "costEnergy": -0.18,
+                "costTime": 1.4,
+                "rewardSecondary": {
+                    "FEAR": 0.7,
+                    "SECURITY": 0.5,
+                    "ORDER": 0.2,
+                    "STABILITY": 0.2
+                },
+                "tradeEffect": {
+                    "planks": -2,
+                    "nails": -2,
+                    "bars": -1
+                },
+                "socialImpact": {
+                    "PANIC": -0.1,
+                    "RESPONSIBILITY": 0.2
+                },
+                "ownershipEffect": {
+                    "homeState": "fortified"
+                }
+            },
+            {
+                "tag": "EVACUATION_DRILL",
+                "costEnergy": -0.2,
+                "costTime": 1.6,
+                "rewardSecondary": {
+                    "FEAR": 0.75,
+                    "READINESS": 0.6,
+                    "ORDER": 0.4,
+                    "RESILIENCE": 0.3
+                },
+                "requiresLocation": "hall|streets",
+                "socialImpact": {
+                    "PANIC": -0.3,
+                    "TRUST": 0.2,
+                    "COHESION": 0.3
+                },
+                "lawEffect": {
+                    "drillPolicy": "posted",
+                    "enforceable": true
+                },
+                "requiredMemes": [
+                    "health.sanitation_norms",
+                    "health.waste_handling",
+                    "comm.language.written"
+                ]
+            },
+            {
+                "tag": "COUNSELING_SESSION",
+                "costEnergy": -0.1,
+                "costTime": 1,
+                "rewardSecondary": {
+                    "FEAR": 0.65,
+                    "RESILIENCE": 0.4,
+                    "CLARITY": 0.3,
+                    "MOOD": 0.2
+                },
+                "requiresSkill": "empathy|counsel",
+                "tradeEffect": {
+                    "counsel_fee": -1
+                },
+                "socialImpact": {
+                    "TRUST": 0.2,
+                    "STIGMA": -0.05
+                },
+                "lawEffect": {
+                    "privacyRule": "respected",
+                    "enforceable": true
+                }
+            },
+            {
+                "tag": "SHARE_THREAT_INTEL",
+                "costEnergy": -0.08,
+                "costTime": 0.8,
+                "rewardSecondary": {
+                    "FEAR": 0.6,
+                    "CLARITY": 0.4,
+                    "READINESS": 0.4,
+                    "COMMUNITY": 0.2
+                },
+                "tradeEffect": {
+                    "parchment": -1,
+                    "ink": -1
+                },
+                "socialImpact": {
+                    "PANIC": -0.2,
+                    "TRUST": 0.2
+                },
+                "lawEffect": {
+                    "bulletinPermit": "approved",
+                    "enforceable": true
+                },
+                "ownershipEffect": {
+                    "accessScope": "notice_board",
+                    "grantAccess": true
+                },
+                "requiredMemes": ["comm.language.written"]
+            },
+            {
+                "tag": "MONSTER_LORE_SESSION",
+                "costEnergy": -0.12,
+                "costTime": 1.2,
+                "rewardSecondary": {
+                    "FEAR": 0.7,
+                    "KNOWLEDGE": 0.4,
+                    "COURAGE": 0.3,
+                    "READINESS": 0.3
+                },
+                "requiresLocation": "hall|library",
+                "socialImpact": {
+                    "SUPERSTITION": -0.2,
+                    "RESPECT": 0.1
+                },
+                "lawEffect": {
+                    "readerPass": "issued",
+                    "enforceable": true
+                },
+                "requiredMemes": ["comm.language.written"]
+            },
+            {
+                "tag": "ISSUE_CLEAR_RULES_CURFEW",
+                "costEnergy": -0.08,
+                "costTime": 0.8,
+                "rewardSecondary": {
+                    "FEAR": 0.65,
+                    "ORDER": 0.5,
+                    "STABILITY": 0.5,
+                    "SECURITY": 0.3
+                },
+                "socialImpact": {
+                    "TRUST": 0.2,
+                    "PANIC": -0.2
+                },
+                "lawEffect": {
+                    "curfew": "active",
+                    "penalties": "warning|fine",
+                    "enforceable": true
+                }
+            },
+            {
+                "tag": "DISTRIBUTE_TALISMANS",
+                "costEnergy": -0.1,
+                "costTime": 1,
+                "rewardSecondary": {
+                    "FEAR": 0.6,
+                    "SPIRIT": 0.3,
+                    "COMMUNITY": 0.2,
+                    "RESILIENCE": 0.2
+                },
+                "tradeEffect": {
+                    "talismans": "-N",
+                    "string": -1
+                },
+                "socialImpact": {
+                    "HOPE": 0.3
+                },
+                "ownershipEffect": {
+                    "charmOwned": true,
+                    "duration": "season"
+                },
+                "lawEffect": {
+                    "charmRegistry": "optional",
+                    "enforceable": false
+                }
+            },
+            {
+                "tag": "EXORCISM_RITE",
+                "costEnergy": -0.16,
+                "costTime": 1.4,
+                "risk": 0.1,
+                "rewardSecondary": {
+                    "FEAR": 0.8,
+                    "SPIRIT": 0.4,
+                    "STABILITY": 0.3,
+                    "SECURITY": 0.3
+                },
+                "requiresLocation": "temple|haunted_spot",
+                "tradeEffect": {
+                    "incense": -1,
+                    "sacred_oil": -1,
+                    "salt": -1
+                },
+                "needRework": true,
+                "requiredMemes": [
+                    "culture.vigil_ritual",
+                    "cog.timekeeping.basic",
+                    "tech.food.preservation.salty"
+                ],
+                "socialImpact": {
+                    "REVERENCE": 0.3,
+                    "HOPE": 0.3
+                },
+                "lawEffect": {
+                    "ritePermit": "granted",
+                    "enforceable": true
+                },
+                "ownershipEffect": {
+                    "siteState": "cleansed"
+                }
+            }
+        ]
+    }
+}

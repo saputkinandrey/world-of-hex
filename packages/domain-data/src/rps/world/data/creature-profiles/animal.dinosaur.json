@@ -1,0 +1,48 @@
+{
+  "id": "animal.dinosaur",
+  "name": "Dinosaur",
+  "kind": "template",
+  "parentId": "animal",
+  "defaultActorName": "Dinosaur%N%",
+  "memes": [],
+  "morphs": [
+    "cog.iq3",
+    "eth.maintenance.thermoregulation",
+    "morph.thermoreg.warmBlooded",
+    "morph.respiration.lungs_high_efficiency",
+    "morph.sense.vision_basic",
+    "morph.sense.olfaction_basic",
+    "morph.sense.hearing_basic"
+  ],
+  "traits": [],
+  "actions": [
+    {
+      "group": "etho",
+      "moduleName": "action-universal",
+      "exportName": "BASK_SUN_THERMOREGULATE"
+    },
+    {
+      "group": "etho",
+      "moduleName": "action-universal",
+      "exportName": "SEEK_COOL_SHELTER"
+    }
+  ],
+  "nutritionNeedsPerDay": {
+    "energyPerDay": 0,
+    "proteinPerDay": 0,
+    "waterPerDay": 0,
+    "massPerDayLb": 0
+  },
+  "consumptionPerTurn": {
+    "energy": 0,
+    "protein": 0,
+    "water": 0,
+    "massLb": 0
+  },
+  "physical": {
+    "baseVolume": 0,
+    "minVolume": 0,
+    "carryVolumeCapacity": 0
+  },
+  "notes": "Broad dinosaur/avian-dinosaur root for Hex. Kept separate from Reptile so birds and warm-blooded dinosaur lines do not inherit cold-blooded reptile traits."
+}

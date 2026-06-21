@@ -1,0 +1,39 @@
+{
+  "id": "animal.fish",
+  "name": "Fish",
+  "kind": "template",
+  "parentId": "animal",
+  "defaultActorName": "Fish%N%",
+  "memes": [],
+  "morphs": [
+    "cog.iq2",
+    "morph.body_plan.fish_like",
+    "morph.locomotion.swim_basic",
+    "morph.locomotion.swim_fast",
+    "morph.respiration.gills_aquatic",
+    "morph.integument.scales_smooth",
+    "morph.sense.vision_basic",
+    "morph.sense.olfaction_basic",
+    "morph.sense.lateral_line"
+  ],
+  "traits": [],
+  "actions": [],
+  "nutritionNeedsPerDay": {
+    "energyPerDay": 0,
+    "proteinPerDay": 0,
+    "waterPerDay": 0,
+    "massPerDayLb": 0
+  },
+  "consumptionPerTurn": {
+    "energy": 0,
+    "protein": 0,
+    "water": 0,
+    "massLb": 0
+  },
+  "physical": {
+    "baseVolume": 0,
+    "minVolume": 0,
+    "carryVolumeCapacity": 0
+  },
+  "notes": "Broad fish template using the currently modeled aquatic body plan, gills, swimming and lateral-line senses. Predator, schooling and habitat-specific traits should be added in child templates."
+}

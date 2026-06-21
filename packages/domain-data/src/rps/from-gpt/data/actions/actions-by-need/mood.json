@@ -1,0 +1,331 @@
+{
+    "exports": {
+        "MoodActions": [
+            {
+                "tag": "LISTEN_MUSIC",
+                "costEnergy": -0.04,
+                "costTime": 0.6,
+                "rewardSecondary": {
+                    "MOOD": 0.6,
+                    "REST": 0.1,
+                    "SOCIAL": 0.1
+                },
+                "requiresLocation": "hall|hearth|green",
+                "tradeEffect": {
+                    "musician_fee": -1
+                },
+                "socialImpact": {
+                    "MOOD": 0.5,
+                    "COMMUNITY": 0.2
+                },
+                "lawEffect": {
+                    "noiseCode": "observed",
+                    "enforceable": false
+                },
+                "requiredMemes": [
+                    "culture.vigil_ritual",
+                    "cog.timekeeping.basic",
+                    "tech.heat.space.hearth",
+                    "comm.language.written"
+                ]
+            },
+            {
+                "tag": "TELL_JOKES",
+                "costEnergy": -0.03,
+                "costTime": 0.5,
+                "risk": 0.05,
+                "rewardSecondary": {
+                    "MOOD": 0.55,
+                    "SOCIAL": 0.25
+                },
+                "socialImpact": {
+                    "MOOD": 0.45,
+                    "REPUTATION": 0.1,
+                    "CONTROVERSY": 0.05
+                }
+            },
+            {
+                "tag": "SHARE_MEAL",
+                "costEnergy": -0.08,
+                "costTime": 1,
+                "rewardSecondary": {
+                    "MOOD": 0.6,
+                    "COMMUNITY": 0.3,
+                    "AFFECTION": 0.2
+                },
+                "tradeEffect": {
+                    "food": -2,
+                    "drink": -1
+                },
+                "socialImpact": {
+                    "MOOD": 0.6,
+                    "TRUST": 0.2,
+                    "BELONGING": 0.3
+                },
+                "ownershipEffect": {
+                    "accessScope": "feast_table",
+                    "grantAccess": true
+                }
+            },
+            {
+                "tag": "LIGHT_HEARTH",
+                "costEnergy": -0.06,
+                "costTime": 0.6,
+                "rewardSecondary": {
+                    "MOOD": 0.5,
+                    "COMFORT": 0.3,
+                    "SECURITY": 0.1
+                },
+                "tradeEffect": {
+                    "firewood": -1
+                },
+                "socialImpact": {
+                    "MOOD": 0.45,
+                    "COHESION": 0.2
+                },
+                "lawEffect": {
+                    "fireSafety": "observed",
+                    "enforceable": true
+                }
+            },
+            {
+                "tag": "DECORATE_SPACE",
+                "costEnergy": -0.12,
+                "costTime": 1.2,
+                "rewardSecondary": {
+                    "MOOD": 0.6,
+                    "IDENTITY": 0.2,
+                    "TRADITION": 0.2
+                },
+                "tradeEffect": {
+                    "garlands": -1,
+                    "dyes": -1
+                },
+                "socialImpact": {
+                    "MOOD": 0.5,
+                    "AESTHETICS": 0.5
+                },
+                "ownershipEffect": {
+                    "decorState": "refreshed"
+                }
+            },
+            {
+                "tag": "CELEBRATE_SMALL_WIN",
+                "costEnergy": -0.1,
+                "costTime": 1.2,
+                "rewardSecondary": {
+                    "MOOD": 0.65,
+                    "MORALE": 0.4,
+                    "COMMUNITY": 0.3
+                },
+                "tradeEffect": {
+                    "treats": -2,
+                    "music": "-time"
+                },
+                "socialImpact": {
+                    "MOOD": 0.6,
+                    "COHESION": 0.4,
+                    "PRIDE": 0.2
+                },
+                "lawEffect": {
+                    "gatheringPermit": "not_required",
+                    "enforceable": false
+                }
+            },
+            {
+                "tag": "GRATITUDE_RITUAL",
+                "costEnergy": -0.06,
+                "costTime": 0.8,
+                "rewardSecondary": {
+                    "MOOD": 0.6,
+                    "SPIRIT": 0.2,
+                    "RESILIENCE": 0.2
+                },
+                "socialImpact": {
+                    "MOOD": 0.55,
+                    "HOPE": 0.3
+                },
+                "lawEffect": {
+                    "rite": "gratitude",
+                    "enforceable": false
+                }
+            },
+            {
+                "tag": "MINDFUL_BREATHING",
+                "costEnergy": -0.02,
+                "costTime": 0.5,
+                "rewardSecondary": {
+                    "MOOD": 0.45,
+                    "REST": 0.15,
+                    "FOCUS": 0.2
+                },
+                "requiresLocation": "quiet_spot",
+                "socialImpact": {
+                    "MOOD": 0.35,
+                    "CALM": 0.4
+                }
+            },
+            {
+                "tag": "STROLL_SCENIC",
+                "costEnergy": -0.08,
+                "costTime": 1,
+                "rewardSecondary": {
+                    "MOOD": 0.55,
+                    "HEALTH": 0.1,
+                    "CURIOSITY": 0.1
+                },
+                "socialImpact": {
+                    "MOOD": 0.4,
+                    "JOY": 0.3
+                },
+                "ownershipEffect": {
+                    "accessScope": "greenway|riverbank",
+                    "grantAccess": true
+                }
+            },
+            {
+                "tag": "PLAY_GAMES",
+                "costEnergy": -0.1,
+                "costTime": 1.2,
+                "risk": 0.08,
+                "rewardSecondary": {
+                    "MOOD": 0.6,
+                    "SOCIAL": 0.3,
+                    "COMPETITION": 0.2
+                },
+                "tradeEffect": {
+                    "game_set": "-wear"
+                },
+                "socialImpact": {
+                    "MOOD": 0.55,
+                    "UNITY": 0.2,
+                    "RESENTMENT": 0.05
+                },
+                "lawEffect": {
+                    "gamblingBan": "observe_limit",
+                    "enforceable": true
+                }
+            },
+            {
+                "tag": "DANCE_GATHERING",
+                "costEnergy": -0.18,
+                "costTime": 1.8,
+                "rewardSecondary": {
+                    "MOOD": 0.8,
+                    "SOCIAL": 0.4,
+                    "JOY": 0.5
+                },
+                "requiresLocation": "hall|square",
+                "tradeEffect": {
+                    "musicians_fee": -2
+                },
+                "socialImpact": {
+                    "MOOD": 0.8,
+                    "COHESION": 0.5,
+                    "VISIBILITY": 0.3
+                },
+                "lawEffect": {
+                    "gatheringPermit": "approved",
+                    "enforceable": true
+                },
+                "requiredMemes": [
+                    "health.sanitation_norms",
+                    "health.waste_handling",
+                    "comm.language.written"
+                ]
+            },
+            {
+                "tag": "STORYTELL_FIRESIDE",
+                "costEnergy": -0.08,
+                "costTime": 1,
+                "rewardSecondary": {
+                    "MOOD": 0.55,
+                    "TRADITION": 0.3,
+                    "FAMILY": 0.2
+                },
+                "socialImpact": {
+                    "MOOD": 0.55,
+                    "MEMORY": 0.4
+                }
+            },
+            {
+                "tag": "CLEAN_LIVING_SPACE",
+                "costEnergy": -0.2,
+                "costTime": 1.6,
+                "rewardSecondary": {
+                    "MOOD": 0.5,
+                    "HYGIENE": 0.4,
+                    "ORDER": 0.4
+                },
+                "socialImpact": {
+                    "MOOD": 0.45,
+                    "DIGNITY": 0.2
+                },
+                "ownershipEffect": {
+                    "homeState": "tidy"
+                },
+                "requiredMemes": [
+                    "health.sanitation_norms",
+                    "health.waste_handling"
+                ]
+            },
+            {
+                "tag": "SUNLIGHT_EXPOSURE",
+                "costEnergy": -0.02,
+                "costTime": 0.6,
+                "rewardSecondary": {
+                    "MOOD": 0.45,
+                    "HEALTH": 0.1,
+                    "REST": 0.05
+                },
+                "requiresLocation": "sunny_spot",
+                "socialImpact": {
+                    "MOOD": 0.35
+                },
+                "lawEffect": {
+                    "curfew": "not_active",
+                    "enforceable": true
+                }
+            },
+            {
+                "tag": "PET_INTERACTION",
+                "costEnergy": -0.04,
+                "costTime": 0.8,
+                "rewardSecondary": {
+                    "MOOD": 0.55,
+                    "AFFECTION": 0.3,
+                    "STRESS": -0.2
+                },
+                "socialImpact": {
+                    "MOOD": 0.5,
+                    "TENDERNESS": 0.4
+                },
+                "ownershipEffect": {
+                    "accessScope": "animal_pen",
+                    "grantAccess": true
+                }
+            },
+            {
+                "tag": "GIFT_SMALL_TOKEN",
+                "costEnergy": -0.06,
+                "costTime": 0.6,
+                "rewardSecondary": {
+                    "MOOD": 0.55,
+                    "SOCIAL": 0.3,
+                    "AFFECTION": 0.4
+                },
+                "tradeEffect": {
+                    "trinket": -1
+                },
+                "socialImpact": {
+                    "MOOD": 0.55,
+                    "GRATITUDE": 0.4
+                },
+                "lawEffect": {
+                    "giftPolicy": "no_bribe",
+                    "enforceable": true
+                }
+            }
+        ]
+    }
+}

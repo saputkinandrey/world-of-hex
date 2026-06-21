@@ -1,0 +1,5392 @@
+[
+  {
+    "id": "production-chain-animal-harvesting",
+    "name": "Animal harvesting",
+    "recipes": [
+      {
+        "id": "production-step-source-camel-research-camel-milk",
+        "inputs": [
+          {
+            "id": "production-input-source-camel-research-camel-milk",
+            "goodId": "source-camel",
+            "quantity": 1
+          }
+        ],
+        "outputs": [
+          {
+            "id": "production-output-source-camel-research-camel-milk",
+            "goodId": "research-camel-milk",
+            "quantity": 1
+          },
+          {
+            "id": "production-step-source-camel-research-camel-milk-retained-source",
+            "goodId": "source-camel",
+            "quantity": 1
+          }
+        ],
+        "preservesInputs": true,
+        "note": "Level 0 natural source to level 1 harvested good.",
+        "durationMinutes": 0
+      },
+      {
+        "id": "production-step-source-goat-research-goat-milk",
+        "inputs": [
+          {
+            "id": "production-input-source-goat-research-goat-milk",
+            "goodId": "source-goat",
+            "quantity": 1
+          }
+        ],
+        "outputs": [
+          {
+            "id": "production-output-source-goat-research-goat-milk",
+            "goodId": "research-goat-milk",
+            "quantity": 1
+          },
+          {
+            "id": "production-step-source-goat-research-goat-milk-retained-source",
+            "goodId": "source-goat",
+            "quantity": 1
+          }
+        ],
+        "preservesInputs": true,
+        "note": "Level 0 natural source to level 1 harvested good.",
+        "durationMinutes": 0
+      },
+      {
+        "id": "production-step-source-sheep-research-sheep-milk",
+        "inputs": [
+          {
+            "id": "production-input-source-sheep-research-sheep-milk",
+            "goodId": "source-sheep",
+            "quantity": 1
+          }
+        ],
+        "outputs": [
+          {
+            "id": "production-output-source-sheep-research-sheep-milk",
+            "goodId": "research-sheep-milk",
+            "quantity": 1
+          },
+          {
+            "id": "production-step-source-sheep-research-sheep-milk-retained-source",
+            "goodId": "source-sheep",
+            "quantity": 1
+          }
+        ],
+        "preservesInputs": true,
+        "note": "Level 0 natural source to level 1 harvested good.",
+        "durationMinutes": 0
+      },
+      {
+        "id": "production-step-1781391245166",
+        "inputs": [
+          {
+            "id": "production-input-1781391245166",
+            "goodId": "source-grouse",
+            "quantity": 1
+          }
+        ],
+        "outputs": [
+          {
+            "id": "production-output-1781391245166",
+            "goodId": "good-item-1781391206952",
+            "quantity": 1
+          },
+          {
+            "id": "production-output-1781391277166",
+            "goodId": "source-grouse",
+            "quantity": 1
+          }
+        ],
+        "preservesInputs": true,
+        "note": "",
+        "durationMinutes": 0
+      },
+      {
+        "id": "production-step-source-bee-colony-food-raw-honey",
+        "inputs": [
+          {
+            "id": "production-step-source-bee-colony-food-raw-honey-input-1",
+            "goodId": "source-bee-colony",
+            "quantity": 1
+          }
+        ],
+        "outputs": [
+          {
+            "id": "production-step-source-bee-colony-food-raw-honey-output-1",
+            "goodId": "food-raw-honey",
+            "quantity": 1
+          }
+        ],
+        "preservesInputs": true,
+        "note": "Non-destructive honey harvest from a bee colony.",
+        "durationMinutes": 0
+      }
+    ]
+  },
+  {
+    "id": "production-chain-animal-slaughter",
+    "name": "Animal slaughter",
+    "recipes": [
+      {
+        "id": "production-step-source-sheep-research-mutton",
+        "inputs": [
+          {
+            "id": "production-input-source-sheep-research-mutton",
+            "goodId": "source-sheep",
+            "quantity": 1
+          }
+        ],
+        "outputs": [
+          {
+            "id": "production-output-source-sheep-research-mutton",
+            "goodId": "research-mutton",
+            "quantity": 1
+          },
+          {
+            "id": "production-step-source-sheep-research-mutton-output-fat",
+            "goodId": "research-fat",
+            "quantity": 1
+          }
+        ],
+        "preservesInputs": false,
+        "note": "Level 0 natural source to level 1 harvested good.",
+        "durationMinutes": 0
+      },
+      {
+        "id": "production-step-source-cow-food-beef",
+        "inputs": [
+          {
+            "id": "production-input-source-cow-food-beef",
+            "goodId": "source-cow",
+            "quantity": 1
+          }
+        ],
+        "outputs": [
+          {
+            "id": "production-output-source-cow-food-beef",
+            "goodId": "food-beef",
+            "quantity": 1
+          },
+          {
+            "id": "production-step-source-cow-food-beef-output-fat",
+            "goodId": "research-fat",
+            "quantity": 1
+          }
+        ],
+        "preservesInputs": false,
+        "note": "Level 0 natural source to level 1 harvested good.",
+        "durationMinutes": 0
+      },
+      {
+        "id": "production-step-source-goat-research-goat-meat",
+        "inputs": [
+          {
+            "id": "production-input-source-goat-research-goat-meat",
+            "goodId": "source-goat",
+            "quantity": 1
+          }
+        ],
+        "outputs": [
+          {
+            "id": "production-output-source-goat-research-goat-meat",
+            "goodId": "research-goat-meat",
+            "quantity": 1
+          },
+          {
+            "id": "production-step-source-goat-research-goat-meat-output-fat",
+            "goodId": "research-fat",
+            "quantity": 1
+          }
+        ],
+        "preservesInputs": false,
+        "note": "Level 0 natural source to level 1 harvested good.",
+        "durationMinutes": 0
+      },
+      {
+        "id": "production-step-source-horse-research-horse-meat",
+        "inputs": [
+          {
+            "id": "production-input-source-horse-research-horse-meat",
+            "goodId": "source-horse",
+            "quantity": 1
+          }
+        ],
+        "outputs": [
+          {
+            "id": "production-output-source-horse-research-horse-meat",
+            "goodId": "research-horse-meat",
+            "quantity": 1
+          },
+          {
+            "id": "production-step-source-horse-research-horse-meat-output-fat",
+            "goodId": "research-fat",
+            "quantity": 1
+          }
+        ],
+        "preservesInputs": false,
+        "note": "Level 0 natural source to level 1 harvested good.",
+        "durationMinutes": 0
+      },
+      {
+        "id": "production-step-source-moose-research-moose",
+        "inputs": [
+          {
+            "id": "production-input-source-moose-research-moose",
+            "goodId": "source-moose",
+            "quantity": 1
+          }
+        ],
+        "outputs": [
+          {
+            "id": "production-output-source-moose-research-moose",
+            "goodId": "research-moose",
+            "quantity": 1
+          },
+          {
+            "id": "production-step-source-moose-research-moose-output-fat",
+            "goodId": "research-fat",
+            "quantity": 1
+          }
+        ],
+        "preservesInputs": false,
+        "note": "Level 0 natural source to level 1 harvested good.",
+        "durationMinutes": 0
+      },
+      {
+        "id": "production-step-source-deer-research-venison",
+        "inputs": [
+          {
+            "id": "production-input-source-deer-research-venison",
+            "goodId": "source-deer",
+            "quantity": 1
+          }
+        ],
+        "outputs": [
+          {
+            "id": "production-output-source-deer-research-venison",
+            "goodId": "research-venison",
+            "quantity": 1
+          },
+          {
+            "id": "production-step-source-deer-research-venison-output-fat",
+            "goodId": "research-fat",
+            "quantity": 1
+          }
+        ],
+        "preservesInputs": false,
+        "note": "Level 0 natural source to level 1 harvested good.",
+        "durationMinutes": 0
+      },
+      {
+        "id": "production-step-source-pig-research-pork",
+        "inputs": [
+          {
+            "id": "production-input-source-pig-research-pork",
+            "goodId": "source-pig",
+            "quantity": 1
+          }
+        ],
+        "outputs": [
+          {
+            "id": "production-output-source-pig-research-pork",
+            "goodId": "research-pork",
+            "quantity": 1
+          },
+          {
+            "id": "production-step-source-pig-research-pork-output-fat",
+            "goodId": "research-fat",
+            "quantity": 1
+          }
+        ],
+        "preservesInputs": false,
+        "note": "Level 0 natural source to level 1 harvested good.",
+        "durationMinutes": 0
+      },
+      {
+        "id": "production-step-source-grouse-research-grouse",
+        "inputs": [
+          {
+            "id": "production-input-source-grouse-research-grouse",
+            "goodId": "source-grouse",
+            "quantity": 1
+          }
+        ],
+        "outputs": [
+          {
+            "id": "production-output-source-grouse-research-grouse",
+            "goodId": "research-grouse",
+            "quantity": 1
+          }
+        ],
+        "preservesInputs": false,
+        "note": "Level 0 natural source to level 1 harvested good.",
+        "durationMinutes": 0
+      }
+    ]
+  },
+  {
+    "id": "production-chain-aquatic-gathering",
+    "name": "Aquatic gathering",
+    "recipes": [
+      {
+        "id": "production-step-source-crab-population-research-crabs",
+        "inputs": [
+          {
+            "id": "production-input-source-crab-population-research-crabs",
+            "goodId": "source-crab-population",
+            "quantity": 1
+          }
+        ],
+        "outputs": [
+          {
+            "id": "production-output-source-crab-population-research-crabs",
+            "goodId": "research-crabs",
+            "quantity": 1
+          },
+          {
+            "id": "production-step-source-crab-population-research-crabs-retained-source",
+            "goodId": "source-crab-population",
+            "quantity": 1
+          }
+        ],
+        "preservesInputs": true,
+        "note": "Level 0 natural source to level 1 harvested good.",
+        "durationMinutes": 0
+      },
+      {
+        "id": "production-step-source-mussel-bed-research-mussels",
+        "inputs": [
+          {
+            "id": "production-input-source-mussel-bed-research-mussels",
+            "goodId": "source-mussel-bed",
+            "quantity": 1
+          }
+        ],
+        "outputs": [
+          {
+            "id": "production-output-source-mussel-bed-research-mussels",
+            "goodId": "research-mussels",
+            "quantity": 1
+          },
+          {
+            "id": "production-step-source-mussel-bed-research-mussels-retained-source",
+            "goodId": "source-mussel-bed",
+            "quantity": 1
+          }
+        ],
+        "preservesInputs": true,
+        "note": "Level 0 natural source to level 1 harvested good.",
+        "durationMinutes": 0
+      },
+      {
+        "id": "production-step-source-oyster-bed-research-oysters",
+        "inputs": [
+          {
+            "id": "production-input-source-oyster-bed-research-oysters",
+            "goodId": "source-oyster-bed",
+            "quantity": 1
+          }
+        ],
+        "outputs": [
+          {
+            "id": "production-output-source-oyster-bed-research-oysters",
+            "goodId": "research-oysters",
+            "quantity": 1
+          },
+          {
+            "id": "production-step-source-oyster-bed-research-oysters-retained-source",
+            "goodId": "source-oyster-bed",
+            "quantity": 1
+          }
+        ],
+        "preservesInputs": true,
+        "note": "Level 0 natural source to level 1 harvested good.",
+        "durationMinutes": 0
+      }
+    ]
+  },
+  {
+    "id": "production-chain-dairy",
+    "name": "Dairy processing",
+    "recipes": [
+      {
+        "id": "production-step-goat-milk-sour-milk",
+        "inputs": [
+          {
+            "id": "production-step-goat-milk-sour-milk-input-1",
+            "goodId": "research-goat-milk",
+            "quantity": 1
+          }
+        ],
+        "outputs": [
+          {
+            "id": "production-step-goat-milk-sour-milk-output-1",
+            "goodId": "research-sour-milk",
+            "quantity": 1
+          }
+        ],
+        "preservesInputs": false,
+        "note": "Primary goat milk to processed sour milk.",
+        "durationMinutes": 0
+      },
+      {
+        "id": "production-step-sheep-milk-sour-milk",
+        "inputs": [
+          {
+            "id": "production-step-sheep-milk-sour-milk-input-1",
+            "goodId": "research-sheep-milk",
+            "quantity": 1
+          }
+        ],
+        "outputs": [
+          {
+            "id": "production-step-sheep-milk-sour-milk-output-1",
+            "goodId": "research-sour-milk",
+            "quantity": 1
+          }
+        ],
+        "preservesInputs": false,
+        "note": "Primary sheep milk to processed sour milk.",
+        "durationMinutes": 0
+      },
+      {
+        "id": "production-step-camel-milk-sour-milk",
+        "inputs": [
+          {
+            "id": "production-step-camel-milk-sour-milk-input-1",
+            "goodId": "research-camel-milk",
+            "quantity": 1
+          }
+        ],
+        "outputs": [
+          {
+            "id": "production-step-camel-milk-sour-milk-output-1",
+            "goodId": "research-sour-milk",
+            "quantity": 1
+          }
+        ],
+        "preservesInputs": false,
+        "note": "Primary camel milk to processed sour milk.",
+        "durationMinutes": 0
+      },
+      {
+        "id": "production-step-sour-milk-feta",
+        "inputs": [
+          {
+            "id": "production-step-sour-milk-feta-input-1",
+            "goodId": "research-sour-milk",
+            "quantity": 1
+          }
+        ],
+        "outputs": [
+          {
+            "id": "production-step-sour-milk-feta-output-1",
+            "goodId": "research-feta",
+            "quantity": 1
+          }
+        ],
+        "preservesInputs": false,
+        "note": "Processed sour milk to crafted feta.",
+        "durationMinutes": 0
+      }
+    ]
+  },
+  {
+    "id": "production-chain-fermentation",
+    "name": "Fermentation",
+    "recipes": [
+      {
+        "id": "production-step-food-cabbage-food-sauerkraut",
+        "inputs": [
+          {
+            "id": "production-step-food-cabbage-food-sauerkraut-input-1",
+            "goodId": "food-cabbage",
+            "quantity": 10
+          },
+          {
+            "id": "production-step-food-cabbage-food-sauerkraut-input-2",
+            "goodId": "food-salt",
+            "quantity": 4
+          }
+        ],
+        "outputs": [
+          {
+            "id": "production-step-food-cabbage-food-sauerkraut-output-1",
+            "goodId": "food-sauerkraut",
+            "quantity": 9
+          }
+        ],
+        "preservesInputs": false,
+        "note": "Lacto-fermented cabbage and salt.",
+        "durationMinutes": 10080
+      },
+      {
+        "id": "production-step-food-cabbage-food-radish-spice-chili-flakes-food-kimchi",
+        "inputs": [
+          {
+            "id": "production-step-food-cabbage-food-radish-spice-chili-flakes-food-kimchi-input-1",
+            "goodId": "food-cabbage",
+            "quantity": 40
+          },
+          {
+            "id": "production-step-food-cabbage-food-radish-spice-chili-flakes-food-kimchi-input-2",
+            "goodId": "food-radish",
+            "quantity": 8
+          },
+          {
+            "id": "production-step-food-cabbage-food-radish-spice-chili-flakes-food-kimchi-input-3",
+            "goodId": "spice-chili-flakes",
+            "quantity": 64
+          },
+          {
+            "id": "production-step-food-cabbage-food-radish-spice-chili-flakes-food-kimchi-input-4",
+            "goodId": "food-garlic",
+            "quantity": 1
+          },
+          {
+            "id": "production-step-food-cabbage-food-radish-spice-chili-flakes-food-kimchi-input-5",
+            "goodId": "spice-fresh-ginger",
+            "quantity": 16
+          },
+          {
+            "id": "production-step-food-cabbage-food-radish-spice-chili-flakes-food-kimchi-input-6",
+            "goodId": "food-salt",
+            "quantity": 29
+          }
+        ],
+        "outputs": [
+          {
+            "id": "production-step-food-cabbage-food-radish-spice-chili-flakes-food-kimchi-output-1",
+            "goodId": "food-kimchi",
+            "quantity": 44
+          }
+        ],
+        "preservesInputs": false,
+        "note": "Kimchi base without fish sauce or shrimp until those ingredients are modeled.",
+        "durationMinutes": 2880
+      },
+      {
+        "id": "production-step-research-goat-milk-drink-kefir",
+        "inputs": [
+          {
+            "id": "production-step-research-goat-milk-drink-kefir-input-1",
+            "goodId": "research-goat-milk",
+            "quantity": 10
+          }
+        ],
+        "outputs": [
+          {
+            "id": "production-step-research-goat-milk-drink-kefir-output-1",
+            "goodId": "drink-kefir",
+            "quantity": 10
+          }
+        ],
+        "preservesInputs": false,
+        "note": "Milk fermented with kefir grains.",
+        "durationMinutes": 1440
+      },
+      {
+        "id": "production-step-research-sheep-milk-drink-kefir",
+        "inputs": [
+          {
+            "id": "production-step-research-sheep-milk-drink-kefir-input-1",
+            "goodId": "research-sheep-milk",
+            "quantity": 10
+          }
+        ],
+        "outputs": [
+          {
+            "id": "production-step-research-sheep-milk-drink-kefir-output-1",
+            "goodId": "drink-kefir",
+            "quantity": 10
+          }
+        ],
+        "preservesInputs": false,
+        "note": "Milk fermented with kefir grains.",
+        "durationMinutes": 1440
+      },
+      {
+        "id": "production-step-research-camel-milk-drink-kefir",
+        "inputs": [
+          {
+            "id": "production-step-research-camel-milk-drink-kefir-input-1",
+            "goodId": "research-camel-milk",
+            "quantity": 10
+          }
+        ],
+        "outputs": [
+          {
+            "id": "production-step-research-camel-milk-drink-kefir-output-1",
+            "goodId": "drink-kefir",
+            "quantity": 10
+          }
+        ],
+        "preservesInputs": false,
+        "note": "Milk fermented with kefir grains.",
+        "durationMinutes": 1440
+      },
+      {
+        "id": "production-step-resource-water-food-raw-honey-drink-water-kefir",
+        "inputs": [
+          {
+            "id": "production-step-resource-water-food-raw-honey-drink-water-kefir-input-1",
+            "goodId": "resource-water",
+            "quantity": 20
+          },
+          {
+            "id": "production-step-resource-water-food-raw-honey-drink-water-kefir-input-2",
+            "goodId": "food-raw-honey",
+            "quantity": 2
+          }
+        ],
+        "outputs": [
+          {
+            "id": "production-step-resource-water-food-raw-honey-drink-water-kefir-output-1",
+            "goodId": "drink-water-kefir",
+            "quantity": 20
+          }
+        ],
+        "preservesInputs": false,
+        "note": "Dairy-free kefir-style fermentation with sweetened water.",
+        "durationMinutes": 2880
+      },
+      {
+        "id": "production-step-spice-tea-leaves-food-raw-honey-drink-kombucha",
+        "inputs": [
+          {
+            "id": "production-step-spice-tea-leaves-food-raw-honey-drink-kombucha-input-1",
+            "goodId": "spice-tea-leaves",
+            "quantity": 4
+          },
+          {
+            "id": "production-step-spice-tea-leaves-food-raw-honey-drink-kombucha-input-2",
+            "goodId": "food-raw-honey",
+            "quantity": 1
+          },
+          {
+            "id": "production-step-spice-tea-leaves-food-raw-honey-drink-kombucha-input-3",
+            "goodId": "resource-water",
+            "quantity": 10
+          }
+        ],
+        "outputs": [
+          {
+            "id": "production-step-spice-tea-leaves-food-raw-honey-drink-kombucha-output-1",
+            "goodId": "drink-kombucha",
+            "quantity": 10
+          }
+        ],
+        "preservesInputs": false,
+        "note": "Sweetened tea fermented with a kombucha culture.",
+        "durationMinutes": 10080
+      },
+      {
+        "id": "production-step-research-goat-milk-food-yogurt",
+        "inputs": [
+          {
+            "id": "production-step-research-goat-milk-food-yogurt-input-1",
+            "goodId": "research-goat-milk",
+            "quantity": 10
+          }
+        ],
+        "outputs": [
+          {
+            "id": "production-step-research-goat-milk-food-yogurt-output-1",
+            "goodId": "food-yogurt",
+            "quantity": 10
+          }
+        ],
+        "preservesInputs": false,
+        "note": "Traditional live-culture yogurt from whole milk.",
+        "durationMinutes": 720
+      },
+      {
+        "id": "production-step-research-sheep-milk-food-yogurt",
+        "inputs": [
+          {
+            "id": "production-step-research-sheep-milk-food-yogurt-input-1",
+            "goodId": "research-sheep-milk",
+            "quantity": 10
+          }
+        ],
+        "outputs": [
+          {
+            "id": "production-step-research-sheep-milk-food-yogurt-output-1",
+            "goodId": "food-yogurt",
+            "quantity": 10
+          }
+        ],
+        "preservesInputs": false,
+        "note": "Traditional live-culture yogurt from whole milk.",
+        "durationMinutes": 720
+      },
+      {
+        "id": "production-step-research-sour-milk-food-aged-raw-cheese",
+        "inputs": [
+          {
+            "id": "production-step-research-sour-milk-food-aged-raw-cheese-input-1",
+            "goodId": "research-sour-milk",
+            "quantity": 10
+          }
+        ],
+        "outputs": [
+          {
+            "id": "production-step-research-sour-milk-food-aged-raw-cheese-output-1",
+            "goodId": "food-aged-raw-cheese",
+            "quantity": 3
+          }
+        ],
+        "preservesInputs": false,
+        "note": "Aged raw cheese as a preserved fermented dairy.",
+        "durationMinutes": 60480
+      },
+      {
+        "id": "production-step-research-soybeans-food-miso",
+        "inputs": [
+          {
+            "id": "production-step-research-soybeans-food-miso-input-1",
+            "goodId": "research-soybeans",
+            "quantity": 5
+          },
+          {
+            "id": "production-step-research-soybeans-food-miso-input-2",
+            "goodId": "research-rice",
+            "quantity": 2
+          },
+          {
+            "id": "production-step-research-soybeans-food-miso-input-3",
+            "goodId": "food-salt",
+            "quantity": 14
+          }
+        ],
+        "outputs": [
+          {
+            "id": "production-step-research-soybeans-food-miso-output-1",
+            "goodId": "food-miso",
+            "quantity": 6
+          }
+        ],
+        "preservesInputs": false,
+        "note": "Soybeans fermented with grain koji; rice stands in for koji substrate.",
+        "durationMinutes": 43200
+      },
+      {
+        "id": "production-step-research-soybeans-food-tempeh",
+        "inputs": [
+          {
+            "id": "production-step-research-soybeans-food-tempeh-input-1",
+            "goodId": "research-soybeans",
+            "quantity": 5
+          }
+        ],
+        "outputs": [
+          {
+            "id": "production-step-research-soybeans-food-tempeh-output-1",
+            "goodId": "food-tempeh",
+            "quantity": 5
+          }
+        ],
+        "preservesInputs": false,
+        "note": "Whole soybeans bound by mold fermentation into tempeh.",
+        "durationMinutes": 2880
+      },
+      {
+        "id": "production-step-research-soybeans-food-natto",
+        "inputs": [
+          {
+            "id": "production-step-research-soybeans-food-natto-input-1",
+            "goodId": "research-soybeans",
+            "quantity": 5
+          }
+        ],
+        "outputs": [
+          {
+            "id": "production-step-research-soybeans-food-natto-output-1",
+            "goodId": "food-natto",
+            "quantity": 5
+          }
+        ],
+        "preservesInputs": false,
+        "note": "Whole soybeans fermented with Bacillus subtilis natto.",
+        "durationMinutes": 1440
+      },
+      {
+        "id": "production-step-research-taro-food-poi",
+        "inputs": [
+          {
+            "id": "production-step-research-taro-food-poi-input-1",
+            "goodId": "research-taro",
+            "quantity": 5
+          },
+          {
+            "id": "production-step-research-taro-food-poi-input-2",
+            "goodId": "resource-water",
+            "quantity": 2
+          }
+        ],
+        "outputs": [
+          {
+            "id": "production-step-research-taro-food-poi-output-1",
+            "goodId": "food-poi",
+            "quantity": 6
+          }
+        ],
+        "preservesInputs": false,
+        "note": "Cooked taro pounded with water and allowed to sour.",
+        "durationMinutes": 4320
+      },
+      {
+        "id": "production-step-food-wheat-food-sourdough-bread",
+        "inputs": [
+          {
+            "id": "production-step-food-wheat-food-sourdough-bread-input-1",
+            "goodId": "food-wheat",
+            "quantity": 5
+          },
+          {
+            "id": "production-step-food-wheat-food-sourdough-bread-input-2",
+            "goodId": "resource-water",
+            "quantity": 4
+          },
+          {
+            "id": "production-step-food-wheat-food-sourdough-bread-input-3",
+            "goodId": "food-salt",
+            "quantity": 2
+          }
+        ],
+        "outputs": [
+          {
+            "id": "production-step-food-wheat-food-sourdough-bread-output-1",
+            "goodId": "food-sourdough-bread",
+            "quantity": 7
+          }
+        ],
+        "preservesInputs": false,
+        "note": "Long-fermented sourdough bread.",
+        "durationMinutes": 1440
+      },
+      {
+        "id": "production-step-food-rye-drink-bread-kvass",
+        "inputs": [
+          {
+            "id": "production-step-food-rye-drink-bread-kvass-input-1",
+            "goodId": "food-rye",
+            "quantity": 2
+          },
+          {
+            "id": "production-step-food-rye-drink-bread-kvass-input-2",
+            "goodId": "resource-water",
+            "quantity": 10
+          }
+        ],
+        "outputs": [
+          {
+            "id": "production-step-food-rye-drink-bread-kvass-output-1",
+            "goodId": "drink-bread-kvass",
+            "quantity": 10
+          }
+        ],
+        "preservesInputs": false,
+        "note": "Bread kvass modeled from rye and water.",
+        "durationMinutes": 2880
+      },
+      {
+        "id": "production-step-food-beetroot-drink-beet-kvass",
+        "inputs": [
+          {
+            "id": "production-step-food-beetroot-drink-beet-kvass-input-1",
+            "goodId": "food-beetroot",
+            "quantity": 3
+          },
+          {
+            "id": "production-step-food-beetroot-drink-beet-kvass-input-2",
+            "goodId": "resource-water",
+            "quantity": 10
+          },
+          {
+            "id": "production-step-food-beetroot-drink-beet-kvass-input-3",
+            "goodId": "food-salt",
+            "quantity": 4
+          }
+        ],
+        "outputs": [
+          {
+            "id": "production-step-food-beetroot-drink-beet-kvass-output-1",
+            "goodId": "drink-beet-kvass",
+            "quantity": 10
+          }
+        ],
+        "preservesInputs": false,
+        "note": "Beet kvass from beets, salted water and lacto-fermentation.",
+        "durationMinutes": 4320
+      },
+      {
+        "id": "production-step-food-cucumber-food-lacto-pickles",
+        "inputs": [
+          {
+            "id": "production-step-food-cucumber-food-lacto-pickles-input-1",
+            "goodId": "food-cucumber",
+            "quantity": 50
+          },
+          {
+            "id": "production-step-food-cucumber-food-lacto-pickles-input-2",
+            "goodId": "resource-water",
+            "quantity": 25
+          },
+          {
+            "id": "production-step-food-cucumber-food-lacto-pickles-input-3",
+            "goodId": "food-salt",
+            "quantity": 25
+          },
+          {
+            "id": "production-step-food-cucumber-food-lacto-pickles-input-4",
+            "goodId": "food-garlic",
+            "quantity": 1
+          }
+        ],
+        "outputs": [
+          {
+            "id": "production-step-food-cucumber-food-lacto-pickles-output-1",
+            "goodId": "food-lacto-pickles",
+            "quantity": 45
+          }
+        ],
+        "preservesInputs": false,
+        "note": "Lacto-fermented cucumber pickles.",
+        "durationMinutes": 4320
+      },
+      {
+        "id": "production-step-food-jalapeno-food-fermented-hot-sauce",
+        "inputs": [
+          {
+            "id": "production-step-food-jalapeno-food-fermented-hot-sauce-input-1",
+            "goodId": "food-jalapeno",
+            "quantity": 10
+          },
+          {
+            "id": "production-step-food-jalapeno-food-fermented-hot-sauce-input-2",
+            "goodId": "food-salt",
+            "quantity": 6
+          }
+        ],
+        "outputs": [
+          {
+            "id": "production-step-food-jalapeno-food-fermented-hot-sauce-output-1",
+            "goodId": "food-fermented-hot-sauce",
+            "quantity": 160
+          }
+        ],
+        "preservesInputs": false,
+        "note": "Salt-fermented chili mash for hot sauce.",
+        "durationMinutes": 10080
+      },
+      {
+        "id": "production-step-food-garlic-food-raw-honey-food-fermented-garlic-honey",
+        "inputs": [
+          {
+            "id": "production-step-food-garlic-food-raw-honey-food-fermented-garlic-honey-input-1",
+            "goodId": "food-garlic",
+            "quantity": 3
+          },
+          {
+            "id": "production-step-food-garlic-food-raw-honey-food-fermented-garlic-honey-input-2",
+            "goodId": "food-raw-honey",
+            "quantity": 6
+          }
+        ],
+        "outputs": [
+          {
+            "id": "production-step-food-garlic-food-raw-honey-food-fermented-garlic-honey-output-1",
+            "goodId": "food-fermented-garlic-honey",
+            "quantity": 8
+          }
+        ],
+        "preservesInputs": false,
+        "note": "Garlic cloves slowly fermented in raw honey.",
+        "durationMinutes": 40320
+      },
+      {
+        "id": "production-step-food-apples-food-apple-cider-vinegar",
+        "inputs": [
+          {
+            "id": "production-step-food-apples-food-apple-cider-vinegar-input-1",
+            "goodId": "food-apples",
+            "quantity": 10
+          },
+          {
+            "id": "production-step-food-apples-food-apple-cider-vinegar-input-2",
+            "goodId": "resource-water",
+            "quantity": 5
+          }
+        ],
+        "outputs": [
+          {
+            "id": "production-step-food-apples-food-apple-cider-vinegar-output-1",
+            "goodId": "food-apple-cider-vinegar",
+            "quantity": 200
+          }
+        ],
+        "preservesInputs": false,
+        "note": "Two-stage apple cider vinegar fermentation.",
+        "durationMinutes": 100800
+      },
+      {
+        "id": "production-step-food-beetroot-food-fermented-beets",
+        "inputs": [
+          {
+            "id": "production-step-food-beetroot-food-fermented-beets-input-1",
+            "goodId": "food-beetroot",
+            "quantity": 10
+          },
+          {
+            "id": "production-step-food-beetroot-food-fermented-beets-input-2",
+            "goodId": "resource-water",
+            "quantity": 5
+          },
+          {
+            "id": "production-step-food-beetroot-food-fermented-beets-input-3",
+            "goodId": "food-salt",
+            "quantity": 5
+          }
+        ],
+        "outputs": [
+          {
+            "id": "production-step-food-beetroot-food-fermented-beets-output-1",
+            "goodId": "food-fermented-beets",
+            "quantity": 9
+          }
+        ],
+        "preservesInputs": false,
+        "note": "Lacto-fermented beetroot.",
+        "durationMinutes": 4320
+      }
+    ]
+  },
+  {
+    "id": "production-chain-fermented-dishes",
+    "name": "Fermented dishes",
+    "recipes": [
+      {
+        "id": "production-step-dish-miso-soup",
+        "inputs": [
+          {
+            "id": "production-step-dish-miso-soup-input-1",
+            "goodId": "food-miso",
+            "quantity": 3
+          },
+          {
+            "id": "production-step-dish-miso-soup-input-2",
+            "goodId": "liquid-seaweed-broth",
+            "quantity": 25
+          },
+          {
+            "id": "production-step-dish-miso-soup-input-3",
+            "goodId": "research-tofu",
+            "quantity": 8
+          },
+          {
+            "id": "production-step-dish-miso-soup-input-4",
+            "goodId": "food-scallion",
+            "quantity": 1
+          }
+        ],
+        "outputs": [
+          {
+            "id": "production-step-dish-miso-soup-output-1",
+            "goodId": "dish-miso-soup",
+            "quantity": 30
+          }
+        ],
+        "preservesInputs": false,
+        "note": "Miso soup assembled from current fermented soy and broth ingredients.",
+        "durationMinutes": 15
+      },
+      {
+        "id": "production-step-dish-natto-rice",
+        "inputs": [
+          {
+            "id": "production-step-dish-natto-rice-input-1",
+            "goodId": "food-natto",
+            "quantity": 5
+          },
+          {
+            "id": "production-step-dish-natto-rice-input-2",
+            "goodId": "research-rice",
+            "quantity": 20
+          },
+          {
+            "id": "production-step-dish-natto-rice-input-3",
+            "goodId": "food-scallion",
+            "quantity": 1
+          }
+        ],
+        "outputs": [
+          {
+            "id": "production-step-dish-natto-rice-output-1",
+            "goodId": "dish-natto-rice",
+            "quantity": 25
+          }
+        ],
+        "preservesInputs": false,
+        "note": "Natto served over rice with a simple allium garnish.",
+        "durationMinutes": 10
+      }
+    ]
+  },
+  {
+    "id": "production-chain-fruit-harvesting",
+    "name": "Fruit harvesting",
+    "recipes": [
+      {
+        "id": "production-step-source-lingonberry-shrub-research-lingonberries",
+        "inputs": [
+          {
+            "id": "production-input-source-lingonberry-shrub-research-lingonberries",
+            "goodId": "source-lingonberry-shrub",
+            "quantity": 1
+          }
+        ],
+        "outputs": [
+          {
+            "id": "production-output-source-lingonberry-shrub-research-lingonberries",
+            "goodId": "research-lingonberries",
+            "quantity": 1
+          },
+          {
+            "id": "production-step-source-lingonberry-shrub-research-lingonberries-retained-source",
+            "goodId": "source-lingonberry-shrub",
+            "quantity": 1
+          }
+        ],
+        "preservesInputs": true,
+        "note": "Level 0 natural source to level 1 harvested good.",
+        "durationMinutes": 0
+      },
+      {
+        "id": "production-step-source-pear-tree-research-pears",
+        "inputs": [
+          {
+            "id": "production-input-source-pear-tree-research-pears",
+            "goodId": "source-pear-tree",
+            "quantity": 1
+          }
+        ],
+        "outputs": [
+          {
+            "id": "production-output-source-pear-tree-research-pears",
+            "goodId": "research-pears",
+            "quantity": 1
+          },
+          {
+            "id": "production-step-source-pear-tree-research-pears-retained-source",
+            "goodId": "source-pear-tree",
+            "quantity": 1
+          }
+        ],
+        "preservesInputs": true,
+        "note": "Level 0 natural source to level 1 harvested good.",
+        "durationMinutes": 0
+      },
+      {
+        "id": "production-step-source-fig-tree-research-figs",
+        "inputs": [
+          {
+            "id": "production-input-source-fig-tree-research-figs",
+            "goodId": "source-fig-tree",
+            "quantity": 1
+          }
+        ],
+        "outputs": [
+          {
+            "id": "production-output-source-fig-tree-research-figs",
+            "goodId": "research-figs",
+            "quantity": 1
+          },
+          {
+            "id": "production-step-source-fig-tree-research-figs-retained-source",
+            "goodId": "source-fig-tree",
+            "quantity": 1
+          }
+        ],
+        "preservesInputs": true,
+        "note": "Level 0 natural source to level 1 harvested good.",
+        "durationMinutes": 0
+      },
+      {
+        "id": "production-step-source-mango-tree-research-mango",
+        "inputs": [
+          {
+            "id": "production-input-source-mango-tree-research-mango",
+            "goodId": "source-mango-tree",
+            "quantity": 1
+          }
+        ],
+        "outputs": [
+          {
+            "id": "production-output-source-mango-tree-research-mango",
+            "goodId": "research-mango",
+            "quantity": 1
+          },
+          {
+            "id": "production-step-source-mango-tree-research-mango-retained-source",
+            "goodId": "source-mango-tree",
+            "quantity": 1
+          }
+        ],
+        "preservesInputs": true,
+        "note": "Level 0 natural source to level 1 harvested good.",
+        "durationMinutes": 0
+      },
+      {
+        "id": "production-step-source-papaya-tree-research-papaya",
+        "inputs": [
+          {
+            "id": "production-input-source-papaya-tree-research-papaya",
+            "goodId": "source-papaya-tree",
+            "quantity": 1
+          }
+        ],
+        "outputs": [
+          {
+            "id": "production-output-source-papaya-tree-research-papaya",
+            "goodId": "research-papaya",
+            "quantity": 1
+          },
+          {
+            "id": "production-step-source-papaya-tree-research-papaya-retained-source",
+            "goodId": "source-papaya-tree",
+            "quantity": 1
+          }
+        ],
+        "preservesInputs": true,
+        "note": "Level 0 natural source to level 1 harvested good.",
+        "durationMinutes": 0
+      },
+      {
+        "id": "production-step-source-plantain-plant-research-plantains",
+        "inputs": [
+          {
+            "id": "production-input-source-plantain-plant-research-plantains",
+            "goodId": "source-plantain-plant",
+            "quantity": 1
+          }
+        ],
+        "outputs": [
+          {
+            "id": "production-output-source-plantain-plant-research-plantains",
+            "goodId": "research-plantains",
+            "quantity": 1
+          },
+          {
+            "id": "production-step-source-plantain-plant-research-plantains-retained-source",
+            "goodId": "source-plantain-plant",
+            "quantity": 1
+          }
+        ],
+        "preservesInputs": true,
+        "note": "Level 0 natural source to level 1 harvested good.",
+        "durationMinutes": 0
+      },
+      {
+        "id": "production-step-source-plum-tree-research-plums",
+        "inputs": [
+          {
+            "id": "production-input-source-plum-tree-research-plums",
+            "goodId": "source-plum-tree",
+            "quantity": 1
+          }
+        ],
+        "outputs": [
+          {
+            "id": "production-output-source-plum-tree-research-plums",
+            "goodId": "research-plums",
+            "quantity": 1
+          },
+          {
+            "id": "production-step-source-plum-tree-research-plums-retained-source",
+            "goodId": "source-plum-tree",
+            "quantity": 1
+          }
+        ],
+        "preservesInputs": true,
+        "note": "Level 0 natural source to level 1 harvested good.",
+        "durationMinutes": 0
+      },
+      {
+        "id": "production-step-source-date-palm-research-dates",
+        "inputs": [
+          {
+            "id": "production-input-source-date-palm-research-dates",
+            "goodId": "source-date-palm",
+            "quantity": 1
+          }
+        ],
+        "outputs": [
+          {
+            "id": "production-output-source-date-palm-research-dates",
+            "goodId": "research-dates",
+            "quantity": 1
+          },
+          {
+            "id": "production-step-source-date-palm-research-dates-retained-source",
+            "goodId": "source-date-palm",
+            "quantity": 1
+          }
+        ],
+        "preservesInputs": true,
+        "note": "Level 0 natural source to level 1 harvested good.",
+        "durationMinutes": 0
+      },
+      {
+        "id": "production-step-source-blueberry-shrub-research-blueberries",
+        "inputs": [
+          {
+            "id": "production-input-source-blueberry-shrub-research-blueberries",
+            "goodId": "source-blueberry-shrub",
+            "quantity": 1
+          }
+        ],
+        "outputs": [
+          {
+            "id": "production-output-source-blueberry-shrub-research-blueberries",
+            "goodId": "research-blueberries",
+            "quantity": 1
+          },
+          {
+            "id": "production-step-source-blueberry-shrub-research-blueberries-retained-source",
+            "goodId": "source-blueberry-shrub",
+            "quantity": 1
+          }
+        ],
+        "preservesInputs": true,
+        "note": "Level 0 natural source to level 1 harvested good.",
+        "durationMinutes": 0
+      },
+      {
+        "id": "production-step-source-apple-tree-food-apples",
+        "inputs": [
+          {
+            "id": "production-input-source-apple-tree-food-apples",
+            "goodId": "source-apple-tree",
+            "quantity": 1
+          }
+        ],
+        "outputs": [
+          {
+            "id": "production-output-source-apple-tree-food-apples",
+            "goodId": "food-apples",
+            "quantity": 1
+          },
+          {
+            "id": "production-step-source-apple-tree-food-apples-retained-source",
+            "goodId": "source-apple-tree",
+            "quantity": 1
+          }
+        ],
+        "preservesInputs": true,
+        "note": "Level 0 natural source to level 1 harvested good.",
+        "durationMinutes": 0
+      }
+    ]
+  },
+  {
+    "id": "production-chain-grain-harvesting",
+    "name": "Grain harvesting",
+    "recipes": [
+      {
+        "id": "production-step-source-millet-plant-research-millet",
+        "inputs": [
+          {
+            "id": "production-input-source-millet-plant-research-millet",
+            "goodId": "source-millet-plant",
+            "quantity": 1
+          }
+        ],
+        "outputs": [
+          {
+            "id": "production-output-source-millet-plant-research-millet",
+            "goodId": "research-millet",
+            "quantity": 1
+          }
+        ],
+        "preservesInputs": false,
+        "note": "Level 0 natural source to level 1 harvested good.",
+        "durationMinutes": 0
+      },
+      {
+        "id": "production-step-source-wheat-plant-food-wheat",
+        "inputs": [
+          {
+            "id": "production-input-source-wheat-plant-food-wheat",
+            "goodId": "source-wheat-plant",
+            "quantity": 1
+          }
+        ],
+        "outputs": [
+          {
+            "id": "production-output-source-wheat-plant-food-wheat",
+            "goodId": "food-wheat",
+            "quantity": 1
+          }
+        ],
+        "preservesInputs": false,
+        "note": "Level 0 natural source to level 1 harvested good.",
+        "durationMinutes": 0
+      },
+      {
+        "id": "production-step-source-rice-plant-research-rice",
+        "inputs": [
+          {
+            "id": "production-input-source-rice-plant-research-rice",
+            "goodId": "source-rice-plant",
+            "quantity": 1
+          }
+        ],
+        "outputs": [
+          {
+            "id": "production-output-source-rice-plant-research-rice",
+            "goodId": "research-rice",
+            "quantity": 1
+          }
+        ],
+        "preservesInputs": false,
+        "note": "Level 0 natural source to level 1 harvested good.",
+        "durationMinutes": 0
+      },
+      {
+        "id": "production-step-source-sorghum-plant-research-sorghum",
+        "inputs": [
+          {
+            "id": "production-input-source-sorghum-plant-research-sorghum",
+            "goodId": "source-sorghum-plant",
+            "quantity": 1
+          }
+        ],
+        "outputs": [
+          {
+            "id": "production-output-source-sorghum-plant-research-sorghum",
+            "goodId": "research-sorghum",
+            "quantity": 1
+          }
+        ],
+        "preservesInputs": false,
+        "note": "Level 0 natural source to level 1 harvested good.",
+        "durationMinutes": 0
+      },
+      {
+        "id": "production-step-source-barley-plant-research-barley",
+        "inputs": [
+          {
+            "id": "production-input-source-barley-plant-research-barley",
+            "goodId": "source-barley-plant",
+            "quantity": 1
+          }
+        ],
+        "outputs": [
+          {
+            "id": "production-output-source-barley-plant-research-barley",
+            "goodId": "research-barley",
+            "quantity": 1
+          }
+        ],
+        "preservesInputs": false,
+        "note": "Level 0 natural source to level 1 harvested good.",
+        "durationMinutes": 0
+      }
+    ]
+  },
+  {
+    "id": "production-chain-legume-dishes",
+    "name": "Legume dishes",
+    "recipes": [
+      {
+        "id": "production-step-dish-black-beans-rice",
+        "inputs": [
+          {
+            "id": "production-step-dish-black-beans-rice-input-1",
+            "goodId": "research-black-beans",
+            "quantity": 20
+          },
+          {
+            "id": "production-step-dish-black-beans-rice-input-2",
+            "goodId": "research-rice",
+            "quantity": 20
+          },
+          {
+            "id": "production-step-dish-black-beans-rice-input-3",
+            "goodId": "food-white-onion",
+            "quantity": 6
+          },
+          {
+            "id": "production-step-dish-black-beans-rice-input-4",
+            "goodId": "food-salt",
+            "quantity": 10
+          },
+          {
+            "id": "production-step-dish-black-beans-rice-input-5",
+            "goodId": "spice-ground-cumin",
+            "quantity": 8
+          },
+          {
+            "id": "production-step-dish-black-beans-rice-input-6",
+            "goodId": "spice-chili-flakes",
+            "quantity": 4
+          },
+          {
+            "id": "production-step-dish-black-beans-rice-input-7",
+            "goodId": "food-garlic",
+            "quantity": 1
+          },
+          {
+            "id": "production-step-dish-black-beans-rice-input-8",
+            "goodId": "liquid-boiled-water",
+            "quantity": 40
+          },
+          {
+            "id": "production-step-dish-black-beans-rice-input-9",
+            "goodId": "food-serrano-pepper",
+            "quantity": 2
+          }
+        ],
+        "outputs": [
+          {
+            "id": "production-step-dish-black-beans-rice-output-1",
+            "goodId": "dish-black-beans-rice",
+            "quantity": 70
+          }
+        ],
+        "preservesInputs": false,
+        "note": "Crafted dish based on bean article examples; uses only existing goods as ingredients.",
+        "durationMinutes": 75
+      },
+      {
+        "id": "production-step-dish-red-bean-chili",
+        "inputs": [
+          {
+            "id": "production-step-dish-red-bean-chili-input-1",
+            "goodId": "research-kidney-beans",
+            "quantity": 21
+          },
+          {
+            "id": "production-step-dish-red-bean-chili-input-2",
+            "goodId": "food-beef",
+            "quantity": 14
+          },
+          {
+            "id": "production-step-dish-red-bean-chili-input-3",
+            "goodId": "food-yellow-onion",
+            "quantity": 7
+          },
+          {
+            "id": "production-step-dish-red-bean-chili-input-4",
+            "goodId": "food-salt",
+            "quantity": 8
+          },
+          {
+            "id": "production-step-dish-red-bean-chili-input-5",
+            "goodId": "spice-chili-flakes",
+            "quantity": 7
+          },
+          {
+            "id": "production-step-dish-red-bean-chili-input-6",
+            "goodId": "spice-ground-cumin",
+            "quantity": 8
+          },
+          {
+            "id": "production-step-dish-red-bean-chili-input-7",
+            "goodId": "spice-smoked-paprika",
+            "quantity": 7
+          },
+          {
+            "id": "production-step-dish-red-bean-chili-input-8",
+            "goodId": "food-garlic",
+            "quantity": 1
+          },
+          {
+            "id": "production-step-dish-red-bean-chili-input-9",
+            "goodId": "liquid-meat-broth",
+            "quantity": 28
+          },
+          {
+            "id": "production-step-dish-red-bean-chili-input-10",
+            "goodId": "food-jalapeno",
+            "quantity": 2
+          },
+          {
+            "id": "production-step-dish-red-bean-chili-input-11",
+            "goodId": "spice-chipotle-powder",
+            "quantity": 4
+          },
+          {
+            "id": "production-step-dish-red-bean-chili-input-12",
+            "goodId": "food-fermented-hot-sauce",
+            "quantity": 14
+          }
+        ],
+        "outputs": [
+          {
+            "id": "production-step-dish-red-bean-chili-output-1",
+            "goodId": "dish-red-bean-chili",
+            "quantity": 70
+          }
+        ],
+        "preservesInputs": false,
+        "note": "Crafted dish based on bean article examples; uses only existing goods as ingredients.",
+        "durationMinutes": 120
+      },
+      {
+        "id": "production-step-dish-chickpea-hummus",
+        "inputs": [
+          {
+            "id": "production-step-dish-chickpea-hummus-input-1",
+            "goodId": "research-chickpeas",
+            "quantity": 52
+          },
+          {
+            "id": "production-step-dish-chickpea-hummus-input-2",
+            "goodId": "research-olive-oil",
+            "quantity": 7
+          },
+          {
+            "id": "production-step-dish-chickpea-hummus-input-3",
+            "goodId": "food-salt",
+            "quantity": 10
+          },
+          {
+            "id": "production-step-dish-chickpea-hummus-input-4",
+            "goodId": "spice-ground-cumin",
+            "quantity": 8
+          },
+          {
+            "id": "production-step-dish-chickpea-hummus-input-5",
+            "goodId": "food-garlic",
+            "quantity": 1
+          },
+          {
+            "id": "production-step-dish-chickpea-hummus-input-6",
+            "goodId": "research-aquafaba",
+            "quantity": 10
+          }
+        ],
+        "outputs": [
+          {
+            "id": "production-step-dish-chickpea-hummus-output-1",
+            "goodId": "dish-chickpea-hummus",
+            "quantity": 65
+          }
+        ],
+        "preservesInputs": false,
+        "note": "Crafted dish based on bean article examples; uses only existing goods as ingredients.",
+        "durationMinutes": 15
+      },
+      {
+        "id": "production-step-dish-refried-pinto-beans",
+        "inputs": [
+          {
+            "id": "production-step-dish-refried-pinto-beans-input-1",
+            "goodId": "research-pinto-beans",
+            "quantity": 40
+          },
+          {
+            "id": "production-step-dish-refried-pinto-beans-input-2",
+            "goodId": "research-fat",
+            "quantity": 4
+          },
+          {
+            "id": "production-step-dish-refried-pinto-beans-input-3",
+            "goodId": "food-white-onion",
+            "quantity": 6
+          },
+          {
+            "id": "production-step-dish-refried-pinto-beans-input-4",
+            "goodId": "food-salt",
+            "quantity": 8
+          },
+          {
+            "id": "production-step-dish-refried-pinto-beans-input-5",
+            "goodId": "spice-ground-cumin",
+            "quantity": 8
+          },
+          {
+            "id": "production-step-dish-refried-pinto-beans-input-6",
+            "goodId": "spice-chili-flakes",
+            "quantity": 4
+          },
+          {
+            "id": "production-step-dish-refried-pinto-beans-input-7",
+            "goodId": "food-garlic",
+            "quantity": 1
+          },
+          {
+            "id": "production-step-dish-refried-pinto-beans-input-8",
+            "goodId": "liquid-boiled-water",
+            "quantity": 10
+          },
+          {
+            "id": "production-step-dish-refried-pinto-beans-input-9",
+            "goodId": "food-jalapeno",
+            "quantity": 2
+          }
+        ],
+        "outputs": [
+          {
+            "id": "production-step-dish-refried-pinto-beans-output-1",
+            "goodId": "dish-refried-pinto-beans",
+            "quantity": 50
+          }
+        ],
+        "preservesInputs": false,
+        "note": "Crafted dish based on bean article examples; uses only existing goods as ingredients.",
+        "durationMinutes": 35
+      },
+      {
+        "id": "production-step-dish-lentil-stew",
+        "inputs": [
+          {
+            "id": "production-step-dish-lentil-stew-input-1",
+            "goodId": "research-lentils",
+            "quantity": 30
+          },
+          {
+            "id": "production-step-dish-lentil-stew-input-2",
+            "goodId": "food-yellow-onion",
+            "quantity": 8
+          },
+          {
+            "id": "production-step-dish-lentil-stew-input-3",
+            "goodId": "food-salt",
+            "quantity": 10
+          },
+          {
+            "id": "production-step-dish-lentil-stew-input-4",
+            "goodId": "spice-bay-leaves",
+            "quantity": 2
+          },
+          {
+            "id": "production-step-dish-lentil-stew-input-5",
+            "goodId": "spice-black-peppercorns",
+            "quantity": 4
+          },
+          {
+            "id": "production-step-dish-lentil-stew-input-6",
+            "goodId": "food-garlic",
+            "quantity": 1
+          },
+          {
+            "id": "production-step-dish-lentil-stew-input-7",
+            "goodId": "liquid-vegetable-broth",
+            "quantity": 70
+          }
+        ],
+        "outputs": [
+          {
+            "id": "production-step-dish-lentil-stew-output-1",
+            "goodId": "dish-lentil-stew",
+            "quantity": 80
+          }
+        ],
+        "preservesInputs": false,
+        "note": "Crafted dish based on bean article examples; uses only existing goods as ingredients.",
+        "durationMinutes": 45
+      },
+      {
+        "id": "production-step-dish-navy-baked-beans",
+        "inputs": [
+          {
+            "id": "production-step-dish-navy-baked-beans-input-1",
+            "goodId": "research-navy-beans",
+            "quantity": 8
+          },
+          {
+            "id": "production-step-dish-navy-baked-beans-input-2",
+            "goodId": "research-date-paste",
+            "quantity": 1
+          },
+          {
+            "id": "production-step-dish-navy-baked-beans-input-3",
+            "goodId": "food-salt",
+            "quantity": 2
+          },
+          {
+            "id": "production-step-dish-navy-baked-beans-input-4",
+            "goodId": "spice-smoked-paprika",
+            "quantity": 2
+          },
+          {
+            "id": "production-step-dish-navy-baked-beans-input-5",
+            "goodId": "spice-black-peppercorns",
+            "quantity": 1
+          },
+          {
+            "id": "production-step-dish-navy-baked-beans-input-6",
+            "goodId": "liquid-boiled-water",
+            "quantity": 4
+          }
+        ],
+        "outputs": [
+          {
+            "id": "production-step-dish-navy-baked-beans-output-1",
+            "goodId": "dish-navy-baked-beans",
+            "quantity": 10
+          }
+        ],
+        "preservesInputs": false,
+        "note": "Crafted dish based on bean article examples; uses only existing goods as ingredients.",
+        "durationMinutes": 180
+      },
+      {
+        "id": "production-step-dish-salted-edamame",
+        "inputs": [
+          {
+            "id": "production-step-dish-salted-edamame-input-1",
+            "goodId": "research-edamame",
+            "quantity": 3
+          },
+          {
+            "id": "production-step-dish-salted-edamame-input-2",
+            "goodId": "food-salt",
+            "quantity": 2
+          },
+          {
+            "id": "production-step-dish-salted-edamame-input-3",
+            "goodId": "liquid-boiled-water",
+            "quantity": 5
+          }
+        ],
+        "outputs": [
+          {
+            "id": "production-step-dish-salted-edamame-output-1",
+            "goodId": "dish-salted-edamame",
+            "quantity": 3
+          }
+        ],
+        "preservesInputs": false,
+        "note": "Crafted dish based on bean article examples; uses only existing goods as ingredients.",
+        "durationMinutes": 10
+      },
+      {
+        "id": "production-step-dish-lima-beans-oil",
+        "inputs": [
+          {
+            "id": "production-step-dish-lima-beans-oil-input-1",
+            "goodId": "research-lima-beans",
+            "quantity": 12
+          },
+          {
+            "id": "production-step-dish-lima-beans-oil-input-2",
+            "goodId": "research-olive-oil",
+            "quantity": 1
+          },
+          {
+            "id": "production-step-dish-lima-beans-oil-input-3",
+            "goodId": "food-salt",
+            "quantity": 3
+          },
+          {
+            "id": "production-step-dish-lima-beans-oil-input-4",
+            "goodId": "spice-black-peppercorns",
+            "quantity": 2
+          },
+          {
+            "id": "production-step-dish-lima-beans-oil-input-5",
+            "goodId": "liquid-boiled-water",
+            "quantity": 8
+          }
+        ],
+        "outputs": [
+          {
+            "id": "production-step-dish-lima-beans-oil-output-1",
+            "goodId": "dish-lima-beans-oil",
+            "quantity": 16
+          }
+        ],
+        "preservesInputs": false,
+        "note": "Crafted dish based on bean article examples; uses only existing goods as ingredients.",
+        "durationMinutes": 25
+      },
+      {
+        "id": "production-step-dish-fava-beans-oil",
+        "inputs": [
+          {
+            "id": "production-step-dish-fava-beans-oil-input-1",
+            "goodId": "research-fava-beans",
+            "quantity": 9
+          },
+          {
+            "id": "production-step-dish-fava-beans-oil-input-2",
+            "goodId": "food-spring-onion",
+            "quantity": 1
+          },
+          {
+            "id": "production-step-dish-fava-beans-oil-input-3",
+            "goodId": "research-olive-oil",
+            "quantity": 1
+          },
+          {
+            "id": "production-step-dish-fava-beans-oil-input-4",
+            "goodId": "food-salt",
+            "quantity": 2
+          },
+          {
+            "id": "production-step-dish-fava-beans-oil-input-5",
+            "goodId": "spice-ground-cumin",
+            "quantity": 2
+          },
+          {
+            "id": "production-step-dish-fava-beans-oil-input-6",
+            "goodId": "liquid-boiled-water",
+            "quantity": 6
+          }
+        ],
+        "outputs": [
+          {
+            "id": "production-step-dish-fava-beans-oil-output-1",
+            "goodId": "dish-fava-beans-oil",
+            "quantity": 12
+          }
+        ],
+        "preservesInputs": false,
+        "note": "Crafted dish based on bean article examples; uses only existing goods as ingredients.",
+        "durationMinutes": 35
+      },
+      {
+        "id": "production-step-dish-mung-sweet-soup",
+        "inputs": [
+          {
+            "id": "production-step-dish-mung-sweet-soup-input-1",
+            "goodId": "research-mung-beans",
+            "quantity": 4
+          },
+          {
+            "id": "production-step-dish-mung-sweet-soup-input-2",
+            "goodId": "research-date-paste",
+            "quantity": 1
+          },
+          {
+            "id": "production-step-dish-mung-sweet-soup-input-3",
+            "goodId": "spice-ground-cinnamon",
+            "quantity": 1
+          },
+          {
+            "id": "production-step-dish-mung-sweet-soup-input-4",
+            "goodId": "spice-ground-cardamom",
+            "quantity": 1
+          },
+          {
+            "id": "production-step-dish-mung-sweet-soup-input-5",
+            "goodId": "liquid-boiled-water",
+            "quantity": 12
+          }
+        ],
+        "outputs": [
+          {
+            "id": "production-step-dish-mung-sweet-soup-output-1",
+            "goodId": "dish-mung-sweet-soup",
+            "quantity": 12
+          }
+        ],
+        "preservesInputs": false,
+        "note": "Crafted dish based on bean article examples; uses only existing goods as ingredients.",
+        "durationMinutes": 50
+      },
+      {
+        "id": "production-step-dish-adzuki-sweet-paste",
+        "inputs": [
+          {
+            "id": "production-step-dish-adzuki-sweet-paste-input-1",
+            "goodId": "research-adzuki-beans",
+            "quantity": 3
+          },
+          {
+            "id": "production-step-dish-adzuki-sweet-paste-input-2",
+            "goodId": "research-date-paste",
+            "quantity": 1
+          },
+          {
+            "id": "production-step-dish-adzuki-sweet-paste-input-3",
+            "goodId": "spice-ground-cinnamon",
+            "quantity": 1
+          },
+          {
+            "id": "production-step-dish-adzuki-sweet-paste-input-4",
+            "goodId": "liquid-boiled-water",
+            "quantity": 2
+          }
+        ],
+        "outputs": [
+          {
+            "id": "production-step-dish-adzuki-sweet-paste-output-1",
+            "goodId": "dish-adzuki-sweet-paste",
+            "quantity": 4
+          }
+        ],
+        "preservesInputs": false,
+        "note": "Crafted dish based on bean article examples; uses only existing goods as ingredients.",
+        "durationMinutes": 90
+      },
+      {
+        "id": "production-step-dish-hoppin-john",
+        "inputs": [
+          {
+            "id": "production-step-dish-hoppin-john-input-1",
+            "goodId": "research-black-eyed-peas",
+            "quantity": 3
+          },
+          {
+            "id": "production-step-dish-hoppin-john-input-2",
+            "goodId": "research-rice",
+            "quantity": 2
+          },
+          {
+            "id": "production-step-dish-hoppin-john-input-3",
+            "goodId": "research-pork",
+            "quantity": 1
+          },
+          {
+            "id": "production-step-dish-hoppin-john-input-4",
+            "goodId": "food-salt",
+            "quantity": 1
+          },
+          {
+            "id": "production-step-dish-hoppin-john-input-5",
+            "goodId": "spice-black-peppercorns",
+            "quantity": 1
+          },
+          {
+            "id": "production-step-dish-hoppin-john-input-6",
+            "goodId": "spice-chili-flakes",
+            "quantity": 1
+          },
+          {
+            "id": "production-step-dish-hoppin-john-input-7",
+            "goodId": "liquid-meat-broth",
+            "quantity": 5
+          }
+        ],
+        "outputs": [
+          {
+            "id": "production-step-dish-hoppin-john-output-1",
+            "goodId": "dish-hoppin-john",
+            "quantity": 7
+          }
+        ],
+        "preservesInputs": false,
+        "note": "Crafted dish based on bean article examples; uses only existing goods as ingredients.",
+        "durationMinutes": 75
+      },
+      {
+        "id": "production-step-dish-cannellini-wheat-stew",
+        "inputs": [
+          {
+            "id": "production-step-dish-cannellini-wheat-stew-input-1",
+            "goodId": "research-cannellini-beans",
+            "quantity": 30
+          },
+          {
+            "id": "production-step-dish-cannellini-wheat-stew-input-2",
+            "goodId": "food-wheat",
+            "quantity": 10
+          },
+          {
+            "id": "production-step-dish-cannellini-wheat-stew-input-3",
+            "goodId": "food-yellow-onion",
+            "quantity": 8
+          },
+          {
+            "id": "production-step-dish-cannellini-wheat-stew-input-4",
+            "goodId": "research-olive-oil",
+            "quantity": 3
+          },
+          {
+            "id": "production-step-dish-cannellini-wheat-stew-input-5",
+            "goodId": "food-salt",
+            "quantity": 10
+          },
+          {
+            "id": "production-step-dish-cannellini-wheat-stew-input-6",
+            "goodId": "food-garlic",
+            "quantity": 1
+          },
+          {
+            "id": "production-step-dish-cannellini-wheat-stew-input-7",
+            "goodId": "spice-bay-leaves",
+            "quantity": 2
+          },
+          {
+            "id": "production-step-dish-cannellini-wheat-stew-input-8",
+            "goodId": "spice-black-peppercorns",
+            "quantity": 4
+          },
+          {
+            "id": "production-step-dish-cannellini-wheat-stew-input-9",
+            "goodId": "liquid-vegetable-broth",
+            "quantity": 60
+          }
+        ],
+        "outputs": [
+          {
+            "id": "production-step-dish-cannellini-wheat-stew-output-1",
+            "goodId": "dish-cannellini-wheat-stew",
+            "quantity": 80
+          }
+        ],
+        "preservesInputs": false,
+        "note": "Crafted dish based on bean article examples; uses only existing goods as ingredients.",
+        "durationMinutes": 70
+      },
+      {
+        "id": "production-step-dish-borlotti-stew",
+        "inputs": [
+          {
+            "id": "production-step-dish-borlotti-stew-input-1",
+            "goodId": "research-cranberry-beans",
+            "quantity": 30
+          },
+          {
+            "id": "production-step-dish-borlotti-stew-input-2",
+            "goodId": "food-shallot",
+            "quantity": 4
+          },
+          {
+            "id": "production-step-dish-borlotti-stew-input-3",
+            "goodId": "research-olive-oil",
+            "quantity": 3
+          },
+          {
+            "id": "production-step-dish-borlotti-stew-input-4",
+            "goodId": "food-salt",
+            "quantity": 10
+          },
+          {
+            "id": "production-step-dish-borlotti-stew-input-5",
+            "goodId": "food-garlic",
+            "quantity": 1
+          },
+          {
+            "id": "production-step-dish-borlotti-stew-input-6",
+            "goodId": "spice-bay-leaves",
+            "quantity": 2
+          },
+          {
+            "id": "production-step-dish-borlotti-stew-input-7",
+            "goodId": "spice-black-peppercorns",
+            "quantity": 4
+          },
+          {
+            "id": "production-step-dish-borlotti-stew-input-8",
+            "goodId": "liquid-vegetable-broth",
+            "quantity": 60
+          }
+        ],
+        "outputs": [
+          {
+            "id": "production-step-dish-borlotti-stew-output-1",
+            "goodId": "dish-borlotti-stew",
+            "quantity": 70
+          }
+        ],
+        "preservesInputs": false,
+        "note": "Crafted dish based on bean article examples; uses only existing goods as ingredients.",
+        "durationMinutes": 70
+      },
+      {
+        "id": "production-step-dish-soybeans-rice",
+        "inputs": [
+          {
+            "id": "production-step-dish-soybeans-rice-input-1",
+            "goodId": "research-soybeans",
+            "quantity": 8
+          },
+          {
+            "id": "production-step-dish-soybeans-rice-input-2",
+            "goodId": "research-rice",
+            "quantity": 8
+          },
+          {
+            "id": "production-step-dish-soybeans-rice-input-3",
+            "goodId": "food-salt",
+            "quantity": 2
+          },
+          {
+            "id": "production-step-dish-soybeans-rice-input-4",
+            "goodId": "spice-msg",
+            "quantity": 1
+          },
+          {
+            "id": "production-step-dish-soybeans-rice-input-5",
+            "goodId": "liquid-seaweed-broth",
+            "quantity": 12
+          },
+          {
+            "id": "production-step-dish-soybeans-rice-input-6",
+            "goodId": "food-miso",
+            "quantity": 1
+          }
+        ],
+        "outputs": [
+          {
+            "id": "production-step-dish-soybeans-rice-output-1",
+            "goodId": "dish-soybeans-rice",
+            "quantity": 20
+          }
+        ],
+        "preservesInputs": false,
+        "note": "Crafted dish based on bean article examples; uses only existing goods as ingredients.",
+        "durationMinutes": 35
+      }
+    ]
+  },
+  {
+    "id": "production-chain-legume-harvesting",
+    "name": "Legume harvesting",
+    "recipes": [
+      {
+        "id": "production-step-source-pea-plant-food-peas",
+        "inputs": [
+          {
+            "id": "production-input-source-pea-plant-food-peas",
+            "goodId": "source-pea-plant",
+            "quantity": 1
+          }
+        ],
+        "outputs": [
+          {
+            "id": "production-output-source-pea-plant-food-peas",
+            "goodId": "food-peas",
+            "quantity": 1
+          }
+        ],
+        "preservesInputs": false,
+        "note": "Level 0 natural source to level 1 harvested good.",
+        "durationMinutes": 0
+      },
+      {
+        "id": "production-step-source-chickpea-plant-research-chickpeas",
+        "inputs": [
+          {
+            "id": "production-input-source-chickpea-plant-research-chickpeas",
+            "goodId": "source-chickpea-plant",
+            "quantity": 1
+          }
+        ],
+        "outputs": [
+          {
+            "id": "production-output-source-chickpea-plant-research-chickpeas",
+            "goodId": "research-chickpeas",
+            "quantity": 1
+          }
+        ],
+        "preservesInputs": false,
+        "note": "Level 0 natural source to level 1 harvested good.",
+        "durationMinutes": 0
+      },
+      {
+        "id": "production-step-source-lentil-plant-research-lentils",
+        "inputs": [
+          {
+            "id": "production-input-source-lentil-plant-research-lentils",
+            "goodId": "source-lentil-plant",
+            "quantity": 1
+          }
+        ],
+        "outputs": [
+          {
+            "id": "production-output-source-lentil-plant-research-lentils",
+            "goodId": "research-lentils",
+            "quantity": 1
+          }
+        ],
+        "preservesInputs": false,
+        "note": "Level 0 natural source to level 1 harvested good.",
+        "durationMinutes": 0
+      },
+      {
+        "id": "production-step-source-black-bean-plant-research-black-beans",
+        "inputs": [
+          {
+            "id": "production-input-source-black-bean-plant-research-black-beans",
+            "goodId": "source-black-bean-plant",
+            "quantity": 1
+          }
+        ],
+        "outputs": [
+          {
+            "id": "production-output-source-black-bean-plant-research-black-beans",
+            "goodId": "research-black-beans",
+            "quantity": 1
+          }
+        ],
+        "preservesInputs": false,
+        "note": "Level 0 natural source to level 1 harvested good.",
+        "durationMinutes": 0
+      },
+      {
+        "id": "production-step-source-kidney-bean-plant-research-kidney-beans",
+        "inputs": [
+          {
+            "id": "production-input-source-kidney-bean-plant-research-kidney-beans",
+            "goodId": "source-kidney-bean-plant",
+            "quantity": 1
+          }
+        ],
+        "outputs": [
+          {
+            "id": "production-output-source-kidney-bean-plant-research-kidney-beans",
+            "goodId": "research-kidney-beans",
+            "quantity": 1
+          }
+        ],
+        "preservesInputs": false,
+        "note": "Level 0 natural source to level 1 harvested good.",
+        "durationMinutes": 0
+      },
+      {
+        "id": "production-step-source-pinto-bean-plant-research-pinto-beans",
+        "inputs": [
+          {
+            "id": "production-input-source-pinto-bean-plant-research-pinto-beans",
+            "goodId": "source-pinto-bean-plant",
+            "quantity": 1
+          }
+        ],
+        "outputs": [
+          {
+            "id": "production-output-source-pinto-bean-plant-research-pinto-beans",
+            "goodId": "research-pinto-beans",
+            "quantity": 1
+          }
+        ],
+        "preservesInputs": false,
+        "note": "Level 0 natural source to level 1 harvested good.",
+        "durationMinutes": 0
+      },
+      {
+        "id": "production-step-source-navy-bean-plant-research-navy-beans",
+        "inputs": [
+          {
+            "id": "production-input-source-navy-bean-plant-research-navy-beans",
+            "goodId": "source-navy-bean-plant",
+            "quantity": 1
+          }
+        ],
+        "outputs": [
+          {
+            "id": "production-output-source-navy-bean-plant-research-navy-beans",
+            "goodId": "research-navy-beans",
+            "quantity": 1
+          }
+        ],
+        "preservesInputs": false,
+        "note": "Level 0 natural source to level 1 harvested good.",
+        "durationMinutes": 0
+      },
+      {
+        "id": "production-step-source-soybean-plant-research-soybeans",
+        "inputs": [
+          {
+            "id": "production-input-source-soybean-plant-research-soybeans",
+            "goodId": "source-soybean-plant",
+            "quantity": 1
+          }
+        ],
+        "outputs": [
+          {
+            "id": "production-output-source-soybean-plant-research-soybeans",
+            "goodId": "research-soybeans",
+            "quantity": 1
+          }
+        ],
+        "preservesInputs": false,
+        "note": "Level 0 natural source to level 1 harvested good.",
+        "durationMinutes": 0
+      },
+      {
+        "id": "production-step-source-soybean-plant-research-edamame",
+        "inputs": [
+          {
+            "id": "production-input-source-soybean-plant-research-edamame",
+            "goodId": "source-soybean-plant",
+            "quantity": 1
+          }
+        ],
+        "outputs": [
+          {
+            "id": "production-output-source-soybean-plant-research-edamame",
+            "goodId": "research-edamame",
+            "quantity": 1
+          }
+        ],
+        "preservesInputs": false,
+        "note": "Level 0 natural source to level 1 harvested good.",
+        "durationMinutes": 0
+      },
+      {
+        "id": "production-step-source-lima-bean-plant-research-lima-beans",
+        "inputs": [
+          {
+            "id": "production-input-source-lima-bean-plant-research-lima-beans",
+            "goodId": "source-lima-bean-plant",
+            "quantity": 1
+          }
+        ],
+        "outputs": [
+          {
+            "id": "production-output-source-lima-bean-plant-research-lima-beans",
+            "goodId": "research-lima-beans",
+            "quantity": 1
+          }
+        ],
+        "preservesInputs": false,
+        "note": "Level 0 natural source to level 1 harvested good.",
+        "durationMinutes": 0
+      },
+      {
+        "id": "production-step-source-fava-bean-plant-research-fava-beans",
+        "inputs": [
+          {
+            "id": "production-input-source-fava-bean-plant-research-fava-beans",
+            "goodId": "source-fava-bean-plant",
+            "quantity": 1
+          }
+        ],
+        "outputs": [
+          {
+            "id": "production-output-source-fava-bean-plant-research-fava-beans",
+            "goodId": "research-fava-beans",
+            "quantity": 1
+          }
+        ],
+        "preservesInputs": false,
+        "note": "Level 0 natural source to level 1 harvested good.",
+        "durationMinutes": 0
+      },
+      {
+        "id": "production-step-source-mung-bean-plant-research-mung-beans",
+        "inputs": [
+          {
+            "id": "production-input-source-mung-bean-plant-research-mung-beans",
+            "goodId": "source-mung-bean-plant",
+            "quantity": 1
+          }
+        ],
+        "outputs": [
+          {
+            "id": "production-output-source-mung-bean-plant-research-mung-beans",
+            "goodId": "research-mung-beans",
+            "quantity": 1
+          }
+        ],
+        "preservesInputs": false,
+        "note": "Level 0 natural source to level 1 harvested good.",
+        "durationMinutes": 0
+      },
+      {
+        "id": "production-step-source-adzuki-bean-plant-research-adzuki-beans",
+        "inputs": [
+          {
+            "id": "production-input-source-adzuki-bean-plant-research-adzuki-beans",
+            "goodId": "source-adzuki-bean-plant",
+            "quantity": 1
+          }
+        ],
+        "outputs": [
+          {
+            "id": "production-output-source-adzuki-bean-plant-research-adzuki-beans",
+            "goodId": "research-adzuki-beans",
+            "quantity": 1
+          }
+        ],
+        "preservesInputs": false,
+        "note": "Level 0 natural source to level 1 harvested good.",
+        "durationMinutes": 0
+      },
+      {
+        "id": "production-step-source-cowpea-plant-research-black-eyed-peas",
+        "inputs": [
+          {
+            "id": "production-input-source-cowpea-plant-research-black-eyed-peas",
+            "goodId": "source-cowpea-plant",
+            "quantity": 1
+          }
+        ],
+        "outputs": [
+          {
+            "id": "production-output-source-cowpea-plant-research-black-eyed-peas",
+            "goodId": "research-black-eyed-peas",
+            "quantity": 1
+          }
+        ],
+        "preservesInputs": false,
+        "note": "Level 0 natural source to level 1 harvested good.",
+        "durationMinutes": 0
+      },
+      {
+        "id": "production-step-source-cannellini-bean-plant-research-cannellini-beans",
+        "inputs": [
+          {
+            "id": "production-input-source-cannellini-bean-plant-research-cannellini-beans",
+            "goodId": "source-cannellini-bean-plant",
+            "quantity": 1
+          }
+        ],
+        "outputs": [
+          {
+            "id": "production-output-source-cannellini-bean-plant-research-cannellini-beans",
+            "goodId": "research-cannellini-beans",
+            "quantity": 1
+          }
+        ],
+        "preservesInputs": false,
+        "note": "Level 0 natural source to level 1 harvested good.",
+        "durationMinutes": 0
+      },
+      {
+        "id": "production-step-source-cranberry-bean-plant-research-cranberry-beans",
+        "inputs": [
+          {
+            "id": "production-input-source-cranberry-bean-plant-research-cranberry-beans",
+            "goodId": "source-cranberry-bean-plant",
+            "quantity": 1
+          }
+        ],
+        "outputs": [
+          {
+            "id": "production-output-source-cranberry-bean-plant-research-cranberry-beans",
+            "goodId": "research-cranberry-beans",
+            "quantity": 1
+          }
+        ],
+        "preservesInputs": false,
+        "note": "Level 0 natural source to level 1 harvested good.",
+        "durationMinutes": 0
+      }
+    ]
+  },
+  {
+    "id": "production-chain-legumes",
+    "name": "Legume processing",
+    "recipes": [
+      {
+        "id": "production-step-food-peas-bean-spread",
+        "inputs": [
+          {
+            "id": "production-step-food-peas-bean-spread-input-1",
+            "goodId": "food-peas",
+            "quantity": 1
+          }
+        ],
+        "outputs": [
+          {
+            "id": "production-step-food-peas-bean-spread-output-1",
+            "goodId": "research-bean-spread",
+            "quantity": 1
+          }
+        ],
+        "preservesInputs": false,
+        "note": "Primary legume to processed bean spread.",
+        "durationMinutes": 0
+      },
+      {
+        "id": "production-step-research-chickpeas-bean-spread",
+        "inputs": [
+          {
+            "id": "production-step-research-chickpeas-bean-spread-input-1",
+            "goodId": "research-chickpeas",
+            "quantity": 1
+          }
+        ],
+        "outputs": [
+          {
+            "id": "production-step-research-chickpeas-bean-spread-output-1",
+            "goodId": "research-bean-spread",
+            "quantity": 1
+          }
+        ],
+        "preservesInputs": false,
+        "note": "Primary legume to processed bean spread.",
+        "durationMinutes": 0
+      },
+      {
+        "id": "production-step-research-lentils-bean-spread",
+        "inputs": [
+          {
+            "id": "production-step-research-lentils-bean-spread-input-1",
+            "goodId": "research-lentils",
+            "quantity": 1
+          }
+        ],
+        "outputs": [
+          {
+            "id": "production-step-research-lentils-bean-spread-output-1",
+            "goodId": "research-bean-spread",
+            "quantity": 1
+          }
+        ],
+        "preservesInputs": false,
+        "note": "Primary legume to processed bean spread.",
+        "durationMinutes": 0
+      },
+      {
+        "id": "production-step-research-black-beans-bean-spread",
+        "inputs": [
+          {
+            "id": "production-step-research-black-beans-bean-spread-input-1",
+            "goodId": "research-black-beans",
+            "quantity": 1
+          }
+        ],
+        "outputs": [
+          {
+            "id": "production-step-research-black-beans-bean-spread-output-1",
+            "goodId": "research-bean-spread",
+            "quantity": 1
+          }
+        ],
+        "preservesInputs": false,
+        "note": "Primary legume to processed bean spread.",
+        "durationMinutes": 0
+      },
+      {
+        "id": "production-step-research-kidney-beans-bean-spread",
+        "inputs": [
+          {
+            "id": "production-step-research-kidney-beans-bean-spread-input-1",
+            "goodId": "research-kidney-beans",
+            "quantity": 1
+          }
+        ],
+        "outputs": [
+          {
+            "id": "production-step-research-kidney-beans-bean-spread-output-1",
+            "goodId": "research-bean-spread",
+            "quantity": 1
+          }
+        ],
+        "preservesInputs": false,
+        "note": "Primary legume to processed bean spread.",
+        "durationMinutes": 0
+      },
+      {
+        "id": "production-step-research-pinto-beans-bean-spread",
+        "inputs": [
+          {
+            "id": "production-step-research-pinto-beans-bean-spread-input-1",
+            "goodId": "research-pinto-beans",
+            "quantity": 1
+          }
+        ],
+        "outputs": [
+          {
+            "id": "production-step-research-pinto-beans-bean-spread-output-1",
+            "goodId": "research-bean-spread",
+            "quantity": 1
+          }
+        ],
+        "preservesInputs": false,
+        "note": "Primary legume to processed bean spread.",
+        "durationMinutes": 0
+      },
+      {
+        "id": "production-step-research-navy-beans-bean-spread",
+        "inputs": [
+          {
+            "id": "production-step-research-navy-beans-bean-spread-input-1",
+            "goodId": "research-navy-beans",
+            "quantity": 1
+          }
+        ],
+        "outputs": [
+          {
+            "id": "production-step-research-navy-beans-bean-spread-output-1",
+            "goodId": "research-bean-spread",
+            "quantity": 1
+          }
+        ],
+        "preservesInputs": false,
+        "note": "Primary legume to processed bean spread.",
+        "durationMinutes": 0
+      },
+      {
+        "id": "production-step-research-soybeans-bean-spread",
+        "inputs": [
+          {
+            "id": "production-step-research-soybeans-bean-spread-input-1",
+            "goodId": "research-soybeans",
+            "quantity": 1
+          }
+        ],
+        "outputs": [
+          {
+            "id": "production-step-research-soybeans-bean-spread-output-1",
+            "goodId": "research-bean-spread",
+            "quantity": 1
+          }
+        ],
+        "preservesInputs": false,
+        "note": "Primary legume to processed bean spread.",
+        "durationMinutes": 0
+      },
+      {
+        "id": "production-step-research-edamame-bean-spread",
+        "inputs": [
+          {
+            "id": "production-step-research-edamame-bean-spread-input-1",
+            "goodId": "research-edamame",
+            "quantity": 1
+          }
+        ],
+        "outputs": [
+          {
+            "id": "production-step-research-edamame-bean-spread-output-1",
+            "goodId": "research-bean-spread",
+            "quantity": 1
+          }
+        ],
+        "preservesInputs": false,
+        "note": "Primary legume to processed bean spread.",
+        "durationMinutes": 0
+      },
+      {
+        "id": "production-step-research-lima-beans-bean-spread",
+        "inputs": [
+          {
+            "id": "production-step-research-lima-beans-bean-spread-input-1",
+            "goodId": "research-lima-beans",
+            "quantity": 1
+          }
+        ],
+        "outputs": [
+          {
+            "id": "production-step-research-lima-beans-bean-spread-output-1",
+            "goodId": "research-bean-spread",
+            "quantity": 1
+          }
+        ],
+        "preservesInputs": false,
+        "note": "Primary legume to processed bean spread.",
+        "durationMinutes": 0
+      },
+      {
+        "id": "production-step-research-fava-beans-bean-spread",
+        "inputs": [
+          {
+            "id": "production-step-research-fava-beans-bean-spread-input-1",
+            "goodId": "research-fava-beans",
+            "quantity": 1
+          }
+        ],
+        "outputs": [
+          {
+            "id": "production-step-research-fava-beans-bean-spread-output-1",
+            "goodId": "research-bean-spread",
+            "quantity": 1
+          }
+        ],
+        "preservesInputs": false,
+        "note": "Primary legume to processed bean spread.",
+        "durationMinutes": 0
+      },
+      {
+        "id": "production-step-research-mung-beans-bean-spread",
+        "inputs": [
+          {
+            "id": "production-step-research-mung-beans-bean-spread-input-1",
+            "goodId": "research-mung-beans",
+            "quantity": 1
+          }
+        ],
+        "outputs": [
+          {
+            "id": "production-step-research-mung-beans-bean-spread-output-1",
+            "goodId": "research-bean-spread",
+            "quantity": 1
+          }
+        ],
+        "preservesInputs": false,
+        "note": "Primary legume to processed bean spread.",
+        "durationMinutes": 0
+      },
+      {
+        "id": "production-step-research-adzuki-beans-bean-spread",
+        "inputs": [
+          {
+            "id": "production-step-research-adzuki-beans-bean-spread-input-1",
+            "goodId": "research-adzuki-beans",
+            "quantity": 1
+          }
+        ],
+        "outputs": [
+          {
+            "id": "production-step-research-adzuki-beans-bean-spread-output-1",
+            "goodId": "research-bean-spread",
+            "quantity": 1
+          }
+        ],
+        "preservesInputs": false,
+        "note": "Primary legume to processed bean spread.",
+        "durationMinutes": 0
+      },
+      {
+        "id": "production-step-research-black-eyed-peas-bean-spread",
+        "inputs": [
+          {
+            "id": "production-step-research-black-eyed-peas-bean-spread-input-1",
+            "goodId": "research-black-eyed-peas",
+            "quantity": 1
+          }
+        ],
+        "outputs": [
+          {
+            "id": "production-step-research-black-eyed-peas-bean-spread-output-1",
+            "goodId": "research-bean-spread",
+            "quantity": 1
+          }
+        ],
+        "preservesInputs": false,
+        "note": "Primary legume to processed bean spread.",
+        "durationMinutes": 0
+      },
+      {
+        "id": "production-step-research-cannellini-beans-bean-spread",
+        "inputs": [
+          {
+            "id": "production-step-research-cannellini-beans-bean-spread-input-1",
+            "goodId": "research-cannellini-beans",
+            "quantity": 1
+          }
+        ],
+        "outputs": [
+          {
+            "id": "production-step-research-cannellini-beans-bean-spread-output-1",
+            "goodId": "research-bean-spread",
+            "quantity": 1
+          }
+        ],
+        "preservesInputs": false,
+        "note": "Primary legume to processed bean spread.",
+        "durationMinutes": 0
+      },
+      {
+        "id": "production-step-research-cranberry-beans-bean-spread",
+        "inputs": [
+          {
+            "id": "production-step-research-cranberry-beans-bean-spread-input-1",
+            "goodId": "research-cranberry-beans",
+            "quantity": 1
+          }
+        ],
+        "outputs": [
+          {
+            "id": "production-step-research-cranberry-beans-bean-spread-output-1",
+            "goodId": "research-bean-spread",
+            "quantity": 1
+          }
+        ],
+        "preservesInputs": false,
+        "note": "Primary legume to processed bean spread.",
+        "durationMinutes": 0
+      },
+      {
+        "id": "production-step-research-mung-beans-mung-bean-sprouts",
+        "inputs": [
+          {
+            "id": "production-step-research-mung-beans-mung-bean-sprouts-input-1",
+            "goodId": "research-mung-beans",
+            "quantity": 1
+          },
+          {
+            "id": "production-step-research-mung-beans-mung-bean-sprouts-input-2",
+            "goodId": "resource-water",
+            "quantity": 1
+          }
+        ],
+        "outputs": [
+          {
+            "id": "production-step-research-mung-beans-mung-bean-sprouts-output-1",
+            "goodId": "research-mung-bean-sprouts",
+            "quantity": 1
+          }
+        ],
+        "preservesInputs": false,
+        "note": "Primary mung beans to processed sprouts.",
+        "durationMinutes": 0
+      },
+      {
+        "id": "production-step-research-soybeans-soy-milk",
+        "inputs": [
+          {
+            "id": "production-step-research-soybeans-soy-milk-input-1",
+            "goodId": "research-soybeans",
+            "quantity": 1
+          },
+          {
+            "id": "production-step-research-soybeans-soy-milk-input-2",
+            "goodId": "resource-water",
+            "quantity": 1
+          }
+        ],
+        "outputs": [
+          {
+            "id": "production-step-research-soybeans-soy-milk-output-1",
+            "goodId": "research-soy-milk",
+            "quantity": 1
+          }
+        ],
+        "preservesInputs": false,
+        "note": "Primary soybeans to processed soy milk.",
+        "durationMinutes": 0
+      },
+      {
+        "id": "production-step-research-soy-milk-tofu",
+        "inputs": [
+          {
+            "id": "production-step-research-soy-milk-tofu-input-1",
+            "goodId": "research-soy-milk",
+            "quantity": 1
+          }
+        ],
+        "outputs": [
+          {
+            "id": "production-step-research-soy-milk-tofu-output-1",
+            "goodId": "research-tofu",
+            "quantity": 1
+          }
+        ],
+        "preservesInputs": false,
+        "note": "Processed soy milk to crafted tofu.",
+        "durationMinutes": 0
+      },
+      {
+        "id": "production-step-research-chickpeas-chickpea-flour",
+        "inputs": [
+          {
+            "id": "production-step-research-chickpeas-chickpea-flour-input-1",
+            "goodId": "research-chickpeas",
+            "quantity": 1
+          }
+        ],
+        "outputs": [
+          {
+            "id": "production-step-research-chickpeas-chickpea-flour-output-1",
+            "goodId": "research-chickpea-flour",
+            "quantity": 1
+          }
+        ],
+        "preservesInputs": false,
+        "note": "Primary chickpeas to processed chickpea flour.",
+        "durationMinutes": 0
+      },
+      {
+        "id": "production-step-research-chickpeas-aquafaba",
+        "inputs": [
+          {
+            "id": "production-step-research-chickpeas-aquafaba-input-1",
+            "goodId": "research-chickpeas",
+            "quantity": 1
+          },
+          {
+            "id": "production-step-research-chickpeas-aquafaba-input-2",
+            "goodId": "resource-water",
+            "quantity": 1
+          }
+        ],
+        "outputs": [
+          {
+            "id": "production-step-research-chickpeas-aquafaba-output-1",
+            "goodId": "research-chickpeas",
+            "quantity": 1
+          },
+          {
+            "id": "production-step-research-chickpeas-aquafaba-output-2",
+            "goodId": "research-aquafaba",
+            "quantity": 1
+          }
+        ],
+        "preservesInputs": true,
+        "note": "Chickpea cooking byproduct; chickpeas remain available while aquafaba is produced.",
+        "durationMinutes": 0
+      }
+    ]
+  },
+  {
+    "id": "production-chain-nut-and-oil-crop-harvesting",
+    "name": "Nut and oil crop harvesting",
+    "recipes": [
+      {
+        "id": "production-step-source-olive-tree-research-olives",
+        "inputs": [
+          {
+            "id": "production-input-source-olive-tree-research-olives",
+            "goodId": "source-olive-tree",
+            "quantity": 1
+          }
+        ],
+        "outputs": [
+          {
+            "id": "production-output-source-olive-tree-research-olives",
+            "goodId": "research-olives",
+            "quantity": 1
+          },
+          {
+            "id": "production-step-source-olive-tree-research-olives-retained-source",
+            "goodId": "source-olive-tree",
+            "quantity": 1
+          }
+        ],
+        "preservesInputs": true,
+        "note": "Level 0 natural source to level 1 harvested good.",
+        "durationMinutes": 0
+      },
+      {
+        "id": "production-step-source-chestnut-tree-research-chestnuts",
+        "inputs": [
+          {
+            "id": "production-input-source-chestnut-tree-research-chestnuts",
+            "goodId": "source-chestnut-tree",
+            "quantity": 1
+          }
+        ],
+        "outputs": [
+          {
+            "id": "production-output-source-chestnut-tree-research-chestnuts",
+            "goodId": "research-chestnuts",
+            "quantity": 1
+          },
+          {
+            "id": "production-step-source-chestnut-tree-research-chestnuts-retained-source",
+            "goodId": "source-chestnut-tree",
+            "quantity": 1
+          }
+        ],
+        "preservesInputs": true,
+        "note": "Level 0 natural source to level 1 harvested good.",
+        "durationMinutes": 0
+      },
+      {
+        "id": "production-step-source-pine-tree-research-pine-nuts",
+        "inputs": [
+          {
+            "id": "production-input-source-pine-tree-research-pine-nuts",
+            "goodId": "source-pine-tree",
+            "quantity": 1
+          }
+        ],
+        "outputs": [
+          {
+            "id": "production-output-source-pine-tree-research-pine-nuts",
+            "goodId": "research-pine-nuts",
+            "quantity": 1
+          },
+          {
+            "id": "production-step-source-pine-tree-research-pine-nuts-retained-source",
+            "goodId": "source-pine-tree",
+            "quantity": 1
+          }
+        ],
+        "preservesInputs": true,
+        "note": "Level 0 natural source to level 1 harvested good.",
+        "durationMinutes": 0
+      }
+    ]
+  },
+  {
+    "id": "production-chain-onion-dishes",
+    "name": "Onion dishes",
+    "recipes": [
+      {
+        "id": "production-step-dish-yellow-onion-soup",
+        "inputs": [
+          {
+            "id": "production-step-dish-yellow-onion-soup-input-1",
+            "goodId": "food-yellow-onion",
+            "quantity": 12
+          },
+          {
+            "id": "production-step-dish-yellow-onion-soup-input-2",
+            "goodId": "liquid-vegetable-broth",
+            "quantity": 16
+          },
+          {
+            "id": "production-step-dish-yellow-onion-soup-input-3",
+            "goodId": "food-salt",
+            "quantity": 2
+          },
+          {
+            "id": "production-step-dish-yellow-onion-soup-input-4",
+            "goodId": "spice-black-peppercorns",
+            "quantity": 1
+          },
+          {
+            "id": "production-step-dish-yellow-onion-soup-input-5",
+            "goodId": "food-sourdough-bread",
+            "quantity": 2
+          },
+          {
+            "id": "production-step-dish-yellow-onion-soup-input-6",
+            "goodId": "food-aged-raw-cheese",
+            "quantity": 2
+          }
+        ],
+        "outputs": [
+          {
+            "id": "production-step-dish-yellow-onion-soup-output-1",
+            "goodId": "dish-yellow-onion-soup",
+            "quantity": 20
+          }
+        ],
+        "preservesInputs": false,
+        "note": "Long-cooked yellow onion soup, reflecting the article's use of yellow onions in soups and stews.",
+        "durationMinutes": 90
+      },
+      {
+        "id": "production-step-dish-scallion-eggs",
+        "inputs": [
+          {
+            "id": "production-step-dish-scallion-eggs-input-1",
+            "goodId": "food-scallion",
+            "quantity": 1
+          },
+          {
+            "id": "production-step-dish-scallion-eggs-input-2",
+            "goodId": "good-item-1781391206952",
+            "quantity": 8
+          },
+          {
+            "id": "production-step-dish-scallion-eggs-input-3",
+            "goodId": "food-salt",
+            "quantity": 2
+          }
+        ],
+        "outputs": [
+          {
+            "id": "production-step-dish-scallion-eggs-output-1",
+            "goodId": "dish-scallion-eggs",
+            "quantity": 9
+          }
+        ],
+        "preservesInputs": false,
+        "note": "Scallions as a mild allium in scrambled eggs.",
+        "durationMinutes": 10
+      },
+      {
+        "id": "production-step-dish-scallion-pancake",
+        "inputs": [
+          {
+            "id": "production-step-dish-scallion-pancake-input-1",
+            "goodId": "food-scallion",
+            "quantity": 1
+          },
+          {
+            "id": "production-step-dish-scallion-pancake-input-2",
+            "goodId": "food-wheat",
+            "quantity": 2
+          },
+          {
+            "id": "production-step-dish-scallion-pancake-input-3",
+            "goodId": "liquid-boiled-water",
+            "quantity": 2
+          },
+          {
+            "id": "production-step-dish-scallion-pancake-input-4",
+            "goodId": "food-salt",
+            "quantity": 1
+          }
+        ],
+        "outputs": [
+          {
+            "id": "production-step-dish-scallion-pancake-output-1",
+            "goodId": "dish-scallion-pancake",
+            "quantity": 4
+          }
+        ],
+        "preservesInputs": false,
+        "note": "Savory scallion pancake using only ingredients already present in the database.",
+        "durationMinutes": 50
+      },
+      {
+        "id": "production-step-dish-braised-sweet-onion",
+        "inputs": [
+          {
+            "id": "production-step-dish-braised-sweet-onion-input-1",
+            "goodId": "food-sweet-onion",
+            "quantity": 4
+          },
+          {
+            "id": "production-step-dish-braised-sweet-onion-input-2",
+            "goodId": "liquid-vegetable-broth",
+            "quantity": 2
+          },
+          {
+            "id": "production-step-dish-braised-sweet-onion-input-3",
+            "goodId": "food-salt",
+            "quantity": 1
+          }
+        ],
+        "outputs": [
+          {
+            "id": "production-step-dish-braised-sweet-onion-output-1",
+            "goodId": "dish-braised-sweet-onion",
+            "quantity": 4
+          }
+        ],
+        "preservesInputs": false,
+        "note": "Whole braised sweet onion modeled from protected sweet onion preparations mentioned in the article.",
+        "durationMinutes": 50
+      },
+      {
+        "id": "production-step-dish-pearl-onion-beef-braise",
+        "inputs": [
+          {
+            "id": "production-step-dish-pearl-onion-beef-braise-input-1",
+            "goodId": "food-pearl-onion",
+            "quantity": 2
+          },
+          {
+            "id": "production-step-dish-pearl-onion-beef-braise-input-2",
+            "goodId": "food-beef",
+            "quantity": 4
+          },
+          {
+            "id": "production-step-dish-pearl-onion-beef-braise-input-3",
+            "goodId": "liquid-meat-broth",
+            "quantity": 4
+          },
+          {
+            "id": "production-step-dish-pearl-onion-beef-braise-input-4",
+            "goodId": "spice-bay-leaves",
+            "quantity": 1
+          },
+          {
+            "id": "production-step-dish-pearl-onion-beef-braise-input-5",
+            "goodId": "spice-black-peppercorns",
+            "quantity": 1
+          }
+        ],
+        "outputs": [
+          {
+            "id": "production-step-dish-pearl-onion-beef-braise-output-1",
+            "goodId": "dish-pearl-onion-beef-braise",
+            "quantity": 8
+          }
+        ],
+        "preservesInputs": false,
+        "note": "Pearl onions braised whole with beef, based on the article's braised whole-onion use cases.",
+        "durationMinutes": 150
+      },
+      {
+        "id": "production-step-dish-cipollini-agrodolce",
+        "inputs": [
+          {
+            "id": "production-step-dish-cipollini-agrodolce-input-1",
+            "goodId": "food-cipollini-onion",
+            "quantity": 8
+          },
+          {
+            "id": "production-step-dish-cipollini-agrodolce-input-2",
+            "goodId": "research-date-paste",
+            "quantity": 1
+          },
+          {
+            "id": "production-step-dish-cipollini-agrodolce-input-3",
+            "goodId": "food-salt",
+            "quantity": 1
+          },
+          {
+            "id": "production-step-dish-cipollini-agrodolce-input-4",
+            "goodId": "food-apple-cider-vinegar",
+            "quantity": 20
+          }
+        ],
+        "outputs": [
+          {
+            "id": "production-step-dish-cipollini-agrodolce-output-1",
+            "goodId": "dish-cipollini-agrodolce",
+            "quantity": 8
+          }
+        ],
+        "preservesInputs": false,
+        "note": "Cipollini agrodolce placeholder using existing sweetness; vinegar remains a future ingredient gap.",
+        "durationMinutes": 40
+      }
+    ]
+  },
+  {
+    "id": "production-chain-onion-processing",
+    "name": "Onion processing",
+    "recipes": [
+      {
+        "id": "production-step-food-yellow-onion-food-caramelized-onion",
+        "inputs": [
+          {
+            "id": "production-step-food-yellow-onion-food-caramelized-onion-input-1",
+            "goodId": "food-yellow-onion",
+            "quantity": 1
+          },
+          {
+            "id": "production-step-food-yellow-onion-food-caramelized-onion-input-2",
+            "goodId": "research-olive-oil",
+            "quantity": 1
+          }
+        ],
+        "outputs": [
+          {
+            "id": "production-step-food-yellow-onion-food-caramelized-onion-output-1",
+            "goodId": "food-caramelized-onion",
+            "quantity": 1
+          }
+        ],
+        "preservesInputs": false,
+        "note": "Slow cooking concentrates the sweetness of a yellow onion.",
+        "durationMinutes": 0
+      },
+      {
+        "id": "production-step-food-shallot-food-fried-shallots",
+        "inputs": [
+          {
+            "id": "production-step-food-shallot-food-fried-shallots-input-1",
+            "goodId": "food-shallot",
+            "quantity": 1
+          },
+          {
+            "id": "production-step-food-shallot-food-fried-shallots-input-2",
+            "goodId": "research-olive-oil",
+            "quantity": 1
+          }
+        ],
+        "outputs": [
+          {
+            "id": "production-step-food-shallot-food-fried-shallots-output-1",
+            "goodId": "food-fried-shallots",
+            "quantity": 1
+          }
+        ],
+        "preservesInputs": false,
+        "note": "Frying shallots into a crisp topping.",
+        "durationMinutes": 0
+      }
+    ]
+  },
+  {
+    "id": "production-chain-pepper-dishes",
+    "name": "Pepper dishes",
+    "recipes": [
+      {
+        "id": "production-step-dish-stuffed-bell-pepper",
+        "inputs": [
+          {
+            "id": "production-step-dish-stuffed-bell-pepper-input-1",
+            "goodId": "food-red-bell-pepper",
+            "quantity": 40
+          },
+          {
+            "id": "production-step-dish-stuffed-bell-pepper-input-2",
+            "goodId": "research-rice",
+            "quantity": 20
+          },
+          {
+            "id": "production-step-dish-stuffed-bell-pepper-input-3",
+            "goodId": "food-beef",
+            "quantity": 30
+          },
+          {
+            "id": "production-step-dish-stuffed-bell-pepper-input-4",
+            "goodId": "food-yellow-onion",
+            "quantity": 8
+          },
+          {
+            "id": "production-step-dish-stuffed-bell-pepper-input-5",
+            "goodId": "food-garlic",
+            "quantity": 1
+          },
+          {
+            "id": "production-step-dish-stuffed-bell-pepper-input-6",
+            "goodId": "food-salt",
+            "quantity": 10
+          },
+          {
+            "id": "production-step-dish-stuffed-bell-pepper-input-7",
+            "goodId": "spice-black-peppercorns",
+            "quantity": 4
+          }
+        ],
+        "outputs": [
+          {
+            "id": "production-step-dish-stuffed-bell-pepper-output-1",
+            "goodId": "dish-stuffed-bell-pepper",
+            "quantity": 80
+          }
+        ],
+        "preservesInputs": false,
+        "note": "Stuffed pepper using existing rice, meat and allium ingredients.",
+        "durationMinutes": 75
+      },
+      {
+        "id": "production-step-dish-rajas-poblano",
+        "inputs": [
+          {
+            "id": "production-step-dish-rajas-poblano-input-1",
+            "goodId": "food-poblano-pepper",
+            "quantity": 4
+          },
+          {
+            "id": "production-step-dish-rajas-poblano-input-2",
+            "goodId": "food-yellow-onion",
+            "quantity": 1
+          },
+          {
+            "id": "production-step-dish-rajas-poblano-input-3",
+            "goodId": "research-sour-milk",
+            "quantity": 2
+          },
+          {
+            "id": "production-step-dish-rajas-poblano-input-4",
+            "goodId": "food-salt",
+            "quantity": 1
+          }
+        ],
+        "outputs": [
+          {
+            "id": "production-step-dish-rajas-poblano-output-1",
+            "goodId": "dish-rajas-poblano",
+            "quantity": 6
+          }
+        ],
+        "preservesInputs": false,
+        "note": "Poblano strips with onion and a cultured dairy stand-in for cream.",
+        "durationMinutes": 35
+      },
+      {
+        "id": "production-step-dish-padron-tapas",
+        "inputs": [
+          {
+            "id": "production-step-dish-padron-tapas-input-1",
+            "goodId": "food-padron-pepper",
+            "quantity": 12
+          },
+          {
+            "id": "production-step-dish-padron-tapas-input-2",
+            "goodId": "research-olive-oil",
+            "quantity": 1
+          },
+          {
+            "id": "production-step-dish-padron-tapas-input-3",
+            "goodId": "food-salt",
+            "quantity": 2
+          }
+        ],
+        "outputs": [
+          {
+            "id": "production-step-dish-padron-tapas-output-1",
+            "goodId": "dish-padron-tapas",
+            "quantity": 12
+          }
+        ],
+        "preservesInputs": false,
+        "note": "Classic blistered Padron peppers with oil and salt.",
+        "durationMinutes": 10
+      }
+    ]
+  },
+  {
+    "id": "production-chain-pepper-processing",
+    "name": "Pepper processing",
+    "recipes": [
+      {
+        "id": "production-step-food-poblano-pepper-spice-ancho-chile",
+        "inputs": [
+          {
+            "id": "production-step-food-poblano-pepper-spice-ancho-chile-input-1",
+            "goodId": "food-poblano-pepper",
+            "quantity": 1
+          }
+        ],
+        "outputs": [
+          {
+            "id": "production-step-food-poblano-pepper-spice-ancho-chile-output-1",
+            "goodId": "spice-ancho-chile",
+            "quantity": 20
+          }
+        ],
+        "preservesInputs": false,
+        "note": "Drying poblano transforms it into ancho.",
+        "durationMinutes": 0
+      },
+      {
+        "id": "production-step-food-red-jalapeno-spice-chipotle-pepper",
+        "inputs": [
+          {
+            "id": "production-step-food-red-jalapeno-spice-chipotle-pepper-input-1",
+            "goodId": "food-red-jalapeno",
+            "quantity": 1
+          }
+        ],
+        "outputs": [
+          {
+            "id": "production-step-food-red-jalapeno-spice-chipotle-pepper-output-1",
+            "goodId": "spice-chipotle-pepper",
+            "quantity": 20
+          }
+        ],
+        "preservesInputs": false,
+        "note": "Smoking and drying ripe red jalapenos produces chipotle.",
+        "durationMinutes": 0
+      },
+      {
+        "id": "production-step-spice-chipotle-pepper-spice-chipotle-powder",
+        "inputs": [
+          {
+            "id": "production-step-spice-chipotle-pepper-spice-chipotle-powder-input-1",
+            "goodId": "spice-chipotle-pepper",
+            "quantity": 20
+          }
+        ],
+        "outputs": [
+          {
+            "id": "production-step-spice-chipotle-pepper-spice-chipotle-powder-output-1",
+            "goodId": "spice-chipotle-powder",
+            "quantity": 20
+          }
+        ],
+        "preservesInputs": false,
+        "note": "Grinding smoked dried chipotle into powder.",
+        "durationMinutes": 0
+      },
+      {
+        "id": "production-step-food-tabasco-pepper-spice-tabasco-pepper-mash",
+        "inputs": [
+          {
+            "id": "production-step-food-tabasco-pepper-spice-tabasco-pepper-mash-input-1",
+            "goodId": "food-tabasco-pepper",
+            "quantity": 1
+          },
+          {
+            "id": "production-step-food-tabasco-pepper-spice-tabasco-pepper-mash-input-2",
+            "goodId": "food-salt",
+            "quantity": 20
+          }
+        ],
+        "outputs": [
+          {
+            "id": "production-step-food-tabasco-pepper-spice-tabasco-pepper-mash-output-1",
+            "goodId": "spice-tabasco-pepper-mash",
+            "quantity": 20
+          }
+        ],
+        "preservesInputs": false,
+        "note": "Salt fermentation stage before vinegar-based hot sauce.",
+        "durationMinutes": 0
+      },
+      {
+        "id": "production-step-food-piquillo-pepper-food-roasted-piquillo-pepper",
+        "inputs": [
+          {
+            "id": "production-step-food-piquillo-pepper-food-roasted-piquillo-pepper-input-1",
+            "goodId": "food-piquillo-pepper",
+            "quantity": 1
+          },
+          {
+            "id": "production-step-food-piquillo-pepper-food-roasted-piquillo-pepper-input-2",
+            "goodId": "research-olive-oil",
+            "quantity": 1
+          }
+        ],
+        "outputs": [
+          {
+            "id": "production-step-food-piquillo-pepper-food-roasted-piquillo-pepper-output-1",
+            "goodId": "food-roasted-piquillo-pepper",
+            "quantity": 1
+          }
+        ],
+        "preservesInputs": false,
+        "note": "Wood-roasted, peeled and oil-packed piquillo peppers.",
+        "durationMinutes": 0
+      },
+      {
+        "id": "production-step-food-calabrian-chili-food-fermented-calabrian-chili",
+        "inputs": [
+          {
+            "id": "production-step-food-calabrian-chili-food-fermented-calabrian-chili-input-1",
+            "goodId": "food-calabrian-chili",
+            "quantity": 1
+          },
+          {
+            "id": "production-step-food-calabrian-chili-food-fermented-calabrian-chili-input-2",
+            "goodId": "food-salt",
+            "quantity": 20
+          }
+        ],
+        "outputs": [
+          {
+            "id": "production-step-food-calabrian-chili-food-fermented-calabrian-chili-output-1",
+            "goodId": "food-fermented-calabrian-chili",
+            "quantity": 1
+          }
+        ],
+        "preservesInputs": false,
+        "note": "Salt fermentation for Calabrian chili.",
+        "durationMinutes": 0
+      },
+      {
+        "id": "production-step-food-fermented-calabrian-chili-food-calabrian-chili-oil",
+        "inputs": [
+          {
+            "id": "production-step-food-fermented-calabrian-chili-food-calabrian-chili-oil-input-1",
+            "goodId": "food-fermented-calabrian-chili",
+            "quantity": 1
+          },
+          {
+            "id": "production-step-food-fermented-calabrian-chili-food-calabrian-chili-oil-input-2",
+            "goodId": "research-olive-oil",
+            "quantity": 1
+          }
+        ],
+        "outputs": [
+          {
+            "id": "production-step-food-fermented-calabrian-chili-food-calabrian-chili-oil-output-1",
+            "goodId": "food-calabrian-chili-oil",
+            "quantity": 1
+          }
+        ],
+        "preservesInputs": false,
+        "note": "Packing fermented Calabrian chili in olive oil.",
+        "durationMinutes": 0
+      },
+      {
+        "id": "production-step-food-tepin-pepper-spice-dried-tepin-pepper",
+        "inputs": [
+          {
+            "id": "production-step-food-tepin-pepper-spice-dried-tepin-pepper-input-1",
+            "goodId": "food-tepin-pepper",
+            "quantity": 1
+          }
+        ],
+        "outputs": [
+          {
+            "id": "production-step-food-tepin-pepper-spice-dried-tepin-pepper-output-1",
+            "goodId": "spice-dried-tepin-pepper",
+            "quantity": 20
+          }
+        ],
+        "preservesInputs": false,
+        "note": "Drying wild chiltepin berries for concentrated seasoning.",
+        "durationMinutes": 0
+      }
+    ]
+  },
+  {
+    "id": "production-chain-spice-harvesting",
+    "name": "Spice harvesting",
+    "recipes": [
+      {
+        "id": "production-step-source-black-pepper-vine-spice-fresh-pepper-berries",
+        "inputs": [
+          {
+            "id": "production-step-source-black-pepper-vine-spice-fresh-pepper-berries-input-1",
+            "goodId": "source-black-pepper-vine",
+            "quantity": 1
+          }
+        ],
+        "outputs": [
+          {
+            "id": "production-step-source-black-pepper-vine-spice-fresh-pepper-berries-output-1",
+            "goodId": "spice-fresh-pepper-berries",
+            "quantity": 20
+          },
+          {
+            "id": "production-step-source-black-pepper-vine-spice-fresh-pepper-berries-output-2",
+            "goodId": "source-black-pepper-vine",
+            "quantity": 1
+          }
+        ],
+        "preservesInputs": true,
+        "note": "Level 0 spice plant to level 1 harvested pepper berries.",
+        "durationMinutes": 0
+      },
+      {
+        "id": "production-step-source-capsicum-plant-food-hot-pepper",
+        "inputs": [
+          {
+            "id": "production-step-source-capsicum-plant-food-hot-pepper-input-1",
+            "goodId": "source-capsicum-plant",
+            "quantity": 1
+          }
+        ],
+        "outputs": [
+          {
+            "id": "production-step-source-capsicum-plant-food-hot-pepper-output-1",
+            "goodId": "food-hot-pepper",
+            "quantity": 1
+          }
+        ],
+        "preservesInputs": false,
+        "note": "Level 0 pepper plant to level 1 hot pepper.",
+        "durationMinutes": 0
+      },
+      {
+        "id": "production-step-source-capsicum-plant-food-paprika-pepper",
+        "inputs": [
+          {
+            "id": "production-step-source-capsicum-plant-food-paprika-pepper-input-1",
+            "goodId": "source-capsicum-plant",
+            "quantity": 1
+          }
+        ],
+        "outputs": [
+          {
+            "id": "production-step-source-capsicum-plant-food-paprika-pepper-output-1",
+            "goodId": "food-paprika-pepper",
+            "quantity": 1
+          }
+        ],
+        "preservesInputs": false,
+        "note": "Level 0 pepper plant to level 1 paprika pepper.",
+        "durationMinutes": 0
+      },
+      {
+        "id": "production-step-source-garlic-plant-food-garlic",
+        "inputs": [
+          {
+            "id": "production-step-source-garlic-plant-food-garlic-input-1",
+            "goodId": "source-garlic-plant",
+            "quantity": 1
+          }
+        ],
+        "outputs": [
+          {
+            "id": "production-step-source-garlic-plant-food-garlic-output-1",
+            "goodId": "food-garlic",
+            "quantity": 1
+          }
+        ],
+        "preservesInputs": false,
+        "note": "Level 0 allium source to level 1 garlic.",
+        "durationMinutes": 0
+      },
+      {
+        "id": "production-step-source-cumin-plant-spice-cumin-seeds",
+        "inputs": [
+          {
+            "id": "production-step-source-cumin-plant-spice-cumin-seeds-input-1",
+            "goodId": "source-cumin-plant",
+            "quantity": 1
+          }
+        ],
+        "outputs": [
+          {
+            "id": "production-step-source-cumin-plant-spice-cumin-seeds-output-1",
+            "goodId": "spice-cumin-seeds",
+            "quantity": 20
+          }
+        ],
+        "preservesInputs": false,
+        "note": "Level 0 cumin plant to level 1 cumin seeds.",
+        "durationMinutes": 0
+      },
+      {
+        "id": "production-step-source-nutmeg-tree-spice-nutmeg-and-mace",
+        "inputs": [
+          {
+            "id": "production-step-source-nutmeg-tree-spice-nutmeg-and-mace-input-1",
+            "goodId": "source-nutmeg-tree",
+            "quantity": 1
+          }
+        ],
+        "outputs": [
+          {
+            "id": "production-step-source-nutmeg-tree-spice-nutmeg-and-mace-output-1",
+            "goodId": "spice-nutmeg",
+            "quantity": 20
+          },
+          {
+            "id": "production-step-source-nutmeg-tree-spice-nutmeg-and-mace-output-2",
+            "goodId": "spice-mace",
+            "quantity": 20
+          },
+          {
+            "id": "production-step-source-nutmeg-tree-spice-nutmeg-and-mace-output-3",
+            "goodId": "source-nutmeg-tree",
+            "quantity": 1
+          }
+        ],
+        "preservesInputs": true,
+        "note": "Nutmeg fruit harvesting yields both nutmeg seed and mace while retaining the tree.",
+        "durationMinutes": 0
+      },
+      {
+        "id": "production-step-source-turmeric-plant-spice-turmeric-rhizome",
+        "inputs": [
+          {
+            "id": "production-step-source-turmeric-plant-spice-turmeric-rhizome-input-1",
+            "goodId": "source-turmeric-plant",
+            "quantity": 1
+          }
+        ],
+        "outputs": [
+          {
+            "id": "production-step-source-turmeric-plant-spice-turmeric-rhizome-output-1",
+            "goodId": "spice-turmeric-rhizome",
+            "quantity": 20
+          }
+        ],
+        "preservesInputs": false,
+        "note": "Level 0 turmeric plant to level 1 rhizome.",
+        "durationMinutes": 0
+      },
+      {
+        "id": "production-step-source-cinnamon-tree-spice-cinnamon-bark",
+        "inputs": [
+          {
+            "id": "production-step-source-cinnamon-tree-spice-cinnamon-bark-input-1",
+            "goodId": "source-cinnamon-tree",
+            "quantity": 1
+          }
+        ],
+        "outputs": [
+          {
+            "id": "production-step-source-cinnamon-tree-spice-cinnamon-bark-output-1",
+            "goodId": "spice-cinnamon-bark",
+            "quantity": 20
+          }
+        ],
+        "preservesInputs": false,
+        "note": "Level 0 cinnamon tree to harvested bark.",
+        "durationMinutes": 0
+      },
+      {
+        "id": "production-step-source-bay-laurel-spice-bay-leaves",
+        "inputs": [
+          {
+            "id": "production-step-source-bay-laurel-spice-bay-leaves-input-1",
+            "goodId": "source-bay-laurel",
+            "quantity": 1
+          }
+        ],
+        "outputs": [
+          {
+            "id": "production-step-source-bay-laurel-spice-bay-leaves-output-1",
+            "goodId": "spice-bay-leaves",
+            "quantity": 20
+          },
+          {
+            "id": "production-step-source-bay-laurel-spice-bay-leaves-output-2",
+            "goodId": "source-bay-laurel",
+            "quantity": 1
+          }
+        ],
+        "preservesInputs": true,
+        "note": "Bay leaf harvesting retains the laurel plant.",
+        "durationMinutes": 0
+      },
+      {
+        "id": "production-step-source-cardamom-plant-spice-cardamom-pods",
+        "inputs": [
+          {
+            "id": "production-step-source-cardamom-plant-spice-cardamom-pods-input-1",
+            "goodId": "source-cardamom-plant",
+            "quantity": 1
+          }
+        ],
+        "outputs": [
+          {
+            "id": "production-step-source-cardamom-plant-spice-cardamom-pods-output-1",
+            "goodId": "spice-cardamom-pods",
+            "quantity": 20
+          },
+          {
+            "id": "production-step-source-cardamom-plant-spice-cardamom-pods-output-2",
+            "goodId": "source-cardamom-plant",
+            "quantity": 1
+          }
+        ],
+        "preservesInputs": true,
+        "note": "Cardamom pod harvesting retains the plant.",
+        "durationMinutes": 0
+      },
+      {
+        "id": "production-step-source-clove-tree-spice-cloves",
+        "inputs": [
+          {
+            "id": "production-step-source-clove-tree-spice-cloves-input-1",
+            "goodId": "source-clove-tree",
+            "quantity": 1
+          }
+        ],
+        "outputs": [
+          {
+            "id": "production-step-source-clove-tree-spice-cloves-output-1",
+            "goodId": "spice-cloves",
+            "quantity": 20
+          },
+          {
+            "id": "production-step-source-clove-tree-spice-cloves-output-2",
+            "goodId": "source-clove-tree",
+            "quantity": 1
+          }
+        ],
+        "preservesInputs": true,
+        "note": "Clove bud harvesting retains the tree.",
+        "durationMinutes": 0
+      },
+      {
+        "id": "production-step-source-saffron-crocus-spice-saffron",
+        "inputs": [
+          {
+            "id": "production-step-source-saffron-crocus-spice-saffron-input-1",
+            "goodId": "source-saffron-crocus",
+            "quantity": 1
+          }
+        ],
+        "outputs": [
+          {
+            "id": "production-step-source-saffron-crocus-spice-saffron-output-1",
+            "goodId": "spice-saffron",
+            "quantity": 20
+          },
+          {
+            "id": "production-step-source-saffron-crocus-spice-saffron-output-2",
+            "goodId": "source-saffron-crocus",
+            "quantity": 1
+          }
+        ],
+        "preservesInputs": true,
+        "note": "Saffron stigma harvesting retains the crocus.",
+        "durationMinutes": 0
+      },
+      {
+        "id": "production-step-source-sichuan-pepper-shrub-spice-sichuan-peppercorns",
+        "inputs": [
+          {
+            "id": "production-step-source-sichuan-pepper-shrub-spice-sichuan-peppercorns-input-1",
+            "goodId": "source-sichuan-pepper-shrub",
+            "quantity": 1
+          }
+        ],
+        "outputs": [
+          {
+            "id": "production-step-source-sichuan-pepper-shrub-spice-sichuan-peppercorns-output-1",
+            "goodId": "spice-sichuan-peppercorns",
+            "quantity": 20
+          },
+          {
+            "id": "production-step-source-sichuan-pepper-shrub-spice-sichuan-peppercorns-output-2",
+            "goodId": "source-sichuan-pepper-shrub",
+            "quantity": 1
+          }
+        ],
+        "preservesInputs": true,
+        "note": "Sichuan pepper berry husk harvesting retains the shrub.",
+        "durationMinutes": 0
+      }
+    ]
+  },
+  {
+    "id": "production-chain-spice-processing",
+    "name": "Spice processing",
+    "recipes": [
+      {
+        "id": "production-step-spice-fresh-pepper-berries-spice-black-peppercorns",
+        "inputs": [
+          {
+            "id": "production-step-spice-fresh-pepper-berries-spice-black-peppercorns-input-1",
+            "goodId": "spice-fresh-pepper-berries",
+            "quantity": 20
+          }
+        ],
+        "outputs": [
+          {
+            "id": "production-step-spice-fresh-pepper-berries-spice-black-peppercorns-output-1",
+            "goodId": "spice-black-peppercorns",
+            "quantity": 20
+          }
+        ],
+        "preservesInputs": false,
+        "note": "Drying unripe pepper berries makes black peppercorns.",
+        "durationMinutes": 0
+      },
+      {
+        "id": "production-step-spice-fresh-pepper-berries-spice-white-peppercorns",
+        "inputs": [
+          {
+            "id": "production-step-spice-fresh-pepper-berries-spice-white-peppercorns-input-1",
+            "goodId": "spice-fresh-pepper-berries",
+            "quantity": 20
+          }
+        ],
+        "outputs": [
+          {
+            "id": "production-step-spice-fresh-pepper-berries-spice-white-peppercorns-output-1",
+            "goodId": "spice-white-peppercorns",
+            "quantity": 20
+          }
+        ],
+        "preservesInputs": false,
+        "note": "Removing the outer layer from pepper berries makes white peppercorns.",
+        "durationMinutes": 0
+      },
+      {
+        "id": "production-step-spice-fresh-pepper-berries-spice-green-peppercorns",
+        "inputs": [
+          {
+            "id": "production-step-spice-fresh-pepper-berries-spice-green-peppercorns-input-1",
+            "goodId": "spice-fresh-pepper-berries",
+            "quantity": 20
+          }
+        ],
+        "outputs": [
+          {
+            "id": "production-step-spice-fresh-pepper-berries-spice-green-peppercorns-output-1",
+            "goodId": "spice-green-peppercorns",
+            "quantity": 20
+          }
+        ],
+        "preservesInputs": false,
+        "note": "Early-picked preserved pepper berries make green peppercorns.",
+        "durationMinutes": 0
+      },
+      {
+        "id": "production-step-food-paprika-pepper-spice-sweet-paprika",
+        "inputs": [
+          {
+            "id": "production-step-food-paprika-pepper-spice-sweet-paprika-input-1",
+            "goodId": "food-paprika-pepper",
+            "quantity": 1
+          }
+        ],
+        "outputs": [
+          {
+            "id": "production-step-food-paprika-pepper-spice-sweet-paprika-output-1",
+            "goodId": "spice-sweet-paprika",
+            "quantity": 20
+          }
+        ],
+        "preservesInputs": false,
+        "note": "Dried mild paprika pepper to sweet paprika.",
+        "durationMinutes": 0
+      },
+      {
+        "id": "production-step-food-paprika-pepper-spice-smoked-paprika",
+        "inputs": [
+          {
+            "id": "production-step-food-paprika-pepper-spice-smoked-paprika-input-1",
+            "goodId": "food-paprika-pepper",
+            "quantity": 1
+          }
+        ],
+        "outputs": [
+          {
+            "id": "production-step-food-paprika-pepper-spice-smoked-paprika-output-1",
+            "goodId": "spice-smoked-paprika",
+            "quantity": 20
+          }
+        ],
+        "preservesInputs": false,
+        "note": "Wood-smoked dried paprika pepper to smoked paprika.",
+        "durationMinutes": 0
+      },
+      {
+        "id": "production-step-food-hot-pepper-spice-hot-paprika",
+        "inputs": [
+          {
+            "id": "production-step-food-hot-pepper-spice-hot-paprika-input-1",
+            "goodId": "food-hot-pepper",
+            "quantity": 1
+          }
+        ],
+        "outputs": [
+          {
+            "id": "production-step-food-hot-pepper-spice-hot-paprika-output-1",
+            "goodId": "spice-hot-paprika",
+            "quantity": 20
+          }
+        ],
+        "preservesInputs": false,
+        "note": "Dried hot pepper to hot paprika.",
+        "durationMinutes": 0
+      },
+      {
+        "id": "production-step-food-paprika-pepper-spice-hungarian-paprika",
+        "inputs": [
+          {
+            "id": "production-step-food-paprika-pepper-spice-hungarian-paprika-input-1",
+            "goodId": "food-paprika-pepper",
+            "quantity": 1
+          }
+        ],
+        "outputs": [
+          {
+            "id": "production-step-food-paprika-pepper-spice-hungarian-paprika-output-1",
+            "goodId": "spice-hungarian-paprika",
+            "quantity": 20
+          }
+        ],
+        "preservesInputs": false,
+        "note": "Dried selected paprika peppers to Hungarian paprika.",
+        "durationMinutes": 0
+      },
+      {
+        "id": "production-step-food-hot-pepper-spice-cayenne-pepper",
+        "inputs": [
+          {
+            "id": "production-step-food-hot-pepper-spice-cayenne-pepper-input-1",
+            "goodId": "food-hot-pepper",
+            "quantity": 1
+          }
+        ],
+        "outputs": [
+          {
+            "id": "production-step-food-hot-pepper-spice-cayenne-pepper-output-1",
+            "goodId": "spice-cayenne-pepper",
+            "quantity": 20
+          }
+        ],
+        "preservesInputs": false,
+        "note": "Finely ground dried hot pepper to cayenne pepper.",
+        "durationMinutes": 0
+      },
+      {
+        "id": "production-step-food-hot-pepper-spice-chili-flakes",
+        "inputs": [
+          {
+            "id": "production-step-food-hot-pepper-spice-chili-flakes-input-1",
+            "goodId": "food-hot-pepper",
+            "quantity": 1
+          }
+        ],
+        "outputs": [
+          {
+            "id": "production-step-food-hot-pepper-spice-chili-flakes-output-1",
+            "goodId": "spice-chili-flakes",
+            "quantity": 20
+          }
+        ],
+        "preservesInputs": false,
+        "note": "Crushed dried chili with seeds to chili flakes.",
+        "durationMinutes": 0
+      },
+      {
+        "id": "production-step-food-garlic-spice-garlic-powder",
+        "inputs": [
+          {
+            "id": "production-step-food-garlic-spice-garlic-powder-input-1",
+            "goodId": "food-garlic",
+            "quantity": 1
+          }
+        ],
+        "outputs": [
+          {
+            "id": "production-step-food-garlic-spice-garlic-powder-output-1",
+            "goodId": "spice-garlic-powder",
+            "quantity": 20
+          }
+        ],
+        "preservesInputs": false,
+        "note": "Dehydrated garlic to garlic powder.",
+        "durationMinutes": 0
+      },
+      {
+        "id": "production-step-research-onion-spice-onion-powder",
+        "inputs": [
+          {
+            "id": "production-step-research-onion-spice-onion-powder-input-1",
+            "goodId": "research-onion",
+            "quantity": 1
+          }
+        ],
+        "outputs": [
+          {
+            "id": "production-step-research-onion-spice-onion-powder-output-1",
+            "goodId": "spice-onion-powder",
+            "quantity": 20
+          }
+        ],
+        "preservesInputs": false,
+        "note": "Dehydrated onion to onion powder.",
+        "durationMinutes": 0
+      },
+      {
+        "id": "production-step-spice-cumin-seeds-spice-ground-cumin",
+        "inputs": [
+          {
+            "id": "production-step-spice-cumin-seeds-spice-ground-cumin-input-1",
+            "goodId": "spice-cumin-seeds",
+            "quantity": 20
+          }
+        ],
+        "outputs": [
+          {
+            "id": "production-step-spice-cumin-seeds-spice-ground-cumin-output-1",
+            "goodId": "spice-ground-cumin",
+            "quantity": 20
+          }
+        ],
+        "preservesInputs": false,
+        "note": "Ground cumin seeds to ground cumin.",
+        "durationMinutes": 0
+      },
+      {
+        "id": "production-step-spice-nutmeg-spice-ground-nutmeg",
+        "inputs": [
+          {
+            "id": "production-step-spice-nutmeg-spice-ground-nutmeg-input-1",
+            "goodId": "spice-nutmeg",
+            "quantity": 20
+          }
+        ],
+        "outputs": [
+          {
+            "id": "production-step-spice-nutmeg-spice-ground-nutmeg-output-1",
+            "goodId": "spice-ground-nutmeg",
+            "quantity": 20
+          }
+        ],
+        "preservesInputs": false,
+        "note": "Ground nutmeg seed to ground nutmeg.",
+        "durationMinutes": 0
+      },
+      {
+        "id": "production-step-spice-turmeric-rhizome-spice-ground-turmeric",
+        "inputs": [
+          {
+            "id": "production-step-spice-turmeric-rhizome-spice-ground-turmeric-input-1",
+            "goodId": "spice-turmeric-rhizome",
+            "quantity": 20
+          }
+        ],
+        "outputs": [
+          {
+            "id": "production-step-spice-turmeric-rhizome-spice-ground-turmeric-output-1",
+            "goodId": "spice-ground-turmeric",
+            "quantity": 20
+          }
+        ],
+        "preservesInputs": false,
+        "note": "Dried turmeric rhizome to ground turmeric.",
+        "durationMinutes": 0
+      },
+      {
+        "id": "production-step-spice-cinnamon-bark-spice-cinnamon-sticks",
+        "inputs": [
+          {
+            "id": "production-step-spice-cinnamon-bark-spice-cinnamon-sticks-input-1",
+            "goodId": "spice-cinnamon-bark",
+            "quantity": 20
+          }
+        ],
+        "outputs": [
+          {
+            "id": "production-step-spice-cinnamon-bark-spice-cinnamon-sticks-output-1",
+            "goodId": "spice-cinnamon-sticks",
+            "quantity": 20
+          }
+        ],
+        "preservesInputs": false,
+        "note": "Prepared cinnamon bark to cinnamon sticks.",
+        "durationMinutes": 0
+      },
+      {
+        "id": "production-step-spice-cinnamon-bark-spice-ground-cinnamon",
+        "inputs": [
+          {
+            "id": "production-step-spice-cinnamon-bark-spice-ground-cinnamon-input-1",
+            "goodId": "spice-cinnamon-bark",
+            "quantity": 20
+          }
+        ],
+        "outputs": [
+          {
+            "id": "production-step-spice-cinnamon-bark-spice-ground-cinnamon-output-1",
+            "goodId": "spice-ground-cinnamon",
+            "quantity": 20
+          }
+        ],
+        "preservesInputs": false,
+        "note": "Ground cinnamon bark to ground cinnamon.",
+        "durationMinutes": 0
+      },
+      {
+        "id": "production-step-spice-cardamom-pods-spice-ground-cardamom",
+        "inputs": [
+          {
+            "id": "production-step-spice-cardamom-pods-spice-ground-cardamom-input-1",
+            "goodId": "spice-cardamom-pods",
+            "quantity": 20
+          }
+        ],
+        "outputs": [
+          {
+            "id": "production-step-spice-cardamom-pods-spice-ground-cardamom-output-1",
+            "goodId": "spice-ground-cardamom",
+            "quantity": 20
+          }
+        ],
+        "preservesInputs": false,
+        "note": "Ground cardamom pods and seeds to ground cardamom.",
+        "durationMinutes": 0
+      },
+      {
+        "id": "production-step-spice-cloves-spice-ground-cloves",
+        "inputs": [
+          {
+            "id": "production-step-spice-cloves-spice-ground-cloves-input-1",
+            "goodId": "spice-cloves",
+            "quantity": 20
+          }
+        ],
+        "outputs": [
+          {
+            "id": "production-step-spice-cloves-spice-ground-cloves-output-1",
+            "goodId": "spice-ground-cloves",
+            "quantity": 20
+          }
+        ],
+        "preservesInputs": false,
+        "note": "Ground clove buds to ground cloves.",
+        "durationMinutes": 0
+      },
+      {
+        "id": "production-step-spice-garlic-powder-food-salt-spice-garlic-salt",
+        "inputs": [
+          {
+            "id": "production-step-spice-garlic-powder-food-salt-spice-garlic-salt-input-1",
+            "goodId": "spice-garlic-powder",
+            "quantity": 20
+          },
+          {
+            "id": "production-step-spice-garlic-powder-food-salt-spice-garlic-salt-input-2",
+            "goodId": "food-salt",
+            "quantity": 20
+          }
+        ],
+        "outputs": [
+          {
+            "id": "production-step-spice-garlic-powder-food-salt-spice-garlic-salt-output-1",
+            "goodId": "spice-garlic-salt",
+            "quantity": 20
+          }
+        ],
+        "preservesInputs": false,
+        "note": "Garlic powder mixed with salt makes garlic salt.",
+        "durationMinutes": 0
+      },
+      {
+        "id": "production-step-research-seaweed-spice-msg",
+        "inputs": [
+          {
+            "id": "production-step-research-seaweed-spice-msg-input-1",
+            "goodId": "research-seaweed",
+            "quantity": 1
+          }
+        ],
+        "outputs": [
+          {
+            "id": "production-step-research-seaweed-spice-msg-output-1",
+            "goodId": "spice-msg",
+            "quantity": 20
+          }
+        ],
+        "preservesInputs": false,
+        "note": "Concentrated glutamate seasoning from dried kelp.",
+        "durationMinutes": 0
+      },
+      {
+        "id": "production-step-food-yellow-onion-spice-onion-powder",
+        "inputs": [
+          {
+            "id": "production-step-food-yellow-onion-spice-onion-powder-input-1",
+            "goodId": "food-yellow-onion",
+            "quantity": 1
+          }
+        ],
+        "outputs": [
+          {
+            "id": "production-step-food-yellow-onion-spice-onion-powder-output-1",
+            "goodId": "spice-onion-powder",
+            "quantity": 20
+          }
+        ],
+        "preservesInputs": false,
+        "note": "Drying and grinding a pungent bulb onion into onion powder.",
+        "durationMinutes": 0
+      }
+    ]
+  },
+  {
+    "id": "production-chain-vegetable-harvesting",
+    "name": "Vegetable harvesting",
+    "recipes": [
+      {
+        "id": "production-step-source-cabbage-plant-food-cabbage",
+        "inputs": [
+          {
+            "id": "production-input-source-cabbage-plant-food-cabbage",
+            "goodId": "source-cabbage-plant",
+            "quantity": 1
+          }
+        ],
+        "outputs": [
+          {
+            "id": "production-output-source-cabbage-plant-food-cabbage",
+            "goodId": "food-cabbage",
+            "quantity": 1
+          }
+        ],
+        "preservesInputs": false,
+        "note": "Level 0 natural source to level 1 harvested good.",
+        "durationMinutes": 0
+      },
+      {
+        "id": "production-step-source-potato-plant-research-potato",
+        "inputs": [
+          {
+            "id": "production-input-source-potato-plant-research-potato",
+            "goodId": "source-potato-plant",
+            "quantity": 1
+          }
+        ],
+        "outputs": [
+          {
+            "id": "production-output-source-potato-plant-research-potato",
+            "goodId": "research-potato",
+            "quantity": 1
+          }
+        ],
+        "preservesInputs": false,
+        "note": "Level 0 natural source to level 1 harvested good.",
+        "durationMinutes": 0
+      },
+      {
+        "id": "production-step-source-cassava-plant-research-cassava",
+        "inputs": [
+          {
+            "id": "production-input-source-cassava-plant-research-cassava",
+            "goodId": "source-cassava-plant",
+            "quantity": 1
+          }
+        ],
+        "outputs": [
+          {
+            "id": "production-output-source-cassava-plant-research-cassava",
+            "goodId": "research-cassava",
+            "quantity": 1
+          }
+        ],
+        "preservesInputs": false,
+        "note": "Level 0 natural source to level 1 harvested good.",
+        "durationMinutes": 0
+      },
+      {
+        "id": "production-step-source-onion-plant-research-onion",
+        "inputs": [
+          {
+            "id": "production-input-source-onion-plant-research-onion",
+            "goodId": "source-onion-plant",
+            "quantity": 1
+          }
+        ],
+        "outputs": [
+          {
+            "id": "production-output-source-onion-plant-research-onion",
+            "goodId": "research-onion",
+            "quantity": 1
+          }
+        ],
+        "preservesInputs": false,
+        "note": "Level 0 natural source to level 1 harvested good.",
+        "durationMinutes": 0
+      },
+      {
+        "id": "production-step-source-taro-plant-research-taro",
+        "inputs": [
+          {
+            "id": "production-input-source-taro-plant-research-taro",
+            "goodId": "source-taro-plant",
+            "quantity": 1
+          }
+        ],
+        "outputs": [
+          {
+            "id": "production-output-source-taro-plant-research-taro",
+            "goodId": "research-taro",
+            "quantity": 1
+          }
+        ],
+        "preservesInputs": false,
+        "note": "Level 0 natural source to level 1 harvested good.",
+        "durationMinutes": 0
+      },
+      {
+        "id": "production-step-source-yellow-onion-plant-food-yellow-onion",
+        "inputs": [
+          {
+            "id": "production-step-source-yellow-onion-plant-food-yellow-onion-input-1",
+            "goodId": "source-yellow-onion-plant",
+            "quantity": 1
+          }
+        ],
+        "outputs": [
+          {
+            "id": "production-step-source-yellow-onion-plant-food-yellow-onion-output-1",
+            "goodId": "food-yellow-onion",
+            "quantity": 1
+          }
+        ],
+        "preservesInputs": false,
+        "note": "Level 0 natural source to level 1 harvested good.",
+        "durationMinutes": 0
+      },
+      {
+        "id": "production-step-source-white-onion-plant-food-white-onion",
+        "inputs": [
+          {
+            "id": "production-step-source-white-onion-plant-food-white-onion-input-1",
+            "goodId": "source-white-onion-plant",
+            "quantity": 1
+          }
+        ],
+        "outputs": [
+          {
+            "id": "production-step-source-white-onion-plant-food-white-onion-output-1",
+            "goodId": "food-white-onion",
+            "quantity": 1
+          }
+        ],
+        "preservesInputs": false,
+        "note": "Level 0 natural source to level 1 harvested good.",
+        "durationMinutes": 0
+      },
+      {
+        "id": "production-step-source-red-onion-plant-food-red-onion",
+        "inputs": [
+          {
+            "id": "production-step-source-red-onion-plant-food-red-onion-input-1",
+            "goodId": "source-red-onion-plant",
+            "quantity": 1
+          }
+        ],
+        "outputs": [
+          {
+            "id": "production-step-source-red-onion-plant-food-red-onion-output-1",
+            "goodId": "food-red-onion",
+            "quantity": 1
+          }
+        ],
+        "preservesInputs": false,
+        "note": "Level 0 natural source to level 1 harvested good.",
+        "durationMinutes": 0
+      },
+      {
+        "id": "production-step-source-sweet-onion-plant-food-sweet-onion",
+        "inputs": [
+          {
+            "id": "production-step-source-sweet-onion-plant-food-sweet-onion-input-1",
+            "goodId": "source-sweet-onion-plant",
+            "quantity": 1
+          }
+        ],
+        "outputs": [
+          {
+            "id": "production-step-source-sweet-onion-plant-food-sweet-onion-output-1",
+            "goodId": "food-sweet-onion",
+            "quantity": 1
+          }
+        ],
+        "preservesInputs": false,
+        "note": "Level 0 natural source to level 1 harvested good.",
+        "durationMinutes": 0
+      },
+      {
+        "id": "production-step-source-spring-onion-plant-food-spring-onion",
+        "inputs": [
+          {
+            "id": "production-step-source-spring-onion-plant-food-spring-onion-input-1",
+            "goodId": "source-spring-onion-plant",
+            "quantity": 1
+          }
+        ],
+        "outputs": [
+          {
+            "id": "production-step-source-spring-onion-plant-food-spring-onion-output-1",
+            "goodId": "food-spring-onion",
+            "quantity": 1
+          }
+        ],
+        "preservesInputs": false,
+        "note": "Level 0 natural source to level 1 harvested good.",
+        "durationMinutes": 0
+      },
+      {
+        "id": "production-step-source-scallion-plant-food-scallion",
+        "inputs": [
+          {
+            "id": "production-step-source-scallion-plant-food-scallion-input-1",
+            "goodId": "source-scallion-plant",
+            "quantity": 1
+          }
+        ],
+        "outputs": [
+          {
+            "id": "production-step-source-scallion-plant-food-scallion-output-1",
+            "goodId": "food-scallion",
+            "quantity": 1
+          }
+        ],
+        "preservesInputs": false,
+        "note": "Level 0 natural source to level 1 harvested good.",
+        "durationMinutes": 0
+      },
+      {
+        "id": "production-step-source-shallot-plant-food-shallot",
+        "inputs": [
+          {
+            "id": "production-step-source-shallot-plant-food-shallot-input-1",
+            "goodId": "source-shallot-plant",
+            "quantity": 1
+          }
+        ],
+        "outputs": [
+          {
+            "id": "production-step-source-shallot-plant-food-shallot-output-1",
+            "goodId": "food-shallot",
+            "quantity": 1
+          }
+        ],
+        "preservesInputs": false,
+        "note": "Level 0 natural source to level 1 harvested good.",
+        "durationMinutes": 0
+      },
+      {
+        "id": "production-step-source-egyptian-walking-onion-plant-food-egyptian-walking-onion",
+        "inputs": [
+          {
+            "id": "production-step-source-egyptian-walking-onion-plant-food-egyptian-walking-onion-input-1",
+            "goodId": "source-egyptian-walking-onion-plant",
+            "quantity": 1
+          }
+        ],
+        "outputs": [
+          {
+            "id": "production-step-source-egyptian-walking-onion-plant-food-egyptian-walking-onion-output-1",
+            "goodId": "food-egyptian-walking-onion",
+            "quantity": 1
+          }
+        ],
+        "preservesInputs": false,
+        "note": "Level 0 natural source to level 1 harvested good.",
+        "durationMinutes": 0
+      },
+      {
+        "id": "production-step-source-potato-onion-plant-food-potato-onion",
+        "inputs": [
+          {
+            "id": "production-step-source-potato-onion-plant-food-potato-onion-input-1",
+            "goodId": "source-potato-onion-plant",
+            "quantity": 1
+          }
+        ],
+        "outputs": [
+          {
+            "id": "production-step-source-potato-onion-plant-food-potato-onion-output-1",
+            "goodId": "food-potato-onion",
+            "quantity": 1
+          }
+        ],
+        "preservesInputs": false,
+        "note": "Level 0 natural source to level 1 harvested good.",
+        "durationMinutes": 0
+      },
+      {
+        "id": "production-step-source-cipollini-onion-plant-food-cipollini-onion",
+        "inputs": [
+          {
+            "id": "production-step-source-cipollini-onion-plant-food-cipollini-onion-input-1",
+            "goodId": "source-cipollini-onion-plant",
+            "quantity": 1
+          }
+        ],
+        "outputs": [
+          {
+            "id": "production-step-source-cipollini-onion-plant-food-cipollini-onion-output-1",
+            "goodId": "food-cipollini-onion",
+            "quantity": 1
+          }
+        ],
+        "preservesInputs": false,
+        "note": "Level 0 natural source to level 1 harvested good.",
+        "durationMinutes": 0
+      },
+      {
+        "id": "production-step-source-pearl-onion-plant-food-pearl-onion",
+        "inputs": [
+          {
+            "id": "production-step-source-pearl-onion-plant-food-pearl-onion-input-1",
+            "goodId": "source-pearl-onion-plant",
+            "quantity": 1
+          }
+        ],
+        "outputs": [
+          {
+            "id": "production-step-source-pearl-onion-plant-food-pearl-onion-output-1",
+            "goodId": "food-pearl-onion",
+            "quantity": 1
+          }
+        ],
+        "preservesInputs": false,
+        "note": "Level 0 natural source to level 1 harvested good.",
+        "durationMinutes": 0
+      },
+      {
+        "id": "production-step-source-rocambole-garlic-plant-food-rocambole-scapes",
+        "inputs": [
+          {
+            "id": "production-step-source-rocambole-garlic-plant-food-rocambole-scapes-input-1",
+            "goodId": "source-rocambole-garlic-plant",
+            "quantity": 1
+          }
+        ],
+        "outputs": [
+          {
+            "id": "production-step-source-rocambole-garlic-plant-food-rocambole-scapes-output-1",
+            "goodId": "food-rocambole-scapes",
+            "quantity": 1
+          }
+        ],
+        "preservesInputs": false,
+        "note": "Level 0 natural source to level 1 harvested good.",
+        "durationMinutes": 0
+      },
+      {
+        "id": "production-step-source-bell-pepper-plant-food-green-bell-pepper",
+        "inputs": [
+          {
+            "id": "production-step-source-bell-pepper-plant-food-green-bell-pepper-input-1",
+            "goodId": "source-bell-pepper-plant",
+            "quantity": 1
+          }
+        ],
+        "outputs": [
+          {
+            "id": "production-step-source-bell-pepper-plant-food-green-bell-pepper-output-1",
+            "goodId": "food-green-bell-pepper",
+            "quantity": 1
+          }
+        ],
+        "preservesInputs": false,
+        "note": "Level 0 pepper plant source to level 1 harvested fruit.",
+        "durationMinutes": 0
+      },
+      {
+        "id": "production-step-source-bell-pepper-plant-food-red-bell-pepper",
+        "inputs": [
+          {
+            "id": "production-step-source-bell-pepper-plant-food-red-bell-pepper-input-1",
+            "goodId": "source-bell-pepper-plant",
+            "quantity": 1
+          }
+        ],
+        "outputs": [
+          {
+            "id": "production-step-source-bell-pepper-plant-food-red-bell-pepper-output-1",
+            "goodId": "food-red-bell-pepper",
+            "quantity": 1
+          }
+        ],
+        "preservesInputs": false,
+        "note": "Level 0 pepper plant source to level 1 harvested fruit.",
+        "durationMinutes": 0
+      },
+      {
+        "id": "production-step-source-bell-pepper-plant-food-yellow-bell-pepper",
+        "inputs": [
+          {
+            "id": "production-step-source-bell-pepper-plant-food-yellow-bell-pepper-input-1",
+            "goodId": "source-bell-pepper-plant",
+            "quantity": 1
+          }
+        ],
+        "outputs": [
+          {
+            "id": "production-step-source-bell-pepper-plant-food-yellow-bell-pepper-output-1",
+            "goodId": "food-yellow-bell-pepper",
+            "quantity": 1
+          }
+        ],
+        "preservesInputs": false,
+        "note": "Level 0 pepper plant source to level 1 harvested fruit.",
+        "durationMinutes": 0
+      },
+      {
+        "id": "production-step-source-bell-pepper-plant-food-orange-bell-pepper",
+        "inputs": [
+          {
+            "id": "production-step-source-bell-pepper-plant-food-orange-bell-pepper-input-1",
+            "goodId": "source-bell-pepper-plant",
+            "quantity": 1
+          }
+        ],
+        "outputs": [
+          {
+            "id": "production-step-source-bell-pepper-plant-food-orange-bell-pepper-output-1",
+            "goodId": "food-orange-bell-pepper",
+            "quantity": 1
+          }
+        ],
+        "preservesInputs": false,
+        "note": "Level 0 pepper plant source to level 1 harvested fruit.",
+        "durationMinutes": 0
+      },
+      {
+        "id": "production-step-source-jalapeno-plant-food-jalapeno",
+        "inputs": [
+          {
+            "id": "production-step-source-jalapeno-plant-food-jalapeno-input-1",
+            "goodId": "source-jalapeno-plant",
+            "quantity": 1
+          }
+        ],
+        "outputs": [
+          {
+            "id": "production-step-source-jalapeno-plant-food-jalapeno-output-1",
+            "goodId": "food-jalapeno",
+            "quantity": 1
+          }
+        ],
+        "preservesInputs": false,
+        "note": "Level 0 pepper plant source to level 1 harvested fruit.",
+        "durationMinutes": 0
+      },
+      {
+        "id": "production-step-source-jalapeno-plant-food-red-jalapeno",
+        "inputs": [
+          {
+            "id": "production-step-source-jalapeno-plant-food-red-jalapeno-input-1",
+            "goodId": "source-jalapeno-plant",
+            "quantity": 1
+          }
+        ],
+        "outputs": [
+          {
+            "id": "production-step-source-jalapeno-plant-food-red-jalapeno-output-1",
+            "goodId": "food-red-jalapeno",
+            "quantity": 1
+          }
+        ],
+        "preservesInputs": false,
+        "note": "Level 0 pepper plant source to level 1 harvested fruit.",
+        "durationMinutes": 0
+      },
+      {
+        "id": "production-step-source-poblano-plant-food-poblano-pepper",
+        "inputs": [
+          {
+            "id": "production-step-source-poblano-plant-food-poblano-pepper-input-1",
+            "goodId": "source-poblano-plant",
+            "quantity": 1
+          }
+        ],
+        "outputs": [
+          {
+            "id": "production-step-source-poblano-plant-food-poblano-pepper-output-1",
+            "goodId": "food-poblano-pepper",
+            "quantity": 1
+          }
+        ],
+        "preservesInputs": false,
+        "note": "Level 0 pepper plant source to level 1 harvested fruit.",
+        "durationMinutes": 0
+      },
+      {
+        "id": "production-step-source-tabasco-pepper-plant-food-tabasco-pepper",
+        "inputs": [
+          {
+            "id": "production-step-source-tabasco-pepper-plant-food-tabasco-pepper-input-1",
+            "goodId": "source-tabasco-pepper-plant",
+            "quantity": 1
+          }
+        ],
+        "outputs": [
+          {
+            "id": "production-step-source-tabasco-pepper-plant-food-tabasco-pepper-output-1",
+            "goodId": "food-tabasco-pepper",
+            "quantity": 1
+          }
+        ],
+        "preservesInputs": false,
+        "note": "Level 0 pepper plant source to level 1 harvested fruit.",
+        "durationMinutes": 0
+      },
+      {
+        "id": "production-step-source-banana-pepper-plant-food-banana-pepper",
+        "inputs": [
+          {
+            "id": "production-step-source-banana-pepper-plant-food-banana-pepper-input-1",
+            "goodId": "source-banana-pepper-plant",
+            "quantity": 1
+          }
+        ],
+        "outputs": [
+          {
+            "id": "production-step-source-banana-pepper-plant-food-banana-pepper-output-1",
+            "goodId": "food-banana-pepper",
+            "quantity": 1
+          }
+        ],
+        "preservesInputs": false,
+        "note": "Level 0 pepper plant source to level 1 harvested fruit.",
+        "durationMinutes": 0
+      },
+      {
+        "id": "production-step-source-pepperoncini-plant-food-pepperoncini",
+        "inputs": [
+          {
+            "id": "production-step-source-pepperoncini-plant-food-pepperoncini-input-1",
+            "goodId": "source-pepperoncini-plant",
+            "quantity": 1
+          }
+        ],
+        "outputs": [
+          {
+            "id": "production-step-source-pepperoncini-plant-food-pepperoncini-output-1",
+            "goodId": "food-pepperoncini",
+            "quantity": 1
+          }
+        ],
+        "preservesInputs": false,
+        "note": "Level 0 pepper plant source to level 1 harvested fruit.",
+        "durationMinutes": 0
+      },
+      {
+        "id": "production-step-source-serrano-plant-food-serrano-pepper",
+        "inputs": [
+          {
+            "id": "production-step-source-serrano-plant-food-serrano-pepper-input-1",
+            "goodId": "source-serrano-plant",
+            "quantity": 1
+          }
+        ],
+        "outputs": [
+          {
+            "id": "production-step-source-serrano-plant-food-serrano-pepper-output-1",
+            "goodId": "food-serrano-pepper",
+            "quantity": 1
+          }
+        ],
+        "preservesInputs": false,
+        "note": "Level 0 pepper plant source to level 1 harvested fruit.",
+        "durationMinutes": 0
+      },
+      {
+        "id": "production-step-source-habanero-plant-food-habanero-pepper",
+        "inputs": [
+          {
+            "id": "production-step-source-habanero-plant-food-habanero-pepper-input-1",
+            "goodId": "source-habanero-plant",
+            "quantity": 1
+          }
+        ],
+        "outputs": [
+          {
+            "id": "production-step-source-habanero-plant-food-habanero-pepper-output-1",
+            "goodId": "food-habanero-pepper",
+            "quantity": 1
+          }
+        ],
+        "preservesInputs": false,
+        "note": "Level 0 pepper plant source to level 1 harvested fruit.",
+        "durationMinutes": 0
+      },
+      {
+        "id": "production-step-source-ghost-pepper-plant-food-ghost-pepper",
+        "inputs": [
+          {
+            "id": "production-step-source-ghost-pepper-plant-food-ghost-pepper-input-1",
+            "goodId": "source-ghost-pepper-plant",
+            "quantity": 1
+          }
+        ],
+        "outputs": [
+          {
+            "id": "production-step-source-ghost-pepper-plant-food-ghost-pepper-output-1",
+            "goodId": "food-ghost-pepper",
+            "quantity": 1
+          }
+        ],
+        "preservesInputs": false,
+        "note": "Level 0 pepper plant source to level 1 harvested fruit.",
+        "durationMinutes": 0
+      },
+      {
+        "id": "production-step-source-carolina-reaper-plant-food-carolina-reaper",
+        "inputs": [
+          {
+            "id": "production-step-source-carolina-reaper-plant-food-carolina-reaper-input-1",
+            "goodId": "source-carolina-reaper-plant",
+            "quantity": 1
+          }
+        ],
+        "outputs": [
+          {
+            "id": "production-step-source-carolina-reaper-plant-food-carolina-reaper-output-1",
+            "goodId": "food-carolina-reaper",
+            "quantity": 1
+          }
+        ],
+        "preservesInputs": false,
+        "note": "Level 0 pepper plant source to level 1 harvested fruit.",
+        "durationMinutes": 0
+      },
+      {
+        "id": "production-step-source-aji-charapita-shrub-food-aji-charapita",
+        "inputs": [
+          {
+            "id": "production-step-source-aji-charapita-shrub-food-aji-charapita-input-1",
+            "goodId": "source-aji-charapita-shrub",
+            "quantity": 1
+          }
+        ],
+        "outputs": [
+          {
+            "id": "production-step-source-aji-charapita-shrub-food-aji-charapita-output-1",
+            "goodId": "food-aji-charapita",
+            "quantity": 1
+          }
+        ],
+        "preservesInputs": false,
+        "note": "Level 0 pepper plant source to level 1 harvested fruit.",
+        "durationMinutes": 0
+      },
+      {
+        "id": "production-step-source-piquillo-pepper-plant-food-piquillo-pepper",
+        "inputs": [
+          {
+            "id": "production-step-source-piquillo-pepper-plant-food-piquillo-pepper-input-1",
+            "goodId": "source-piquillo-pepper-plant",
+            "quantity": 1
+          }
+        ],
+        "outputs": [
+          {
+            "id": "production-step-source-piquillo-pepper-plant-food-piquillo-pepper-output-1",
+            "goodId": "food-piquillo-pepper",
+            "quantity": 1
+          }
+        ],
+        "preservesInputs": false,
+        "note": "Level 0 pepper plant source to level 1 harvested fruit.",
+        "durationMinutes": 0
+      },
+      {
+        "id": "production-step-source-calabrian-chili-plant-food-calabrian-chili",
+        "inputs": [
+          {
+            "id": "production-step-source-calabrian-chili-plant-food-calabrian-chili-input-1",
+            "goodId": "source-calabrian-chili-plant",
+            "quantity": 1
+          }
+        ],
+        "outputs": [
+          {
+            "id": "production-step-source-calabrian-chili-plant-food-calabrian-chili-output-1",
+            "goodId": "food-calabrian-chili",
+            "quantity": 1
+          }
+        ],
+        "preservesInputs": false,
+        "note": "Level 0 pepper plant source to level 1 harvested fruit.",
+        "durationMinutes": 0
+      },
+      {
+        "id": "production-step-source-tepin-pepper-plant-food-tepin-pepper",
+        "inputs": [
+          {
+            "id": "production-step-source-tepin-pepper-plant-food-tepin-pepper-input-1",
+            "goodId": "source-tepin-pepper-plant",
+            "quantity": 1
+          }
+        ],
+        "outputs": [
+          {
+            "id": "production-step-source-tepin-pepper-plant-food-tepin-pepper-output-1",
+            "goodId": "food-tepin-pepper",
+            "quantity": 1
+          }
+        ],
+        "preservesInputs": false,
+        "note": "Level 0 pepper plant source to level 1 harvested fruit.",
+        "durationMinutes": 0
+      },
+      {
+        "id": "production-step-source-padron-pepper-plant-food-padron-pepper",
+        "inputs": [
+          {
+            "id": "production-step-source-padron-pepper-plant-food-padron-pepper-input-1",
+            "goodId": "source-padron-pepper-plant",
+            "quantity": 1
+          }
+        ],
+        "outputs": [
+          {
+            "id": "production-step-source-padron-pepper-plant-food-padron-pepper-output-1",
+            "goodId": "food-padron-pepper",
+            "quantity": 1
+          }
+        ],
+        "preservesInputs": false,
+        "note": "Level 0 pepper plant source to level 1 harvested fruit.",
+        "durationMinutes": 0
+      },
+      {
+        "id": "production-step-source-cucumber-vine-food-cucumber",
+        "inputs": [
+          {
+            "id": "production-step-source-cucumber-vine-food-cucumber-input-1",
+            "goodId": "source-cucumber-vine",
+            "quantity": 1
+          }
+        ],
+        "outputs": [
+          {
+            "id": "production-step-source-cucumber-vine-food-cucumber-output-1",
+            "goodId": "food-cucumber",
+            "quantity": 1
+          }
+        ],
+        "preservesInputs": false,
+        "note": "Level 0 natural source to level 1 harvested good.",
+        "durationMinutes": 0
+      },
+      {
+        "id": "production-step-source-beet-plant-food-beetroot",
+        "inputs": [
+          {
+            "id": "production-step-source-beet-plant-food-beetroot-input-1",
+            "goodId": "source-beet-plant",
+            "quantity": 1
+          }
+        ],
+        "outputs": [
+          {
+            "id": "production-step-source-beet-plant-food-beetroot-output-1",
+            "goodId": "food-beetroot",
+            "quantity": 1
+          }
+        ],
+        "preservesInputs": false,
+        "note": "Level 0 natural source to level 1 harvested good.",
+        "durationMinutes": 0
+      },
+      {
+        "id": "production-step-source-radish-plant-food-radish",
+        "inputs": [
+          {
+            "id": "production-step-source-radish-plant-food-radish-input-1",
+            "goodId": "source-radish-plant",
+            "quantity": 1
+          }
+        ],
+        "outputs": [
+          {
+            "id": "production-step-source-radish-plant-food-radish-output-1",
+            "goodId": "food-radish",
+            "quantity": 1
+          }
+        ],
+        "preservesInputs": false,
+        "note": "Level 0 natural source to level 1 harvested good.",
+        "durationMinutes": 0
+      },
+      {
+        "id": "production-step-source-ginger-plant-spice-fresh-ginger",
+        "inputs": [
+          {
+            "id": "production-step-source-ginger-plant-spice-fresh-ginger-input-1",
+            "goodId": "source-ginger-plant",
+            "quantity": 1
+          }
+        ],
+        "outputs": [
+          {
+            "id": "production-step-source-ginger-plant-spice-fresh-ginger-output-1",
+            "goodId": "spice-fresh-ginger",
+            "quantity": 20
+          }
+        ],
+        "preservesInputs": false,
+        "note": "Level 0 natural source to level 1 harvested good.",
+        "durationMinutes": 0
+      },
+      {
+        "id": "production-step-source-rye-plant-food-rye",
+        "inputs": [
+          {
+            "id": "production-step-source-rye-plant-food-rye-input-1",
+            "goodId": "source-rye-plant",
+            "quantity": 1
+          }
+        ],
+        "outputs": [
+          {
+            "id": "production-step-source-rye-plant-food-rye-output-1",
+            "goodId": "food-rye",
+            "quantity": 1
+          }
+        ],
+        "preservesInputs": false,
+        "note": "Level 0 natural source to level 1 harvested good.",
+        "durationMinutes": 0
+      },
+      {
+        "id": "production-step-source-tea-shrub-spice-tea-leaves",
+        "inputs": [
+          {
+            "id": "production-step-source-tea-shrub-spice-tea-leaves-input-1",
+            "goodId": "source-tea-shrub",
+            "quantity": 1
+          }
+        ],
+        "outputs": [
+          {
+            "id": "production-step-source-tea-shrub-spice-tea-leaves-output-1",
+            "goodId": "spice-tea-leaves",
+            "quantity": 20
+          }
+        ],
+        "preservesInputs": false,
+        "note": "Level 0 natural source to level 1 harvested good.",
+        "durationMinutes": 0
+      }
+    ]
+  },
+  {
+    "id": "production-chain-water-processing",
+    "name": "Water processing",
+    "recipes": [
+      {
+        "id": "production-step-resource-water-liquid-boiled-water",
+        "inputs": [
+          {
+            "id": "production-step-resource-water-liquid-boiled-water-input-1",
+            "goodId": "resource-water",
+            "quantity": 1
+          }
+        ],
+        "outputs": [
+          {
+            "id": "production-step-resource-water-liquid-boiled-water-output-1",
+            "goodId": "liquid-boiled-water",
+            "quantity": 1
+          }
+        ],
+        "preservesInputs": false,
+        "note": "Raw water to prepared cooking water.",
+        "durationMinutes": 0
+      },
+      {
+        "id": "production-step-resource-water-food-beef-liquid-meat-broth",
+        "inputs": [
+          {
+            "id": "production-step-resource-water-food-beef-liquid-meat-broth-input-1",
+            "goodId": "resource-water",
+            "quantity": 1
+          },
+          {
+            "id": "production-step-resource-water-food-beef-liquid-meat-broth-input-2",
+            "goodId": "food-beef",
+            "quantity": 1
+          }
+        ],
+        "outputs": [
+          {
+            "id": "production-step-resource-water-food-beef-liquid-meat-broth-output-1",
+            "goodId": "liquid-meat-broth",
+            "quantity": 1
+          }
+        ],
+        "preservesInputs": false,
+        "note": "Water and meat to meat broth.",
+        "durationMinutes": 0
+      },
+      {
+        "id": "production-step-resource-water-research-salmon-liquid-fish-broth",
+        "inputs": [
+          {
+            "id": "production-step-resource-water-research-salmon-liquid-fish-broth-input-1",
+            "goodId": "resource-water",
+            "quantity": 1
+          },
+          {
+            "id": "production-step-resource-water-research-salmon-liquid-fish-broth-input-2",
+            "goodId": "research-salmon",
+            "quantity": 1
+          }
+        ],
+        "outputs": [
+          {
+            "id": "production-step-resource-water-research-salmon-liquid-fish-broth-output-1",
+            "goodId": "liquid-fish-broth",
+            "quantity": 1
+          }
+        ],
+        "preservesInputs": false,
+        "note": "Water and fish to fish broth.",
+        "durationMinutes": 0
+      },
+      {
+        "id": "production-step-resource-water-food-cabbage-research-onion-liquid-vegetable-broth",
+        "inputs": [
+          {
+            "id": "production-step-resource-water-food-cabbage-research-onion-liquid-vegetable-broth-input-1",
+            "goodId": "resource-water",
+            "quantity": 1
+          },
+          {
+            "id": "production-step-resource-water-food-cabbage-research-onion-liquid-vegetable-broth-input-2",
+            "goodId": "food-cabbage",
+            "quantity": 1
+          },
+          {
+            "id": "production-step-resource-water-food-cabbage-research-onion-liquid-vegetable-broth-input-3",
+            "goodId": "food-yellow-onion",
+            "quantity": 1
+          }
+        ],
+        "outputs": [
+          {
+            "id": "production-step-resource-water-food-cabbage-research-onion-liquid-vegetable-broth-output-1",
+            "goodId": "liquid-vegetable-broth",
+            "quantity": 1
+          }
+        ],
+        "preservesInputs": false,
+        "note": "Water and vegetables to vegetable broth.",
+        "durationMinutes": 0
+      },
+      {
+        "id": "production-step-resource-water-research-seaweed-liquid-seaweed-broth",
+        "inputs": [
+          {
+            "id": "production-step-resource-water-research-seaweed-liquid-seaweed-broth-input-1",
+            "goodId": "resource-water",
+            "quantity": 1
+          },
+          {
+            "id": "production-step-resource-water-research-seaweed-liquid-seaweed-broth-input-2",
+            "goodId": "research-seaweed",
+            "quantity": 1
+          }
+        ],
+        "outputs": [
+          {
+            "id": "production-step-resource-water-research-seaweed-liquid-seaweed-broth-output-1",
+            "goodId": "liquid-seaweed-broth",
+            "quantity": 1
+          }
+        ],
+        "preservesInputs": false,
+        "note": "Water and dried kelp to seaweed broth.",
+        "durationMinutes": 0
+      }
+    ]
+  }
+]

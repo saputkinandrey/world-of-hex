@@ -1,0 +1,390 @@
+{
+    "exports": {
+        "StatusActions": [
+            {
+                "tag": "DISPLAY_INSIGNIA",
+                "costEnergy": -0.02,
+                "costTime": 0.1,
+                "rewardSecondary": {
+                    "STATUS": 0.35,
+                    "RESPECT": 0.25,
+                    "REPUTATION": 0.2
+                },
+                "requiresItem": ["insignia"],
+                "socialImpact": {
+                    "STATUS": 0.45,
+                    "ENVY": 0.1,
+                    "VISIBILITY": 0.3
+                },
+                "ownershipEffect": {
+                    "accessScope": "council_hall",
+                    "grantAccess": true,
+                    "accessLevel": "RANKED"
+                },
+                "lawEffect": {
+                    "dressCode": "rank_symbols_allowed",
+                    "enforceable": true
+                }
+            },
+            {
+                "tag": "WEAR_FINE_CLOTHING",
+                "costEnergy": -0.03,
+                "costTime": 0.3,
+                "rewardSecondary": {
+                    "STATUS": 0.4,
+                    "RESPECT": 0.2,
+                    "COMMUNITY": 0.1
+                },
+                "tradeEffect": {
+                    "equip": "fine_attire",
+                    "upkeep_textile": "-1/season"
+                },
+                "socialImpact": {
+                    "STATUS": 0.4,
+                    "AESTHETICS": 0.25,
+                    "ENVY": 0.15
+                },
+                "lawEffect": {
+                    "attirePolicy": "formal_events_required",
+                    "enforceable": true
+                }
+            },
+            {
+                "tag": "PARADE_RETINUE",
+                "costEnergy": -0.25,
+                "costTime": 1,
+                "risk": 0.05,
+                "rewardSecondary": {
+                    "STATUS": 0.6,
+                    "POWER": 0.25,
+                    "RESPECT": 0.3
+                },
+                "requiresItem": ["banners", "guards"],
+                "socialImpact": {
+                    "STATUS": 0.55,
+                    "AWE": 0.35,
+                    "FEAR": 0.1
+                },
+                "ownershipEffect": {
+                    "accessScope": "streets_route",
+                    "grantAccess": true
+                },
+                "lawEffect": {
+                    "permit": "procession_lane_reserved",
+                    "enforceable": true
+                }
+            },
+            {
+                "tag": "SPONSOR_FEAST",
+                "costEnergy": -0.2,
+                "costTime": 3,
+                "rewardSecondary": {
+                    "STATUS": 0.9,
+                    "COMMUNITY": 0.6,
+                    "LOYALTY": 0.4
+                },
+                "tradeEffect": {
+                    "spend_food": -12,
+                    "spend_drink": -6,
+                    "hire_minstrels": -2
+                },
+                "socialImpact": {
+                    "STATUS": 0.7,
+                    "GRATITUDE": 0.6,
+                    "VISIBILITY": 0.5
+                },
+                "ownershipEffect": {
+                    "accessScope": "feast_hall",
+                    "grantAccess": true
+                },
+                "lawEffect": {
+                    "eventPermit": "feast#ok",
+                    "enforceable": true
+                }
+            },
+            {
+                "tag": "HOST_TOURNAMENT",
+                "costEnergy": -0.35,
+                "costTime": 4,
+                "risk": 0.1,
+                "rewardSecondary": {
+                    "STATUS": 1,
+                    "POWER": 0.3,
+                    "COMMUNITY": 0.4,
+                    "TRADITION": 0.3
+                },
+                "requiresLocation": "list_field",
+                "tradeEffect": {
+                    "prize_pool": -8,
+                    "vendor_fees": "+3"
+                },
+                "socialImpact": {
+                    "STATUS": 0.8,
+                    "FAME": 0.6,
+                    "AWE": 0.4
+                },
+                "lawEffect": {
+                    "gamesCharter": "tournament_rules_v1",
+                    "enforceable": true
+                },
+                "requiredMemes": [
+                    "record.ledgerkeeping",
+                    "econ.pooling_common_fund"
+                ]
+            },
+            {
+                "tag": "COMMISSION_ART",
+                "costEnergy": -0.12,
+                "costTime": 1.5,
+                "rewardSecondary": {
+                    "STATUS": 0.6,
+                    "CREATIVITY": 0.4,
+                    "TRADITION": 0.2
+                },
+                "tradeEffect": {
+                    "pay_silver": -5,
+                    "commission": "fresco|relief"
+                },
+                "socialImpact": {
+                    "STATUS": 0.45,
+                    "CULTURE": 0.35
+                },
+                "ownershipEffect": {
+                    "claimArtwork": true,
+                    "accessScope": "hall"
+                },
+                "lawEffect": {
+                    "artisanContract": "signed",
+                    "enforceable": true
+                }
+            },
+            {
+                "tag": "PATRON_ARTISAN",
+                "costEnergy": -0.1,
+                "costTime": 1.2,
+                "rewardSecondary": {
+                    "STATUS": 0.55,
+                    "CREATIVITY": 0.3,
+                    "COMMUNITY": 0.2
+                },
+                "tradeEffect": {
+                    "stipend": -3,
+                    "materials_grant": -2
+                },
+                "socialImpact": {
+                    "STATUS": 0.5,
+                    "NETWORK": 0.3,
+                    "GRATITUDE": 0.4
+                },
+                "lawEffect": {
+                    "patronageRecord": "guild_ledger",
+                    "enforceable": true
+                }
+            },
+            {
+                "tag": "BUILD_MONUMENT",
+                "costEnergy": -0.6,
+                "costTime": 6,
+                "risk": 0.1,
+                "rewardSecondary": {
+                    "STATUS": 1.2,
+                    "LEGACY": 0.8,
+                    "TRADITION": 0.4,
+                    "COMMUNITY": 0.4
+                },
+                "requiresItem": ["stone", "labor"],
+                "socialImpact": {
+                    "STATUS": 0.9,
+                    "AWE": 0.6,
+                    "PRIDE": 0.5
+                },
+                "ownershipEffect": {
+                    "claimLandmark": true,
+                    "accessScope": "plaza"
+                },
+                "lawEffect": {
+                    "decreeId": "monument_permit",
+                    "enforceable": true
+                }
+            },
+            {
+                "tag": "ENDOW_TEMPLE",
+                "costEnergy": -0.18,
+                "costTime": 1.8,
+                "rewardSecondary": {
+                    "STATUS": 0.7,
+                    "SPIRIT": 0.4,
+                    "REPUTATION": 0.4,
+                    "TRADITION": 0.3
+                },
+                "tradeEffect": {
+                    "donate_gold": -7,
+                    "endowment_note": "altar_lamps"
+                },
+                "socialImpact": {
+                    "STATUS": 0.6,
+                    "REVERENCE": 0.5,
+                    "GRATITUDE": 0.5
+                },
+                "lawEffect": {
+                    "endowmentRecord": "temple_roll",
+                    "enforceable": true
+                }
+            },
+            {
+                "tag": "HOLD_AUDIENCE",
+                "costEnergy": -0.15,
+                "costTime": 2,
+                "rewardSecondary": {
+                    "STATUS": 0.6,
+                    "CONTROL": 0.3,
+                    "COMMUNITY": 0.3
+                },
+                "requiresLocation": "audience_chamber",
+                "socialImpact": {
+                    "STATUS": 0.5,
+                    "ACCESSIBILITY": 0.3,
+                    "TRUST": 0.25
+                },
+                "ownershipEffect": {
+                    "accessScope": "audience_chamber",
+                    "grantAccess": true,
+                    "accessLevel": "PETITION"
+                },
+                "lawEffect": {
+                    "docketOpen": "petitions_registered",
+                    "enforceable": true
+                }
+            },
+            {
+                "tag": "BESTOW_TITLES",
+                "costEnergy": -0.12,
+                "costTime": 1,
+                "rewardSecondary": {
+                    "STATUS": 0.7,
+                    "POWER": 0.3,
+                    "LOYALTY": 0.4,
+                    "COMMUNITY": 0.2
+                },
+                "socialImpact": {
+                    "STATUS": 0.6,
+                    "RESPECT": 0.4,
+                    "FAVOR": 0.4
+                },
+                "ownershipEffect": {
+                    "grantAccess": true,
+                    "accessScope": "council",
+                    "accessLevel": "NOBLE"
+                },
+                "lawEffect": {
+                    "patentOfNobility": "issued",
+                    "enforceable": true
+                }
+            },
+            {
+                "tag": "AWARD_PRIZES",
+                "costEnergy": -0.1,
+                "costTime": 0.8,
+                "rewardSecondary": {
+                    "STATUS": 0.6,
+                    "MASTERY": 0.3,
+                    "COMMUNITY": 0.3
+                },
+                "tradeEffect": {
+                    "prize_items": -4,
+                    "herald_cost": -1
+                },
+                "socialImpact": {
+                    "STATUS": 0.55,
+                    "MERIT": 0.45,
+                    "GRATITUDE": 0.4
+                },
+                "lawEffect": {
+                    "awardRoll": "registered",
+                    "enforceable": true
+                }
+            },
+            {
+                "tag": "SIT_HIGH_SEAT",
+                "costEnergy": -0.01,
+                "costTime": 0.1,
+                "rewardSecondary": {
+                    "STATUS": 0.35,
+                    "RESPECT": 0.2,
+                    "TRADITION": 0.1
+                },
+                "requiresLocation": "hall",
+                "socialImpact": {
+                    "STATUS": 0.4,
+                    "ORDER": 0.2
+                },
+                "lawEffect": {
+                    "seatingProtocol": "hierarchy_enforced",
+                    "enforceable": true
+                },
+                "requiredMemes": ["comm.language.written"]
+            },
+            {
+                "tag": "RECITE_GENEALOGY",
+                "costEnergy": -0.05,
+                "costTime": 0.7,
+                "rewardSecondary": {
+                    "STATUS": 0.5,
+                    "TRADITION": 0.4,
+                    "REPUTATION": 0.3
+                },
+                "socialImpact": {
+                    "STATUS": 0.45,
+                    "HONOR": 0.35,
+                    "IDENTITY": 0.3
+                },
+                "lawEffect": {
+                    "lineageRecord": "recited_publicly",
+                    "enforceable": false
+                }
+            },
+            {
+                "tag": "BOAST_DEEDS",
+                "costEnergy": -0.03,
+                "costTime": 0.5,
+                "risk": 0.05,
+                "rewardSecondary": {
+                    "STATUS": 0.5,
+                    "REPUTATION": 0.4
+                },
+                "socialImpact": {
+                    "STATUS": 0.45,
+                    "AWE": 0.25,
+                    "SKEPTICISM": 0.1
+                },
+                "lawEffect": {
+                    "claimLogged": "boast_in_assembly",
+                    "enforceable": false
+                }
+            },
+            {
+                "tag": "PROCESSION_CEREMONY",
+                "costEnergy": -0.28,
+                "costTime": 2.5,
+                "risk": 0.08,
+                "rewardSecondary": {
+                    "STATUS": 0.85,
+                    "TRADITION": 0.4,
+                    "COMMUNITY": 0.4,
+                    "SPIRIT": 0.2
+                },
+                "requiresItem": ["musicians", "banners"],
+                "socialImpact": {
+                    "STATUS": 0.7,
+                    "COHESION": 0.4,
+                    "REVERENCE": 0.3
+                },
+                "lawEffect": {
+                    "processionPermit": "granted",
+                    "routeSecured": true,
+                    "enforceable": true
+                }
+            }
+        ]
+    }
+}

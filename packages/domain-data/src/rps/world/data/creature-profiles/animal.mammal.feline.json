@@ -1,0 +1,88 @@
+{
+  "id": "animal.mammal.feline",
+  "name": "Feline",
+  "kind": "template",
+  "parentId": "animal.mammal",
+  "defaultActorName": "Feline%N%",
+  "memes": [
+    "eth.sociality.solitary",
+    "tech.combat.bite_basic",
+    "tech.hunting.core",
+    "tech.hunting.stalking_basic",
+    "eth.predation.drive.prey_drive",
+    "eth.tactics.ambush_stalk"
+  ],
+  "morphs": [
+    "eth.predation.core",
+    "morph.body_plan.tetrapod_climber",
+    "morph.locomotion.walk_quadruped",
+    "morph.locomotion.climb_rough_surface",
+    "morph.manip.forepaws_non_manip",
+    "morph.natural_weapon.bite_medium",
+    "morph.natural_weapon.claws_large",
+    "morph.sense.vision_binocular",
+    "morph.sense.vision_lowlight",
+    "morph.sense.olfaction_tracking"
+  ],
+  "traits": [],
+  "actions": [
+    {
+      "group": "actions-by-need",
+      "moduleName": "food-hunt",
+      "exportName": "HUNT_WAIT_IN_AMBUSH"
+    },
+    {
+      "group": "actions-by-need",
+      "moduleName": "food-hunt",
+      "exportName": "HUNT_ACTIVE_FORAGE"
+    },
+    {
+      "group": "etho",
+      "moduleName": "action-universal",
+      "exportName": "AMBUSH_FROM_COVER"
+    },
+    {
+      "group": "etho",
+      "moduleName": "action-universal",
+      "exportName": "NOCTURNAL_FORAGE"
+    },
+    {
+      "group": "etho",
+      "moduleName": "action-universal",
+      "exportName": "BASK_SUN_THERMOREGULATE"
+    },
+    {
+      "group": "etho",
+      "moduleName": "action-universal",
+      "exportName": "BURROW_HIDE_OR_AMBUSH"
+    },
+    {
+      "group": "etho",
+      "moduleName": "action-universal",
+      "exportName": "SEEK_COOL_SHELTER"
+    },
+    {
+      "group": "etho",
+      "moduleName": "action-small-vertebrate",
+      "exportName": "SHORT_DASH_ATTACK"
+    }
+  ],
+  "nutritionNeedsPerDay": {
+    "energyPerDay": 0,
+    "proteinPerDay": 0,
+    "waterPerDay": 0,
+    "massPerDayLb": 0
+  },
+  "consumptionPerTurn": {
+    "energy": 0,
+    "protein": 0,
+    "water": 0,
+    "massLb": 0
+  },
+  "physical": {
+    "baseVolume": 0,
+    "minVolume": 0,
+    "carryVolumeCapacity": 0
+  },
+  "notes": "Broad feline template: mammalian ambush predator baseline without selecting a concrete cat species."
+}

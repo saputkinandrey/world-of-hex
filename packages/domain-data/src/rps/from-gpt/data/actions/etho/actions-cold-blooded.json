@@ -1,0 +1,21 @@
+{
+    "exports": {
+        "SEEK_THERMAL_REFUGE": {
+            "tag": "SEEK_THERMAL_REFUGE",
+            "costEnergy": 0.08,
+            "costTime": 1,
+            "risk": 0.04,
+            "rewardSecondary": {
+                "TEMPERATURE": 0.5,
+                "COMFORT": 0.3,
+                "STRESS": -0.1
+            },
+            "requiredMorphs": [
+                "morph.thermoreg.coldBlooded",
+                "core.perception",
+                "eth.maintenance.thermoregulation"
+            ],
+            "requiresLocation": "shade|burrow|rock_crevice|water_edge"
+        }
+    }
+}

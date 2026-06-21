@@ -1,0 +1,413 @@
+{
+    "exports": {
+        "ClarityActions": [
+            {
+                "tag": "MORNING_CLARITY_BRIEF",
+                "costEnergy": -0.08,
+                "costTime": 0.8,
+                "rewardSecondary": {
+                    "CLARITY": 0.7,
+                    "ORDER": 0.5,
+                    "FOCUS": 0.4,
+                    "PURPOSE": 0.3
+                },
+                "requiresLocation": "yard|hall",
+                "socialImpact": {
+                    "TRANSPARENCY": 0.4,
+                    "TRUST": 0.3
+                },
+                "ownershipEffect": {
+                    "accessScope": "notice_board",
+                    "grantAccess": true
+                },
+                "lawEffect": {
+                    "briefRule": "daily_required",
+                    "enforceable": true
+                },
+                "needRework": true,
+                "unclearAction": true,
+                "requiredMemes": [
+                    "health.sanitation_norms",
+                    "health.waste_handling",
+                    "comm.language.written"
+                ]
+            },
+            {
+                "tag": "TASK_DEFINITION_CARDS",
+                "costEnergy": -0.1,
+                "costTime": 1,
+                "rewardSecondary": {
+                    "CLARITY": 0.7,
+                    "ORDER": 0.5,
+                    "PRODUCTIVITY": 0.3,
+                    "FAIRNESS": 0.2
+                },
+                "tradeEffect": {
+                    "cards": "-N",
+                    "ink": -1
+                },
+                "socialImpact": {
+                    "ACCOUNTABILITY": 0.3
+                },
+                "ownershipEffect": {
+                    "boardState": "cards_with_done_criteria"
+                },
+                "unclearAction": true,
+                "requiredMemes": ["comm.language.written"]
+            },
+            {
+                "tag": "ROLE_CHART_POSTING",
+                "costEnergy": -0.1,
+                "costTime": 0.9,
+                "rewardSecondary": {
+                    "CLARITY": 0.65,
+                    "ORDER": 0.5,
+                    "TRUST": 0.3,
+                    "INTEGRITY": 0.2
+                },
+                "tradeEffect": {
+                    "parchment": -1,
+                    "ink": -1
+                },
+                "socialImpact": {
+                    "CONFLICT": -0.15,
+                    "RESPECT": 0.2
+                },
+                "ownershipEffect": {
+                    "roleMatrix": "posted"
+                },
+                "lawEffect": {
+                    "dutyCharter": "ratified",
+                    "enforceable": true
+                },
+                "unclearAction": true,
+                "requiredMemes": ["comm.language.written", "org.duty_roster"]
+            },
+            {
+                "tag": "SIGNAL_FLAGS_PROTOCOL",
+                "costEnergy": -0.08,
+                "costTime": 0.8,
+                "rewardSecondary": {
+                    "CLARITY": 0.65,
+                    "ORDER": 0.4,
+                    "FOCUS": 0.3,
+                    "STABILITY": 0.2
+                },
+                "tradeEffect": {
+                    "flags": "-N",
+                    "dye": -1
+                },
+                "socialImpact": {
+                    "COORDINATION": 0.3
+                },
+                "lawEffect": {
+                    "signalCode": "posted",
+                    "enforceable": true
+                },
+                "ownershipEffect": {
+                    "campSignals": "active"
+                }
+            },
+            {
+                "tag": "COMMON_GLOSSARY_CREATE",
+                "costEnergy": -0.14,
+                "costTime": 1.4,
+                "rewardSecondary": {
+                    "CLARITY": 0.7,
+                    "KNOWLEDGE": 0.4,
+                    "INTEGRITY": 0.2,
+                    "ORDER": 0.3
+                },
+                "tradeEffect": {
+                    "parchment": -1,
+                    "ink": -1
+                },
+                "socialImpact": {
+                    "MISUNDERSTANDING": -0.3,
+                    "TRUST": 0.2
+                },
+                "ownershipEffect": {
+                    "glossary": "compiled",
+                    "accessScope": "library",
+                    "grantAccess": true
+                },
+                "unclearAction": true,
+                "requiredMemes": ["comm.language.written"]
+            },
+            {
+                "tag": "WAYFINDING_SIGNS",
+                "costEnergy": -0.14,
+                "costTime": 1.2,
+                "rewardSecondary": {
+                    "CLARITY": 0.7,
+                    "ORDER": 0.4,
+                    "STABILITY": 0.3,
+                    "SECURITY": 0.2
+                },
+                "tradeEffect": {
+                    "boards": "-N",
+                    "paint": -1
+                },
+                "socialImpact": {
+                    "LOST": -0.3,
+                    "FLOW": 0.2
+                },
+                "unclearAction": true,
+                "ownershipEffect": {
+                    "paths": "signed"
+                }
+            },
+            {
+                "tag": "SHADOW_BOARD_OUTLINES",
+                "costEnergy": -0.12,
+                "costTime": 1,
+                "rewardSecondary": {
+                    "CLARITY": 0.65,
+                    "ORDER": 0.5,
+                    "PRODUCTIVITY": 0.2,
+                    "INTEGRITY": 0.2
+                },
+                "tradeEffect": {
+                    "boards": -1,
+                    "paint": -1
+                },
+                "socialImpact": {
+                    "RESPONSIBILITY": 0.2,
+                    "THEFT": -0.05
+                },
+                "ownershipEffect": {
+                    "toolWall": "shadow_outlined"
+                },
+                "unclearAction": true,
+                "requiredMemes": ["comm.language.written"]
+            },
+            {
+                "tag": "SIMPLE_LANGUAGE_TRAINING",
+                "costEnergy": -0.12,
+                "costTime": 1.2,
+                "rewardSecondary": {
+                    "CLARITY": 0.7,
+                    "FOCUS": 0.3,
+                    "PRODUCTIVITY": 0.2,
+                    "KNOWLEDGE": 0.3
+                },
+                "socialImpact": {
+                    "COHESION": 0.2,
+                    "RESPECT": 0.2
+                },
+                "requiredMemes": ["comm.language.spoken"]
+            },
+            {
+                "tag": "WRITTEN_LANGUAGE_TRAINING",
+                "needRework": true,
+                "requiredMemes": ["comm.language.written"]
+            },
+            {
+                "tag": "MEETING_MINUTES_RECORD",
+                "costEnergy": -0.1,
+                "costTime": 1,
+                "rewardSecondary": {
+                    "CLARITY": 0.65,
+                    "INTEGRITY": 0.4,
+                    "TRUST": 0.3,
+                    "ORDER": 0.3
+                },
+                "tradeEffect": {
+                    "parchment": -1,
+                    "ink": -1
+                },
+                "socialImpact": {
+                    "TRANSPARENCY": 0.4,
+                    "RUMORS": -0.2
+                },
+                "ownershipEffect": {
+                    "minutes": "posted_summary"
+                },
+                "lawEffect": {
+                    "minutesRule": "required",
+                    "enforceable": true
+                },
+                "unclearAction": true,
+                "needRework": true,
+                "requiredMemes": [
+                    "comm.language.written",
+                    "record.ledgerkeeping"
+                ]
+            },
+            {
+                "tag": "LEDGER_SUMMARY_WEEK",
+                "costEnergy": -0.12,
+                "costTime": 1.2,
+                "rewardSecondary": {
+                    "CLARITY": 0.7,
+                    "TRUST": 0.4,
+                    "ORDER": 0.3,
+                    "FAIRNESS": 0.2
+                },
+                "requiresLocation": "clerk_desk|hall",
+                "socialImpact": {
+                    "TRANSPARENCY": 0.4
+                },
+                "ownershipEffect": {
+                    "summaryScroll": "posted"
+                },
+                "unclearAction": true,
+                "requiredMemes": [
+                    "comm.language.written",
+                    "record.ledgerkeeping"
+                ]
+            },
+            {
+                "tag": "QUESTIONS_OPEN_HOUR",
+                "costEnergy": -0.08,
+                "costTime": 0.9,
+                "rewardSecondary": {
+                    "CLARITY": 0.7,
+                    "TRUST": 0.3,
+                    "COMMUNITY": 0.2,
+                    "PURPOSE": 0.2
+                },
+                "requiresLocation": "hall|square",
+                "socialImpact": {
+                    "RESENTMENT": -0.1,
+                    "COHESION": 0.2
+                },
+                "lawEffect": {
+                    "audienceRight": "announced",
+                    "enforceable": true
+                },
+                "unclearAction": true,
+                "needRework": true
+            },
+            {
+                "tag": "RUMOR_DEBUNK_BULLETIN",
+                "costEnergy": -0.08,
+                "costTime": 0.8,
+                "risk": 0.08,
+                "rewardSecondary": {
+                    "CLARITY": 0.65,
+                    "TRUST": 0.3,
+                    "ORDER": 0.3,
+                    "STABILITY": 0.3
+                },
+                "tradeEffect": {
+                    "parchment": -1,
+                    "ink": -1
+                },
+                "socialImpact": {
+                    "RUMORS": -0.4,
+                    "CREDIBILITY": 0.3
+                },
+                "ownershipEffect": {
+                    "noticeBoard": "debunk_posted"
+                },
+                "unclearAction": true,
+                "requiredMemes": ["comm.language.written"]
+            },
+            {
+                "tag": "VISUAL_WORK_INSTRUCTIONS",
+                "costEnergy": -0.16,
+                "costTime": 1.4,
+                "rewardSecondary": {
+                    "CLARITY": 0.75,
+                    "PRODUCTIVITY": 0.3,
+                    "QUALITY": 0.3,
+                    "FOCUS": 0.3
+                },
+                "requiresLocation": "workbench|forge|loom",
+                "tradeEffect": {
+                    "boards": -1,
+                    "paint": -1
+                },
+                "socialImpact": {
+                    "TRAINING": 0.3
+                },
+                "ownershipEffect": {
+                    "poster": "mounted"
+                },
+                "needRework": true
+            },
+            {
+                "tag": "PROGRESS_MARK_TOTEM",
+                "costEnergy": -0.1,
+                "costTime": 1,
+                "rewardSecondary": {
+                    "CLARITY": 0.7,
+                    "PURPOSE": 0.3,
+                    "MORALE": 0.3,
+                    "ORDER": 0.2
+                },
+                "requiresLocation": "yard|worksite",
+                "tradeEffect": {
+                    "stakes": "-N",
+                    "rope": -1,
+                    "dye": -1
+                },
+                "socialImpact": {
+                    "MOTIVATION": 0.3,
+                    "PANIC": -0.1
+                },
+                "ownershipEffect": {
+                    "milestone": "visible_scale"
+                },
+                "needRework": true
+            },
+            {
+                "tag": "NIGHTLY_STATUS_RUNDOWN",
+                "costEnergy": -0.08,
+                "costTime": 0.9,
+                "rewardSecondary": {
+                    "CLARITY": 0.7,
+                    "ORDER": 0.4,
+                    "STABILITY": 0.3,
+                    "TRUST": 0.3
+                },
+                "requiresLocation": "hall|hearth",
+                "socialImpact": {
+                    "COHESION": 0.2,
+                    "ACCOUNTABILITY": 0.2
+                },
+                "ownershipEffect": {
+                    "logbook": "end_of_day_update"
+                },
+                "unclearAction": true,
+                "requiredMemes": [
+                    "culture.vigil_ritual",
+                    "cog.timekeeping.basic",
+                    "tech.heat.space.hearth",
+                    "comm.language.written"
+                ]
+            },
+            {
+                "tag": "MAP_AND_TERRAIN_BRIEF",
+                "costEnergy": -0.12,
+                "costTime": 1,
+                "rewardSecondary": {
+                    "CLARITY": 0.75,
+                    "SECURITY": 0.3,
+                    "PURPOSE": 0.3,
+                    "READINESS": 0.3
+                },
+                "requiresLocation": "war_room|hall|camp",
+                "tradeEffect": {
+                    "parchment": -1,
+                    "ink": -1,
+                    "tokens": "-N"
+                },
+                "socialImpact": {
+                    "TRUST": 0.2,
+                    "COURAGE": 0.2
+                },
+                "ownershipEffect": {
+                    "mapState": "annotated"
+                },
+                "unclearAction": true,
+                "requiredMemes": [
+                    "comm.language.written",
+                    "record.ledgerkeeping",
+                    "econ.pooling_common_fund"
+                ]
+            }
+        ]
+    }
+}

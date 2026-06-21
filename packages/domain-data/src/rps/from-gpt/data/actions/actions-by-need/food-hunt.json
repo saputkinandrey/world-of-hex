@@ -1,0 +1,40 @@
+{
+    "exports": {
+        "HUNT_WAIT_IN_AMBUSH": {
+            "tag": "HUNT_WAIT_IN_AMBUSH",
+            "costEnergy": 0.03,
+            "costTime": 1,
+            "risk": 0.02,
+            "rewardSecondary": {
+                "FOCUS": 0.3,
+                "STRESS": -0.05,
+                "SAFETY": 0.05
+            },
+            "requiredMemes": ["eth.tactics.ambush_stalk"],
+            "requiresLocation": "sun_warm_spot|rock|log|elevated_perch",
+            "requiredMorphs": [
+                "core.perception",
+                "eth.predation.core",
+                "morph.sense.vision_basic"
+            ]
+        },
+        "HUNT_ACTIVE_FORAGE": {
+            "tag": "HUNT_ACTIVE_FORAGE",
+            "costEnergy": 0.08,
+            "costTime": 1,
+            "risk": 0.04,
+            "rewardSecondary": {
+                "CURIOSITY": 0.3,
+                "FOCUS": 0.2,
+                "STRESS": -0.05
+            },
+            "requiredMemes": [],
+            "requiresLocation": "ground_cover|scrub|rocks",
+            "requiredMorphs": [
+                "core.perception",
+                "eth.predation.core",
+                "morph.sense.vision_basic"
+            ]
+        }
+    }
+}

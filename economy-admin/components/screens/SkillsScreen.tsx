@@ -78,9 +78,9 @@ export const SkillsScreen = () => {
     updateSelectedProductionChain,
     duplicateSelectedProductionChain,
     deleteSelectedProductionChain,
-    addProductionStep,
-    updateProductionStep,
-    deleteProductionStep,
+    addProductionRecipe,
+    updateProductionRecipe,
+    deleteProductionRecipe,
     addProductionInput,
     updateProductionInput,
     deleteProductionInput,
@@ -120,7 +120,7 @@ export const SkillsScreen = () => {
   } = useEconomyAdmin();
 
   return (
-            <Stack spacing={2.5} sx={{ width: '100%', maxWidth: 640, mx: 'auto', alignSelf: 'center', minWidth: 0 }}>
+            <Stack spacing={2.5} sx={{ width: '100%', minWidth: 0 }}>
               <Box sx={{ display: 'grid', gridTemplateColumns: 'repeat(3, minmax(0, 1fr))', gap: 2, width: '100%', minWidth: 0 }}>
                 <Metric label="Skills" value={formatNumber(config.skills.length, 0)} />
                 <Metric label="Filtered" value={formatNumber(filteredSkills.length, 0)} />
@@ -187,7 +187,6 @@ export const SkillsScreen = () => {
                       <TextFieldEditor label="Source" value={selectedSkill.sourceSystem} onChange={(sourceSystem) => updateSelectedSkill({ sourceSystem })} />
                       <TextFieldEditor label="Attribute" value={selectedSkill.attribute} onChange={(attribute) => updateSelectedSkill({ attribute })} />
                       <TextFieldEditor label="Difficulty" value={selectedSkill.difficulty} onChange={(difficulty) => updateSelectedSkill({ difficulty })} />
-                      <TextFieldEditor label="GURPS code" value={selectedSkill.gurpsCode} onChange={(gurpsCode) => updateSelectedSkill({ gurpsCode })} />
                     </Box>
                     <TextField
                       label="Description"

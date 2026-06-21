@@ -1,0 +1,58 @@
+{
+    "core.vital.living": {
+        "present": [
+            { "need": "FOOD", "weight": 0.3 },
+            { "need": "WATER", "weight": 0.3 },
+            { "need": "REST", "weight": 0.25 },
+            { "need": "HEALTH", "weight": 0.2 }
+        ]
+    },
+    "core.vital.plant_living": {
+        "present": [
+            { "need": "WATER", "weight": 0.25 },
+            { "need": "HEALTH", "weight": 0.15 }
+        ]
+    },
+    "morph.thermoreg.coldBlooded": {
+        "present": [{ "need": "COMFORT", "weight": 0.05 }]
+    },
+    "morph.thermoreg.warmBlooded": {
+        "present": [{ "need": "ENERGY", "weight": 0.1 }]
+    },
+    "eth.maintenance.cleanliness_core": {
+        "present": [{ "need": "HYGIENE", "weight": 0.25 }]
+    },
+    "eth.maintenance.ecdysis": {
+        "present": [
+            { "need": "HYGIENE", "weight": 0.2 },
+            { "need": "HEALTH", "weight": 0.1 }
+        ]
+    },
+    "eth.predation.core": {
+        "present": [{ "need": "FOOD", "weight": 0.2 }]
+    },
+    "morph.rest.sleep.%level%": {
+        "present": [{ "need": "REST", "weight": 0.25 }]
+    },
+    "morph.rest.more-sleep.%level%": {
+        "multiply": [{ "need": "REST", "factor": 1.25 }]
+    },
+    "morph.rest.less-sleep.%level%": {
+        "multiply": [{ "need": "REST", "factor": 0.75 }]
+    },
+    "morph.water.need.%level%": {
+        "present": [{ "need": "WATER", "weight": 0.25 }]
+    },
+    "morph.water.more-need.%level%": {
+        "multiply": [{ "need": "WATER", "factor": 1.25 }]
+    },
+    "morph.water.less-need.%level%": {
+        "multiply": [{ "need": "WATER", "factor": 0.75 }]
+    },
+    "morph.plant.rooted": {
+        "present": [{ "need": "WATER", "weight": 0.1 }]
+    },
+    "morph.plant.wetland_growth": {
+        "present": [{ "need": "WATER", "weight": 0.15 }]
+    }
+}

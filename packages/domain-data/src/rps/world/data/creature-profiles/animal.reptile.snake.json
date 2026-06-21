@@ -1,0 +1,58 @@
+{
+  "id": "animal.reptile.snake",
+  "name": "Snake",
+  "kind": "template",
+  "parentId": "animal.reptile",
+  "defaultActorName": "Snake%N%",
+  "memes": [],
+  "morphs": [
+    "eth.kinematics.slither_move",
+    "morph.body_plan.serpentine_ground",
+    "morph.locomotion.slither_ground",
+    "morph.manip.mouth_only",
+    "morph.natural_weapon.bite_medium",
+    "morph.sense.olfaction_tracking",
+    "morph.sense.vibration_ground"
+  ],
+  "traits": [],
+  "actions": [
+    {
+      "group": "etho",
+      "moduleName": "action-snakes",
+      "exportName": "SWALLOW_WHOLE_FEEDING"
+    },
+    {
+      "group": "etho",
+      "moduleName": "action-universal",
+      "exportName": "NOCTURNAL_FORAGE"
+    },
+    {
+      "group": "etho",
+      "moduleName": "action-universal",
+      "exportName": "VIBRATION_ALERT_HIDE"
+    },
+    {
+      "group": "etho",
+      "moduleName": "action-small-vertebrate",
+      "exportName": "SHORT_DASH_ATTACK"
+    }
+  ],
+  "nutritionNeedsPerDay": {
+    "energyPerDay": 0,
+    "proteinPerDay": 0,
+    "waterPerDay": 0,
+    "massPerDayLb": 0
+  },
+  "consumptionPerTurn": {
+    "energy": 0,
+    "protein": 0,
+    "water": 0,
+    "massLb": 0
+  },
+  "physical": {
+    "baseVolume": 0,
+    "minVolume": 0,
+    "carryVolumeCapacity": 0
+  },
+  "notes": "Broad snake template: serpentine reptile predator baseline without assuming venom or constriction."
+}

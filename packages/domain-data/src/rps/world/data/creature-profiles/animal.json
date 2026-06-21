@@ -1,0 +1,72 @@
+{
+  "id": "animal",
+  "name": "Animal",
+  "kind": "template",
+  "defaultActorName": "Animal%N%",
+  "memes": [
+    "tech.combat.core"
+  ],
+  "morphs": [
+    "morph.attribute.dx.dx10",
+    "morph.attribute.ht.ht10",
+    "core.vital.living",
+    "core.perception",
+    "core.motor_coordination"
+  ],
+  "traits": [],
+  "actions": [
+    {
+      "group": "actions-by-need",
+      "moduleName": "water",
+      "exportName": "DRINK_DIRTY_WATER"
+    },
+    {
+      "group": "actions-by-need",
+      "moduleName": "food",
+      "exportName": "EAT_ACCEPTABLE"
+    },
+    {
+      "group": "actions-by-need",
+      "moduleName": "food",
+      "exportName": "EAT_POOR"
+    },
+    {
+      "group": "etho",
+      "moduleName": "action-small-vertebrate",
+      "exportName": "FLEE_TO_COVER"
+    },
+    {
+      "group": "etho",
+      "moduleName": "action-small-vertebrate",
+      "exportName": "FREEZE_IN_PLACE"
+    },
+    {
+      "group": "etho",
+      "moduleName": "action-small-vertebrate",
+      "exportName": "OBSERVATION"
+    },
+    {
+      "group": "etho",
+      "moduleName": "generic-actions",
+      "exportName": "SLEEP_REST"
+    }
+  ],
+  "nutritionNeedsPerDay": {
+    "energyPerDay": 0,
+    "proteinPerDay": 0,
+    "waterPerDay": 0,
+    "massPerDayLb": 0
+  },
+  "consumptionPerTurn": {
+    "energy": 0,
+    "protein": 0,
+    "water": 0,
+    "massLb": 0
+  },
+  "physical": {
+    "baseVolume": 0,
+    "minVolume": 0,
+    "carryVolumeCapacity": 0
+  },
+  "notes": ""
+}

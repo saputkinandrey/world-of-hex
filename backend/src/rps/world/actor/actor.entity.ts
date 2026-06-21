@@ -8,7 +8,8 @@ import { NeedTag } from '../needs/needs';
 import { CreatureTemplateEntity } from '../../domain/character/creature-template.entity';
 import { ActionTag } from '../actions/action-tags';
 import { MemeId } from '../memes';
-import { getLeveledMorphLevel, leveledMorphPrefix, LeveledMorphTemplateId, morph, MorphId } from '../morphs';
+import { getLeveledMorphLevel, leveledMorphPrefix, LeveledMorphTemplateId, MorphId } from '../morphs';
+import { estimateStomachCapacityLb, SIZE_MODIFIER_MORPH_PREFIX } from '@wohex/domain-data/rps';
 
 /**
  * Пищевая ценность ресурса / приёма пищи.
@@ -135,50 +136,41 @@ export interface ActorInit {
 }
 
 /**
- * Определить Size Modifier (SM) существа по его морфам.
- *
- * Если морф morph.size.sm.%level% не найден — считаем SM0.
+ * Resolve Size Modifier (SM) from concrete morph.size.sm.N morphs.
+ * Missing SM is returned as undefined because SM0 is a valid explicit value.
  */
-export function getSizeModifierFromMorphs(actor: ActorEntity): number {
+export function getSizeModifierFromMorphs(actor: ActorEntity): number | undefined {
     const ids = actor.getProfileMorphIds();
-    const template = morph.size.sm;
-    const prefix = leveledMorphPrefix(template);
 
     for (const id of ids) {
-        if (!id.startsWith(prefix)) continue;
+        if (!id.startsWith(SIZE_MODIFIER_MORPH_PREFIX)) continue;
 
-        const lvl = getLeveledMorphLevel(id, template);
+        const lvl = getLeveledMorphLevel(id);
         if (lvl === null || Number.isNaN(lvl)) continue;
 
         return lvl; // предполагаем ровно один SM-морф на акторе
     }
 
-    // по умолчанию — SM0 (человекоподобный)
-    return 0;
+    const profileSizeModifier = actor.getCreatureProfile()?.sizeModifier;
+    if (typeof profileSizeModifier === 'number' && Number.isFinite(profileSizeModifier)) {
+        return profileSizeModifier;
+    }
+
+    return undefined;
 }
 
 /**
- * Вместимость желудка в фунтах для данного актора.
- *
- * Модель:
- *   - SM0 → 1 lb (человек),
- *   - SM+1 → 2 lb,
- *   - SM+2 → 4 lb,
- *   - SM-1 → 0.5 lb,
- *   - SM-2 → 0.25 lb,
- *   и т.д.
- *
- * Это упрощённая, но гурпс-совместимая логика (размер → масса/объём).
+ * Stomach capacity in pounds for the actor.
+ * SM0 uses 1 lb. Other SM values use SR-table linear measurement and
+ * square-cube volume scaling from the shared domain-data helper.
  */
 export function getStomachCapacityLb(actor: ActorEntity): number {
     const sm = getSizeModifierFromMorphs(actor);
+    if (sm === undefined) {
+        throw new Error('Cannot estimate stomach capacity without explicit size modifier morph.');
+    }
 
-    const BASE_CAPACITY_SM0 = 1; // 1 lb для SM0
-    const factor = Math.pow(2, sm);
-
-    // защищаемся от слишком маленьких значений
-    const capacity = BASE_CAPACITY_SM0 * factor;
-    return Math.max(0.05, capacity);
+    return estimateStomachCapacityLb(sm).capacityLb;
 }
 
 /**

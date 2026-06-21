@@ -1,0 +1,323 @@
+{
+    "exports": {
+        "EnergyActions": [
+            {
+                "tag": "HIGH_PROTEIN_MEAL",
+                "costEnergy": 0.35,
+                "costTime": 1,
+                "rewardSecondary": {
+                    "ENERGY": 0.85,
+                    "HEALTH": 0.4,
+                    "PRODUCTIVITY": 0.2,
+                    "RESILIENCE": 0.2
+                },
+                "requiresLocation": "mess|hall|hearth",
+                "tradeEffect": {
+                    "meat_or_legumes": "-N",
+                    "bread": "-1 | 0",
+                    "herbs": "-1 | 0"
+                },
+                "ownershipEffect": {
+                    "storesLevel": "reduced_meal"
+                },
+                "requiredMemes": [
+                    "culture.vigil_ritual",
+                    "cog.timekeeping.basic",
+                    "health.first_aid_basic",
+                    "tech.heat.space.hearth",
+                    "comm.language.written"
+                ]
+            },
+            {
+                "tag": "POWER_NAP_20",
+                "costEnergy": 0.25,
+                "costTime": 0.5,
+                "rewardSecondary": {
+                    "ENERGY": 0.75,
+                    "HEALTH": 0.2,
+                    "FOCUS": 0.2,
+                    "RESILIENCE": 0.2
+                },
+                "requiresLocation": "bunks|hearth",
+                "ownershipEffect": {
+                    "berthUse": "short_rest"
+                },
+                "requiredMemes": [
+                    "culture.vigil_ritual",
+                    "cog.timekeeping.basic",
+                    "tech.heat.space.hearth"
+                ]
+            },
+            {
+                "tag": "SUNLIGHT_STRETCH",
+                "costEnergy": 0.12,
+                "costTime": 0.5,
+                "rewardSecondary": {
+                    "ENERGY": 0.65,
+                    "HEALTH": 0.2,
+                    "JOY": 0.2,
+                    "FOCUS": 0.15
+                },
+                "requiresLocation": "yard|green|balcony",
+                "socialImpact": {
+                    "CALM": 0.2
+                },
+                "requiredMemes": [
+                    "health.sanitation_norms",
+                    "health.waste_handling"
+                ]
+            },
+            {
+                "tag": "SHORT_SPRINT_EXERCISE",
+                "costEnergy": -0.08,
+                "costTime": 0.4,
+                "rewardSecondary": {
+                    "ENERGY": 0.6,
+                    "HEALTH": 0.2,
+                    "READINESS": 0.2,
+                    "MORALE": 0.15
+                },
+                "requiresLocation": "yard|track|field",
+                "risk": 0.04,
+                "requiredMemes": [
+                    "health.sanitation_norms",
+                    "health.waste_handling"
+                ]
+            },
+            {
+                "tag": "CAFFEINE_HERB_TONIC",
+                "costEnergy": 0.18,
+                "costTime": 0.4,
+                "rewardSecondary": {
+                    "ENERGY": 0.7,
+                    "FOCUS": 0.3,
+                    "PRODUCTIVITY": 0.2,
+                    "MORALE": 0.15
+                },
+                "tradeEffect": {
+                    "tonic_herbs_or_coffee": -1,
+                    "honey": -1
+                },
+                "risk": 0.05,
+                "ownershipEffect": {
+                    "kettleState": "brewed"
+                }
+            },
+            {
+                "tag": "BREATH_OXY_DRILL",
+                "costEnergy": 0.1,
+                "costTime": 0.3,
+                "rewardSecondary": {
+                    "ENERGY": 0.6,
+                    "FOCUS": 0.2,
+                    "RESILIENCE": 0.2,
+                    "CLARITY": 0.2
+                },
+                "requiresLocation": "quiet_corner|hearth",
+                "requiredMemes": [
+                    "culture.vigil_ritual",
+                    "cog.timekeeping.basic",
+                    "tech.heat.space.hearth"
+                ]
+            },
+            {
+                "tag": "WATER_REHYDRATE",
+                "costEnergy": 0.15,
+                "costTime": 0.2,
+                "rewardSecondary": {
+                    "ENERGY": 0.55,
+                    "HEALTH": 0.25,
+                    "STABILITY": 0.15,
+                    "FOCUS": 0.1
+                },
+                "requiresLocation": "well|canteen",
+                "tradeEffect": {
+                    "clean_water": -1,
+                    "salt_or_ash_electrolyte": -1
+                },
+                "ownershipEffect": {
+                    "canteen": "refilled"
+                },
+                "requiredMemes": [
+                    "health.sanitation_norms",
+                    "health.waste_handling",
+                    "tech.food.preservation.salty"
+                ]
+            },
+            {
+                "tag": "MICRO_BREAK_EYESTRAIN",
+                "costEnergy": 0.06,
+                "costTime": 0.2,
+                "rewardSecondary": {
+                    "ENERGY": 0.5,
+                    "PRODUCTIVITY": 0.15,
+                    "FOCUS": 0.2,
+                    "HEALTH": 0.1
+                },
+                "ownershipEffect": {
+                    "taskState": "paused_micro"
+                }
+            },
+            {
+                "tag": "POSTURE_RESET",
+                "costEnergy": 0.08,
+                "costTime": 0.25,
+                "rewardSecondary": {
+                    "ENERGY": 0.55,
+                    "HEALTH": 0.2,
+                    "FOCUS": 0.15,
+                    "PRODUCTIVITY": 0.1
+                },
+                "requiresLocation": "workroom|yard",
+                "socialImpact": {
+                    "DIGNITY": 0.1
+                },
+                "requiredMemes": [
+                    "health.sanitation_norms",
+                    "health.waste_handling"
+                ]
+            },
+            {
+                "tag": "SNACK_TRAIL_MIX",
+                "costEnergy": 0.18,
+                "costTime": 0.3,
+                "rewardSecondary": {
+                    "ENERGY": 0.65,
+                    "HEALTH": 0.15,
+                    "PRODUCTIVITY": 0.15,
+                    "JOY": 0.1
+                },
+                "tradeEffect": {
+                    "nuts": -1,
+                    "dried_fruit": -1,
+                    "grain_bar": -1
+                },
+                "ownershipEffect": {
+                    "storesLevel": "reduced_snacks"
+                }
+            },
+            {
+                "tag": "SOCIAL_ENERGY_CHECKIN",
+                "costEnergy": 0.1,
+                "costTime": 0.5,
+                "rewardSecondary": {
+                    "ENERGY": 0.65,
+                    "MORALE": 0.3,
+                    "COMMUNITY": 0.2,
+                    "RESILIENCE": 0.2
+                },
+                "requiresLocation": "hearth|hall|workyard",
+                "socialImpact": {
+                    "COHESION": 0.2,
+                    "STRESS": -0.1
+                },
+                "requiredMemes": [
+                    "culture.vigil_ritual",
+                    "cog.timekeeping.basic",
+                    "tech.heat.space.hearth",
+                    "comm.language.written"
+                ]
+            },
+            {
+                "tag": "WORKLOAD_REBALANCE",
+                "costEnergy": 0.08,
+                "costTime": 0.8,
+                "rewardSecondary": {
+                    "ENERGY": 0.7,
+                    "STABILITY": 0.3,
+                    "PRODUCTIVITY": 0.2,
+                    "FAIRNESS": 0.2
+                },
+                "requiresSkill": "leadership|planning",
+                "socialImpact": {
+                    "RESENTMENT": -0.1,
+                    "TRUST": 0.2
+                },
+                "ownershipEffect": {
+                    "dutyRoster": "rebalanced"
+                },
+                "lawEffect": {
+                    "fatigueLimits": "posted",
+                    "enforceable": true
+                }
+            },
+            {
+                "tag": "EARLY_LIGHTS_OUT",
+                "costEnergy": 0.4,
+                "costTime": 1.6,
+                "rewardSecondary": {
+                    "HEALTH": 0.3,
+                    "RESILIENCE": 0.3,
+                    "READINESS": 0.2,
+                    "ENERGY": 0.85
+                },
+                "requiresLocation": "bunks|home",
+                "lawEffect": {
+                    "quietHours": "observed",
+                    "enforceable": true
+                },
+                "ownershipEffect": {
+                    "curfewReady": "true"
+                }
+            },
+            {
+                "tag": "MORNING_COLD_SPLASH",
+                "costEnergy": 0.12,
+                "costTime": 0.3,
+                "rewardSecondary": {
+                    "ENERGY": 0.6,
+                    "READINESS": 0.2,
+                    "COURAGE": 0.1,
+                    "HEALTH": 0.1
+                },
+                "requiresLocation": "well|river",
+                "risk": 0.03
+            },
+            {
+                "tag": "WARMUP_BEFORE_LABOR",
+                "costEnergy": -0.04,
+                "costTime": 0.4,
+                "rewardSecondary": {
+                    "READINESS": 0.3,
+                    "HEALTH": 0.2,
+                    "PRODUCTIVITY": 0.15,
+                    "ENERGY": 0.6
+                },
+                "requiresLocation": "yard|worksite",
+                "socialImpact": {
+                    "SAFETY": 0.2
+                },
+                "requiredMemes": [
+                    "health.sanitation_norms",
+                    "health.waste_handling"
+                ]
+            },
+            {
+                "tag": "RECOVERY_MASSAGE",
+                "costEnergy": 0.22,
+                "costTime": 1,
+                "rewardSecondary": {
+                    "ENERGY": 0.8,
+                    "HEALTH": 0.3,
+                    "RESILIENCE": 0.3,
+                    "MORALE": 0.2
+                },
+                "requiresLocation": "baths|hearth",
+                "requiresSkill": "massage|healer_craft",
+                "tradeEffect": {
+                    "oil": -1,
+                    "herbs": -1
+                },
+                "socialImpact": {
+                    "CARE": 0.3
+                },
+                "requiredMemes": [
+                    "culture.vigil_ritual",
+                    "cog.timekeeping.basic",
+                    "health.first_aid_basic",
+                    "tech.heat.space.hearth"
+                ]
+            }
+        ]
+    }
+}

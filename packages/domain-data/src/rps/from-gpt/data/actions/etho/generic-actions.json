@@ -1,0 +1,27 @@
+{
+    "exports": {
+        "GO_LONG_TRAVEL": {
+            "tag": "GO_LONG_TRAVEL",
+            "needThresholds": {
+                "WATER": {
+                    "atMost": "IMPAIRED"
+                },
+                "COMFORT": {
+                    "atMost": "IMPAIRED"
+                },
+                "REST": {
+                    "atMost": "SEVERE"
+                }
+            }
+        },
+        "SLEEP_REST": {
+            "tag": "SLEEP_REST",
+            "requiredMorphs": ["core.vital.living"],
+            "needThresholds": {
+                "REST": {
+                    "atLeast": "WARN"
+                }
+            }
+        }
+    }
+}

@@ -1,8 +1,6 @@
-// world/creatures/lizard.profile.ts
-// Профиль ящерицы: мемы, морфология, действия и фабрика актора.
+import type { CreatureActionRefData, CreatureProfileData } from '@wohex/domain-data/rps/world/creature-profiles';
 
 import type { HexId } from '../hex.entity';
-
 import {
     ActorEntity,
     CreaturePhysicalProfile,
@@ -10,9 +8,10 @@ import {
     type NutritionContent,
     type NutritionNeeds,
 } from '../actor/actor.entity';
-import { core, eth, IQ2, MemeId, tech } from 'src/rps/world/memes';
-import { morph, MorphId } from '../morphs';
-import { ActionDefinition } from '../../from-gpt/action-definition';
+import type { MemeId } from '../memes';
+import type { MorphId } from '../morphs';
+import { LIZARD_PROFILE_DATA } from '../creature-profiles';
+import type { ActionDefinition } from '../../from-gpt/action-definition';
 import { HUNT_ACTIVE_FORAGE, HUNT_WAIT_IN_AMBUSH } from '../../from-gpt/actions-by-need/food-hunt';
 import { EAT_ACCEPTABLE, EAT_POOR } from '../../from-gpt/actions-by-need/food';
 import { DRINK_DIRTY_WATER } from '../../from-gpt/actions-by-need/water';
@@ -29,141 +28,9 @@ import {
     OBSERVATION,
     SHORT_DASH_ATTACK,
 } from '../../from-gpt/etho/action-small-vertebrate';
+import { CreatureTemplateEntity } from '../../domain/character/creature-template.entity';
 
-// ───────────────────────────────────────────────────────────────
-// Мемный профиль ящерицы (IQ2, холоднокровная, визуальный хищник)
-// ───────────────────────────────────────────────────────────────
-
-export const LIZARD_MEMES: MemeId[] = [
-    // базовый интеллект и "живость"
-    IQ2,
-
-    // уход за телом и кожа
-    eth.maintenance.cleanliness_core,
-    eth.maintenance.thermoregulation,
-    eth.maintenance.ecdysis,
-
-    // простая этология
-    eth.territory_marking,
-    eth.sociality.solitary,
-
-    // // хищничество (мелкая движущаяся добыча)
-    // eth.predation.core,
-    // eth.predation.drive.prey_drive,
-    // eth.predation.drive.opportunistic,
-
-    // тактика: засада + короткий рывок
-    eth.tactics.ambush_stalk,
-
-    // базовый бой / "техника тела"
-    tech.combat.core,
-    tech.combat.bite_basic,
-
-    // базовая охота без "tracking по следу"
-    tech.hunting.core,
-];
-
-// ───────────────────────────────────────────────────────────────
-// Морфологический профиль ящерицы (что умеет её тело)
-// ───────────────────────────────────────────────────────────────
-
-export const LIZARD_MORPHS: MorphId[] = [
-    // ядро тела и восприятия
-    core.perception,
-    core.motor_coordination,
-
-    // План тела и общий класс
-    morph.body_plan.tetrapod_small_ground,
-    'morph.size.sm.-6' as MorphId, // вместо прошлых tiny/SM-6
-    morph.thermoreg.coldBlooded,
-    morph.respiration.lungs_basic,
-
-    // Покровы
-    morph.integument.scales_dry,
-
-    // Локомоция
-    morph.locomotion.crawl_quadruped,
-    morph.locomotion.climb_rough_surface,
-
-    // Манипуляторы (по сути рот + грубые лапы)
-    morph.manip.mouth_only,
-    morph.manip.forepaws_non_manip,
-
-    // Природное оружие
-    morph.natural_weapon.bite_small,
-    morph.natural_weapon.claws_small,
-
-    // Сенсорное железо
-    morph.sense.vision_basic,
-    morph.sense.vision_binocular,
-    // для дневной ящерицы можно считать, что цветное зрение развито:
-    morph.sense.vision_color_rich,
-    morph.sense.olfaction_basic,
-    morph.sense.hearing_basic,
-    morph.sense.vibration_ground,
-];
-
-// ───────────────────────────────────────────────────────────────
-// Набор действий ящерицы (только поведенческие экшены)
-// ───────────────────────────────────────────────────────────────
-
-export const LIZARD_ACTIONS: ActionDefinition[] = [
-    // 1) Питание и базовые потребности
-    HUNT_WAIT_IN_AMBUSH,
-    HUNT_ACTIVE_FORAGE,
-    EAT_ACCEPTABLE,
-    EAT_POOR,
-    DRINK_DIRTY_WATER,
-    SLEEP_REST,
-
-    // 2) Универсальное поведение/психология
-    BASK_SUN_THERMOREGULATE,
-    TERRITORY_MICROHABIT_EXPLORE,
-    DEFENSIVE_WARNING_DISPLAY,
-    // SHED_SKIN_ECDYSIS — можно добавить сюда, когда решим, что линька входит в "активный" профиль
-    BURROW_HIDE_OR_AMBUSH,
-
-    // 3) Универсальные паттерны "малого наземного позвоночного"
-    FLEE_TO_COVER,
-    FREEZE_IN_PLACE,
-    SHORT_DASH_ATTACK,
-    OBSERVATION,
-];
-
-// ───────────────────────────────────────────────────────────────
-// Физика и метаболизм ящерицы
-// ───────────────────────────────────────────────────────────────
-
-export const LIZARD_NUTRITION_NEEDS: NutritionNeeds = {
-    energyPerDay: 10,
-    proteinPerDay: 1,
-    waterPerDay: 0.5,
-    massPerDayLb: 0.5,
-};
-
-export const LIZARD_CONSUMPTION_PER_TURN: NutritionContent = {
-    energy: 10 / 24,
-    protein: 1 / 24,
-    water: 0.5 / 24,
-    massLb: 0.5 / 24,
-};
-
-export const LIZARD_PHYSICAL_PROFILE = new CreaturePhysicalProfile({
-    baseVolume: 0.5,
-    minVolume: 0.25,
-    carryVolumeCapacity: 0.5,
-});
-
-export const LIZARD_METABOLISM_PROFILE = new MetabolismProfile({
-    nutritionNeedsPerDay: LIZARD_NUTRITION_NEEDS,
-    consumptionPerTurn: LIZARD_CONSUMPTION_PER_TURN,
-});
-
-// ───────────────────────────────────────────────────────────────
-// Профиль существа и фабрика актора
-// ───────────────────────────────────────────────────────────────
-
-export interface CreatureProfile {
+interface CreatureProfileRuntime {
     id: string;
     name: string;
     memes: MemeId[];
@@ -172,22 +39,101 @@ export interface CreatureProfile {
     createActor(hexId: HexId, id: string, name?: string): ActorEntity;
 }
 
-export const LIZARD_PROFILE: CreatureProfile = {
-    id: 'lizard.generic',
-    name: 'Small Lizard',
-    memes: LIZARD_MEMES,
-    morphs: LIZARD_MORPHS,
-    actions: LIZARD_ACTIONS,
+type ActionRegistry = Record<string, ActionDefinition>;
 
-    createActor(hexId: HexId, id: string, name: string = 'Lizard'): ActorEntity {
-        return new ActorEntity({
-            id,
-            name,
-            hexId,
-            physical: LIZARD_PHYSICAL_PROFILE,
-            metabolism: LIZARD_METABOLISM_PROFILE,
-            posture: 'standing',
-            inventoryItemIds: [],
-        });
-    },
+function actionRefKey(ref: CreatureActionRefData): string {
+    return `${ref.group}/${ref.moduleName}/${ref.exportName}`;
+}
+
+const LIZARD_ACTION_REGISTRY: ActionRegistry = {
+    'actions-by-need/food-hunt/HUNT_WAIT_IN_AMBUSH': HUNT_WAIT_IN_AMBUSH,
+    'actions-by-need/food-hunt/HUNT_ACTIVE_FORAGE': HUNT_ACTIVE_FORAGE,
+    'actions-by-need/food/EAT_ACCEPTABLE': EAT_ACCEPTABLE,
+    'actions-by-need/food/EAT_POOR': EAT_POOR,
+    'actions-by-need/water/DRINK_DIRTY_WATER': DRINK_DIRTY_WATER,
+    'etho/generic-actions/SLEEP_REST': SLEEP_REST,
+    'etho/action-universal/BASK_SUN_THERMOREGULATE': BASK_SUN_THERMOREGULATE,
+    'etho/action-universal/TERRITORY_MICROHABIT_EXPLORE': TERRITORY_MICROHABIT_EXPLORE,
+    'etho/action-universal/DEFENSIVE_WARNING_DISPLAY': DEFENSIVE_WARNING_DISPLAY,
+    'etho/action-universal/BURROW_HIDE_OR_AMBUSH': BURROW_HIDE_OR_AMBUSH,
+    'etho/action-small-vertebrate/FLEE_TO_COVER': FLEE_TO_COVER,
+    'etho/action-small-vertebrate/FREEZE_IN_PLACE': FREEZE_IN_PLACE,
+    'etho/action-small-vertebrate/SHORT_DASH_ATTACK': SHORT_DASH_ATTACK,
+    'etho/action-small-vertebrate/OBSERVATION': OBSERVATION,
 };
+
+function resolveCreatureActions(profile: CreatureProfileData, registry: ActionRegistry): ActionDefinition[] {
+    return profile.actions.map((ref) => {
+        const key = actionRefKey(ref);
+        const action = registry[key];
+        if (!action) {
+            throw new Error(`Creature profile ${profile.id} references unknown action ${key}`);
+        }
+
+        return action;
+    });
+}
+
+function createPhysicalProfile(profile: CreatureProfileData): CreaturePhysicalProfile {
+    return new CreaturePhysicalProfile(profile.physical);
+}
+
+function createMetabolismProfile(profile: CreatureProfileData): MetabolismProfile {
+    return new MetabolismProfile({
+        nutritionNeedsPerDay: profile.nutritionNeedsPerDay,
+        consumptionPerTurn: profile.consumptionPerTurn,
+    });
+}
+
+function createCreatureTemplate(profile: CreatureProfileData): CreatureTemplateEntity {
+    return new CreatureTemplateEntity({
+        name: profile.name,
+        alias: profile.defaultActorName,
+        memeIds: profile.memes as MemeId[],
+        morphIds: profile.morphs as MorphId[],
+    });
+}
+
+function createCreatureProfileRuntime(profile: CreatureProfileData): CreatureProfileRuntime {
+    const physicalProfile = createPhysicalProfile(profile);
+    const metabolismProfile = createMetabolismProfile(profile);
+    const creatureTemplate = createCreatureTemplate(profile);
+
+    return {
+        id: profile.id,
+        name: profile.name,
+        memes: profile.memes as MemeId[],
+        morphs: profile.morphs as MorphId[],
+        actions: resolveCreatureActions(profile, LIZARD_ACTION_REGISTRY),
+        createActor(hexId: HexId, id: string, name: string = profile.defaultActorName): ActorEntity {
+            return new ActorEntity({
+                id,
+                name,
+                hexId,
+                physical: physicalProfile,
+                metabolism: metabolismProfile,
+                posture: 'standing',
+                inventoryItemIds: [],
+                creatureProfile: creatureTemplate,
+            });
+        },
+    };
+}
+
+export const LIZARD_MEMES = LIZARD_PROFILE_DATA.memes as MemeId[];
+
+export const LIZARD_MORPHS = LIZARD_PROFILE_DATA.morphs as MorphId[];
+
+export const LIZARD_ACTIONS = resolveCreatureActions(LIZARD_PROFILE_DATA, LIZARD_ACTION_REGISTRY);
+
+export const LIZARD_NUTRITION_NEEDS = LIZARD_PROFILE_DATA.nutritionNeedsPerDay as NutritionNeeds;
+
+export const LIZARD_CONSUMPTION_PER_TURN = LIZARD_PROFILE_DATA.consumptionPerTurn as NutritionContent;
+
+export const LIZARD_PHYSICAL_PROFILE = createPhysicalProfile(LIZARD_PROFILE_DATA);
+
+export const LIZARD_METABOLISM_PROFILE = createMetabolismProfile(LIZARD_PROFILE_DATA);
+
+export type CreatureProfile = CreatureProfileRuntime;
+
+export const LIZARD_PROFILE = createCreatureProfileRuntime(LIZARD_PROFILE_DATA);

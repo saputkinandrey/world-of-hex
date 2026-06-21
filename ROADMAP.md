@@ -173,9 +173,9 @@ The current phase should be considered complete only when:
 - keep all non-deterministic outcomes derived from shared entropy inputs
 - continue storing roll outcomes as explicit facts where replay determinism requires it
 - before expanding combat vocabulary further, improve combat transparency in the client:
-  - show wind direction
-  - show previous-turn roll results where they mattered
-  - show predicted success chances for current actions
+    - show wind direction
+    - show previous-turn roll results where they mattered
+    - show predicted success chances for current actions
 - after that, reintroduce `flee` / `pursue` / `circle` as captain-owned top-level tactical intents that derive lower-level officer intents
 - after movement is extended beyond strictly forward motion, implement ship fitting / modules as the next subsystem
 - only after the module system exists, move on to the first combat skeleton
@@ -256,15 +256,15 @@ The current phase should be considered complete only when:
 - keep expanding the settlement calculator ingredient model systematically instead of adding every missing recipe ingredient ad hoc
 - after the systematic ingredient taxonomy is in place, revisit bean dishes and add any remaining out-of-scope ingredients
 - currently known missing high-priority bean-dish ingredients:
-  - tomato / tomato paste
-  - sesame / tahini
-  - lemon or another sour juice
-  - sugar / molasses
-  - coconut milk
+    - tomato / tomato paste
+    - sesame / tahini
+    - lemon or another sour juice
+    - sugar / molasses
+    - coconut milk
 - currently known missing medium-priority bean-dish ingredients:
-  - pasta / noodles
-  - bacon / smoked pork / ham
-  - parsley, cilantro, basil, thyme
+    - pasta / noodles
+    - bacon / smoked pork / ham
+    - parsley, cilantro, basil, thyme
 
 ### Larger World Simulation
 
@@ -273,6 +273,9 @@ The current phase should be considered complete only when:
     - living-world simulation
     - MMO-like persistence and interaction
     - broader role-playing strategy systems
+- creature species profiles now have first-pass SM body-weight, stomach-capacity, daily food-mass, and abstract hex-volume estimates; body weight and stomach use the Size and Speed/Range linear table plus square-cube scaling from SM0 anchors, while hex volume uses the older factor-2-per-SM abstraction; they still need domain tables for length, height, build traits, body plan, and morphology-specific corrections, so the economy admin species editor should keep these as explicit editable averages
+- creature species profiles need explicit rules for aggregating inherited morphs, memes, traits, and behavior actions into derived needs and physical averages; current inheritance is additive with child scalar values overriding parent scalar values
+- creature needs are being split by source kind: morphs own physical needs, memes own social/psychological/cultural needs, and traits are reserved for individual-specific needs. Deferred needs without a clear current carrier: STRESS, MOOD, INSPIRATION, FAITH, LOVE, FEAR, COURAGE, MORALE, IDENTITY, JOY, REPUTATION, AFFECTION, FAMILY, PURPOSE, FREEDOM, DOMINANCE.
 - none of that should pull current prototype work off the sea-combat core path early
 
 ## Open Questions

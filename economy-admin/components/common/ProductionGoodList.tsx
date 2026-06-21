@@ -1,7 +1,7 @@
 import { Box, Button, FormControl, IconButton, InputLabel, MenuItem, Select, Stack } from '@mui/material';
 import AddRoundedIcon from '@mui/icons-material/AddRounded';
 import DeleteRoundedIcon from '@mui/icons-material/DeleteRounded';
-import type { ProductionGoodQuantity, EconomyAdminConfig } from '../../entities';
+import type { ProductionGoodQuantity, EconomyAdminConfig } from '@wohex/domain-data/economy';
 import { getGoodLevelName } from '../../lib/economy-admin-utils';
 import { NumberField } from './NumberField';
 

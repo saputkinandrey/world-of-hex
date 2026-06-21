@@ -1,0 +1,50 @@
+{
+  "id": "animal.dinosaur.bird",
+  "name": "Bird",
+  "kind": "template",
+  "parentId": "animal.dinosaur.ornithopod",
+  "defaultActorName": "Bird%N%",
+  "memes": [],
+  "morphs": [
+    "morph.body_plan.avian",
+    "morph.integument.feathers_basic",
+    "morph.locomotion.fly_flapping",
+    "morph.locomotion.glide_basic",
+    "morph.manip.beak_toollike",
+    "morph.natural_weapon.beak_peck",
+    "morph.natural_weapon.claws_small",
+    "morph.sense.vision_binocular",
+    "morph.sense.vision_color_rich"
+  ],
+  "traits": [],
+  "actions": [
+    {
+      "group": "etho",
+      "moduleName": "action-universal",
+      "exportName": "BASK_SUN_THERMOREGULATE"
+    },
+    {
+      "group": "etho",
+      "moduleName": "action-universal",
+      "exportName": "SEEK_COOL_SHELTER"
+    }
+  ],
+  "nutritionNeedsPerDay": {
+    "energyPerDay": 0,
+    "proteinPerDay": 0,
+    "waterPerDay": 0,
+    "massPerDayLb": 0
+  },
+  "consumptionPerTurn": {
+    "energy": 0,
+    "protein": 0,
+    "water": 0,
+    "massLb": 0
+  },
+  "physical": {
+    "baseVolume": 0,
+    "minVolume": 0,
+    "carryVolumeCapacity": 0
+  },
+  "notes": "Birds are modeled as living avian dinosaurs in Hex and inherit through the ornithopod branch. Flightless and predatory bird lines should be child templates."
+}

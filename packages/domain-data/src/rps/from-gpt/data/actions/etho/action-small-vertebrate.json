@@ -1,0 +1,58 @@
+{
+    "exports": {
+        "FLEE_TO_COVER": {
+            "tag": "FLEE_TO_COVER",
+            "costEnergy": 0.1,
+            "costTime": 0.5,
+            "risk": 0.05,
+            "rewardSecondary": {
+                "SAFETY": 0.4,
+                "STRESS": -0.2,
+                "FOCUS": 0.1
+            },
+            "requiresLocation": "open_ground|edge|rocks",
+            "requiredMorphs": ["core.perception", "core.motor_coordination"]
+        },
+        "FREEZE_IN_PLACE": {
+            "tag": "FREEZE_IN_PLACE",
+            "costEnergy": 0.01,
+            "costTime": 1,
+            "risk": 0.02,
+            "rewardSecondary": {
+                "SAFETY": 0.3,
+                "STRESS": -0.1,
+                "FOCUS": 0.2
+            },
+            "requiresLocation": "rocks|tree_trunk|scrub",
+            "requiredMorphs": ["core.perception", "core.motor_coordination"]
+        },
+        "SHORT_DASH_ATTACK": {
+            "tag": "SHORT_DASH_ATTACK",
+            "costEnergy": 0.08,
+            "costTime": 0.3,
+            "risk": 0.04,
+            "rewardSecondary": {
+                "SAFETY": 0.05,
+                "STRESS": -0.05,
+                "FOCUS": 0.1
+            },
+            "requiredMemes": ["tech.combat.core"],
+            "requiresLocation": "prey_in_line_of_sight",
+            "requiredMorphs": ["eth.predation.core"]
+        },
+        "OBSERVATION": {
+            "tag": "OBSERVATION",
+            "costEnergy": 0.02,
+            "costTime": 0.5,
+            "risk": 0.01,
+            "rewardSecondary": {
+                "SAFETY": 0.1,
+                "FOCUS": 0.3,
+                "CURIOSITY": 0.2,
+                "STRESS": -0.05
+            },
+            "requiresLocation": "any",
+            "requiredMorphs": ["core.perception"]
+        }
+    }
+}

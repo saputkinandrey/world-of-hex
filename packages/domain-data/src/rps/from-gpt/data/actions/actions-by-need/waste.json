@@ -1,0 +1,380 @@
+{
+    "exports": {
+        "WasteActions": [
+            {
+                "tag": "SCRAP_LEDGER_START",
+                "costEnergy": -0.06,
+                "costTime": 0.7,
+                "rewardSecondary": {
+                    "WASTE": 0.55,
+                    "EFFICIENCY": 0.3,
+                    "ORDER": 0.3,
+                    "CLARITY": 0.2
+                },
+                "requiresLocation": "stores|workyard",
+                "tradeEffect": {
+                    "slate_or_tablet": -1,
+                    "chalk": -1
+                },
+                "socialImpact": {
+                    "WASTE": -0.3,
+                    "DISCIPLINE": 0.2
+                },
+                "ownershipEffect": {
+                    "scrapLedger": "categories_logged"
+                },
+                "lawEffect": {
+                    "scrapSortRule": "posted",
+                    "enforceable": true
+                },
+                "requiredMemes": [
+                    "health.sanitation_norms",
+                    "health.waste_handling",
+                    "comm.language.written",
+                    "record.ledgerkeeping"
+                ]
+            },
+            {
+                "tag": "RETURNABLE_CONTAINERS",
+                "costEnergy": -0.06,
+                "costTime": 0.6,
+                "rewardSecondary": {
+                    "WASTE": 0.6,
+                    "ORDER": 0.3,
+                    "TRUST": 0.2,
+                    "EFFICIENCY": 0.2
+                },
+                "requiresLocation": "market|stores",
+                "tradeEffect": {
+                    "jars_or_pouches": "-N",
+                    "tokens": "-N"
+                },
+                "socialImpact": {
+                    "WASTE": -0.25,
+                    "FAIRNESS": 0.1
+                },
+                "ownershipEffect": {
+                    "returnLedger": "deposits_issued"
+                },
+                "lawEffect": {
+                    "depositRule": "posted",
+                    "enforceable": true
+                },
+                "risk": 0.04,
+                "requiredMemes": [
+                    "health.sanitation_norms",
+                    "health.waste_handling",
+                    "comm.language.written",
+                    "record.ledgerkeeping",
+                    "econ.pooling_common_fund",
+                    "econ.deposit_contract"
+                ]
+            },
+            {
+                "tag": "COMPOST_PIT_SETUP",
+                "costEnergy": -0.1,
+                "costTime": 1.1,
+                "rewardSecondary": {
+                    "WASTE": 0.7,
+                    "HYGIENE": 0.3,
+                    "HEALTH": 0.3,
+                    "RESILIENCE": 0.2
+                },
+                "requiresLocation": "commons|garden_edge",
+                "tradeEffect": {
+                    "spades": -1,
+                    "boards": -1
+                },
+                "socialImpact": {
+                    "WASTE": -0.35,
+                    "COMMUNITY": 0.1
+                },
+                "ownershipEffect": {
+                    "compostBin": "pit_dug_marked"
+                },
+                "lawEffect": {
+                    "refuseSorting": "organic_required",
+                    "enforceable": true
+                },
+                "requiredMemes": [
+                    "health.sanitation_norms",
+                    "health.waste_handling"
+                ]
+            },
+            {
+                "tag": "TOOL_REPAIR_BENCH",
+                "costEnergy": -0.1,
+                "costTime": 1,
+                "rewardSecondary": {
+                    "WASTE": 0.7,
+                    "PRODUCTIVITY": 0.3,
+                    "QUALITY": 0.3,
+                    "EFFICIENCY": 0.2
+                },
+                "requiresLocation": "workshop",
+                "tradeEffect": {
+                    "nails": -1,
+                    "resin_or_glue": -1
+                },
+                "socialImpact": {
+                    "WASTE": -0.3,
+                    "WEALTH": 0.1
+                },
+                "ownershipEffect": {
+                    "repairBench": "set_with_log"
+                },
+                "requiredMemes": [
+                    "health.sanitation_norms",
+                    "health.waste_handling",
+                    "comm.language.written",
+                    "org.workshop_practice"
+                ]
+            },
+            {
+                "tag": "SPOILAGE_AUDIT",
+                "costEnergy": -0.08,
+                "costTime": 0.9,
+                "rewardSecondary": {
+                    "WASTE": 0.6,
+                    "QUALITY": 0.3,
+                    "ORDER": 0.2,
+                    "SAFETY": 0.2
+                },
+                "requiresLocation": "granary|brewery|stores",
+                "tradeEffect": {
+                    "chalk": -1
+                },
+                "socialImpact": {
+                    "WASTE": -0.25,
+                    "ACCOUNTABILITY": 0.1
+                },
+                "ownershipEffect": {
+                    "spoilageReport": "logged_actions_assigned"
+                },
+                "risk": 0.05,
+                "requiredMemes": [
+                    "health.sanitation_norms",
+                    "health.waste_handling",
+                    "comm.language.written",
+                    "record.ledgerkeeping"
+                ]
+            },
+            {
+                "tag": "RATION_PORTION_TOKENS",
+                "costEnergy": -0.08,
+                "costTime": 0.8,
+                "rewardSecondary": {
+                    "WASTE": 0.65,
+                    "FAIRNESS": 0.3,
+                    "ORDER": 0.3,
+                    "STABILITY": 0.2
+                },
+                "requiresLocation": "hall|mess",
+                "tradeEffect": {
+                    "tokens": "-N",
+                    "parchment": -1
+                },
+                "socialImpact": {
+                    "WASTE": -0.3,
+                    "TRUST": 0.1
+                },
+                "ownershipEffect": {
+                    "rationBoard": "portions_posted"
+                },
+                "lawEffect": {
+                    "rationRule": "active",
+                    "enforceable": true
+                },
+                "requiredMemes": [
+                    "health.sanitation_norms",
+                    "health.waste_handling",
+                    "comm.language.written",
+                    "record.ledgerkeeping",
+                    "econ.pooling_common_fund"
+                ]
+            },
+            {
+                "tag": "SALVAGE_RUN",
+                "costEnergy": -0.12,
+                "costTime": 1.2,
+                "rewardSecondary": {
+                    "WASTE": 0.7,
+                    "WEALTH": 0.3,
+                    "SECURITY": 0.1,
+                    "COURAGE": 0.1
+                },
+                "requiresLocation": "outskirts|ruins",
+                "tradeEffect": {
+                    "rope": -1,
+                    "sacks": -1
+                },
+                "socialImpact": {
+                    "WASTE": -0.2,
+                    "NETWORK": 0.1
+                },
+                "ownershipEffect": {
+                    "salvageList": "items_sorted"
+                },
+                "risk": 0.08,
+                "requiredMemes": [
+                    "health.sanitation_norms",
+                    "health.waste_handling"
+                ]
+            },
+            {
+                "tag": "GREYWATER_REUSE",
+                "costEnergy": -0.1,
+                "costTime": 1,
+                "rewardSecondary": {
+                    "WASTE": 0.7,
+                    "EFFICIENCY": 0.3,
+                    "HEALTH": 0.2,
+                    "STABILITY": 0.2
+                },
+                "requiresLocation": "workyard|bathhouse|garden",
+                "tradeEffect": {
+                    "clay_pipes": -1,
+                    "filters": -1
+                },
+                "socialImpact": {
+                    "WASTE": -0.3,
+                    "WATER": 0.1
+                },
+                "ownershipEffect": {
+                    "greywaterLines": "installed_checked"
+                },
+                "risk": 0.06,
+                "requiredMemes": [
+                    "health.sanitation_norms",
+                    "health.waste_handling"
+                ]
+            },
+            {
+                "tag": "SHARED_TOOL_LIBRARY",
+                "costEnergy": -0.08,
+                "costTime": 0.9,
+                "rewardSecondary": {
+                    "WASTE": 0.65,
+                    "COMMUNITY": 0.2,
+                    "EFFICIENCY": 0.3,
+                    "WEALTH": 0.2
+                },
+                "requiresLocation": "hall|stores",
+                "tradeEffect": {
+                    "shelves": -1,
+                    "tags": -1
+                },
+                "socialImpact": {
+                    "WASTE": -0.25,
+                    "TRUST": 0.1
+                },
+                "ownershipEffect": {
+                    "toolLedger": "circulation_logged"
+                },
+                "lawEffect": {
+                    "borrowingRule": "posted",
+                    "enforceable": true
+                },
+                "requiredMemes": [
+                    "health.sanitation_norms",
+                    "health.waste_handling",
+                    "comm.language.written",
+                    "record.ledgerkeeping"
+                ]
+            },
+            {
+                "tag": "ASH_BRICK_PRESS",
+                "costEnergy": -0.12,
+                "costTime": 1.1,
+                "rewardSecondary": {
+                    "INNOVATION_REP": 0.2,
+                    "WEALTH": 0.2,
+                    "STABILITY": 0.2,
+                    "WASTE": 0.7
+                },
+                "requiresLocation": "kiln|yard",
+                "tradeEffect": {
+                    "ash": "-N",
+                    "binder_clay": -1,
+                    "molds": -1
+                },
+                "socialImpact": {
+                    "WASTE": -0.35,
+                    "CULTURE": 0.1
+                },
+                "ownershipEffect": {
+                    "brickStack": "pressed_cured"
+                },
+                "risk": 0.05,
+                "requiredMemes": [
+                    "health.sanitation_norms",
+                    "health.waste_handling",
+                    "tech.heat.industrial",
+                    "tech.fire.control"
+                ]
+            },
+            {
+                "tag": "MANURE_MANAGEMENT",
+                "costEnergy": -0.1,
+                "costTime": 1,
+                "rewardSecondary": {
+                    "WASTE": 0.7,
+                    "HEALTH": 0.3,
+                    "HYGIENE": 0.3,
+                    "FOOD": 0.1
+                },
+                "requiresLocation": "stables|fields",
+                "tradeEffect": {
+                    "barrels": -1,
+                    "lime": -1
+                },
+                "socialImpact": {
+                    "WASTE": -0.35,
+                    "SAFETY": 0.1
+                },
+                "ownershipEffect": {
+                    "manurePits": "covered_and_marked"
+                },
+                "lawEffect": {
+                    "sanitationRule": "enforced",
+                    "enforceable": true
+                },
+                "requiredMemes": [
+                    "health.sanitation_norms",
+                    "health.waste_handling",
+                    "tech.tool.use_basic"
+                ]
+            },
+            {
+                "tag": "REPAIR_CAFE_DAY",
+                "costEnergy": -0.12,
+                "costTime": 1.2,
+                "rewardSecondary": {
+                    "WASTE": 0.75,
+                    "MASTERY": 0.3,
+                    "COMMUNITY": 0.2,
+                    "PRODUCTIVITY": 0.2
+                },
+                "requiresLocation": "hall|workshop",
+                "tradeEffect": {
+                    "spare_parts": "-N",
+                    "tea_or_bread": -1
+                },
+                "socialImpact": {
+                    "WASTE": -0.3,
+                    "JOY": 0.1
+                },
+                "ownershipEffect": {
+                    "repairedItems": "tagged_returned"
+                },
+                "risk": 0.04,
+                "requiredMemes": [
+                    "health.sanitation_norms",
+                    "health.waste_handling",
+                    "comm.language.written",
+                    "org.workshop_practice"
+                ]
+            }
+        ]
+    }
+}

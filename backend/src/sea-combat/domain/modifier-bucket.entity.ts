@@ -6,6 +6,8 @@ import {
     ModifierBucketClearedEvent,
     ModifierBucketTurnStartedEvent,
 } from './encounter/events/modifier-bucket.events';
+export { ModifierBucketClearMode } from '@wohex/domain-data';
+import { ModifierBucketClearMode } from '@wohex/domain-data';
 
 export class ModifierEntity {
     value: number = 0;
@@ -13,11 +15,6 @@ export class ModifierEntity {
     target: string | null = null;
     additive: boolean = false;
     turnsLeft: number | null = null;
-}
-
-export enum ModifierBucketClearMode {
-    All,
-    Expired,
 }
 
 export class ModifierBucketEntity extends StreamAwareEntity {

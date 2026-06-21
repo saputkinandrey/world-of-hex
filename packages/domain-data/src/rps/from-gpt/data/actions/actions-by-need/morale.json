@@ -1,0 +1,405 @@
+{
+    "exports": {
+        "MoraleActions": [
+            {
+                "tag": "RALLY_SPEECH",
+                "costEnergy": -0.08,
+                "costTime": 0.8,
+                "risk": 0.08,
+                "rewardSecondary": {
+                    "MORALE": 0.75,
+                    "COURAGE": 0.4,
+                    "TRUST": 0.3,
+                    "CLARITY": 0.2
+                },
+                "requiresLocation": "yard|hall|square",
+                "socialImpact": {
+                    "COHESION": 0.3,
+                    "RESPECT": 0.2
+                },
+                "lawEffect": {
+                    "speechRule": "no_defamation",
+                    "enforceable": true
+                },
+                "requiredMemes": [
+                    "health.sanitation_norms",
+                    "health.waste_handling",
+                    "comm.language.written"
+                ]
+            },
+            {
+                "tag": "CELEBRATE_SMALL_WIN",
+                "costEnergy": -0.1,
+                "costTime": 1,
+                "rewardSecondary": {
+                    "MORALE": 0.85,
+                    "JOY": 0.6,
+                    "COMMUNITY": 0.4,
+                    "STABILITY": 0.2
+                },
+                "tradeEffect": {
+                    "bread": -1,
+                    "ale": "-1 | 0"
+                },
+                "socialImpact": {
+                    "BELONGING": 0.3,
+                    "NETWORK": 0.2
+                },
+                "ownershipEffect": {
+                    "memoryLog": "win_marked"
+                }
+            },
+            {
+                "tag": "ISSUE_COMMENDATION_TOKEN",
+                "costEnergy": -0.06,
+                "costTime": 0.7,
+                "rewardSecondary": {
+                    "MORALE": 0.8,
+                    "STATUS": 0.4,
+                    "RESPECT": 0.3,
+                    "TRUST": 0.2
+                },
+                "tradeEffect": {
+                    "ribbon_or_token": -1
+                },
+                "socialImpact": {
+                    "FAIRNESS": 0.2,
+                    "COMPETITION": 0.2
+                },
+                "ownershipEffect": {
+                    "accolade": "awarded",
+                    "rights": "display"
+                },
+                "lawEffect": {
+                    "honorRoll": "updated",
+                    "enforceable": true
+                },
+                "requiredMemes": [
+                    "record.ledgerkeeping",
+                    "econ.pooling_common_fund"
+                ]
+            },
+            {
+                "tag": "BANNER_RAISING",
+                "costEnergy": -0.08,
+                "costTime": 0.8,
+                "rewardSecondary": {
+                    "MORALE": 0.7,
+                    "IDENTITY": 0.5,
+                    "CULTURE": 0.3,
+                    "COURAGE": 0.2
+                },
+                "requiresLocation": "gate|square|camp_mast",
+                "tradeEffect": {
+                    "banner": "-wear",
+                    "rope": "-1 | 0"
+                },
+                "socialImpact": {
+                    "UNITY": 0.3,
+                    "VISIBILITY": 0.3
+                },
+                "ownershipEffect": {
+                    "campState": "banner_flies"
+                },
+                "requiredMemes": [
+                    "health.sanitation_norms",
+                    "health.waste_handling",
+                    "culture.vigil_ritual",
+                    "cog.timekeeping.basic",
+                    "comm.language.written"
+                ]
+            },
+            {
+                "tag": "SHARED_SONG_AT_WORK",
+                "costEnergy": -0.04,
+                "costTime": 0.6,
+                "rewardSecondary": {
+                    "JOY": 0.4,
+                    "COMMUNITY": 0.3,
+                    "PRODUCTIVITY": 0.15,
+                    "MORALE": 0.7
+                },
+                "requiresLocation": "workyard|road|fields",
+                "socialImpact": {
+                    "COHESION": 0.3,
+                    "RHYTHM": 0.2
+                }
+            },
+            {
+                "tag": "REST_DAY_ROTATION",
+                "costEnergy": -0.02,
+                "costTime": 0.3,
+                "rewardSecondary": {
+                    "MORALE": 0.65,
+                    "STABILITY": 0.4,
+                    "FAIRNESS": 0.3,
+                    "HEALTH": 0.2
+                },
+                "socialImpact": {
+                    "TRUST": 0.2,
+                    "RESENTMENT": -0.1
+                },
+                "lawEffect": {
+                    "rota": "rest_day_posted",
+                    "enforceable": true
+                },
+                "ownershipEffect": {
+                    "accessScope": "common_amenities",
+                    "grantAccess": true
+                }
+            },
+            {
+                "tag": "WARM_MEAL_DISTRIBUTION",
+                "costEnergy": -0.14,
+                "costTime": 1,
+                "rewardSecondary": {
+                    "MORALE": 0.85,
+                    "JOY": 0.5,
+                    "HEALTH": 0.2,
+                    "COMMUNITY": 0.3
+                },
+                "requiresLocation": "mess|hall|camp_kitchen",
+                "tradeEffect": {
+                    "stew": "-N",
+                    "bread": "-N"
+                },
+                "socialImpact": {
+                    "GRATITUDE": 0.4,
+                    "TRUST": 0.2
+                },
+                "ownershipEffect": {
+                    "storesLevel": "reduced_meal"
+                },
+                "requiredMemes": ["comm.language.written"]
+            },
+            {
+                "tag": "FIRE_HEARTH_GATHER",
+                "costEnergy": -0.1,
+                "costTime": 1,
+                "rewardSecondary": {
+                    "MORALE": 0.8,
+                    "COMMUNITY": 0.4,
+                    "RESILIENCE": 0.3,
+                    "JOY": 0.3
+                },
+                "requiresLocation": "hearth|campfire",
+                "tradeEffect": {
+                    "firewood": -1,
+                    "lamp_oil": -1
+                },
+                "requiredMemes": [
+                    "culture.vigil_ritual",
+                    "cog.timekeeping.basic",
+                    "tech.heat.space.hearth"
+                ],
+                "socialImpact": {
+                    "STORYTELLING": 0.3,
+                    "COHESION": 0.3
+                },
+                "lawEffect": {
+                    "fireSafety": "observed",
+                    "enforceable": true
+                }
+            },
+            {
+                "tag": "TEAM_GAME_SPORT",
+                "costEnergy": -0.16,
+                "costTime": 1.2,
+                "risk": 0.06,
+                "rewardSecondary": {
+                    "MORALE": 0.9,
+                    "JOY": 0.6,
+                    "COMMUNITY": 0.4,
+                    "TRUST": 0.2
+                },
+                "requiresLocation": "green|yard",
+                "socialImpact": {
+                    "COHESION": 0.4,
+                    "STATUS": 0.2
+                },
+                "ownershipEffect": {
+                    "fieldState": "lines_marked"
+                },
+                "requiredMemes": [
+                    "health.sanitation_norms",
+                    "health.waste_handling"
+                ]
+            },
+            {
+                "tag": "LETTERS_FROM_HOME_READING",
+                "costEnergy": -0.06,
+                "costTime": 0.8,
+                "risk": 0.04,
+                "rewardSecondary": {
+                    "MORALE": 0.7,
+                    "IDENTITY": 0.3,
+                    "COMMUNITY": 0.2,
+                    "RESILIENCE": 0.2
+                },
+                "requiresLocation": "mess|hearth|chapel",
+                "socialImpact": {
+                    "PRIVACY": 0.2,
+                    "EMPATHY": 0.3
+                },
+                "ownershipEffect": {
+                    "letter": "read|archived"
+                },
+                "requiredMemes": [
+                    "culture.vigil_ritual",
+                    "cog.timekeeping.basic",
+                    "tech.heat.space.hearth"
+                ]
+            },
+            {
+                "tag": "HONOR_FALLEN_RITES",
+                "costEnergy": -0.18,
+                "costTime": 1.4,
+                "rewardSecondary": {
+                    "MORALE": 0.85,
+                    "RESILIENCE": 0.5,
+                    "COMMUNITY": 0.4,
+                    "HONOR": 0.3
+                },
+                "requiresLocation": "temple|graveyard|memorial",
+                "socialImpact": {
+                    "DIGNITY": 0.4,
+                    "COHESION": 0.3
+                },
+                "lawEffect": {
+                    "processionPermit": "granted",
+                    "enforceable": true
+                },
+                "ownershipEffect": {
+                    "memorialRoll": "updated"
+                },
+                "requiredMemes": [
+                    "culture.vigil_ritual",
+                    "cog.timekeeping.basic"
+                ]
+            },
+            {
+                "tag": "SUCCESS_TALLY_BOARD",
+                "costEnergy": -0.06,
+                "costTime": 0.6,
+                "rewardSecondary": {
+                    "MORALE": 0.7,
+                    "CLARITY": 0.4,
+                    "TRUST": 0.3,
+                    "STATUS": 0.2
+                },
+                "tradeEffect": {
+                    "chalk": -1,
+                    "board_use": "+1"
+                },
+                "socialImpact": {
+                    "TRANSPARENCY": 0.3,
+                    "MOTIVATION": 0.3
+                },
+                "ownershipEffect": {
+                    "boardState": "wins_posted"
+                },
+                "requiredMemes": [
+                    "comm.language.written",
+                    "record.ledgerkeeping",
+                    "cog.number_concept"
+                ]
+            },
+            {
+                "tag": "PAIR_NEW_WITH_VETERAN",
+                "costEnergy": -0.12,
+                "costTime": 1,
+                "rewardSecondary": {
+                    "MORALE": 0.75,
+                    "TRUST": 0.4,
+                    "RESILIENCE": 0.3,
+                    "COMMUNITY": 0.3
+                },
+                "requiresSkill": "mentoring|apprentice",
+                "socialImpact": {
+                    "LOYALTY": 0.3,
+                    "COHESION": 0.3
+                },
+                "ownershipEffect": {
+                    "accessScope": "mentor_area",
+                    "grantAccess": true
+                },
+                "lawEffect": {
+                    "pairingRoster": "logged",
+                    "enforceable": true
+                }
+            },
+            {
+                "tag": "HOPE_STORIES_SHARING",
+                "costEnergy": -0.08,
+                "costTime": 0.9,
+                "rewardSecondary": {
+                    "MORALE": 0.75,
+                    "RESILIENCE": 0.4,
+                    "COMMUNITY": 0.3,
+                    "JOY": 0.3
+                },
+                "requiresLocation": "hearth|hall",
+                "socialImpact": {
+                    "EMPATHY": 0.4,
+                    "COHESION": 0.3
+                },
+                "requiredMemes": [
+                    "culture.vigil_ritual",
+                    "cog.timekeeping.basic",
+                    "tech.heat.space.hearth",
+                    "comm.language.written"
+                ]
+            },
+            {
+                "tag": "CLEAN_AND_DECORATE_COMMONS",
+                "costEnergy": -0.16,
+                "costTime": 1.4,
+                "rewardSecondary": {
+                    "MORALE": 0.8,
+                    "JOY": 0.4,
+                    "COMMUNITY": 0.3,
+                    "ORDER": 0.3
+                },
+                "tradeEffect": {
+                    "garlands": "-N",
+                    "rags": "-wear",
+                    "dye": -1
+                },
+                "socialImpact": {
+                    "DIGNITY": 0.3,
+                    "BELONGING": 0.3
+                },
+                "ownershipEffect": {
+                    "commonsState": "bright_and_clean"
+                },
+                "requiredMemes": [
+                    "health.sanitation_norms",
+                    "health.waste_handling"
+                ]
+            },
+            {
+                "tag": "SET_SYMBOLIC_GOAL_MARKER",
+                "costEnergy": -0.08,
+                "costTime": 0.8,
+                "rewardSecondary": {
+                    "MORALE": 0.7,
+                    "CLARITY": 0.4,
+                    "PURPOSE": 0.3,
+                    "COMMUNITY": 0.2
+                },
+                "tradeEffect": {
+                    "banner": -1,
+                    "stakes": "-N"
+                },
+                "socialImpact": {
+                    "MOTIVATION": 0.4,
+                    "UNITY": 0.2
+                },
+                "ownershipEffect": {
+                    "milestone": "planted",
+                    "progress": "trackable"
+                }
+            }
+        ]
+    }
+}

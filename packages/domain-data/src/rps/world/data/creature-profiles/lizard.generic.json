@@ -1,0 +1,66 @@
+{
+  "id": "lizard.generic",
+  "name": "Small Lizard",
+  "kind": "species",
+  "parentId": "animal.reptile.lizard",
+  "defaultActorName": "Lizard",
+  "memes": [
+    "eth.territory_marking",
+    "eth.tactics.ambush_stalk"
+  ],
+  "morphs": [
+    "eth.maintenance.cleanliness_core",
+    "morph.size.sm.-6"
+  ],
+  "traits": [],
+  "actions": [
+    {
+      "group": "actions-by-need",
+      "moduleName": "food-hunt",
+      "exportName": "HUNT_WAIT_IN_AMBUSH"
+    },
+    {
+      "group": "etho",
+      "moduleName": "action-universal",
+      "exportName": "TERRITORY_MICROHABIT_EXPLORE"
+    },
+    {
+      "group": "etho",
+      "moduleName": "action-universal",
+      "exportName": "BURROW_HIDE_OR_AMBUSH"
+    },
+    {
+      "group": "etho",
+      "moduleName": "action-small-vertebrate",
+      "exportName": "SHORT_DASH_ATTACK"
+    },
+    {
+      "group": "etho",
+      "moduleName": "action-universal",
+      "exportName": "NOCTURNAL_FORAGE"
+    },
+    {
+      "group": "etho",
+      "moduleName": "action-universal",
+      "exportName": "VIBRATION_ALERT_HIDE"
+    }
+  ],
+  "nutritionNeedsPerDay": {
+    "energyPerDay": 0,
+    "proteinPerDay": 0,
+    "waterPerDay": 0,
+    "massPerDayLb": 0
+  },
+  "consumptionPerTurn": {
+    "energy": 0,
+    "protein": 0,
+    "water": 0,
+    "massLb": 0
+  },
+  "physical": {
+    "baseVolume": 0,
+    "minVolume": 0,
+    "carryVolumeCapacity": 0
+  },
+  "notes": "Initial editable creature species profile migrated from backend example data."
+}

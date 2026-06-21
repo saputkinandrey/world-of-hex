@@ -1,0 +1,124 @@
+{
+    "exports": {
+        "SecurityActions": [
+            {
+                "tag": "BUILD_SHELTER",
+                "costEnergy": -0.6,
+                "costTime": 4,
+                "rewardSecondary": {
+                    "SECURITY": 0.9,
+                    "COMFORT": 0.5,
+                    "STABILITY": 0.4
+                },
+                "requiresItem": ["wood", "branches", "clay"],
+                "requiresSkill": "construction",
+                "targetType": "AREA"
+            },
+            {
+                "tag": "FORTIFY_WALLS",
+                "costEnergy": -0.7,
+                "costTime": 5,
+                "rewardSecondary": {
+                    "SECURITY": 0.8,
+                    "STABILITY": 0.6,
+                    "CONTROL": 0.3
+                },
+                "requiresItem": ["wood", "stone"],
+                "requiresLocation": "settlement",
+                "requiresSkill": "engineering"
+            },
+            {
+                "tag": "SET_TRAPS",
+                "costEnergy": -0.3,
+                "costTime": 2,
+                "rewardSecondary": {
+                    "SECURITY": 0.6,
+                    "CONTROL": 0.2
+                },
+                "requiresItem": ["rope", "wood"],
+                "requiresSkill": "trapping"
+            },
+            {
+                "tag": "STAND_GUARD",
+                "costEnergy": -0.4,
+                "costTime": 3,
+                "rewardSecondary": {
+                    "SECURITY": 0.5,
+                    "TRUST": 0.4,
+                    "CONTROL": 0.3
+                },
+                "targetType": "GROUP"
+            },
+            {
+                "tag": "TRAIN_WITH_WEAPON",
+                "costEnergy": -0.5,
+                "costTime": 2,
+                "rewardSecondary": {
+                    "SECURITY": 0.5,
+                    "POWER": 0.3,
+                    "MASTERY": 0.2
+                },
+                "requiresItem": ["weapon"],
+                "requiresSkill": "combat"
+            },
+            {
+                "tag": "REPAIR_DEFENSES",
+                "costEnergy": -0.6,
+                "costTime": 3,
+                "rewardSecondary": {
+                    "SECURITY": 0.7,
+                    "STABILITY": 0.4
+                },
+                "requiresItem": ["wood", "stone"],
+                "requiresLocation": "settlement"
+            },
+            {
+                "tag": "PATROL_PERIMETER",
+                "costEnergy": -0.4,
+                "costTime": 2,
+                "rewardSecondary": {
+                    "SECURITY": 0.6,
+                    "CONTROL": 0.4,
+                    "TRUST": 0.3
+                },
+                "requiresSkill": "scouting",
+                "targetType": "AREA"
+            },
+            {
+                "tag": "HUNT_THREATS",
+                "costEnergy": -0.8,
+                "costTime": 4,
+                "rewardSecondary": {
+                    "SECURITY": 0.8,
+                    "POWER": 0.4,
+                    "HEALTH": 0.3
+                },
+                "risk": 0.4,
+                "requiresItem": ["weapon"],
+                "requiresSkill": "combat"
+            },
+            {
+                "tag": "WARN_ALLIES",
+                "costEnergy": -0.1,
+                "costTime": 0.2,
+                "rewardSecondary": {
+                    "SECURITY": 0.3,
+                    "TRUST": 0.4,
+                    "COMMUNITY": 0.3
+                },
+                "targetType": "GROUP"
+            },
+            {
+                "tag": "SEEK_SHELTER",
+                "costEnergy": -0.2,
+                "costTime": 0.5,
+                "rewardSecondary": {
+                    "SECURITY": 0.7,
+                    "COMFORT": 0.4,
+                    "HEALTH": 0.2
+                },
+                "requiresLocation": "shelter"
+            }
+        ]
+    }
+}

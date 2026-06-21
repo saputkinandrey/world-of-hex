@@ -1,0 +1,325 @@
+{
+    "exports": {
+        "StressActions": [
+            {
+                "tag": "BREATHING_DRILL",
+                "costEnergy": -0.02,
+                "costTime": 0.25,
+                "rewardSecondary": {
+                    "STRESS": 0.5,
+                    "RESILIENCE": 0.3,
+                    "FOCUS": 0.2,
+                    "CLARITY": 0.2
+                },
+                "requiresLocation": "quiet_corner|hearth",
+                "socialImpact": {
+                    "CALM": 0.3
+                },
+                "requiredMemes": [
+                    "culture.vigil_ritual",
+                    "cog.timekeeping.basic",
+                    "tech.heat.space.hearth"
+                ]
+            },
+            {
+                "tag": "WALK_SHORT_SOLO",
+                "costEnergy": -0.06,
+                "costTime": 0.6,
+                "rewardSecondary": {
+                    "STRESS": 0.65,
+                    "HEALTH": 0.2,
+                    "RESILIENCE": 0.3,
+                    "PRIVACY": 0.2
+                },
+                "requiresLocation": "garden|path|river_bank",
+                "socialImpact": {
+                    "CONFLICT": -0.05,
+                    "MOOD": 0.2
+                },
+                "ownershipEffect": {
+                    "routeUse": "solo_walk"
+                }
+            },
+            {
+                "tag": "QUIET_TEATIME",
+                "costEnergy": -0.04,
+                "costTime": 0.4,
+                "rewardSecondary": {
+                    "STRESS": 0.6,
+                    "HEALTH": 0.2,
+                    "MORALE": 0.2,
+                    "PRIVACY": 0.2
+                },
+                "tradeEffect": {
+                    "herbs": "-1 | 0",
+                    "honey": "-1 | 0"
+                },
+                "socialImpact": {
+                    "CALM": 0.3
+                },
+                "ownershipEffect": {
+                    "kettleState": "steeped"
+                }
+            },
+            {
+                "tag": "STRETCH_AND_LOOSEN",
+                "costEnergy": -0.05,
+                "costTime": 0.5,
+                "rewardSecondary": {
+                    "STRESS": 0.55,
+                    "HEALTH": 0.3,
+                    "RESILIENCE": 0.2,
+                    "FOCUS": 0.1
+                },
+                "requiresLocation": "yard|workroom",
+                "socialImpact": {
+                    "TENSION": -0.2
+                },
+                "requiredMemes": [
+                    "health.sanitation_norms",
+                    "health.waste_handling"
+                ]
+            },
+            {
+                "tag": "JOURNAL_UNLOAD",
+                "costEnergy": -0.06,
+                "costTime": 0.6,
+                "rewardSecondary": {
+                    "STRESS": 0.65,
+                    "CLARITY": 0.4,
+                    "PRIVACY": 0.3,
+                    "RESILIENCE": 0.2
+                },
+                "tradeEffect": {
+                    "parchment": "-1 | 0",
+                    "ink": "-1 | 0"
+                },
+                "socialImpact": {
+                    "RUMORS": -0.05
+                },
+                "ownershipEffect": {
+                    "diary": "entry_added"
+                },
+                "requiredMemes": ["comm.language.written"]
+            },
+            {
+                "tag": "POWER_NAP",
+                "costEnergy": 0.12,
+                "costTime": 0.6,
+                "rewardSecondary": {
+                    "STRESS": 0.7,
+                    "HEALTH": 0.2,
+                    "RESILIENCE": 0.3,
+                    "MORALE": 0.2
+                },
+                "requiresLocation": "bunks|hearth",
+                "socialImpact": {
+                    "PRODUCTIVITY": 0.05
+                },
+                "ownershipEffect": {
+                    "berthUse": "short_rest"
+                },
+                "requiredMemes": [
+                    "culture.vigil_ritual",
+                    "cog.timekeeping.basic",
+                    "tech.heat.space.hearth"
+                ]
+            },
+            {
+                "tag": "SWITCH_TASK_SIMPLE",
+                "costEnergy": -0.02,
+                "costTime": 0.4,
+                "rewardSecondary": {
+                    "STRESS": 0.55,
+                    "PRODUCTIVITY": 0.2,
+                    "FOCUS": 0.2,
+                    "MORALE": 0.2
+                },
+                "socialImpact": {
+                    "OVERWHELM": -0.2
+                },
+                "ownershipEffect": {
+                    "taskState": "context_switched"
+                }
+            },
+            {
+                "tag": "DELEGATE_NONCRITICAL",
+                "costEnergy": -0.02,
+                "costTime": 0.5,
+                "rewardSecondary": {
+                    "ACCOUNTABILITY": 0.2,
+                    "STABILITY": 0.2,
+                    "TRUST": 0.2,
+                    "STRESS": 0.6
+                },
+                "requiresSkill": "leadership|negotiation",
+                "socialImpact": {
+                    "BURDEN": -0.3,
+                    "RESPECT": 0.1
+                },
+                "ownershipEffect": {
+                    "taskOwner": "reassigned"
+                }
+            },
+            {
+                "tag": "BOUNDARY_SAY_NO",
+                "costEnergy": -0.02,
+                "costTime": 0.3,
+                "risk": 0.06,
+                "rewardSecondary": {
+                    "STRESS": 0.65,
+                    "PRIVACY": 0.3,
+                    "CONTROL": 0.3,
+                    "RESILIENCE": 0.2
+                },
+                "socialImpact": {
+                    "RESPECT": 0.2,
+                    "CONFLICT": -0.05
+                },
+                "lawEffect": {
+                    "boundaryNote": "posted",
+                    "enforceable": true
+                }
+            },
+            {
+                "tag": "SOCIAL_VENT_SAFE",
+                "costEnergy": -0.06,
+                "costTime": 0.7,
+                "rewardSecondary": {
+                    "STRESS": 0.7,
+                    "COMMUNITY": 0.3,
+                    "TRUST": 0.3,
+                    "RESILIENCE": 0.3
+                },
+                "requiresLocation": "hearth|hall",
+                "socialImpact": {
+                    "EMPATHY": 0.4,
+                    "GOSSIP": -0.1
+                },
+                "ownershipEffect": {
+                    "circleState": "vent_done"
+                },
+                "requiredMemes": [
+                    "culture.vigil_ritual",
+                    "cog.timekeeping.basic",
+                    "tech.heat.space.hearth",
+                    "comm.language.written"
+                ]
+            },
+            {
+                "tag": "MUSIC_CALM_SESSION",
+                "costEnergy": -0.04,
+                "costTime": 0.6,
+                "rewardSecondary": {
+                    "STRESS": 0.65,
+                    "HEALTH": 0.1,
+                    "JOY": 0.3,
+                    "MORALE": 0.3
+                },
+                "requiresItem": ["flute|lyre|drum_soft"],
+                "socialImpact": {
+                    "CALM": 0.4
+                }
+            },
+            {
+                "tag": "TIDY_MICRO_AREA",
+                "costEnergy": -0.08,
+                "costTime": 0.6,
+                "rewardSecondary": {
+                    "STRESS": 0.6,
+                    "ORDER": 0.4,
+                    "CONTROL": 0.2,
+                    "PRODUCTIVITY": 0.1
+                },
+                "socialImpact": {
+                    "DIGNITY": 0.2
+                },
+                "ownershipEffect": {
+                    "workspaceState": "decluttered"
+                }
+            },
+            {
+                "tag": "SUNLIGHT_FRESH_AIR",
+                "costEnergy": -0.04,
+                "costTime": 0.5,
+                "rewardSecondary": {
+                    "STRESS": 0.6,
+                    "HEALTH": 0.2,
+                    "RESILIENCE": 0.2,
+                    "MOOD": 0.2
+                },
+                "requiresLocation": "yard|green|balcony",
+                "socialImpact": {
+                    "CALM": 0.2
+                },
+                "requiredMemes": [
+                    "health.sanitation_norms",
+                    "health.waste_handling"
+                ]
+            },
+            {
+                "tag": "HOT_BATH_SOAK",
+                "costEnergy": -0.06,
+                "costTime": 0.8,
+                "rewardSecondary": {
+                    "STRESS": 0.75,
+                    "HEALTH": 0.3,
+                    "RESILIENCE": 0.3,
+                    "MORALE": 0.2
+                },
+                "requiresLocation": "baths|tub_room",
+                "tradeEffect": {
+                    "firewood": -1,
+                    "herbs": -1,
+                    "oil": -1
+                },
+                "ownershipEffect": {
+                    "bathSlot": "booked"
+                }
+            },
+            {
+                "tag": "AROMA_OR_INCENSE",
+                "costEnergy": -0.04,
+                "costTime": 0.4,
+                "rewardSecondary": {
+                    "STRESS": 0.55,
+                    "HEALTH": 0.1,
+                    "JOY": 0.2,
+                    "CLARITY": 0.1
+                },
+                "tradeEffect": {
+                    "incense": -1,
+                    "resin": -1
+                },
+                "needRework": true,
+                "socialImpact": {
+                    "CALM": 0.2
+                }
+            },
+            {
+                "tag": "EVENING_UNWIND_RITUAL",
+                "costEnergy": -0.06,
+                "costTime": 0.7,
+                "rewardSecondary": {
+                    "STRESS": 0.7,
+                    "STABILITY": 0.3,
+                    "PRIVACY": 0.2,
+                    "RESILIENCE": 0.3
+                },
+                "requiresLocation": "hearth|bunks",
+                "socialImpact": {
+                    "ROUTINE": 0.3,
+                    "PANIC": -0.1
+                },
+                "ownershipEffect": {
+                    "curfewReady": "true"
+                },
+                "requiredMemes": [
+                    "culture.vigil_ritual",
+                    "cog.timekeeping.basic",
+                    "tech.heat.space.hearth"
+                ]
+            }
+        ]
+    }
+}

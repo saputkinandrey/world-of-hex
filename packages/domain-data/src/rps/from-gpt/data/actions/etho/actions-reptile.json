@@ -1,0 +1,22 @@
+{
+    "exports": {
+        "SHED_SKIN_ECDYSIS": {
+            "tag": "E.SHED_SKIN_ECDYSIS",
+            "needThresholds": {
+                "SAFETY": {
+                    "atMost": "OK"
+                }
+            },
+            "costEnergy": 0.5,
+            "costTime": 8,
+            "risk": 0.2,
+            "rewardSecondary": {
+                "COMFORT": 0.5,
+                "HEALTH": 0.4,
+                "STRESS": -0.3,
+                "SAFETY": -0.2
+            },
+            "requiredMorphs": ["eth.maintenance.ecdysis"]
+        }
+    }
+}

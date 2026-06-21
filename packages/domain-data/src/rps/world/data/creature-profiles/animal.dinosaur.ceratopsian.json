@@ -1,0 +1,54 @@
+{
+  "id": "animal.dinosaur.ceratopsian",
+  "name": "Ceratopsian",
+  "kind": "template",
+  "parentId": "animal.dinosaur",
+  "defaultActorName": "Ceratopsian%N%",
+  "memes": [
+    "eth.sociality.cooperative",
+    "eth.territory_marking"
+  ],
+  "morphs": [
+    "morph.body_plan.tetrapod_large_ground",
+    "morph.locomotion.walk_quadruped",
+    "morph.manip.beak_toollike",
+    "morph.natural_weapon.beak_peck",
+    "morph.natural_weapon.horns_large"
+  ],
+  "traits": [],
+  "actions": [
+    {
+      "group": "etho",
+      "moduleName": "action-universal",
+      "exportName": "TERRITORY_MICROHABIT_EXPLORE"
+    },
+    {
+      "group": "etho",
+      "moduleName": "action-universal",
+      "exportName": "BASK_SUN_THERMOREGULATE"
+    },
+    {
+      "group": "etho",
+      "moduleName": "action-universal",
+      "exportName": "SEEK_COOL_SHELTER"
+    }
+  ],
+  "nutritionNeedsPerDay": {
+    "energyPerDay": 0,
+    "proteinPerDay": 0,
+    "waterPerDay": 0,
+    "massPerDayLb": 0
+  },
+  "consumptionPerTurn": {
+    "energy": 0,
+    "protein": 0,
+    "water": 0,
+    "massLb": 0
+  },
+  "physical": {
+    "baseVolume": 0,
+    "minVolume": 0,
+    "carryVolumeCapacity": 0
+  },
+  "notes": "Broad horned herbivorous dinosaur template. Frill, herd structure and concrete horn layouts belong to child templates."
+}

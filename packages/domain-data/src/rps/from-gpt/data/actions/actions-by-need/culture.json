@@ -1,0 +1,436 @@
+{
+    "exports": {
+        "CultureActions": [
+            {
+                "tag": "FESTIVAL_ORGANIZE",
+                "costEnergy": -0.28,
+                "costTime": 2.6,
+                "risk": 0.14,
+                "rewardSecondary": {
+                    "COMMUNITY": 0.6,
+                    "JOY": 0.6,
+                    "MORALE": 0.5,
+                    "STATUS": 0.3,
+                    "CULTURE": 0.95
+                },
+                "requiresLocation": "square|hall|fields",
+                "tradeEffect": {
+                    "food": "-N",
+                    "drink": "-N",
+                    "garlands": "-N"
+                },
+                "socialImpact": {
+                    "NETWORK": 0.3,
+                    "RESPECT": 0.2
+                },
+                "lawEffect": {
+                    "gatheringPermit": "approved",
+                    "enforceable": true
+                },
+                "ownershipEffect": {
+                    "accessScope": "stalls|stage",
+                    "grantAccess": true
+                },
+                "requiredMemes": [
+                    "health.sanitation_norms",
+                    "health.waste_handling",
+                    "comm.language.written"
+                ]
+            },
+            {
+                "tag": "ORAL_HISTORY_CIRCLE",
+                "costEnergy": -0.12,
+                "costTime": 1.4,
+                "rewardSecondary": {
+                    "CULTURE": 0.75,
+                    "IDENTITY": 0.5,
+                    "TRADITION": 0.5,
+                    "KNOWLEDGE": 0.3
+                },
+                "requiresLocation": "hall|hearth",
+                "socialImpact": {
+                    "COMMUNITY": 0.4,
+                    "RESPECT": 0.2
+                },
+                "ownershipEffect": {
+                    "loreLog": "updated"
+                },
+                "requiredMemes": [
+                    "culture.vigil_ritual",
+                    "cog.timekeeping.basic",
+                    "tech.heat.space.hearth",
+                    "comm.language.written"
+                ]
+            },
+            {
+                "tag": "CRAFT_GUILD_EXHIBIT",
+                "costEnergy": -0.2,
+                "costTime": 2,
+                "rewardSecondary": {
+                    "CULTURE": 0.85,
+                    "STATUS": 0.4,
+                    "NETWORK": 0.4,
+                    "REPUTATION": 0.3
+                },
+                "requiresLocation": "guild_hall|market",
+                "tradeEffect": {
+                    "booth_fee": -1,
+                    "decorations": -1
+                },
+                "socialImpact": {
+                    "COMMUNITY": 0.3,
+                    "RESPECT": 0.3
+                },
+                "lawEffect": {
+                    "exhibitEtiquette": "observed",
+                    "enforceable": true
+                },
+                "requiredMemes": [
+                    "comm.language.written",
+                    "org.workshop_practice"
+                ]
+            },
+            {
+                "tag": "RITES_OF_PASSAGE",
+                "costEnergy": -0.18,
+                "costTime": 1.8,
+                "risk": 0.1,
+                "rewardSecondary": {
+                    "CULTURE": 0.9,
+                    "IDENTITY": 0.6,
+                    "HONOR": 0.4,
+                    "TRADITION": 0.5
+                },
+                "requiresLocation": "temple|sacred_grove",
+                "socialImpact": {
+                    "RESPECT": 0.4,
+                    "COMMUNITY": 0.3
+                },
+                "lawEffect": {
+                    "riteRegister": "recorded",
+                    "enforceable": true
+                },
+                "ownershipEffect": {
+                    "token": "granted",
+                    "rights": "adult_privileges"
+                },
+                "requiredMemes": [
+                    "culture.vigil_ritual",
+                    "cog.timekeeping.basic"
+                ]
+            },
+            {
+                "tag": "SEASONAL_DECORATIONS",
+                "costEnergy": -0.14,
+                "costTime": 1.2,
+                "rewardSecondary": {
+                    "CULTURE": 0.75,
+                    "JOY": 0.5,
+                    "COMMUNITY": 0.3,
+                    "TRADITION": 0.4
+                },
+                "tradeEffect": {
+                    "ribbons": "-N",
+                    "dye": -1,
+                    "candles": -1
+                },
+                "needRework": true,
+                "socialImpact": {
+                    "AESTHETIC": 0.3,
+                    "COHESION": 0.2
+                },
+                "ownershipEffect": {
+                    "districtLook": "festive"
+                }
+            },
+            {
+                "tag": "SONG_DANCE_REHEARSAL",
+                "costEnergy": -0.16,
+                "costTime": 1.6,
+                "rewardSecondary": {
+                    "CULTURE": 0.8,
+                    "COMMUNITY": 0.4,
+                    "MORALE": 0.4,
+                    "JOY": 0.4
+                },
+                "requiresLocation": "hall|green",
+                "socialImpact": {
+                    "COHESION": 0.4,
+                    "NETWORK": 0.2
+                },
+                "ownershipEffect": {
+                    "repertoire": "expanded"
+                },
+                "requiredMemes": ["comm.language.written"]
+            },
+            {
+                "tag": "STORYTELLER_NIGHT",
+                "costEnergy": -0.12,
+                "costTime": 1.4,
+                "rewardSecondary": {
+                    "CULTURE": 0.8,
+                    "KNOWLEDGE": 0.4,
+                    "IDENTITY": 0.3,
+                    "JOY": 0.3
+                },
+                "requiresLocation": "hearth|hall",
+                "tradeEffect": {
+                    "small_fee": -1
+                },
+                "socialImpact": {
+                    "RESPECT": 0.2,
+                    "COMMUNITY": 0.3
+                },
+                "ownershipEffect": {
+                    "anthology": "added_tale"
+                },
+                "requiredMemes": [
+                    "culture.vigil_ritual",
+                    "cog.timekeeping.basic",
+                    "tech.heat.space.hearth",
+                    "comm.language.written"
+                ]
+            },
+            {
+                "tag": "HERITAGE_MARKERS",
+                "costEnergy": -0.2,
+                "costTime": 1.8,
+                "rewardSecondary": {
+                    "CULTURE": 0.8,
+                    "IDENTITY": 0.5,
+                    "RESPECT": 0.3,
+                    "TRADITION": 0.4
+                },
+                "tradeEffect": {
+                    "stone": "-N",
+                    "chisel_wear": "-minor"
+                },
+                "socialImpact": {
+                    "MEMORY": 0.4,
+                    "COMMUNITY": 0.3
+                },
+                "lawEffect": {
+                    "heritageRegistry": "updated",
+                    "enforceable": true
+                },
+                "ownershipEffect": {
+                    "siteStatus": "protected"
+                }
+            },
+            {
+                "tag": "SHARED_MEAL_FEAST",
+                "costEnergy": -0.24,
+                "costTime": 2.2,
+                "rewardSecondary": {
+                    "CULTURE": 0.95,
+                    "COMMUNITY": 0.6,
+                    "JOY": 0.6,
+                    "TRUST": 0.3
+                },
+                "requiresLocation": "hall|square|barn",
+                "tradeEffect": {
+                    "grain": "-N",
+                    "meat": "-N",
+                    "ale": "-N"
+                },
+                "socialImpact": {
+                    "BELONGING": 0.5,
+                    "NETWORK": 0.2
+                },
+                "ownershipEffect": {
+                    "storesLevel": "reduced_feast"
+                },
+                "requiredMemes": [
+                    "health.sanitation_norms",
+                    "health.waste_handling",
+                    "comm.language.written"
+                ]
+            },
+            {
+                "tag": "ARTISAN_CONTEST",
+                "costEnergy": -0.2,
+                "costTime": 2,
+                "rewardSecondary": {
+                    "CULTURE": 0.85,
+                    "STATUS": 0.4,
+                    "REPUTATION": 0.3,
+                    "INNOVATION_REP": 0.3
+                },
+                "requiresLocation": "guild_hall|market",
+                "tradeEffect": {
+                    "prize_fund": -1,
+                    "ribbons": "-N"
+                },
+                "socialImpact": {
+                    "COMPETITION": 0.3,
+                    "RESPECT": 0.3
+                },
+                "lawEffect": {
+                    "contestRules": "posted",
+                    "enforceable": true
+                },
+                "ownershipEffect": {
+                    "laurels": "awarded"
+                },
+                "requiredMemes": [
+                    "comm.language.written",
+                    "org.workshop_practice"
+                ]
+            },
+            {
+                "tag": "SYMBOLS_STANDARDIZE",
+                "costEnergy": -0.14,
+                "costTime": 1.4,
+                "rewardSecondary": {
+                    "CULTURE": 0.7,
+                    "CLARITY": 0.5,
+                    "IDENTITY": 0.5,
+                    "ORDER": 0.3
+                },
+                "tradeEffect": {
+                    "dye": -1,
+                    "seals": "-N"
+                },
+                "socialImpact": {
+                    "UNITY": 0.3,
+                    "RESPECT": 0.2
+                },
+                "lawEffect": {
+                    "heraldryRoll": "ratified",
+                    "enforceable": true
+                },
+                "ownershipEffect": {
+                    "banners": "standardized"
+                }
+            },
+            {
+                "tag": "CULTURAL_EXCHANGE_FAIR",
+                "costEnergy": -0.24,
+                "costTime": 2.2,
+                "risk": 0.12,
+                "rewardSecondary": {
+                    "CULTURE": 0.9,
+                    "NETWORK": 0.5,
+                    "KNOWLEDGE": 0.4,
+                    "COMMUNITY": 0.3
+                },
+                "requiresLocation": "market|square",
+                "tradeEffect": {
+                    "booths": "-N",
+                    "gifts": "-N"
+                },
+                "socialImpact": {
+                    "TOLERANCE": 0.4,
+                    "RESPECT": 0.2
+                },
+                "lawEffect": {
+                    "guestRight": "declared",
+                    "enforceable": true
+                },
+                "requiredMemes": [
+                    "health.sanitation_norms",
+                    "health.waste_handling",
+                    "comm.language.written"
+                ]
+            },
+            {
+                "tag": "TEACH_CHILDREN_CUSTOMS",
+                "costEnergy": -0.16,
+                "costTime": 1.6,
+                "rewardSecondary": {
+                    "CULTURE": 0.8,
+                    "TRADITION": 0.6,
+                    "IDENTITY": 0.5,
+                    "COMMUNITY": 0.3
+                },
+                "requiresLocation": "school|hearth|temple",
+                "socialImpact": {
+                    "RESPECT": 0.2,
+                    "HOPE": 0.3
+                },
+                "ownershipEffect": {
+                    "primer": "compiled"
+                },
+                "requiredMemes": [
+                    "culture.vigil_ritual",
+                    "cog.timekeeping.basic",
+                    "tech.heat.space.hearth"
+                ]
+            },
+            {
+                "tag": "MEMORIAL_SERVICE",
+                "costEnergy": -0.18,
+                "costTime": 1.6,
+                "rewardSecondary": {
+                    "CULTURE": 0.85,
+                    "RESILIENCE": 0.4,
+                    "COMMUNITY": 0.3,
+                    "HONOR": 0.3
+                },
+                "requiresLocation": "temple|graveyard",
+                "socialImpact": {
+                    "DIGNITY": 0.4,
+                    "COHESION": 0.3
+                },
+                "lawEffect": {
+                    "processionPermit": "granted",
+                    "enforceable": true
+                },
+                "requiredMemes": [
+                    "culture.vigil_ritual",
+                    "cog.timekeeping.basic"
+                ]
+            },
+            {
+                "tag": "PATRONAGE_CHARTER",
+                "costEnergy": -0.2,
+                "costTime": 1.8,
+                "rewardSecondary": {
+                    "CULTURE": 0.85,
+                    "STATUS": 0.4,
+                    "TRUST": 0.3,
+                    "WEALTH": 0.2
+                },
+                "tradeEffect": {
+                    "endowment": -1
+                },
+                "socialImpact": {
+                    "NETWORK": 0.3,
+                    "RESPECT": 0.3
+                },
+                "lawEffect": {
+                    "patronCharter": "sealed",
+                    "enforceable": true
+                },
+                "ownershipEffect": {
+                    "workshopGrants": "enabled"
+                }
+            },
+            {
+                "tag": "ARCHIVE_SONGS_AND_PATTERNS",
+                "costEnergy": -0.16,
+                "costTime": 1.6,
+                "rewardSecondary": {
+                    "CULTURE": 0.75,
+                    "KNOWLEDGE": 0.5,
+                    "IDENTITY": 0.3,
+                    "ORDER": 0.3
+                },
+                "requiresItem": ["parchment|wax_tablet", "ink|stylus"],
+                "socialImpact": {
+                    "RESPECT": 0.2,
+                    "HERITAGE": 0.3
+                },
+                "ownershipEffect": {
+                    "archiveState": "indexed",
+                    "accessScope": "library",
+                    "grantAccess": true
+                },
+                "lawEffect": {
+                    "archivePolicy": "preservation",
+                    "enforceable": true
+                }
+            }
+        ]
+    }
+}

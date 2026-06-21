@@ -1,0 +1,40 @@
+{
+    "base": {
+        "id": "iq2.base",
+        "title": "IQ2 base",
+        "memeIds": ["tech.combat.core"],
+        "morphIds": ["cog.iq2", "core.perception", "core.motor_coordination"]
+    },
+    "lenses": {
+        "territorial": {
+            "id": "iq2.lens.territorial",
+            "title": "Territorial",
+            "memeIds": ["eth.territory_marking"]
+        },
+        "solitary": {
+            "id": "iq2.lens.solitary",
+            "title": "Solitary",
+            "memeIds": ["eth.sociality.solitary"]
+        },
+        "vibrosense": {
+            "id": "iq2.lens.vibrosense",
+            "title": "Vibrosense",
+            "morphIds": ["morph.sense.vibration_ground"]
+        },
+        "limbUnarmedCombat": {
+            "id": "iq2.lens.limb-unarmed-combat",
+            "title": "Limb unarmed combat",
+            "memeIds": ["tech.combat.unarmed_basic"]
+        },
+        "throwing": {
+            "id": "iq2.lens.throwing",
+            "title": "Throwing",
+            "memeIds": ["tech.throwing.basic", "tech.combat.missile_basic"]
+        },
+        "constrictorStyle": {
+            "id": "iq2.lens.constrictor-style",
+            "title": "Constrictor style",
+            "memeIds": ["tech.combat.bite_basic", "eth.tactics.ambush_stalk"]
+        }
+    }
+}

@@ -1,0 +1,276 @@
+{
+    "exports": {
+        "VENOM_STRIKE": {
+            "tag": "E.VENOM_STRIKE",
+            "rewardSecondary": {
+                "FOOD": 0.6,
+                "SAFETY": 0.1,
+                "ENERGY": -0.1
+            },
+            "requiredMemes": [
+                "tech.combat.bite_basic",
+                "tech.combat.venom_delivery",
+                "eth.predation.drive.prey_drive",
+                "eth.tactics.ambush_stalk"
+            ],
+            "requiresLocation": "cover|prey_path",
+            "risk": 0.06,
+            "requiredMorphs": [
+                "eth.predation.core",
+                "morph.body_plan.serpentine_ground"
+            ]
+        },
+        "CONSTRICT_PREY": {
+            "tag": "E.CONSTRICT_PREY",
+            "rewardSecondary": {
+                "FOOD": 0.6,
+                "SAFETY": 0.1,
+                "ENERGY": -0.15
+            },
+            "requiredMemes": [
+                "tech.hunting.stalking_basic",
+                "eth.predation.drive.prey_drive",
+                "eth.tactics.constriction"
+            ],
+            "requiresLocation": "cover|prey_path",
+            "risk": 0.06,
+            "requiredMorphs": [
+                "eth.predation.core",
+                "morph.body_plan.serpentine_ground",
+                "morph.natural_weapon.constrictor_body"
+            ]
+        },
+        "SWALLOW_WHOLE_FEEDING": {
+            "tag": "E.SWALLOW_WHOLE_FEEDING",
+            "rewardSecondary": {
+                "FOOD": 0.6,
+                "COMFORT": -0.05,
+                "ENERGY": -0.05,
+                "STRESS": -0.05
+            },
+            "requiredMemes": ["tech.combat.bite_basic"],
+            "requiresLocation": "safe_shelter|cover",
+            "requiredMorphs": [
+                "eth.predation.core",
+                "morph.body_plan.serpentine_ground"
+            ]
+        },
+        "EthoActions_Snakes": [
+            {
+                "tag": "E.AMBUSH_FROM_COVER",
+                "costEnergy": 0.05,
+                "costTime": 1,
+                "risk": 0.02,
+                "rewardSecondary": {
+                    "FOCUS": 0.3,
+                    "SAFETY": 0.15,
+                    "STRESS": -0.05
+                },
+                "requiredMemes": [
+                    "tech.hunting.stalking_basic",
+                    "eth.predation.drive.prey_drive",
+                    "eth.tactics.ambush_stalk"
+                ],
+                "requiresLocation": "grass|rocks|burrow_entrance",
+                "requiredMorphs": [
+                    "eth.predation.core",
+                    "morph.sense.olfaction_tracking"
+                ]
+            },
+            {
+                "tag": "E.SCENT_TRAIL_TRACK",
+                "costEnergy": 0.08,
+                "costTime": 1,
+                "risk": 0.02,
+                "rewardSecondary": {
+                    "FOCUS": 0.25,
+                    "CURIOSITY": 0.15,
+                    "STRESS": -0.03
+                },
+                "requiredMemes": ["tech.hunting.tracking_basic"],
+                "requiresLocation": "trail|edge|undergrowth",
+                "requiredMorphs": [
+                    "eth.predation.core",
+                    "morph.sense.olfaction_tracking"
+                ]
+            },
+            {
+                "tag": "E.VIBRATION_ALERT_HIDE",
+                "costEnergy": 0.03,
+                "costTime": 0.5,
+                "risk": 0.01,
+                "rewardSecondary": {
+                    "SAFETY": 0.3,
+                    "STRESS": -0.1,
+                    "FOCUS": 0.2
+                },
+                "requiresLocation": "any",
+                "requiredMorphs": [
+                    "core.perception",
+                    "eth.maintenance.thermoregulation",
+                    "morph.sense.vibration_ground"
+                ]
+            },
+            {
+                "tag": "E.BASK_SUN_THERMOREGULATE",
+                "costEnergy": 0.01,
+                "costTime": 1,
+                "risk": 0.02,
+                "rewardSecondary": {
+                    "TEMPERATURE": 0.5,
+                    "COMFORT": 0.3,
+                    "ENERGY": 0.1,
+                    "STRESS": -0.05
+                },
+                "requiresLocation": "open_sun|rock|log",
+                "requiredMorphs": [
+                    "core.perception",
+                    "eth.maintenance.thermoregulation"
+                ]
+            },
+            {
+                "tag": "E.NOCTURNAL_FORAGE",
+                "costEnergy": 0.15,
+                "costTime": 2,
+                "risk": 0.08,
+                "rewardSecondary": {
+                    "FOCUS": 0.2,
+                    "CURIOSITY": 0.2,
+                    "SAFETY": 0.05,
+                    "STRESS": -0.05
+                },
+                "requiresLocation": "edge|undergrowth|water_edge",
+                "requiredMorphs": ["core.perception", "eth.predation.core"]
+            },
+            {
+                "tag": "E.SEASONAL_TORPOR",
+                "costEnergy": 0,
+                "costTime": 24,
+                "risk": 0.05,
+                "rewardSecondary": {
+                    "ENERGY": 0.6,
+                    "STRESS": -0.2,
+                    "TEMPERATURE": 0.1,
+                    "REST": 0.5
+                },
+                "requiresLocation": "burrow|deep_crevice|nest",
+                "requiredMorphs": [
+                    "cog.iq2",
+                    "eth.maintenance.thermoregulation"
+                ]
+            },
+            {
+                "tag": "E.COURTSHIP_DISPLAY",
+                "costEnergy": 0.1,
+                "costTime": 1,
+                "risk": 0.05,
+                "rewardSecondary": {
+                    "REPRODUCTION": 0.5,
+                    "STATUS": 0.2,
+                    "JOY": 0.1,
+                    "STRESS": -0.05
+                },
+                "requiredMemes": ["comm.signaling"],
+                "requiresLocation": "display_site|open_ground",
+                "requiredMorphs": ["core.perception"]
+            },
+            {
+                "tag": "E.TERRITORY_MICROHABIT_EXPLORE",
+                "costEnergy": 0.1,
+                "costTime": 1.5,
+                "risk": 0.04,
+                "rewardSecondary": {
+                    "CURIOSITY": 0.3,
+                    "SAFETY": 0.1,
+                    "KNOWLEDGE": 0.2
+                },
+                "requiresLocation": "territory_patch|microhabitat",
+                "requiredMorphs": ["core.perception"],
+                "requiredMemes": ["eth.territory_marking"]
+            },
+            {
+                "tag": "E.DEFENSIVE_WARNING_DISPLAY",
+                "costEnergy": 0.05,
+                "costTime": 0.5,
+                "risk": 0.05,
+                "rewardSecondary": {
+                    "SAFETY": 0.4,
+                    "STRESS": -0.1,
+                    "COURAGE": 0.1
+                },
+                "requiredMemes": ["comm.signaling", "tech.combat.core"],
+                "requiresLocation": "any",
+                "requiredMorphs": ["core.perception"]
+            },
+            {
+                "tag": "E.BURROW_HIDE_OR_AMBUSH",
+                "costEnergy": 0.05,
+                "costTime": 1,
+                "risk": 0.03,
+                "rewardSecondary": {
+                    "SAFETY": 0.35,
+                    "TEMPERATURE": 0.2,
+                    "STRESS": -0.05
+                },
+                "requiresLocation": "burrow|termite_mound|root_mat",
+                "requiredMemes": ["eth.tactics.ambush_stalk"],
+                "requiredMorphs": ["eth.maintenance.thermoregulation"]
+            },
+            {
+                "tag": "E.VENOM_STRIKE",
+                "rewardSecondary": {
+                    "FOOD": 0.6,
+                    "SAFETY": 0.1,
+                    "ENERGY": -0.1
+                },
+                "requiredMemes": [
+                    "tech.combat.bite_basic",
+                    "tech.combat.venom_delivery",
+                    "eth.predation.drive.prey_drive",
+                    "eth.tactics.ambush_stalk"
+                ],
+                "requiresLocation": "cover|prey_path",
+                "risk": 0.06,
+                "requiredMorphs": [
+                    "eth.predation.core",
+                    "morph.body_plan.serpentine_ground"
+                ]
+            },
+            {
+                "tag": "E.CONSTRICT_PREY",
+                "rewardSecondary": {
+                    "FOOD": 0.6,
+                    "SAFETY": 0.1,
+                    "ENERGY": -0.15
+                },
+                "requiredMemes": [
+                    "tech.hunting.stalking_basic",
+                    "eth.predation.drive.prey_drive",
+                    "eth.tactics.constriction"
+                ],
+                "requiresLocation": "cover|prey_path",
+                "risk": 0.06,
+                "requiredMorphs": [
+                    "eth.predation.core",
+                    "morph.body_plan.serpentine_ground",
+                    "morph.natural_weapon.constrictor_body"
+                ]
+            },
+            {
+                "tag": "E.SWALLOW_WHOLE_FEEDING",
+                "rewardSecondary": {
+                    "FOOD": 0.6,
+                    "COMFORT": -0.05,
+                    "ENERGY": -0.05,
+                    "STRESS": -0.05
+                },
+                "requiredMemes": ["tech.combat.bite_basic"],
+                "requiresLocation": "safe_shelter|cover",
+                "requiredMorphs": [
+                    "eth.predation.core",
+                    "morph.body_plan.serpentine_ground"
+                ]
+            }
+        ]
+    }
+}

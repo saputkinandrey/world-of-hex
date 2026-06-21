@@ -1,0 +1,91 @@
+{
+    "name": "@wohex/domain-data",
+    "private": true,
+    "version": "0.0.0",
+    "type": "commonjs",
+    "scripts": {
+        "build": "node scripts/clean-dist.cjs && tsc -p tsconfig.json"
+    },
+    "main": "./dist/index.js",
+    "types": "./dist/index.d.ts",
+    "typesVersions": {
+        "*": {
+            "economy": [
+                "dist/economy/index.d.ts"
+            ],
+            "rps": [
+                "dist/rps/index.d.ts"
+            ],
+            "rps/from-gpt": [
+                "dist/rps/from-gpt/index.d.ts"
+            ],
+            "rps/from-gpt/*": [
+                "dist/rps/from-gpt/*"
+            ],
+            "rps/social": [
+                "dist/rps/social/types.d.ts"
+            ],
+            "rps/equipment": [
+                "dist/rps/equipment/utils.d.ts"
+            ],
+            "rps/world/*": [
+                "dist/rps/world/*"
+            ],
+            "rps/types/*": [
+                "dist/rps/types/*"
+            ],
+            "sea-combat": [
+                "dist/sea-combat/index.d.ts"
+            ],
+            "sea-combat/*": [
+                "dist/sea-combat/*"
+            ]
+        }
+    },
+    "exports": {
+        ".": {
+            "types": "./dist/index.d.ts",
+            "default": "./dist/index.js"
+        },
+        "./economy": {
+            "types": "./dist/economy/index.d.ts",
+            "default": "./dist/economy/index.js"
+        },
+        "./rps": {
+            "types": "./dist/rps/index.d.ts",
+            "default": "./dist/rps/index.js"
+        },
+        "./rps/from-gpt": {
+            "types": "./dist/rps/from-gpt/index.d.ts",
+            "default": "./dist/rps/from-gpt/index.js"
+        },
+        "./rps/from-gpt/*": {
+            "types": "./dist/rps/from-gpt/*.d.ts",
+            "default": "./dist/rps/from-gpt/*.js"
+        },
+        "./rps/social": {
+            "types": "./dist/rps/social/types.d.ts",
+            "default": "./dist/rps/social/types.js"
+        },
+        "./rps/equipment": {
+            "types": "./dist/rps/equipment/utils.d.ts",
+            "default": "./dist/rps/equipment/utils.js"
+        },
+        "./rps/world/*": {
+            "types": "./dist/rps/world/*.d.ts",
+            "default": "./dist/rps/world/*.js"
+        },
+        "./rps/types/*": {
+            "types": "./dist/rps/types/*.d.ts",
+            "default": "./dist/rps/types/*.js"
+        },
+        "./sea-combat": {
+            "types": "./dist/sea-combat/index.d.ts",
+            "default": "./dist/sea-combat/index.js"
+        },
+        "./sea-combat/*": {
+            "types": "./dist/sea-combat/*.d.ts",
+            "default": "./dist/sea-combat/*.js"
+        }
+    }
+}

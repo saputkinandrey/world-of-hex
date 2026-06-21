@@ -1,0 +1,248 @@
+{
+    "exports": {
+        "FORAGE": {
+            "tag": "FORAGE",
+            "costEnergy": 0.2,
+            "costTime": 3,
+            "risk": 0.1,
+            "rewardSecondary": {
+                "FOOD": 0.4,
+                "CURIOSITY": 0.1
+            },
+            "skillRequired": "Survival",
+            "resourceOutput": ["berries", "roots"],
+            "locationType": "wilderness",
+            "emotionalImpact": 0.1,
+            "environmentalImpact": -0.1,
+            "needThresholds": {
+                "FOOD": {
+                    "atLeast": "WARN"
+                }
+            }
+        },
+        "HUNT": {
+            "tag": "HUNT",
+            "costEnergy": 0.5,
+            "costTime": 5,
+            "risk": 0.4,
+            "rewardSecondary": {
+                "FOOD": 0.8,
+                "STATUS": 0.2,
+                "WEALTH": 0.1
+            },
+            "socialImpact": {
+                "respect": 0.1
+            },
+            "moralWeight": 0.3,
+            "groupAffinity": 0.2,
+            "skillRequired": "Hunting",
+            "resourceOutput": ["meat", "hide"],
+            "locationType": "wilderness",
+            "respectGain": 0.3,
+            "emotionalImpact": 0.2,
+            "needThresholds": {
+                "FOOD": {
+                    "atLeast": "IMPAIRED"
+                }
+            }
+        },
+        "STEAL_FOOD": {
+            "tag": "STEAL_FOOD",
+            "costEnergy": 0.1,
+            "costTime": 1,
+            "risk": 0.6,
+            "rewardSecondary": {
+                "FOOD": 0.6
+            },
+            "socialImpact": {
+                "respect": -0.5
+            },
+            "moralWeight": -0.8,
+            "shameGain": 0.3,
+            "locationType": "village",
+            "visibleToOthers": true,
+            "emotionalImpact": -0.3,
+            "needThresholds": {
+                "FOOD": {
+                    "atLeast": "SEVERE"
+                }
+            }
+        },
+        "EAT_ACCEPTABLE": {
+            "tag": "EAT_ACCEPTABLE",
+            "costEnergy": 0.05,
+            "costTime": 0.3,
+            "risk": 0.02,
+            "rewardSecondary": {
+                "FOOD": 0.5
+            },
+            "locationType": "camp|village|road|wilderness",
+            "emotionalImpact": 0.05,
+            "moralWeight": 0,
+            "requiredMorphs": ["core.vital.living"],
+            "needThresholds": {
+                "FOOD": {
+                    "atLeast": "IMPAIRED"
+                }
+            }
+        },
+        "EAT_POOR": {
+            "tag": "EAT_POOR",
+            "costEnergy": 0.04,
+            "costTime": 0.25,
+            "risk": 0.08,
+            "rewardSecondary": {
+                "FOOD": 0.35
+            },
+            "locationType": "camp|village|road|wilderness",
+            "emotionalImpact": -0.02,
+            "moralWeight": 0,
+            "requiredMorphs": ["core.vital.living"],
+            "needThresholds": {
+                "FOOD": {
+                    "atLeast": "SEVERE"
+                }
+            }
+        },
+        "EAT_ANYTHING": {
+            "tag": "EAT_ANYTHING",
+            "costEnergy": 0.03,
+            "costTime": 0.2,
+            "risk": 0.2,
+            "rewardSecondary": {
+                "FOOD": 0.25
+            },
+            "locationType": "any",
+            "emotionalImpact": -0.05,
+            "moralWeight": 0,
+            "needThresholds": {
+                "FOOD": {
+                    "atLeast": "CRITICAL"
+                }
+            }
+        },
+        "FoodActions": [
+            {
+                "tag": "FORAGE",
+                "costEnergy": 0.2,
+                "costTime": 3,
+                "risk": 0.1,
+                "rewardSecondary": {
+                    "FOOD": 0.4,
+                    "CURIOSITY": 0.1
+                },
+                "skillRequired": "Survival",
+                "resourceOutput": ["berries", "roots"],
+                "locationType": "wilderness",
+                "emotionalImpact": 0.1,
+                "environmentalImpact": -0.1,
+                "needThresholds": {
+                    "FOOD": {
+                        "atLeast": "WARN"
+                    }
+                }
+            },
+            {
+                "tag": "HUNT",
+                "costEnergy": 0.5,
+                "costTime": 5,
+                "risk": 0.4,
+                "rewardSecondary": {
+                    "FOOD": 0.8,
+                    "STATUS": 0.2,
+                    "WEALTH": 0.1
+                },
+                "socialImpact": {
+                    "respect": 0.1
+                },
+                "moralWeight": 0.3,
+                "groupAffinity": 0.2,
+                "skillRequired": "Hunting",
+                "resourceOutput": ["meat", "hide"],
+                "locationType": "wilderness",
+                "respectGain": 0.3,
+                "emotionalImpact": 0.2,
+                "needThresholds": {
+                    "FOOD": {
+                        "atLeast": "IMPAIRED"
+                    }
+                }
+            },
+            {
+                "tag": "STEAL_FOOD",
+                "costEnergy": 0.1,
+                "costTime": 1,
+                "risk": 0.6,
+                "rewardSecondary": {
+                    "FOOD": 0.6
+                },
+                "socialImpact": {
+                    "respect": -0.5
+                },
+                "moralWeight": -0.8,
+                "shameGain": 0.3,
+                "locationType": "village",
+                "visibleToOthers": true,
+                "emotionalImpact": -0.3,
+                "needThresholds": {
+                    "FOOD": {
+                        "atLeast": "SEVERE"
+                    }
+                }
+            },
+            {
+                "tag": "EAT_ACCEPTABLE",
+                "costEnergy": 0.05,
+                "costTime": 0.3,
+                "risk": 0.02,
+                "rewardSecondary": {
+                    "FOOD": 0.5
+                },
+                "locationType": "camp|village|road|wilderness",
+                "emotionalImpact": 0.05,
+                "moralWeight": 0,
+                "requiredMorphs": ["core.vital.living"],
+                "needThresholds": {
+                    "FOOD": {
+                        "atLeast": "IMPAIRED"
+                    }
+                }
+            },
+            {
+                "tag": "EAT_POOR",
+                "costEnergy": 0.04,
+                "costTime": 0.25,
+                "risk": 0.08,
+                "rewardSecondary": {
+                    "FOOD": 0.35
+                },
+                "locationType": "camp|village|road|wilderness",
+                "emotionalImpact": -0.02,
+                "moralWeight": 0,
+                "requiredMorphs": ["core.vital.living"],
+                "needThresholds": {
+                    "FOOD": {
+                        "atLeast": "SEVERE"
+                    }
+                }
+            },
+            {
+                "tag": "EAT_ANYTHING",
+                "costEnergy": 0.03,
+                "costTime": 0.2,
+                "risk": 0.2,
+                "rewardSecondary": {
+                    "FOOD": 0.25
+                },
+                "locationType": "any",
+                "emotionalImpact": -0.05,
+                "moralWeight": 0,
+                "needThresholds": {
+                    "FOOD": {
+                        "atLeast": "CRITICAL"
+                    }
+                }
+            }
+        ]
+    }
+}

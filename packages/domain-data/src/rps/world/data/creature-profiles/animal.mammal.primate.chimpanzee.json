@@ -1,0 +1,50 @@
+{
+  "id": "animal.mammal.primate.chimpanzee",
+  "name": "Chimpanzee",
+  "kind": "species",
+  "parentId": "animal.mammal.primate",
+  "defaultActorName": "Chimpanzee",
+  "memes": [
+    "eth.sociality.cooperative",
+    "eth.predation.drive.opportunistic",
+    "tech.tool.use_basic"
+  ],
+  "morphs": [
+    "cog.iq6",
+    "morph.size.sm.-1",
+    "morph.locomotion.walk_quadruped",
+    "morph.manip.claws_simple_grip",
+    "morph.natural_weapon.bite_medium"
+  ],
+  "traits": [],
+  "actions": [
+    {
+      "group": "etho",
+      "moduleName": "action-universal",
+      "exportName": "BASK_SUN_THERMOREGULATE"
+    },
+    {
+      "group": "etho",
+      "moduleName": "action-universal",
+      "exportName": "SEEK_COOL_SHELTER"
+    }
+  ],
+  "nutritionNeedsPerDay": {
+    "energyPerDay": 0,
+    "proteinPerDay": 0,
+    "waterPerDay": 0,
+    "massPerDayLb": 0
+  },
+  "consumptionPerTurn": {
+    "energy": 0,
+    "protein": 0,
+    "water": 0,
+    "massLb": 0
+  },
+  "physical": {
+    "baseVolume": 0,
+    "minVolume": 0,
+    "carryVolumeCapacity": 0
+  },
+  "notes": "Concrete chimpanzee species profile. Tool use and opportunistic hunting/scavenging are modeled as species-level tendencies, not culture."
+}

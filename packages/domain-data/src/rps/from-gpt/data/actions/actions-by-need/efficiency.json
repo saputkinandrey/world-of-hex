@@ -1,0 +1,374 @@
+{
+    "exports": {
+        "EfficiencyActions": [
+            {
+                "tag": "VALUE_STREAM_WALK",
+                "costEnergy": -0.14,
+                "costTime": 1.4,
+                "rewardSecondary": {
+                    "EFFICIENCY": 0.7,
+                    "CLARITY": 0.5,
+                    "ORDER": 0.4,
+                    "PRODUCTIVITY": 0.3
+                },
+                "requiresLocation": "workyard|workshop|stores",
+                "socialImpact": {
+                    "DISCIPLINE": 0.3,
+                    "TRANSPARENCY": 0.3
+                },
+                "ownershipEffect": {
+                    "flowMap": "drawn"
+                },
+                "requiredMemes": [
+                    "comm.language.written",
+                    "org.workshop_practice"
+                ]
+            },
+            {
+                "tag": "SHADOW_TIME_STUDY",
+                "costEnergy": -0.12,
+                "costTime": 1.2,
+                "risk": 0.06,
+                "rewardSecondary": {
+                    "EFFICIENCY": 0.65,
+                    "CLARITY": 0.5,
+                    "QUALITY": 0.2,
+                    "PRODUCTIVITY": 0.3
+                },
+                "requiresItem": ["tally_sticks|sand_timer"],
+                "socialImpact": {
+                    "TRUST": 0.1,
+                    "RESENTMENT": -0.05
+                },
+                "lawEffect": {
+                    "observePolicy": "posted",
+                    "enforceable": true
+                },
+                "ownershipEffect": {
+                    "timeLog": "updated"
+                },
+                "requiredMemes": [
+                    "comm.language.written",
+                    "record.ledgerkeeping",
+                    "cog.number_concept"
+                ]
+            },
+            {
+                "tag": "S_SORT_SET_SHINE",
+                "costEnergy": -0.2,
+                "costTime": 1.8,
+                "rewardSecondary": {
+                    "EFFICIENCY": 0.75,
+                    "ORDER": 0.6,
+                    "QUALITY": 0.3,
+                    "STABILITY": 0.3
+                },
+                "tradeEffect": {
+                    "bins": "-N",
+                    "rags": "-wear",
+                    "soap": -1
+                },
+                "socialImpact": {
+                    "DIGNITY": 0.2,
+                    "COHESION": 0.2
+                },
+                "ownershipEffect": {
+                    "workspaceState": "5S_ready"
+                }
+            },
+            {
+                "tag": "REDUCE_MOTION_WASTE",
+                "costEnergy": -0.16,
+                "costTime": 1.2,
+                "rewardSecondary": {
+                    "EFFICIENCY": 0.7,
+                    "PRODUCTIVITY": 0.45,
+                    "ORDER": 0.35,
+                    "HEALTH": 0.15
+                },
+                "tradeEffect": {
+                    "benches_reloc": "-labor"
+                },
+                "socialImpact": {
+                    "COORDINATION": 0.3
+                },
+                "ownershipEffect": {
+                    "pathLengths": "reduced"
+                },
+                "requiredMemes": [
+                    "health.sanitation_norms",
+                    "health.waste_handling"
+                ]
+            },
+            {
+                "tag": "KANBAN_CARD_FLOW",
+                "costEnergy": -0.1,
+                "costTime": 1,
+                "rewardSecondary": {
+                    "EFFICIENCY": 0.7,
+                    "ORDER": 0.5,
+                    "PRODUCTIVITY": 0.4,
+                    "CLARITY": 0.3
+                },
+                "tradeEffect": {
+                    "cards": "-N",
+                    "board_use": "+1"
+                },
+                "socialImpact": {
+                    "ACCOUNTABILITY": 0.4
+                },
+                "ownershipEffect": {
+                    "accessScope": "kanban_board",
+                    "grantAccess": true
+                },
+                "lawEffect": {
+                    "queueRule": "pull_only",
+                    "enforceable": true
+                },
+                "requiredMemes": ["comm.language.written"]
+            },
+            {
+                "tag": "QUICK_CHANGEOVER",
+                "costEnergy": -0.18,
+                "costTime": 1.4,
+                "rewardSecondary": {
+                    "EFFICIENCY": 0.75,
+                    "PRODUCTIVITY": 0.5,
+                    "STABILITY": 0.3,
+                    "QUALITY": 0.3
+                },
+                "tradeEffect": {
+                    "jig_pins": "-adjust",
+                    "grease": -1
+                },
+                "socialImpact": {
+                    "DISCIPLINE": 0.3,
+                    "RESPECT": 0.1
+                },
+                "ownershipEffect": {
+                    "setupTime": "reduced"
+                }
+            },
+            {
+                "tag": "STANDARD_CONTAINER_SIZES",
+                "costEnergy": -0.14,
+                "costTime": 1,
+                "rewardSecondary": {
+                    "EFFICIENCY": 0.65,
+                    "ORDER": 0.5,
+                    "STABILITY": 0.3,
+                    "PRODUCTIVITY": 0.2
+                },
+                "tradeEffect": {
+                    "crates": "-N",
+                    "labels": "-N"
+                },
+                "socialImpact": {
+                    "COORDINATION": 0.2
+                },
+                "ownershipEffect": {
+                    "containerStandard": "adopted"
+                }
+            },
+            {
+                "tag": "POINT_OF_USE_STORES",
+                "costEnergy": -0.18,
+                "costTime": 1.6,
+                "rewardSecondary": {
+                    "EFFICIENCY": 0.75,
+                    "PRODUCTIVITY": 0.5,
+                    "ORDER": 0.4,
+                    "STABILITY": 0.3
+                },
+                "tradeEffect": {
+                    "small_bins": "-N",
+                    "pegs": "-N"
+                },
+                "socialImpact": {
+                    "READINESS": 0.3
+                },
+                "ownershipEffect": {
+                    "microStores": "installed"
+                }
+            },
+            {
+                "tag": "TACT_RHYTHM_SIGNAL",
+                "costEnergy": -0.08,
+                "costTime": 0.8,
+                "rewardSecondary": {
+                    "EFFICIENCY": 0.6,
+                    "CLARITY": 0.4,
+                    "PRODUCTIVITY": 0.3,
+                    "DISCIPLINE": 0.3
+                },
+                "requiresItem": ["bell|drum"],
+                "socialImpact": {
+                    "PUNCTUALITY": 0.3
+                },
+                "lawEffect": {
+                    "timeSignals": "posted",
+                    "enforceable": true
+                }
+            },
+            {
+                "tag": "WORK_BALANCING",
+                "costEnergy": -0.16,
+                "costTime": 1.2,
+                "risk": 0.08,
+                "rewardSecondary": {
+                    "EFFICIENCY": 0.7,
+                    "PRODUCTIVITY": 0.4,
+                    "FAIRNESS": 0.3,
+                    "STABILITY": 0.3
+                },
+                "socialImpact": {
+                    "TRUST": 0.2,
+                    "RESENTMENT": -0.1
+                },
+                "lawEffect": {
+                    "rota": "balanced",
+                    "enforceable": true
+                }
+            },
+            {
+                "tag": "ERROR_BURNDOWN_HOUR",
+                "costEnergy": -0.14,
+                "costTime": 1,
+                "rewardSecondary": {
+                    "EFFICIENCY": 0.7,
+                    "QUALITY": 0.4,
+                    "ORDER": 0.3,
+                    "PRODUCTIVITY": 0.3
+                },
+                "socialImpact": {
+                    "INTEGRITY": 0.2,
+                    "DISCIPLINE": 0.3
+                },
+                "ownershipEffect": {
+                    "backlogSmall": "reduced"
+                }
+            },
+            {
+                "tag": "MAINT_PREVENTIVE_CYCLE",
+                "costEnergy": -0.18,
+                "costTime": 1.6,
+                "rewardSecondary": {
+                    "EFFICIENCY": 0.75,
+                    "STABILITY": 0.5,
+                    "PRODUCTIVITY": 0.3,
+                    "RESILIENCE": 0.3
+                },
+                "tradeEffect": {
+                    "oil": -1,
+                    "grease": -1,
+                    "spare_parts": "-N"
+                },
+                "socialImpact": {
+                    "RESPONSIBILITY": 0.3,
+                    "TRUST": 0.2
+                },
+                "ownershipEffect": {
+                    "machineUptime": "improved"
+                },
+                "lawEffect": {
+                    "maintLog": "updated",
+                    "enforceable": true
+                }
+            },
+            {
+                "tag": "PATH_OPTIMIZATION_MAP",
+                "costEnergy": -0.16,
+                "costTime": 1.4,
+                "rewardSecondary": {
+                    "EFFICIENCY": 0.7,
+                    "CLARITY": 0.5,
+                    "PRODUCTIVITY": 0.3,
+                    "WEALTH": 0.2
+                },
+                "tradeEffect": {
+                    "chalk": -1,
+                    "parchment": -1,
+                    "ink": -1
+                },
+                "socialImpact": {
+                    "COORDINATION": 0.3
+                },
+                "ownershipEffect": {
+                    "routeMap": "optimized"
+                },
+                "requiredMemes": ["comm.language.written"]
+            },
+            {
+                "tag": "HEAT_AND_LIGHT_TUNING",
+                "costEnergy": -0.12,
+                "costTime": 1,
+                "rewardSecondary": {
+                    "EFFICIENCY": 0.65,
+                    "HEALTH": 0.2,
+                    "QUALITY": 0.2,
+                    "PRODUCTIVITY": 0.2
+                },
+                "tradeEffect": {
+                    "lamp_oil": -1,
+                    "firewood": -1
+                },
+                "needRework": true,
+                "socialImpact": {
+                    "DILIGENCE": 0.2
+                },
+                "ownershipEffect": {
+                    "workspaceState": "ergonomic"
+                }
+            },
+            {
+                "tag": "REUSABLE_FIXTURE_PROGRAM",
+                "costEnergy": -0.2,
+                "costTime": 1.6,
+                "rewardSecondary": {
+                    "EFFICIENCY": 0.75,
+                    "PRODUCTIVITY": 0.4,
+                    "WEALTH": 0.2,
+                    "RESILIENCE": 0.3
+                },
+                "tradeEffect": {
+                    "wood": "-N",
+                    "metal": "-N",
+                    "jigs": "+N"
+                },
+                "socialImpact": {
+                    "INNOVATION_REP": 0.2,
+                    "RESPECT": 0.1
+                },
+                "ownershipEffect": {
+                    "fixtureLibrary": "created"
+                }
+            },
+            {
+                "tag": "PULL_SUPPLY_REPLENISH",
+                "costEnergy": -0.14,
+                "costTime": 1,
+                "rewardSecondary": {
+                    "EFFICIENCY": 0.7,
+                    "STABILITY": 0.5,
+                    "ORDER": 0.4,
+                    "PRODUCTIVITY": 0.3
+                },
+                "tradeEffect": {
+                    "blanks": "+N",
+                    "raw_materials": "-N"
+                },
+                "socialImpact": {
+                    "TRUST": 0.2,
+                    "COORDINATION": 0.2
+                },
+                "ownershipEffect": {
+                    "minMaxLevels": "respected"
+                },
+                "lawEffect": {
+                    "storeLedger": "updated",
+                    "enforceable": true
+                }
+            }
+        ]
+    }
+}

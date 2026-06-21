@@ -1,0 +1,313 @@
+{
+    "exports": {
+        "RespectActions": [
+            {
+                "tag": "FORMAL_GREETING",
+                "costEnergy": -0.01,
+                "costTime": 0.2,
+                "rewardSecondary": {
+                    "RESPECT": 0.35,
+                    "BELONGING": 0.1,
+                    "STATUS": 0.1,
+                    "STABILITY": 0.05
+                },
+                "socialImpact": {
+                    "RESPECT": 0.35,
+                    "COURTESY": 0.2
+                },
+                "lawEffect": {
+                    "protocol": "greet_v1",
+                    "enforceable": false,
+                    "note": "entry-ritual"
+                }
+            },
+            {
+                "tag": "HONORIFIC_ADDRESS",
+                "costEnergy": -0.01,
+                "costTime": 0.1,
+                "rewardSecondary": {
+                    "RESPECT": 0.3,
+                    "TRADITION": 0.1,
+                    "COMMUNITY": 0.05
+                },
+                "socialImpact": {
+                    "RESPECT": 0.35,
+                    "STATUS": 0.1
+                },
+                "lawEffect": {
+                    "etiquetteRule": "address_titles",
+                    "enforceable": false
+                }
+            },
+            {
+                "tag": "BOW_RITUAL",
+                "costEnergy": -0.02,
+                "costTime": 0.2,
+                "rewardSecondary": {
+                    "RESPECT": 0.4,
+                    "SPIRIT": 0.1,
+                    "TRADITION": 0.2
+                },
+                "socialImpact": {
+                    "RESPECT": 0.4,
+                    "REVERENCE": 0.3
+                },
+                "lawEffect": {
+                    "ritual": "bow_lvl1",
+                    "enforceable": false
+                }
+            },
+            {
+                "tag": "PUBLIC_PRAISE",
+                "costEnergy": -0.05,
+                "costTime": 0.4,
+                "rewardSecondary": {
+                    "RESPECT": 0.55,
+                    "REPUTATION": 0.35,
+                    "COMMUNITY": 0.25
+                },
+                "socialImpact": {
+                    "RESPECT": 0.45,
+                    "GRATITUDE": 0.35,
+                    "VISIBILITY": 0.25
+                },
+                "lawEffect": {
+                    "recordPraise": "optional",
+                    "enforceable": false
+                }
+            },
+            {
+                "tag": "OFFER_GIFT_TOKEN",
+                "costEnergy": -0.05,
+                "costTime": 0.3,
+                "rewardSecondary": {
+                    "RESPECT": 0.5,
+                    "AFFECTION": 0.25,
+                    "TRUST": 0.2
+                },
+                "tradeEffect": {
+                    "give_item": "token",
+                    "note": "respectful_offering"
+                },
+                "socialImpact": {
+                    "RESPECT": 0.45,
+                    "RECIPROCITY": 0.25
+                },
+                "ownershipEffect": {
+                    "grantAccess": true,
+                    "accessScope": "audience_chamber",
+                    "accessLevel": "GUEST"
+                }
+            },
+            {
+                "tag": "PRESENT_TRIBUTE",
+                "costEnergy": -0.06,
+                "costTime": 0.4,
+                "rewardSecondary": {
+                    "RESPECT": 0.6,
+                    "STATUS": 0.3,
+                    "LOYALTY": 0.2
+                },
+                "tradeEffect": {
+                    "transfer": "personal->leader:+3",
+                    "note": "tribute"
+                },
+                "socialImpact": {
+                    "RESPECT": 0.5,
+                    "REVERENCE": 0.25
+                },
+                "lawEffect": {
+                    "recordTribute": "ok",
+                    "enforceable": true
+                }
+            },
+            {
+                "tag": "DEFERENCE_SEATING",
+                "costEnergy": -0.01,
+                "costTime": 0.1,
+                "rewardSecondary": {
+                    "RESPECT": 0.35,
+                    "BELONGING": 0.1,
+                    "STABILITY": 0.1
+                },
+                "socialImpact": {
+                    "RESPECT": 0.35,
+                    "HARMONY": 0.2
+                },
+                "lawEffect": {
+                    "protocol": "seating_order",
+                    "enforceable": false
+                }
+            },
+            {
+                "tag": "YIELD_WAY",
+                "costEnergy": -0.01,
+                "costTime": 0.05,
+                "rewardSecondary": {
+                    "RESPECT": 0.25,
+                    "COMMUNITY": 0.1
+                },
+                "socialImpact": {
+                    "RESPECT": 0.3,
+                    "COURTESY": 0.2
+                }
+            },
+            {
+                "tag": "OBSERVE_ETIQUETTE",
+                "costEnergy": -0.02,
+                "costTime": 0.3,
+                "rewardSecondary": {
+                    "RESPECT": 0.45,
+                    "TRADITION": 0.25,
+                    "STABILITY": 0.2
+                },
+                "socialImpact": {
+                    "RESPECT": 0.4,
+                    "DISCIPLINE": 0.25
+                },
+                "lawEffect": {
+                    "etiquetteRule": "table_manners",
+                    "enforceable": false
+                }
+            },
+            {
+                "tag": "COMPLY_DRESS_CODE",
+                "costEnergy": -0.05,
+                "costTime": 0.6,
+                "rewardSecondary": {
+                    "RESPECT": 0.5,
+                    "STATUS": 0.25,
+                    "COMMUNITY": 0.15
+                },
+                "tradeEffect": {
+                    "equip": "formal_attire",
+                    "upkeep": "-1 textile"
+                },
+                "socialImpact": {
+                    "RESPECT": 0.4,
+                    "AESTHETICS": 0.2
+                },
+                "lawEffect": {
+                    "attirePolicy": "formal_events",
+                    "enforceable": true
+                }
+            },
+            {
+                "tag": "ATTEND_SPEECH",
+                "costEnergy": -0.05,
+                "costTime": 1.2,
+                "rewardSecondary": {
+                    "RESPECT": 0.45,
+                    "KNOWLEDGE": 0.25,
+                    "COMMUNITY": 0.2
+                },
+                "socialImpact": {
+                    "RESPECT": 0.35,
+                    "ATTENTIVENESS": 0.3
+                },
+                "lawEffect": {
+                    "assemblyRecord": "present",
+                    "enforceable": false
+                }
+            },
+            {
+                "tag": "MAINTAIN_SILENCE",
+                "costEnergy": -0.01,
+                "costTime": 0.4,
+                "rewardSecondary": {
+                    "RESPECT": 0.3,
+                    "DISCIPLINE": 0.25,
+                    "STABILITY": 0.1
+                },
+                "socialImpact": {
+                    "RESPECT": 0.35,
+                    "SELF_CONTROL": 0.25
+                },
+                "lawEffect": {
+                    "etiquetteRule": "no_interruptions",
+                    "enforceable": true
+                }
+            },
+            {
+                "tag": "ESCORT_ELDER",
+                "costEnergy": -0.2,
+                "costTime": 1.5,
+                "rewardSecondary": {
+                    "RESPECT": 0.55,
+                    "FAMILY": 0.2,
+                    "COMMUNITY": 0.2,
+                    "SECURITY": 0.15
+                },
+                "socialImpact": {
+                    "RESPECT": 0.45,
+                    "GRATITUDE": 0.35,
+                    "CARE": 0.3
+                },
+                "ownershipEffect": {
+                    "accessScope": "inner_quarters",
+                    "grantAccess": true
+                }
+            },
+            {
+                "tag": "PERFORM_SERVICE",
+                "costEnergy": -0.15,
+                "costTime": 1,
+                "rewardSecondary": {
+                    "RESPECT": 0.5,
+                    "LOYALTY": 0.25,
+                    "COMMUNITY": 0.2
+                },
+                "socialImpact": {
+                    "RESPECT": 0.4,
+                    "GRATITUDE": 0.35
+                },
+                "tradeEffect": {
+                    "expend_supplies": -1,
+                    "note": "service_rendered"
+                }
+            },
+            {
+                "tag": "HONOR_ANCESTORS",
+                "costEnergy": -0.08,
+                "costTime": 0.8,
+                "rewardSecondary": {
+                    "RESPECT": 0.6,
+                    "TRADITION": 0.4,
+                    "SPIRIT": 0.35
+                },
+                "socialImpact": {
+                    "RESPECT": 0.45,
+                    "REVERENCE": 0.35
+                },
+                "lawEffect": {
+                    "ritual": "ancestral_offering",
+                    "enforceable": false
+                }
+            },
+            {
+                "tag": "UPHOLD_PROTOCOL",
+                "costEnergy": -0.06,
+                "costTime": 0.6,
+                "rewardSecondary": {
+                    "RESPECT": 0.55,
+                    "STABILITY": 0.35,
+                    "LAW": 0.25
+                },
+                "socialImpact": {
+                    "RESPECT": 0.45,
+                    "ORDER": 0.35
+                },
+                "lawEffect": {
+                    "protocolId": "ceremony_v2",
+                    "enforceable": true,
+                    "role": "marshal"
+                },
+                "ownershipEffect": {
+                    "accessScope": "ceremonial_space",
+                    "accessLevel": "STEWARD",
+                    "grantAccess": true
+                }
+            }
+        ]
+    }
+}

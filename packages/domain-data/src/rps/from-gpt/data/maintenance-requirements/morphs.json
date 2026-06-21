@@ -1,0 +1,85 @@
+{
+    "core.vital.living": [
+        {
+            "requirement": "BREATH",
+            "mode": "requires",
+            "note": "Carbon-based animal life requires continuous gas exchange."
+        },
+        {
+            "requirement": "TEMPERATURE",
+            "mode": "requires",
+            "note": "Living tissue requires a tolerable thermal range."
+        }
+    ],
+    "core.vital.plant_living": [
+        {
+            "requirement": "TEMPERATURE",
+            "mode": "requires",
+            "note": "Plants require a tolerable growing temperature range."
+        }
+    ],
+    "morph.respiration.lungs_basic": [
+        {
+            "requirement": "BREATH",
+            "mode": "satisfies",
+            "medium": "air",
+            "note": "Basic lungs satisfy breath maintenance in air."
+        }
+    ],
+    "morph.respiration.lungs_high_efficiency": [
+        {
+            "requirement": "BREATH",
+            "mode": "satisfies",
+            "medium": "air",
+            "note": "High-efficiency lungs satisfy breath maintenance in air."
+        }
+    ],
+    "morph.respiration.gills_aquatic": [
+        {
+            "requirement": "BREATH",
+            "mode": "satisfies",
+            "medium": "water",
+            "note": "Gills satisfy breath maintenance in water."
+        }
+    ],
+    "morph.respiration.skin_assist": [
+        {
+            "requirement": "BREATH",
+            "mode": "satisfies",
+            "medium": "skin",
+            "note": "Skin respiration assists breath maintenance."
+        }
+    ],
+    "morph.thermoreg.coldBlooded": [
+        {
+            "requirement": "TEMPERATURE",
+            "mode": "regulates",
+            "medium": "environment",
+            "note": "Cold-blooded thermoregulation depends on environmental heat."
+        }
+    ],
+    "morph.thermoreg.warmBlooded": [
+        {
+            "requirement": "TEMPERATURE",
+            "mode": "regulates",
+            "medium": "metabolism",
+            "note": "Warm-blooded thermoregulation is maintained metabolically."
+        }
+    ],
+    "eth.maintenance.thermoregulation": [
+        {
+            "requirement": "TEMPERATURE",
+            "mode": "regulates",
+            "medium": "behavior",
+            "note": "Thermoregulation behavior helps maintain a tolerable temperature."
+        }
+    ],
+    "morph.plant.photosynthesis_basic": [
+        {
+            "requirement": "TEMPERATURE",
+            "mode": "regulates",
+            "medium": "sunlight",
+            "note": "Photosynthesis depends on tolerable light and temperature conditions."
+        }
+    ]
+}

@@ -1,0 +1,56 @@
+{
+  "id": "animal.reptile.lizard",
+  "name": "Lizard",
+  "kind": "template",
+  "parentId": "animal.reptile",
+  "defaultActorName": "Lizard%N%",
+  "memes": [],
+  "morphs": [
+    "morph.body_plan.tetrapod_small_ground",
+    "morph.locomotion.crawl_quadruped",
+    "morph.locomotion.climb_rough_surface",
+    "morph.manip.mouth_only",
+    "morph.manip.forepaws_non_manip",
+    "morph.natural_weapon.bite_small",
+    "morph.natural_weapon.claws_small",
+    "morph.sense.vision_binocular",
+    "morph.sense.vision_color_rich",
+    "morph.sense.vibration_ground"
+  ],
+  "traits": [],
+  "actions": [
+    {
+      "group": "etho",
+      "moduleName": "action-universal",
+      "exportName": "VIBRATION_ALERT_HIDE"
+    },
+    {
+      "group": "etho",
+      "moduleName": "action-universal",
+      "exportName": "NOCTURNAL_FORAGE"
+    },
+    {
+      "group": "etho",
+      "moduleName": "action-small-vertebrate",
+      "exportName": "SHORT_DASH_ATTACK"
+    }
+  ],
+  "nutritionNeedsPerDay": {
+    "energyPerDay": 0,
+    "proteinPerDay": 0,
+    "waterPerDay": 0,
+    "massPerDayLb": 0
+  },
+  "consumptionPerTurn": {
+    "energy": 0,
+    "protein": 0,
+    "water": 0,
+    "massLb": 0
+  },
+  "physical": {
+    "baseVolume": 0,
+    "minVolume": 0,
+    "carryVolumeCapacity": 0
+  },
+  "notes": ""
+}

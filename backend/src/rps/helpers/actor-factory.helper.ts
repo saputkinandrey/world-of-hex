@@ -10,6 +10,7 @@ import {
 } from '../world/actor/actor.entity';
 import type { CreatureTemplateEntity } from '../domain/character/creature-template.entity';
 import type { CharacterEntity } from '../domain/character/character.entity';
+import { estimateDailyFoodMassNeedLb, estimateHexVolume } from '@wohex/domain-data/rps';
 
 /**
  * Хелпер, который знает, как из доменных сущностей собрать ActorEntity
@@ -32,17 +33,18 @@ export class ActorFactoryHelper {
         const { template, hexId, id, name = template.name } = params;
 
         // TODO: заменить на реальные формулы по ST/HT/SM
+        const volumeEstimate = estimateHexVolume(template.sizeModifier);
         const physical = new CreaturePhysicalProfile({
-            baseVolume: 0.5,
-            minVolume: 0.25,
-            carryVolumeCapacity: 0.5,
+            baseVolume: volumeEstimate.baseVolume,
+            minVolume: volumeEstimate.minVolume,
+            carryVolumeCapacity: volumeEstimate.carryVolumeCapacity,
         });
 
         const nutritionNeeds: NutritionNeeds = {
             energyPerDay: 10,
             proteinPerDay: 1,
             waterPerDay: 0.5,
-            massPerDayLb: 0.5,
+            massPerDayLb: estimateDailyFoodMassNeedLb(template.sizeModifier),
         };
 
         const consumptionPerTurn: NutritionContent = {
@@ -65,6 +67,7 @@ export class ActorFactoryHelper {
             metabolism,
             posture: 'standing',
             inventoryItemIds: [],
+            creatureProfile: template,
         });
     }
 

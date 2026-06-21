@@ -1,0 +1,73 @@
+{
+  "id": "animal.reptile.crocodile",
+  "name": "Crocodile",
+  "kind": "template",
+  "parentId": "animal.reptile",
+  "defaultActorName": "Crocodile%N%",
+  "memes": [
+    "eth.tactics.ambush_stalk",
+    "eth.territory_marking"
+  ],
+  "morphs": [
+    "morph.body_plan.tetrapod_large_ground",
+    "morph.locomotion.crawl_quadruped",
+    "morph.locomotion.swim_basic",
+    "morph.locomotion.swim_fast",
+    "morph.manip.mouth_only",
+    "morph.manip.forepaws_non_manip",
+    "morph.natural_weapon.bite_large",
+    "morph.natural_weapon.tail_whip",
+    "morph.sense.vibration_ground"
+  ],
+  "traits": [],
+  "actions": [
+    {
+      "group": "actions-by-need",
+      "moduleName": "food-hunt",
+      "exportName": "HUNT_WAIT_IN_AMBUSH"
+    },
+    {
+      "group": "etho",
+      "moduleName": "action-universal",
+      "exportName": "TERRITORY_MICROHABIT_EXPLORE"
+    },
+    {
+      "group": "etho",
+      "moduleName": "action-universal",
+      "exportName": "NOCTURNAL_FORAGE"
+    },
+    {
+      "group": "etho",
+      "moduleName": "action-universal",
+      "exportName": "VIBRATION_ALERT_HIDE"
+    },
+    {
+      "group": "etho",
+      "moduleName": "action-universal",
+      "exportName": "BURROW_HIDE_OR_AMBUSH"
+    },
+    {
+      "group": "etho",
+      "moduleName": "action-small-vertebrate",
+      "exportName": "SHORT_DASH_ATTACK"
+    }
+  ],
+  "nutritionNeedsPerDay": {
+    "energyPerDay": 0,
+    "proteinPerDay": 0,
+    "waterPerDay": 0,
+    "massPerDayLb": 0
+  },
+  "consumptionPerTurn": {
+    "energy": 0,
+    "protein": 0,
+    "water": 0,
+    "massLb": 0
+  },
+  "physical": {
+    "baseVolume": 0,
+    "minVolume": 0,
+    "carryVolumeCapacity": 0
+  },
+  "notes": "Broad crocodilian template: large semi-aquatic reptile predator baseline without selecting a concrete crocodile or alligator species."
+}

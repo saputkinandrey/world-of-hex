@@ -1,0 +1,47 @@
+{
+  "id": "animal.dinosaur.ornithopod",
+  "name": "Ornithopod",
+  "kind": "template",
+  "parentId": "animal.dinosaur",
+  "defaultActorName": "Ornithopod%N%",
+  "memes": [
+    "eth.sociality.cooperative"
+  ],
+  "morphs": [
+    "morph.locomotion.walk_biped",
+    "morph.manip.beak_toollike",
+    "morph.natural_weapon.beak_peck",
+    "morph.sense.vision_binocular"
+  ],
+  "traits": [],
+  "actions": [
+    {
+      "group": "etho",
+      "moduleName": "action-universal",
+      "exportName": "BASK_SUN_THERMOREGULATE"
+    },
+    {
+      "group": "etho",
+      "moduleName": "action-universal",
+      "exportName": "SEEK_COOL_SHELTER"
+    }
+  ],
+  "nutritionNeedsPerDay": {
+    "energyPerDay": 0,
+    "proteinPerDay": 0,
+    "waterPerDay": 0,
+    "massPerDayLb": 0
+  },
+  "consumptionPerTurn": {
+    "energy": 0,
+    "protein": 0,
+    "water": 0,
+    "massLb": 0
+  },
+  "physical": {
+    "baseVolume": 0,
+    "minVolume": 0,
+    "carryVolumeCapacity": 0
+  },
+  "notes": "Broad bird-line ornithopod template. Kept free of large-ground, quadruped and mouth-only traits so birds can inherit from this branch cleanly."
+}

@@ -1,0 +1,2163 @@
+[
+  {
+    "id": "technique-food-cabbage-food-sauerkraut",
+    "name": "Квашеная капуста",
+    "baseSkillId": "skill-повар",
+    "difficultyPenalty": 0,
+    "maxRelativeLevel": 2,
+    "prerequisiteTechniqueIds": [],
+    "notes": "Simple brine lacto-fermentation: easy preparation, little active control, low timing sensitivity. Difficulty is based on active process control, failure risk and required precision, not elapsed waiting time. This is a routine narrow use of the base skill: it has no default penalty, and focused technique training can improve it up to base skill +2.",
+    "productionRecipeId": "production-step-food-cabbage-food-sauerkraut"
+  },
+  {
+    "id": "technique-food-cabbage-food-radish-spice-chili-flakes-food-kimchi",
+    "name": "Кимчи",
+    "baseSkillId": "skill-повар",
+    "difficultyPenalty": -1,
+    "maxRelativeLevel": 1,
+    "prerequisiteTechniqueIds": [
+      "technique-food-cabbage-food-sauerkraut"
+    ],
+    "notes": "Seasoned lacto-fermentation: more cutting, seasoning balance and packing than plain sauerkraut. Difficulty is based on active process control, failure risk and required precision, not elapsed waiting time. This has some timing, texture or sanitation risk, but technique training can still improve it above base skill.",
+    "productionRecipeId": "production-step-food-cabbage-food-radish-spice-chili-flakes-food-kimchi"
+  },
+  {
+    "id": "technique-research-goat-milk-drink-kefir",
+    "name": "Кефир",
+    "baseSkillId": "skill-повар",
+    "difficultyPenalty": -1,
+    "maxRelativeLevel": 1,
+    "prerequisiteTechniqueIds": [],
+    "notes": "Starter-based dairy fermentation: simple method, but culture health and cleanliness matter. Difficulty is based on active process control, failure risk and required precision, not elapsed waiting time. This has some timing, texture or sanitation risk, but technique training can still improve it above base skill.",
+    "productionRecipeId": "production-step-research-goat-milk-drink-kefir"
+  },
+  {
+    "id": "technique-research-sheep-milk-drink-kefir",
+    "name": "Кефир",
+    "baseSkillId": "skill-повар",
+    "difficultyPenalty": -1,
+    "maxRelativeLevel": 1,
+    "prerequisiteTechniqueIds": [],
+    "notes": "Starter-based dairy fermentation: simple method, but culture health and cleanliness matter. Difficulty is based on active process control, failure risk and required precision, not elapsed waiting time. This has some timing, texture or sanitation risk, but technique training can still improve it above base skill.",
+    "productionRecipeId": "production-step-research-sheep-milk-drink-kefir"
+  },
+  {
+    "id": "technique-research-camel-milk-drink-kefir",
+    "name": "Кефир",
+    "baseSkillId": "skill-повар",
+    "difficultyPenalty": -1,
+    "maxRelativeLevel": 1,
+    "prerequisiteTechniqueIds": [],
+    "notes": "Starter-based dairy fermentation: simple method, but culture health and cleanliness matter. Difficulty is based on active process control, failure risk and required precision, not elapsed waiting time. This has some timing, texture or sanitation risk, but technique training can still improve it above base skill.",
+    "productionRecipeId": "production-step-research-camel-milk-drink-kefir"
+  },
+  {
+    "id": "technique-resource-water-food-raw-honey-drink-water-kefir",
+    "name": "Водный кефир",
+    "baseSkillId": "skill-повар",
+    "difficultyPenalty": -1,
+    "maxRelativeLevel": 1,
+    "prerequisiteTechniqueIds": [],
+    "notes": "Starter-based drink fermentation: simple, but sugar balance and culture handling matter. Difficulty is based on active process control, failure risk and required precision, not elapsed waiting time. This has some timing, texture or sanitation risk, but technique training can still improve it above base skill.",
+    "productionRecipeId": "production-step-resource-water-food-raw-honey-drink-water-kefir"
+  },
+  {
+    "id": "technique-spice-tea-leaves-food-raw-honey-drink-kombucha",
+    "name": "Комбуча",
+    "baseSkillId": "skill-повар",
+    "difficultyPenalty": 0,
+    "maxRelativeLevel": 2,
+    "prerequisiteTechniqueIds": [],
+    "notes": "Simple standing tea fermentation: the process is long but mostly passive, with periodic feeding and basic cleanliness. Difficulty is based on active process control, failure risk and required precision, not elapsed waiting time. Routine long ferments can improve above base skill.",
+    "productionRecipeId": "production-step-spice-tea-leaves-food-raw-honey-drink-kombucha"
+  },
+  {
+    "id": "technique-research-goat-milk-food-yogurt",
+    "name": "Йогурт",
+    "baseSkillId": "skill-повар",
+    "difficultyPenalty": -1,
+    "maxRelativeLevel": 1,
+    "prerequisiteTechniqueIds": [],
+    "notes": "Cultured dairy with temperature sensitivity, but a short and repeatable process. Difficulty is based on active process control, failure risk and required precision, not elapsed waiting time. This has some timing, texture or sanitation risk, but technique training can still improve it above base skill.",
+    "productionRecipeId": "production-step-research-goat-milk-food-yogurt"
+  },
+  {
+    "id": "technique-research-sheep-milk-food-yogurt",
+    "name": "Йогурт",
+    "baseSkillId": "skill-повар",
+    "difficultyPenalty": -1,
+    "maxRelativeLevel": 1,
+    "prerequisiteTechniqueIds": [],
+    "notes": "Cultured dairy with temperature sensitivity, but a short and repeatable process. Difficulty is based on active process control, failure risk and required precision, not elapsed waiting time. This has some timing, texture or sanitation risk, but technique training can still improve it above base skill.",
+    "productionRecipeId": "production-step-research-sheep-milk-food-yogurt"
+  },
+  {
+    "id": "technique-research-sour-milk-food-aged-raw-cheese",
+    "name": "Выдержанный сыр из сырого молока",
+    "baseSkillId": "skill-повар",
+    "difficultyPenalty": -3,
+    "maxRelativeLevel": -1,
+    "prerequisiteTechniqueIds": [],
+    "notes": "Aged raw cheese: curd handling, sanitation and aging control make this an advanced process. Difficulty is based on active process control, failure risk and required precision, not elapsed waiting time. This remains advanced: technique training can reduce the penalty, but mastery is capped below base skill without broader expertise.",
+    "productionRecipeId": "production-step-research-sour-milk-food-aged-raw-cheese"
+  },
+  {
+    "id": "technique-research-soybeans-food-miso",
+    "name": "Мисо",
+    "baseSkillId": "skill-повар",
+    "difficultyPenalty": -3,
+    "maxRelativeLevel": -1,
+    "prerequisiteTechniqueIds": [],
+    "notes": "Koji-style long fermentation: mold culture, salinity and long aging control make this advanced. Difficulty is based on active process control, failure risk and required precision, not elapsed waiting time. This remains advanced: technique training can reduce the penalty, but mastery is capped below base skill without broader expertise.",
+    "productionRecipeId": "production-step-research-soybeans-food-miso"
+  },
+  {
+    "id": "technique-research-soybeans-food-tempeh",
+    "name": "Темпе",
+    "baseSkillId": "skill-повар",
+    "difficultyPenalty": -2,
+    "maxRelativeLevel": 0,
+    "prerequisiteTechniqueIds": [],
+    "notes": "Mold-bound soybean fermentation: inoculation, temperature and airflow control matter. Difficulty is based on active process control, failure risk and required precision, not elapsed waiting time. This is a demanding application; focused training can buy off the penalty but not exceed base skill.",
+    "productionRecipeId": "production-step-research-soybeans-food-tempeh"
+  },
+  {
+    "id": "technique-research-soybeans-food-natto",
+    "name": "Натто",
+    "baseSkillId": "skill-повар",
+    "difficultyPenalty": -2,
+    "maxRelativeLevel": 0,
+    "prerequisiteTechniqueIds": [],
+    "notes": "Bacterial soybean fermentation: starter handling and temperature control matter. Difficulty is based on active process control, failure risk and required precision, not elapsed waiting time. This is a demanding application; focused training can buy off the penalty but not exceed base skill.",
+    "productionRecipeId": "production-step-research-soybeans-food-natto"
+  },
+  {
+    "id": "technique-research-taro-food-poi",
+    "name": "Пои",
+    "baseSkillId": "skill-повар",
+    "difficultyPenalty": 0,
+    "maxRelativeLevel": 2,
+    "prerequisiteTechniqueIds": [],
+    "notes": "Cooked taro mash allowed to sour: simple preparation with little precision. Difficulty is based on active process control, failure risk and required precision, not elapsed waiting time. This is a routine narrow use of the base skill: it has no default penalty, and focused technique training can improve it up to base skill +2.",
+    "productionRecipeId": "production-step-research-taro-food-poi"
+  },
+  {
+    "id": "technique-food-wheat-food-sourdough-bread",
+    "name": "Хлеб на закваске",
+    "baseSkillId": "skill-повар",
+    "difficultyPenalty": -2,
+    "maxRelativeLevel": 0,
+    "prerequisiteTechniqueIds": [],
+    "notes": "Fermented bread: dough development, proofing and baking control make it harder than ordinary mixing. Difficulty is based on active process control, failure risk and required precision, not elapsed waiting time. This is a demanding application; focused training can buy off the penalty but not exceed base skill.",
+    "productionRecipeId": "production-step-food-wheat-food-sourdough-bread"
+  },
+  {
+    "id": "technique-food-rye-drink-bread-kvass",
+    "name": "Хлебный квас",
+    "baseSkillId": "skill-повар",
+    "difficultyPenalty": -1,
+    "maxRelativeLevel": 1,
+    "prerequisiteTechniqueIds": [],
+    "notes": "Bread drink fermentation: simple, but sugar extraction and sourness control matter. Difficulty is based on active process control, failure risk and required precision, not elapsed waiting time. This has some timing, texture or sanitation risk, but technique training can still improve it above base skill.",
+    "productionRecipeId": "production-step-food-rye-drink-bread-kvass"
+  },
+  {
+    "id": "technique-food-beetroot-drink-beet-kvass",
+    "name": "Свекольный квас",
+    "baseSkillId": "skill-повар",
+    "difficultyPenalty": 0,
+    "maxRelativeLevel": 2,
+    "prerequisiteTechniqueIds": [],
+    "notes": "Simple vegetable brine fermentation with forgiving process control. Difficulty is based on active process control, failure risk and required precision, not elapsed waiting time. This is a routine narrow use of the base skill: it has no default penalty, and focused technique training can improve it up to base skill +2.",
+    "productionRecipeId": "production-step-food-beetroot-drink-beet-kvass"
+  },
+  {
+    "id": "technique-food-cucumber-food-lacto-pickles",
+    "name": "Квашеные огурцы",
+    "baseSkillId": "skill-повар",
+    "difficultyPenalty": 0,
+    "maxRelativeLevel": 2,
+    "prerequisiteTechniqueIds": [
+      "technique-food-cabbage-food-sauerkraut"
+    ],
+    "notes": "Simple brine pickles: straightforward prep and forgiving timing. Difficulty is based on active process control, failure risk and required precision, not elapsed waiting time. This is a routine narrow use of the base skill: it has no default penalty, and focused technique training can improve it up to base skill +2.",
+    "productionRecipeId": "production-step-food-cucumber-food-lacto-pickles"
+  },
+  {
+    "id": "technique-food-jalapeno-food-fermented-hot-sauce",
+    "name": "Ферментированный острый соус",
+    "baseSkillId": "skill-повар",
+    "difficultyPenalty": -1,
+    "maxRelativeLevel": 1,
+    "prerequisiteTechniqueIds": [
+      "technique-food-cabbage-food-sauerkraut"
+    ],
+    "notes": "Chili mash fermentation: simple, but salt ratio and spoilage control matter. Difficulty is based on active process control, failure risk and required precision, not elapsed waiting time. This has some timing, texture or sanitation risk, but technique training can still improve it above base skill.",
+    "productionRecipeId": "production-step-food-jalapeno-food-fermented-hot-sauce"
+  },
+  {
+    "id": "technique-food-garlic-food-raw-honey-food-fermented-garlic-honey",
+    "name": "Ферментированный чеснок в меду",
+    "baseSkillId": "skill-повар",
+    "difficultyPenalty": 0,
+    "maxRelativeLevel": 2,
+    "prerequisiteTechniqueIds": [],
+    "notes": "Honey garlic fermentation: simple immersion and occasional venting. Difficulty is based on active process control, failure risk and required precision, not elapsed waiting time. This is a routine narrow use of the base skill: it has no default penalty, and focused technique training can improve it up to base skill +2.",
+    "productionRecipeId": "production-step-food-garlic-food-raw-honey-food-fermented-garlic-honey"
+  },
+  {
+    "id": "technique-food-apples-food-apple-cider-vinegar",
+    "name": "Яблочный уксус с маткой",
+    "baseSkillId": "skill-повар",
+    "difficultyPenalty": -2,
+    "maxRelativeLevel": 0,
+    "prerequisiteTechniqueIds": [],
+    "notes": "Two-stage vinegar fermentation: alcohol-to-acid conversion and mother handling add difficulty. Difficulty is based on active process control, failure risk and required precision, not elapsed waiting time. This is a demanding application; focused training can buy off the penalty but not exceed base skill.",
+    "productionRecipeId": "production-step-food-apples-food-apple-cider-vinegar"
+  },
+  {
+    "id": "technique-food-beetroot-food-fermented-beets",
+    "name": "Ферментированная свекла",
+    "baseSkillId": "skill-повар",
+    "difficultyPenalty": 0,
+    "maxRelativeLevel": 2,
+    "prerequisiteTechniqueIds": [
+      "technique-food-cabbage-food-sauerkraut"
+    ],
+    "notes": "Simple vegetable brine fermentation with forgiving process control. Difficulty is based on active process control, failure risk and required precision, not elapsed waiting time. This is a routine narrow use of the base skill: it has no default penalty, and focused technique training can improve it up to base skill +2.",
+    "productionRecipeId": "production-step-food-beetroot-food-fermented-beets"
+  },
+  {
+    "id": "technique-dish-miso-soup",
+    "name": "Мисо-суп",
+    "baseSkillId": "skill-повар",
+    "difficultyPenalty": 0,
+    "maxRelativeLevel": 2,
+    "prerequisiteTechniqueIds": [
+      "technique-research-soybeans-food-miso"
+    ],
+    "notes": "Simple assembled soup using existing fermented ingredients. Difficulty is based on active process control, failure risk and required precision, not elapsed waiting time. This is a routine narrow use of the base skill: it has no default penalty, and focused technique training can improve it up to base skill +2.",
+    "productionRecipeId": "production-step-dish-miso-soup"
+  },
+  {
+    "id": "technique-dish-natto-rice",
+    "name": "Натто с рисом",
+    "baseSkillId": "skill-повар",
+    "difficultyPenalty": 0,
+    "maxRelativeLevel": 2,
+    "prerequisiteTechniqueIds": [
+      "technique-research-soybeans-food-natto"
+    ],
+    "notes": "Simple serving technique with minimal transformation. Difficulty is based on active process control, failure risk and required precision, not elapsed waiting time. This is a routine narrow use of the base skill: it has no default penalty, and focused technique training can improve it up to base skill +2.",
+    "productionRecipeId": "production-step-dish-natto-rice"
+  },
+  {
+    "id": "technique-dish-black-beans-rice",
+    "name": "Черная фасоль с рисом",
+    "baseSkillId": "skill-повар",
+    "difficultyPenalty": -1,
+    "maxRelativeLevel": 1,
+    "prerequisiteTechniqueIds": [],
+    "notes": "Beans and rice require seasoning balance and timing across two staples. Difficulty is based on active process control, failure risk and required precision, not elapsed waiting time. This has some timing, texture or sanitation risk, but technique training can still improve it above base skill.",
+    "productionRecipeId": "production-step-dish-black-beans-rice"
+  },
+  {
+    "id": "technique-dish-red-bean-chili",
+    "name": "Чили с красной фасолью",
+    "baseSkillId": "skill-повар",
+    "difficultyPenalty": -2,
+    "maxRelativeLevel": 0,
+    "prerequisiteTechniqueIds": [
+      "technique-food-jalapeno-food-fermented-hot-sauce"
+    ],
+    "notes": "Meat, beans, many spices and long simmering make this a complex stew. Difficulty is based on active process control, failure risk and required precision, not elapsed waiting time. This is a demanding application; focused training can buy off the penalty but not exceed base skill.",
+    "productionRecipeId": "production-step-dish-red-bean-chili"
+  },
+  {
+    "id": "technique-dish-chickpea-hummus",
+    "name": "Хумус",
+    "baseSkillId": "skill-повар",
+    "difficultyPenalty": 0,
+    "maxRelativeLevel": 2,
+    "prerequisiteTechniqueIds": [],
+    "notes": "Simple paste/emulsion with forgiving ratios. Difficulty is based on active process control, failure risk and required precision, not elapsed waiting time. This is a routine narrow use of the base skill: it has no default penalty, and focused technique training can improve it up to base skill +2.",
+    "productionRecipeId": "production-step-dish-chickpea-hummus"
+  },
+  {
+    "id": "technique-dish-refried-pinto-beans",
+    "name": "Пережаренные пинто",
+    "baseSkillId": "skill-повар",
+    "difficultyPenalty": 0,
+    "maxRelativeLevel": 2,
+    "prerequisiteTechniqueIds": [],
+    "notes": "Requires cooking down and frying beans to texture without scorching. Difficulty is based on active process control, failure risk and required precision, not elapsed waiting time. This is a routine narrow use of the base skill: it has no default penalty, and focused technique training can improve it up to base skill +2.",
+    "productionRecipeId": "production-step-dish-refried-pinto-beans"
+  },
+  {
+    "id": "technique-dish-lentil-stew",
+    "name": "Чечевичная похлебка",
+    "baseSkillId": "skill-повар",
+    "difficultyPenalty": 0,
+    "maxRelativeLevel": 2,
+    "prerequisiteTechniqueIds": [],
+    "notes": "Basic one-pot stew with forgiving timing. Difficulty is based on active process control, failure risk and required precision, not elapsed waiting time. This is a routine narrow use of the base skill: it has no default penalty, and focused technique training can improve it up to base skill +2.",
+    "productionRecipeId": "production-step-dish-lentil-stew"
+  },
+  {
+    "id": "technique-dish-navy-baked-beans",
+    "name": "Запеченная белая фасоль",
+    "baseSkillId": "skill-повар",
+    "difficultyPenalty": 0,
+    "maxRelativeLevel": 2,
+    "prerequisiteTechniqueIds": [],
+    "notes": "Long baked bean dish: sweetness, moisture and doneness need control. Difficulty is based on active process control, failure risk and required precision, not elapsed waiting time. This is a routine narrow use of the base skill: it has no default penalty, and focused technique training can improve it up to base skill +2.",
+    "productionRecipeId": "production-step-dish-navy-baked-beans"
+  },
+  {
+    "id": "technique-dish-salted-edamame",
+    "name": "Соленый эдамаме",
+    "baseSkillId": "skill-повар",
+    "difficultyPenalty": 0,
+    "maxRelativeLevel": 2,
+    "prerequisiteTechniqueIds": [],
+    "notes": "Simple boil-and-season preparation. Difficulty is based on active process control, failure risk and required precision, not elapsed waiting time. This is a routine narrow use of the base skill: it has no default penalty, and focused technique training can improve it up to base skill +2.",
+    "productionRecipeId": "production-step-dish-salted-edamame"
+  },
+  {
+    "id": "technique-dish-lima-beans-oil",
+    "name": "Лимская фасоль с маслом",
+    "baseSkillId": "skill-повар",
+    "difficultyPenalty": 0,
+    "maxRelativeLevel": 2,
+    "prerequisiteTechniqueIds": [],
+    "notes": "Simple seasoned bean preparation. Difficulty is based on active process control, failure risk and required precision, not elapsed waiting time. This is a routine narrow use of the base skill: it has no default penalty, and focused technique training can improve it up to base skill +2.",
+    "productionRecipeId": "production-step-dish-lima-beans-oil"
+  },
+  {
+    "id": "technique-dish-fava-beans-oil",
+    "name": "Фава с луком и маслом",
+    "baseSkillId": "skill-повар",
+    "difficultyPenalty": 0,
+    "maxRelativeLevel": 2,
+    "prerequisiteTechniqueIds": [],
+    "notes": "Simple seasoned bean preparation. Difficulty is based on active process control, failure risk and required precision, not elapsed waiting time. This is a routine narrow use of the base skill: it has no default penalty, and focused technique training can improve it up to base skill +2.",
+    "productionRecipeId": "production-step-dish-fava-beans-oil"
+  },
+  {
+    "id": "technique-dish-mung-sweet-soup",
+    "name": "Сладкая похлебка из маша",
+    "baseSkillId": "skill-повар",
+    "difficultyPenalty": 0,
+    "maxRelativeLevel": 2,
+    "prerequisiteTechniqueIds": [],
+    "notes": "Simple sweet bean soup with forgiving texture. Difficulty is based on active process control, failure risk and required precision, not elapsed waiting time. This is a routine narrow use of the base skill: it has no default penalty, and focused technique training can improve it up to base skill +2.",
+    "productionRecipeId": "production-step-dish-mung-sweet-soup"
+  },
+  {
+    "id": "technique-dish-adzuki-sweet-paste",
+    "name": "Сладкая паста адзуки",
+    "baseSkillId": "skill-повар",
+    "difficultyPenalty": -1,
+    "maxRelativeLevel": 1,
+    "prerequisiteTechniqueIds": [],
+    "notes": "Sweet bean paste requires reduction and texture control. Difficulty is based on active process control, failure risk and required precision, not elapsed waiting time. This has some timing, texture or sanitation risk, but technique training can still improve it above base skill.",
+    "productionRecipeId": "production-step-dish-adzuki-sweet-paste"
+  },
+  {
+    "id": "technique-dish-hoppin-john",
+    "name": "Вигна с рисом и свининой",
+    "baseSkillId": "skill-повар",
+    "difficultyPenalty": 0,
+    "maxRelativeLevel": 2,
+    "prerequisiteTechniqueIds": [],
+    "notes": "Rice, beans and pork require coordinated doneness and seasoning. Difficulty is based on active process control, failure risk and required precision, not elapsed waiting time. This is a routine narrow use of the base skill: it has no default penalty, and focused technique training can improve it up to base skill +2.",
+    "productionRecipeId": "production-step-dish-hoppin-john"
+  },
+  {
+    "id": "technique-dish-cannellini-wheat-stew",
+    "name": "Похлебка из каннеллини с пшеницей",
+    "baseSkillId": "skill-повар",
+    "difficultyPenalty": 0,
+    "maxRelativeLevel": 2,
+    "prerequisiteTechniqueIds": [],
+    "notes": "Mixed grain and bean stew requires timing and seasoning balance. Difficulty is based on active process control, failure risk and required precision, not elapsed waiting time. This is a routine narrow use of the base skill: it has no default penalty, and focused technique training can improve it up to base skill +2.",
+    "productionRecipeId": "production-step-dish-cannellini-wheat-stew"
+  },
+  {
+    "id": "technique-dish-borlotti-stew",
+    "name": "Похлебка из борлотти",
+    "baseSkillId": "skill-повар",
+    "difficultyPenalty": 0,
+    "maxRelativeLevel": 2,
+    "prerequisiteTechniqueIds": [],
+    "notes": "Bean stew with aromatic base and seasoning balance. Difficulty is based on active process control, failure risk and required precision, not elapsed waiting time. This is a routine narrow use of the base skill: it has no default penalty, and focused technique training can improve it up to base skill +2.",
+    "productionRecipeId": "production-step-dish-borlotti-stew"
+  },
+  {
+    "id": "technique-dish-soybeans-rice",
+    "name": "Соя с рисом",
+    "baseSkillId": "skill-повар",
+    "difficultyPenalty": 0,
+    "maxRelativeLevel": 2,
+    "prerequisiteTechniqueIds": [
+      "technique-research-soybeans-food-miso"
+    ],
+    "notes": "Simple rice-and-soy assembly using an existing fermented ingredient. Difficulty is based on active process control, failure risk and required precision, not elapsed waiting time. This is a routine narrow use of the base skill: it has no default penalty, and focused technique training can improve it up to base skill +2.",
+    "productionRecipeId": "production-step-dish-soybeans-rice"
+  },
+  {
+    "id": "technique-dish-yellow-onion-soup",
+    "name": "Желтый луковый суп",
+    "baseSkillId": "skill-повар",
+    "difficultyPenalty": -2,
+    "maxRelativeLevel": 0,
+    "prerequisiteTechniqueIds": [
+      "technique-food-wheat-food-sourdough-bread",
+      "technique-research-sour-milk-food-aged-raw-cheese"
+    ],
+    "notes": "Onion soup depends on slow onion browning, broth balance and finishing. Difficulty is based on active process control, failure risk and required precision, not elapsed waiting time. This is a demanding application; focused training can buy off the penalty but not exceed base skill.",
+    "productionRecipeId": "production-step-dish-yellow-onion-soup"
+  },
+  {
+    "id": "technique-dish-scallion-eggs",
+    "name": "Яичница с зеленым луком",
+    "baseSkillId": "skill-повар",
+    "difficultyPenalty": 0,
+    "maxRelativeLevel": 2,
+    "prerequisiteTechniqueIds": [],
+    "notes": "Simple egg and allium preparation. Difficulty is based on active process control, failure risk and required precision, not elapsed waiting time. This is a routine narrow use of the base skill: it has no default penalty, and focused technique training can improve it up to base skill +2.",
+    "productionRecipeId": "production-step-dish-scallion-eggs"
+  },
+  {
+    "id": "technique-dish-scallion-pancake",
+    "name": "Корейский блин с зеленым луком",
+    "baseSkillId": "skill-повар",
+    "difficultyPenalty": -1,
+    "maxRelativeLevel": 1,
+    "prerequisiteTechniqueIds": [],
+    "notes": "Batter handling and pan frying make this harder than simple assembly. Difficulty is based on active process control, failure risk and required precision, not elapsed waiting time. This has some timing, texture or sanitation risk, but technique training can still improve it above base skill.",
+    "productionRecipeId": "production-step-dish-scallion-pancake"
+  },
+  {
+    "id": "technique-dish-braised-sweet-onion",
+    "name": "Тушеный сладкий лук",
+    "baseSkillId": "skill-повар",
+    "difficultyPenalty": 0,
+    "maxRelativeLevel": 2,
+    "prerequisiteTechniqueIds": [],
+    "notes": "Simple braise with forgiving timing. Difficulty is based on active process control, failure risk and required precision, not elapsed waiting time. This is a routine narrow use of the base skill: it has no default penalty, and focused technique training can improve it up to base skill +2.",
+    "productionRecipeId": "production-step-dish-braised-sweet-onion"
+  },
+  {
+    "id": "technique-dish-pearl-onion-beef-braise",
+    "name": "Говядина с жемчужным луком",
+    "baseSkillId": "skill-повар",
+    "difficultyPenalty": -1,
+    "maxRelativeLevel": 1,
+    "prerequisiteTechniqueIds": [],
+    "notes": "Meat braise with whole onions requires longer heat control. Difficulty is based on active process control, failure risk and required precision, not elapsed waiting time. This has some timing, texture or sanitation risk, but technique training can still improve it above base skill.",
+    "productionRecipeId": "production-step-dish-pearl-onion-beef-braise"
+  },
+  {
+    "id": "technique-dish-cipollini-agrodolce",
+    "name": "Чиполлини агродольче",
+    "baseSkillId": "skill-повар",
+    "difficultyPenalty": -1,
+    "maxRelativeLevel": 1,
+    "prerequisiteTechniqueIds": [
+      "technique-food-apples-food-apple-cider-vinegar"
+    ],
+    "notes": "Sweet-sour onion glaze requires reduction and balance. Difficulty is based on active process control, failure risk and required precision, not elapsed waiting time. This has some timing, texture or sanitation risk, but technique training can still improve it above base skill.",
+    "productionRecipeId": "production-step-dish-cipollini-agrodolce"
+  },
+  {
+    "id": "technique-dish-stuffed-bell-pepper",
+    "name": "Фаршированный болгарский перец",
+    "baseSkillId": "skill-повар",
+    "difficultyPenalty": -1,
+    "maxRelativeLevel": 1,
+    "prerequisiteTechniqueIds": [],
+    "notes": "Stuffing and baking require filling, doneness and structure control. Difficulty is based on active process control, failure risk and required precision, not elapsed waiting time. This has some timing, texture or sanitation risk, but technique training can still improve it above base skill.",
+    "productionRecipeId": "production-step-dish-stuffed-bell-pepper"
+  },
+  {
+    "id": "technique-dish-rajas-poblano",
+    "name": "Рахас с поблано",
+    "baseSkillId": "skill-повар",
+    "difficultyPenalty": 0,
+    "maxRelativeLevel": 2,
+    "prerequisiteTechniqueIds": [],
+    "notes": "Simple roasted pepper and onion preparation. Difficulty is based on active process control, failure risk and required precision, not elapsed waiting time. This is a routine narrow use of the base skill: it has no default penalty, and focused technique training can improve it up to base skill +2.",
+    "productionRecipeId": "production-step-dish-rajas-poblano"
+  },
+  {
+    "id": "technique-dish-padron-tapas",
+    "name": "Падрон с маслом и солью",
+    "baseSkillId": "skill-повар",
+    "difficultyPenalty": 0,
+    "maxRelativeLevel": 2,
+    "prerequisiteTechniqueIds": [],
+    "notes": "Simple blistered pepper preparation. Difficulty is based on active process control, failure risk and required precision, not elapsed waiting time. This is a routine narrow use of the base skill: it has no default penalty, and focused technique training can improve it up to base skill +2.",
+    "productionRecipeId": "production-step-dish-padron-tapas"
+  },
+  {
+    "id": "technique-source-camel-research-camel-milk",
+    "name": "Верблюжье молоко + Верблюд",
+    "baseSkillId": "skill-обращение-с-животными",
+    "difficultyPenalty": 0,
+    "maxRelativeLevel": 2,
+    "prerequisiteTechniqueIds": [],
+    "notes": "Routine production technique for a specific goods transformation. Difficulty is based on active process control, failure risk and required precision, not elapsed waiting time. This is a routine narrow use of the base skill: it has no default penalty, and focused technique training can improve it up to base skill +2.",
+    "productionRecipeId": "production-step-source-camel-research-camel-milk"
+  },
+  {
+    "id": "technique-source-goat-research-goat-milk",
+    "name": "Козье молоко + Коза",
+    "baseSkillId": "skill-обращение-с-животными",
+    "difficultyPenalty": 0,
+    "maxRelativeLevel": 2,
+    "prerequisiteTechniqueIds": [],
+    "notes": "Routine production technique for a specific goods transformation. Difficulty is based on active process control, failure risk and required precision, not elapsed waiting time. This is a routine narrow use of the base skill: it has no default penalty, and focused technique training can improve it up to base skill +2.",
+    "productionRecipeId": "production-step-source-goat-research-goat-milk"
+  },
+  {
+    "id": "technique-source-sheep-research-sheep-milk",
+    "name": "Овечье молоко + Овца",
+    "baseSkillId": "skill-обращение-с-животными",
+    "difficultyPenalty": 0,
+    "maxRelativeLevel": 2,
+    "prerequisiteTechniqueIds": [],
+    "notes": "Routine production technique for a specific goods transformation. Difficulty is based on active process control, failure risk and required precision, not elapsed waiting time. This is a routine narrow use of the base skill: it has no default penalty, and focused technique training can improve it up to base skill +2.",
+    "productionRecipeId": "production-step-source-sheep-research-sheep-milk"
+  },
+  {
+    "id": "technique-1781391245166",
+    "name": "Куриные яйца + Тетерев",
+    "baseSkillId": "skill-обращение-с-животными",
+    "difficultyPenalty": 0,
+    "maxRelativeLevel": 2,
+    "prerequisiteTechniqueIds": [],
+    "notes": "Routine production technique for a specific goods transformation. Difficulty is based on active process control, failure risk and required precision, not elapsed waiting time. This is a routine narrow use of the base skill: it has no default penalty, and focused technique training can improve it up to base skill +2.",
+    "productionRecipeId": "production-step-1781391245166"
+  },
+  {
+    "id": "technique-source-bee-colony-food-raw-honey",
+    "name": "Сырой мед",
+    "baseSkillId": "skill-обращение-с-животными",
+    "difficultyPenalty": 0,
+    "maxRelativeLevel": 2,
+    "prerequisiteTechniqueIds": [],
+    "notes": "Routine production technique for a specific goods transformation. Difficulty is based on active process control, failure risk and required precision, not elapsed waiting time. This is a routine narrow use of the base skill: it has no default penalty, and focused technique training can improve it up to base skill +2.",
+    "productionRecipeId": "production-step-source-bee-colony-food-raw-honey"
+  },
+  {
+    "id": "technique-source-sheep-research-mutton",
+    "name": "Баранина + Жир",
+    "baseSkillId": "skill-professional-skill-butcher",
+    "difficultyPenalty": -1,
+    "maxRelativeLevel": 1,
+    "prerequisiteTechniqueIds": [],
+    "notes": "Specialized production technique for a specific goods transformation. Difficulty is based on active process control, failure risk and required precision, not elapsed waiting time. This has some timing, texture, sanitation or handling risk, but technique training can still improve it above base skill.",
+    "productionRecipeId": "production-step-source-sheep-research-mutton"
+  },
+  {
+    "id": "technique-source-cow-food-beef",
+    "name": "Говядина + Жир",
+    "baseSkillId": "skill-professional-skill-butcher",
+    "difficultyPenalty": -1,
+    "maxRelativeLevel": 1,
+    "prerequisiteTechniqueIds": [],
+    "notes": "Specialized production technique for a specific goods transformation. Difficulty is based on active process control, failure risk and required precision, not elapsed waiting time. This has some timing, texture, sanitation or handling risk, but technique training can still improve it above base skill.",
+    "productionRecipeId": "production-step-source-cow-food-beef"
+  },
+  {
+    "id": "technique-source-goat-research-goat-meat",
+    "name": "Козлятина + Жир",
+    "baseSkillId": "skill-professional-skill-butcher",
+    "difficultyPenalty": -1,
+    "maxRelativeLevel": 1,
+    "prerequisiteTechniqueIds": [],
+    "notes": "Specialized production technique for a specific goods transformation. Difficulty is based on active process control, failure risk and required precision, not elapsed waiting time. This has some timing, texture, sanitation or handling risk, but technique training can still improve it above base skill.",
+    "productionRecipeId": "production-step-source-goat-research-goat-meat"
+  },
+  {
+    "id": "technique-source-horse-research-horse-meat",
+    "name": "Конина + Жир",
+    "baseSkillId": "skill-professional-skill-butcher",
+    "difficultyPenalty": -1,
+    "maxRelativeLevel": 1,
+    "prerequisiteTechniqueIds": [],
+    "notes": "Specialized production technique for a specific goods transformation. Difficulty is based on active process control, failure risk and required precision, not elapsed waiting time. This has some timing, texture, sanitation or handling risk, but technique training can still improve it above base skill.",
+    "productionRecipeId": "production-step-source-horse-research-horse-meat"
+  },
+  {
+    "id": "technique-source-moose-research-moose",
+    "name": "Лосятина + Жир",
+    "baseSkillId": "skill-professional-skill-butcher",
+    "difficultyPenalty": -1,
+    "maxRelativeLevel": 1,
+    "prerequisiteTechniqueIds": [],
+    "notes": "Specialized production technique for a specific goods transformation. Difficulty is based on active process control, failure risk and required precision, not elapsed waiting time. This has some timing, texture, sanitation or handling risk, but technique training can still improve it above base skill.",
+    "productionRecipeId": "production-step-source-moose-research-moose"
+  },
+  {
+    "id": "technique-source-deer-research-venison",
+    "name": "Оленина + Жир",
+    "baseSkillId": "skill-professional-skill-butcher",
+    "difficultyPenalty": -1,
+    "maxRelativeLevel": 1,
+    "prerequisiteTechniqueIds": [],
+    "notes": "Specialized production technique for a specific goods transformation. Difficulty is based on active process control, failure risk and required precision, not elapsed waiting time. This has some timing, texture, sanitation or handling risk, but technique training can still improve it above base skill.",
+    "productionRecipeId": "production-step-source-deer-research-venison"
+  },
+  {
+    "id": "technique-source-pig-research-pork",
+    "name": "Свинина + Жир",
+    "baseSkillId": "skill-professional-skill-butcher",
+    "difficultyPenalty": -1,
+    "maxRelativeLevel": 1,
+    "prerequisiteTechniqueIds": [],
+    "notes": "Specialized production technique for a specific goods transformation. Difficulty is based on active process control, failure risk and required precision, not elapsed waiting time. This has some timing, texture, sanitation or handling risk, but technique training can still improve it above base skill.",
+    "productionRecipeId": "production-step-source-pig-research-pork"
+  },
+  {
+    "id": "technique-source-grouse-research-grouse",
+    "name": "Тетеревиные",
+    "baseSkillId": "skill-professional-skill-butcher",
+    "difficultyPenalty": -1,
+    "maxRelativeLevel": 1,
+    "prerequisiteTechniqueIds": [],
+    "notes": "Specialized production technique for a specific goods transformation. Difficulty is based on active process control, failure risk and required precision, not elapsed waiting time. This has some timing, texture, sanitation or handling risk, but technique training can still improve it above base skill.",
+    "productionRecipeId": "production-step-source-grouse-research-grouse"
+  },
+  {
+    "id": "technique-source-crab-population-research-crabs",
+    "name": "Крабы + Популяция крабов",
+    "baseSkillId": "skill-рыбная-ловля",
+    "difficultyPenalty": 0,
+    "maxRelativeLevel": 2,
+    "prerequisiteTechniqueIds": [],
+    "notes": "Routine production technique for a specific goods transformation. Difficulty is based on active process control, failure risk and required precision, not elapsed waiting time. This is a routine narrow use of the base skill: it has no default penalty, and focused technique training can improve it up to base skill +2.",
+    "productionRecipeId": "production-step-source-crab-population-research-crabs"
+  },
+  {
+    "id": "technique-source-mussel-bed-research-mussels",
+    "name": "Мидии + Колония мидий",
+    "baseSkillId": "skill-рыбная-ловля",
+    "difficultyPenalty": 0,
+    "maxRelativeLevel": 2,
+    "prerequisiteTechniqueIds": [],
+    "notes": "Routine production technique for a specific goods transformation. Difficulty is based on active process control, failure risk and required precision, not elapsed waiting time. This is a routine narrow use of the base skill: it has no default penalty, and focused technique training can improve it up to base skill +2.",
+    "productionRecipeId": "production-step-source-mussel-bed-research-mussels"
+  },
+  {
+    "id": "technique-source-oyster-bed-research-oysters",
+    "name": "Устрицы + Колония устриц",
+    "baseSkillId": "skill-рыбная-ловля",
+    "difficultyPenalty": 0,
+    "maxRelativeLevel": 2,
+    "prerequisiteTechniqueIds": [],
+    "notes": "Routine production technique for a specific goods transformation. Difficulty is based on active process control, failure risk and required precision, not elapsed waiting time. This is a routine narrow use of the base skill: it has no default penalty, and focused technique training can improve it up to base skill +2.",
+    "productionRecipeId": "production-step-source-oyster-bed-research-oysters"
+  },
+  {
+    "id": "technique-goat-milk-sour-milk",
+    "name": "Кислое молоко",
+    "baseSkillId": "skill-повар",
+    "difficultyPenalty": 0,
+    "maxRelativeLevel": 2,
+    "prerequisiteTechniqueIds": [],
+    "notes": "Routine production technique for a specific goods transformation. Difficulty is based on active process control, failure risk and required precision, not elapsed waiting time. This is a routine narrow use of the base skill: it has no default penalty, and focused technique training can improve it up to base skill +2.",
+    "productionRecipeId": "production-step-goat-milk-sour-milk"
+  },
+  {
+    "id": "technique-sheep-milk-sour-milk",
+    "name": "Кислое молоко",
+    "baseSkillId": "skill-повар",
+    "difficultyPenalty": 0,
+    "maxRelativeLevel": 2,
+    "prerequisiteTechniqueIds": [],
+    "notes": "Routine production technique for a specific goods transformation. Difficulty is based on active process control, failure risk and required precision, not elapsed waiting time. This is a routine narrow use of the base skill: it has no default penalty, and focused technique training can improve it up to base skill +2.",
+    "productionRecipeId": "production-step-sheep-milk-sour-milk"
+  },
+  {
+    "id": "technique-camel-milk-sour-milk",
+    "name": "Кислое молоко",
+    "baseSkillId": "skill-повар",
+    "difficultyPenalty": 0,
+    "maxRelativeLevel": 2,
+    "prerequisiteTechniqueIds": [],
+    "notes": "Routine production technique for a specific goods transformation. Difficulty is based on active process control, failure risk and required precision, not elapsed waiting time. This is a routine narrow use of the base skill: it has no default penalty, and focused technique training can improve it up to base skill +2.",
+    "productionRecipeId": "production-step-camel-milk-sour-milk"
+  },
+  {
+    "id": "technique-sour-milk-feta",
+    "name": "Фета",
+    "baseSkillId": "skill-повар",
+    "difficultyPenalty": -1,
+    "maxRelativeLevel": 1,
+    "prerequisiteTechniqueIds": [],
+    "notes": "Specialized production technique for a specific goods transformation. Difficulty is based on active process control, failure risk and required precision, not elapsed waiting time. This has some timing, texture, sanitation or handling risk, but technique training can still improve it above base skill.",
+    "productionRecipeId": "production-step-sour-milk-feta"
+  },
+  {
+    "id": "technique-source-lingonberry-shrub-research-lingonberries",
+    "name": "Брусника + Брусничник",
+    "baseSkillId": "skill-садовод",
+    "difficultyPenalty": 0,
+    "maxRelativeLevel": 2,
+    "prerequisiteTechniqueIds": [],
+    "notes": "Routine production technique for a specific goods transformation. Difficulty is based on active process control, failure risk and required precision, not elapsed waiting time. This is a routine narrow use of the base skill: it has no default penalty, and focused technique training can improve it up to base skill +2.",
+    "productionRecipeId": "production-step-source-lingonberry-shrub-research-lingonberries"
+  },
+  {
+    "id": "technique-source-pear-tree-research-pears",
+    "name": "Груши + Груша обыкновенная",
+    "baseSkillId": "skill-садовод",
+    "difficultyPenalty": 0,
+    "maxRelativeLevel": 2,
+    "prerequisiteTechniqueIds": [],
+    "notes": "Routine production technique for a specific goods transformation. Difficulty is based on active process control, failure risk and required precision, not elapsed waiting time. This is a routine narrow use of the base skill: it has no default penalty, and focused technique training can improve it up to base skill +2.",
+    "productionRecipeId": "production-step-source-pear-tree-research-pears"
+  },
+  {
+    "id": "technique-source-fig-tree-research-figs",
+    "name": "Инжир + Инжирное дерево",
+    "baseSkillId": "skill-садовод",
+    "difficultyPenalty": 0,
+    "maxRelativeLevel": 2,
+    "prerequisiteTechniqueIds": [],
+    "notes": "Routine production technique for a specific goods transformation. Difficulty is based on active process control, failure risk and required precision, not elapsed waiting time. This is a routine narrow use of the base skill: it has no default penalty, and focused technique training can improve it up to base skill +2.",
+    "productionRecipeId": "production-step-source-fig-tree-research-figs"
+  },
+  {
+    "id": "technique-source-mango-tree-research-mango",
+    "name": "Манго + Манговое дерево",
+    "baseSkillId": "skill-садовод",
+    "difficultyPenalty": 0,
+    "maxRelativeLevel": 2,
+    "prerequisiteTechniqueIds": [],
+    "notes": "Routine production technique for a specific goods transformation. Difficulty is based on active process control, failure risk and required precision, not elapsed waiting time. This is a routine narrow use of the base skill: it has no default penalty, and focused technique training can improve it up to base skill +2.",
+    "productionRecipeId": "production-step-source-mango-tree-research-mango"
+  },
+  {
+    "id": "technique-source-papaya-tree-research-papaya",
+    "name": "Папайя + Папайя",
+    "baseSkillId": "skill-садовод",
+    "difficultyPenalty": 0,
+    "maxRelativeLevel": 2,
+    "prerequisiteTechniqueIds": [],
+    "notes": "Routine production technique for a specific goods transformation. Difficulty is based on active process control, failure risk and required precision, not elapsed waiting time. This is a routine narrow use of the base skill: it has no default penalty, and focused technique training can improve it up to base skill +2.",
+    "productionRecipeId": "production-step-source-papaya-tree-research-papaya"
+  },
+  {
+    "id": "technique-source-plantain-plant-research-plantains",
+    "name": "Платаны + Плантан",
+    "baseSkillId": "skill-садовод",
+    "difficultyPenalty": 0,
+    "maxRelativeLevel": 2,
+    "prerequisiteTechniqueIds": [],
+    "notes": "Routine production technique for a specific goods transformation. Difficulty is based on active process control, failure risk and required precision, not elapsed waiting time. This is a routine narrow use of the base skill: it has no default penalty, and focused technique training can improve it up to base skill +2.",
+    "productionRecipeId": "production-step-source-plantain-plant-research-plantains"
+  },
+  {
+    "id": "technique-source-plum-tree-research-plums",
+    "name": "Сливы + Слива домашняя",
+    "baseSkillId": "skill-садовод",
+    "difficultyPenalty": 0,
+    "maxRelativeLevel": 2,
+    "prerequisiteTechniqueIds": [],
+    "notes": "Routine production technique for a specific goods transformation. Difficulty is based on active process control, failure risk and required precision, not elapsed waiting time. This is a routine narrow use of the base skill: it has no default penalty, and focused technique training can improve it up to base skill +2.",
+    "productionRecipeId": "production-step-source-plum-tree-research-plums"
+  },
+  {
+    "id": "technique-source-date-palm-research-dates",
+    "name": "Финики + Финиковая пальма",
+    "baseSkillId": "skill-садовод",
+    "difficultyPenalty": 0,
+    "maxRelativeLevel": 2,
+    "prerequisiteTechniqueIds": [],
+    "notes": "Routine production technique for a specific goods transformation. Difficulty is based on active process control, failure risk and required precision, not elapsed waiting time. This is a routine narrow use of the base skill: it has no default penalty, and focused technique training can improve it up to base skill +2.",
+    "productionRecipeId": "production-step-source-date-palm-research-dates"
+  },
+  {
+    "id": "technique-source-blueberry-shrub-research-blueberries",
+    "name": "Черника + Черничник",
+    "baseSkillId": "skill-садовод",
+    "difficultyPenalty": 0,
+    "maxRelativeLevel": 2,
+    "prerequisiteTechniqueIds": [],
+    "notes": "Routine production technique for a specific goods transformation. Difficulty is based on active process control, failure risk and required precision, not elapsed waiting time. This is a routine narrow use of the base skill: it has no default penalty, and focused technique training can improve it up to base skill +2.",
+    "productionRecipeId": "production-step-source-blueberry-shrub-research-blueberries"
+  },
+  {
+    "id": "technique-source-apple-tree-food-apples",
+    "name": "Яблоки + Яблоня домашняя",
+    "baseSkillId": "skill-садовод",
+    "difficultyPenalty": 0,
+    "maxRelativeLevel": 2,
+    "prerequisiteTechniqueIds": [],
+    "notes": "Routine production technique for a specific goods transformation. Difficulty is based on active process control, failure risk and required precision, not elapsed waiting time. This is a routine narrow use of the base skill: it has no default penalty, and focused technique training can improve it up to base skill +2.",
+    "productionRecipeId": "production-step-source-apple-tree-food-apples"
+  },
+  {
+    "id": "technique-source-millet-plant-research-millet",
+    "name": "Просо",
+    "baseSkillId": "skill-farming",
+    "difficultyPenalty": 0,
+    "maxRelativeLevel": 2,
+    "prerequisiteTechniqueIds": [],
+    "notes": "Routine production technique for a specific goods transformation. Difficulty is based on active process control, failure risk and required precision, not elapsed waiting time. This is a routine narrow use of the base skill: it has no default penalty, and focused technique training can improve it up to base skill +2.",
+    "productionRecipeId": "production-step-source-millet-plant-research-millet"
+  },
+  {
+    "id": "technique-source-wheat-plant-food-wheat",
+    "name": "Пшеница",
+    "baseSkillId": "skill-farming",
+    "difficultyPenalty": 0,
+    "maxRelativeLevel": 2,
+    "prerequisiteTechniqueIds": [],
+    "notes": "Routine production technique for a specific goods transformation. Difficulty is based on active process control, failure risk and required precision, not elapsed waiting time. This is a routine narrow use of the base skill: it has no default penalty, and focused technique training can improve it up to base skill +2.",
+    "productionRecipeId": "production-step-source-wheat-plant-food-wheat"
+  },
+  {
+    "id": "technique-source-rice-plant-research-rice",
+    "name": "Рис",
+    "baseSkillId": "skill-farming",
+    "difficultyPenalty": 0,
+    "maxRelativeLevel": 2,
+    "prerequisiteTechniqueIds": [],
+    "notes": "Routine production technique for a specific goods transformation. Difficulty is based on active process control, failure risk and required precision, not elapsed waiting time. This is a routine narrow use of the base skill: it has no default penalty, and focused technique training can improve it up to base skill +2.",
+    "productionRecipeId": "production-step-source-rice-plant-research-rice"
+  },
+  {
+    "id": "technique-source-sorghum-plant-research-sorghum",
+    "name": "Сорго",
+    "baseSkillId": "skill-farming",
+    "difficultyPenalty": 0,
+    "maxRelativeLevel": 2,
+    "prerequisiteTechniqueIds": [],
+    "notes": "Routine production technique for a specific goods transformation. Difficulty is based on active process control, failure risk and required precision, not elapsed waiting time. This is a routine narrow use of the base skill: it has no default penalty, and focused technique training can improve it up to base skill +2.",
+    "productionRecipeId": "production-step-source-sorghum-plant-research-sorghum"
+  },
+  {
+    "id": "technique-source-barley-plant-research-barley",
+    "name": "Ячмень",
+    "baseSkillId": "skill-farming",
+    "difficultyPenalty": 0,
+    "maxRelativeLevel": 2,
+    "prerequisiteTechniqueIds": [],
+    "notes": "Routine production technique for a specific goods transformation. Difficulty is based on active process control, failure risk and required precision, not elapsed waiting time. This is a routine narrow use of the base skill: it has no default penalty, and focused technique training can improve it up to base skill +2.",
+    "productionRecipeId": "production-step-source-barley-plant-research-barley"
+  },
+  {
+    "id": "technique-source-pea-plant-food-peas",
+    "name": "Горох",
+    "baseSkillId": "skill-farming",
+    "difficultyPenalty": 0,
+    "maxRelativeLevel": 2,
+    "prerequisiteTechniqueIds": [],
+    "notes": "Routine production technique for a specific goods transformation. Difficulty is based on active process control, failure risk and required precision, not elapsed waiting time. This is a routine narrow use of the base skill: it has no default penalty, and focused technique training can improve it up to base skill +2.",
+    "productionRecipeId": "production-step-source-pea-plant-food-peas"
+  },
+  {
+    "id": "technique-source-chickpea-plant-research-chickpeas",
+    "name": "Нут",
+    "baseSkillId": "skill-farming",
+    "difficultyPenalty": 0,
+    "maxRelativeLevel": 2,
+    "prerequisiteTechniqueIds": [],
+    "notes": "Routine production technique for a specific goods transformation. Difficulty is based on active process control, failure risk and required precision, not elapsed waiting time. This is a routine narrow use of the base skill: it has no default penalty, and focused technique training can improve it up to base skill +2.",
+    "productionRecipeId": "production-step-source-chickpea-plant-research-chickpeas"
+  },
+  {
+    "id": "technique-source-lentil-plant-research-lentils",
+    "name": "Чечевица",
+    "baseSkillId": "skill-farming",
+    "difficultyPenalty": 0,
+    "maxRelativeLevel": 2,
+    "prerequisiteTechniqueIds": [],
+    "notes": "Routine production technique for a specific goods transformation. Difficulty is based on active process control, failure risk and required precision, not elapsed waiting time. This is a routine narrow use of the base skill: it has no default penalty, and focused technique training can improve it up to base skill +2.",
+    "productionRecipeId": "production-step-source-lentil-plant-research-lentils"
+  },
+  {
+    "id": "technique-source-black-bean-plant-research-black-beans",
+    "name": "Черная фасоль",
+    "baseSkillId": "skill-farming",
+    "difficultyPenalty": 0,
+    "maxRelativeLevel": 2,
+    "prerequisiteTechniqueIds": [],
+    "notes": "Routine production technique for a specific goods transformation. Difficulty is based on active process control, failure risk and required precision, not elapsed waiting time. This is a routine narrow use of the base skill: it has no default penalty, and focused technique training can improve it up to base skill +2.",
+    "productionRecipeId": "production-step-source-black-bean-plant-research-black-beans"
+  },
+  {
+    "id": "technique-source-kidney-bean-plant-research-kidney-beans",
+    "name": "Красная фасоль",
+    "baseSkillId": "skill-farming",
+    "difficultyPenalty": 0,
+    "maxRelativeLevel": 2,
+    "prerequisiteTechniqueIds": [],
+    "notes": "Routine production technique for a specific goods transformation. Difficulty is based on active process control, failure risk and required precision, not elapsed waiting time. This is a routine narrow use of the base skill: it has no default penalty, and focused technique training can improve it up to base skill +2.",
+    "productionRecipeId": "production-step-source-kidney-bean-plant-research-kidney-beans"
+  },
+  {
+    "id": "technique-source-pinto-bean-plant-research-pinto-beans",
+    "name": "Пинто",
+    "baseSkillId": "skill-farming",
+    "difficultyPenalty": 0,
+    "maxRelativeLevel": 2,
+    "prerequisiteTechniqueIds": [],
+    "notes": "Routine production technique for a specific goods transformation. Difficulty is based on active process control, failure risk and required precision, not elapsed waiting time. This is a routine narrow use of the base skill: it has no default penalty, and focused technique training can improve it up to base skill +2.",
+    "productionRecipeId": "production-step-source-pinto-bean-plant-research-pinto-beans"
+  },
+  {
+    "id": "technique-source-navy-bean-plant-research-navy-beans",
+    "name": "Белая мелкая фасоль",
+    "baseSkillId": "skill-farming",
+    "difficultyPenalty": 0,
+    "maxRelativeLevel": 2,
+    "prerequisiteTechniqueIds": [],
+    "notes": "Routine production technique for a specific goods transformation. Difficulty is based on active process control, failure risk and required precision, not elapsed waiting time. This is a routine narrow use of the base skill: it has no default penalty, and focused technique training can improve it up to base skill +2.",
+    "productionRecipeId": "production-step-source-navy-bean-plant-research-navy-beans"
+  },
+  {
+    "id": "technique-source-soybean-plant-research-soybeans",
+    "name": "Соя",
+    "baseSkillId": "skill-farming",
+    "difficultyPenalty": 0,
+    "maxRelativeLevel": 2,
+    "prerequisiteTechniqueIds": [],
+    "notes": "Routine production technique for a specific goods transformation. Difficulty is based on active process control, failure risk and required precision, not elapsed waiting time. This is a routine narrow use of the base skill: it has no default penalty, and focused technique training can improve it up to base skill +2.",
+    "productionRecipeId": "production-step-source-soybean-plant-research-soybeans"
+  },
+  {
+    "id": "technique-source-soybean-plant-research-edamame",
+    "name": "Эдамаме",
+    "baseSkillId": "skill-farming",
+    "difficultyPenalty": 0,
+    "maxRelativeLevel": 2,
+    "prerequisiteTechniqueIds": [],
+    "notes": "Routine production technique for a specific goods transformation. Difficulty is based on active process control, failure risk and required precision, not elapsed waiting time. This is a routine narrow use of the base skill: it has no default penalty, and focused technique training can improve it up to base skill +2.",
+    "productionRecipeId": "production-step-source-soybean-plant-research-edamame"
+  },
+  {
+    "id": "technique-source-lima-bean-plant-research-lima-beans",
+    "name": "Лимская фасоль",
+    "baseSkillId": "skill-farming",
+    "difficultyPenalty": 0,
+    "maxRelativeLevel": 2,
+    "prerequisiteTechniqueIds": [],
+    "notes": "Routine production technique for a specific goods transformation. Difficulty is based on active process control, failure risk and required precision, not elapsed waiting time. This is a routine narrow use of the base skill: it has no default penalty, and focused technique training can improve it up to base skill +2.",
+    "productionRecipeId": "production-step-source-lima-bean-plant-research-lima-beans"
+  },
+  {
+    "id": "technique-source-fava-bean-plant-research-fava-beans",
+    "name": "Бобы фава",
+    "baseSkillId": "skill-farming",
+    "difficultyPenalty": 0,
+    "maxRelativeLevel": 2,
+    "prerequisiteTechniqueIds": [],
+    "notes": "Routine production technique for a specific goods transformation. Difficulty is based on active process control, failure risk and required precision, not elapsed waiting time. This is a routine narrow use of the base skill: it has no default penalty, and focused technique training can improve it up to base skill +2.",
+    "productionRecipeId": "production-step-source-fava-bean-plant-research-fava-beans"
+  },
+  {
+    "id": "technique-source-mung-bean-plant-research-mung-beans",
+    "name": "Маш",
+    "baseSkillId": "skill-farming",
+    "difficultyPenalty": 0,
+    "maxRelativeLevel": 2,
+    "prerequisiteTechniqueIds": [],
+    "notes": "Routine production technique for a specific goods transformation. Difficulty is based on active process control, failure risk and required precision, not elapsed waiting time. This is a routine narrow use of the base skill: it has no default penalty, and focused technique training can improve it up to base skill +2.",
+    "productionRecipeId": "production-step-source-mung-bean-plant-research-mung-beans"
+  },
+  {
+    "id": "technique-source-adzuki-bean-plant-research-adzuki-beans",
+    "name": "Адзуки",
+    "baseSkillId": "skill-farming",
+    "difficultyPenalty": 0,
+    "maxRelativeLevel": 2,
+    "prerequisiteTechniqueIds": [],
+    "notes": "Routine production technique for a specific goods transformation. Difficulty is based on active process control, failure risk and required precision, not elapsed waiting time. This is a routine narrow use of the base skill: it has no default penalty, and focused technique training can improve it up to base skill +2.",
+    "productionRecipeId": "production-step-source-adzuki-bean-plant-research-adzuki-beans"
+  },
+  {
+    "id": "technique-source-cowpea-plant-research-black-eyed-peas",
+    "name": "Вигна",
+    "baseSkillId": "skill-farming",
+    "difficultyPenalty": 0,
+    "maxRelativeLevel": 2,
+    "prerequisiteTechniqueIds": [],
+    "notes": "Routine production technique for a specific goods transformation. Difficulty is based on active process control, failure risk and required precision, not elapsed waiting time. This is a routine narrow use of the base skill: it has no default penalty, and focused technique training can improve it up to base skill +2.",
+    "productionRecipeId": "production-step-source-cowpea-plant-research-black-eyed-peas"
+  },
+  {
+    "id": "technique-source-cannellini-bean-plant-research-cannellini-beans",
+    "name": "Каннеллини",
+    "baseSkillId": "skill-farming",
+    "difficultyPenalty": 0,
+    "maxRelativeLevel": 2,
+    "prerequisiteTechniqueIds": [],
+    "notes": "Routine production technique for a specific goods transformation. Difficulty is based on active process control, failure risk and required precision, not elapsed waiting time. This is a routine narrow use of the base skill: it has no default penalty, and focused technique training can improve it up to base skill +2.",
+    "productionRecipeId": "production-step-source-cannellini-bean-plant-research-cannellini-beans"
+  },
+  {
+    "id": "technique-source-cranberry-bean-plant-research-cranberry-beans",
+    "name": "Борлотти",
+    "baseSkillId": "skill-farming",
+    "difficultyPenalty": 0,
+    "maxRelativeLevel": 2,
+    "prerequisiteTechniqueIds": [],
+    "notes": "Routine production technique for a specific goods transformation. Difficulty is based on active process control, failure risk and required precision, not elapsed waiting time. This is a routine narrow use of the base skill: it has no default penalty, and focused technique training can improve it up to base skill +2.",
+    "productionRecipeId": "production-step-source-cranberry-bean-plant-research-cranberry-beans"
+  },
+  {
+    "id": "technique-food-peas-bean-spread",
+    "name": "Бобовая намазка",
+    "baseSkillId": "skill-повар",
+    "difficultyPenalty": 0,
+    "maxRelativeLevel": 2,
+    "prerequisiteTechniqueIds": [],
+    "notes": "Routine production technique for a specific goods transformation. Difficulty is based on active process control, failure risk and required precision, not elapsed waiting time. This is a routine narrow use of the base skill: it has no default penalty, and focused technique training can improve it up to base skill +2.",
+    "productionRecipeId": "production-step-food-peas-bean-spread"
+  },
+  {
+    "id": "technique-research-chickpeas-bean-spread",
+    "name": "Бобовая намазка",
+    "baseSkillId": "skill-повар",
+    "difficultyPenalty": 0,
+    "maxRelativeLevel": 2,
+    "prerequisiteTechniqueIds": [],
+    "notes": "Routine production technique for a specific goods transformation. Difficulty is based on active process control, failure risk and required precision, not elapsed waiting time. This is a routine narrow use of the base skill: it has no default penalty, and focused technique training can improve it up to base skill +2.",
+    "productionRecipeId": "production-step-research-chickpeas-bean-spread"
+  },
+  {
+    "id": "technique-research-lentils-bean-spread",
+    "name": "Бобовая намазка",
+    "baseSkillId": "skill-повар",
+    "difficultyPenalty": 0,
+    "maxRelativeLevel": 2,
+    "prerequisiteTechniqueIds": [],
+    "notes": "Routine production technique for a specific goods transformation. Difficulty is based on active process control, failure risk and required precision, not elapsed waiting time. This is a routine narrow use of the base skill: it has no default penalty, and focused technique training can improve it up to base skill +2.",
+    "productionRecipeId": "production-step-research-lentils-bean-spread"
+  },
+  {
+    "id": "technique-research-black-beans-bean-spread",
+    "name": "Бобовая намазка",
+    "baseSkillId": "skill-повар",
+    "difficultyPenalty": 0,
+    "maxRelativeLevel": 2,
+    "prerequisiteTechniqueIds": [],
+    "notes": "Routine production technique for a specific goods transformation. Difficulty is based on active process control, failure risk and required precision, not elapsed waiting time. This is a routine narrow use of the base skill: it has no default penalty, and focused technique training can improve it up to base skill +2.",
+    "productionRecipeId": "production-step-research-black-beans-bean-spread"
+  },
+  {
+    "id": "technique-research-kidney-beans-bean-spread",
+    "name": "Бобовая намазка",
+    "baseSkillId": "skill-повар",
+    "difficultyPenalty": 0,
+    "maxRelativeLevel": 2,
+    "prerequisiteTechniqueIds": [],
+    "notes": "Routine production technique for a specific goods transformation. Difficulty is based on active process control, failure risk and required precision, not elapsed waiting time. This is a routine narrow use of the base skill: it has no default penalty, and focused technique training can improve it up to base skill +2.",
+    "productionRecipeId": "production-step-research-kidney-beans-bean-spread"
+  },
+  {
+    "id": "technique-research-pinto-beans-bean-spread",
+    "name": "Бобовая намазка",
+    "baseSkillId": "skill-повар",
+    "difficultyPenalty": 0,
+    "maxRelativeLevel": 2,
+    "prerequisiteTechniqueIds": [],
+    "notes": "Routine production technique for a specific goods transformation. Difficulty is based on active process control, failure risk and required precision, not elapsed waiting time. This is a routine narrow use of the base skill: it has no default penalty, and focused technique training can improve it up to base skill +2.",
+    "productionRecipeId": "production-step-research-pinto-beans-bean-spread"
+  },
+  {
+    "id": "technique-research-navy-beans-bean-spread",
+    "name": "Бобовая намазка",
+    "baseSkillId": "skill-повар",
+    "difficultyPenalty": 0,
+    "maxRelativeLevel": 2,
+    "prerequisiteTechniqueIds": [],
+    "notes": "Routine production technique for a specific goods transformation. Difficulty is based on active process control, failure risk and required precision, not elapsed waiting time. This is a routine narrow use of the base skill: it has no default penalty, and focused technique training can improve it up to base skill +2.",
+    "productionRecipeId": "production-step-research-navy-beans-bean-spread"
+  },
+  {
+    "id": "technique-research-soybeans-bean-spread",
+    "name": "Бобовая намазка",
+    "baseSkillId": "skill-повар",
+    "difficultyPenalty": 0,
+    "maxRelativeLevel": 2,
+    "prerequisiteTechniqueIds": [],
+    "notes": "Routine production technique for a specific goods transformation. Difficulty is based on active process control, failure risk and required precision, not elapsed waiting time. This is a routine narrow use of the base skill: it has no default penalty, and focused technique training can improve it up to base skill +2.",
+    "productionRecipeId": "production-step-research-soybeans-bean-spread"
+  },
+  {
+    "id": "technique-research-edamame-bean-spread",
+    "name": "Бобовая намазка",
+    "baseSkillId": "skill-повар",
+    "difficultyPenalty": 0,
+    "maxRelativeLevel": 2,
+    "prerequisiteTechniqueIds": [],
+    "notes": "Routine production technique for a specific goods transformation. Difficulty is based on active process control, failure risk and required precision, not elapsed waiting time. This is a routine narrow use of the base skill: it has no default penalty, and focused technique training can improve it up to base skill +2.",
+    "productionRecipeId": "production-step-research-edamame-bean-spread"
+  },
+  {
+    "id": "technique-research-lima-beans-bean-spread",
+    "name": "Бобовая намазка",
+    "baseSkillId": "skill-повар",
+    "difficultyPenalty": 0,
+    "maxRelativeLevel": 2,
+    "prerequisiteTechniqueIds": [],
+    "notes": "Routine production technique for a specific goods transformation. Difficulty is based on active process control, failure risk and required precision, not elapsed waiting time. This is a routine narrow use of the base skill: it has no default penalty, and focused technique training can improve it up to base skill +2.",
+    "productionRecipeId": "production-step-research-lima-beans-bean-spread"
+  },
+  {
+    "id": "technique-research-fava-beans-bean-spread",
+    "name": "Бобовая намазка",
+    "baseSkillId": "skill-повар",
+    "difficultyPenalty": 0,
+    "maxRelativeLevel": 2,
+    "prerequisiteTechniqueIds": [],
+    "notes": "Routine production technique for a specific goods transformation. Difficulty is based on active process control, failure risk and required precision, not elapsed waiting time. This is a routine narrow use of the base skill: it has no default penalty, and focused technique training can improve it up to base skill +2.",
+    "productionRecipeId": "production-step-research-fava-beans-bean-spread"
+  },
+  {
+    "id": "technique-research-mung-beans-bean-spread",
+    "name": "Бобовая намазка",
+    "baseSkillId": "skill-повар",
+    "difficultyPenalty": 0,
+    "maxRelativeLevel": 2,
+    "prerequisiteTechniqueIds": [],
+    "notes": "Routine production technique for a specific goods transformation. Difficulty is based on active process control, failure risk and required precision, not elapsed waiting time. This is a routine narrow use of the base skill: it has no default penalty, and focused technique training can improve it up to base skill +2.",
+    "productionRecipeId": "production-step-research-mung-beans-bean-spread"
+  },
+  {
+    "id": "technique-research-adzuki-beans-bean-spread",
+    "name": "Бобовая намазка",
+    "baseSkillId": "skill-повар",
+    "difficultyPenalty": 0,
+    "maxRelativeLevel": 2,
+    "prerequisiteTechniqueIds": [],
+    "notes": "Routine production technique for a specific goods transformation. Difficulty is based on active process control, failure risk and required precision, not elapsed waiting time. This is a routine narrow use of the base skill: it has no default penalty, and focused technique training can improve it up to base skill +2.",
+    "productionRecipeId": "production-step-research-adzuki-beans-bean-spread"
+  },
+  {
+    "id": "technique-research-black-eyed-peas-bean-spread",
+    "name": "Бобовая намазка",
+    "baseSkillId": "skill-повар",
+    "difficultyPenalty": 0,
+    "maxRelativeLevel": 2,
+    "prerequisiteTechniqueIds": [],
+    "notes": "Routine production technique for a specific goods transformation. Difficulty is based on active process control, failure risk and required precision, not elapsed waiting time. This is a routine narrow use of the base skill: it has no default penalty, and focused technique training can improve it up to base skill +2.",
+    "productionRecipeId": "production-step-research-black-eyed-peas-bean-spread"
+  },
+  {
+    "id": "technique-research-cannellini-beans-bean-spread",
+    "name": "Бобовая намазка",
+    "baseSkillId": "skill-повар",
+    "difficultyPenalty": 0,
+    "maxRelativeLevel": 2,
+    "prerequisiteTechniqueIds": [],
+    "notes": "Routine production technique for a specific goods transformation. Difficulty is based on active process control, failure risk and required precision, not elapsed waiting time. This is a routine narrow use of the base skill: it has no default penalty, and focused technique training can improve it up to base skill +2.",
+    "productionRecipeId": "production-step-research-cannellini-beans-bean-spread"
+  },
+  {
+    "id": "technique-research-cranberry-beans-bean-spread",
+    "name": "Бобовая намазка",
+    "baseSkillId": "skill-повар",
+    "difficultyPenalty": 0,
+    "maxRelativeLevel": 2,
+    "prerequisiteTechniqueIds": [],
+    "notes": "Routine production technique for a specific goods transformation. Difficulty is based on active process control, failure risk and required precision, not elapsed waiting time. This is a routine narrow use of the base skill: it has no default penalty, and focused technique training can improve it up to base skill +2.",
+    "productionRecipeId": "production-step-research-cranberry-beans-bean-spread"
+  },
+  {
+    "id": "technique-research-mung-beans-mung-bean-sprouts",
+    "name": "Ростки маша",
+    "baseSkillId": "skill-повар",
+    "difficultyPenalty": 0,
+    "maxRelativeLevel": 2,
+    "prerequisiteTechniqueIds": [],
+    "notes": "Routine production technique for a specific goods transformation. Difficulty is based on active process control, failure risk and required precision, not elapsed waiting time. This is a routine narrow use of the base skill: it has no default penalty, and focused technique training can improve it up to base skill +2.",
+    "productionRecipeId": "production-step-research-mung-beans-mung-bean-sprouts"
+  },
+  {
+    "id": "technique-research-soybeans-soy-milk",
+    "name": "Соевое молоко",
+    "baseSkillId": "skill-повар",
+    "difficultyPenalty": 0,
+    "maxRelativeLevel": 2,
+    "prerequisiteTechniqueIds": [],
+    "notes": "Routine production technique for a specific goods transformation. Difficulty is based on active process control, failure risk and required precision, not elapsed waiting time. This is a routine narrow use of the base skill: it has no default penalty, and focused technique training can improve it up to base skill +2.",
+    "productionRecipeId": "production-step-research-soybeans-soy-milk"
+  },
+  {
+    "id": "technique-research-soy-milk-tofu",
+    "name": "Тофу",
+    "baseSkillId": "skill-повар",
+    "difficultyPenalty": 0,
+    "maxRelativeLevel": 2,
+    "prerequisiteTechniqueIds": [],
+    "notes": "Routine production technique for a specific goods transformation. Difficulty is based on active process control, failure risk and required precision, not elapsed waiting time. This is a routine narrow use of the base skill: it has no default penalty, and focused technique training can improve it up to base skill +2.",
+    "productionRecipeId": "production-step-research-soy-milk-tofu"
+  },
+  {
+    "id": "technique-research-chickpeas-chickpea-flour",
+    "name": "Нутовая мука",
+    "baseSkillId": "skill-повар",
+    "difficultyPenalty": 0,
+    "maxRelativeLevel": 2,
+    "prerequisiteTechniqueIds": [],
+    "notes": "Routine production technique for a specific goods transformation. Difficulty is based on active process control, failure risk and required precision, not elapsed waiting time. This is a routine narrow use of the base skill: it has no default penalty, and focused technique training can improve it up to base skill +2.",
+    "productionRecipeId": "production-step-research-chickpeas-chickpea-flour"
+  },
+  {
+    "id": "technique-research-chickpeas-aquafaba",
+    "name": "Нут + Аквафаба",
+    "baseSkillId": "skill-повар",
+    "difficultyPenalty": 0,
+    "maxRelativeLevel": 2,
+    "prerequisiteTechniqueIds": [],
+    "notes": "Routine production technique for a specific goods transformation. Difficulty is based on active process control, failure risk and required precision, not elapsed waiting time. This is a routine narrow use of the base skill: it has no default penalty, and focused technique training can improve it up to base skill +2.",
+    "productionRecipeId": "production-step-research-chickpeas-aquafaba"
+  },
+  {
+    "id": "technique-source-olive-tree-research-olives",
+    "name": "Оливки + Олива европейская",
+    "baseSkillId": "skill-садовод",
+    "difficultyPenalty": 0,
+    "maxRelativeLevel": 2,
+    "prerequisiteTechniqueIds": [],
+    "notes": "Routine production technique for a specific goods transformation. Difficulty is based on active process control, failure risk and required precision, not elapsed waiting time. This is a routine narrow use of the base skill: it has no default penalty, and focused technique training can improve it up to base skill +2.",
+    "productionRecipeId": "production-step-source-olive-tree-research-olives"
+  },
+  {
+    "id": "technique-source-chestnut-tree-research-chestnuts",
+    "name": "Каштаны + Каштан посевной",
+    "baseSkillId": "skill-садовод",
+    "difficultyPenalty": 0,
+    "maxRelativeLevel": 2,
+    "prerequisiteTechniqueIds": [],
+    "notes": "Routine production technique for a specific goods transformation. Difficulty is based on active process control, failure risk and required precision, not elapsed waiting time. This is a routine narrow use of the base skill: it has no default penalty, and focused technique training can improve it up to base skill +2.",
+    "productionRecipeId": "production-step-source-chestnut-tree-research-chestnuts"
+  },
+  {
+    "id": "technique-source-pine-tree-research-pine-nuts",
+    "name": "Кедровые орехи + Кедровая сосна",
+    "baseSkillId": "skill-садовод",
+    "difficultyPenalty": 0,
+    "maxRelativeLevel": 2,
+    "prerequisiteTechniqueIds": [],
+    "notes": "Routine production technique for a specific goods transformation. Difficulty is based on active process control, failure risk and required precision, not elapsed waiting time. This is a routine narrow use of the base skill: it has no default penalty, and focused technique training can improve it up to base skill +2.",
+    "productionRecipeId": "production-step-source-pine-tree-research-pine-nuts"
+  },
+  {
+    "id": "technique-food-yellow-onion-food-caramelized-onion",
+    "name": "Карамелизованный лук",
+    "baseSkillId": "skill-повар",
+    "difficultyPenalty": 0,
+    "maxRelativeLevel": 2,
+    "prerequisiteTechniqueIds": [],
+    "notes": "Routine production technique for a specific goods transformation. Difficulty is based on active process control, failure risk and required precision, not elapsed waiting time. This is a routine narrow use of the base skill: it has no default penalty, and focused technique training can improve it up to base skill +2.",
+    "productionRecipeId": "production-step-food-yellow-onion-food-caramelized-onion"
+  },
+  {
+    "id": "technique-food-shallot-food-fried-shallots",
+    "name": "Жареный шалот",
+    "baseSkillId": "skill-повар",
+    "difficultyPenalty": 0,
+    "maxRelativeLevel": 2,
+    "prerequisiteTechniqueIds": [],
+    "notes": "Routine production technique for a specific goods transformation. Difficulty is based on active process control, failure risk and required precision, not elapsed waiting time. This is a routine narrow use of the base skill: it has no default penalty, and focused technique training can improve it up to base skill +2.",
+    "productionRecipeId": "production-step-food-shallot-food-fried-shallots"
+  },
+  {
+    "id": "technique-food-poblano-pepper-spice-ancho-chile",
+    "name": "Анчо",
+    "baseSkillId": "skill-повар",
+    "difficultyPenalty": 0,
+    "maxRelativeLevel": 2,
+    "prerequisiteTechniqueIds": [],
+    "notes": "Routine production technique for a specific goods transformation. Difficulty is based on active process control, failure risk and required precision, not elapsed waiting time. This is a routine narrow use of the base skill: it has no default penalty, and focused technique training can improve it up to base skill +2.",
+    "productionRecipeId": "production-step-food-poblano-pepper-spice-ancho-chile"
+  },
+  {
+    "id": "technique-food-red-jalapeno-spice-chipotle-pepper",
+    "name": "Чипотле",
+    "baseSkillId": "skill-повар",
+    "difficultyPenalty": -1,
+    "maxRelativeLevel": 1,
+    "prerequisiteTechniqueIds": [],
+    "notes": "Specialized production technique for a specific goods transformation. Difficulty is based on active process control, failure risk and required precision, not elapsed waiting time. This has some timing, texture, sanitation or handling risk, but technique training can still improve it above base skill.",
+    "productionRecipeId": "production-step-food-red-jalapeno-spice-chipotle-pepper"
+  },
+  {
+    "id": "technique-spice-chipotle-pepper-spice-chipotle-powder",
+    "name": "Порошок чипотле",
+    "baseSkillId": "skill-повар",
+    "difficultyPenalty": -1,
+    "maxRelativeLevel": 1,
+    "prerequisiteTechniqueIds": [],
+    "notes": "Specialized production technique for a specific goods transformation. Difficulty is based on active process control, failure risk and required precision, not elapsed waiting time. This has some timing, texture, sanitation or handling risk, but technique training can still improve it above base skill.",
+    "productionRecipeId": "production-step-spice-chipotle-pepper-spice-chipotle-powder"
+  },
+  {
+    "id": "technique-food-tabasco-pepper-spice-tabasco-pepper-mash",
+    "name": "Ферментированная паста табаско",
+    "baseSkillId": "skill-повар",
+    "difficultyPenalty": -1,
+    "maxRelativeLevel": 1,
+    "prerequisiteTechniqueIds": [],
+    "notes": "Specialized production technique for a specific goods transformation. Difficulty is based on active process control, failure risk and required precision, not elapsed waiting time. This has some timing, texture, sanitation or handling risk, but technique training can still improve it above base skill.",
+    "productionRecipeId": "production-step-food-tabasco-pepper-spice-tabasco-pepper-mash"
+  },
+  {
+    "id": "technique-food-piquillo-pepper-food-roasted-piquillo-pepper",
+    "name": "Печеный пикильо",
+    "baseSkillId": "skill-повар",
+    "difficultyPenalty": -1,
+    "maxRelativeLevel": 1,
+    "prerequisiteTechniqueIds": [],
+    "notes": "Specialized production technique for a specific goods transformation. Difficulty is based on active process control, failure risk and required precision, not elapsed waiting time. This has some timing, texture, sanitation or handling risk, but technique training can still improve it above base skill.",
+    "productionRecipeId": "production-step-food-piquillo-pepper-food-roasted-piquillo-pepper"
+  },
+  {
+    "id": "technique-food-calabrian-chili-food-fermented-calabrian-chili",
+    "name": "Ферментированный калабрийский чили",
+    "baseSkillId": "skill-повар",
+    "difficultyPenalty": -1,
+    "maxRelativeLevel": 1,
+    "prerequisiteTechniqueIds": [],
+    "notes": "Specialized production technique for a specific goods transformation. Difficulty is based on active process control, failure risk and required precision, not elapsed waiting time. This has some timing, texture, sanitation or handling risk, but technique training can still improve it above base skill.",
+    "productionRecipeId": "production-step-food-calabrian-chili-food-fermented-calabrian-chili"
+  },
+  {
+    "id": "technique-food-fermented-calabrian-chili-food-calabrian-chili-oil",
+    "name": "Калабрийский чили в масле",
+    "baseSkillId": "skill-повар",
+    "difficultyPenalty": -1,
+    "maxRelativeLevel": 1,
+    "prerequisiteTechniqueIds": [],
+    "notes": "Specialized production technique for a specific goods transformation. Difficulty is based on active process control, failure risk and required precision, not elapsed waiting time. This has some timing, texture, sanitation or handling risk, but technique training can still improve it above base skill.",
+    "productionRecipeId": "production-step-food-fermented-calabrian-chili-food-calabrian-chili-oil"
+  },
+  {
+    "id": "technique-food-tepin-pepper-spice-dried-tepin-pepper",
+    "name": "Сушеный чилтепин",
+    "baseSkillId": "skill-повар",
+    "difficultyPenalty": 0,
+    "maxRelativeLevel": 2,
+    "prerequisiteTechniqueIds": [],
+    "notes": "Routine production technique for a specific goods transformation. Difficulty is based on active process control, failure risk and required precision, not elapsed waiting time. This is a routine narrow use of the base skill: it has no default penalty, and focused technique training can improve it up to base skill +2.",
+    "productionRecipeId": "production-step-food-tepin-pepper-spice-dried-tepin-pepper"
+  },
+  {
+    "id": "technique-source-black-pepper-vine-spice-fresh-pepper-berries",
+    "name": "Ягоды черного перца + Перец черный растение",
+    "baseSkillId": "skill-садовод",
+    "difficultyPenalty": 0,
+    "maxRelativeLevel": 2,
+    "prerequisiteTechniqueIds": [],
+    "notes": "Routine production technique for a specific goods transformation. Difficulty is based on active process control, failure risk and required precision, not elapsed waiting time. This is a routine narrow use of the base skill: it has no default penalty, and focused technique training can improve it up to base skill +2.",
+    "productionRecipeId": "production-step-source-black-pepper-vine-spice-fresh-pepper-berries"
+  },
+  {
+    "id": "technique-source-capsicum-plant-food-hot-pepper",
+    "name": "Острый перец",
+    "baseSkillId": "skill-садовод",
+    "difficultyPenalty": 0,
+    "maxRelativeLevel": 2,
+    "prerequisiteTechniqueIds": [],
+    "notes": "Routine production technique for a specific goods transformation. Difficulty is based on active process control, failure risk and required precision, not elapsed waiting time. This is a routine narrow use of the base skill: it has no default penalty, and focused technique training can improve it up to base skill +2.",
+    "productionRecipeId": "production-step-source-capsicum-plant-food-hot-pepper"
+  },
+  {
+    "id": "technique-source-capsicum-plant-food-paprika-pepper",
+    "name": "Папричный перец",
+    "baseSkillId": "skill-садовод",
+    "difficultyPenalty": 0,
+    "maxRelativeLevel": 2,
+    "prerequisiteTechniqueIds": [],
+    "notes": "Routine production technique for a specific goods transformation. Difficulty is based on active process control, failure risk and required precision, not elapsed waiting time. This is a routine narrow use of the base skill: it has no default penalty, and focused technique training can improve it up to base skill +2.",
+    "productionRecipeId": "production-step-source-capsicum-plant-food-paprika-pepper"
+  },
+  {
+    "id": "technique-source-garlic-plant-food-garlic",
+    "name": "Чеснок",
+    "baseSkillId": "skill-садовод",
+    "difficultyPenalty": 0,
+    "maxRelativeLevel": 2,
+    "prerequisiteTechniqueIds": [],
+    "notes": "Routine production technique for a specific goods transformation. Difficulty is based on active process control, failure risk and required precision, not elapsed waiting time. This is a routine narrow use of the base skill: it has no default penalty, and focused technique training can improve it up to base skill +2.",
+    "productionRecipeId": "production-step-source-garlic-plant-food-garlic"
+  },
+  {
+    "id": "technique-source-cumin-plant-spice-cumin-seeds",
+    "name": "Кумин семена",
+    "baseSkillId": "skill-садовод",
+    "difficultyPenalty": 0,
+    "maxRelativeLevel": 2,
+    "prerequisiteTechniqueIds": [],
+    "notes": "Routine production technique for a specific goods transformation. Difficulty is based on active process control, failure risk and required precision, not elapsed waiting time. This is a routine narrow use of the base skill: it has no default penalty, and focused technique training can improve it up to base skill +2.",
+    "productionRecipeId": "production-step-source-cumin-plant-spice-cumin-seeds"
+  },
+  {
+    "id": "technique-source-nutmeg-tree-spice-nutmeg-and-mace",
+    "name": "Мускатный орех + Мацис + Мускатник душистый",
+    "baseSkillId": "skill-садовод",
+    "difficultyPenalty": 0,
+    "maxRelativeLevel": 2,
+    "prerequisiteTechniqueIds": [],
+    "notes": "Routine production technique for a specific goods transformation. Difficulty is based on active process control, failure risk and required precision, not elapsed waiting time. This is a routine narrow use of the base skill: it has no default penalty, and focused technique training can improve it up to base skill +2.",
+    "productionRecipeId": "production-step-source-nutmeg-tree-spice-nutmeg-and-mace"
+  },
+  {
+    "id": "technique-source-turmeric-plant-spice-turmeric-rhizome",
+    "name": "Корневище куркумы",
+    "baseSkillId": "skill-садовод",
+    "difficultyPenalty": 0,
+    "maxRelativeLevel": 2,
+    "prerequisiteTechniqueIds": [],
+    "notes": "Routine production technique for a specific goods transformation. Difficulty is based on active process control, failure risk and required precision, not elapsed waiting time. This is a routine narrow use of the base skill: it has no default penalty, and focused technique training can improve it up to base skill +2.",
+    "productionRecipeId": "production-step-source-turmeric-plant-spice-turmeric-rhizome"
+  },
+  {
+    "id": "technique-source-cinnamon-tree-spice-cinnamon-bark",
+    "name": "Кора корицы",
+    "baseSkillId": "skill-садовод",
+    "difficultyPenalty": 0,
+    "maxRelativeLevel": 2,
+    "prerequisiteTechniqueIds": [],
+    "notes": "Routine production technique for a specific goods transformation. Difficulty is based on active process control, failure risk and required precision, not elapsed waiting time. This is a routine narrow use of the base skill: it has no default penalty, and focused technique training can improve it up to base skill +2.",
+    "productionRecipeId": "production-step-source-cinnamon-tree-spice-cinnamon-bark"
+  },
+  {
+    "id": "technique-source-bay-laurel-spice-bay-leaves",
+    "name": "Лавровый лист + Лавр благородный",
+    "baseSkillId": "skill-садовод",
+    "difficultyPenalty": 0,
+    "maxRelativeLevel": 2,
+    "prerequisiteTechniqueIds": [],
+    "notes": "Routine production technique for a specific goods transformation. Difficulty is based on active process control, failure risk and required precision, not elapsed waiting time. This is a routine narrow use of the base skill: it has no default penalty, and focused technique training can improve it up to base skill +2.",
+    "productionRecipeId": "production-step-source-bay-laurel-spice-bay-leaves"
+  },
+  {
+    "id": "technique-source-cardamom-plant-spice-cardamom-pods",
+    "name": "Кардамон стручки + Кардамон растение",
+    "baseSkillId": "skill-садовод",
+    "difficultyPenalty": 0,
+    "maxRelativeLevel": 2,
+    "prerequisiteTechniqueIds": [],
+    "notes": "Routine production technique for a specific goods transformation. Difficulty is based on active process control, failure risk and required precision, not elapsed waiting time. This is a routine narrow use of the base skill: it has no default penalty, and focused technique training can improve it up to base skill +2.",
+    "productionRecipeId": "production-step-source-cardamom-plant-spice-cardamom-pods"
+  },
+  {
+    "id": "technique-source-clove-tree-spice-cloves",
+    "name": "Гвоздика + Гвоздичное дерево",
+    "baseSkillId": "skill-садовод",
+    "difficultyPenalty": 0,
+    "maxRelativeLevel": 2,
+    "prerequisiteTechniqueIds": [],
+    "notes": "Routine production technique for a specific goods transformation. Difficulty is based on active process control, failure risk and required precision, not elapsed waiting time. This is a routine narrow use of the base skill: it has no default penalty, and focused technique training can improve it up to base skill +2.",
+    "productionRecipeId": "production-step-source-clove-tree-spice-cloves"
+  },
+  {
+    "id": "technique-source-saffron-crocus-spice-saffron",
+    "name": "Шафран + Шафрановый крокус",
+    "baseSkillId": "skill-садовод",
+    "difficultyPenalty": 0,
+    "maxRelativeLevel": 2,
+    "prerequisiteTechniqueIds": [],
+    "notes": "Routine production technique for a specific goods transformation. Difficulty is based on active process control, failure risk and required precision, not elapsed waiting time. This is a routine narrow use of the base skill: it has no default penalty, and focused technique training can improve it up to base skill +2.",
+    "productionRecipeId": "production-step-source-saffron-crocus-spice-saffron"
+  },
+  {
+    "id": "technique-source-sichuan-pepper-shrub-spice-sichuan-peppercorns",
+    "name": "Сычуаньский перец + Зантоксилум",
+    "baseSkillId": "skill-садовод",
+    "difficultyPenalty": 0,
+    "maxRelativeLevel": 2,
+    "prerequisiteTechniqueIds": [],
+    "notes": "Routine production technique for a specific goods transformation. Difficulty is based on active process control, failure risk and required precision, not elapsed waiting time. This is a routine narrow use of the base skill: it has no default penalty, and focused technique training can improve it up to base skill +2.",
+    "productionRecipeId": "production-step-source-sichuan-pepper-shrub-spice-sichuan-peppercorns"
+  },
+  {
+    "id": "technique-spice-fresh-pepper-berries-spice-black-peppercorns",
+    "name": "Черный перец горошком",
+    "baseSkillId": "skill-повар",
+    "difficultyPenalty": 0,
+    "maxRelativeLevel": 2,
+    "prerequisiteTechniqueIds": [],
+    "notes": "Routine production technique for a specific goods transformation. Difficulty is based on active process control, failure risk and required precision, not elapsed waiting time. This is a routine narrow use of the base skill: it has no default penalty, and focused technique training can improve it up to base skill +2.",
+    "productionRecipeId": "production-step-spice-fresh-pepper-berries-spice-black-peppercorns"
+  },
+  {
+    "id": "technique-spice-fresh-pepper-berries-spice-white-peppercorns",
+    "name": "Белый перец горошком",
+    "baseSkillId": "skill-повар",
+    "difficultyPenalty": 0,
+    "maxRelativeLevel": 2,
+    "prerequisiteTechniqueIds": [],
+    "notes": "Routine production technique for a specific goods transformation. Difficulty is based on active process control, failure risk and required precision, not elapsed waiting time. This is a routine narrow use of the base skill: it has no default penalty, and focused technique training can improve it up to base skill +2.",
+    "productionRecipeId": "production-step-spice-fresh-pepper-berries-spice-white-peppercorns"
+  },
+  {
+    "id": "technique-spice-fresh-pepper-berries-spice-green-peppercorns",
+    "name": "Зеленый перец горошком",
+    "baseSkillId": "skill-повар",
+    "difficultyPenalty": 0,
+    "maxRelativeLevel": 2,
+    "prerequisiteTechniqueIds": [],
+    "notes": "Routine production technique for a specific goods transformation. Difficulty is based on active process control, failure risk and required precision, not elapsed waiting time. This is a routine narrow use of the base skill: it has no default penalty, and focused technique training can improve it up to base skill +2.",
+    "productionRecipeId": "production-step-spice-fresh-pepper-berries-spice-green-peppercorns"
+  },
+  {
+    "id": "technique-food-paprika-pepper-spice-sweet-paprika",
+    "name": "Сладкая паприка",
+    "baseSkillId": "skill-повар",
+    "difficultyPenalty": 0,
+    "maxRelativeLevel": 2,
+    "prerequisiteTechniqueIds": [],
+    "notes": "Routine production technique for a specific goods transformation. Difficulty is based on active process control, failure risk and required precision, not elapsed waiting time. This is a routine narrow use of the base skill: it has no default penalty, and focused technique training can improve it up to base skill +2.",
+    "productionRecipeId": "production-step-food-paprika-pepper-spice-sweet-paprika"
+  },
+  {
+    "id": "technique-food-paprika-pepper-spice-smoked-paprika",
+    "name": "Копченая паприка",
+    "baseSkillId": "skill-повар",
+    "difficultyPenalty": -1,
+    "maxRelativeLevel": 1,
+    "prerequisiteTechniqueIds": [],
+    "notes": "Specialized production technique for a specific goods transformation. Difficulty is based on active process control, failure risk and required precision, not elapsed waiting time. This has some timing, texture, sanitation or handling risk, but technique training can still improve it above base skill.",
+    "productionRecipeId": "production-step-food-paprika-pepper-spice-smoked-paprika"
+  },
+  {
+    "id": "technique-food-hot-pepper-spice-hot-paprika",
+    "name": "Острая паприка",
+    "baseSkillId": "skill-повар",
+    "difficultyPenalty": 0,
+    "maxRelativeLevel": 2,
+    "prerequisiteTechniqueIds": [],
+    "notes": "Routine production technique for a specific goods transformation. Difficulty is based on active process control, failure risk and required precision, not elapsed waiting time. This is a routine narrow use of the base skill: it has no default penalty, and focused technique training can improve it up to base skill +2.",
+    "productionRecipeId": "production-step-food-hot-pepper-spice-hot-paprika"
+  },
+  {
+    "id": "technique-food-paprika-pepper-spice-hungarian-paprika",
+    "name": "Венгерская паприка",
+    "baseSkillId": "skill-повар",
+    "difficultyPenalty": 0,
+    "maxRelativeLevel": 2,
+    "prerequisiteTechniqueIds": [],
+    "notes": "Routine production technique for a specific goods transformation. Difficulty is based on active process control, failure risk and required precision, not elapsed waiting time. This is a routine narrow use of the base skill: it has no default penalty, and focused technique training can improve it up to base skill +2.",
+    "productionRecipeId": "production-step-food-paprika-pepper-spice-hungarian-paprika"
+  },
+  {
+    "id": "technique-food-hot-pepper-spice-cayenne-pepper",
+    "name": "Кайенский перец",
+    "baseSkillId": "skill-повар",
+    "difficultyPenalty": 0,
+    "maxRelativeLevel": 2,
+    "prerequisiteTechniqueIds": [],
+    "notes": "Routine production technique for a specific goods transformation. Difficulty is based on active process control, failure risk and required precision, not elapsed waiting time. This is a routine narrow use of the base skill: it has no default penalty, and focused technique training can improve it up to base skill +2.",
+    "productionRecipeId": "production-step-food-hot-pepper-spice-cayenne-pepper"
+  },
+  {
+    "id": "technique-food-hot-pepper-spice-chili-flakes",
+    "name": "Хлопья чили",
+    "baseSkillId": "skill-повар",
+    "difficultyPenalty": 0,
+    "maxRelativeLevel": 2,
+    "prerequisiteTechniqueIds": [],
+    "notes": "Routine production technique for a specific goods transformation. Difficulty is based on active process control, failure risk and required precision, not elapsed waiting time. This is a routine narrow use of the base skill: it has no default penalty, and focused technique training can improve it up to base skill +2.",
+    "productionRecipeId": "production-step-food-hot-pepper-spice-chili-flakes"
+  },
+  {
+    "id": "technique-food-garlic-spice-garlic-powder",
+    "name": "Чесночный порошок",
+    "baseSkillId": "skill-повар",
+    "difficultyPenalty": 0,
+    "maxRelativeLevel": 2,
+    "prerequisiteTechniqueIds": [],
+    "notes": "Routine production technique for a specific goods transformation. Difficulty is based on active process control, failure risk and required precision, not elapsed waiting time. This is a routine narrow use of the base skill: it has no default penalty, and focused technique training can improve it up to base skill +2.",
+    "productionRecipeId": "production-step-food-garlic-spice-garlic-powder"
+  },
+  {
+    "id": "technique-research-onion-spice-onion-powder",
+    "name": "Луковый порошок",
+    "baseSkillId": "skill-повар",
+    "difficultyPenalty": 0,
+    "maxRelativeLevel": 2,
+    "prerequisiteTechniqueIds": [],
+    "notes": "Routine production technique for a specific goods transformation. Difficulty is based on active process control, failure risk and required precision, not elapsed waiting time. This is a routine narrow use of the base skill: it has no default penalty, and focused technique training can improve it up to base skill +2.",
+    "productionRecipeId": "production-step-research-onion-spice-onion-powder"
+  },
+  {
+    "id": "technique-spice-cumin-seeds-spice-ground-cumin",
+    "name": "Кумин молотый",
+    "baseSkillId": "skill-повар",
+    "difficultyPenalty": 0,
+    "maxRelativeLevel": 2,
+    "prerequisiteTechniqueIds": [],
+    "notes": "Routine production technique for a specific goods transformation. Difficulty is based on active process control, failure risk and required precision, not elapsed waiting time. This is a routine narrow use of the base skill: it has no default penalty, and focused technique training can improve it up to base skill +2.",
+    "productionRecipeId": "production-step-spice-cumin-seeds-spice-ground-cumin"
+  },
+  {
+    "id": "technique-spice-nutmeg-spice-ground-nutmeg",
+    "name": "Мускатный орех молотый",
+    "baseSkillId": "skill-повар",
+    "difficultyPenalty": 0,
+    "maxRelativeLevel": 2,
+    "prerequisiteTechniqueIds": [],
+    "notes": "Routine production technique for a specific goods transformation. Difficulty is based on active process control, failure risk and required precision, not elapsed waiting time. This is a routine narrow use of the base skill: it has no default penalty, and focused technique training can improve it up to base skill +2.",
+    "productionRecipeId": "production-step-spice-nutmeg-spice-ground-nutmeg"
+  },
+  {
+    "id": "technique-spice-turmeric-rhizome-spice-ground-turmeric",
+    "name": "Куркума молотая",
+    "baseSkillId": "skill-повар",
+    "difficultyPenalty": 0,
+    "maxRelativeLevel": 2,
+    "prerequisiteTechniqueIds": [],
+    "notes": "Routine production technique for a specific goods transformation. Difficulty is based on active process control, failure risk and required precision, not elapsed waiting time. This is a routine narrow use of the base skill: it has no default penalty, and focused technique training can improve it up to base skill +2.",
+    "productionRecipeId": "production-step-spice-turmeric-rhizome-spice-ground-turmeric"
+  },
+  {
+    "id": "technique-spice-cinnamon-bark-spice-cinnamon-sticks",
+    "name": "Корица палочки",
+    "baseSkillId": "skill-повар",
+    "difficultyPenalty": 0,
+    "maxRelativeLevel": 2,
+    "prerequisiteTechniqueIds": [],
+    "notes": "Routine production technique for a specific goods transformation. Difficulty is based on active process control, failure risk and required precision, not elapsed waiting time. This is a routine narrow use of the base skill: it has no default penalty, and focused technique training can improve it up to base skill +2.",
+    "productionRecipeId": "production-step-spice-cinnamon-bark-spice-cinnamon-sticks"
+  },
+  {
+    "id": "technique-spice-cinnamon-bark-spice-ground-cinnamon",
+    "name": "Корица молотая",
+    "baseSkillId": "skill-повар",
+    "difficultyPenalty": 0,
+    "maxRelativeLevel": 2,
+    "prerequisiteTechniqueIds": [],
+    "notes": "Routine production technique for a specific goods transformation. Difficulty is based on active process control, failure risk and required precision, not elapsed waiting time. This is a routine narrow use of the base skill: it has no default penalty, and focused technique training can improve it up to base skill +2.",
+    "productionRecipeId": "production-step-spice-cinnamon-bark-spice-ground-cinnamon"
+  },
+  {
+    "id": "technique-spice-cardamom-pods-spice-ground-cardamom",
+    "name": "Кардамон молотый",
+    "baseSkillId": "skill-повар",
+    "difficultyPenalty": 0,
+    "maxRelativeLevel": 2,
+    "prerequisiteTechniqueIds": [],
+    "notes": "Routine production technique for a specific goods transformation. Difficulty is based on active process control, failure risk and required precision, not elapsed waiting time. This is a routine narrow use of the base skill: it has no default penalty, and focused technique training can improve it up to base skill +2.",
+    "productionRecipeId": "production-step-spice-cardamom-pods-spice-ground-cardamom"
+  },
+  {
+    "id": "technique-spice-cloves-spice-ground-cloves",
+    "name": "Гвоздика молотая",
+    "baseSkillId": "skill-повар",
+    "difficultyPenalty": 0,
+    "maxRelativeLevel": 2,
+    "prerequisiteTechniqueIds": [],
+    "notes": "Routine production technique for a specific goods transformation. Difficulty is based on active process control, failure risk and required precision, not elapsed waiting time. This is a routine narrow use of the base skill: it has no default penalty, and focused technique training can improve it up to base skill +2.",
+    "productionRecipeId": "production-step-spice-cloves-spice-ground-cloves"
+  },
+  {
+    "id": "technique-spice-garlic-powder-food-salt-spice-garlic-salt",
+    "name": "Чесночная соль",
+    "baseSkillId": "skill-повар",
+    "difficultyPenalty": 0,
+    "maxRelativeLevel": 2,
+    "prerequisiteTechniqueIds": [],
+    "notes": "Routine production technique for a specific goods transformation. Difficulty is based on active process control, failure risk and required precision, not elapsed waiting time. This is a routine narrow use of the base skill: it has no default penalty, and focused technique training can improve it up to base skill +2.",
+    "productionRecipeId": "production-step-spice-garlic-powder-food-salt-spice-garlic-salt"
+  },
+  {
+    "id": "technique-research-seaweed-spice-msg",
+    "name": "Глутамат натрия",
+    "baseSkillId": "skill-повар",
+    "difficultyPenalty": 0,
+    "maxRelativeLevel": 2,
+    "prerequisiteTechniqueIds": [],
+    "notes": "Routine production technique for a specific goods transformation. Difficulty is based on active process control, failure risk and required precision, not elapsed waiting time. This is a routine narrow use of the base skill: it has no default penalty, and focused technique training can improve it up to base skill +2.",
+    "productionRecipeId": "production-step-research-seaweed-spice-msg"
+  },
+  {
+    "id": "technique-food-yellow-onion-spice-onion-powder",
+    "name": "Луковый порошок",
+    "baseSkillId": "skill-повар",
+    "difficultyPenalty": 0,
+    "maxRelativeLevel": 2,
+    "prerequisiteTechniqueIds": [],
+    "notes": "Routine production technique for a specific goods transformation. Difficulty is based on active process control, failure risk and required precision, not elapsed waiting time. This is a routine narrow use of the base skill: it has no default penalty, and focused technique training can improve it up to base skill +2.",
+    "productionRecipeId": "production-step-food-yellow-onion-spice-onion-powder"
+  },
+  {
+    "id": "technique-source-cabbage-plant-food-cabbage",
+    "name": "Капуста",
+    "baseSkillId": "skill-farming",
+    "difficultyPenalty": 0,
+    "maxRelativeLevel": 2,
+    "prerequisiteTechniqueIds": [],
+    "notes": "Routine production technique for a specific goods transformation. Difficulty is based on active process control, failure risk and required precision, not elapsed waiting time. This is a routine narrow use of the base skill: it has no default penalty, and focused technique training can improve it up to base skill +2.",
+    "productionRecipeId": "production-step-source-cabbage-plant-food-cabbage"
+  },
+  {
+    "id": "technique-source-potato-plant-research-potato",
+    "name": "Картофель",
+    "baseSkillId": "skill-farming",
+    "difficultyPenalty": 0,
+    "maxRelativeLevel": 2,
+    "prerequisiteTechniqueIds": [],
+    "notes": "Routine production technique for a specific goods transformation. Difficulty is based on active process control, failure risk and required precision, not elapsed waiting time. This is a routine narrow use of the base skill: it has no default penalty, and focused technique training can improve it up to base skill +2.",
+    "productionRecipeId": "production-step-source-potato-plant-research-potato"
+  },
+  {
+    "id": "technique-source-cassava-plant-research-cassava",
+    "name": "Кассава",
+    "baseSkillId": "skill-farming",
+    "difficultyPenalty": 0,
+    "maxRelativeLevel": 2,
+    "prerequisiteTechniqueIds": [],
+    "notes": "Routine production technique for a specific goods transformation. Difficulty is based on active process control, failure risk and required precision, not elapsed waiting time. This is a routine narrow use of the base skill: it has no default penalty, and focused technique training can improve it up to base skill +2.",
+    "productionRecipeId": "production-step-source-cassava-plant-research-cassava"
+  },
+  {
+    "id": "technique-source-onion-plant-research-onion",
+    "name": "Лук",
+    "baseSkillId": "skill-farming",
+    "difficultyPenalty": 0,
+    "maxRelativeLevel": 2,
+    "prerequisiteTechniqueIds": [],
+    "notes": "Routine production technique for a specific goods transformation. Difficulty is based on active process control, failure risk and required precision, not elapsed waiting time. This is a routine narrow use of the base skill: it has no default penalty, and focused technique training can improve it up to base skill +2.",
+    "productionRecipeId": "production-step-source-onion-plant-research-onion"
+  },
+  {
+    "id": "technique-source-taro-plant-research-taro",
+    "name": "Таро",
+    "baseSkillId": "skill-farming",
+    "difficultyPenalty": 0,
+    "maxRelativeLevel": 2,
+    "prerequisiteTechniqueIds": [],
+    "notes": "Routine production technique for a specific goods transformation. Difficulty is based on active process control, failure risk and required precision, not elapsed waiting time. This is a routine narrow use of the base skill: it has no default penalty, and focused technique training can improve it up to base skill +2.",
+    "productionRecipeId": "production-step-source-taro-plant-research-taro"
+  },
+  {
+    "id": "technique-source-yellow-onion-plant-food-yellow-onion",
+    "name": "Желтый лук",
+    "baseSkillId": "skill-farming",
+    "difficultyPenalty": 0,
+    "maxRelativeLevel": 2,
+    "prerequisiteTechniqueIds": [],
+    "notes": "Routine production technique for a specific goods transformation. Difficulty is based on active process control, failure risk and required precision, not elapsed waiting time. This is a routine narrow use of the base skill: it has no default penalty, and focused technique training can improve it up to base skill +2.",
+    "productionRecipeId": "production-step-source-yellow-onion-plant-food-yellow-onion"
+  },
+  {
+    "id": "technique-source-white-onion-plant-food-white-onion",
+    "name": "Белый лук",
+    "baseSkillId": "skill-farming",
+    "difficultyPenalty": 0,
+    "maxRelativeLevel": 2,
+    "prerequisiteTechniqueIds": [],
+    "notes": "Routine production technique for a specific goods transformation. Difficulty is based on active process control, failure risk and required precision, not elapsed waiting time. This is a routine narrow use of the base skill: it has no default penalty, and focused technique training can improve it up to base skill +2.",
+    "productionRecipeId": "production-step-source-white-onion-plant-food-white-onion"
+  },
+  {
+    "id": "technique-source-red-onion-plant-food-red-onion",
+    "name": "Красный лук",
+    "baseSkillId": "skill-farming",
+    "difficultyPenalty": 0,
+    "maxRelativeLevel": 2,
+    "prerequisiteTechniqueIds": [],
+    "notes": "Routine production technique for a specific goods transformation. Difficulty is based on active process control, failure risk and required precision, not elapsed waiting time. This is a routine narrow use of the base skill: it has no default penalty, and focused technique training can improve it up to base skill +2.",
+    "productionRecipeId": "production-step-source-red-onion-plant-food-red-onion"
+  },
+  {
+    "id": "technique-source-sweet-onion-plant-food-sweet-onion",
+    "name": "Сладкий лук",
+    "baseSkillId": "skill-farming",
+    "difficultyPenalty": 0,
+    "maxRelativeLevel": 2,
+    "prerequisiteTechniqueIds": [],
+    "notes": "Routine production technique for a specific goods transformation. Difficulty is based on active process control, failure risk and required precision, not elapsed waiting time. This is a routine narrow use of the base skill: it has no default penalty, and focused technique training can improve it up to base skill +2.",
+    "productionRecipeId": "production-step-source-sweet-onion-plant-food-sweet-onion"
+  },
+  {
+    "id": "technique-source-spring-onion-plant-food-spring-onion",
+    "name": "Весенний лук",
+    "baseSkillId": "skill-farming",
+    "difficultyPenalty": 0,
+    "maxRelativeLevel": 2,
+    "prerequisiteTechniqueIds": [],
+    "notes": "Routine production technique for a specific goods transformation. Difficulty is based on active process control, failure risk and required precision, not elapsed waiting time. This is a routine narrow use of the base skill: it has no default penalty, and focused technique training can improve it up to base skill +2.",
+    "productionRecipeId": "production-step-source-spring-onion-plant-food-spring-onion"
+  },
+  {
+    "id": "technique-source-scallion-plant-food-scallion",
+    "name": "Зеленый лук",
+    "baseSkillId": "skill-farming",
+    "difficultyPenalty": 0,
+    "maxRelativeLevel": 2,
+    "prerequisiteTechniqueIds": [],
+    "notes": "Routine production technique for a specific goods transformation. Difficulty is based on active process control, failure risk and required precision, not elapsed waiting time. This is a routine narrow use of the base skill: it has no default penalty, and focused technique training can improve it up to base skill +2.",
+    "productionRecipeId": "production-step-source-scallion-plant-food-scallion"
+  },
+  {
+    "id": "technique-source-shallot-plant-food-shallot",
+    "name": "Шалот",
+    "baseSkillId": "skill-farming",
+    "difficultyPenalty": 0,
+    "maxRelativeLevel": 2,
+    "prerequisiteTechniqueIds": [],
+    "notes": "Routine production technique for a specific goods transformation. Difficulty is based on active process control, failure risk and required precision, not elapsed waiting time. This is a routine narrow use of the base skill: it has no default penalty, and focused technique training can improve it up to base skill +2.",
+    "productionRecipeId": "production-step-source-shallot-plant-food-shallot"
+  },
+  {
+    "id": "technique-source-egyptian-walking-onion-plant-food-egyptian-walking-onion",
+    "name": "Бульбочки шагающего лука",
+    "baseSkillId": "skill-farming",
+    "difficultyPenalty": 0,
+    "maxRelativeLevel": 2,
+    "prerequisiteTechniqueIds": [],
+    "notes": "Routine production technique for a specific goods transformation. Difficulty is based on active process control, failure risk and required precision, not elapsed waiting time. This is a routine narrow use of the base skill: it has no default penalty, and focused technique training can improve it up to base skill +2.",
+    "productionRecipeId": "production-step-source-egyptian-walking-onion-plant-food-egyptian-walking-onion"
+  },
+  {
+    "id": "technique-source-potato-onion-plant-food-potato-onion",
+    "name": "Картофельный лук",
+    "baseSkillId": "skill-farming",
+    "difficultyPenalty": 0,
+    "maxRelativeLevel": 2,
+    "prerequisiteTechniqueIds": [],
+    "notes": "Routine production technique for a specific goods transformation. Difficulty is based on active process control, failure risk and required precision, not elapsed waiting time. This is a routine narrow use of the base skill: it has no default penalty, and focused technique training can improve it up to base skill +2.",
+    "productionRecipeId": "production-step-source-potato-onion-plant-food-potato-onion"
+  },
+  {
+    "id": "technique-source-cipollini-onion-plant-food-cipollini-onion",
+    "name": "Лук чиполлини",
+    "baseSkillId": "skill-farming",
+    "difficultyPenalty": 0,
+    "maxRelativeLevel": 2,
+    "prerequisiteTechniqueIds": [],
+    "notes": "Routine production technique for a specific goods transformation. Difficulty is based on active process control, failure risk and required precision, not elapsed waiting time. This is a routine narrow use of the base skill: it has no default penalty, and focused technique training can improve it up to base skill +2.",
+    "productionRecipeId": "production-step-source-cipollini-onion-plant-food-cipollini-onion"
+  },
+  {
+    "id": "technique-source-pearl-onion-plant-food-pearl-onion",
+    "name": "Жемчужный лук",
+    "baseSkillId": "skill-farming",
+    "difficultyPenalty": 0,
+    "maxRelativeLevel": 2,
+    "prerequisiteTechniqueIds": [],
+    "notes": "Routine production technique for a specific goods transformation. Difficulty is based on active process control, failure risk and required precision, not elapsed waiting time. This is a routine narrow use of the base skill: it has no default penalty, and focused technique training can improve it up to base skill +2.",
+    "productionRecipeId": "production-step-source-pearl-onion-plant-food-pearl-onion"
+  },
+  {
+    "id": "technique-source-rocambole-garlic-plant-food-rocambole-scapes",
+    "name": "Стрелки рокамболя",
+    "baseSkillId": "skill-farming",
+    "difficultyPenalty": 0,
+    "maxRelativeLevel": 2,
+    "prerequisiteTechniqueIds": [],
+    "notes": "Routine production technique for a specific goods transformation. Difficulty is based on active process control, failure risk and required precision, not elapsed waiting time. This is a routine narrow use of the base skill: it has no default penalty, and focused technique training can improve it up to base skill +2.",
+    "productionRecipeId": "production-step-source-rocambole-garlic-plant-food-rocambole-scapes"
+  },
+  {
+    "id": "technique-source-bell-pepper-plant-food-green-bell-pepper",
+    "name": "Зеленый болгарский перец",
+    "baseSkillId": "skill-farming",
+    "difficultyPenalty": 0,
+    "maxRelativeLevel": 2,
+    "prerequisiteTechniqueIds": [],
+    "notes": "Routine production technique for a specific goods transformation. Difficulty is based on active process control, failure risk and required precision, not elapsed waiting time. This is a routine narrow use of the base skill: it has no default penalty, and focused technique training can improve it up to base skill +2.",
+    "productionRecipeId": "production-step-source-bell-pepper-plant-food-green-bell-pepper"
+  },
+  {
+    "id": "technique-source-bell-pepper-plant-food-red-bell-pepper",
+    "name": "Красный болгарский перец",
+    "baseSkillId": "skill-farming",
+    "difficultyPenalty": 0,
+    "maxRelativeLevel": 2,
+    "prerequisiteTechniqueIds": [],
+    "notes": "Routine production technique for a specific goods transformation. Difficulty is based on active process control, failure risk and required precision, not elapsed waiting time. This is a routine narrow use of the base skill: it has no default penalty, and focused technique training can improve it up to base skill +2.",
+    "productionRecipeId": "production-step-source-bell-pepper-plant-food-red-bell-pepper"
+  },
+  {
+    "id": "technique-source-bell-pepper-plant-food-yellow-bell-pepper",
+    "name": "Желтый болгарский перец",
+    "baseSkillId": "skill-farming",
+    "difficultyPenalty": 0,
+    "maxRelativeLevel": 2,
+    "prerequisiteTechniqueIds": [],
+    "notes": "Routine production technique for a specific goods transformation. Difficulty is based on active process control, failure risk and required precision, not elapsed waiting time. This is a routine narrow use of the base skill: it has no default penalty, and focused technique training can improve it up to base skill +2.",
+    "productionRecipeId": "production-step-source-bell-pepper-plant-food-yellow-bell-pepper"
+  },
+  {
+    "id": "technique-source-bell-pepper-plant-food-orange-bell-pepper",
+    "name": "Оранжевый болгарский перец",
+    "baseSkillId": "skill-farming",
+    "difficultyPenalty": 0,
+    "maxRelativeLevel": 2,
+    "prerequisiteTechniqueIds": [],
+    "notes": "Routine production technique for a specific goods transformation. Difficulty is based on active process control, failure risk and required precision, not elapsed waiting time. This is a routine narrow use of the base skill: it has no default penalty, and focused technique training can improve it up to base skill +2.",
+    "productionRecipeId": "production-step-source-bell-pepper-plant-food-orange-bell-pepper"
+  },
+  {
+    "id": "technique-source-jalapeno-plant-food-jalapeno",
+    "name": "Халапеньо",
+    "baseSkillId": "skill-farming",
+    "difficultyPenalty": 0,
+    "maxRelativeLevel": 2,
+    "prerequisiteTechniqueIds": [],
+    "notes": "Routine production technique for a specific goods transformation. Difficulty is based on active process control, failure risk and required precision, not elapsed waiting time. This is a routine narrow use of the base skill: it has no default penalty, and focused technique training can improve it up to base skill +2.",
+    "productionRecipeId": "production-step-source-jalapeno-plant-food-jalapeno"
+  },
+  {
+    "id": "technique-source-jalapeno-plant-food-red-jalapeno",
+    "name": "Красный халапеньо",
+    "baseSkillId": "skill-farming",
+    "difficultyPenalty": 0,
+    "maxRelativeLevel": 2,
+    "prerequisiteTechniqueIds": [],
+    "notes": "Routine production technique for a specific goods transformation. Difficulty is based on active process control, failure risk and required precision, not elapsed waiting time. This is a routine narrow use of the base skill: it has no default penalty, and focused technique training can improve it up to base skill +2.",
+    "productionRecipeId": "production-step-source-jalapeno-plant-food-red-jalapeno"
+  },
+  {
+    "id": "technique-source-poblano-plant-food-poblano-pepper",
+    "name": "Поблано",
+    "baseSkillId": "skill-farming",
+    "difficultyPenalty": 0,
+    "maxRelativeLevel": 2,
+    "prerequisiteTechniqueIds": [],
+    "notes": "Routine production technique for a specific goods transformation. Difficulty is based on active process control, failure risk and required precision, not elapsed waiting time. This is a routine narrow use of the base skill: it has no default penalty, and focused technique training can improve it up to base skill +2.",
+    "productionRecipeId": "production-step-source-poblano-plant-food-poblano-pepper"
+  },
+  {
+    "id": "technique-source-tabasco-pepper-plant-food-tabasco-pepper",
+    "name": "Перец табаско",
+    "baseSkillId": "skill-farming",
+    "difficultyPenalty": 0,
+    "maxRelativeLevel": 2,
+    "prerequisiteTechniqueIds": [],
+    "notes": "Routine production technique for a specific goods transformation. Difficulty is based on active process control, failure risk and required precision, not elapsed waiting time. This is a routine narrow use of the base skill: it has no default penalty, and focused technique training can improve it up to base skill +2.",
+    "productionRecipeId": "production-step-source-tabasco-pepper-plant-food-tabasco-pepper"
+  },
+  {
+    "id": "technique-source-banana-pepper-plant-food-banana-pepper",
+    "name": "Банановый перец",
+    "baseSkillId": "skill-farming",
+    "difficultyPenalty": 0,
+    "maxRelativeLevel": 2,
+    "prerequisiteTechniqueIds": [],
+    "notes": "Routine production technique for a specific goods transformation. Difficulty is based on active process control, failure risk and required precision, not elapsed waiting time. This is a routine narrow use of the base skill: it has no default penalty, and focused technique training can improve it up to base skill +2.",
+    "productionRecipeId": "production-step-source-banana-pepper-plant-food-banana-pepper"
+  },
+  {
+    "id": "technique-source-pepperoncini-plant-food-pepperoncini",
+    "name": "Пепперончини",
+    "baseSkillId": "skill-farming",
+    "difficultyPenalty": 0,
+    "maxRelativeLevel": 2,
+    "prerequisiteTechniqueIds": [],
+    "notes": "Routine production technique for a specific goods transformation. Difficulty is based on active process control, failure risk and required precision, not elapsed waiting time. This is a routine narrow use of the base skill: it has no default penalty, and focused technique training can improve it up to base skill +2.",
+    "productionRecipeId": "production-step-source-pepperoncini-plant-food-pepperoncini"
+  },
+  {
+    "id": "technique-source-serrano-plant-food-serrano-pepper",
+    "name": "Серрано",
+    "baseSkillId": "skill-farming",
+    "difficultyPenalty": 0,
+    "maxRelativeLevel": 2,
+    "prerequisiteTechniqueIds": [],
+    "notes": "Routine production technique for a specific goods transformation. Difficulty is based on active process control, failure risk and required precision, not elapsed waiting time. This is a routine narrow use of the base skill: it has no default penalty, and focused technique training can improve it up to base skill +2.",
+    "productionRecipeId": "production-step-source-serrano-plant-food-serrano-pepper"
+  },
+  {
+    "id": "technique-source-habanero-plant-food-habanero-pepper",
+    "name": "Хабанеро",
+    "baseSkillId": "skill-farming",
+    "difficultyPenalty": 0,
+    "maxRelativeLevel": 2,
+    "prerequisiteTechniqueIds": [],
+    "notes": "Routine production technique for a specific goods transformation. Difficulty is based on active process control, failure risk and required precision, not elapsed waiting time. This is a routine narrow use of the base skill: it has no default penalty, and focused technique training can improve it up to base skill +2.",
+    "productionRecipeId": "production-step-source-habanero-plant-food-habanero-pepper"
+  },
+  {
+    "id": "technique-source-ghost-pepper-plant-food-ghost-pepper",
+    "name": "Бхут джолокия",
+    "baseSkillId": "skill-farming",
+    "difficultyPenalty": 0,
+    "maxRelativeLevel": 2,
+    "prerequisiteTechniqueIds": [],
+    "notes": "Routine production technique for a specific goods transformation. Difficulty is based on active process control, failure risk and required precision, not elapsed waiting time. This is a routine narrow use of the base skill: it has no default penalty, and focused technique training can improve it up to base skill +2.",
+    "productionRecipeId": "production-step-source-ghost-pepper-plant-food-ghost-pepper"
+  },
+  {
+    "id": "technique-source-carolina-reaper-plant-food-carolina-reaper",
+    "name": "Carolina Reaper",
+    "baseSkillId": "skill-farming",
+    "difficultyPenalty": 0,
+    "maxRelativeLevel": 2,
+    "prerequisiteTechniqueIds": [],
+    "notes": "Routine production technique for a specific goods transformation. Difficulty is based on active process control, failure risk and required precision, not elapsed waiting time. This is a routine narrow use of the base skill: it has no default penalty, and focused technique training can improve it up to base skill +2.",
+    "productionRecipeId": "production-step-source-carolina-reaper-plant-food-carolina-reaper"
+  },
+  {
+    "id": "technique-source-aji-charapita-shrub-food-aji-charapita",
+    "name": "Ахи чарапита",
+    "baseSkillId": "skill-farming",
+    "difficultyPenalty": 0,
+    "maxRelativeLevel": 2,
+    "prerequisiteTechniqueIds": [],
+    "notes": "Routine production technique for a specific goods transformation. Difficulty is based on active process control, failure risk and required precision, not elapsed waiting time. This is a routine narrow use of the base skill: it has no default penalty, and focused technique training can improve it up to base skill +2.",
+    "productionRecipeId": "production-step-source-aji-charapita-shrub-food-aji-charapita"
+  },
+  {
+    "id": "technique-source-piquillo-pepper-plant-food-piquillo-pepper",
+    "name": "Пикильо",
+    "baseSkillId": "skill-farming",
+    "difficultyPenalty": 0,
+    "maxRelativeLevel": 2,
+    "prerequisiteTechniqueIds": [],
+    "notes": "Routine production technique for a specific goods transformation. Difficulty is based on active process control, failure risk and required precision, not elapsed waiting time. This is a routine narrow use of the base skill: it has no default penalty, and focused technique training can improve it up to base skill +2.",
+    "productionRecipeId": "production-step-source-piquillo-pepper-plant-food-piquillo-pepper"
+  },
+  {
+    "id": "technique-source-calabrian-chili-plant-food-calabrian-chili",
+    "name": "Калабрийский чили",
+    "baseSkillId": "skill-farming",
+    "difficultyPenalty": 0,
+    "maxRelativeLevel": 2,
+    "prerequisiteTechniqueIds": [],
+    "notes": "Routine production technique for a specific goods transformation. Difficulty is based on active process control, failure risk and required precision, not elapsed waiting time. This is a routine narrow use of the base skill: it has no default penalty, and focused technique training can improve it up to base skill +2.",
+    "productionRecipeId": "production-step-source-calabrian-chili-plant-food-calabrian-chili"
+  },
+  {
+    "id": "technique-source-tepin-pepper-plant-food-tepin-pepper",
+    "name": "Чилтепин",
+    "baseSkillId": "skill-farming",
+    "difficultyPenalty": 0,
+    "maxRelativeLevel": 2,
+    "prerequisiteTechniqueIds": [],
+    "notes": "Routine production technique for a specific goods transformation. Difficulty is based on active process control, failure risk and required precision, not elapsed waiting time. This is a routine narrow use of the base skill: it has no default penalty, and focused technique training can improve it up to base skill +2.",
+    "productionRecipeId": "production-step-source-tepin-pepper-plant-food-tepin-pepper"
+  },
+  {
+    "id": "technique-source-padron-pepper-plant-food-padron-pepper",
+    "name": "Падрон",
+    "baseSkillId": "skill-farming",
+    "difficultyPenalty": 0,
+    "maxRelativeLevel": 2,
+    "prerequisiteTechniqueIds": [],
+    "notes": "Routine production technique for a specific goods transformation. Difficulty is based on active process control, failure risk and required precision, not elapsed waiting time. This is a routine narrow use of the base skill: it has no default penalty, and focused technique training can improve it up to base skill +2.",
+    "productionRecipeId": "production-step-source-padron-pepper-plant-food-padron-pepper"
+  },
+  {
+    "id": "technique-source-cucumber-vine-food-cucumber",
+    "name": "Огурец",
+    "baseSkillId": "skill-farming",
+    "difficultyPenalty": 0,
+    "maxRelativeLevel": 2,
+    "prerequisiteTechniqueIds": [],
+    "notes": "Routine production technique for a specific goods transformation. Difficulty is based on active process control, failure risk and required precision, not elapsed waiting time. This is a routine narrow use of the base skill: it has no default penalty, and focused technique training can improve it up to base skill +2.",
+    "productionRecipeId": "production-step-source-cucumber-vine-food-cucumber"
+  },
+  {
+    "id": "technique-source-beet-plant-food-beetroot",
+    "name": "Свекла",
+    "baseSkillId": "skill-farming",
+    "difficultyPenalty": 0,
+    "maxRelativeLevel": 2,
+    "prerequisiteTechniqueIds": [],
+    "notes": "Routine production technique for a specific goods transformation. Difficulty is based on active process control, failure risk and required precision, not elapsed waiting time. This is a routine narrow use of the base skill: it has no default penalty, and focused technique training can improve it up to base skill +2.",
+    "productionRecipeId": "production-step-source-beet-plant-food-beetroot"
+  },
+  {
+    "id": "technique-source-radish-plant-food-radish",
+    "name": "Редька",
+    "baseSkillId": "skill-farming",
+    "difficultyPenalty": 0,
+    "maxRelativeLevel": 2,
+    "prerequisiteTechniqueIds": [],
+    "notes": "Routine production technique for a specific goods transformation. Difficulty is based on active process control, failure risk and required precision, not elapsed waiting time. This is a routine narrow use of the base skill: it has no default penalty, and focused technique training can improve it up to base skill +2.",
+    "productionRecipeId": "production-step-source-radish-plant-food-radish"
+  },
+  {
+    "id": "technique-source-ginger-plant-spice-fresh-ginger",
+    "name": "Свежий имбирь",
+    "baseSkillId": "skill-farming",
+    "difficultyPenalty": 0,
+    "maxRelativeLevel": 2,
+    "prerequisiteTechniqueIds": [],
+    "notes": "Routine production technique for a specific goods transformation. Difficulty is based on active process control, failure risk and required precision, not elapsed waiting time. This is a routine narrow use of the base skill: it has no default penalty, and focused technique training can improve it up to base skill +2.",
+    "productionRecipeId": "production-step-source-ginger-plant-spice-fresh-ginger"
+  },
+  {
+    "id": "technique-source-rye-plant-food-rye",
+    "name": "Рожь",
+    "baseSkillId": "skill-farming",
+    "difficultyPenalty": 0,
+    "maxRelativeLevel": 2,
+    "prerequisiteTechniqueIds": [],
+    "notes": "Routine production technique for a specific goods transformation. Difficulty is based on active process control, failure risk and required precision, not elapsed waiting time. This is a routine narrow use of the base skill: it has no default penalty, and focused technique training can improve it up to base skill +2.",
+    "productionRecipeId": "production-step-source-rye-plant-food-rye"
+  },
+  {
+    "id": "technique-source-tea-shrub-spice-tea-leaves",
+    "name": "Чайные листья",
+    "baseSkillId": "skill-farming",
+    "difficultyPenalty": 0,
+    "maxRelativeLevel": 2,
+    "prerequisiteTechniqueIds": [],
+    "notes": "Routine production technique for a specific goods transformation. Difficulty is based on active process control, failure risk and required precision, not elapsed waiting time. This is a routine narrow use of the base skill: it has no default penalty, and focused technique training can improve it up to base skill +2.",
+    "productionRecipeId": "production-step-source-tea-shrub-spice-tea-leaves"
+  },
+  {
+    "id": "technique-resource-water-liquid-boiled-water",
+    "name": "Кипяченая вода",
+    "baseSkillId": "skill-повар",
+    "difficultyPenalty": 0,
+    "maxRelativeLevel": 2,
+    "prerequisiteTechniqueIds": [],
+    "notes": "Routine production technique for a specific goods transformation. Difficulty is based on active process control, failure risk and required precision, not elapsed waiting time. This is a routine narrow use of the base skill: it has no default penalty, and focused technique training can improve it up to base skill +2.",
+    "productionRecipeId": "production-step-resource-water-liquid-boiled-water"
+  },
+  {
+    "id": "technique-resource-water-food-beef-liquid-meat-broth",
+    "name": "Мясной бульон",
+    "baseSkillId": "skill-повар",
+    "difficultyPenalty": 0,
+    "maxRelativeLevel": 2,
+    "prerequisiteTechniqueIds": [],
+    "notes": "Routine production technique for a specific goods transformation. Difficulty is based on active process control, failure risk and required precision, not elapsed waiting time. This is a routine narrow use of the base skill: it has no default penalty, and focused technique training can improve it up to base skill +2.",
+    "productionRecipeId": "production-step-resource-water-food-beef-liquid-meat-broth"
+  },
+  {
+    "id": "technique-resource-water-research-salmon-liquid-fish-broth",
+    "name": "Рыбный бульон",
+    "baseSkillId": "skill-повар",
+    "difficultyPenalty": 0,
+    "maxRelativeLevel": 2,
+    "prerequisiteTechniqueIds": [],
+    "notes": "Routine production technique for a specific goods transformation. Difficulty is based on active process control, failure risk and required precision, not elapsed waiting time. This is a routine narrow use of the base skill: it has no default penalty, and focused technique training can improve it up to base skill +2.",
+    "productionRecipeId": "production-step-resource-water-research-salmon-liquid-fish-broth"
+  },
+  {
+    "id": "technique-resource-water-food-cabbage-research-onion-liquid-vegetable-broth",
+    "name": "Овощной бульон",
+    "baseSkillId": "skill-повар",
+    "difficultyPenalty": -1,
+    "maxRelativeLevel": 1,
+    "prerequisiteTechniqueIds": [],
+    "notes": "Specialized production technique for a specific goods transformation. Difficulty is based on active process control, failure risk and required precision, not elapsed waiting time. This has some timing, texture, sanitation or handling risk, but technique training can still improve it above base skill.",
+    "productionRecipeId": "production-step-resource-water-food-cabbage-research-onion-liquid-vegetable-broth"
+  },
+  {
+    "id": "technique-resource-water-research-seaweed-liquid-seaweed-broth",
+    "name": "Водорослевый бульон",
+    "baseSkillId": "skill-повар",
+    "difficultyPenalty": 0,
+    "maxRelativeLevel": 2,
+    "prerequisiteTechniqueIds": [],
+    "notes": "Routine production technique for a specific goods transformation. Difficulty is based on active process control, failure risk and required precision, not elapsed waiting time. This is a routine narrow use of the base skill: it has no default penalty, and focused technique training can improve it up to base skill +2.",
+    "productionRecipeId": "production-step-resource-water-research-seaweed-liquid-seaweed-broth"
+  }
+]
