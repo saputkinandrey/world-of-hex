@@ -60,6 +60,12 @@
     ],
     "morph.thermoreg.warmBlooded": [
         {
+            "requirement": "BASAL_METABOLISM",
+            "mode": "requires",
+            "medium": "metabolism",
+            "note": "Warm-blooded basal upkeep for breath and core temperature; ST10/Average at 145 lb uses 30 Energy/day, scaled by body weight."
+        },
+        {
             "requirement": "TEMPERATURE",
             "mode": "regulates",
             "medium": "metabolism",

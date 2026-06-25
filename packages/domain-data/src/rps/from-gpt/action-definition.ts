@@ -1,4 +1,5 @@
 import { ActionTag } from "./action-tags";
+import type { NutritionActivityData } from "./action-nutrition-activity";
 import { NeedGate, NeedTag, NeedThresholdEnum, NeedThresholds } from "./needs";
 import { MemeId } from "../world/memes";
 import { MorphId } from "../world/morphs";
@@ -11,6 +12,7 @@ export interface ActionDefinition {
 
     // === Стоимость, награда и риск ===
     costEnergy?: number; // Энергия, потраченная на выполнение (0–1)
+    nutritionActivity?: NutritionActivityData;
     costTime?: number; // Время (в условных часах)
     risk?: number; // Вероятность неудачи (0–1)
     rewardSatisfaction?: number; // Насколько снижает потребность (0–1)

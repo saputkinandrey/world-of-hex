@@ -23,7 +23,14 @@
                     "enforceable": true,
                     "bracket": "open"
                 },
-                "needMemes": true
+                "needMemes": true,
+                "nutritionActivity": {
+                    "intensity": "rest",
+                    "energyMultiplier": 0.85,
+                    "proteinMultiplier": 1,
+                    "waterMultiplier": 0.95,
+                    "basis": "sleep and passive recovery; cost-signals"
+                }
             },
             {
                 "tag": "ENTER_HUNT_CONTEST",
@@ -36,7 +43,10 @@
                     "STATUS": 0.3,
                     "COMMUNITY": 0.2
                 },
-                "requiresItem": ["bow|spear", "traps?"],
+                "requiresItem": [
+                    "bow|spear",
+                    "traps?"
+                ],
                 "tradeEffect": {
                     "potential_loot": "+game",
                     "entry_fee": -1
@@ -50,7 +60,14 @@
                     "huntingRules": "seasonal_quota",
                     "enforceable": true
                 },
-                "needMemes": true
+                "needMemes": true,
+                "nutritionActivity": {
+                    "intensity": "rest",
+                    "energyMultiplier": 0.85,
+                    "proteinMultiplier": 1,
+                    "waterMultiplier": 0.95,
+                    "basis": "sleep and passive recovery; cost-signals"
+                }
             },
             {
                 "tag": "ENTER_COMBAT_SPAR",
@@ -63,7 +80,9 @@
                     "STATUS": 0.3,
                     "MASTERY": 0.4
                 },
-                "requiresItem": ["practice_weapon"],
+                "requiresItem": [
+                    "practice_weapon"
+                ],
                 "socialImpact": {
                     "COMPETITION": 0.65,
                     "COURAGE": 0.4,
@@ -73,6 +92,13 @@
                 "lawEffect": {
                     "safetyRules": "nonlethal",
                     "enforceable": true
+                },
+                "nutritionActivity": {
+                    "intensity": "rest",
+                    "energyMultiplier": 0.85,
+                    "proteinMultiplier": 1,
+                    "waterMultiplier": 0.95,
+                    "basis": "sleep and passive recovery; cost-signals"
                 }
             },
             {
@@ -94,10 +120,19 @@
                     "SKEPTICISM": 0.1
                 },
                 "needMemes": true,
-                "requiredMemes": ["comm.language.spoken"],
+                "requiredMemes": [
+                    "comm.language.spoken"
+                ],
                 "lawEffect": {
                     "debateDocket": "scheduled",
                     "enforceable": true
+                },
+                "nutritionActivity": {
+                    "intensity": "rest",
+                    "energyMultiplier": 0.85,
+                    "proteinMultiplier": 1,
+                    "waterMultiplier": 0.95,
+                    "basis": "sleep and passive recovery; cost-signals"
                 }
             },
             {
@@ -123,6 +158,13 @@
                 "lawEffect": {
                     "tenderId": "public_work_v1",
                     "enforceable": true
+                },
+                "nutritionActivity": {
+                    "intensity": "rest",
+                    "energyMultiplier": 0.85,
+                    "proteinMultiplier": 1,
+                    "waterMultiplier": 0.95,
+                    "basis": "sleep and passive recovery; cost-signals"
                 }
             },
             {
@@ -150,7 +192,14 @@
                     "claimAuthorship": true,
                     "displayRight": "granted"
                 },
-                "needMemes": true
+                "needMemes": true,
+                "nutritionActivity": {
+                    "intensity": "rest",
+                    "energyMultiplier": 0.85,
+                    "proteinMultiplier": 1,
+                    "waterMultiplier": 0.95,
+                    "basis": "sleep and passive recovery; cost-signals"
+                }
             },
             {
                 "tag": "SUBMIT_INNOVATION",
@@ -180,6 +229,13 @@
                 "ownershipEffect": {
                     "ipClaim": "innovation#id",
                     "exclusive": true
+                },
+                "nutritionActivity": {
+                    "intensity": "rest",
+                    "energyMultiplier": 0.85,
+                    "proteinMultiplier": 1,
+                    "waterMultiplier": 0.95,
+                    "basis": "sleep and passive recovery; cost-signals"
                 }
             },
             {
@@ -202,6 +258,13 @@
                 "ownershipEffect": {
                     "accessScope": "team_assets",
                     "grantAccess": true
+                },
+                "nutritionActivity": {
+                    "intensity": "rest",
+                    "energyMultiplier": 0.85,
+                    "proteinMultiplier": 1,
+                    "waterMultiplier": 0.95,
+                    "basis": "sleep and passive recovery; cost-signals"
                 }
             },
             {
@@ -223,6 +286,13 @@
                 "lawEffect": {
                     "trainingPermit": "range_access",
                     "enforceable": true
+                },
+                "nutritionActivity": {
+                    "intensity": "rest",
+                    "energyMultiplier": 0.85,
+                    "proteinMultiplier": 1,
+                    "waterMultiplier": 0.95,
+                    "basis": "sleep and passive recovery; cost-signals"
                 }
             },
             {
@@ -244,6 +314,13 @@
                 "lawEffect": {
                     "codeOfConduct": "no_sabotage",
                     "enforceable": true
+                },
+                "nutritionActivity": {
+                    "intensity": "rest",
+                    "energyMultiplier": 0.85,
+                    "proteinMultiplier": 1,
+                    "waterMultiplier": 0.95,
+                    "basis": "sleep and passive recovery; cost-signals"
                 }
             },
             {
@@ -264,6 +341,13 @@
                 "lawEffect": {
                     "ruleset": "ratified",
                     "enforceable": true
+                },
+                "nutritionActivity": {
+                    "intensity": "rest",
+                    "energyMultiplier": 0.85,
+                    "proteinMultiplier": 1,
+                    "waterMultiplier": 0.95,
+                    "basis": "sleep and passive recovery; cost-signals"
                 }
             },
             {
@@ -285,6 +369,13 @@
                 "lawEffect": {
                     "appealCase": "opened",
                     "enforceable": true
+                },
+                "nutritionActivity": {
+                    "intensity": "rest",
+                    "energyMultiplier": 0.85,
+                    "proteinMultiplier": 1,
+                    "waterMultiplier": 0.95,
+                    "basis": "sleep and passive recovery; cost-signals"
                 }
             },
             {
@@ -312,6 +403,13 @@
                 },
                 "ownershipEffect": {
                     "transferOnCondition": true
+                },
+                "nutritionActivity": {
+                    "intensity": "sedentary",
+                    "energyMultiplier": 2.35,
+                    "proteinMultiplier": 2.45,
+                    "waterMultiplier": 2.7,
+                    "basis": "seated cognitive, social or administrative work; cost-signals"
                 }
             },
             {
@@ -338,6 +436,13 @@
                 "ownershipEffect": {
                     "sharedUse": true,
                     "accessScope": "joint_assets"
+                },
+                "nutritionActivity": {
+                    "intensity": "rest",
+                    "energyMultiplier": 0.85,
+                    "proteinMultiplier": 1,
+                    "waterMultiplier": 0.95,
+                    "basis": "sleep and passive recovery; cost-signals"
                 }
             },
             {
@@ -357,6 +462,13 @@
                 "lawEffect": {
                     "codeOfHonor": "observed",
                     "enforceable": false
+                },
+                "nutritionActivity": {
+                    "intensity": "sedentary",
+                    "energyMultiplier": 2.35,
+                    "proteinMultiplier": 2.45,
+                    "waterMultiplier": 2.7,
+                    "basis": "seated cognitive, social or administrative work; cost-signals"
                 }
             }
         ]

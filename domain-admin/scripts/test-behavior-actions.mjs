@@ -54,6 +54,16 @@ for (const descriptor of behaviorActionModuleDescriptors) {
             !Object.prototype.hasOwnProperty.call(action, "requiredEthology"),
             `${descriptor.dataFilePath} should not keep empty ethology requirement fields.`,
         );
+        assert.ok(
+            action.nutritionActivity &&
+                typeof action.nutritionActivity.energyMultiplier ===
+                    "number" &&
+                typeof action.nutritionActivity.proteinMultiplier ===
+                    "number" &&
+                typeof action.nutritionActivity.waterMultiplier === "number" &&
+                typeof action.nutritionActivity.intensity === "string",
+            `${descriptor.dataFilePath}/${action.tag} should define nutritionActivity.`,
+        );
     }
 }
 
@@ -116,6 +126,7 @@ for (const expectedText of [
     "NeedNumberMapEditor",
     "MixedMapEditor",
     "NeedThresholdEditor",
+    "NutritionActivityEditor",
     "Cost, Risk & Rewards",
     "Requirements",
     "Need Gates",

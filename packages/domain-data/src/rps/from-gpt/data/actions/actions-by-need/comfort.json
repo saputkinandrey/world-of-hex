@@ -10,10 +10,22 @@
                     "SECURITY": 0.3,
                     "HEALTH": 0.2
                 },
-                "requiresItem": ["wood", "flint"],
+                "requiresItem": [
+                    "wood",
+                    "flint"
+                ],
                 "requiresLocation": "camp",
-                "requiredMemes": ["tech.fire.control"],
-                "temperatureEffect": 10
+                "requiredMemes": [
+                    "tech.fire.control"
+                ],
+                "temperatureEffect": 10,
+                "nutritionActivity": {
+                    "intensity": "rest",
+                    "energyMultiplier": 0.85,
+                    "proteinMultiplier": 1,
+                    "waterMultiplier": 0.95,
+                    "basis": "sleep and passive recovery; cost-signals"
+                }
             },
             {
                 "tag": "SIT_BY_FIRE",
@@ -24,8 +36,17 @@
                     "MOOD": 0.4,
                     "REST": 0.3
                 },
-                "requiredMemes": ["tech.fire.use"],
-                "temperatureEffect": 5
+                "requiredMemes": [
+                    "tech.fire.use"
+                ],
+                "temperatureEffect": 5,
+                "nutritionActivity": {
+                    "intensity": "rest",
+                    "energyMultiplier": 0.85,
+                    "proteinMultiplier": 1,
+                    "waterMultiplier": 0.95,
+                    "basis": "sleep and passive recovery; cost-signals"
+                }
             },
             {
                 "tag": "ENTER_SHELTER",
@@ -36,7 +57,14 @@
                     "STABILITY": 0.3,
                     "SECURITY": 0.2
                 },
-                "requiresLocation": "shelter"
+                "requiresLocation": "shelter",
+                "nutritionActivity": {
+                    "intensity": "sedentary",
+                    "energyMultiplier": 2.35,
+                    "proteinMultiplier": 2.45,
+                    "waterMultiplier": 2.7,
+                    "basis": "seated cognitive, social or administrative work; cost-signals"
+                }
             },
             {
                 "tag": "COVER_WITH_FUR",
@@ -46,9 +74,18 @@
                     "COMFORT": 0.4,
                     "HEALTH": 0.2
                 },
-                "requiresItem": ["fur"],
+                "requiresItem": [
+                    "fur"
+                ],
                 "unclearAction": true,
-                "temperatureEffect": 3
+                "temperatureEffect": 3,
+                "nutritionActivity": {
+                    "intensity": "sedentary",
+                    "energyMultiplier": 2.35,
+                    "proteinMultiplier": 2.45,
+                    "waterMultiplier": 2.7,
+                    "basis": "seated cognitive, social or administrative work; cost-signals"
+                }
             },
             {
                 "tag": "DRINK_HOT_BEVERAGE",
@@ -59,8 +96,19 @@
                     "MOOD": 0.4,
                     "HEALTH": 0.2
                 },
-                "requiredMemes": ["tech.food.culinary.boil"],
-                "requiresItem": ["hot_drink"]
+                "requiredMemes": [
+                    "tech.food.culinary.boil"
+                ],
+                "requiresItem": [
+                    "hot_drink"
+                ],
+                "nutritionActivity": {
+                    "intensity": "rest",
+                    "energyMultiplier": 0.85,
+                    "proteinMultiplier": 1,
+                    "waterMultiplier": 0.95,
+                    "basis": "sleep and passive recovery; cost-signals"
+                }
             },
             {
                 "tag": "BUILD_BED",
@@ -71,8 +119,18 @@
                     "REST": 0.6,
                     "STABILITY": 0.4
                 },
-                "requiresItem": ["straw", "wood"],
-                "requiresLocation": "home"
+                "requiresItem": [
+                    "straw",
+                    "wood"
+                ],
+                "requiresLocation": "home",
+                "nutritionActivity": {
+                    "intensity": "rest",
+                    "energyMultiplier": 0.85,
+                    "proteinMultiplier": 1,
+                    "waterMultiplier": 0.95,
+                    "basis": "sleep and passive recovery; cost-signals"
+                }
             },
             {
                 "tag": "REPAIR_HOUSE",
@@ -83,8 +141,18 @@
                     "STABILITY": 0.6,
                     "SECURITY": 0.4
                 },
-                "requiresItem": ["wood", "clay"],
-                "requiresLocation": "home"
+                "requiresItem": [
+                    "wood",
+                    "clay"
+                ],
+                "requiresLocation": "home",
+                "nutritionActivity": {
+                    "intensity": "rest",
+                    "energyMultiplier": 0.85,
+                    "proteinMultiplier": 1,
+                    "waterMultiplier": 0.95,
+                    "basis": "sleep and passive recovery; cost-signals"
+                }
             },
             {
                 "tag": "SNUGGLE_WITH_PARTNER",
@@ -96,7 +164,14 @@
                     "MOOD": 0.3
                 },
                 "requiresLocation": "home",
-                "targetType": "OTHER"
+                "targetType": "OTHER",
+                "nutritionActivity": {
+                    "intensity": "rest",
+                    "energyMultiplier": 0.85,
+                    "proteinMultiplier": 1,
+                    "waterMultiplier": 0.95,
+                    "basis": "sleep and passive recovery; cost-signals"
+                }
             },
             {
                 "tag": "DECORATE_HOME",
@@ -107,7 +182,17 @@
                     "STATUS": 0.2,
                     "MOOD": 0.3
                 },
-                "requiresItem": ["paint", "fabric"]
+                "requiresItem": [
+                    "paint",
+                    "fabric"
+                ],
+                "nutritionActivity": {
+                    "intensity": "rest",
+                    "energyMultiplier": 0.85,
+                    "proteinMultiplier": 1,
+                    "waterMultiplier": 0.95,
+                    "basis": "sleep and passive recovery; cost-signals"
+                }
             },
             {
                 "tag": "BASK_IN_SUN",
@@ -119,7 +204,14 @@
                     "HEALTH": 0.2
                 },
                 "requiresLocation": "outdoors",
-                "temperatureEffect": 2
+                "temperatureEffect": 2,
+                "nutritionActivity": {
+                    "intensity": "rest",
+                    "energyMultiplier": 0.85,
+                    "proteinMultiplier": 1,
+                    "waterMultiplier": 0.95,
+                    "basis": "sleep and passive recovery; cost-signals"
+                }
             }
         ]
     }

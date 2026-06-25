@@ -204,9 +204,9 @@ const normalizeCreatureProfile = (value: unknown): CreatureProfileData => {
                 value.physical.averageWeightLb,
                 `${value.id}.physical.averageWeightLb`,
             ),
-            averageLengthFt: normalizeOptionalNumber(
-                value.physical.averageLengthFt,
-                `${value.id}.physical.averageLengthFt`,
+            averageSilhouetteWidthFt: normalizeOptionalNumber(
+                value.physical.averageSilhouetteWidthFt,
+                `${value.id}.physical.averageSilhouetteWidthFt`,
             ),
             averageHeightFt: normalizeOptionalNumber(
                 value.physical.averageHeightFt,

@@ -2,6 +2,23 @@ import fs from "node:fs";
 import path from "node:path";
 import assert from "node:assert/strict";
 import { fileURLToPath } from "node:url";
+import {
+    deriveSizeModifierFromSilhouetteArea,
+    estimateAverageBuildBodyWeightLbFromMorphIds,
+    estimateHexVolumeFromMorphIdsAndTraits,
+    estimatePhysicalDimensionsFromMorphIds,
+} from "@wohex/domain-data/rps/world/body-size";
+import { creatureProfiles } from "@wohex/domain-data/rps/world/creature-profiles";
+import {
+    getCreatureProfileCalculationIssues,
+    resolveEffectiveCreatureProfile,
+    summarizeCreatureProfile,
+} from "../lib/creature-profiles-utils.ts";
+import {
+    hasDerivedOrgan,
+    hasDerivedTissuePreset,
+    resolveCreatureAnatomyProfile,
+} from "@wohex/domain-data/rps/world/tissue-composition";
 
 const domainAdminDirectory = path.resolve(
     path.dirname(fileURLToPath(import.meta.url)),
@@ -12,6 +29,49 @@ const workspaceDirectory = path.resolve(domainAdminDirectory, "..");
 const readWorkspaceFile = (relativePath) => {
     return fs.readFileSync(path.join(workspaceDirectory, relativePath), "utf8");
 };
+
+const collectEffectiveMorphIds = (profileId) => {
+    const profiles = Object.values(creatureProfiles);
+    const profileById = new Map(profiles.map((profile) => [profile.id, profile]));
+    const chain = [];
+    let current = profileById.get(profileId);
+    while (current) {
+        chain.unshift(current);
+        current = current.parentId
+            ? profileById.get(current.parentId)
+            : undefined;
+    }
+    const morphIds = [];
+    const seenMorphIds = new Set();
+    for (const profile of chain) {
+        for (const morphId of profile.morphs) {
+            if (seenMorphIds.has(morphId)) continue;
+            seenMorphIds.add(morphId);
+            morphIds.push(morphId);
+        }
+    }
+    return morphIds;
+};
+
+const collectInheritedProfileIds = (profileId) => {
+    const profiles = Object.values(creatureProfiles);
+    const profileById = new Map(profiles.map((profile) => [profile.id, profile]));
+    const chain = [];
+    let current = profileById.get(profileId);
+    while (current) {
+        chain.unshift(current);
+        current = current.parentId
+            ? profileById.get(current.parentId)
+            : undefined;
+    }
+    return chain.map((profile) => profile.id);
+};
+
+const resolveDerivedAnatomy = (profileId) =>
+    resolveCreatureAnatomyProfile({
+        morphIds: collectEffectiveMorphIds(profileId),
+        inheritedProfileIds: collectInheritedProfileIds(profileId),
+    });
 
 const creatureProfile = JSON.parse(
     readWorkspaceFile(
@@ -196,6 +256,66 @@ const mammalPrimateGorillaProfile = JSON.parse(
 const mammalPrimateHumanProfile = JSON.parse(
     readWorkspaceFile(
         "packages/domain-data/src/rps/world/data/creature-profiles/animal.mammal.primate.human.json",
+    ),
+);
+const humanRaceImperialProfile = JSON.parse(
+    readWorkspaceFile(
+        "packages/domain-data/src/rps/world/data/creature-profiles/human.race.imperial.json",
+    ),
+);
+const humanRacePalladianProfile = JSON.parse(
+    readWorkspaceFile(
+        "packages/domain-data/src/rps/world/data/creature-profiles/human.race.palladian.json",
+    ),
+);
+const humanRaceAbydosianProfile = JSON.parse(
+    readWorkspaceFile(
+        "packages/domain-data/src/rps/world/data/creature-profiles/human.race.abydosian.json",
+    ),
+);
+const humanRaceRetanProfile = JSON.parse(
+    readWorkspaceFile(
+        "packages/domain-data/src/rps/world/data/creature-profiles/human.race.retan.json",
+    ),
+);
+const humanRaceBarbarianGiantProfile = JSON.parse(
+    readWorkspaceFile(
+        "packages/domain-data/src/rps/world/data/creature-profiles/human.race.barbarian-giant.json",
+    ),
+);
+const humanCultureImperialProfile = JSON.parse(
+    readWorkspaceFile(
+        "packages/domain-data/src/rps/world/data/creature-profiles/human.culture.imperial.json",
+    ),
+);
+const humanCulturePalladianProfile = JSON.parse(
+    readWorkspaceFile(
+        "packages/domain-data/src/rps/world/data/creature-profiles/human.culture.palladian.json",
+    ),
+);
+const humanCultureAbydosianProfile = JSON.parse(
+    readWorkspaceFile(
+        "packages/domain-data/src/rps/world/data/creature-profiles/human.culture.abydosian.json",
+    ),
+);
+const humanCultureRetanSouthProfile = JSON.parse(
+    readWorkspaceFile(
+        "packages/domain-data/src/rps/world/data/creature-profiles/human.culture.retan.south.json",
+    ),
+);
+const humanCultureRetanMidlandProfile = JSON.parse(
+    readWorkspaceFile(
+        "packages/domain-data/src/rps/world/data/creature-profiles/human.culture.retan.midland.json",
+    ),
+);
+const humanCultureRetanNorthProfile = JSON.parse(
+    readWorkspaceFile(
+        "packages/domain-data/src/rps/world/data/creature-profiles/human.culture.retan.north.json",
+    ),
+);
+const humanCultureBarbarianJungleProfile = JSON.parse(
+    readWorkspaceFile(
+        "packages/domain-data/src/rps/world/data/creature-profiles/human.culture.barbarian-jungle.json",
     ),
 );
 const mammalRodentProfile = JSON.parse(
@@ -383,6 +503,11 @@ const speciesParentExpectations = [
     [mammalArtiodactylPigProfile, "animal.mammal.artiodactyl"],
     [mammalArtiodactylSheepProfile, "animal.mammal.artiodactyl"],
     [mammalEquidHorseProfile, "animal.mammal.equid"],
+    [humanRaceImperialProfile, "animal.mammal.primate.human"],
+    [humanRacePalladianProfile, "animal.mammal.primate.human"],
+    [humanRaceAbydosianProfile, "animal.mammal.primate.human"],
+    [humanRaceRetanProfile, "animal.mammal.primate.human"],
+    [humanRaceBarbarianGiantProfile, "animal.mammal.primate.human"],
 ];
 for (const [speciesProfile, expectedParentId] of speciesParentExpectations) {
     assert.equal(
@@ -751,7 +876,6 @@ assert.equal(
 );
 for (const expectedHumanMorph of [
     "cog.iq10",
-    "morph.size.sm.0",
     "morph.body_plan.humanoid",
     "morph.locomotion.walk_biped",
     "morph.manip.hands_grasping",
@@ -768,9 +892,385 @@ assert.ok(
         mammalPrimateHumanProfile.physical.averageWeightLb === 145,
     "Human profile should stay biological and leave traits to individual actors.",
 );
+for (const humanRaceProfile of [
+    humanRaceImperialProfile,
+    humanRacePalladianProfile,
+    humanRaceAbydosianProfile,
+    humanRaceRetanProfile,
+]) {
+    assert.ok(
+        humanRaceProfile.morphs.includes("morph.attribute.st.st10") &&
+            humanRaceProfile.memes.length === 0,
+        `${humanRaceProfile.name} should stay biological with baseline ST10.`,
+    );
+}
+assert.ok(
+    humanRaceBarbarianGiantProfile.morphs.includes(
+        "morph.attribute.st.st14",
+    ) &&
+        humanRaceBarbarianGiantProfile.traits.includes(
+            "trait.attribute.st.very_strong.+2",
+        ) &&
+        humanRaceBarbarianGiantProfile.physical.averageWeightLb === 220,
+    "Barbarian giant race should be larger and stronger than baseline humans.",
+);
+for (const [cultureProfile, expectedRaceParentId] of [
+    [humanCultureImperialProfile, "human.race.imperial"],
+    [humanCulturePalladianProfile, "human.race.palladian"],
+    [humanCultureAbydosianProfile, "human.race.abydosian"],
+    [humanCultureRetanSouthProfile, "human.race.retan"],
+    [humanCultureRetanMidlandProfile, "human.race.retan"],
+    [humanCultureRetanNorthProfile, "human.race.retan"],
+    [humanCultureBarbarianJungleProfile, "human.race.barbarian-giant"],
+]) {
+    assert.equal(
+        cultureProfile.kind,
+        "culture",
+        `${cultureProfile.name} should be a culture profile.`,
+    );
+    assert.equal(
+        cultureProfile.parentId,
+        expectedRaceParentId,
+        `${cultureProfile.name} should inherit from ${expectedRaceParentId}.`,
+    );
+}
+assert.ok(
+    humanCultureImperialProfile.memes.includes("tech.steam.power_basic") &&
+        humanCultureImperialProfile.memes.includes(
+            "org.bureaucracy.paper_office",
+        ) &&
+        humanCultureImperialProfile.memes.includes("tech.heat.factory_boiler") &&
+        !humanCultureImperialProfile.memes.some((memeId) =>
+            memeId.includes("electric"),
+        ),
+    "Imperial culture should encode steam-era institutions without electricity memes.",
+);
+assert.ok(
+    humanCulturePalladianProfile.memes.includes("org.polis.civic_assembly") &&
+        humanCulturePalladianProfile.memes.includes("law.civic_court_public"),
+    "Palladian culture should encode civic assembly and public courts.",
+);
+assert.ok(
+    humanCultureAbydosianProfile.memes.includes("culture.temple_cult_state") &&
+        humanCultureAbydosianProfile.memes.includes(
+            "tech.irrigation.canal_basic",
+        ),
+    "Abydosian culture should encode temple-state irrigation and archives.",
+);
+assert.ok(
+    humanCultureRetanSouthProfile.memes.includes(
+        "culture.courtly_display_southern",
+    ) &&
+        humanCultureRetanMidlandProfile.memes.includes(
+            "org.guild_town_charter",
+        ) &&
+        humanCultureRetanNorthProfile.memes.includes("culture.clan_thing_law") &&
+        humanCultureRetanSouthProfile.memes.includes(
+            "tech.sailing.lateen_rig_basic",
+        ),
+    "Retan cultures should share sailing/feudal memes with regional distinctions.",
+);
+assert.ok(
+    humanCultureBarbarianJungleProfile.memes.includes("tech.stone_tool_core") &&
+        humanCultureBarbarianJungleProfile.memes.includes(
+            "culture.blood_sacrifice_rites",
+        ) &&
+        humanCultureBarbarianJungleProfile.memes.includes(
+            "culture.ritualized_violence_norm",
+        ) &&
+        !humanCultureBarbarianJungleProfile.memes.includes(
+            "comm.language.written",
+        ) &&
+        !humanCultureBarbarianJungleProfile.memes.includes(
+            "record.ledgerkeeping",
+        ) &&
+        !humanCultureBarbarianJungleProfile.memes.includes(
+            "tech.heat.industrial",
+        ) &&
+        !humanCultureBarbarianJungleProfile.memes.includes("econ.market_norms"),
+    "Jungle barbarian culture should stay stone-age without writing, ledgers, markets or industry.",
+);
+assert.ok(
+    !mammalProfile.morphs.some(
+        (morphId) =>
+            morphId.startsWith("morph.tissue.") ||
+            morphId.startsWith("morph.organ."),
+    ),
+    "Mammal template should not declare tissue or organ morph chips.",
+);
+assert.deepEqual(
+    resolveDerivedAnatomy("animal.mammal.feline").tissueComposition,
+    { muscle: 55, bone: 10, skin: 10, blood: 5 },
+    "Feline derived anatomy should use lean predator mammal preset.",
+);
+assert.deepEqual(
+    resolveCreatureAnatomyProfile({
+        morphIds: collectEffectiveMorphIds("animal.mammal.feline"),
+        inheritedProfileIds: collectInheritedProfileIds("animal.mammal.feline"),
+        bodyWeightLb: 100,
+    }).tissueWeightsLb,
+    { muscle: 55, bone: 10, skin: 10, blood: 5 },
+    "Tissue weights should scale from body weight and coarse percentages.",
+);
+const animalTestBaseMorphs = [
+    "morph.attribute.dx.dx10",
+    "morph.attribute.ht.ht10",
+    "core.vital.living",
+    "morph.thermoreg.warmBlooded",
+];
+assert.equal(
+    estimateAverageBuildBodyWeightLbFromMorphIds(
+        [...animalTestBaseMorphs, "morph.attribute.st.st10"],
+        [],
+    )?.weightLb.average,
+    145,
+    "ST10 should estimate SM0 average build weight at 145 lb.",
+);
+assert.equal(
+    estimateAverageBuildBodyWeightLbFromMorphIds(animalTestBaseMorphs, []),
+    undefined,
+    "Body weight estimate should disappear when ST morph is removed.",
+);
+assert.deepEqual(
+    resolveDerivedAnatomy("animal.mammal.canine").tissueComposition,
+    { muscle: 45, bone: 10, skin: 10, blood: 8 },
+    "Canine derived anatomy should use general mammal preset.",
+);
+assert.deepEqual(
+    resolveDerivedAnatomy("animal.mammal.primate.human").tissueComposition,
+    { muscle: 40, bone: 10, skin: 15, blood: 8 },
+    "Primate derived anatomy should use primate mammal preset.",
+);
+const fishAnatomy = resolveDerivedAnatomy("animal.fish.salmon");
+assert.deepEqual(
+    fishAnatomy.tissueComposition,
+    { muscle: 55, bone: 15, skin: 5, blood: 5 },
+    "Fish derived anatomy should use fish body preset.",
+);
+assert.ok(
+    hasDerivedOrgan(fishAnatomy, "gills") &&
+        !hasDerivedOrgan(fishAnatomy, "lungs"),
+    "Fish should have gills instead of lungs.",
+);
+const insectAnatomy = resolveDerivedAnatomy("animal.insect.bee");
+assert.deepEqual(
+    insectAnatomy.tissueComposition,
+    { muscle: 25, exoskeleton: 20, hemolymph: 15 },
+    "Insect derived anatomy should use insect body preset.",
+);
+assert.ok(
+    hasDerivedOrgan(insectAnatomy, "tracheal_system") &&
+        hasDerivedOrgan(insectAnatomy, "malpighian_tubules") &&
+        !hasDerivedOrgan(insectAnatomy, "liver"),
+    "Insect derived anatomy should include arthropod organs without vertebrate liver.",
+);
+const arachnidAnatomy = resolveCreatureAnatomyProfile({
+    morphIds: ["morph.body_plan.arachnid"],
+    inheritedProfileIds: ["animal", "animal.test.1"],
+});
+assert.equal(
+    arachnidAnatomy.tissuePresetId,
+    "arachnid_body",
+    "Arachnid body plan morph should resolve arachnid tissue preset.",
+);
+assert.deepEqual(
+    arachnidAnatomy.tissueComposition,
+    { muscle: 30, exoskeleton: 25, hemolymph: 15 },
+    "Arachnid derived anatomy should use arachnid body preset.",
+);
+assert.ok(
+    hasDerivedOrgan(arachnidAnatomy, "malpighian_tubules") &&
+        hasDerivedOrgan(arachnidAnatomy, "tracheal_system") &&
+        !hasDerivedOrgan(arachnidAnatomy, "liver") &&
+        !hasDerivedOrgan(arachnidAnatomy, "heart"),
+    "Arachnid derived anatomy should include arthropod organs without vertebrate fallbacks.",
+);
+assert.deepEqual(
+    resolveCreatureAnatomyProfile({
+        morphIds: ["core.vital.living", "morph.thermoreg.warmBlooded"],
+        inheritedProfileIds: ["animal", "animal.test.1"],
+    }).organs,
+    [],
+    "Living and thermoreg morphs alone should not infer any organs.",
+);
+const birdAnatomy = resolveDerivedAnatomy("animal.dinosaur.bird.grouse");
+assert.deepEqual(
+    birdAnatomy.tissueComposition,
+    { muscle: 40, bone: 15, skin: 3, feathers: 7, blood: 8 },
+    "Bird derived anatomy should use avian body preset with feathers from integument morph.",
+);
+assert.ok(
+    hasDerivedOrgan(birdAnatomy, "lungs"),
+    "Bird derived anatomy should include lungs from respiration morphs.",
+);
+const avianWithoutFeathersAnatomy = resolveCreatureAnatomyProfile({
+    morphIds: ["morph.body_plan.avian", "morph.attribute.st.st10"],
+    inheritedProfileIds: ["animal", "animal.test.1"],
+    bodyWeightLb: 145,
+});
+assert.deepEqual(
+    avianWithoutFeathersAnatomy.tissueComposition,
+    { muscle: 40, bone: 15, skin: 10, blood: 8 },
+    "Avian body plan alone should not add feathers without feathers_basic morph.",
+);
+const avianWithFeathersAnatomy = resolveCreatureAnatomyProfile({
+    morphIds: [
+        "morph.body_plan.avian",
+        "morph.integument.feathers_basic",
+        "morph.attribute.st.st10",
+    ],
+    inheritedProfileIds: ["animal", "animal.test.1"],
+    bodyWeightLb: 145,
+});
+assert.deepEqual(
+    avianWithFeathersAnatomy.tissueComposition,
+    { muscle: 40, bone: 15, skin: 3, feathers: 7, blood: 8 },
+    "feathers_basic should reclassify part of skin into feathers tissue.",
+);
+assert.deepEqual(
+    avianWithFeathersAnatomy.tissueWeightsLb,
+    { muscle: 58, bone: 21.75, skin: 4.35, feathers: 10.15, blood: 11.6 },
+    "Feather tissue weights should scale from body weight.",
+);
+const animalTestAnatomy = resolveDerivedAnatomy("animal.test.1");
+assert.ok(
+    !hasDerivedTissuePreset(animalTestAnatomy),
+    "Generic animal species without taxonomic template should not get mammal tissue fallback.",
+);
+assert.deepEqual(
+    animalTestAnatomy.tissueComposition,
+    {},
+    "Generic animal species should not receive guessed tissue percentages.",
+);
+const humanoidTestAnatomy = resolveCreatureAnatomyProfile({
+    morphIds: [
+        ...collectEffectiveMorphIds("animal.test.1"),
+        "morph.body_plan.humanoid",
+    ],
+    inheritedProfileIds: collectInheritedProfileIds("animal.test.1"),
+    bodyWeightLb: 340,
+});
+assert.equal(
+    humanoidTestAnatomy.tissuePresetId,
+    "primate_mammal",
+    "Humanoid body plan should resolve primate mammal tissue preset.",
+);
+assert.deepEqual(
+    humanoidTestAnatomy.tissueComposition,
+    { muscle: 40, bone: 10, skin: 15, blood: 8 },
+    "Humanoid derived anatomy should use primate mammal preset.",
+);
+const humanSt10Dimensions = estimatePhysicalDimensionsFromMorphIds(
+    [
+        "morph.attribute.st.st10",
+        "morph.body_plan.humanoid",
+        "morph.attribute.dx.dx10",
+        "morph.attribute.ht.ht10",
+    ],
+    [],
+);
+assert.equal(
+    humanSt10Dimensions?.sizeModifier,
+    0,
+    "Human ST10 humanoid silhouette should derive SM0.",
+);
+assert.equal(
+    estimateHexVolumeFromMorphIdsAndTraits(
+        [
+            "morph.attribute.st.st10",
+            "morph.body_plan.humanoid",
+            "morph.attribute.dx.dx10",
+            "morph.attribute.ht.ht10",
+        ],
+        [],
+    )?.baseVolume,
+    1,
+    "Human ST10 humanoid silhouette should derive SM0 hex base volume.",
+);
+const gracileHumanDimensions = estimatePhysicalDimensionsFromMorphIds(
+    [
+        "morph.attribute.st.st10",
+        "morph.body_plan.humanoid",
+    ],
+    ["trait.size.proportion.gracile.+1"],
+);
+const robustHumanDimensions = estimatePhysicalDimensionsFromMorphIds(
+    [
+        "morph.attribute.st.st10",
+        "morph.body_plan.humanoid",
+    ],
+    ["trait.size.proportion.robust.-1"],
+);
+assert.ok(
+    gracileHumanDimensions &&
+        robustHumanDimensions &&
+        gracileHumanDimensions.sizeModifier === robustHumanDimensions.sizeModifier,
+    "Gracility and robustness should reshape silhouette without changing derived SM alone.",
+);
+assert.ok(
+    gracileHumanDimensions.averageHeightFt >
+        humanSt10Dimensions.averageHeightFt &&
+        gracileHumanDimensions.averageSilhouetteWidthFt <
+            humanSt10Dimensions.averageSilhouetteWidthFt,
+    "Gracile proportion trait should make silhouette taller and narrower at the same ST.",
+);
+const humanoidSt20Dimensions = estimatePhysicalDimensionsFromMorphIds(
+    [
+        ...animalTestBaseMorphs,
+        "morph.attribute.st.st20",
+        "morph.body_plan.humanoid",
+    ],
+    [],
+);
+assert.ok(
+    humanoidSt20Dimensions &&
+        humanoidSt20Dimensions.averageHeightFt >
+            humanoidSt20Dimensions.averageSilhouetteWidthFt,
+    "Humanoid stature should exceed silhouette width.",
+);
+assert.ok(
+    Math.abs(
+        humanoidSt20Dimensions.averageSilhouetteWidthFt /
+            humanoidSt20Dimensions.averageHeightFt -
+            2 / 5.5,
+    ) < 0.001,
+    "Humanoid width should scale with stature using the human template ratio.",
+);
+const beeEffectiveProfile = resolveEffectiveCreatureProfile(
+    creatureProfiles["animal.insect.bee"],
+    Object.values(creatureProfiles),
+);
+const beeSummary = summarizeCreatureProfile(beeEffectiveProfile);
+assert.ok(
+    beeSummary.calculationIssues.some((issue) =>
+        issue.includes("Missing required ST morph"),
+    ),
+    "Bee species without ST should report missing ST and skip size calculations.",
+);
+assert.equal(
+    beeSummary.estimatedHexVolume,
+    undefined,
+    "Bee species without ST should not derive hex volume.",
+);
+assert.ok(
+    !collectEffectiveMorphIds("animal.dinosaur.bird.grouse").some(
+        (morphId) =>
+            morphId.startsWith("morph.tissue.") ||
+            morphId.startsWith("morph.organ."),
+    ),
+    "Effective bird profile should not carry tissue or organ morph chips.",
+);
+assert.ok(
+    !humanCultureImperialProfile.morphs.some((morphId) =>
+        morphId.startsWith("morph.tissue."),
+    ) &&
+        !plantProfile.morphs.some((morphId) =>
+            morphId.startsWith("morph.organ."),
+        ),
+    "Culture and plant profiles should not carry animal tissue or organ morphs.",
+);
 for (const expectedChimpanzeeMorph of [
     "cog.iq6",
-    "morph.size.sm.-1",
     "morph.locomotion.walk_quadruped",
     "morph.manip.claws_simple_grip",
     "morph.natural_weapon.bite_medium",
@@ -795,7 +1295,6 @@ assert.deepEqual(
 );
 for (const expectedGorillaMorph of [
     "cog.iq6",
-    "morph.size.sm.0",
     "morph.body_plan.tetrapod_large_ground",
     "morph.locomotion.walk_quadruped",
     "morph.manip.claws_simple_grip",
@@ -1096,6 +1595,9 @@ const roadmapSource = readWorkspaceFile("ROADMAP.md");
 const bodySizeSource = readWorkspaceFile(
     "packages/domain-data/src/rps/world/body-size.ts",
 );
+const nutritionSource = readWorkspaceFile(
+    "packages/domain-data/src/rps/world/nutrition.ts",
+);
 const actorEntitySource = readWorkspaceFile(
     "backend/src/rps/world/actor/actor.entity.ts",
 );
@@ -1141,14 +1643,26 @@ assert.ok(
 for (const expectedText of [
     "Parent",
     "Effective chain",
-    "Daily needs",
-    "Derived needs",
+    "Maintenance",
+    "Behavioral needs",
+    "Daily food intake",
+    "At rest per turn",
+    "BasalConsumptionPreview",
+    "BasalMetabolismNutritionFields",
     "Physical averages",
     "syncCreatureProfilesCalculatedFields",
-    "clearCreatureProfileCalculatedFields",
+    "resolveCreatureProfileMorphDerivedState",
+    "morphDerivedState",
+    "displayPhysical",
+    "displayNutritionNeedsPerDay",
+    "isMaintenanceRequirementCovered",
     "calculationsEnabled",
     "calculationIssues",
-    "Morph-derived calculations are disabled",
+    "hasMorphDerivedEstimates",
+    "Existing profile values stay editable",
+    "Activity",
+    "formatActivityNutritionImpactLabel",
+    "nutritionActivity",
     "Behavior action",
     "getImperialMassUnit",
     "MassField",
@@ -1180,13 +1694,20 @@ for (const expectedText of [
     "Expand templates",
     "KeyboardArrowRightRoundedIcon",
     "KeyboardArrowDownRoundedIcon",
-    "DerivedNeedsViewer",
+    "BehavioralNeedsViewer",
+    "DerivedAnatomyViewer",
+    "resolveCreatureAnatomyProfile",
+    "Derived anatomy",
+    "tissueWeightsLb",
+    "bodyWeightLb",
+    "accountedTissuePercent",
     "getCreatureNeedImpactRecords",
     "getCreatureMaintenanceRequirementRecords",
     "needImpactRecords",
     "maintenanceRequirementRecords",
     "Maintenance requirements",
     "MaintenanceRequirementsViewer",
+    "MaintenanceSection",
     "Final aggregation",
     "aggregateNeedRecords",
     "active",
@@ -1203,13 +1724,52 @@ assert.ok(
         !morphNeedImpactsSource.includes('"TEMPERATURE"') &&
         morphMaintenanceRequirementsSource.includes('"BREATH"') &&
         morphMaintenanceRequirementsSource.includes('"TEMPERATURE"') &&
+        morphMaintenanceRequirementsSource.includes('"BASAL_METABOLISM"') &&
         morphMaintenanceRequirementsSource.includes(
             '"morph.respiration.lungs_basic"',
         ) &&
         morphMaintenanceRequirementsSource.includes(
             '"morph.respiration.gills_aquatic"',
         ),
-    "Breath and temperature should be passive maintenance requirements instead of behavioral need weights.",
+    "Breath, temperature and warm-blooded basal metabolism should be passive maintenance requirements instead of behavioral need weights.",
+);
+assert.ok(
+    nutritionSource.includes("ENERGY_KCAL_PER_UNIT = 50") &&
+        nutritionSource.includes(
+            "WARM_BLOODED_BASELINE_MAINTENANCE_ENERGY_PER_DAY_ST10 = 30",
+        ) &&
+        nutritionSource.includes(
+            "estimateWarmBloodedBasalMaintenanceNutritionNeeds",
+        ),
+    "Nutrition constants should define 1 Energy = 50 kcal and 30E warm-blooded basal maintenance at ST10/Average.",
+);
+assert.ok(
+    creatureProfilesUtilsSource.includes(
+        "getCreatureMaintenanceNutritionNeeds",
+    ) &&
+        creatureProfilesUtilsSource.includes(
+            "estimateWarmBloodedBasalMaintenanceNutritionNeeds",
+        ) &&
+        creatureProfilesUtilsSource.includes("hasWarmBloodedThermoregMorph"),
+    "Creature profile calculations should derive warm-blooded basal maintenance nutrition from body weight.",
+);
+assert.ok(
+    creatureProfilesUtilsSource.includes("getNutritionActivityMultipliers") &&
+        creatureProfilesUtilsSource.includes(
+            "getCreatureActionNutritionActivityImpacts",
+        ) &&
+        !creatureProfilesUtilsSource.includes(
+            "estimateNutritionActivityMultipliersFromCostEnergy",
+        ),
+    "Creature action activity should expose independent nutrition multipliers from nutritionActivity.",
+);
+assert.ok(
+    creatureProfilesUtilsSource.includes("filterBehavioralNeedImpactRecords") &&
+        creatureProfilesUtilsSource.includes("MAINTENANCE_BEHAVIORAL_NEED_TAGS") &&
+        creatureProfilesUtilsSource.includes(
+            "buildBasalConsumptionPerTurnFromDailyNeeds",
+        ),
+    "Maintenance nutrition should be separated from behavioral need impacts and per-turn consumption should be derived from daily upkeep.",
 );
 assert.ok(
     !morphNeedImpactsSource.includes('"gate"') &&
@@ -1233,17 +1793,23 @@ assert.ok(
     "Creature species editor should derive visible needs from effective morph, meme and trait sources.",
 );
 assert.ok(
-    creatureProfilesUtilsSource.includes("fillMissingCalculatedNumbers") &&
+    creatureProfilesUtilsSource.includes("syncMorphDerivedPhysicalFields") &&
+        creatureProfilesUtilsSource.includes(
+            "syncMorphDerivedNutritionFields",
+        ) &&
         creatureProfilesUtilsSource.includes(
             "clearCreatureProfileCalculatedFields",
         ) &&
         creatureProfilesUtilsSource.includes(
+            "hasCompleteCreatureProfileCalculations",
+        ) &&
+        !creatureProfilesUtilsSource.includes(
             "return clearCreatureProfileCalculatedFields(profile)",
         ) &&
         creatureProfilesUtilsSource.includes(
             "getCreatureProfileCalculationIssues",
         ) &&
-        creatureProfilesUtilsSource.includes("morph.size.sm.") &&
+        !creatureProfilesUtilsSource.includes("morph.size.sm.") &&
         creatureProfilesUtilsSource.includes("morph.attribute.st.st") &&
         creatureProfilesUtilsSource.includes("morph.attribute.dx.dx10") &&
         creatureProfilesUtilsSource.includes("morph.attribute.ht.ht10") &&
@@ -1252,13 +1818,29 @@ assert.ok(
             "syncCreatureProfilesCalculatedFields",
         ) &&
         creatureProfilesUtilsSource.includes(
+            "resolveCreatureProfileMorphDerivedState",
+        ) &&
+        creatureProfilesUtilsSource.includes(
+            "syncCreatureProfileCalculatedFields",
+        ) &&
+        creatureProfilesUtilsSource.includes(
             "calculatedNutritionNeedsPerDay",
         ) &&
         creatureProfilesUtilsSource.includes("calculatedConsumptionPerTurn") &&
         creatureProfilesUtilsSource.includes("calculatedPhysical") &&
+        creatureProfilesUtilsSource.includes(
+            "estimatePhysicalDimensionsFromMorphIds",
+        ) &&
+        creatureProfilesUtilsSource.includes(
+            "estimateHexVolumeFromMorphIdsAndTraits",
+        ) &&
+        creatureProfilesUtilsSource.includes("derivedSizeModifier") &&
+        screenSource.includes("Derived size modifier (SM)") &&
+        screenSource.includes("Silhouette width") &&
         screenSource.includes("profilesToSave") &&
+        screenSource.includes("hasMorphDerivedEstimates") &&
         !screenSource.includes("useCalculatedFallback"),
-    "Creature species editor should write calculated morph-derived values into profile data only when required species morphs are present.",
+    "Creature species editor should keep profile data editable while morph-derived calculations are incomplete.",
 );
 assert.deepEqual(
     adzukiBeanPlantProfile.nutritionNeedsPerDay,
@@ -1297,7 +1879,7 @@ assert.ok(
         !screenSource.includes(
             '<NumberField\n                    label="Water"',
         ),
-    "Daily needs and per-turn consumption should display editable natural fractions instead of decimal-only number inputs.",
+    "Basal nutrition fields should display editable natural fractions instead of decimal-only number inputs.",
 );
 assert.ok(
     !screenSource.includes(
@@ -1398,7 +1980,10 @@ assert.ok(
         bodySizeSource.includes("): number | undefined") &&
         bodySizeSource.includes("return undefined") &&
         bodySizeSource.includes("estimateStomachCapacityLbFromMorphIds") &&
-        bodySizeSource.includes("estimateHexVolume") &&
+        bodySizeSource.includes("estimateHexVolumeFromMorphIdsAndTraits") &&
+        bodySizeSource.includes("deriveSizeModifierFromSilhouetteArea") &&
+        bodySizeSource.includes("SM0_HUMANOID_SILHOUETTE_AREA_SQ_FT") &&
+        screenSource.includes("estimatedPhysicalDimensions") &&
         screenSource.includes("estimatedAverageBuildWeight") &&
         screenSource.includes("estimatedStomachCapacity") &&
         screenSource.includes("estimatedDailyFoodMassNeedLb") &&
@@ -1406,21 +1991,24 @@ assert.ok(
     "Creature species editor must expose ST/build body weight and derived stomach estimates.",
 );
 assert.ok(
-    actorEntitySource.includes(
-        "estimateStomachCapacityLbFromMorphIds(",
-    ) &&
+    actorEntitySource.includes("estimatePhysicalDimensionsFromMorphIds(") &&
+        actorEntitySource.includes(
+            "estimateStomachCapacityLbFromMorphIds(",
+        ) &&
         actorEntitySource.includes(
             "Cannot estimate stomach capacity without explicit ST morph.",
         ) &&
-        !actorEntitySource.includes("Math.pow(2, sm)") &&
-        actorEntitySource.includes("profileSizeModifier"),
-    "Actor stomach capacity must use explicit ST and fail clearly when ST is missing.",
+        !actorEntitySource.includes("SIZE_MODIFIER_MORPH_PREFIX"),
+    "Actor size and stomach capacity must derive from explicit ST and fail clearly when ST is missing.",
 );
 assert.ok(
-    actorFactorySource.includes("estimateDailyFoodMassNeedLbFromStrengthAndBuild") &&
+    actorFactorySource.includes("estimateHexVolumeFromMorphIdsAndTraits") &&
+        actorFactorySource.includes(
+            "estimateDailyFoodMassNeedLbFromStrengthAndBuild",
+        ) &&
         actorFactorySource.includes("getStrengthFromMorphIds") &&
         actorFactorySource.includes("creatureProfile: template"),
-    "Actor factory must derive daily food mass from ST and attach the creature profile.",
+    "Actor factory must derive hex volume and daily food mass from ST and attach the creature profile.",
 );
 assert.ok(
     lizardProfileSource.includes("createCreatureTemplate") &&
@@ -1468,6 +2056,20 @@ assert.ok(
         ) &&
         creatureProfilesSource.includes("animal.mammal.primate.human.json") &&
         creatureProfilesSource.includes("MAMMAL_PRIMATE_HUMAN_PROFILE_DATA") &&
+        creatureProfilesSource.includes("human.race.imperial.json") &&
+        creatureProfilesSource.includes("HUMAN_RACE_IMPERIAL_PROFILE_DATA") &&
+        creatureProfilesSource.includes("human.culture.imperial.json") &&
+        creatureProfilesSource.includes("HUMAN_CULTURE_IMPERIAL_PROFILE_DATA") &&
+        creatureProfilesSource.includes("human.race.palladian.json") &&
+        creatureProfilesSource.includes("human.race.abydosian.json") &&
+        creatureProfilesSource.includes("human.race.retan.json") &&
+        creatureProfilesSource.includes("human.race.barbarian-giant.json") &&
+        creatureProfilesSource.includes("human.culture.palladian.json") &&
+        creatureProfilesSource.includes("human.culture.abydosian.json") &&
+        creatureProfilesSource.includes("human.culture.retan.south.json") &&
+        creatureProfilesSource.includes("human.culture.retan.midland.json") &&
+        creatureProfilesSource.includes("human.culture.retan.north.json") &&
+        creatureProfilesSource.includes("human.culture.barbarian-jungle.json") &&
         creatureProfilesSource.includes("animal.mammal.rodent.json") &&
         creatureProfilesSource.includes("MAMMAL_RODENT_PROFILE_DATA") &&
         creatureProfilesSource.includes("animal.reptile.crocodile.json") &&
@@ -1600,13 +2202,9 @@ assert.ok(
     "World morph tree should include basic plant morphology for botanical precursor species.",
 );
 assert.ok(
-    foodActionsSource.includes('"requiredMorphs": ["core.vital.living"]') &&
-        waterActionsSource.includes(
-            '"requiredMorphs": ["core.vital.living"]',
-        ) &&
-        genericActionsSource.includes(
-            '"requiredMorphs": ["core.vital.living"]',
-        ),
+    foodActionsSource.includes("core.vital.living") &&
+        waterActionsSource.includes("core.vital.living") &&
+        genericActionsSource.includes("core.vital.living"),
     "Basic eat, drink and sleep actions must be generated by carbon-life requirements instead of showing as manual-only.",
 );
 

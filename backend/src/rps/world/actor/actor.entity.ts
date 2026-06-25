@@ -9,7 +9,7 @@ import { CreatureTemplateEntity } from '../../domain/character/creature-template
 import { ActionTag } from '../actions/action-tags';
 import { MemeId } from '../memes';
 import { getLeveledMorphLevel, leveledMorphPrefix, LeveledMorphTemplateId, MorphId } from '../morphs';
-import { estimateStomachCapacityLbFromMorphIds, SIZE_MODIFIER_MORPH_PREFIX } from '@wohex/domain-data/rps';
+import { estimateStomachCapacityLbFromMorphIds, estimatePhysicalDimensionsFromMorphIds } from '@wohex/domain-data/rps';
 
 /**
  * Пищевая ценность ресурса / приёма пищи.
@@ -28,7 +28,7 @@ export interface NutritionContent {
 
 /**
  * Суточные потребности вида.
- * Для human по твоей таблице: energy=60, protein=6, massLb≈3 (примерно).
+ * Warm-blooded basal maintenance at ST10/Average: energy=30, protein=5, massLb≈3.
  */
 export interface NutritionNeeds {
     energyPerDay: number;
@@ -54,16 +54,16 @@ export class MetabolismProfile {
 
     constructor({
         nutritionNeedsPerDay = {
-            energyPerDay: 60,
-            proteinPerDay: 6,
-            waterPerDay: 3,
+            energyPerDay: 30,
+            proteinPerDay: 5,
+            waterPerDay: 15,
             massPerDayLb: 3,
         },
         consumptionPerTurn = {
-            energy: 1,
-            protein: 0.1,
-            water: 0.1,
-            massLb: 0.1,
+            energy: 1.25,
+            protein: 0.20833333333333334,
+            water: 0.625,
+            massLb: 0.125,
         },
     }: MetabolismProfileInit = {}) {
         this.nutritionNeedsPerDay = nutritionNeedsPerDay;
@@ -136,27 +136,14 @@ export interface ActorInit {
 }
 
 /**
- * Resolve Size Modifier (SM) from concrete morph.size.sm.N morphs.
- * Missing SM is returned as undefined because SM0 is a valid explicit value.
+ * Resolve Size Modifier (SM) from ST-derived silhouette dimensions.
+ * Missing ST returns undefined because size is not derived without it.
  */
 export function getSizeModifierFromMorphs(actor: ActorEntity): number | undefined {
-    const ids = actor.getProfileMorphIds();
+    const dimensions = estimatePhysicalDimensionsFromMorphIds(actor.getProfileMorphIds());
+    if (!dimensions) return undefined;
 
-    for (const id of ids) {
-        if (!id.startsWith(SIZE_MODIFIER_MORPH_PREFIX)) continue;
-
-        const lvl = getLeveledMorphLevel(id);
-        if (lvl === null || Number.isNaN(lvl)) continue;
-
-        return lvl; // предполагаем ровно один SM-морф на акторе
-    }
-
-    const profileSizeModifier = actor.getCreatureProfile()?.sizeModifier;
-    if (typeof profileSizeModifier === 'number' && Number.isFinite(profileSizeModifier)) {
-        return profileSizeModifier;
-    }
-
-    return undefined;
+    return dimensions.sizeModifier;
 }
 
 /**

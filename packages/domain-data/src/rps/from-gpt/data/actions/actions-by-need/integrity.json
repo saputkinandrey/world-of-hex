@@ -27,7 +27,14 @@
                     "culture.vigil_ritual",
                     "cog.timekeeping.basic",
                     "comm.language.written"
-                ]
+                ],
+                "nutritionActivity": {
+                    "intensity": "rest",
+                    "energyMultiplier": 0.85,
+                    "proteinMultiplier": 1,
+                    "waterMultiplier": 0.95,
+                    "basis": "sleep and passive recovery; cost-signals"
+                }
             },
             {
                 "tag": "REFUSE_PLAGIARISM",
@@ -46,6 +53,13 @@
                 "lawEffect": {
                     "authorshipRule": "observed",
                     "enforceable": true
+                },
+                "nutritionActivity": {
+                    "intensity": "rest",
+                    "energyMultiplier": 0.85,
+                    "proteinMultiplier": 1,
+                    "waterMultiplier": 0.95,
+                    "basis": "sleep and passive recovery; cost-signals"
                 }
             },
             {
@@ -68,6 +82,13 @@
                 "lawEffect": {
                     "ledgerCorrection": "filed",
                     "enforceable": true
+                },
+                "nutritionActivity": {
+                    "intensity": "rest",
+                    "energyMultiplier": 0.85,
+                    "proteinMultiplier": 1,
+                    "waterMultiplier": 0.95,
+                    "basis": "sleep and passive recovery; cost-signals"
                 }
             },
             {
@@ -97,7 +118,14 @@
                 "requiredMemes": [
                     "comm.language.written",
                     "record.ledgerkeeping"
-                ]
+                ],
+                "nutritionActivity": {
+                    "intensity": "rest",
+                    "energyMultiplier": 0.85,
+                    "proteinMultiplier": 1,
+                    "waterMultiplier": 0.95,
+                    "basis": "sleep and passive recovery; cost-signals"
+                }
             },
             {
                 "tag": "REPORT_CONFLICT_OF_INTEREST",
@@ -117,6 +145,13 @@
                 "lawEffect": {
                     "conflictRegistry": "declared",
                     "enforceable": true
+                },
+                "nutritionActivity": {
+                    "intensity": "rest",
+                    "energyMultiplier": 0.85,
+                    "proteinMultiplier": 1,
+                    "waterMultiplier": 0.95,
+                    "basis": "sleep and passive recovery; cost-signals"
                 }
             },
             {
@@ -139,6 +174,13 @@
                 "lawEffect": {
                     "giftLedger": "updated",
                     "enforceable": true
+                },
+                "nutritionActivity": {
+                    "intensity": "rest",
+                    "energyMultiplier": 0.85,
+                    "proteinMultiplier": 1,
+                    "waterMultiplier": 0.95,
+                    "basis": "sleep and passive recovery; cost-signals"
                 }
             },
             {
@@ -157,6 +199,13 @@
                 "lawEffect": {
                     "privacyRule": "respected",
                     "enforceable": true
+                },
+                "nutritionActivity": {
+                    "intensity": "rest",
+                    "energyMultiplier": 0.85,
+                    "proteinMultiplier": 1,
+                    "waterMultiplier": 0.95,
+                    "basis": "sleep and passive recovery; cost-signals"
                 }
             },
             {
@@ -183,7 +232,14 @@
                     "health.sanitation_norms",
                     "health.waste_handling",
                     "comm.language.written"
-                ]
+                ],
+                "nutritionActivity": {
+                    "intensity": "rest",
+                    "energyMultiplier": 0.85,
+                    "proteinMultiplier": 1,
+                    "waterMultiplier": 0.95,
+                    "basis": "sleep and passive recovery; cost-signals"
+                }
             },
             {
                 "tag": "HONOR_BOUNDARY_CONSENT",
@@ -202,6 +258,13 @@
                 "lawEffect": {
                     "consentRule": "affirmed",
                     "enforceable": true
+                },
+                "nutritionActivity": {
+                    "intensity": "rest",
+                    "energyMultiplier": 0.85,
+                    "proteinMultiplier": 1,
+                    "waterMultiplier": 0.95,
+                    "basis": "sleep and passive recovery; cost-signals"
                 }
             },
             {
@@ -224,6 +287,13 @@
                 "lawEffect": {
                     "measureSeal": "stamped",
                     "enforceable": true
+                },
+                "nutritionActivity": {
+                    "intensity": "rest",
+                    "energyMultiplier": 0.85,
+                    "proteinMultiplier": 1,
+                    "waterMultiplier": 0.95,
+                    "basis": "sleep and passive recovery; cost-signals"
                 }
             },
             {
@@ -244,6 +314,13 @@
                 "lawEffect": {
                     "assignmentRule": "merit_first",
                     "enforceable": true
+                },
+                "nutritionActivity": {
+                    "intensity": "rest",
+                    "energyMultiplier": 0.85,
+                    "proteinMultiplier": 1,
+                    "waterMultiplier": 0.95,
+                    "basis": "sleep and passive recovery; cost-signals"
                 }
             },
             {
@@ -267,6 +344,13 @@
                 "lawEffect": {
                     "creditNote": "filed",
                     "enforceable": true
+                },
+                "nutritionActivity": {
+                    "intensity": "rest",
+                    "energyMultiplier": 0.85,
+                    "proteinMultiplier": 1,
+                    "waterMultiplier": 0.95,
+                    "basis": "sleep and passive recovery; cost-signals"
                 }
             },
             {
@@ -280,7 +364,9 @@
                     "STABILITY": 0.3,
                     "TRUST": 0.3
                 },
-                "requiresItem": ["abacus|tally_sticks"],
+                "requiresItem": [
+                    "abacus|tally_sticks"
+                ],
                 "socialImpact": {
                     "TRANSPARENCY": 0.4
                 },
@@ -295,7 +381,14 @@
                     "comm.language.written",
                     "record.ledgerkeeping",
                     "cog.number_concept"
-                ]
+                ],
+                "nutritionActivity": {
+                    "intensity": "rest",
+                    "energyMultiplier": 0.85,
+                    "proteinMultiplier": 1,
+                    "waterMultiplier": 0.95,
+                    "basis": "sleep and passive recovery; cost-signals"
+                }
             },
             {
                 "tag": "RECUSE_FROM_DECISION",
@@ -314,6 +407,13 @@
                 "lawEffect": {
                     "recusalNote": "posted",
                     "enforceable": true
+                },
+                "nutritionActivity": {
+                    "intensity": "rest",
+                    "energyMultiplier": 0.85,
+                    "proteinMultiplier": 1,
+                    "waterMultiplier": 0.95,
+                    "basis": "sleep and passive recovery; cost-signals"
                 }
             },
             {
@@ -338,6 +438,13 @@
                 "lawEffect": {
                     "sourcingCharter": "ratified",
                     "enforceable": true
+                },
+                "nutritionActivity": {
+                    "intensity": "rest",
+                    "energyMultiplier": 0.85,
+                    "proteinMultiplier": 1,
+                    "waterMultiplier": 0.95,
+                    "basis": "sleep and passive recovery; cost-signals"
                 }
             },
             {
@@ -370,7 +477,14 @@
                 "requiredMemes": [
                     "comm.language.written",
                     "org.workshop_practice"
-                ]
+                ],
+                "nutritionActivity": {
+                    "intensity": "rest",
+                    "energyMultiplier": 0.85,
+                    "proteinMultiplier": 1,
+                    "waterMultiplier": 0.95,
+                    "basis": "sleep and passive recovery; cost-signals"
+                }
             }
         ]
     }

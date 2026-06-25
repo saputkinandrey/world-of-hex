@@ -8,14 +8,22 @@ import type {
 import {
     estimateDailyFoodMassNeedLbFromMorphIds,
     estimateAverageBuildBodyWeightLbFromMorphIds,
-    estimateHexVolumeFromMorphIds,
+    estimateHexVolumeFromMorphIdsAndTraits,
+    estimatePhysicalDimensionsFromMorphIds,
     estimateStomachCapacityLbFromMorphIds,
     type BodyWeightEstimate,
     type HexVolumeEstimate,
+    type PhysicalDimensionsEstimate,
     type StomachCapacityEstimate,
 } from "@wohex/domain-data/rps/world/body-size";
-import type { WorldTraitRecord } from "@wohex/domain-data/rps/world/entities";
 import {
+    BASAL_METABOLISM_MAINTENANCE_REQUIREMENT,
+    estimateWarmBloodedBasalMaintenanceNutritionNeeds,
+    hasWarmBloodedThermoregMorph,
+} from "@wohex/domain-data/rps/world/nutrition";
+import type { NutritionActivityData } from "@wohex/domain-data/rps/from-gpt";
+import {
+    getNutritionActivityMultipliers,
     maintenanceRequirementsBySourceKind,
     needImpactsBySourceKind,
     type BehaviorActionRecord,
@@ -23,6 +31,7 @@ import {
     type NeedImpactData,
     type NeedImpactSourceKind,
 } from "@wohex/domain-data/rps/from-gpt";
+import type { WorldTraitRecord } from "@wohex/domain-data/rps/world/entities";
 
 export interface CreatureProfilesFileResponse {
     profiles: CreatureProfileData[];
@@ -53,21 +62,33 @@ export interface CreatureProfileSummary {
     calculatedNutritionNeedsPerDay?: CreatureNutritionNeedsData;
     calculatedConsumptionPerTurn?: CreatureNutritionContentData;
     calculatedPhysical?: CreaturePhysicalProfileData;
+    estimatedPhysicalDimensions?: PhysicalDimensionsEstimate;
+    derivedSizeModifier?: number;
     calculationsEnabled: boolean;
     calculationIssues: string[];
-    averageLengthFt?: number;
+    averageSilhouetteWidthFt?: number;
     averageHeightFt?: number;
 }
 
-const CREATURE_BASELINE_FOOD_MASS_PER_DAY_LB = 3;
-const CREATURE_BASELINE_ENERGY_PER_DAY = 60;
-const CREATURE_BASELINE_PROTEIN_PER_DAY = 10;
-const CREATURE_BASELINE_WATER_PER_DAY = 30;
 const CREATURE_TURNS_PER_DAY = 24;
-const SIZE_MODIFIER_MORPH_PREFIX = "morph.size.sm.";
 const ST_ATTRIBUTE_MORPH_PREFIX = "morph.attribute.st.st";
 const DX10_ATTRIBUTE_MORPH = "morph.attribute.dx.dx10";
 const HT10_ATTRIBUTE_MORPH = "morph.attribute.ht.ht10";
+
+export const MAINTENANCE_BEHAVIORAL_NEED_TAGS = [
+    "ENERGY",
+    "FOOD",
+    "WATER",
+] as const;
+
+export const filterBehavioralNeedImpactRecords = (
+    records: CreatureNeedImpactRecord[],
+): CreatureNeedImpactRecord[] => {
+    const maintenanceNeeds = new Set<string>(
+        MAINTENANCE_BEHAVIORAL_NEED_TAGS,
+    );
+    return records.filter((record) => !maintenanceNeeds.has(record.need));
+};
 
 export interface CreatureActionOption {
     key: string;
@@ -185,6 +206,69 @@ export const getCreatureNeedImpactRecords = (
     );
 };
 
+export const getCreatureMaintenanceNutritionNeeds = (
+    profile: EffectiveCreatureProfileData,
+): CreatureNutritionNeedsData => {
+    if (!hasWarmBloodedThermoregMorph(profile.morphs)) {
+        return {
+            energyPerDay: 0,
+            proteinPerDay: 0,
+            waterPerDay: 0,
+            massPerDayLb: 0,
+        };
+    }
+
+    const bodyWeight = estimateAverageBuildBodyWeightLbFromMorphIds(
+        profile.morphs,
+        profile.traits ?? [],
+    );
+    if (!bodyWeight) {
+        return {
+            energyPerDay: 0,
+            proteinPerDay: 0,
+            waterPerDay: 0,
+            massPerDayLb: 0,
+        };
+    }
+
+    const maintenance = estimateWarmBloodedBasalMaintenanceNutritionNeeds(
+        bodyWeight.weightLb.average,
+    );
+
+    return {
+        energyPerDay: maintenance.energyPerDay,
+        proteinPerDay: maintenance.proteinPerDay,
+        waterPerDay: maintenance.waterPerDay,
+        massPerDayLb: 0,
+    };
+};
+
+const attachMaintenanceNutritionCosts = (
+    profile: EffectiveCreatureProfileData,
+    records: CreatureMaintenanceRequirementRecord[],
+): CreatureMaintenanceRequirementRecord[] => {
+    const maintenanceNutrition = getCreatureMaintenanceNutritionNeeds(profile);
+    if (maintenanceNutrition.energyPerDay <= 0) {
+        return records;
+    }
+
+    return records.map((record) => {
+        if (
+            record.requirement !== BASAL_METABOLISM_MAINTENANCE_REQUIREMENT ||
+            record.mode !== "requires"
+        ) {
+            return record;
+        }
+
+        return {
+            ...record,
+            energyPerDay: maintenanceNutrition.energyPerDay,
+            proteinPerDay: maintenanceNutrition.proteinPerDay,
+            waterPerDay: maintenanceNutrition.waterPerDay,
+        };
+    });
+};
+
 export const getCreatureMaintenanceRequirementRecords = (
     profile: EffectiveCreatureProfileData,
 ): CreatureMaintenanceRequirementRecord[] => {
@@ -214,7 +298,7 @@ export const getCreatureMaintenanceRequirementRecords = (
         }
     }
 
-    return records.sort(
+    return attachMaintenanceNutritionCosts(profile, records).sort(
         (left, right) =>
             left.requirement.localeCompare(right.requirement, undefined, {
                 numeric: true,
@@ -231,28 +315,61 @@ export const getCreatureMaintenanceRequirementRecords = (
 
 type NumericProfileSection = Record<string, number | undefined>;
 
-const isMissingCalculatedNumber = (value: number | undefined) => {
-    return value === undefined || value === 0;
+const syncMorphDerivedPhysicalFields = (
+    current: CreaturePhysicalProfileData,
+    calculatedFields: CalculatedCreatureProfileFields,
+): CreaturePhysicalProfileData => {
+    const nextPhysical: CreaturePhysicalProfileData = { ...current };
+
+    if (calculatedFields.estimatedHexVolume) {
+        nextPhysical.baseVolume =
+            calculatedFields.estimatedHexVolume.baseVolume;
+        nextPhysical.minVolume = calculatedFields.estimatedHexVolume.minVolume;
+        nextPhysical.carryVolumeCapacity =
+            calculatedFields.estimatedHexVolume.carryVolumeCapacity;
+    } else {
+        nextPhysical.baseVolume = 0;
+        nextPhysical.minVolume = 0;
+        nextPhysical.carryVolumeCapacity = 0;
+    }
+
+    if (calculatedFields.estimatedAverageBuildWeight) {
+        nextPhysical.averageWeightLb =
+            calculatedFields.estimatedAverageBuildWeight.weightLb.average;
+        const proportions = calculatedFields.calculatedPhysical
+            ? {
+                  averageSilhouetteWidthFt:
+                      calculatedFields.calculatedPhysical
+                          .averageSilhouetteWidthFt,
+                  averageHeightFt:
+                      calculatedFields.calculatedPhysical.averageHeightFt,
+              }
+            : undefined;
+        nextPhysical.averageSilhouetteWidthFt =
+            proportions?.averageSilhouetteWidthFt;
+        nextPhysical.averageHeightFt = proportions?.averageHeightFt;
+    } else {
+        nextPhysical.averageWeightLb = undefined;
+        nextPhysical.averageSilhouetteWidthFt = undefined;
+        nextPhysical.averageHeightFt = undefined;
+    }
+
+    return nextPhysical;
 };
 
-const fillMissingCalculatedNumbers = <TSection extends object>(
-    current: TSection,
-    calculated: TSection,
-): TSection => {
-    const currentSection = current as NumericProfileSection;
-    const calculatedSection = calculated as NumericProfileSection;
+const syncMorphDerivedNutritionFields = (
+    calculatedFields: CalculatedCreatureProfileFields,
+): CreatureNutritionNeedsData => {
+    if (calculatedFields.calculatedNutritionNeedsPerDay) {
+        return calculatedFields.calculatedNutritionNeedsPerDay;
+    }
+
     return {
-        ...current,
-        ...Object.fromEntries(
-            Object.entries(calculatedSection).filter(([key, value]) => {
-                return (
-                    value !== undefined &&
-                    Number.isFinite(value) &&
-                    isMissingCalculatedNumber(currentSection[key])
-                );
-            }),
-        ),
-    } as TSection;
+        energyPerDay: 0,
+        proteinPerDay: 0,
+        waterPerDay: 0,
+        massPerDayLb: 0,
+    };
 };
 
 export const clearCreatureProfileCalculatedFields = (
@@ -285,15 +402,6 @@ export const getCreatureProfileCalculationIssues = (
 ): string[] => {
     const morphSet = new Set(profile.morphs);
     const issues: string[] = [];
-    if (
-        !profile.morphs.some((morphId) =>
-            morphId.startsWith(SIZE_MODIFIER_MORPH_PREFIX),
-        )
-    ) {
-        issues.push(
-            "Missing required size morph for calculations: morph.size.sm.*",
-        );
-    }
     if (profile.kind !== "species") return issues;
 
     if (
@@ -403,6 +511,57 @@ export const getCreatureActionOptions = (
         );
 };
 
+export interface NutritionActivityMultipliers {
+    energy: number;
+    protein: number;
+    water: number;
+}
+
+export interface CreatureActionNutritionActivityImpact {
+    actionKey: string;
+    tag: string;
+    nutritionActivity: NutritionActivityData;
+    multipliers: NutritionActivityMultipliers;
+}
+
+export const getCreatureActionNutritionActivityImpacts = (
+    actions: CreatureActionRefData[],
+    actionOptions: CreatureActionOption[],
+): CreatureActionNutritionActivityImpact[] => {
+    const optionByKey = new Map(
+        actionOptions.map((option) => [option.key, option]),
+    );
+
+    return actions
+        .map((ref) => {
+            const actionKey = creatureActionRefKey(ref);
+            const option = optionByKey.get(actionKey);
+            const nutritionActivity = option?.record.nutritionActivity;
+            const multipliers =
+                getNutritionActivityMultipliers(nutritionActivity);
+            if (!multipliers || !nutritionActivity) {
+                return null;
+            }
+
+            return {
+                actionKey,
+                tag: option?.record.tag ?? actionKey,
+                nutritionActivity,
+                multipliers,
+            };
+        })
+        .filter(
+            (impact): impact is CreatureActionNutritionActivityImpact =>
+                impact !== null,
+        )
+        .sort((left, right) =>
+            left.tag.localeCompare(right.tag, undefined, {
+                numeric: true,
+                sensitivity: "base",
+            }),
+        );
+};
+
 export const getTraitOptionsByKind = (
     records: WorldTraitRecord[],
     kind: WorldTraitRecord["kind"],
@@ -490,10 +649,42 @@ export const resolveEffectiveCreatureProfile = (
     return merged;
 };
 
+interface CalculatedCreatureProfileFields {
+    estimatedHexVolume?: HexVolumeEstimate;
+    estimatedPhysicalDimensions?: PhysicalDimensionsEstimate;
+    estimatedAverageBuildWeight?: BodyWeightEstimate;
+    estimatedStomachCapacity?: StomachCapacityEstimate;
+    estimatedDailyFoodMassNeedLb?: number;
+    calculatedNutritionNeedsPerDay?: CreatureNutritionNeedsData;
+    calculatedConsumptionPerTurn?: CreatureNutritionContentData;
+    calculatedPhysical?: CreaturePhysicalProfileData;
+}
+
+const buildCalculatedConsumptionPerTurn = (
+    nutritionNeedsPerDay: CreatureNutritionNeedsData,
+): CreatureNutritionContentData => ({
+    energy: nutritionNeedsPerDay.energyPerDay / CREATURE_TURNS_PER_DAY,
+    protein: nutritionNeedsPerDay.proteinPerDay / CREATURE_TURNS_PER_DAY,
+    water: (nutritionNeedsPerDay.waterPerDay ?? 0) / CREATURE_TURNS_PER_DAY,
+    massLb: nutritionNeedsPerDay.massPerDayLb / CREATURE_TURNS_PER_DAY,
+});
+
+export const buildBasalConsumptionPerTurnFromDailyNeeds =
+    buildCalculatedConsumptionPerTurn;
+
 const calculateCreatureProfileFields = (
     profile: EffectiveCreatureProfileData,
-) => {
-    const estimatedHexVolume = estimateHexVolumeFromMorphIds(profile.morphs);
+): CalculatedCreatureProfileFields => {
+    const estimatedPhysicalDimensions = estimatePhysicalDimensionsFromMorphIds(
+        profile.morphs,
+        profile.traits ?? [],
+    );
+    const estimatedHexVolume = estimatedPhysicalDimensions
+        ? estimateHexVolumeFromMorphIdsAndTraits(
+              profile.morphs,
+              profile.traits ?? [],
+          )
+        : undefined;
     const estimatedAverageBuildWeight =
         estimateAverageBuildBodyWeightLbFromMorphIds(
             profile.morphs,
@@ -508,58 +699,65 @@ const calculateCreatureProfileFields = (
             profile.morphs,
             profile.traits ?? [],
         );
-    if (
-        !estimatedHexVolume ||
-        !estimatedAverageBuildWeight ||
-        !estimatedStomachCapacity ||
-        estimatedDailyFoodMassNeedLb === undefined
-    ) {
-        throw new Error(
-            "Creature profile calculations require explicit SM and ST morphs.",
-        );
-    }
-    const nutritionScale =
-        estimatedDailyFoodMassNeedLb / CREATURE_BASELINE_FOOD_MASS_PER_DAY_LB;
-    const calculatedNutritionNeedsPerDay: CreatureNutritionNeedsData = {
-        energyPerDay: CREATURE_BASELINE_ENERGY_PER_DAY * nutritionScale,
-        proteinPerDay: CREATURE_BASELINE_PROTEIN_PER_DAY * nutritionScale,
-        waterPerDay: CREATURE_BASELINE_WATER_PER_DAY * nutritionScale,
-        massPerDayLb: estimatedDailyFoodMassNeedLb,
-    };
-    const calculatedConsumptionPerTurn: CreatureNutritionContentData = {
-        energy:
-            calculatedNutritionNeedsPerDay.energyPerDay /
-            CREATURE_TURNS_PER_DAY,
-        protein:
-            calculatedNutritionNeedsPerDay.proteinPerDay /
-            CREATURE_TURNS_PER_DAY,
-        water:
-            (calculatedNutritionNeedsPerDay.waterPerDay ?? 0) /
-            CREATURE_TURNS_PER_DAY,
-        massLb:
-            calculatedNutritionNeedsPerDay.massPerDayLb /
-            CREATURE_TURNS_PER_DAY,
-    };
-    const calculatedPhysical: CreaturePhysicalProfileData = {
-        baseVolume: estimatedHexVolume.baseVolume,
-        minVolume: estimatedHexVolume.minVolume,
-        carryVolumeCapacity: estimatedHexVolume.carryVolumeCapacity,
-        averageWeightLb: estimatedAverageBuildWeight.weightLb.average,
-        averageLengthFt:
-            estimatedAverageBuildWeight.heightInches.average / 12,
-        averageHeightFt:
-            estimatedAverageBuildWeight.heightInches.average / 12,
-    };
+    const maintenanceNutrition = getCreatureMaintenanceNutritionNeeds(profile);
+    const calculatedNutritionNeedsPerDay =
+        estimatedDailyFoodMassNeedLb !== undefined ||
+        maintenanceNutrition.energyPerDay > 0 ||
+        maintenanceNutrition.proteinPerDay > 0 ||
+        (maintenanceNutrition.waterPerDay ?? 0) > 0
+            ? {
+                  energyPerDay: maintenanceNutrition.energyPerDay,
+                  proteinPerDay: maintenanceNutrition.proteinPerDay,
+                  waterPerDay: maintenanceNutrition.waterPerDay,
+                  massPerDayLb: estimatedDailyFoodMassNeedLb ?? 0,
+              }
+            : undefined;
+    const calculatedPhysical =
+        estimatedHexVolume || estimatedAverageBuildWeight
+            ? {
+                  baseVolume: estimatedHexVolume?.baseVolume ?? 0,
+                  minVolume: estimatedHexVolume?.minVolume ?? 0,
+                  carryVolumeCapacity:
+                      estimatedHexVolume?.carryVolumeCapacity ?? 0,
+                  averageWeightLb:
+                      estimatedAverageBuildWeight?.weightLb.average,
+                  averageSilhouetteWidthFt:
+                      estimatedPhysicalDimensions?.averageSilhouetteWidthFt,
+                  averageHeightFt: estimatedPhysicalDimensions?.averageHeightFt,
+              }
+            : undefined;
 
     return {
-        estimatedHexVolume,
-        estimatedAverageBuildWeight,
-        estimatedStomachCapacity,
+        estimatedHexVolume: estimatedHexVolume ?? undefined,
+        estimatedPhysicalDimensions:
+            estimatedPhysicalDimensions ?? undefined,
+        estimatedAverageBuildWeight: estimatedAverageBuildWeight ?? undefined,
+        estimatedStomachCapacity: estimatedStomachCapacity ?? undefined,
         estimatedDailyFoodMassNeedLb,
         calculatedNutritionNeedsPerDay,
-        calculatedConsumptionPerTurn,
+        calculatedConsumptionPerTurn: calculatedNutritionNeedsPerDay
+            ? buildCalculatedConsumptionPerTurn(
+                  calculatedNutritionNeedsPerDay,
+              )
+            : undefined,
         calculatedPhysical,
     };
+};
+
+const hasCompleteCreatureProfileCalculations = (
+    calculationIssues: string[],
+    calculatedFields: CalculatedCreatureProfileFields,
+): boolean => {
+    return (
+        calculationIssues.length === 0 &&
+        calculatedFields.estimatedHexVolume !== undefined &&
+        calculatedFields.estimatedPhysicalDimensions !== undefined &&
+        calculatedFields.estimatedAverageBuildWeight !== undefined &&
+        calculatedFields.estimatedStomachCapacity !== undefined &&
+        calculatedFields.estimatedDailyFoodMassNeedLb !== undefined &&
+        calculatedFields.calculatedNutritionNeedsPerDay !== undefined &&
+        calculatedFields.calculatedPhysical !== undefined
+    );
 };
 
 export const syncCreatureProfileCalculatedFields = (
@@ -567,23 +765,19 @@ export const syncCreatureProfileCalculatedFields = (
     profiles: CreatureProfileData[],
 ): CreatureProfileData => {
     const effectiveProfile = resolveEffectiveCreatureProfile(profile, profiles);
-    if (getCreatureProfileCalculationIssues(effectiveProfile).length > 0) {
-        return clearCreatureProfileCalculatedFields(profile);
-    }
     const calculatedFields = calculateCreatureProfileFields(effectiveProfile);
+    const nutritionNeedsPerDay =
+        syncMorphDerivedNutritionFields(calculatedFields);
+
     return {
         ...profile,
-        nutritionNeedsPerDay: fillMissingCalculatedNumbers(
-            profile.nutritionNeedsPerDay,
-            calculatedFields.calculatedNutritionNeedsPerDay,
+        nutritionNeedsPerDay,
+        consumptionPerTurn: buildCalculatedConsumptionPerTurn(
+            nutritionNeedsPerDay,
         ),
-        consumptionPerTurn: fillMissingCalculatedNumbers(
-            profile.consumptionPerTurn,
-            calculatedFields.calculatedConsumptionPerTurn,
-        ),
-        physical: fillMissingCalculatedNumbers(
+        physical: syncMorphDerivedPhysicalFields(
             profile.physical,
-            calculatedFields.calculatedPhysical,
+            calculatedFields,
         ),
     };
 };
@@ -596,14 +790,31 @@ export const syncCreatureProfilesCalculatedFields = (
     );
 };
 
+export const resolveCreatureProfileMorphDerivedState = (
+    profile: CreatureProfileData,
+    profiles: CreatureProfileData[],
+): {
+    physical: CreaturePhysicalProfileData;
+    nutritionNeedsPerDay: CreatureNutritionNeedsData;
+} => {
+    const effectiveProfile = resolveEffectiveCreatureProfile(profile, profiles);
+    const calculatedFields = calculateCreatureProfileFields(effectiveProfile);
+
+    return {
+        physical: syncMorphDerivedPhysicalFields(
+            profile.physical,
+            calculatedFields,
+        ),
+        nutritionNeedsPerDay:
+            syncMorphDerivedNutritionFields(calculatedFields),
+    };
+};
+
 export const summarizeCreatureProfile = (
     profile: EffectiveCreatureProfileData,
 ): CreatureProfileSummary => {
     const calculationIssues = getCreatureProfileCalculationIssues(profile);
-    const calculatedFields =
-        calculationIssues.length === 0
-            ? calculateCreatureProfileFields(profile)
-            : undefined;
+    const calculatedFields = calculateCreatureProfileFields(profile);
 
     return {
         memeCount: profile.memes.length,
@@ -628,9 +839,16 @@ export const summarizeCreatureProfile = (
         calculatedConsumptionPerTurn:
             calculatedFields?.calculatedConsumptionPerTurn,
         calculatedPhysical: calculatedFields?.calculatedPhysical,
-        calculationsEnabled: calculationIssues.length === 0,
+        estimatedPhysicalDimensions:
+            calculatedFields?.estimatedPhysicalDimensions,
+        derivedSizeModifier:
+            calculatedFields?.estimatedPhysicalDimensions?.sizeModifier,
+        calculationsEnabled: hasCompleteCreatureProfileCalculations(
+            calculationIssues,
+            calculatedFields,
+        ),
         calculationIssues,
-        averageLengthFt: profile.physical.averageLengthFt,
+        averageSilhouetteWidthFt: profile.physical.averageSilhouetteWidthFt,
         averageHeightFt: profile.physical.averageHeightFt,
     };
 };

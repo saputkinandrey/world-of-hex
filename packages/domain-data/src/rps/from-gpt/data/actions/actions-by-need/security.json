@@ -10,9 +10,20 @@
                     "COMFORT": 0.5,
                     "STABILITY": 0.4
                 },
-                "requiresItem": ["wood", "branches", "clay"],
+                "requiresItem": [
+                    "wood",
+                    "branches",
+                    "clay"
+                ],
                 "requiresSkill": "construction",
-                "targetType": "AREA"
+                "targetType": "AREA",
+                "nutritionActivity": {
+                    "intensity": "vigorous",
+                    "energyMultiplier": 6.5,
+                    "proteinMultiplier": 7,
+                    "waterMultiplier": 7,
+                    "basis": "hunting, combat, construction or hauling; module:security"
+                }
             },
             {
                 "tag": "FORTIFY_WALLS",
@@ -23,9 +34,19 @@
                     "STABILITY": 0.6,
                     "CONTROL": 0.3
                 },
-                "requiresItem": ["wood", "stone"],
+                "requiresItem": [
+                    "wood",
+                    "stone"
+                ],
                 "requiresLocation": "settlement",
-                "requiresSkill": "engineering"
+                "requiresSkill": "engineering",
+                "nutritionActivity": {
+                    "intensity": "vigorous",
+                    "energyMultiplier": 6.5,
+                    "proteinMultiplier": 7,
+                    "waterMultiplier": 7,
+                    "basis": "hunting, combat, construction or hauling; module:security"
+                }
             },
             {
                 "tag": "SET_TRAPS",
@@ -35,8 +56,18 @@
                     "SECURITY": 0.6,
                     "CONTROL": 0.2
                 },
-                "requiresItem": ["rope", "wood"],
-                "requiresSkill": "trapping"
+                "requiresItem": [
+                    "rope",
+                    "wood"
+                ],
+                "requiresSkill": "trapping",
+                "nutritionActivity": {
+                    "intensity": "vigorous",
+                    "energyMultiplier": 6.5,
+                    "proteinMultiplier": 7,
+                    "waterMultiplier": 7,
+                    "basis": "hunting, combat, construction or hauling; module:security"
+                }
             },
             {
                 "tag": "STAND_GUARD",
@@ -47,7 +78,14 @@
                     "TRUST": 0.4,
                     "CONTROL": 0.3
                 },
-                "targetType": "GROUP"
+                "targetType": "GROUP",
+                "nutritionActivity": {
+                    "intensity": "vigorous",
+                    "energyMultiplier": 6.5,
+                    "proteinMultiplier": 7,
+                    "waterMultiplier": 7,
+                    "basis": "hunting, combat, construction or hauling; module:security"
+                }
             },
             {
                 "tag": "TRAIN_WITH_WEAPON",
@@ -58,8 +96,17 @@
                     "POWER": 0.3,
                     "MASTERY": 0.2
                 },
-                "requiresItem": ["weapon"],
-                "requiresSkill": "combat"
+                "requiresItem": [
+                    "weapon"
+                ],
+                "requiresSkill": "combat",
+                "nutritionActivity": {
+                    "intensity": "vigorous",
+                    "energyMultiplier": 6.5,
+                    "proteinMultiplier": 7,
+                    "waterMultiplier": 7,
+                    "basis": "hunting, combat, construction or hauling; module:security"
+                }
             },
             {
                 "tag": "REPAIR_DEFENSES",
@@ -69,8 +116,18 @@
                     "SECURITY": 0.7,
                     "STABILITY": 0.4
                 },
-                "requiresItem": ["wood", "stone"],
-                "requiresLocation": "settlement"
+                "requiresItem": [
+                    "wood",
+                    "stone"
+                ],
+                "requiresLocation": "settlement",
+                "nutritionActivity": {
+                    "intensity": "vigorous",
+                    "energyMultiplier": 6.5,
+                    "proteinMultiplier": 7,
+                    "waterMultiplier": 7,
+                    "basis": "hunting, combat, construction or hauling; module:security"
+                }
             },
             {
                 "tag": "PATROL_PERIMETER",
@@ -82,7 +139,14 @@
                     "TRUST": 0.3
                 },
                 "requiresSkill": "scouting",
-                "targetType": "AREA"
+                "targetType": "AREA",
+                "nutritionActivity": {
+                    "intensity": "vigorous",
+                    "energyMultiplier": 6.5,
+                    "proteinMultiplier": 7,
+                    "waterMultiplier": 7,
+                    "basis": "hunting, combat, construction or hauling"
+                }
             },
             {
                 "tag": "HUNT_THREATS",
@@ -94,8 +158,17 @@
                     "HEALTH": 0.3
                 },
                 "risk": 0.4,
-                "requiresItem": ["weapon"],
-                "requiresSkill": "combat"
+                "requiresItem": [
+                    "weapon"
+                ],
+                "requiresSkill": "combat",
+                "nutritionActivity": {
+                    "intensity": "vigorous",
+                    "energyMultiplier": 6.5,
+                    "proteinMultiplier": 7,
+                    "waterMultiplier": 7,
+                    "basis": "hunting, combat, construction or hauling; module:security"
+                }
             },
             {
                 "tag": "WARN_ALLIES",
@@ -106,7 +179,14 @@
                     "TRUST": 0.4,
                     "COMMUNITY": 0.3
                 },
-                "targetType": "GROUP"
+                "targetType": "GROUP",
+                "nutritionActivity": {
+                    "intensity": "vigorous",
+                    "energyMultiplier": 6.5,
+                    "proteinMultiplier": 7,
+                    "waterMultiplier": 7,
+                    "basis": "hunting, combat, construction or hauling; module:security"
+                }
             },
             {
                 "tag": "SEEK_SHELTER",
@@ -117,7 +197,14 @@
                     "COMFORT": 0.4,
                     "HEALTH": 0.2
                 },
-                "requiresLocation": "shelter"
+                "requiresLocation": "shelter",
+                "nutritionActivity": {
+                    "intensity": "vigorous",
+                    "energyMultiplier": 6.5,
+                    "proteinMultiplier": 7,
+                    "waterMultiplier": 7,
+                    "basis": "hunting, combat, construction or hauling; module:security"
+                }
             }
         ]
     }

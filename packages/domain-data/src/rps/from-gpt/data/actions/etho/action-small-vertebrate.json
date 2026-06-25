@@ -11,7 +11,17 @@
                 "FOCUS": 0.1
             },
             "requiresLocation": "open_ground|edge|rocks",
-            "requiredMorphs": ["core.perception", "core.motor_coordination"]
+            "requiredMorphs": [
+                "core.perception",
+                "core.motor_coordination"
+            ],
+            "nutritionActivity": {
+                "intensity": "moderate",
+                "energyMultiplier": 4.8,
+                "proteinMultiplier": 3.2,
+                "waterMultiplier": 6.5,
+                "basis": "walking, patrol, forage or travel; module:action-small-vertebrate"
+            }
         },
         "FREEZE_IN_PLACE": {
             "tag": "FREEZE_IN_PLACE",
@@ -24,7 +34,17 @@
                 "FOCUS": 0.2
             },
             "requiresLocation": "rocks|tree_trunk|scrub",
-            "requiredMorphs": ["core.perception", "core.motor_coordination"]
+            "requiredMorphs": [
+                "core.perception",
+                "core.motor_coordination"
+            ],
+            "nutritionActivity": {
+                "intensity": "rest",
+                "energyMultiplier": 0.85,
+                "proteinMultiplier": 1,
+                "waterMultiplier": 0.95,
+                "basis": "sleep and passive recovery"
+            }
         },
         "SHORT_DASH_ATTACK": {
             "tag": "SHORT_DASH_ATTACK",
@@ -36,9 +56,20 @@
                 "STRESS": -0.05,
                 "FOCUS": 0.1
             },
-            "requiredMemes": ["tech.combat.core"],
+            "requiredMemes": [
+                "tech.combat.core"
+            ],
             "requiresLocation": "prey_in_line_of_sight",
-            "requiredMorphs": ["eth.predation.core"]
+            "requiredMorphs": [
+                "eth.predation.core"
+            ],
+            "nutritionActivity": {
+                "intensity": "moderate",
+                "energyMultiplier": 4.8,
+                "proteinMultiplier": 3.2,
+                "waterMultiplier": 6.5,
+                "basis": "walking, patrol, forage or travel; module:action-small-vertebrate"
+            }
         },
         "OBSERVATION": {
             "tag": "OBSERVATION",
@@ -52,7 +83,16 @@
                 "STRESS": -0.05
             },
             "requiresLocation": "any",
-            "requiredMorphs": ["core.perception"]
+            "requiredMorphs": [
+                "core.perception"
+            ],
+            "nutritionActivity": {
+                "intensity": "moderate",
+                "energyMultiplier": 4.8,
+                "proteinMultiplier": 3.2,
+                "waterMultiplier": 6.5,
+                "basis": "walking, patrol, forage or travel; module:action-small-vertebrate"
+            }
         }
     }
 }

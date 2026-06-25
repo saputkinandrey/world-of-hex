@@ -32,6 +32,12 @@ import type {
     BehaviorActionSourceGroup,
 } from "@wohex/domain-data/rps/from-gpt";
 import { NeedTag, NeedThresholdEnum } from "@wohex/domain-data/rps/from-gpt";
+import {
+    NUTRITION_ACTIVITY_INTENSITIES,
+    NUTRITION_ACTIVITY_PRESETS,
+    type NutritionActivityData,
+    type NutritionActivityIntensity,
+} from "@wohex/domain-data/rps/from-gpt";
 import { Metric } from "../common/Metric";
 import { Panel } from "../common/Panel";
 import {
@@ -91,6 +97,11 @@ interface NeedThresholdEditorProps {
     onChange: (values: BehaviorActionRecord["needThresholds"]) => void;
 }
 
+interface NutritionActivityEditorProps {
+    value: NutritionActivityData | undefined;
+    onChange: (value: NutritionActivityData | undefined) => void;
+}
+
 const metadataKeys = new Set([
     "id",
     "group",
@@ -132,6 +143,105 @@ const withoutEmptyRecord = <T extends Record<string, unknown>>(
     values: T,
 ): T | undefined => {
     return Object.keys(values).length > 0 ? values : undefined;
+};
+
+const NutritionActivityEditor = ({
+    value,
+    onChange,
+}: NutritionActivityEditorProps) => {
+    const currentValue =
+        value ??
+        NUTRITION_ACTIVITY_PRESETS.sedentary;
+
+    const updateField = <TKey extends keyof NutritionActivityData>(
+        key: TKey,
+        nextValue: NutritionActivityData[TKey],
+    ) => {
+        onChange({
+            ...currentValue,
+            [key]: nextValue,
+        });
+    };
+
+    const applyIntensityPreset = (intensity: NutritionActivityIntensity) => {
+        onChange({
+            ...NUTRITION_ACTIVITY_PRESETS[intensity],
+            basis: currentValue.basis,
+        });
+    };
+
+    return (
+        <Stack spacing={1.5}>
+            <Typography variant="subtitle2">Nutrition activity</Typography>
+            <FormControl size="small" fullWidth>
+                <InputLabel>Intensity</InputLabel>
+                <Select
+                    label="Intensity"
+                    value={currentValue.intensity}
+                    onChange={(event) =>
+                        applyIntensityPreset(
+                            event.target.value as NutritionActivityIntensity,
+                        )
+                    }
+                >
+                    {NUTRITION_ACTIVITY_INTENSITIES.map((intensity) => (
+                        <MenuItem key={intensity} value={intensity}>
+                            {intensity}
+                        </MenuItem>
+                    ))}
+                </Select>
+            </FormControl>
+            <Box
+                sx={{
+                    display: "grid",
+                    gridTemplateColumns: {
+                        xs: "1fr",
+                        sm: "repeat(3, minmax(0, 1fr))",
+                    },
+                    gap: 2,
+                }}
+            >
+                <NumericSliderField
+                    label="Energy multiplier"
+                    value={currentValue.energyMultiplier}
+                    min={0.5}
+                    max={12}
+                    step={0.05}
+                    onChange={(nextValue) =>
+                        updateField("energyMultiplier", nextValue)
+                    }
+                />
+                <NumericSliderField
+                    label="Protein multiplier"
+                    value={currentValue.proteinMultiplier}
+                    min={0.8}
+                    max={3}
+                    step={0.05}
+                    onChange={(nextValue) =>
+                        updateField("proteinMultiplier", nextValue)
+                    }
+                />
+                <NumericSliderField
+                    label="Water multiplier"
+                    value={currentValue.waterMultiplier}
+                    min={0.5}
+                    max={8}
+                    step={0.05}
+                    onChange={(nextValue) =>
+                        updateField("waterMultiplier", nextValue)
+                    }
+                />
+            </Box>
+            <TextField
+                size="small"
+                label="Basis"
+                value={currentValue.basis ?? ""}
+                onChange={(event) =>
+                    updateField("basis", event.target.value || undefined)
+                }
+            />
+        </Stack>
+    );
 };
 
 const NumericSliderField = ({
@@ -1326,6 +1436,14 @@ export const BehaviorActionsScreen = () => {
                                             }
                                         />
                                     </Box>
+                                    <NutritionActivityEditor
+                                        value={selectedRecord.nutritionActivity}
+                                        onChange={(nutritionActivity) =>
+                                            updateRecord(selectedRecord.id, {
+                                                nutritionActivity,
+                                            })
+                                        }
+                                    />
                                     <NeedNumberMapEditor
                                         title="Secondary rewards"
                                         values={

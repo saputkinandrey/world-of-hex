@@ -39,17 +39,17 @@ const traitIds = flattenTree(traitWorldData.tree);
 
 assert.equal(
     memeIds.length,
-    91,
+    115,
     "Meme JSON data should exclude sensory/perception leaves.",
 );
 assert.equal(
     Object.keys(memeWorldData.dependencies).length,
-    88,
+    112,
     "Meme JSON data should preserve dependency count.",
 );
 assert.equal(
     morphIds.length,
-    167,
+    136,
     "Morph JSON data should preserve the migrated leaf/template count.",
 );
 assert.equal(
@@ -59,7 +59,7 @@ assert.equal(
 );
 assert.equal(
     traitIds.length,
-    30,
+    35,
     "Trait JSON data should preserve individual trait count.",
 );
 for (const traitId of [
@@ -93,6 +93,11 @@ for (const traitId of [
     "trait.attribute.st.strong.+1",
     "trait.attribute.st.very_strong.+2",
     "trait.attribute.st.exceptional_strength.+3",
+    "trait.size.proportion.very_robust.-2",
+    "trait.size.proportion.robust.-1",
+    "trait.size.proportion.average.0",
+    "trait.size.proportion.gracile.+1",
+    "trait.size.proportion.very_gracile.+2",
 ]) {
     assert.ok(
         traitIds.includes(traitId),
@@ -120,14 +125,6 @@ for (const morphId of [
     "cog.iq8",
     "cog.iq9",
     "cog.iq10",
-    "morph.size.sm.-15",
-    "morph.size.sm.-10",
-    "morph.size.sm.-6",
-    "morph.size.sm.-1",
-    "morph.size.sm.0",
-    "morph.size.sm.1",
-    "morph.size.sm.10",
-    "morph.size.sm.15",
     "morph.body_plan.bivalve_mollusk",
     "morph.body_plan.crustacean",
     "eth.maintenance.cleanliness_core",
@@ -154,8 +151,8 @@ for (const morphId of [
     assert.ok(!memeIds.includes(morphId), `${morphId} should not be a meme.`);
 }
 assert.ok(
-    !morphIds.includes("morph.size.sm.%level%"),
-    "SM should be exposed as concrete morph levels instead of an unselectable template.",
+    !morphIds.some((morphId) => morphId.startsWith("morph.size.sm.")),
+    "Size modifier should be derived from silhouette dimensions, not stored as morph chips.",
 );
 assert.deepEqual(
     morphWorldData.dependencies["morph.attribute.st.st20"],
@@ -329,5 +326,66 @@ for (const expectedText of [
         `World traits screen should include visual navigation ${expectedText}.`,
     );
 }
+
+for (const memeId of [
+    "tech.steam.power_basic",
+    "tech.steam.engine_stationary",
+    "tech.steam.transport_rail_basic",
+    "org.bureaucracy.paper_office",
+    "record.census_registry",
+    "econ.market_price_system",
+    "tech.heat.factory_boiler",
+    "org.polis.civic_assembly",
+    "law.civic_court_public",
+    "econ.maritime_trade_custom",
+    "culture.temple_cult_state",
+    "tech.irrigation.canal_basic",
+    "org.caste_craft_guilds",
+    "record.temple_archive",
+    "tech.sailing.lateen_rig_basic",
+    "org.feudal_oath_network",
+    "culture.courtly_display_southern",
+    "org.guild_town_charter",
+    "culture.clan_thing_law",
+    "tech.stone_tool_core",
+    "eth.jungle.tribal_life",
+    "culture.oral_totem_memory",
+    "culture.blood_sacrifice_rites",
+    "culture.ritualized_violence_norm",
+]) {
+    assert.ok(memeIds.includes(memeId), `${memeId} should exist in meme tree.`);
+    assert.ok(
+        Array.isArray(memeWorldData.dependencies[memeId]),
+        `${memeId} should declare dependencies.`,
+    );
+}
+assert.deepEqual(memeWorldData.dependencies["tech.steam.power_basic"], [
+    "tech.heat.industrial",
+    "tech.tool.making",
+    "cog.measurement.rudimentary",
+]);
+assert.deepEqual(memeWorldData.dependencies["org.bureaucracy.paper_office"], [
+    "comm.language.written",
+    "record.ledgerkeeping",
+    "law.public_posting",
+]);
+assert.deepEqual(memeWorldData.dependencies["culture.blood_sacrifice_rites"], [
+    "culture.ritual_basic",
+    "culture.oral_totem_memory",
+    "tech.hunting.core",
+]);
+assert.ok(
+    !memeIds.some((memeId) => memeId.includes("electric")),
+    "Hex culture memes should not include electricity yet.",
+);
+
+assert.ok(
+    !morphIds.some(
+        (morphId) =>
+            morphId.startsWith("morph.tissue.") ||
+            morphId.startsWith("morph.organ."),
+    ),
+    "Morph tree should not expose tissue or organ percentage leaves.",
+);
 
 console.log("World traits memes/morphs/traits data and editor are wired.");

@@ -11,7 +11,14 @@
                     "MOOD": 0.3
                 },
                 "skillRequired": "Charm",
-                "locationType": "community"
+                "locationType": "community",
+                "nutritionActivity": {
+                    "intensity": "rest",
+                    "energyMultiplier": 0.85,
+                    "proteinMultiplier": 1,
+                    "waterMultiplier": 0.95,
+                    "basis": "sleep and passive recovery; cost-signals"
+                }
             },
             {
                 "tag": "FLIRT",
@@ -23,7 +30,14 @@
                     "SOCIAL": 0.2
                 },
                 "skillRequired": "Empathy",
-                "targetType": "OTHER"
+                "targetType": "OTHER",
+                "nutritionActivity": {
+                    "intensity": "rest",
+                    "energyMultiplier": 0.85,
+                    "proteinMultiplier": 1,
+                    "waterMultiplier": 0.95,
+                    "basis": "sleep and passive recovery; cost-signals"
+                }
             },
             {
                 "tag": "GIFT_TO_PARTNER",
@@ -34,8 +48,17 @@
                     "TRUST": 0.3,
                     "MOOD": 0.2
                 },
-                "requiresItem": ["gift"],
-                "targetType": "OTHER"
+                "requiresItem": [
+                    "gift"
+                ],
+                "targetType": "OTHER",
+                "nutritionActivity": {
+                    "intensity": "rest",
+                    "energyMultiplier": 0.85,
+                    "proteinMultiplier": 1,
+                    "waterMultiplier": 0.95,
+                    "basis": "sleep and passive recovery; cost-signals"
+                }
             },
             {
                 "tag": "COURTSHIP_RITUAL",
@@ -46,7 +69,14 @@
                     "SOCIAL": 0.5,
                     "SPIRIT": 0.3
                 },
-                "locationType": "ritual_site"
+                "locationType": "ritual_site",
+                "nutritionActivity": {
+                    "intensity": "rest",
+                    "energyMultiplier": 0.85,
+                    "proteinMultiplier": 1,
+                    "waterMultiplier": 0.95,
+                    "basis": "sleep and passive recovery; cost-signals"
+                }
             },
             {
                 "tag": "SHOW_STRENGTH",
@@ -56,7 +86,14 @@
                     "REPRODUCTION": 0.4,
                     "STATUS": 0.3
                 },
-                "skillRequired": "Athletics"
+                "skillRequired": "Athletics",
+                "nutritionActivity": {
+                    "intensity": "rest",
+                    "energyMultiplier": 0.85,
+                    "proteinMultiplier": 1,
+                    "waterMultiplier": 0.95,
+                    "basis": "sleep and passive recovery; cost-signals"
+                }
             },
             {
                 "tag": "BUILD_HOME_FOR_FAMILY",
@@ -67,7 +104,14 @@
                     "SECURITY": 0.5,
                     "STATUS": 0.3
                 },
-                "locationType": "settlement"
+                "locationType": "settlement",
+                "nutritionActivity": {
+                    "intensity": "rest",
+                    "energyMultiplier": 0.85,
+                    "proteinMultiplier": 1,
+                    "waterMultiplier": 0.95,
+                    "basis": "sleep and passive recovery; cost-signals"
+                }
             },
             {
                 "tag": "FORM_UNION",
@@ -80,7 +124,14 @@
                 },
                 "locationType": "community",
                 "targetType": "OTHER",
-                "moralWeight": 0.3
+                "moralWeight": 0.3,
+                "nutritionActivity": {
+                    "intensity": "rest",
+                    "energyMultiplier": 0.85,
+                    "proteinMultiplier": 1,
+                    "waterMultiplier": 0.95,
+                    "basis": "sleep and passive recovery; cost-signals"
+                }
             },
             {
                 "tag": "MAKE_LOVE",
@@ -91,7 +142,14 @@
                     "LOVE": 0.6,
                     "MOOD": 0.3
                 },
-                "targetType": "OTHER"
+                "targetType": "OTHER",
+                "nutritionActivity": {
+                    "intensity": "rest",
+                    "energyMultiplier": 0.85,
+                    "proteinMultiplier": 1,
+                    "waterMultiplier": 0.95,
+                    "basis": "sleep and passive recovery; cost-signals"
+                }
             },
             {
                 "tag": "ATTEMPT_CONCEPTION",
@@ -102,7 +160,14 @@
                     "FAMILY": 0.6
                 },
                 "targetType": "OTHER",
-                "risk": 0.3
+                "risk": 0.3,
+                "nutritionActivity": {
+                    "intensity": "rest",
+                    "energyMultiplier": 0.85,
+                    "proteinMultiplier": 1,
+                    "waterMultiplier": 0.95,
+                    "basis": "sleep and passive recovery; cost-signals"
+                }
             },
             {
                 "tag": "CARE_FOR_PARTNER",
@@ -113,7 +178,14 @@
                     "LOVE": 0.4,
                     "TRUST": 0.3
                 },
-                "targetType": "OTHER"
+                "targetType": "OTHER",
+                "nutritionActivity": {
+                    "intensity": "rest",
+                    "energyMultiplier": 0.85,
+                    "proteinMultiplier": 1,
+                    "waterMultiplier": 0.95,
+                    "basis": "sleep and passive recovery; cost-signals"
+                }
             },
             {
                 "tag": "CARE_FOR_CHILD",
@@ -124,7 +196,14 @@
                     "LOVE": 0.6,
                     "FAMILY": 0.8
                 },
-                "targetType": "FAMILY"
+                "targetType": "FAMILY",
+                "nutritionActivity": {
+                    "intensity": "rest",
+                    "energyMultiplier": 0.85,
+                    "proteinMultiplier": 1,
+                    "waterMultiplier": 0.95,
+                    "basis": "sleep and passive recovery; cost-signals"
+                }
             },
             {
                 "tag": "TEACH_CHILD",
@@ -135,7 +214,14 @@
                     "KNOWLEDGE": 0.5,
                     "FAMILY": 0.5
                 },
-                "targetType": "FAMILY"
+                "targetType": "FAMILY",
+                "nutritionActivity": {
+                    "intensity": "rest",
+                    "energyMultiplier": 0.85,
+                    "proteinMultiplier": 1,
+                    "waterMultiplier": 0.95,
+                    "basis": "sleep and passive recovery; cost-signals"
+                }
             },
             {
                 "tag": "CELEBRATE_FERTILITY",
@@ -146,7 +232,14 @@
                     "SPIRIT": 0.5,
                     "SOCIAL": 0.4
                 },
-                "locationType": "ritual_site"
+                "locationType": "ritual_site",
+                "nutritionActivity": {
+                    "intensity": "rest",
+                    "energyMultiplier": 0.85,
+                    "proteinMultiplier": 1,
+                    "waterMultiplier": 0.95,
+                    "basis": "sleep and passive recovery; cost-signals"
+                }
             },
             {
                 "tag": "DEFEND_FAMILY",
@@ -158,7 +251,14 @@
                     "HONOR": 0.5
                 },
                 "risk": 0.4,
-                "locationType": "home"
+                "locationType": "home",
+                "nutritionActivity": {
+                    "intensity": "rest",
+                    "energyMultiplier": 0.85,
+                    "proteinMultiplier": 1,
+                    "waterMultiplier": 0.95,
+                    "basis": "sleep and passive recovery; cost-signals"
+                }
             },
             {
                 "tag": "SEEK_MIDWIFE",
@@ -169,7 +269,14 @@
                     "HEALTH": 0.5,
                     "FAMILY": 0.4
                 },
-                "targetType": "OTHER"
+                "targetType": "OTHER",
+                "nutritionActivity": {
+                    "intensity": "rest",
+                    "energyMultiplier": 0.85,
+                    "proteinMultiplier": 1,
+                    "waterMultiplier": 0.95,
+                    "basis": "sleep and passive recovery; cost-signals"
+                }
             },
             {
                 "tag": "BLESS_CHILD",
@@ -180,7 +287,14 @@
                     "SPIRIT": 0.6,
                     "FAMILY": 0.4
                 },
-                "locationType": "temple"
+                "locationType": "temple",
+                "nutritionActivity": {
+                    "intensity": "rest",
+                    "energyMultiplier": 0.85,
+                    "proteinMultiplier": 1,
+                    "waterMultiplier": 0.95,
+                    "basis": "sleep and passive recovery; cost-signals"
+                }
             }
         ]
     }

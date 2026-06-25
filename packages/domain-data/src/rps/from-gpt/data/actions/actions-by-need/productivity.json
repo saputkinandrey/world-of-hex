@@ -34,7 +34,14 @@
                     "record.ledgerkeeping",
                     "cog.number_concept",
                     "org.workshop_practice"
-                ]
+                ],
+                "nutritionActivity": {
+                    "intensity": "rest",
+                    "energyMultiplier": 0.85,
+                    "proteinMultiplier": 1,
+                    "waterMultiplier": 0.95,
+                    "basis": "sleep and passive recovery; cost-signals"
+                }
             },
             {
                 "tag": "TASK_BOARD_PULL_TOKENS",
@@ -65,7 +72,14 @@
                     "comm.language.written",
                     "record.ledgerkeeping",
                     "econ.pooling_common_fund"
-                ]
+                ],
+                "nutritionActivity": {
+                    "intensity": "rest",
+                    "energyMultiplier": 0.85,
+                    "proteinMultiplier": 1,
+                    "waterMultiplier": 0.95,
+                    "basis": "sleep and passive recovery; cost-signals"
+                }
             },
             {
                 "tag": "SET_WIP_LIMITS",
@@ -84,6 +98,13 @@
                 "lawEffect": {
                     "wipMax": "posted",
                     "enforceable": true
+                },
+                "nutritionActivity": {
+                    "intensity": "rest",
+                    "energyMultiplier": 0.85,
+                    "proteinMultiplier": 1,
+                    "waterMultiplier": 0.95,
+                    "basis": "sleep and passive recovery; cost-signals"
                 }
             },
             {
@@ -112,7 +133,16 @@
                     "guildStandard": "ratified",
                     "enforceable": true
                 },
-                "requiredMemes": ["comm.language.written"]
+                "requiredMemes": [
+                    "comm.language.written"
+                ],
+                "nutritionActivity": {
+                    "intensity": "rest",
+                    "energyMultiplier": 0.85,
+                    "proteinMultiplier": 1,
+                    "waterMultiplier": 0.95,
+                    "basis": "sleep and passive recovery; cost-signals"
+                }
             },
             {
                 "tag": "TOOLS_MAINTENANCE_ROTA",
@@ -138,6 +168,13 @@
                 "lawEffect": {
                     "rota": "logged",
                     "enforceable": true
+                },
+                "nutritionActivity": {
+                    "intensity": "rest",
+                    "energyMultiplier": 0.85,
+                    "proteinMultiplier": 1,
+                    "waterMultiplier": 0.95,
+                    "basis": "sleep and passive recovery; cost-signals"
                 }
             },
             {
@@ -165,7 +202,14 @@
                 "requiredMemes": [
                     "comm.language.written",
                     "org.workshop_practice"
-                ]
+                ],
+                "nutritionActivity": {
+                    "intensity": "rest",
+                    "energyMultiplier": 0.85,
+                    "proteinMultiplier": 1,
+                    "waterMultiplier": 0.95,
+                    "basis": "sleep and passive recovery; cost-signals"
+                }
             },
             {
                 "tag": "BATCH_PREP_MATERIALS",
@@ -187,6 +231,13 @@
                 },
                 "ownershipEffect": {
                     "storesLevel": "raised"
+                },
+                "nutritionActivity": {
+                    "intensity": "rest",
+                    "energyMultiplier": 0.85,
+                    "proteinMultiplier": 1,
+                    "waterMultiplier": 0.95,
+                    "basis": "sleep and passive recovery; cost-signals"
                 }
             },
             {
@@ -211,6 +262,13 @@
                 "lawEffect": {
                     "apprenticeRoll": "updated",
                     "enforceable": true
+                },
+                "nutritionActivity": {
+                    "intensity": "rest",
+                    "energyMultiplier": 0.85,
+                    "proteinMultiplier": 1,
+                    "waterMultiplier": 0.95,
+                    "basis": "sleep and passive recovery; cost-signals"
                 }
             },
             {
@@ -230,6 +288,13 @@
                 "lawEffect": {
                     "priorityRule": "value_first",
                     "enforceable": true
+                },
+                "nutritionActivity": {
+                    "intensity": "rest",
+                    "energyMultiplier": 0.85,
+                    "proteinMultiplier": 1,
+                    "waterMultiplier": 0.95,
+                    "basis": "sleep and passive recovery; cost-signals"
                 }
             },
             {
@@ -254,6 +319,13 @@
                 "lawEffect": {
                     "dutyRota": "amended",
                     "enforceable": true
+                },
+                "nutritionActivity": {
+                    "intensity": "rest",
+                    "energyMultiplier": 0.85,
+                    "proteinMultiplier": 1,
+                    "waterMultiplier": 0.95,
+                    "basis": "sleep and passive recovery; cost-signals"
                 }
             },
             {
@@ -266,7 +338,9 @@
                     "EFFICIENCY": 0.3,
                     "QUALITY": 0.2
                 },
-                "requiresItem": ["tally_sticks|abacus"],
+                "requiresItem": [
+                    "tally_sticks|abacus"
+                ],
                 "tradeEffect": {
                     "ink": "-1 | 0"
                 },
@@ -285,7 +359,14 @@
                     "comm.language.written",
                     "record.ledgerkeeping",
                     "cog.number_concept"
-                ]
+                ],
+                "nutritionActivity": {
+                    "intensity": "rest",
+                    "energyMultiplier": 0.85,
+                    "proteinMultiplier": 1,
+                    "waterMultiplier": 0.95,
+                    "basis": "sleep and passive recovery; cost-signals"
+                }
             },
             {
                 "tag": "QUALITY_CHECK_AT_SOURCE",
@@ -309,7 +390,14 @@
                 "requiredMemes": [
                     "health.sanitation_norms",
                     "health.waste_handling"
-                ]
+                ],
+                "nutritionActivity": {
+                    "intensity": "rest",
+                    "energyMultiplier": 0.85,
+                    "proteinMultiplier": 1,
+                    "waterMultiplier": 0.95,
+                    "basis": "sleep and passive recovery; cost-signals"
+                }
             },
             {
                 "tag": "MIDDAY_SYNCH_AND_REALLOC",
@@ -330,7 +418,16 @@
                     "accessScope": "task_board",
                     "grantAccess": true
                 },
-                "requiredMemes": ["comm.language.written"]
+                "requiredMemes": [
+                    "comm.language.written"
+                ],
+                "nutritionActivity": {
+                    "intensity": "rest",
+                    "energyMultiplier": 0.85,
+                    "proteinMultiplier": 1,
+                    "waterMultiplier": 0.95,
+                    "basis": "sleep and passive recovery; cost-signals"
+                }
             },
             {
                 "tag": "BUFFER_STOCK_ESTABLISH",
@@ -355,6 +452,13 @@
                 "lawEffect": {
                     "storeLedger": "updated",
                     "enforceable": true
+                },
+                "nutritionActivity": {
+                    "intensity": "rest",
+                    "energyMultiplier": 0.85,
+                    "proteinMultiplier": 1,
+                    "waterMultiplier": 0.95,
+                    "basis": "sleep and passive recovery; cost-signals"
                 }
             },
             {
@@ -389,7 +493,14 @@
                     "cog.timekeeping.basic",
                     "record.ledgerkeeping",
                     "econ.pooling_common_fund"
-                ]
+                ],
+                "nutritionActivity": {
+                    "intensity": "rest",
+                    "energyMultiplier": 0.85,
+                    "proteinMultiplier": 1,
+                    "waterMultiplier": 0.95,
+                    "basis": "sleep and passive recovery; cost-signals"
+                }
             },
             {
                 "tag": "FAIR_REWARD_DISTRIBUTION",
@@ -419,7 +530,14 @@
                     "health.waste_handling",
                     "comm.language.written",
                     "record.ledgerkeeping"
-                ]
+                ],
+                "nutritionActivity": {
+                    "intensity": "rest",
+                    "energyMultiplier": 0.85,
+                    "proteinMultiplier": 1,
+                    "waterMultiplier": 0.95,
+                    "basis": "sleep and passive recovery; cost-signals"
+                }
             }
         ]
     }

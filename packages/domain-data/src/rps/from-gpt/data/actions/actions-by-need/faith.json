@@ -19,6 +19,13 @@
                 "lawEffect": {
                     "rite": "private_devotion",
                     "enforceable": false
+                },
+                "nutritionActivity": {
+                    "intensity": "rest",
+                    "energyMultiplier": 0.85,
+                    "proteinMultiplier": 1,
+                    "waterMultiplier": 0.95,
+                    "basis": "sleep and passive recovery; cost-signals"
                 }
             },
             {
@@ -42,6 +49,13 @@
                 "lawEffect": {
                     "fireSafety": "observed",
                     "enforceable": true
+                },
+                "nutritionActivity": {
+                    "intensity": "rest",
+                    "energyMultiplier": 0.85,
+                    "proteinMultiplier": 1,
+                    "waterMultiplier": 0.95,
+                    "basis": "sleep and passive recovery; cost-signals"
                 }
             },
             {
@@ -67,7 +81,14 @@
                 "requiredMemes": [
                     "culture.vigil_ritual",
                     "cog.timekeeping.basic"
-                ]
+                ],
+                "nutritionActivity": {
+                    "intensity": "rest",
+                    "energyMultiplier": 0.85,
+                    "proteinMultiplier": 1,
+                    "waterMultiplier": 0.95,
+                    "basis": "sleep and passive recovery; cost-signals"
+                }
             },
             {
                 "tag": "CONFESS_TRANSGRESSION",
@@ -88,6 +109,13 @@
                 "lawEffect": {
                     "confessionalSeal": "respected",
                     "enforceable": true
+                },
+                "nutritionActivity": {
+                    "intensity": "rest",
+                    "energyMultiplier": 0.85,
+                    "proteinMultiplier": 1,
+                    "waterMultiplier": 0.95,
+                    "basis": "sleep and passive recovery; cost-signals"
                 }
             },
             {
@@ -109,6 +137,13 @@
                 "lawEffect": {
                     "sacredOath": "registered",
                     "enforceable": true
+                },
+                "nutritionActivity": {
+                    "intensity": "rest",
+                    "energyMultiplier": 0.85,
+                    "proteinMultiplier": 1,
+                    "waterMultiplier": 0.95,
+                    "basis": "sleep and passive recovery; cost-signals"
                 }
             },
             {
@@ -131,6 +166,13 @@
                 "lawEffect": {
                     "oathRecord": "closed",
                     "enforceable": true
+                },
+                "nutritionActivity": {
+                    "intensity": "rest",
+                    "energyMultiplier": 0.85,
+                    "proteinMultiplier": 1,
+                    "waterMultiplier": 0.95,
+                    "basis": "sleep and passive recovery; cost-signals"
                 }
             },
             {
@@ -154,6 +196,13 @@
                 "lawEffect": {
                     "almsLedger": "updated",
                     "enforceable": true
+                },
+                "nutritionActivity": {
+                    "intensity": "rest",
+                    "energyMultiplier": 0.85,
+                    "proteinMultiplier": 1,
+                    "waterMultiplier": 0.95,
+                    "basis": "sleep and passive recovery; cost-signals"
                 }
             },
             {
@@ -182,6 +231,13 @@
                 "lawEffect": {
                     "caretakerRoster": "logged",
                     "enforceable": true
+                },
+                "nutritionActivity": {
+                    "intensity": "rest",
+                    "energyMultiplier": 0.85,
+                    "proteinMultiplier": 1,
+                    "waterMultiplier": 0.95,
+                    "basis": "sleep and passive recovery; cost-signals"
                 }
             },
             {
@@ -194,13 +250,17 @@
                     "CLARITY": 0.4,
                     "INTEGRITY": 0.2
                 },
-                "requiresItem": ["scroll|codex"],
+                "requiresItem": [
+                    "scroll|codex"
+                ],
                 "tradeEffect": {
                     "lamp_oil": -1,
                     "parchment_wear": "-minor"
                 },
                 "needRework": true,
-                "requiredMemes": ["comm.language.written"],
+                "requiredMemes": [
+                    "comm.language.written"
+                ],
                 "socialImpact": {
                     "RESPECT": 0.2,
                     "DISCIPLINE": 0.3
@@ -208,6 +268,13 @@
                 "lawEffect": {
                     "readerPass": "issued",
                     "enforceable": true
+                },
+                "nutritionActivity": {
+                    "intensity": "rest",
+                    "energyMultiplier": 0.85,
+                    "proteinMultiplier": 1,
+                    "waterMultiplier": 0.95,
+                    "basis": "sleep and passive recovery; cost-signals"
                 }
             },
             {
@@ -230,6 +297,13 @@
                 "lawEffect": {
                     "counselRecord": "sealed",
                     "enforceable": true
+                },
+                "nutritionActivity": {
+                    "intensity": "rest",
+                    "energyMultiplier": 0.85,
+                    "proteinMultiplier": 1,
+                    "waterMultiplier": 0.95,
+                    "basis": "sleep and passive recovery; cost-signals"
                 }
             },
             {
@@ -250,6 +324,13 @@
                 "lawEffect": {
                     "fastingRule": "seasonal|voluntary",
                     "enforceable": false
+                },
+                "nutritionActivity": {
+                    "intensity": "rest",
+                    "energyMultiplier": 0.85,
+                    "proteinMultiplier": 1,
+                    "waterMultiplier": 0.95,
+                    "basis": "sleep and passive recovery; cost-signals"
                 }
             },
             {
@@ -278,6 +359,13 @@
                 "ownershipEffect": {
                     "accessScope": "procession_route",
                     "grantAccess": true
+                },
+                "nutritionActivity": {
+                    "intensity": "rest",
+                    "energyMultiplier": 0.85,
+                    "proteinMultiplier": 1,
+                    "waterMultiplier": 0.95,
+                    "basis": "sleep and passive recovery; cost-signals"
                 }
             },
             {
@@ -295,7 +383,9 @@
                     "sacred_salt": -1
                 },
                 "needRework": true,
-                "requiredMemes": ["tech.food.preservation.salty"],
+                "requiredMemes": [
+                    "tech.food.preservation.salty"
+                ],
                 "socialImpact": {
                     "TRUST": 0.2,
                     "DIGNITY": 0.2
@@ -307,6 +397,13 @@
                 "lawEffect": {
                     "parishNote": "logged",
                     "enforceable": true
+                },
+                "nutritionActivity": {
+                    "intensity": "rest",
+                    "energyMultiplier": 0.85,
+                    "proteinMultiplier": 1,
+                    "waterMultiplier": 0.95,
+                    "basis": "sleep and passive recovery; cost-signals"
                 }
             },
             {
@@ -330,7 +427,14 @@
                 "requiredMemes": [
                     "culture.vigil_ritual",
                     "cog.timekeeping.basic"
-                ]
+                ],
+                "nutritionActivity": {
+                    "intensity": "rest",
+                    "energyMultiplier": 0.85,
+                    "proteinMultiplier": 1,
+                    "waterMultiplier": 0.95,
+                    "basis": "sleep and passive recovery; cost-signals"
+                }
             },
             {
                 "tag": "TESTIMONY_SHARE",
@@ -352,7 +456,16 @@
                     "speechRule": "no_defamation",
                     "enforceable": true
                 },
-                "requiredMemes": ["comm.language.written"]
+                "requiredMemes": [
+                    "comm.language.written"
+                ],
+                "nutritionActivity": {
+                    "intensity": "rest",
+                    "energyMultiplier": 0.85,
+                    "proteinMultiplier": 1,
+                    "waterMultiplier": 0.95,
+                    "basis": "sleep and passive recovery; cost-signals"
+                }
             },
             {
                 "tag": "PILGRIMAGE_STEP_FAITH",
@@ -382,7 +495,16 @@
                     "pilgrimMark": "stamped",
                     "enforceable": true
                 },
-                "requiredMemes": ["comm.language.written"]
+                "requiredMemes": [
+                    "comm.language.written"
+                ],
+                "nutritionActivity": {
+                    "intensity": "rest",
+                    "energyMultiplier": 0.85,
+                    "proteinMultiplier": 1,
+                    "waterMultiplier": 0.95,
+                    "basis": "sleep and passive recovery; cost-signals"
+                }
             }
         ]
     }

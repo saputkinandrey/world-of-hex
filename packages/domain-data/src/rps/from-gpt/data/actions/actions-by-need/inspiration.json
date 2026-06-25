@@ -22,6 +22,13 @@
                 "lawEffect": {
                     "natureReserve": "respect_paths",
                     "enforceable": true
+                },
+                "nutritionActivity": {
+                    "intensity": "rest",
+                    "energyMultiplier": 0.85,
+                    "proteinMultiplier": 1,
+                    "waterMultiplier": 0.95,
+                    "basis": "sleep and passive recovery; cost-signals"
                 }
             },
             {
@@ -50,7 +57,14 @@
                     "culture.vigil_ritual",
                     "cog.timekeeping.basic",
                     "comm.language.written"
-                ]
+                ],
+                "nutritionActivity": {
+                    "intensity": "rest",
+                    "energyMultiplier": 0.85,
+                    "proteinMultiplier": 1,
+                    "waterMultiplier": 0.95,
+                    "basis": "sleep and passive recovery; cost-signals"
+                }
             },
             {
                 "tag": "CREATIVE_JAM_SESSION",
@@ -80,7 +94,16 @@
                     "gatheringPermit": "approved",
                     "enforceable": true
                 },
-                "requiredMemes": ["comm.language.written"]
+                "requiredMemes": [
+                    "comm.language.written"
+                ],
+                "nutritionActivity": {
+                    "intensity": "rest",
+                    "energyMultiplier": 0.85,
+                    "proteinMultiplier": 1,
+                    "waterMultiplier": 0.95,
+                    "basis": "sleep and passive recovery; cost-signals"
+                }
             },
             {
                 "tag": "RITUAL_OF_SPARK",
@@ -98,6 +121,13 @@
                 "lawEffect": {
                     "rite": "private",
                     "enforceable": false
+                },
+                "nutritionActivity": {
+                    "intensity": "rest",
+                    "energyMultiplier": 0.85,
+                    "proteinMultiplier": 1,
+                    "waterMultiplier": 0.95,
+                    "basis": "sleep and passive recovery; cost-signals"
                 }
             },
             {
@@ -109,7 +139,10 @@
                     "KNOWLEDGE": 0.3,
                     "CREATIVITY": 0.3
                 },
-                "requiresItem": ["charcoal|stylus", "scrap_parchment"],
+                "requiresItem": [
+                    "charcoal|stylus",
+                    "scrap_parchment"
+                ],
                 "tradeEffect": {
                     "parchment": -1
                 },
@@ -120,7 +153,16 @@
                     "motifSheets": "+1",
                     "archive": "yes"
                 },
-                "requiredMemes": ["comm.language.written"]
+                "requiredMemes": [
+                    "comm.language.written"
+                ],
+                "nutritionActivity": {
+                    "intensity": "rest",
+                    "energyMultiplier": 0.85,
+                    "proteinMultiplier": 1,
+                    "waterMultiplier": 0.95,
+                    "basis": "sleep and passive recovery; cost-signals"
+                }
             },
             {
                 "tag": "DREAM_NOTEBOOK",
@@ -143,7 +185,14 @@
                 "requiredMemes": [
                     "record.ledgerkeeping",
                     "econ.pooling_common_fund"
-                ]
+                ],
+                "nutritionActivity": {
+                    "intensity": "sedentary",
+                    "energyMultiplier": 2.35,
+                    "proteinMultiplier": 2.45,
+                    "waterMultiplier": 2.7,
+                    "basis": "seated cognitive, social or administrative work; cost-signals"
+                }
             },
             {
                 "tag": "CHANCE_CONSTRAINTS",
@@ -155,13 +204,22 @@
                     "CREATIVITY": 0.4,
                     "COURAGE": 0.2
                 },
-                "requiresItem": ["dice|cards"],
+                "requiresItem": [
+                    "dice|cards"
+                ],
                 "socialImpact": {
                     "PLAYFULNESS": 0.3
                 },
                 "lawEffect": {
                     "gamblingBan": "non_wager_ok",
                     "enforceable": true
+                },
+                "nutritionActivity": {
+                    "intensity": "rest",
+                    "energyMultiplier": 0.85,
+                    "proteinMultiplier": 1,
+                    "waterMultiplier": 0.95,
+                    "basis": "sleep and passive recovery; cost-signals"
                 }
             },
             {
@@ -191,7 +249,14 @@
                     "tech.fire.control",
                     "comm.language.written",
                     "org.workshop_practice"
-                ]
+                ],
+                "nutritionActivity": {
+                    "intensity": "rest",
+                    "energyMultiplier": 0.85,
+                    "proteinMultiplier": 1,
+                    "waterMultiplier": 0.95,
+                    "basis": "sleep and passive recovery; cost-signals"
+                }
             },
             {
                 "tag": "PROMPT_CARD_DRAW",
@@ -202,12 +267,21 @@
                     "FOCUS": 0.2,
                     "CLARITY": 0.2
                 },
-                "requiresItem": ["prompt_cards"],
+                "requiresItem": [
+                    "prompt_cards"
+                ],
                 "socialImpact": {
                     "ORGANIZATION": 0.15
                 },
                 "ownershipEffect": {
                     "promptCard": "drawn"
+                },
+                "nutritionActivity": {
+                    "intensity": "rest",
+                    "energyMultiplier": 0.85,
+                    "proteinMultiplier": 1,
+                    "waterMultiplier": 0.95,
+                    "basis": "sleep and passive recovery; cost-signals"
                 }
             },
             {
@@ -239,7 +313,14 @@
                     "comm.language.written",
                     "record.ledgerkeeping",
                     "econ.pooling_common_fund"
-                ]
+                ],
+                "nutritionActivity": {
+                    "intensity": "rest",
+                    "energyMultiplier": 0.85,
+                    "proteinMultiplier": 1,
+                    "waterMultiplier": 0.95,
+                    "basis": "sleep and passive recovery; cost-signals"
+                }
             },
             {
                 "tag": "ONE_HOUR_PROTOTYPE",
@@ -251,7 +332,10 @@
                     "CREATIVITY": 0.5,
                     "PRODUCTIVITY": 0.3
                 },
-                "requiresItem": ["tools", "scrap_materials"],
+                "requiresItem": [
+                    "tools",
+                    "scrap_materials"
+                ],
                 "tradeEffect": {
                     "materials": -2,
                     "scrap": "+1"
@@ -267,6 +351,13 @@
                 "lawEffect": {
                     "workshopEtiquette": "observed",
                     "enforceable": true
+                },
+                "nutritionActivity": {
+                    "intensity": "rest",
+                    "energyMultiplier": 0.85,
+                    "proteinMultiplier": 1,
+                    "waterMultiplier": 0.95,
+                    "basis": "sleep and passive recovery; cost-signals"
                 }
             },
             {
@@ -286,6 +377,13 @@
                 "lawEffect": {
                     "curfew": "not_active",
                     "enforceable": true
+                },
+                "nutritionActivity": {
+                    "intensity": "rest",
+                    "energyMultiplier": 0.85,
+                    "proteinMultiplier": 1,
+                    "waterMultiplier": 0.95,
+                    "basis": "sleep and passive recovery; cost-signals"
                 }
             },
             {
@@ -310,7 +408,16 @@
                     "commissionNote": "filed",
                     "enforceable": true
                 },
-                "requiredMemes": ["comm.language.written"]
+                "requiredMemes": [
+                    "comm.language.written"
+                ],
+                "nutritionActivity": {
+                    "intensity": "rest",
+                    "energyMultiplier": 0.85,
+                    "proteinMultiplier": 1,
+                    "waterMultiplier": 0.95,
+                    "basis": "sleep and passive recovery; cost-signals"
+                }
             },
             {
                 "tag": "FAILURE_GALLERY",
@@ -332,7 +439,16 @@
                     "ridiculeBan": "posted",
                     "enforceable": true
                 },
-                "requiredMemes": ["comm.language.written"]
+                "requiredMemes": [
+                    "comm.language.written"
+                ],
+                "nutritionActivity": {
+                    "intensity": "rest",
+                    "energyMultiplier": 0.85,
+                    "proteinMultiplier": 1,
+                    "waterMultiplier": 0.95,
+                    "basis": "sleep and passive recovery; cost-signals"
+                }
             },
             {
                 "tag": "MENTOR_CRITIQUE",
@@ -357,6 +473,13 @@
                 "lawEffect": {
                     "mentorshipRoll": "filed",
                     "enforceable": true
+                },
+                "nutritionActivity": {
+                    "intensity": "rest",
+                    "energyMultiplier": 0.85,
+                    "proteinMultiplier": 1,
+                    "waterMultiplier": 0.95,
+                    "basis": "sleep and passive recovery; cost-signals"
                 }
             },
             {
@@ -368,7 +491,10 @@
                     "CLARITY": 0.4,
                     "FOCUS": 0.3
                 },
-                "requiresItem": ["board|wall", "pins|glue"],
+                "requiresItem": [
+                    "board|wall",
+                    "pins|glue"
+                ],
                 "tradeEffect": {
                     "parchment_scraps": -2,
                     "glue": -1
@@ -385,7 +511,16 @@
                     "archivePolicy": "index_required",
                     "enforceable": true
                 },
-                "requiredMemes": ["comm.language.written"]
+                "requiredMemes": [
+                    "comm.language.written"
+                ],
+                "nutritionActivity": {
+                    "intensity": "rest",
+                    "energyMultiplier": 0.85,
+                    "proteinMultiplier": 1,
+                    "waterMultiplier": 0.95,
+                    "basis": "sleep and passive recovery; cost-signals"
+                }
             }
         ]
     }

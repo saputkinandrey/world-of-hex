@@ -15,7 +15,6 @@ const profileDirectory = path.join(
     "creature-profiles",
 );
 
-const sizePrefix = "morph.size.sm.";
 const stPrefix = "morph.attribute.st.st";
 const dxMorph = "morph.attribute.dx.dx10";
 const htMorph = "morph.attribute.ht.ht10";
@@ -48,7 +47,6 @@ const resolveEffectiveMorphs = (profile, profileById) => {
 const isCalculationEnabled = (profile, profileById) => {
     const morphs = resolveEffectiveMorphs(profile, profileById);
     const morphSet = new Set(morphs);
-    if (!morphs.some((morphId) => morphId.startsWith(sizePrefix))) return false;
     if (profile.kind !== "species") return true;
     return (
         morphs.some((morphId) => morphId.startsWith(stPrefix)) &&

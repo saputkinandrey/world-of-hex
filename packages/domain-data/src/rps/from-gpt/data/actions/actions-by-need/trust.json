@@ -17,6 +17,13 @@
                 "lawEffect": {
                     "note": "promise_fulfilled",
                     "enforceable": false
+                },
+                "nutritionActivity": {
+                    "intensity": "rest",
+                    "energyMultiplier": 0.85,
+                    "proteinMultiplier": 1,
+                    "waterMultiplier": 0.95,
+                    "basis": "sleep and passive recovery; cost-signals"
                 }
             },
             {
@@ -36,6 +43,13 @@
                 "ownershipEffect": {
                     "confidentiality": "MUTUAL",
                     "accessScope": "personal_story"
+                },
+                "nutritionActivity": {
+                    "intensity": "sedentary",
+                    "energyMultiplier": 2.35,
+                    "proteinMultiplier": 2.45,
+                    "waterMultiplier": 2.7,
+                    "basis": "seated cognitive, social or administrative work; cost-signals"
                 }
             },
             {
@@ -62,7 +76,14 @@
                 "requiredMemes": [
                     "record.ledgerkeeping",
                     "econ.pooling_common_fund"
-                ]
+                ],
+                "nutritionActivity": {
+                    "intensity": "rest",
+                    "energyMultiplier": 0.85,
+                    "proteinMultiplier": 1,
+                    "waterMultiplier": 0.95,
+                    "basis": "sleep and passive recovery; cost-signals"
+                }
             },
             {
                 "tag": "PLEDGE_COLLATERAL",
@@ -90,7 +111,14 @@
                     "record.ledgerkeeping",
                     "econ.pooling_common_fund",
                     "econ.deposit_contract"
-                ]
+                ],
+                "nutritionActivity": {
+                    "intensity": "sedentary",
+                    "energyMultiplier": 2.35,
+                    "proteinMultiplier": 2.45,
+                    "waterMultiplier": 2.7,
+                    "basis": "seated cognitive, social or administrative work; cost-signals"
+                }
             },
             {
                 "tag": "SMALL_FAVOR_TEST",
@@ -107,6 +135,13 @@
                 "lawEffect": {
                     "agreement": "favor_test_informal",
                     "enforceable": false
+                },
+                "nutritionActivity": {
+                    "intensity": "rest",
+                    "energyMultiplier": 0.85,
+                    "proteinMultiplier": 1,
+                    "waterMultiplier": 0.95,
+                    "basis": "sleep and passive recovery; cost-signals"
                 }
             },
             {
@@ -125,6 +160,13 @@
                 "socialImpact": {
                     "TRUST": 0.5,
                     "RELIABILITY": 0.4
+                },
+                "nutritionActivity": {
+                    "intensity": "sedentary",
+                    "energyMultiplier": 2.35,
+                    "proteinMultiplier": 2.45,
+                    "waterMultiplier": 2.7,
+                    "basis": "seated cognitive, social or administrative work; cost-signals"
                 }
             },
             {
@@ -144,6 +186,13 @@
                 "lawEffect": {
                     "surety": "personal_vouch",
                     "enforceable": true
+                },
+                "nutritionActivity": {
+                    "intensity": "sedentary",
+                    "energyMultiplier": 2.35,
+                    "proteinMultiplier": 2.45,
+                    "waterMultiplier": 2.7,
+                    "basis": "seated cognitive, social or administrative work; cost-signals"
                 }
             },
             {
@@ -167,7 +216,14 @@
                 "requiredMemes": [
                     "record.ledgerkeeping",
                     "econ.pooling_common_fund"
-                ]
+                ],
+                "nutritionActivity": {
+                    "intensity": "rest",
+                    "energyMultiplier": 0.85,
+                    "proteinMultiplier": 1,
+                    "waterMultiplier": 0.95,
+                    "basis": "sleep and passive recovery; cost-signals"
+                }
             },
             {
                 "tag": "ACCOMPANY_RISKY_TRIP",
@@ -185,6 +241,13 @@
                 },
                 "ownershipEffect": {
                     "sharedLiability": true
+                },
+                "nutritionActivity": {
+                    "intensity": "rest",
+                    "energyMultiplier": 0.85,
+                    "proteinMultiplier": 1,
+                    "waterMultiplier": 0.95,
+                    "basis": "sleep and passive recovery; cost-signals"
                 }
             },
             {
@@ -203,6 +266,13 @@
                 "ownershipEffect": {
                     "accessScope": "camp_perimeter",
                     "grantAccess": true
+                },
+                "nutritionActivity": {
+                    "intensity": "rest",
+                    "energyMultiplier": 0.85,
+                    "proteinMultiplier": 1,
+                    "waterMultiplier": 0.95,
+                    "basis": "sleep and passive recovery; cost-signals"
                 }
             },
             {
@@ -222,6 +292,13 @@
                 "lawEffect": {
                     "confidentialityOath": "verbal",
                     "enforceable": false
+                },
+                "nutritionActivity": {
+                    "intensity": "rest",
+                    "energyMultiplier": 0.85,
+                    "proteinMultiplier": 1,
+                    "waterMultiplier": 0.95,
+                    "basis": "sleep and passive recovery; cost-signals"
                 }
             },
             {
@@ -236,6 +313,13 @@
                 "socialImpact": {
                     "TRUST": 0.5,
                     "GOODWILL": 0.4
+                },
+                "nutritionActivity": {
+                    "intensity": "sedentary",
+                    "energyMultiplier": 2.35,
+                    "proteinMultiplier": 2.45,
+                    "waterMultiplier": 2.7,
+                    "basis": "seated cognitive, social or administrative work; cost-signals"
                 }
             },
             {
@@ -258,6 +342,13 @@
                 "lawEffect": {
                     "auditReport": "filed",
                     "enforceable": true
+                },
+                "nutritionActivity": {
+                    "intensity": "rest",
+                    "energyMultiplier": 0.85,
+                    "proteinMultiplier": 1,
+                    "waterMultiplier": 0.95,
+                    "basis": "sleep and passive recovery; cost-signals"
                 }
             },
             {
@@ -283,6 +374,13 @@
                 },
                 "ownershipEffect": {
                     "transferOnCondition": true
+                },
+                "nutritionActivity": {
+                    "intensity": "rest",
+                    "energyMultiplier": 0.85,
+                    "proteinMultiplier": 1,
+                    "waterMultiplier": 0.95,
+                    "basis": "sleep and passive recovery; cost-signals"
                 }
             },
             {
@@ -301,6 +399,13 @@
                 "lawEffect": {
                     "attendanceLog": "update",
                     "enforceable": false
+                },
+                "nutritionActivity": {
+                    "intensity": "rest",
+                    "energyMultiplier": 0.85,
+                    "proteinMultiplier": 1,
+                    "waterMultiplier": 0.95,
+                    "basis": "sleep and passive recovery; cost-signals"
                 }
             },
             {
@@ -319,6 +424,13 @@
                 "lawEffect": {
                     "oathType": "informal_handshake",
                     "enforceable": false
+                },
+                "nutritionActivity": {
+                    "intensity": "sedentary",
+                    "energyMultiplier": 2.35,
+                    "proteinMultiplier": 2.45,
+                    "waterMultiplier": 2.7,
+                    "basis": "seated cognitive, social or administrative work; cost-signals"
                 }
             }
         ]

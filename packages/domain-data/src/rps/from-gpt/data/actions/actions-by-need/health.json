@@ -12,7 +12,14 @@
                 },
                 "skillRequired": "FirstAid",
                 "locationType": "any",
-                "targetType": "SELF"
+                "targetType": "SELF",
+                "nutritionActivity": {
+                    "intensity": "rest",
+                    "energyMultiplier": 0.85,
+                    "proteinMultiplier": 1,
+                    "waterMultiplier": 0.95,
+                    "basis": "sleep and passive recovery; cost-signals"
+                }
             },
             {
                 "tag": "HEAL_OTHER",
@@ -28,6 +35,13 @@
                 "socialImpact": {
                     "gratitude": 0.3,
                     "respect": 0.3
+                },
+                "nutritionActivity": {
+                    "intensity": "rest",
+                    "energyMultiplier": 0.85,
+                    "proteinMultiplier": 1,
+                    "waterMultiplier": 0.95,
+                    "basis": "sleep and passive recovery; cost-signals"
                 }
             },
             {
@@ -37,15 +51,26 @@
                 "rewardSecondary": {
                     "HEALTH": 0.4
                 },
-                "requiresItem": ["bandage"],
+                "requiresItem": [
+                    "bandage"
+                ],
                 "locationType": "any",
-                "skillRequired": "FirstAid"
+                "skillRequired": "FirstAid",
+                "nutritionActivity": {
+                    "intensity": "rest",
+                    "energyMultiplier": 0.85,
+                    "proteinMultiplier": 1,
+                    "waterMultiplier": 0.95,
+                    "basis": "sleep and passive recovery; cost-signals"
+                }
             },
             {
                 "tag": "CLEAN_WOUND",
                 "costEnergy": -0.1,
                 "costTime": 0.5,
-                "requiresItem": ["clean_water"],
+                "requiresItem": [
+                    "clean_water"
+                ],
                 "rewardSecondary": {
                     "HEALTH": 0.3,
                     "HYGIENE": 0.3
@@ -53,27 +78,52 @@
                 "requiredMemes": [
                     "health.sanitation_norms",
                     "health.waste_handling"
-                ]
+                ],
+                "nutritionActivity": {
+                    "intensity": "rest",
+                    "energyMultiplier": 0.85,
+                    "proteinMultiplier": 1,
+                    "waterMultiplier": 0.95,
+                    "basis": "sleep and passive recovery; cost-signals"
+                }
             },
             {
                 "tag": "APPLY_HERBAL_REMEDY",
                 "costEnergy": -0.2,
                 "costTime": 2,
-                "requiresItem": ["herbs"],
+                "requiresItem": [
+                    "herbs"
+                ],
                 "skillRequired": "Herbalism",
                 "rewardSecondary": {
                     "HEALTH": 0.7,
                     "SPIRIT": 0.1
+                },
+                "nutritionActivity": {
+                    "intensity": "rest",
+                    "energyMultiplier": 0.85,
+                    "proteinMultiplier": 1,
+                    "waterMultiplier": 0.95,
+                    "basis": "sleep and passive recovery; cost-signals"
                 }
             },
             {
                 "tag": "DRINK_MEDICINE",
                 "costEnergy": -0.05,
                 "costTime": 0.2,
-                "requiresItem": ["medicine"],
+                "requiresItem": [
+                    "medicine"
+                ],
                 "rewardSecondary": {
                     "HEALTH": 0.5,
                     "MOOD": 0.2
+                },
+                "nutritionActivity": {
+                    "intensity": "sedentary",
+                    "energyMultiplier": 2.35,
+                    "proteinMultiplier": 2.45,
+                    "waterMultiplier": 2.7,
+                    "basis": "seated cognitive, social or administrative work; cost-signals"
                 }
             },
             {
@@ -85,7 +135,14 @@
                     "REST": 0.6,
                     "MOOD": 0.3
                 },
-                "locationType": "bed"
+                "locationType": "bed",
+                "nutritionActivity": {
+                    "intensity": "rest",
+                    "energyMultiplier": 0.85,
+                    "proteinMultiplier": 1,
+                    "waterMultiplier": 0.95,
+                    "basis": "sleep and passive recovery; cost-signals"
+                }
             },
             {
                 "tag": "SEEK_HEALER",
@@ -96,7 +153,14 @@
                     "TRUST": 0.2
                 },
                 "targetType": "OTHER",
-                "locationType": "village"
+                "locationType": "village",
+                "nutritionActivity": {
+                    "intensity": "rest",
+                    "energyMultiplier": 0.85,
+                    "proteinMultiplier": 1,
+                    "waterMultiplier": 0.95,
+                    "basis": "sleep and passive recovery; cost-signals"
+                }
             },
             {
                 "tag": "PRAY_FOR_HEALTH",
@@ -107,7 +171,14 @@
                     "SPIRIT": 0.3,
                     "MOOD": 0.2
                 },
-                "locationType": "temple"
+                "locationType": "temple",
+                "nutritionActivity": {
+                    "intensity": "rest",
+                    "energyMultiplier": 0.85,
+                    "proteinMultiplier": 1,
+                    "waterMultiplier": 0.95,
+                    "basis": "sleep and passive recovery; cost-signals"
+                }
             },
             {
                 "tag": "PERFORM_RITUAL_HEALING",
@@ -119,7 +190,14 @@
                     "COMMUNITY": 0.4
                 },
                 "skillRequired": "Ritualism",
-                "locationType": "sacred_site"
+                "locationType": "sacred_site",
+                "nutritionActivity": {
+                    "intensity": "rest",
+                    "energyMultiplier": 0.85,
+                    "proteinMultiplier": 1,
+                    "waterMultiplier": 0.95,
+                    "basis": "sleep and passive recovery; cost-signals"
+                }
             },
             {
                 "tag": "CLEAN_BODY",
@@ -133,7 +211,14 @@
                 "requiredMemes": [
                     "health.sanitation_norms",
                     "health.waste_handling"
-                ]
+                ],
+                "nutritionActivity": {
+                    "intensity": "rest",
+                    "energyMultiplier": 0.85,
+                    "proteinMultiplier": 1,
+                    "waterMultiplier": 0.95,
+                    "basis": "sleep and passive recovery; cost-signals"
+                }
             },
             {
                 "tag": "EAT_HEALTHY_MEAL",
@@ -144,7 +229,16 @@
                     "FOOD": 0.5,
                     "MOOD": 0.2
                 },
-                "requiresItem": ["meal_healthy"]
+                "requiresItem": [
+                    "meal_healthy"
+                ],
+                "nutritionActivity": {
+                    "intensity": "rest",
+                    "energyMultiplier": 0.85,
+                    "proteinMultiplier": 1,
+                    "waterMultiplier": 0.95,
+                    "basis": "sleep and passive recovery; cost-signals"
+                }
             },
             {
                 "tag": "ISOLATE_SELF",
@@ -155,7 +249,14 @@
                     "HEALTH": 0.4,
                     "COMMUNITY": -0.1
                 },
-                "locationType": "hut"
+                "locationType": "hut",
+                "nutritionActivity": {
+                    "intensity": "rest",
+                    "energyMultiplier": 0.85,
+                    "proteinMultiplier": 1,
+                    "waterMultiplier": 0.95,
+                    "basis": "sleep and passive recovery; cost-signals"
+                }
             },
             {
                 "tag": "MASSAGE",
@@ -166,7 +267,14 @@
                     "REST": 0.4,
                     "AFFECTION": 0.3
                 },
-                "targetType": "SELF"
+                "targetType": "SELF",
+                "nutritionActivity": {
+                    "intensity": "rest",
+                    "energyMultiplier": 0.85,
+                    "proteinMultiplier": 1,
+                    "waterMultiplier": 0.95,
+                    "basis": "sleep and passive recovery; cost-signals"
+                }
             },
             {
                 "tag": "CHECK_HEALTH",
@@ -176,7 +284,14 @@
                     "HEALTH": 0.2,
                     "KNOWLEDGE": 0.1
                 },
-                "skillRequired": "Medicine"
+                "skillRequired": "Medicine",
+                "nutritionActivity": {
+                    "intensity": "rest",
+                    "energyMultiplier": 0.85,
+                    "proteinMultiplier": 1,
+                    "waterMultiplier": 0.95,
+                    "basis": "sleep and passive recovery; cost-signals"
+                }
             },
             {
                 "tag": "MAKE_MEDICINE",
@@ -186,8 +301,18 @@
                     "HEALTH": 0.6,
                     "KNOWLEDGE": 0.3
                 },
-                "requiresItem": ["herbs", "water"],
-                "skillRequired": "Alchemy"
+                "requiresItem": [
+                    "herbs",
+                    "water"
+                ],
+                "skillRequired": "Alchemy",
+                "nutritionActivity": {
+                    "intensity": "rest",
+                    "energyMultiplier": 0.85,
+                    "proteinMultiplier": 1,
+                    "waterMultiplier": 0.95,
+                    "basis": "sleep and passive recovery; cost-signals"
+                }
             }
         ]
     }

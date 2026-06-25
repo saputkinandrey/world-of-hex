@@ -19,7 +19,14 @@
                     "culture.vigil_ritual",
                     "cog.timekeeping.basic",
                     "tech.heat.space.hearth"
-                ]
+                ],
+                "nutritionActivity": {
+                    "intensity": "sedentary",
+                    "energyMultiplier": 2.35,
+                    "proteinMultiplier": 2.45,
+                    "waterMultiplier": 2.7,
+                    "basis": "seated cognitive, social or administrative work; cost-signals"
+                }
             },
             {
                 "tag": "WALK_SHORT_SOLO",
@@ -38,6 +45,13 @@
                 },
                 "ownershipEffect": {
                     "routeUse": "solo_walk"
+                },
+                "nutritionActivity": {
+                    "intensity": "rest",
+                    "energyMultiplier": 0.85,
+                    "proteinMultiplier": 1,
+                    "waterMultiplier": 0.95,
+                    "basis": "sleep and passive recovery; cost-signals"
                 }
             },
             {
@@ -59,6 +73,13 @@
                 },
                 "ownershipEffect": {
                     "kettleState": "steeped"
+                },
+                "nutritionActivity": {
+                    "intensity": "sedentary",
+                    "energyMultiplier": 2.35,
+                    "proteinMultiplier": 2.45,
+                    "waterMultiplier": 2.7,
+                    "basis": "seated cognitive, social or administrative work; cost-signals"
                 }
             },
             {
@@ -78,7 +99,14 @@
                 "requiredMemes": [
                     "health.sanitation_norms",
                     "health.waste_handling"
-                ]
+                ],
+                "nutritionActivity": {
+                    "intensity": "rest",
+                    "energyMultiplier": 0.85,
+                    "proteinMultiplier": 1,
+                    "waterMultiplier": 0.95,
+                    "basis": "sleep and passive recovery; cost-signals"
+                }
             },
             {
                 "tag": "JOURNAL_UNLOAD",
@@ -100,7 +128,16 @@
                 "ownershipEffect": {
                     "diary": "entry_added"
                 },
-                "requiredMemes": ["comm.language.written"]
+                "requiredMemes": [
+                    "comm.language.written"
+                ],
+                "nutritionActivity": {
+                    "intensity": "rest",
+                    "energyMultiplier": 0.85,
+                    "proteinMultiplier": 1,
+                    "waterMultiplier": 0.95,
+                    "basis": "sleep and passive recovery; cost-signals"
+                }
             },
             {
                 "tag": "POWER_NAP",
@@ -123,7 +160,14 @@
                     "culture.vigil_ritual",
                     "cog.timekeeping.basic",
                     "tech.heat.space.hearth"
-                ]
+                ],
+                "nutritionActivity": {
+                    "intensity": "light",
+                    "energyMultiplier": 3,
+                    "proteinMultiplier": 2.8,
+                    "waterMultiplier": 3.2,
+                    "basis": "light domestic, craft or self-care labor; cost-signals"
+                }
             },
             {
                 "tag": "SWITCH_TASK_SIMPLE",
@@ -140,6 +184,13 @@
                 },
                 "ownershipEffect": {
                     "taskState": "context_switched"
+                },
+                "nutritionActivity": {
+                    "intensity": "sedentary",
+                    "energyMultiplier": 2.35,
+                    "proteinMultiplier": 2.45,
+                    "waterMultiplier": 2.7,
+                    "basis": "seated cognitive, social or administrative work; cost-signals"
                 }
             },
             {
@@ -159,6 +210,13 @@
                 },
                 "ownershipEffect": {
                     "taskOwner": "reassigned"
+                },
+                "nutritionActivity": {
+                    "intensity": "rest",
+                    "energyMultiplier": 0.85,
+                    "proteinMultiplier": 1,
+                    "waterMultiplier": 0.95,
+                    "basis": "sleep and passive recovery; cost-signals"
                 }
             },
             {
@@ -179,6 +237,13 @@
                 "lawEffect": {
                     "boundaryNote": "posted",
                     "enforceable": true
+                },
+                "nutritionActivity": {
+                    "intensity": "sedentary",
+                    "energyMultiplier": 2.35,
+                    "proteinMultiplier": 2.45,
+                    "waterMultiplier": 2.7,
+                    "basis": "seated cognitive, social or administrative work; cost-signals"
                 }
             },
             {
@@ -204,7 +269,14 @@
                     "cog.timekeeping.basic",
                     "tech.heat.space.hearth",
                     "comm.language.written"
-                ]
+                ],
+                "nutritionActivity": {
+                    "intensity": "rest",
+                    "energyMultiplier": 0.85,
+                    "proteinMultiplier": 1,
+                    "waterMultiplier": 0.95,
+                    "basis": "sleep and passive recovery; cost-signals"
+                }
             },
             {
                 "tag": "MUSIC_CALM_SESSION",
@@ -216,9 +288,18 @@
                     "JOY": 0.3,
                     "MORALE": 0.3
                 },
-                "requiresItem": ["flute|lyre|drum_soft"],
+                "requiresItem": [
+                    "flute|lyre|drum_soft"
+                ],
                 "socialImpact": {
                     "CALM": 0.4
+                },
+                "nutritionActivity": {
+                    "intensity": "rest",
+                    "energyMultiplier": 0.85,
+                    "proteinMultiplier": 1,
+                    "waterMultiplier": 0.95,
+                    "basis": "sleep and passive recovery; cost-signals"
                 }
             },
             {
@@ -236,6 +317,13 @@
                 },
                 "ownershipEffect": {
                     "workspaceState": "decluttered"
+                },
+                "nutritionActivity": {
+                    "intensity": "rest",
+                    "energyMultiplier": 0.85,
+                    "proteinMultiplier": 1,
+                    "waterMultiplier": 0.95,
+                    "basis": "sleep and passive recovery; cost-signals"
                 }
             },
             {
@@ -255,7 +343,14 @@
                 "requiredMemes": [
                     "health.sanitation_norms",
                     "health.waste_handling"
-                ]
+                ],
+                "nutritionActivity": {
+                    "intensity": "rest",
+                    "energyMultiplier": 0.85,
+                    "proteinMultiplier": 1,
+                    "waterMultiplier": 0.95,
+                    "basis": "sleep and passive recovery; cost-signals"
+                }
             },
             {
                 "tag": "HOT_BATH_SOAK",
@@ -275,6 +370,13 @@
                 },
                 "ownershipEffect": {
                     "bathSlot": "booked"
+                },
+                "nutritionActivity": {
+                    "intensity": "rest",
+                    "energyMultiplier": 0.85,
+                    "proteinMultiplier": 1,
+                    "waterMultiplier": 0.95,
+                    "basis": "sleep and passive recovery; cost-signals"
                 }
             },
             {
@@ -294,6 +396,13 @@
                 "needRework": true,
                 "socialImpact": {
                     "CALM": 0.2
+                },
+                "nutritionActivity": {
+                    "intensity": "sedentary",
+                    "energyMultiplier": 2.35,
+                    "proteinMultiplier": 2.45,
+                    "waterMultiplier": 2.7,
+                    "basis": "seated cognitive, social or administrative work; cost-signals"
                 }
             },
             {
@@ -318,7 +427,14 @@
                     "culture.vigil_ritual",
                     "cog.timekeeping.basic",
                     "tech.heat.space.hearth"
-                ]
+                ],
+                "nutritionActivity": {
+                    "intensity": "rest",
+                    "energyMultiplier": 0.85,
+                    "proteinMultiplier": 1,
+                    "waterMultiplier": 0.95,
+                    "basis": "sleep and passive recovery; cost-signals"
+                }
             }
         ]
     }

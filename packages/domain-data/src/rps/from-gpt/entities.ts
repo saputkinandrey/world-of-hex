@@ -75,4 +75,7 @@ export interface MaintenanceRequirementData {
     mode: MaintenanceRequirementMode;
     medium?: string;
     note?: string;
+    energyPerDay?: number;
+    proteinPerDay?: number;
+    waterPerDay?: number;
 }

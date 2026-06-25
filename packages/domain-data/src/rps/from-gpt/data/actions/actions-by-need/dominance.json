@@ -12,7 +12,9 @@
                     "SECURITY": 0.2,
                     "STATUS": 0.2
                 },
-                "requiresItem": ["arms|armor|banners"],
+                "requiresItem": [
+                    "arms|armor|banners"
+                ],
                 "socialImpact": {
                     "DOMINANCE": 0.6,
                     "FEAR": 0.5,
@@ -22,6 +24,13 @@
                 "lawEffect": {
                     "code": "display_allowed",
                     "enforceable": true
+                },
+                "nutritionActivity": {
+                    "intensity": "rest",
+                    "energyMultiplier": 0.85,
+                    "proteinMultiplier": 1,
+                    "waterMultiplier": 0.95,
+                    "basis": "sleep and passive recovery; cost-signals"
                 }
             },
             {
@@ -45,6 +54,13 @@
                 "ownershipEffect": {
                     "accessScope": "audience_chamber",
                     "grantAccess": true
+                },
+                "nutritionActivity": {
+                    "intensity": "sedentary",
+                    "energyMultiplier": 2.35,
+                    "proteinMultiplier": 2.45,
+                    "waterMultiplier": 2.7,
+                    "basis": "seated cognitive, social or administrative work; cost-signals"
                 }
             },
             {
@@ -65,6 +81,13 @@
                 "lawEffect": {
                     "decree": "nonnegotiable",
                     "enforceable": true
+                },
+                "nutritionActivity": {
+                    "intensity": "sedentary",
+                    "energyMultiplier": 2.35,
+                    "proteinMultiplier": 2.45,
+                    "waterMultiplier": 2.7,
+                    "basis": "seated cognitive, social or administrative work; cost-signals"
                 }
             },
             {
@@ -90,6 +113,13 @@
                 "ownershipEffect": {
                     "accessScope": "streets",
                     "accessLevel": "RESTRICTED"
+                },
+                "nutritionActivity": {
+                    "intensity": "rest",
+                    "energyMultiplier": 0.85,
+                    "proteinMultiplier": 1,
+                    "waterMultiplier": 0.95,
+                    "basis": "sleep and passive recovery; cost-signals"
                 }
             },
             {
@@ -120,6 +150,13 @@
                 "tradeEffect": {
                     "blackmarket": "-Δ",
                     "fines_collected": "+X"
+                },
+                "nutritionActivity": {
+                    "intensity": "rest",
+                    "energyMultiplier": 0.85,
+                    "proteinMultiplier": 1,
+                    "waterMultiplier": 0.95,
+                    "basis": "sleep and passive recovery; cost-signals"
                 }
             },
             {
@@ -144,6 +181,13 @@
                 "ownershipEffect": {
                     "accessRevoked": true,
                     "accessScope": "licence|office"
+                },
+                "nutritionActivity": {
+                    "intensity": "rest",
+                    "energyMultiplier": 0.85,
+                    "proteinMultiplier": 1,
+                    "waterMultiplier": 0.95,
+                    "basis": "sleep and passive recovery; cost-signals"
                 }
             },
             {
@@ -171,6 +215,13 @@
                 },
                 "ownershipEffect": {
                     "treasury": "credited"
+                },
+                "nutritionActivity": {
+                    "intensity": "rest",
+                    "energyMultiplier": 0.85,
+                    "proteinMultiplier": 1,
+                    "waterMultiplier": 0.95,
+                    "basis": "sleep and passive recovery; cost-signals"
                 }
             },
             {
@@ -191,6 +242,13 @@
                 "lawEffect": {
                     "protocol": "public_apology",
                     "enforceable": true
+                },
+                "nutritionActivity": {
+                    "intensity": "rest",
+                    "energyMultiplier": 0.85,
+                    "proteinMultiplier": 1,
+                    "waterMultiplier": 0.95,
+                    "basis": "sleep and passive recovery; cost-signals"
                 }
             },
             {
@@ -219,6 +277,13 @@
                     "territoryFlag": "claimed",
                     "accessScope": "area",
                     "accessLevel": "OWNER"
+                },
+                "nutritionActivity": {
+                    "intensity": "rest",
+                    "energyMultiplier": 0.85,
+                    "proteinMultiplier": 1,
+                    "waterMultiplier": 0.95,
+                    "basis": "sleep and passive recovery; cost-signals"
                 }
             },
             {
@@ -239,6 +304,13 @@
                 "lawEffect": {
                     "sentencePublic": "due_process_required",
                     "enforceable": true
+                },
+                "nutritionActivity": {
+                    "intensity": "rest",
+                    "energyMultiplier": 0.85,
+                    "proteinMultiplier": 1,
+                    "waterMultiplier": 0.95,
+                    "basis": "sleep and passive recovery; cost-signals"
                 }
             },
             {
@@ -263,6 +335,13 @@
                 "ownershipEffect": {
                     "accessScope": "worksites",
                     "grantAccess": true
+                },
+                "nutritionActivity": {
+                    "intensity": "rest",
+                    "energyMultiplier": 0.85,
+                    "proteinMultiplier": 1,
+                    "waterMultiplier": 0.95,
+                    "basis": "sleep and passive recovery; cost-signals"
                 }
             },
             {
@@ -287,6 +366,13 @@
                 "tradeEffect": {
                     "output_target": "+N",
                     "penalties": "defined"
+                },
+                "nutritionActivity": {
+                    "intensity": "rest",
+                    "energyMultiplier": 0.85,
+                    "proteinMultiplier": 1,
+                    "waterMultiplier": 0.95,
+                    "basis": "sleep and passive recovery; cost-signals"
                 }
             },
             {
@@ -312,6 +398,13 @@
                 "ownershipEffect": {
                     "custodyRights": "holder",
                     "accessScope": "hostage_quarters"
+                },
+                "nutritionActivity": {
+                    "intensity": "rest",
+                    "energyMultiplier": 0.85,
+                    "proteinMultiplier": 1,
+                    "waterMultiplier": 0.95,
+                    "basis": "sleep and passive recovery; cost-signals"
                 }
             },
             {
@@ -342,6 +435,13 @@
                 "tradeEffect": {
                     "market_share": "+Δ",
                     "fines_collected": "+X"
+                },
+                "nutritionActivity": {
+                    "intensity": "rest",
+                    "energyMultiplier": 0.85,
+                    "proteinMultiplier": 1,
+                    "waterMultiplier": 0.95,
+                    "basis": "sleep and passive recovery; cost-signals"
                 }
             },
             {
@@ -367,6 +467,13 @@
                 "ownershipEffect": {
                     "accessScope": "settlement",
                     "accessLevel": "DENIED"
+                },
+                "nutritionActivity": {
+                    "intensity": "rest",
+                    "energyMultiplier": 0.85,
+                    "proteinMultiplier": 1,
+                    "waterMultiplier": 0.95,
+                    "basis": "sleep and passive recovery; cost-signals"
                 }
             },
             {
@@ -379,7 +486,9 @@
                     "SECURITY": 0.5,
                     "STABILITY": 0.3
                 },
-                "requiresItem": ["armed_patrol"],
+                "requiresItem": [
+                    "armed_patrol"
+                ],
                 "socialImpact": {
                     "DOMINANCE": 0.55,
                     "FEAR": 0.35,
@@ -392,6 +501,13 @@
                 "ownershipEffect": {
                     "accessScope": "streets|gates|markets",
                     "grantAccess": true
+                },
+                "nutritionActivity": {
+                    "intensity": "rest",
+                    "energyMultiplier": 0.85,
+                    "proteinMultiplier": 1,
+                    "waterMultiplier": 0.95,
+                    "basis": "sleep and passive recovery; cost-signals"
                 }
             }
         ]

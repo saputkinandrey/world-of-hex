@@ -41,21 +41,33 @@ import {
     flattenBehaviorActions,
     type BehaviorActionsFileResponse,
 } from "../../lib/behavior-actions-utils";
+import { BASAL_METABOLISM_MAINTENANCE_REQUIREMENT } from "@wohex/domain-data/rps/world/nutrition";
 import {
+    resolveCreatureAnatomyProfile,
+    type AnatomyTissuePresetId,
+    type CreatureAnatomyProfile,
+    type OrganKind,
+    type TissueKind,
+} from "@wohex/domain-data/rps/world/tissue-composition";
+import {
+    buildBasalConsumptionPerTurnFromDailyNeeds,
     createCreatureProfile,
     creatureActionRefKey,
-    clearCreatureProfileCalculatedFields,
+    filterBehavioralNeedImpactRecords,
     getCreatureActionOptions,
     getCreatureMaintenanceRequirementRecords,
     getCreatureNeedImpactRecords,
     getTraitOptionsByKind,
     parseCreatureProfilesResponse,
+    resolveCreatureProfileMorphDerivedState,
     resolveEffectiveCreatureProfile,
     summarizeCreatureProfile,
+    syncCreatureProfileCalculatedFields,
     syncCreatureProfilesCalculatedFields,
     type CreatureActionOption,
     type CreatureMaintenanceRequirementRecord,
     type CreatureNeedImpactRecord,
+    type CreatureProfileSummary,
     type CreatureProfilesFileResponse,
 } from "../../lib/creature-profiles-utils";
 import { formatNumber } from "../../lib/domain-admin-utils";
@@ -150,17 +162,37 @@ interface ActionListItem {
     inherited: boolean;
 }
 
-interface NeedsEditorProps {
+interface BasalMetabolismNutritionFieldsProps {
     value: CreatureNutritionNeedsData;
     onChange: (value: CreatureNutritionNeedsData) => void;
 }
 
-interface DerivedNeedsViewerProps {
+interface BehavioralNeedsViewerProps {
     records: CreatureNeedImpactRecord[];
+}
+
+interface DerivedAnatomyViewerProps {
+    anatomy: CreatureAnatomyProfile;
 }
 
 interface MaintenanceRequirementsViewerProps {
     records: CreatureMaintenanceRequirementRecord[];
+    nutritionNeedsPerDay: CreatureNutritionNeedsData;
+    onNutritionNeedsPerDayChange: (
+        value: CreatureNutritionNeedsData,
+    ) => void;
+}
+
+interface MaintenanceSectionProps {
+    records: CreatureMaintenanceRequirementRecord[];
+    nutritionNeedsPerDay: CreatureNutritionNeedsData;
+    onNutritionNeedsPerDayChange: (
+        value: CreatureNutritionNeedsData,
+    ) => void;
+}
+
+interface BasalConsumptionPreviewProps {
+    nutritionNeedsPerDay: CreatureNutritionNeedsData;
 }
 
 interface NeedAggregation {
@@ -172,13 +204,9 @@ interface NeedAggregation {
     sourceCount: number;
 }
 
-interface ConsumptionEditorProps {
-    value: CreatureNutritionContentData;
-    onChange: (value: CreatureNutritionContentData) => void;
-}
-
 interface PhysicalEditorProps {
     value: CreaturePhysicalProfileData;
+    derivedSizeModifier?: number;
     onChange: (value: CreaturePhysicalProfileData) => void;
 }
 
@@ -528,54 +556,281 @@ const VolumeField = ({ label, value, onChange }: VolumeFieldProps) => {
     );
 };
 
-const NeedsEditor = ({ value, onChange }: NeedsEditorProps) => {
+const BasalMetabolismNutritionFields = ({
+    value,
+    onChange,
+}: BasalMetabolismNutritionFieldsProps) => {
     return (
-        <Stack spacing={1.5}>
-            <Typography variant="subtitle2">Daily needs</Typography>
+        <Box
+            sx={{
+                display: "grid",
+                gridTemplateColumns: { xs: "1fr", md: "repeat(3, 1fr)" },
+                gap: 1.5,
+            }}
+        >
+            <FractionNumberField
+                label="Energy"
+                value={value.energyPerDay}
+                onChange={(energyPerDay) =>
+                    onChange({ ...value, energyPerDay: energyPerDay ?? 0 })
+                }
+            />
+            <FractionNumberField
+                label="Protein"
+                value={value.proteinPerDay}
+                onChange={(proteinPerDay) =>
+                    onChange({
+                        ...value,
+                        proteinPerDay: proteinPerDay ?? 0,
+                    })
+                }
+            />
+            <FractionNumberField
+                label="Water"
+                value={value.waterPerDay}
+                onChange={(waterPerDay) =>
+                    onChange({ ...value, waterPerDay })
+                }
+            />
+        </Box>
+    );
+};
+
+const BasalConsumptionPreview = ({
+    nutritionNeedsPerDay,
+}: BasalConsumptionPreviewProps) => {
+    const perTurn = buildBasalConsumptionPerTurnFromDailyNeeds(
+        nutritionNeedsPerDay,
+    );
+    const massUnit = getImperialMassUnit(perTurn.massLb);
+    const massValue = convertLbToDisplayMass(perTurn.massLb, massUnit);
+
+    return (
+        <Typography variant="caption" color="text.secondary">
+            At rest per turn: {formatFractionIfNatural(perTurn.energy)} E ·{" "}
+            {formatFractionIfNatural(perTurn.protein)} P ·{" "}
+            {formatFractionIfNatural(perTurn.water)} W ·{" "}
+            {formatFractionIfNatural(massValue)} {massUnit}
+        </Typography>
+    );
+};
+
+const TISSUE_KIND_ORDER: readonly TissueKind[] = [
+    "muscle",
+    "bone",
+    "skin",
+    "feathers",
+    "blood",
+    "exoskeleton",
+    "hemolymph",
+];
+
+const TISSUE_KIND_LABELS: Record<TissueKind, string> = {
+    muscle: "Muscle",
+    bone: "Bone",
+    skin: "Skin",
+    feathers: "Feathers",
+    blood: "Blood",
+    exoskeleton: "Exoskeleton",
+    hemolymph: "Hemolymph",
+};
+
+const ANATOMY_PRESET_LABELS: Record<AnatomyTissuePresetId, string> = {
+    lean_predator_mammal: "Lean predator mammal",
+    general_mammal: "General mammal",
+    primate_mammal: "Primate mammal",
+    fish_body: "Fish body",
+    insect_body: "Insect body",
+    arachnid_body: "Arachnid body",
+    avian_body: "Avian body",
+    dinosaur_proxy: "Dinosaur proxy",
+};
+
+const formatOrganLabel = (organ: OrganKind): string =>
+    organ
+        .split("_")
+        .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
+        .join(" ");
+
+const shouldShowDerivedAnatomy = (
+    anatomy: CreatureAnatomyProfile,
+): boolean =>
+    anatomy.tissuePresetId !== undefined || anatomy.organs.length > 0;
+
+const DerivedAnatomyViewer = ({ anatomy }: DerivedAnatomyViewerProps) => {
+    const tissueEntries = TISSUE_KIND_ORDER.flatMap((kind) => {
+        const percent = anatomy.tissueComposition[kind];
+        if (percent === undefined) return [];
+        return [
+            {
+                kind,
+                percent,
+                weightLb: anatomy.tissueWeightsLb?.[kind],
+            },
+        ];
+    });
+    const accountedTissueWeightLb = anatomy.tissueWeightsLb
+        ? tissueEntries.reduce(
+              (total, entry) => total + (entry.weightLb ?? 0),
+              0,
+          )
+        : undefined;
+
+    return (
+        <Stack spacing={1}>
+            <Typography variant="subtitle2">Derived anatomy</Typography>
+            <Typography variant="caption" color="text.secondary">
+                Read-only coarse tissue preset and organs inferred from body
+                plan, respiration and taxonomy. Not editable morph chips.
+            </Typography>
+            {anatomy.tissuePresetId ? (
+                <>
+                    <Box
+                        sx={{
+                            border: "1px solid var(--line)",
+                            borderRadius: 1,
+                            px: 1,
+                            py: 0.75,
+                        }}
+                    >
+                        <Typography
+                            variant="body2"
+                            fontWeight={700}
+                            sx={{ mb: 0.75 }}
+                        >
+                            Tissue preset
+                        </Typography>
+                        <Chip
+                            size="small"
+                            color="secondary"
+                            variant="outlined"
+                            label={
+                                ANATOMY_PRESET_LABELS[anatomy.tissuePresetId]
+                            }
+                            sx={traitChipSx}
+                        />
+                        {anatomy.isReconstructionProxy ? (
+                            <Typography
+                                variant="caption"
+                                color="warning.main"
+                                sx={{ display: "block", mt: 0.75 }}
+                            >
+                                Reconstruction proxy: coarse estimate for
+                                extinct dinosaur lineage.
+                            </Typography>
+                        ) : null}
+                    </Box>
+                    <Box
+                        sx={{
+                            border: "1px solid var(--line)",
+                            borderRadius: 1,
+                            px: 1,
+                            py: 0.75,
+                        }}
+                    >
+                        <Typography
+                            variant="body2"
+                            fontWeight={700}
+                            sx={{ mb: 0.75 }}
+                        >
+                            Tissue composition
+                        </Typography>
+                        {anatomy.bodyWeightLb !== undefined ? (
+                            <Typography
+                                variant="caption"
+                                color="text.secondary"
+                                sx={{ display: "block", mb: 0.75 }}
+                            >
+                                Body weight basis:{" "}
+                                {formatNumber(anatomy.bodyWeightLb, 2)} lb
+                                {accountedTissueWeightLb !== undefined &&
+                                anatomy.accountedTissuePercent !== undefined
+                                    ? ` · modeled tissues ${formatNumber(accountedTissueWeightLb, 2)} lb (${formatNumber(anatomy.accountedTissuePercent, 0)}%)`
+                                    : ""}
+                            </Typography>
+                        ) : (
+                            <Typography
+                                variant="caption"
+                                color="text.secondary"
+                                sx={{ display: "block", mb: 0.75 }}
+                            >
+                                Set average body weight in Physical averages to
+                                calculate tissue mass.
+                            </Typography>
+                        )}
+                        <Box
+                            sx={{
+                                display: "grid",
+                                gridTemplateColumns: {
+                                    xs: "repeat(2, minmax(0, 1fr))",
+                                    sm: "repeat(3, minmax(0, 1fr))",
+                                },
+                                gap: 1,
+                            }}
+                        >
+                            {tissueEntries.map((entry) => (
+                                <Box key={entry.kind}>
+                                    <Typography
+                                        variant="caption"
+                                        color="text.secondary"
+                                    >
+                                        {TISSUE_KIND_LABELS[entry.kind]}
+                                    </Typography>
+                                    <Typography
+                                        variant="body2"
+                                        fontWeight={700}
+                                    >
+                                        {formatNumber(entry.percent, 0)}%
+                                        {entry.weightLb !== undefined
+                                            ? ` · ${formatNumber(entry.weightLb, 2)} lb`
+                                            : ""}
+                                    </Typography>
+                                </Box>
+                            ))}
+                        </Box>
+                    </Box>
+                </>
+            ) : null}
             <Box
                 sx={{
-                    display: "grid",
-                    gridTemplateColumns: { xs: "1fr", md: "repeat(4, 1fr)" },
-                    gap: 1.5,
+                    border: "1px solid var(--line)",
+                    borderRadius: 1,
+                    px: 1,
+                    py: 0.75,
                 }}
             >
-                <FractionNumberField
-                    label="Energy"
-                    value={value.energyPerDay}
-                    onChange={(energyPerDay) =>
-                        onChange({ ...value, energyPerDay: energyPerDay ?? 0 })
-                    }
-                />
-                <FractionNumberField
-                    label="Protein"
-                    value={value.proteinPerDay}
-                    onChange={(proteinPerDay) =>
-                        onChange({
-                            ...value,
-                            proteinPerDay: proteinPerDay ?? 0,
-                        })
-                    }
-                />
-                <FractionNumberField
-                    label="Water"
-                    value={value.waterPerDay}
-                    onChange={(waterPerDay) =>
-                        onChange({ ...value, waterPerDay })
-                    }
-                />
-                <MassField
-                    label="Food mass"
-                    valueLb={value.massPerDayLb}
-                    onChange={(massPerDayLb) =>
-                        onChange({ ...value, massPerDayLb: massPerDayLb ?? 0 })
-                    }
-                />
+                <Typography variant="body2" fontWeight={700} sx={{ mb: 0.75 }}>
+                    Organs
+                </Typography>
+                {anatomy.organs.length === 0 ? (
+                    <Typography variant="caption" color="text.secondary">
+                        No organs derived from current morph capabilities.
+                    </Typography>
+                ) : (
+                    <Stack
+                        direction="row"
+                        spacing={0.75}
+                        flexWrap="wrap"
+                        useFlexGap
+                    >
+                        {anatomy.organs.map((organ) => (
+                            <Chip
+                                key={organ}
+                                size="small"
+                                color="default"
+                                variant="outlined"
+                                label={formatOrganLabel(organ)}
+                                sx={traitChipSx}
+                            />
+                        ))}
+                    </Stack>
+                )}
             </Box>
         </Stack>
     );
 };
 
-const DerivedNeedsViewer = ({ records }: DerivedNeedsViewerProps) => {
+const BehavioralNeedsViewer = ({ records }: BehavioralNeedsViewerProps) => {
     const recordsByNeed = new Map<string, CreatureNeedImpactRecord[]>();
     for (const record of records) {
         recordsByNeed.set(record.need, [
@@ -587,7 +842,11 @@ const DerivedNeedsViewer = ({ records }: DerivedNeedsViewerProps) => {
 
     return (
         <Stack spacing={1}>
-            <Typography variant="subtitle2">Derived needs</Typography>
+            <Typography variant="subtitle2">Behavioral needs</Typography>
+            <Typography variant="caption" color="text.secondary">
+                Motivation weights for non-maintenance drives. Energy, food and
+                water upkeep are edited under Maintenance.
+            </Typography>
             {records.length === 0 ? (
                 <Typography variant="caption" color="text.secondary">
                     No needs are derived from current memes, morphs or traits.
@@ -709,8 +968,106 @@ const DerivedNeedsViewer = ({ records }: DerivedNeedsViewerProps) => {
     );
 };
 
+const formatActivityNutritionImpactLabel = (
+    nutritionActivity: NonNullable<
+        CreatureActionOption["record"]["nutritionActivity"]
+    >,
+) => {
+    return `${nutritionActivity.intensity}: E x${formatNumber(nutritionActivity.energyMultiplier, 1)} / P x${formatNumber(nutritionActivity.proteinMultiplier, 2)} / W x${formatNumber(nutritionActivity.waterMultiplier, 1)}`;
+};
+
+const MaintenanceSection = ({
+    records,
+    nutritionNeedsPerDay,
+    onNutritionNeedsPerDayChange,
+}: MaintenanceSectionProps) => {
+    const hasBasalMetabolismRequirement = records.some(
+        (record) =>
+            record.requirement === BASAL_METABOLISM_MAINTENANCE_REQUIREMENT,
+    );
+
+    return (
+        <Stack spacing={1.5}>
+            <Typography variant="subtitle2">Maintenance</Typography>
+            <MaintenanceRequirementsViewer
+                records={records}
+                nutritionNeedsPerDay={nutritionNeedsPerDay}
+                onNutritionNeedsPerDayChange={onNutritionNeedsPerDayChange}
+            />
+            {!hasBasalMetabolismRequirement ? (
+                <Box
+                    sx={{
+                        border: "1px solid var(--line)",
+                        borderRadius: 1,
+                        px: 1,
+                        py: 0.75,
+                    }}
+                >
+                    <Typography
+                        variant="body2"
+                        fontWeight={700}
+                        sx={{ mb: 0.75 }}
+                    >
+                        {BASAL_METABOLISM_MAINTENANCE_REQUIREMENT}
+                    </Typography>
+                    <BasalMetabolismNutritionFields
+                        value={nutritionNeedsPerDay}
+                        onChange={onNutritionNeedsPerDayChange}
+                    />
+                </Box>
+            ) : null}
+            <Stack spacing={1}>
+                <Typography variant="body2" fontWeight={700}>
+                    Daily food intake
+                </Typography>
+                <MassField
+                    label="Food mass"
+                    valueLb={nutritionNeedsPerDay.massPerDayLb}
+                    onChange={(massPerDayLb) =>
+                        onNutritionNeedsPerDayChange({
+                            ...nutritionNeedsPerDay,
+                            massPerDayLb: massPerDayLb ?? 0,
+                        })
+                    }
+                />
+            </Stack>
+            <BasalConsumptionPreview
+                nutritionNeedsPerDay={nutritionNeedsPerDay}
+            />
+        </Stack>
+    );
+};
+
+const isMaintenanceRequirementCovered = (
+    requirement: string,
+    requirementRecords: CreatureMaintenanceRequirementRecord[],
+    nutritionNeedsPerDay: CreatureNutritionNeedsData,
+): boolean => {
+    const required = requirementRecords.some(
+        (record) => record.mode === "requires",
+    );
+    if (!required) return true;
+
+    const satisfiers = requirementRecords.filter(
+        (record) =>
+            record.mode === "satisfies" || record.mode === "regulates",
+    );
+    if (satisfiers.length > 0) return true;
+
+    if (
+        requirement === BASAL_METABOLISM_MAINTENANCE_REQUIREMENT &&
+        nutritionNeedsPerDay.energyPerDay > 0
+    ) {
+        return true;
+    }
+
+    return false;
+};
+
 const MaintenanceRequirementsViewer = ({
     records,
+    nutritionNeedsPerDay,
+    onNutritionNeedsPerDayChange,
 }: MaintenanceRequirementsViewerProps) => {
     const recordsByRequirement = new Map<
         string,
@@ -740,10 +1097,10 @@ const MaintenanceRequirementsViewer = ({
                             const required = requirementRecords.some(
                                 (record) => record.mode === "requires",
                             );
-                            const satisfiers = requirementRecords.filter(
-                                (record) =>
-                                    record.mode === "satisfies" ||
-                                    record.mode === "regulates",
+                            const covered = isMaintenanceRequirementCovered(
+                                requirement,
+                                requirementRecords,
+                                nutritionNeedsPerDay,
                             );
 
                             return (
@@ -774,16 +1131,13 @@ const MaintenanceRequirementsViewer = ({
                                         <Chip
                                             size="small"
                                             color={
-                                                !required ||
-                                                satisfiers.length > 0
-                                                    ? "success"
-                                                    : "warning"
+                                                covered ? "success" : "warning"
                                             }
                                             variant="outlined"
                                             label={
                                                 !required
                                                     ? "supporting"
-                                                    : satisfiers.length > 0
+                                                    : covered
                                                       ? "covered"
                                                       : "missing satisfier"
                                             }
@@ -811,6 +1165,17 @@ const MaintenanceRequirementsViewer = ({
                                             />
                                         ))}
                                     </Stack>
+                                    {requirement ===
+                                    BASAL_METABOLISM_MAINTENANCE_REQUIREMENT ? (
+                                        <Box sx={{ mt: 1 }}>
+                                            <BasalMetabolismNutritionFields
+                                                value={nutritionNeedsPerDay}
+                                                onChange={
+                                                    onNutritionNeedsPerDayChange
+                                                }
+                                            />
+                                        </Box>
+                                    ) : null}
                                 </Box>
                             );
                         },
@@ -821,52 +1186,22 @@ const MaintenanceRequirementsViewer = ({
     );
 };
 
-const ConsumptionEditor = ({ value, onChange }: ConsumptionEditorProps) => {
-    return (
-        <Stack spacing={1.5}>
-            <Typography variant="subtitle2">Consumption per turn</Typography>
-            <Box
-                sx={{
-                    display: "grid",
-                    gridTemplateColumns: { xs: "1fr", md: "repeat(4, 1fr)" },
-                    gap: 1.5,
-                }}
-            >
-                <FractionNumberField
-                    label="Energy"
-                    value={value.energy}
-                    onChange={(energy) =>
-                        onChange({ ...value, energy: energy ?? 0 })
-                    }
-                />
-                <FractionNumberField
-                    label="Protein"
-                    value={value.protein}
-                    onChange={(protein) =>
-                        onChange({ ...value, protein: protein ?? 0 })
-                    }
-                />
-                <FractionNumberField
-                    label="Water"
-                    value={value.water}
-                    onChange={(water) => onChange({ ...value, water })}
-                />
-                <MassField
-                    label="Mass"
-                    valueLb={value.massLb}
-                    onChange={(massLb) =>
-                        onChange({ ...value, massLb: massLb ?? 0 })
-                    }
-                />
-            </Box>
-        </Stack>
-    );
-};
-
-const PhysicalEditor = ({ value, onChange }: PhysicalEditorProps) => {
+const PhysicalEditor = ({
+    value,
+    derivedSizeModifier,
+    onChange,
+}: PhysicalEditorProps) => {
     return (
         <Stack spacing={1.5}>
             <Typography variant="subtitle2">Physical averages</Typography>
+            {derivedSizeModifier !== undefined ? (
+                <Typography variant="body2" color="text.secondary">
+                    Derived size modifier (SM):{" "}
+                    {derivedSizeModifier >= 0
+                        ? `+${derivedSizeModifier}`
+                        : derivedSizeModifier}
+                </Typography>
+            ) : null}
             <Box
                 sx={{
                     display: "grid",
@@ -906,10 +1241,10 @@ const PhysicalEditor = ({ value, onChange }: PhysicalEditorProps) => {
                     }
                 />
                 <LengthField
-                    label="Length"
-                    valueFt={value.averageLengthFt}
-                    onChange={(averageLengthFt) =>
-                        onChange({ ...value, averageLengthFt })
+                    label="Silhouette width"
+                    valueFt={value.averageSilhouetteWidthFt}
+                    onChange={(averageSilhouetteWidthFt) =>
+                        onChange({ ...value, averageSilhouetteWidthFt })
                     }
                 />
                 <LengthField
@@ -1029,6 +1364,19 @@ const needSourceColor = (kind: CreatureNeedImpactRecord["sourceKind"]) => {
     if (kind === "meme") return "success" as const;
     if (kind === "morph") return "primary" as const;
     return "secondary" as const;
+};
+
+const hasMorphDerivedEstimates = (
+    summary: CreatureProfileSummary | null | undefined,
+): summary is CreatureProfileSummary => {
+    if (!summary) return false;
+    return Boolean(
+        summary.estimatedPhysicalDimensions ||
+            summary.estimatedHexVolume ||
+            summary.estimatedAverageBuildWeight ||
+            summary.estimatedStomachCapacity ||
+            summary.estimatedDailyFoodMassNeedLb !== undefined,
+    );
 };
 
 const maintenanceModeLabel = (record: CreatureMaintenanceRequirementRecord) => {
@@ -1374,6 +1722,16 @@ const ActionSelector = ({
                                             sx={traitChipSx}
                                         />
                                     ))}
+                                    {item.record?.nutritionActivity ? (
+                                        <Chip
+                                            key={`${item.key}:activity`}
+                                            size="small"
+                                            color="warning"
+                                            variant="outlined"
+                                            label={`Activity ${formatActivityNutritionImpactLabel(item.record.nutritionActivity)}`}
+                                            sx={traitChipSx}
+                                        />
+                                    ) : null}
                                 </Stack>
                             </Box>
                             <IconButton
@@ -1626,9 +1984,73 @@ export const CreatureSpeciesScreen = () => {
     const summary = effectiveProfile
         ? summarizeCreatureProfile(effectiveProfile)
         : null;
+    const morphDerivedState = useMemo(() => {
+        if (!selectedProfile) return null;
+        return resolveCreatureProfileMorphDerivedState(
+            selectedProfile,
+            profiles,
+        );
+    }, [profiles, selectedProfile]);
+    const displayPhysical =
+        morphDerivedState?.physical ?? selectedProfile?.physical;
+    const displayNutritionNeedsPerDay =
+        morphDerivedState?.nutritionNeedsPerDay ??
+        selectedProfile?.nutritionNeedsPerDay;
+    const derivedAnatomy = useMemo(() => {
+        if (!effectiveProfile) return null;
+        const bodyWeightLb =
+            summary?.estimatedAverageBuildWeight?.weightLb.average ??
+            morphDerivedState?.physical.averageWeightLb;
+        return resolveCreatureAnatomyProfile({
+            morphIds: effectiveProfile.morphs,
+            inheritedProfileIds: effectiveProfile.inheritedProfileIds,
+            bodyWeightLb,
+        });
+    }, [effectiveProfile, morphDerivedState, summary]);
+    useEffect(() => {
+        if (!selectedProfile) return;
+        setProfiles((currentProfiles) => {
+            const profile = currentProfiles[selectedIndex];
+            if (!profile) return currentProfiles;
+            const synced = syncCreatureProfileCalculatedFields(
+                profile,
+                currentProfiles,
+            );
+            const physicalMatches =
+                synced.physical.averageWeightLb ===
+                    profile.physical.averageWeightLb &&
+                synced.physical.averageSilhouetteWidthFt ===
+                    profile.physical.averageSilhouetteWidthFt &&
+                synced.physical.averageHeightFt ===
+                    profile.physical.averageHeightFt;
+            const nutritionMatches =
+                synced.nutritionNeedsPerDay.energyPerDay ===
+                    profile.nutritionNeedsPerDay.energyPerDay &&
+                synced.nutritionNeedsPerDay.proteinPerDay ===
+                    profile.nutritionNeedsPerDay.proteinPerDay &&
+                (synced.nutritionNeedsPerDay.waterPerDay ?? 0) ===
+                    (profile.nutritionNeedsPerDay.waterPerDay ?? 0);
+            if (physicalMatches && nutritionMatches) {
+                return currentProfiles;
+            }
+            return currentProfiles.map((item, index) =>
+                index === selectedIndex ? synced : item,
+            );
+        });
+    }, [
+        effectiveProfile?.inheritedProfileIds,
+        effectiveProfile?.morphs,
+        effectiveProfile?.traits,
+        selectedIndex,
+        selectedProfile?.id,
+    ]);
     const needImpactRecords = effectiveProfile
         ? getCreatureNeedImpactRecords(effectiveProfile)
         : [];
+    const behavioralNeedImpactRecords = useMemo(
+        () => filterBehavioralNeedImpactRecords(needImpactRecords),
+        [needImpactRecords],
+    );
     const maintenanceRequirementRecords = effectiveProfile
         ? getCreatureMaintenanceRequirementRecords(effectiveProfile)
         : [];
@@ -1672,14 +2094,9 @@ export const CreatureSpeciesScreen = () => {
     ) => {
         if (!selectedProfile) return;
         const previousId = selectedProfile.id;
-        const shouldRecalculateProfileFields =
-            patch.morphs !== undefined || patch.parentId !== undefined;
         const nextProfiles = profiles.map((profile, index) => {
             if (index === selectedIndex) {
-                const patchedProfile = { ...profile, ...patch };
-                return shouldRecalculateProfileFields
-                    ? clearCreatureProfileCalculatedFields(patchedProfile)
-                    : patchedProfile;
+                return { ...profile, ...patch };
             }
             if (patch.id && profile.parentId === previousId) {
                 return { ...profile, parentId: patch.id };
@@ -1699,10 +2116,22 @@ export const CreatureSpeciesScreen = () => {
         setProfiles(syncCreatureProfilesCalculatedFields(nextProfiles));
     };
 
+    const patchNutritionNeedsPerDay = (
+        nutritionNeedsPerDay: CreatureNutritionNeedsData,
+    ) => {
+        patchSelectedProfile({
+            nutritionNeedsPerDay,
+            consumptionPerTurn:
+                buildBasalConsumptionPerTurnFromDailyNeeds(
+                    nutritionNeedsPerDay,
+                ),
+        });
+    };
+
     const addActionWithRequirements = (option: CreatureActionOption) => {
         if (!selectedProfile) return;
         const requirements = getActionRequirements(option.record);
-        const nextProfile = clearCreatureProfileCalculatedFields({
+        const nextProfile = {
             ...selectedProfile,
             memes: mergeMissingLocalValues(
                 selectedProfile.memes,
@@ -1715,7 +2144,7 @@ export const CreatureSpeciesScreen = () => {
                 effectiveProfile?.morphs ?? selectedProfile.morphs,
             ),
             actions: uniqueActionRefs([...selectedProfile.actions, option.ref]),
-        });
+        };
         const nextProfiles = profiles.map((profile, index) =>
             index === selectedIndex ? nextProfile : profile,
         );
@@ -2027,11 +2456,28 @@ export const CreatureSpeciesScreen = () => {
                                         patchSelectedProfile({ morphs }, true)
                                     }
                                 />
-                                <DerivedNeedsViewer
-                                    records={needImpactRecords}
-                                />
-                                <MaintenanceRequirementsViewer
+                                {derivedAnatomy &&
+                                shouldShowDerivedAnatomy(derivedAnatomy) ? (
+                                    <DerivedAnatomyViewer
+                                        anatomy={derivedAnatomy}
+                                    />
+                                ) : null}
+                                <MaintenanceSection
                                     records={maintenanceRequirementRecords}
+                                    nutritionNeedsPerDay={
+                                        displayNutritionNeedsPerDay ?? {
+                                            energyPerDay: 0,
+                                            proteinPerDay: 0,
+                                            waterPerDay: 0,
+                                            massPerDayLb: 0,
+                                        }
+                                    }
+                                    onNutritionNeedsPerDayChange={
+                                        patchNutritionNeedsPerDay
+                                    }
+                                />
+                                <BehavioralNeedsViewer
+                                    records={behavioralNeedImpactRecords}
                                 />
                                 <Divider />
                                 <ActionSelector
@@ -2046,108 +2492,175 @@ export const CreatureSpeciesScreen = () => {
                                 />
                                 <Divider />
                                 {summary &&
-                                !summary.calculationsEnabled &&
                                 summary.calculationIssues.length > 0 ? (
-                                    <Alert severity="warning">
-                                        Morph-derived calculations are disabled
-                                        for this species until required morphs
-                                        are present:{" "}
+                                    <Alert
+                                        severity={summary.calculationIssues.some(
+                                            (issue) =>
+                                                issue.includes(
+                                                    "Missing required ST morph",
+                                                ),
+                                        )
+                                            ? "error"
+                                            : "warning"}
+                                    >
+                                        Morph-derived calculations are
+                                        incomplete until required morphs are
+                                        present:{" "}
                                         {summary.calculationIssues.join("; ")}.
+                                        {summary.calculationIssues.some(
+                                            (issue) =>
+                                                issue.includes(
+                                                    "Missing required ST morph",
+                                                ),
+                                        )
+                                            ? " Size, silhouette, and hex volume are not calculated without ST."
+                                            : " Existing profile values stay editable below."}
                                     </Alert>
                                 ) : null}
-                                <NeedsEditor
-                                    value={selectedProfile.nutritionNeedsPerDay}
-                                    onChange={(nutritionNeedsPerDay) =>
-                                        patchSelectedProfile({
-                                            nutritionNeedsPerDay,
-                                        })
-                                    }
-                                />
-                                <ConsumptionEditor
-                                    value={selectedProfile.consumptionPerTurn}
-                                    onChange={(consumptionPerTurn) =>
-                                        patchSelectedProfile({
-                                            consumptionPerTurn,
-                                        })
-                                    }
-                                />
                                 <PhysicalEditor
-                                    value={selectedProfile.physical}
+                                    value={
+                                        displayPhysical ?? {
+                                            baseVolume: 0,
+                                            minVolume: 0,
+                                            carryVolumeCapacity: 0,
+                                        }
+                                    }
+                                    derivedSizeModifier={
+                                        summary?.derivedSizeModifier
+                                    }
                                     onChange={(physical) =>
                                         patchSelectedProfile({ physical })
                                     }
                                 />
-                                {summary?.calculationsEnabled &&
-                                summary.estimatedAverageBuildWeight &&
-                                summary.estimatedStomachCapacity &&
-                                summary.estimatedDailyFoodMassNeedLb !==
-                                    undefined &&
-                                summary.estimatedHexVolume ? (
-                                    <Alert severity="info">
-                                        Estimated body weight from ST
-                                        {
-                                            summary.estimatedAverageBuildWeight
-                                                .strength
+                                {hasMorphDerivedEstimates(summary) ? (
+                                    <Alert
+                                        severity={
+                                            summary?.calculationsEnabled
+                                                ? "info"
+                                                : "warning"
                                         }
-                                        /
-                                        {
-                                            summary.estimatedAverageBuildWeight
-                                                .buildCategory
-                                        }
-                                        :{" "}
-                                        {formatNumber(
-                                            summary.estimatedAverageBuildWeight
-                                                .weightLb.min,
-                                            2,
-                                        )}
-                                        -
-                                        {formatNumber(
-                                            summary.estimatedAverageBuildWeight
-                                                .weightLb.max,
-                                            2,
-                                        )}{" "}
-                                        lb, midpoint{" "}
-                                        {formatNumber(
-                                            summary.estimatedAverageBuildWeight
-                                                .weightLb.average,
-                                            2,
-                                        )}{" "}
-                                        lb. Basis:{" "}
-                                        {
-                                            summary.estimatedAverageBuildWeight
-                                                .basis
-                                        }
-                                        <br />
-                                        Estimated stomach capacity:{" "}
-                                        {formatNumber(
-                                            summary.estimatedStomachCapacity
-                                                .capacityLb,
-                                            4,
-                                        )}{" "}
-                                        lb. Baseline daily food mass:{" "}
-                                        {formatNumber(
-                                            summary.estimatedDailyFoodMassNeedLb,
-                                            4,
-                                        )}{" "}
-                                        lb for 3 meals.
-                                        <br />
-                                        Estimated hex volume: base{" "}
-                                        {formatFractionIfNatural(
-                                            summary.estimatedHexVolume
-                                                .baseVolume,
-                                        )}
-                                        , min{" "}
-                                        {formatFractionIfNatural(
-                                            summary.estimatedHexVolume
-                                                .minVolume,
-                                        )}
-                                        , carry{" "}
-                                        {formatFractionIfNatural(
-                                            summary.estimatedHexVolume
-                                                .carryVolumeCapacity,
-                                        )}
-                                        . Basis:{" "}
-                                        {summary.estimatedHexVolume.basis}
+                                    >
+                                        {summary.estimatedAverageBuildWeight ? (
+                                            <>
+                                                Estimated body weight from ST
+                                                {
+                                                    summary
+                                                        .estimatedAverageBuildWeight
+                                                        .strength
+                                                }
+                                                /
+                                                {
+                                                    summary
+                                                        .estimatedAverageBuildWeight
+                                                        .buildCategory
+                                                }
+                                                :{" "}
+                                                {formatNumber(
+                                                    summary
+                                                        .estimatedAverageBuildWeight
+                                                        .weightLb.min,
+                                                    2,
+                                                )}
+                                                -
+                                                {formatNumber(
+                                                    summary
+                                                        .estimatedAverageBuildWeight
+                                                        .weightLb.max,
+                                                    2,
+                                                )}{" "}
+                                                lb, midpoint{" "}
+                                                {formatNumber(
+                                                    summary
+                                                        .estimatedAverageBuildWeight
+                                                        .weightLb.average,
+                                                    2,
+                                                )}{" "}
+                                                lb. Basis:{" "}
+                                                {
+                                                    summary
+                                                        .estimatedAverageBuildWeight
+                                                        .basis
+                                                }
+                                                <br />
+                                            </>
+                                        ) : null}
+                                        {summary.estimatedStomachCapacity &&
+                                        summary.estimatedDailyFoodMassNeedLb !==
+                                            undefined ? (
+                                            <>
+                                                Estimated stomach capacity:{" "}
+                                                {formatNumber(
+                                                    summary
+                                                        .estimatedStomachCapacity
+                                                        .capacityLb,
+                                                    4,
+                                                )}{" "}
+                                                lb. Baseline daily food mass:{" "}
+                                                {formatNumber(
+                                                    summary.estimatedDailyFoodMassNeedLb,
+                                                    4,
+                                                )}{" "}
+                                                lb for 3 meals.
+                                                <br />
+                                            </>
+                                        ) : null}
+                                        {summary.estimatedPhysicalDimensions ? (
+                                            <>
+                                                Derived silhouette: height{" "}
+                                                {formatNumber(
+                                                    summary
+                                                        .estimatedPhysicalDimensions
+                                                        .averageHeightFt,
+                                                    4,
+                                                )}{" "}
+                                                ft, width{" "}
+                                                {formatNumber(
+                                                    summary
+                                                        .estimatedPhysicalDimensions
+                                                        .averageSilhouetteWidthFt,
+                                                    4,
+                                                )}{" "}
+                                                ft, SM{" "}
+                                                {summary.derivedSizeModifier !==
+                                                undefined
+                                                    ? summary.derivedSizeModifier >=
+                                                      0
+                                                        ? `+${summary.derivedSizeModifier}`
+                                                        : summary.derivedSizeModifier
+                                                    : "n/a"}
+                                                . Basis:{" "}
+                                                {
+                                                    summary
+                                                        .estimatedPhysicalDimensions
+                                                        .basis
+                                                }
+                                                <br />
+                                            </>
+                                        ) : null}
+                                        {summary.estimatedHexVolume ? (
+                                            <>
+                                                Estimated hex volume: base{" "}
+                                                {formatFractionIfNatural(
+                                                    summary.estimatedHexVolume
+                                                        .baseVolume,
+                                                )}
+                                                , min{" "}
+                                                {formatFractionIfNatural(
+                                                    summary.estimatedHexVolume
+                                                        .minVolume,
+                                                )}
+                                                , carry{" "}
+                                                {formatFractionIfNatural(
+                                                    summary.estimatedHexVolume
+                                                        .carryVolumeCapacity,
+                                                )}
+                                                . Basis:{" "}
+                                                {
+                                                    summary.estimatedHexVolume
+                                                        .basis
+                                                }
+                                            </>
+                                        ) : null}
                                     </Alert>
                                 ) : null}
                                 <TextField

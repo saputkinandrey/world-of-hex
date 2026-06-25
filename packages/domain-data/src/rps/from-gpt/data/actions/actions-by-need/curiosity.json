@@ -30,6 +30,13 @@
                 "lawEffect": {
                     "explorationPermit": "issued",
                     "enforceable": true
+                },
+                "nutritionActivity": {
+                    "intensity": "rest",
+                    "energyMultiplier": 0.85,
+                    "proteinMultiplier": 1,
+                    "waterMultiplier": 0.95,
+                    "basis": "sleep and passive recovery; cost-signals"
                 }
             },
             {
@@ -42,7 +49,10 @@
                     "HEALTH": 0.1,
                     "KNOWLEDGE": 0.4
                 },
-                "requiresItem": ["specimen_vial", "gloves"],
+                "requiresItem": [
+                    "specimen_vial",
+                    "gloves"
+                ],
                 "tradeEffect": {
                     "vials": -1,
                     "herbarium_entry": "+1"
@@ -58,6 +68,13 @@
                 "lawEffect": {
                     "bioSafetyRule": "observed",
                     "enforceable": true
+                },
+                "nutritionActivity": {
+                    "intensity": "rest",
+                    "energyMultiplier": 0.85,
+                    "proteinMultiplier": 1,
+                    "waterMultiplier": 0.95,
+                    "basis": "sleep and passive recovery; cost-signals"
                 }
             },
             {
@@ -70,12 +87,17 @@
                     "WEALTH": 0.25,
                     "KNOWLEDGE": 0.4
                 },
-                "requiresItem": ["assay_kit", "forge"],
+                "requiresItem": [
+                    "assay_kit",
+                    "forge"
+                ],
                 "tradeEffect": {
                     "reagents": -1,
                     "crucible_wear": "-minor"
                 },
-                "requiredMemes": ["tech.fire.control"],
+                "requiredMemes": [
+                    "tech.fire.control"
+                ],
                 "socialImpact": {
                     "CURIOSITY": 0.5,
                     "PROSPECT_REP": 0.3
@@ -87,6 +109,13 @@
                 "lawEffect": {
                     "assayRecord": "filed",
                     "enforceable": true
+                },
+                "nutritionActivity": {
+                    "intensity": "rest",
+                    "energyMultiplier": 0.85,
+                    "proteinMultiplier": 1,
+                    "waterMultiplier": 0.95,
+                    "basis": "sleep and passive recovery; cost-signals"
                 }
             },
             {
@@ -107,6 +136,13 @@
                 "lawEffect": {
                     "trackingNote": "logged",
                     "enforceable": true
+                },
+                "nutritionActivity": {
+                    "intensity": "rest",
+                    "energyMultiplier": 0.85,
+                    "proteinMultiplier": 1,
+                    "waterMultiplier": 0.95,
+                    "basis": "sleep and passive recovery; cost-signals"
                 }
             },
             {
@@ -134,6 +170,13 @@
                 "lawEffect": {
                     "interviewLog": "recorded",
                     "enforceable": true
+                },
+                "nutritionActivity": {
+                    "intensity": "rest",
+                    "energyMultiplier": 0.85,
+                    "proteinMultiplier": 1,
+                    "waterMultiplier": 0.95,
+                    "basis": "sleep and passive recovery; cost-signals"
                 }
             },
             {
@@ -147,7 +190,11 @@
                     "KNOWLEDGE": 0.5,
                     "SPIRIT": 0.1
                 },
-                "requiresItem": ["rope", "lamp_oil", "probe_pole"],
+                "requiresItem": [
+                    "rope",
+                    "lamp_oil",
+                    "probe_pole"
+                ],
                 "tradeEffect": {
                     "rope": -1,
                     "oil": -1,
@@ -166,6 +213,13 @@
                 "lawEffect": {
                     "digPermit": "granted",
                     "enforceable": true
+                },
+                "nutritionActivity": {
+                    "intensity": "rest",
+                    "energyMultiplier": 0.85,
+                    "proteinMultiplier": 1,
+                    "waterMultiplier": 0.95,
+                    "basis": "sleep and passive recovery; cost-signals"
                 }
             },
             {
@@ -189,6 +243,13 @@
                 "lawEffect": {
                     "falseReportPenalty": "noted",
                     "enforceable": true
+                },
+                "nutritionActivity": {
+                    "intensity": "rest",
+                    "energyMultiplier": 0.85,
+                    "proteinMultiplier": 1,
+                    "waterMultiplier": 0.95,
+                    "basis": "sleep and passive recovery; cost-signals"
                 }
             },
             {
@@ -202,7 +263,10 @@
                     "WEALTH": 0.2,
                     "KNOWLEDGE": 0.5
                 },
-                "requiresItem": ["tools", "bench"],
+                "requiresItem": [
+                    "tools",
+                    "bench"
+                ],
                 "tradeEffect": {
                     "tool_wear": "-minor",
                     "scrap": "+1"
@@ -218,6 +282,13 @@
                 "lawEffect": {
                     "guildRule": "reverse_ok_if_no_theft",
                     "enforceable": true
+                },
+                "nutritionActivity": {
+                    "intensity": "rest",
+                    "energyMultiplier": 0.85,
+                    "proteinMultiplier": 1,
+                    "waterMultiplier": 0.95,
+                    "basis": "sleep and passive recovery; cost-signals"
                 }
             },
             {
@@ -245,7 +316,14 @@
                 "requiredMemes": [
                     "health.sanitation_norms",
                     "health.waste_handling"
-                ]
+                ],
+                "nutritionActivity": {
+                    "intensity": "rest",
+                    "energyMultiplier": 0.85,
+                    "proteinMultiplier": 1,
+                    "waterMultiplier": 0.95,
+                    "basis": "sleep and passive recovery; cost-signals"
+                }
             },
             {
                 "tag": "MAP_SUBTERRANEAN_PASSAGE",
@@ -258,13 +336,19 @@
                     "POWER": 0.2,
                     "KNOWLEDGE": 0.5
                 },
-                "requiresItem": ["chalk", "line", "spare_torch"],
+                "requiresItem": [
+                    "chalk",
+                    "line",
+                    "spare_torch"
+                ],
                 "tradeEffect": {
                     "chalk": -1,
                     "torches": -2,
                     "mapSegments": "+1"
                 },
-                "requiredMemes": ["comm.language.written"],
+                "requiredMemes": [
+                    "comm.language.written"
+                ],
                 "needRework": true,
                 "socialImpact": {
                     "CURIOSITY": 0.7,
@@ -277,6 +361,13 @@
                 "lawEffect": {
                     "hazardNote": "posted",
                     "enforceable": true
+                },
+                "nutritionActivity": {
+                    "intensity": "rest",
+                    "energyMultiplier": 0.85,
+                    "proteinMultiplier": 1,
+                    "waterMultiplier": 0.95,
+                    "basis": "sleep and passive recovery; cost-signals"
                 }
             },
             {
@@ -288,7 +379,9 @@
                     "KNOWLEDGE": 0.5,
                     "TRADITION": 0.1
                 },
-                "requiresItem": ["measuring_rods|water_clock|astrolabe"],
+                "requiresItem": [
+                    "measuring_rods|water_clock|astrolabe"
+                ],
                 "tradeEffect": {
                     "ink": -1,
                     "parchment": -1,
@@ -309,7 +402,14 @@
                 "requiredMemes": [
                     "comm.language.written",
                     "record.ledgerkeeping"
-                ]
+                ],
+                "nutritionActivity": {
+                    "intensity": "rest",
+                    "energyMultiplier": 0.85,
+                    "proteinMultiplier": 1,
+                    "waterMultiplier": 0.95,
+                    "basis": "sleep and passive recovery; cost-signals"
+                }
             },
             {
                 "tag": "DECIPHER_SYMBOLS",
@@ -341,7 +441,14 @@
                 "requiredMemes": [
                     "record.ledgerkeeping",
                     "econ.pooling_common_fund"
-                ]
+                ],
+                "nutritionActivity": {
+                    "intensity": "rest",
+                    "energyMultiplier": 0.85,
+                    "proteinMultiplier": 1,
+                    "waterMultiplier": 0.95,
+                    "basis": "sleep and passive recovery; cost-signals"
+                }
             },
             {
                 "tag": "OPEN_EXPLORERS_BOARD",
@@ -375,7 +482,14 @@
                     "health.sanitation_norms",
                     "health.waste_handling",
                     "comm.language.written"
-                ]
+                ],
+                "nutritionActivity": {
+                    "intensity": "rest",
+                    "energyMultiplier": 0.85,
+                    "proteinMultiplier": 1,
+                    "waterMultiplier": 0.95,
+                    "basis": "sleep and passive recovery; cost-signals"
+                }
             },
             {
                 "tag": "TRAILBLAZE_NEW_ROUTE",
@@ -405,6 +519,13 @@
                 "lawEffect": {
                     "explorationClaim": "route_registered",
                     "enforceable": true
+                },
+                "nutritionActivity": {
+                    "intensity": "rest",
+                    "energyMultiplier": 0.85,
+                    "proteinMultiplier": 1,
+                    "waterMultiplier": 0.95,
+                    "basis": "sleep and passive recovery; cost-signals"
                 }
             },
             {
@@ -430,7 +551,14 @@
                     "health.sanitation_norms",
                     "health.waste_handling",
                     "comm.language.written"
-                ]
+                ],
+                "nutritionActivity": {
+                    "intensity": "rest",
+                    "energyMultiplier": 0.85,
+                    "proteinMultiplier": 1,
+                    "waterMultiplier": 0.95,
+                    "basis": "sleep and passive recovery; cost-signals"
+                }
             },
             {
                 "tag": "PUBLISH_FINDINGS",
@@ -463,7 +591,14 @@
                 "requiredMemes": [
                     "comm.language.written",
                     "record.ledgerkeeping"
-                ]
+                ],
+                "nutritionActivity": {
+                    "intensity": "rest",
+                    "energyMultiplier": 0.85,
+                    "proteinMultiplier": 1,
+                    "waterMultiplier": 0.95,
+                    "basis": "sleep and passive recovery; cost-signals"
+                }
             }
         ]
     }

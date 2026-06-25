@@ -3,6 +3,7 @@
 ## General
 - Prefer concise changes; keep public APIs minimal.
 - Default to ASCII in new content.
+- Write implementation plans and `CreatePlan` artifacts in Russian unless the user explicitly asks for another language.
 - Always run Prettier after backend changes (use the project's formatter even for small edits).
 - Nested `AGENTS.md` apply to their subtree and override this file on conflicts.
 - Treat commands starting with `docker compose` as pre-approved local workflow for this project; do not stop to ask for permission before running them.

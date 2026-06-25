@@ -10,13 +10,22 @@
                 "STRESS": -0.05,
                 "SAFETY": 0.05
             },
-            "requiredMemes": ["eth.tactics.ambush_stalk"],
+            "requiredMemes": [
+                "eth.tactics.ambush_stalk"
+            ],
             "requiresLocation": "sun_warm_spot|rock|log|elevated_perch",
             "requiredMorphs": [
                 "core.perception",
                 "eth.predation.core",
                 "morph.sense.vision_basic"
-            ]
+            ],
+            "nutritionActivity": {
+                "intensity": "vigorous",
+                "energyMultiplier": 6.5,
+                "proteinMultiplier": 7,
+                "waterMultiplier": 7,
+                "basis": "hunting, combat, construction or hauling; module:food-hunt"
+            }
         },
         "HUNT_ACTIVE_FORAGE": {
             "tag": "HUNT_ACTIVE_FORAGE",
@@ -34,7 +43,14 @@
                 "core.perception",
                 "eth.predation.core",
                 "morph.sense.vision_basic"
-            ]
+            ],
+            "nutritionActivity": {
+                "intensity": "vigorous",
+                "energyMultiplier": 6.5,
+                "proteinMultiplier": 7,
+                "waterMultiplier": 7,
+                "basis": "hunting, combat, construction or hauling; module:food-hunt"
+            }
         }
     }
 }

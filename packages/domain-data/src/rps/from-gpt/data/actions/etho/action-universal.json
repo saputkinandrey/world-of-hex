@@ -19,7 +19,14 @@
             "requiredMorphs": [
                 "eth.predation.core",
                 "morph.sense.olfaction_tracking"
-            ]
+            ],
+            "nutritionActivity": {
+                "intensity": "moderate",
+                "energyMultiplier": 4.8,
+                "proteinMultiplier": 3.2,
+                "waterMultiplier": 6.5,
+                "basis": "walking, patrol, forage or travel; module:action-universal"
+            }
         },
         "SCENT_TRAIL_TRACK": {
             "tag": "E.SCENT_TRAIL_TRACK",
@@ -31,12 +38,21 @@
                 "CURIOSITY": 0.15,
                 "STRESS": -0.03
             },
-            "requiredMemes": ["tech.hunting.tracking_basic"],
+            "requiredMemes": [
+                "tech.hunting.tracking_basic"
+            ],
             "requiresLocation": "trail|edge|undergrowth",
             "requiredMorphs": [
                 "eth.predation.core",
                 "morph.sense.olfaction_tracking"
-            ]
+            ],
+            "nutritionActivity": {
+                "intensity": "moderate",
+                "energyMultiplier": 4.8,
+                "proteinMultiplier": 3.2,
+                "waterMultiplier": 6.5,
+                "basis": "walking, patrol, forage or travel; module:action-universal"
+            }
         },
         "VIBRATION_ALERT_HIDE": {
             "tag": "E.VIBRATION_ALERT_HIDE",
@@ -53,7 +69,14 @@
                 "core.perception",
                 "eth.maintenance.thermoregulation",
                 "morph.sense.vibration_ground"
-            ]
+            ],
+            "nutritionActivity": {
+                "intensity": "moderate",
+                "energyMultiplier": 4.8,
+                "proteinMultiplier": 3.2,
+                "waterMultiplier": 6.5,
+                "basis": "walking, patrol, forage or travel; module:action-universal"
+            }
         },
         "BASK_SUN_THERMOREGULATE": {
             "tag": "E.BASK_SUN_THERMOREGULATE",
@@ -70,7 +93,14 @@
             "requiredMorphs": [
                 "core.perception",
                 "eth.maintenance.thermoregulation"
-            ]
+            ],
+            "nutritionActivity": {
+                "intensity": "moderate",
+                "energyMultiplier": 4.8,
+                "proteinMultiplier": 3.2,
+                "waterMultiplier": 6.5,
+                "basis": "walking, patrol, forage or travel; module:action-universal"
+            }
         },
         "SEEK_COOL_SHELTER": {
             "tag": "E.SEEK_COOL_SHELTER",
@@ -82,7 +112,16 @@
                 "STRESS": -0.05
             },
             "requiresLocation": "shade|burrow|cool_crevice",
-            "requiredMorphs": ["eth.maintenance.thermoregulation"]
+            "requiredMorphs": [
+                "eth.maintenance.thermoregulation"
+            ],
+            "nutritionActivity": {
+                "intensity": "moderate",
+                "energyMultiplier": 4.8,
+                "proteinMultiplier": 3.2,
+                "waterMultiplier": 6.5,
+                "basis": "walking, patrol, forage or travel; module:action-universal"
+            }
         },
         "NOCTURNAL_FORAGE": {
             "tag": "E.NOCTURNAL_FORAGE",
@@ -96,7 +135,17 @@
                 "STRESS": -0.05
             },
             "requiresLocation": "edge|undergrowth|water_edge",
-            "requiredMorphs": ["core.perception", "eth.predation.core"]
+            "requiredMorphs": [
+                "core.perception",
+                "eth.predation.core"
+            ],
+            "nutritionActivity": {
+                "intensity": "moderate",
+                "energyMultiplier": 4.8,
+                "proteinMultiplier": 3.2,
+                "waterMultiplier": 6.5,
+                "basis": "walking, patrol, forage or travel; module:action-universal"
+            }
         },
         "SEASONAL_TORPOR": {
             "tag": "E.SEASONAL_TORPOR",
@@ -110,7 +159,17 @@
                 "REST": 0.5
             },
             "requiresLocation": "burrow|deep_crevice|nest",
-            "requiredMorphs": ["cog.iq2", "eth.maintenance.thermoregulation"]
+            "requiredMorphs": [
+                "cog.iq2",
+                "eth.maintenance.thermoregulation"
+            ],
+            "nutritionActivity": {
+                "intensity": "moderate",
+                "energyMultiplier": 4.8,
+                "proteinMultiplier": 3.2,
+                "waterMultiplier": 6.5,
+                "basis": "walking, patrol, forage or travel; module:action-universal"
+            }
         },
         "COURTSHIP_DISPLAY": {
             "tag": "E.COURTSHIP_DISPLAY",
@@ -123,9 +182,20 @@
                 "JOY": 0.1,
                 "STRESS": -0.05
             },
-            "requiredMemes": ["comm.signaling"],
+            "requiredMemes": [
+                "comm.signaling"
+            ],
             "requiresLocation": "display_site|open_ground",
-            "requiredMorphs": ["core.perception"]
+            "requiredMorphs": [
+                "core.perception"
+            ],
+            "nutritionActivity": {
+                "intensity": "moderate",
+                "energyMultiplier": 4.8,
+                "proteinMultiplier": 3.2,
+                "waterMultiplier": 6.5,
+                "basis": "walking, patrol, forage or travel; module:action-universal"
+            }
         },
         "TERRITORY_MICROHABIT_EXPLORE": {
             "tag": "E.TERRITORY_MICROHABIT_EXPLORE",
@@ -138,8 +208,19 @@
                 "KNOWLEDGE": 0.2
             },
             "requiresLocation": "territory_patch|microhabitat",
-            "requiredMorphs": ["core.perception"],
-            "requiredMemes": ["eth.territory_marking"]
+            "requiredMorphs": [
+                "core.perception"
+            ],
+            "requiredMemes": [
+                "eth.territory_marking"
+            ],
+            "nutritionActivity": {
+                "intensity": "moderate",
+                "energyMultiplier": 4.8,
+                "proteinMultiplier": 3.2,
+                "waterMultiplier": 6.5,
+                "basis": "walking, patrol, forage or travel; module:action-universal"
+            }
         },
         "DEFENSIVE_WARNING_DISPLAY": {
             "tag": "E.DEFENSIVE_WARNING_DISPLAY",
@@ -151,9 +232,21 @@
                 "STRESS": -0.1,
                 "COURAGE": 0.1
             },
-            "requiredMemes": ["comm.signaling", "tech.combat.core"],
+            "requiredMemes": [
+                "comm.signaling",
+                "tech.combat.core"
+            ],
             "requiresLocation": "any",
-            "requiredMorphs": ["core.perception"]
+            "requiredMorphs": [
+                "core.perception"
+            ],
+            "nutritionActivity": {
+                "intensity": "moderate",
+                "energyMultiplier": 4.8,
+                "proteinMultiplier": 3.2,
+                "waterMultiplier": 6.5,
+                "basis": "walking, patrol, forage or travel; module:action-universal"
+            }
         },
         "BURROW_HIDE_OR_AMBUSH": {
             "tag": "E.BURROW_HIDE_OR_AMBUSH",
@@ -166,8 +259,19 @@
                 "STRESS": -0.05
             },
             "requiresLocation": "burrow|termite_mound|root_mat",
-            "requiredMemes": ["eth.tactics.ambush_stalk"],
-            "requiredMorphs": ["eth.maintenance.thermoregulation"]
+            "requiredMemes": [
+                "eth.tactics.ambush_stalk"
+            ],
+            "requiredMorphs": [
+                "eth.maintenance.thermoregulation"
+            ],
+            "nutritionActivity": {
+                "intensity": "moderate",
+                "energyMultiplier": 4.8,
+                "proteinMultiplier": 3.2,
+                "waterMultiplier": 6.5,
+                "basis": "walking, patrol, forage or travel; module:action-universal"
+            }
         },
         "UniversalEthoActions": [
             {
@@ -189,7 +293,14 @@
                 "requiredMorphs": [
                     "eth.predation.core",
                     "morph.sense.olfaction_tracking"
-                ]
+                ],
+                "nutritionActivity": {
+                    "intensity": "moderate",
+                    "energyMultiplier": 4.8,
+                    "proteinMultiplier": 3.2,
+                    "waterMultiplier": 6.5,
+                    "basis": "walking, patrol, forage or travel; module:action-universal"
+                }
             },
             {
                 "tag": "E.SCENT_TRAIL_TRACK",
@@ -201,12 +312,21 @@
                     "CURIOSITY": 0.15,
                     "STRESS": -0.03
                 },
-                "requiredMemes": ["tech.hunting.tracking_basic"],
+                "requiredMemes": [
+                    "tech.hunting.tracking_basic"
+                ],
                 "requiresLocation": "trail|edge|undergrowth",
                 "requiredMorphs": [
                     "eth.predation.core",
                     "morph.sense.olfaction_tracking"
-                ]
+                ],
+                "nutritionActivity": {
+                    "intensity": "moderate",
+                    "energyMultiplier": 4.8,
+                    "proteinMultiplier": 3.2,
+                    "waterMultiplier": 6.5,
+                    "basis": "walking, patrol, forage or travel; module:action-universal"
+                }
             },
             {
                 "tag": "E.VIBRATION_ALERT_HIDE",
@@ -223,7 +343,14 @@
                     "core.perception",
                     "eth.maintenance.thermoregulation",
                     "morph.sense.vibration_ground"
-                ]
+                ],
+                "nutritionActivity": {
+                    "intensity": "moderate",
+                    "energyMultiplier": 4.8,
+                    "proteinMultiplier": 3.2,
+                    "waterMultiplier": 6.5,
+                    "basis": "walking, patrol, forage or travel; module:action-universal"
+                }
             },
             {
                 "tag": "E.BASK_SUN_THERMOREGULATE",
@@ -240,7 +367,14 @@
                 "requiredMorphs": [
                     "core.perception",
                     "eth.maintenance.thermoregulation"
-                ]
+                ],
+                "nutritionActivity": {
+                    "intensity": "moderate",
+                    "energyMultiplier": 4.8,
+                    "proteinMultiplier": 3.2,
+                    "waterMultiplier": 6.5,
+                    "basis": "walking, patrol, forage or travel; module:action-universal"
+                }
             },
             {
                 "tag": "E.SEEK_COOL_SHELTER",
@@ -252,7 +386,16 @@
                     "STRESS": -0.05
                 },
                 "requiresLocation": "shade|burrow|cool_crevice",
-                "requiredMorphs": ["eth.maintenance.thermoregulation"]
+                "requiredMorphs": [
+                    "eth.maintenance.thermoregulation"
+                ],
+                "nutritionActivity": {
+                    "intensity": "moderate",
+                    "energyMultiplier": 4.8,
+                    "proteinMultiplier": 3.2,
+                    "waterMultiplier": 6.5,
+                    "basis": "walking, patrol, forage or travel; module:action-universal"
+                }
             },
             {
                 "tag": "E.NOCTURNAL_FORAGE",
@@ -266,7 +409,17 @@
                     "STRESS": -0.05
                 },
                 "requiresLocation": "edge|undergrowth|water_edge",
-                "requiredMorphs": ["core.perception", "eth.predation.core"]
+                "requiredMorphs": [
+                    "core.perception",
+                    "eth.predation.core"
+                ],
+                "nutritionActivity": {
+                    "intensity": "moderate",
+                    "energyMultiplier": 4.8,
+                    "proteinMultiplier": 3.2,
+                    "waterMultiplier": 6.5,
+                    "basis": "walking, patrol, forage or travel; module:action-universal"
+                }
             },
             {
                 "tag": "E.SEASONAL_TORPOR",
@@ -283,7 +436,14 @@
                 "requiredMorphs": [
                     "cog.iq2",
                     "eth.maintenance.thermoregulation"
-                ]
+                ],
+                "nutritionActivity": {
+                    "intensity": "moderate",
+                    "energyMultiplier": 4.8,
+                    "proteinMultiplier": 3.2,
+                    "waterMultiplier": 6.5,
+                    "basis": "walking, patrol, forage or travel; module:action-universal"
+                }
             },
             {
                 "tag": "E.COURTSHIP_DISPLAY",
@@ -296,9 +456,20 @@
                     "JOY": 0.1,
                     "STRESS": -0.05
                 },
-                "requiredMemes": ["comm.signaling"],
+                "requiredMemes": [
+                    "comm.signaling"
+                ],
                 "requiresLocation": "display_site|open_ground",
-                "requiredMorphs": ["core.perception"]
+                "requiredMorphs": [
+                    "core.perception"
+                ],
+                "nutritionActivity": {
+                    "intensity": "moderate",
+                    "energyMultiplier": 4.8,
+                    "proteinMultiplier": 3.2,
+                    "waterMultiplier": 6.5,
+                    "basis": "walking, patrol, forage or travel; module:action-universal"
+                }
             },
             {
                 "tag": "E.TERRITORY_MICROHABIT_EXPLORE",
@@ -311,8 +482,19 @@
                     "KNOWLEDGE": 0.2
                 },
                 "requiresLocation": "territory_patch|microhabitat",
-                "requiredMorphs": ["core.perception"],
-                "requiredMemes": ["eth.territory_marking"]
+                "requiredMorphs": [
+                    "core.perception"
+                ],
+                "requiredMemes": [
+                    "eth.territory_marking"
+                ],
+                "nutritionActivity": {
+                    "intensity": "moderate",
+                    "energyMultiplier": 4.8,
+                    "proteinMultiplier": 3.2,
+                    "waterMultiplier": 6.5,
+                    "basis": "walking, patrol, forage or travel; module:action-universal"
+                }
             },
             {
                 "tag": "E.DEFENSIVE_WARNING_DISPLAY",
@@ -324,9 +506,21 @@
                     "STRESS": -0.1,
                     "COURAGE": 0.1
                 },
-                "requiredMemes": ["comm.signaling", "tech.combat.core"],
+                "requiredMemes": [
+                    "comm.signaling",
+                    "tech.combat.core"
+                ],
                 "requiresLocation": "any",
-                "requiredMorphs": ["core.perception"]
+                "requiredMorphs": [
+                    "core.perception"
+                ],
+                "nutritionActivity": {
+                    "intensity": "moderate",
+                    "energyMultiplier": 4.8,
+                    "proteinMultiplier": 3.2,
+                    "waterMultiplier": 6.5,
+                    "basis": "walking, patrol, forage or travel; module:action-universal"
+                }
             },
             {
                 "tag": "E.BURROW_HIDE_OR_AMBUSH",
@@ -339,8 +533,19 @@
                     "STRESS": -0.05
                 },
                 "requiresLocation": "burrow|termite_mound|root_mat",
-                "requiredMemes": ["eth.tactics.ambush_stalk"],
-                "requiredMorphs": ["eth.maintenance.thermoregulation"]
+                "requiredMemes": [
+                    "eth.tactics.ambush_stalk"
+                ],
+                "requiredMorphs": [
+                    "eth.maintenance.thermoregulation"
+                ],
+                "nutritionActivity": {
+                    "intensity": "moderate",
+                    "energyMultiplier": 4.8,
+                    "proteinMultiplier": 3.2,
+                    "waterMultiplier": 6.5,
+                    "basis": "walking, patrol, forage or travel; module:action-universal"
+                }
             }
         ]
     }

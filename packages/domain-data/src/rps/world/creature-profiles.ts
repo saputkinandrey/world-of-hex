@@ -33,6 +33,18 @@ import mammalProfileJson from "./data/creature-profiles/animal.mammal.json";
 import mammalPrimateChimpanzeeProfileJson from "./data/creature-profiles/animal.mammal.primate.chimpanzee.json";
 import mammalPrimateGorillaProfileJson from "./data/creature-profiles/animal.mammal.primate.gorilla.json";
 import mammalPrimateHumanProfileJson from "./data/creature-profiles/animal.mammal.primate.human.json";
+import humanCultureAbydosianProfileJson from "./data/creature-profiles/human.culture.abydosian.json";
+import humanCultureBarbarianJungleProfileJson from "./data/creature-profiles/human.culture.barbarian-jungle.json";
+import humanCultureImperialProfileJson from "./data/creature-profiles/human.culture.imperial.json";
+import humanCulturePalladianProfileJson from "./data/creature-profiles/human.culture.palladian.json";
+import humanCultureRetanMidlandProfileJson from "./data/creature-profiles/human.culture.retan.midland.json";
+import humanCultureRetanNorthProfileJson from "./data/creature-profiles/human.culture.retan.north.json";
+import humanCultureRetanSouthProfileJson from "./data/creature-profiles/human.culture.retan.south.json";
+import humanRaceAbydosianProfileJson from "./data/creature-profiles/human.race.abydosian.json";
+import humanRaceBarbarianGiantProfileJson from "./data/creature-profiles/human.race.barbarian-giant.json";
+import humanRaceImperialProfileJson from "./data/creature-profiles/human.race.imperial.json";
+import humanRacePalladianProfileJson from "./data/creature-profiles/human.race.palladian.json";
+import humanRaceRetanProfileJson from "./data/creature-profiles/human.race.retan.json";
 import mammalPrimateProfileJson from "./data/creature-profiles/animal.mammal.primate.json";
 import mammalRodentProfileJson from "./data/creature-profiles/animal.mammal.rodent.json";
 import plantAquaticWetlandProfileJson from "./data/creature-profiles/plant.aquatic_wetland.json";
@@ -135,6 +147,30 @@ export const creatureProfileDataFilePaths = {
         "packages/domain-data/src/rps/world/data/creature-profiles/animal.mammal.primate.gorilla.json",
     animalMammalPrimateHuman:
         "packages/domain-data/src/rps/world/data/creature-profiles/animal.mammal.primate.human.json",
+    humanCultureAbydosian:
+        "packages/domain-data/src/rps/world/data/creature-profiles/human.culture.abydosian.json",
+    humanCultureBarbarianJungle:
+        "packages/domain-data/src/rps/world/data/creature-profiles/human.culture.barbarian-jungle.json",
+    humanCultureImperial:
+        "packages/domain-data/src/rps/world/data/creature-profiles/human.culture.imperial.json",
+    humanCulturePalladian:
+        "packages/domain-data/src/rps/world/data/creature-profiles/human.culture.palladian.json",
+    humanCultureRetanMidland:
+        "packages/domain-data/src/rps/world/data/creature-profiles/human.culture.retan.midland.json",
+    humanCultureRetanNorth:
+        "packages/domain-data/src/rps/world/data/creature-profiles/human.culture.retan.north.json",
+    humanCultureRetanSouth:
+        "packages/domain-data/src/rps/world/data/creature-profiles/human.culture.retan.south.json",
+    humanRaceAbydosian:
+        "packages/domain-data/src/rps/world/data/creature-profiles/human.race.abydosian.json",
+    humanRaceBarbarianGiant:
+        "packages/domain-data/src/rps/world/data/creature-profiles/human.race.barbarian-giant.json",
+    humanRaceImperial:
+        "packages/domain-data/src/rps/world/data/creature-profiles/human.race.imperial.json",
+    humanRacePalladian:
+        "packages/domain-data/src/rps/world/data/creature-profiles/human.race.palladian.json",
+    humanRaceRetan:
+        "packages/domain-data/src/rps/world/data/creature-profiles/human.race.retan.json",
     animalMammalRodent:
         "packages/domain-data/src/rps/world/data/creature-profiles/animal.mammal.rodent.json",
     plant: "packages/domain-data/src/rps/world/data/creature-profiles/plant.json",
@@ -232,6 +268,30 @@ export const MAMMAL_PRIMATE_GORILLA_PROFILE_DATA =
     mammalPrimateGorillaProfileJson as CreatureProfileData;
 export const MAMMAL_PRIMATE_HUMAN_PROFILE_DATA =
     mammalPrimateHumanProfileJson as CreatureProfileData;
+export const HUMAN_CULTURE_ABYDOSIAN_PROFILE_DATA =
+    humanCultureAbydosianProfileJson as CreatureProfileData;
+export const HUMAN_CULTURE_BARBARIAN_JUNGLE_PROFILE_DATA =
+    humanCultureBarbarianJungleProfileJson as CreatureProfileData;
+export const HUMAN_CULTURE_IMPERIAL_PROFILE_DATA =
+    humanCultureImperialProfileJson as CreatureProfileData;
+export const HUMAN_CULTURE_PALLADIAN_PROFILE_DATA =
+    humanCulturePalladianProfileJson as CreatureProfileData;
+export const HUMAN_CULTURE_RETAN_MIDLAND_PROFILE_DATA =
+    humanCultureRetanMidlandProfileJson as CreatureProfileData;
+export const HUMAN_CULTURE_RETAN_NORTH_PROFILE_DATA =
+    humanCultureRetanNorthProfileJson as CreatureProfileData;
+export const HUMAN_CULTURE_RETAN_SOUTH_PROFILE_DATA =
+    humanCultureRetanSouthProfileJson as CreatureProfileData;
+export const HUMAN_RACE_ABYDOSIAN_PROFILE_DATA =
+    humanRaceAbydosianProfileJson as CreatureProfileData;
+export const HUMAN_RACE_BARBARIAN_GIANT_PROFILE_DATA =
+    humanRaceBarbarianGiantProfileJson as CreatureProfileData;
+export const HUMAN_RACE_IMPERIAL_PROFILE_DATA =
+    humanRaceImperialProfileJson as CreatureProfileData;
+export const HUMAN_RACE_PALLADIAN_PROFILE_DATA =
+    humanRacePalladianProfileJson as CreatureProfileData;
+export const HUMAN_RACE_RETAN_PROFILE_DATA =
+    humanRaceRetanProfileJson as CreatureProfileData;
 export const MAMMAL_RODENT_PROFILE_DATA =
     mammalRodentProfileJson as CreatureProfileData;
 export const PLANT_PROFILE_DATA = plantProfileJson as CreatureProfileData;
@@ -306,6 +366,25 @@ export const creatureProfiles = {
     [MAMMAL_PRIMATE_GORILLA_PROFILE_DATA.id]:
         MAMMAL_PRIMATE_GORILLA_PROFILE_DATA,
     [MAMMAL_PRIMATE_HUMAN_PROFILE_DATA.id]: MAMMAL_PRIMATE_HUMAN_PROFILE_DATA,
+    [HUMAN_CULTURE_ABYDOSIAN_PROFILE_DATA.id]:
+        HUMAN_CULTURE_ABYDOSIAN_PROFILE_DATA,
+    [HUMAN_CULTURE_BARBARIAN_JUNGLE_PROFILE_DATA.id]:
+        HUMAN_CULTURE_BARBARIAN_JUNGLE_PROFILE_DATA,
+    [HUMAN_CULTURE_IMPERIAL_PROFILE_DATA.id]: HUMAN_CULTURE_IMPERIAL_PROFILE_DATA,
+    [HUMAN_CULTURE_PALLADIAN_PROFILE_DATA.id]:
+        HUMAN_CULTURE_PALLADIAN_PROFILE_DATA,
+    [HUMAN_CULTURE_RETAN_MIDLAND_PROFILE_DATA.id]:
+        HUMAN_CULTURE_RETAN_MIDLAND_PROFILE_DATA,
+    [HUMAN_CULTURE_RETAN_NORTH_PROFILE_DATA.id]:
+        HUMAN_CULTURE_RETAN_NORTH_PROFILE_DATA,
+    [HUMAN_CULTURE_RETAN_SOUTH_PROFILE_DATA.id]:
+        HUMAN_CULTURE_RETAN_SOUTH_PROFILE_DATA,
+    [HUMAN_RACE_ABYDOSIAN_PROFILE_DATA.id]: HUMAN_RACE_ABYDOSIAN_PROFILE_DATA,
+    [HUMAN_RACE_BARBARIAN_GIANT_PROFILE_DATA.id]:
+        HUMAN_RACE_BARBARIAN_GIANT_PROFILE_DATA,
+    [HUMAN_RACE_IMPERIAL_PROFILE_DATA.id]: HUMAN_RACE_IMPERIAL_PROFILE_DATA,
+    [HUMAN_RACE_PALLADIAN_PROFILE_DATA.id]: HUMAN_RACE_PALLADIAN_PROFILE_DATA,
+    [HUMAN_RACE_RETAN_PROFILE_DATA.id]: HUMAN_RACE_RETAN_PROFILE_DATA,
     [MAMMAL_RODENT_PROFILE_DATA.id]: MAMMAL_RODENT_PROFILE_DATA,
     [PLANT_PROFILE_DATA.id]: PLANT_PROFILE_DATA,
     [PLANT_AQUATIC_WETLAND_PROFILE_DATA.id]: PLANT_AQUATIC_WETLAND_PROFILE_DATA,

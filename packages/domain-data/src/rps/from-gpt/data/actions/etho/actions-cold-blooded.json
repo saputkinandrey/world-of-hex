@@ -15,7 +15,14 @@
                 "core.perception",
                 "eth.maintenance.thermoregulation"
             ],
-            "requiresLocation": "shade|burrow|rock_crevice|water_edge"
+            "requiresLocation": "shade|burrow|rock_crevice|water_edge",
+            "nutritionActivity": {
+                "intensity": "moderate",
+                "energyMultiplier": 4.8,
+                "proteinMultiplier": 3.2,
+                "waterMultiplier": 6.5,
+                "basis": "walking, patrol, forage or travel; module:actions-cold-blooded"
+            }
         }
     }
 }

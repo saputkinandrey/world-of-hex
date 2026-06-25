@@ -33,13 +33,19 @@
             "signaling": "comm.signaling"
         },
         "culture": {
+            "blood_sacrifice_rites": "culture.blood_sacrifice_rites",
+            "clan_thing_law": "culture.clan_thing_law",
             "competition": {
                 "ethos": "culture.competition.ethos",
                 "fair_play_norm": "culture.competition.fair_play_norm"
             },
+            "courtly_display_southern": "culture.courtly_display_southern",
             "justice_concept": "culture.justice_concept",
             "oath_norm": "culture.oath_norm",
+            "oral_totem_memory": "culture.oral_totem_memory",
             "ritual_basic": "culture.ritual_basic",
+            "ritualized_violence_norm": "culture.ritualized_violence_norm",
+            "temple_cult_state": "culture.temple_cult_state",
             "vigil_ritual": "culture.vigil_ritual"
         },
         "econ": {
@@ -50,6 +56,8 @@
             "deposit_contract": "econ.deposit_contract",
             "exchange_barter": "econ.exchange_barter",
             "market_norms": "econ.market_norms",
+            "market_price_system": "econ.market_price_system",
+            "maritime_trade_custom": "econ.maritime_trade_custom",
             "pooling_common_fund": "econ.pooling_common_fund",
             "token_use": "econ.token_use"
         },
@@ -71,7 +79,10 @@
                 "constriction": "eth.tactics.constriction",
                 "pursuit_chase": "eth.tactics.pursuit_chase"
             },
-            "territory_marking": "eth.territory_marking"
+            "territory_marking": "eth.territory_marking",
+            "jungle": {
+                "tribal_life": "eth.jungle.tribal_life"
+            }
         },
         "health": {
             "first_aid_basic": "health.first_aid_basic",
@@ -82,10 +93,20 @@
             "waste_sorting": "health.waste_sorting"
         },
         "law": {
+            "civic_court_public": "law.civic_court_public",
             "public_posting": "law.public_posting"
         },
         "org": {
+            "bureaucracy": {
+                "paper_office": "org.bureaucracy.paper_office"
+            },
+            "caste_craft_guilds": "org.caste_craft_guilds",
             "duty_roster": "org.duty_roster",
+            "feudal_oath_network": "org.feudal_oath_network",
+            "guild_town_charter": "org.guild_town_charter",
+            "polis": {
+                "civic_assembly": "org.polis.civic_assembly"
+            },
             "scheduling": "org.scheduling",
             "tournament": {
                 "organizing_basic": "org.tournament.organizing_basic"
@@ -97,13 +118,15 @@
         },
         "record": {
             "boundary_marking": "record.boundary_marking",
+            "census_registry": "record.census_registry",
             "contract_registry": "record.contract_registry",
             "innovation_register": "record.innovation_register",
             "ledgerkeeping": "record.ledgerkeeping",
             "scoreboard": {
                 "basic": "record.scoreboard.basic"
             },
-            "submissions_registry": "record.submissions_registry"
+            "submissions_registry": "record.submissions_registry",
+            "temple_archive": "record.temple_archive"
         },
         "soc": {
             "networking": {
@@ -150,11 +173,15 @@
             },
             "heat": {
                 "core": "tech.heat.core",
+                "factory_boiler": "tech.heat.factory_boiler",
                 "industrial": "tech.heat.industrial",
                 "space": {
                     "core": "tech.heat.space.core",
                     "hearth": "tech.heat.space.hearth"
                 }
+            },
+            "irrigation": {
+                "canal_basic": "tech.irrigation.canal_basic"
             },
             "hunting": {
                 "ambush_stalk": "tech.hunting.ambush_stalk",
@@ -164,6 +191,15 @@
                 "tracking_basic": "tech.hunting.tracking_basic",
                 "trapping_basic": "tech.hunting.trapping_basic"
             },
+            "sailing": {
+                "lateen_rig_basic": "tech.sailing.lateen_rig_basic"
+            },
+            "steam": {
+                "engine_stationary": "tech.steam.engine_stationary",
+                "power_basic": "tech.steam.power_basic",
+                "transport_rail_basic": "tech.steam.transport_rail_basic"
+            },
+            "stone_tool_core": "tech.stone_tool_core",
             "throwing": {
                 "basic": "tech.throwing.basic"
             },
@@ -205,6 +241,34 @@
             "culture.ritual_basic",
             "cog.timekeeping.basic"
         ],
+        "culture.blood_sacrifice_rites": [
+            "culture.ritual_basic",
+            "culture.oral_totem_memory",
+            "tech.hunting.core"
+        ],
+        "culture.clan_thing_law": [
+            "culture.oath_norm",
+            "law.public_posting",
+            "soc.networking.coalition_building"
+        ],
+        "culture.courtly_display_southern": [
+            "culture.oath_norm",
+            "comm.rhetoric.public_debate",
+            "econ.market_norms"
+        ],
+        "culture.oral_totem_memory": [
+            "comm.language.spoken",
+            "culture.ritual_basic"
+        ],
+        "culture.ritualized_violence_norm": [
+            "culture.blood_sacrifice_rites",
+            "eth.jungle.tribal_life"
+        ],
+        "culture.temple_cult_state": [
+            "culture.ritual_basic",
+            "record.ledgerkeeping",
+            "org.scheduling"
+        ],
         "econ.contracting.bidding_norm": [
             "econ.contracting.contract_basic",
             "econ.exchange_barter",
@@ -217,6 +281,16 @@
         "econ.deposit_contract": ["econ.pooling_common_fund", "cog.iq9"],
         "econ.exchange_barter": ["cog.iq7"],
         "econ.market_norms": ["econ.token_use", "org.scheduling", "cog.iq8"],
+        "econ.market_price_system": [
+            "econ.market_norms",
+            "record.ledgerkeeping",
+            "econ.token_use"
+        ],
+        "econ.maritime_trade_custom": [
+            "econ.market_norms",
+            "record.boundary_marking",
+            "cog.space_mapping"
+        ],
         "econ.pooling_common_fund": ["record.ledgerkeeping"],
         "econ.token_use": ["econ.exchange_barter", "cog.number_concept"],
         "eth.predation.drive.opportunistic": ["eth.predation.core"],
@@ -228,6 +302,10 @@
         "eth.tactics.constriction": ["core.motor_coordination"],
         "eth.tactics.pursuit_chase": ["core.motor_coordination"],
         "eth.territory_marking": ["cog.iq2"],
+        "eth.jungle.tribal_life": [
+            "eth.sociality.cooperative",
+            "tech.hunting.tracking_basic"
+        ],
         "health.first_aid_basic": ["cog.iq7"],
         "health.herbal_knowledge": ["cog.iq7"],
         "health.hygiene_tools": ["tech.tool.use_basic", "cog.iq7"],
@@ -235,7 +313,37 @@
         "health.waste_handling": ["health.sanitation_norms"],
         "health.waste_sorting": ["health.waste_handling"],
         "law.public_posting": ["comm.language.written"],
+        "law.civic_court_public": [
+            "org.polis.civic_assembly",
+            "law.public_posting",
+            "culture.oath_norm"
+        ],
+        "org.bureaucracy.paper_office": [
+            "comm.language.written",
+            "record.ledgerkeeping",
+            "law.public_posting"
+        ],
+        "org.caste_craft_guilds": [
+            "org.workshop_practice",
+            "culture.oath_norm",
+            "record.ledgerkeeping"
+        ],
         "org.duty_roster": ["org.scheduling", "cog.iq8"],
+        "org.feudal_oath_network": [
+            "culture.oath_norm",
+            "record.contract_registry",
+            "law.public_posting"
+        ],
+        "org.guild_town_charter": [
+            "org.workshop_practice",
+            "record.contract_registry",
+            "law.public_posting"
+        ],
+        "org.polis.civic_assembly": [
+            "comm.rhetoric.public_debate",
+            "culture.justice_concept",
+            "soc.shared_attention"
+        ],
         "org.scheduling": ["cog.timekeeping.basic"],
         "org.tournament.organizing_basic": [
             "org.scheduling",
@@ -250,6 +358,10 @@
             "cog.space_mapping",
             "cog.standards.agreement"
         ],
+        "record.census_registry": [
+            "org.bureaucracy.paper_office",
+            "record.contract_registry"
+        ],
         "record.contract_registry": ["record.ledgerkeeping"],
         "record.innovation_register": ["record.ledgerkeeping"],
         "record.ledgerkeeping": ["cog.number_concept", "comm.language.written"],
@@ -258,6 +370,11 @@
             "cog.number_concept"
         ],
         "record.submissions_registry": ["record.ledgerkeeping"],
+        "record.temple_archive": [
+            "comm.language.written",
+            "record.ledgerkeeping",
+            "culture.temple_cult_state"
+        ],
         "soc.networking.basic": ["soc.shared_attention", "comm.signaling"],
         "soc.networking.coalition_building": [
             "soc.networking.basic",
@@ -290,6 +407,15 @@
         "tech.food.sanitation.kitchen_hygiene": ["health.sanitation_norms"],
         "tech.heat.core": ["tech.fire.use"],
         "tech.heat.industrial": ["tech.heat.core", "cog.iq9"],
+        "tech.heat.factory_boiler": [
+            "tech.steam.power_basic",
+            "tech.heat.industrial"
+        ],
+        "tech.irrigation.canal_basic": [
+            "cog.measurement.rudimentary",
+            "record.boundary_marking",
+            "org.scheduling"
+        ],
         "tech.heat.space.core": ["tech.heat.core"],
         "tech.heat.space.hearth": ["tech.heat.space.core"],
         "tech.hunting.core": ["core.motor_coordination"],
@@ -306,6 +432,26 @@
             "tech.hunting.core",
             "tech.tool.use_basic"
         ],
+        "tech.sailing.lateen_rig_basic": [
+            "cog.space_mapping",
+            "tech.tool.making",
+            "org.scheduling"
+        ],
+        "tech.steam.power_basic": [
+            "tech.heat.industrial",
+            "tech.tool.making",
+            "cog.measurement.rudimentary"
+        ],
+        "tech.steam.engine_stationary": [
+            "tech.steam.power_basic",
+            "org.workshop_practice"
+        ],
+        "tech.steam.transport_rail_basic": [
+            "tech.steam.engine_stationary",
+            "record.boundary_marking",
+            "org.scheduling"
+        ],
+        "tech.stone_tool_core": ["tech.tool.shaping", "tech.fire.use"],
         "tech.throwing.basic": ["core.motor_coordination"],
         "tech.tool.making": ["tech.tool.shaping", "cog.iq7"],
         "tech.tool.shaping": ["tech.tool.use_basic", "cog.iq6"],

@@ -28,7 +28,16 @@
                     "ruleId": "role_matrix_v1",
                     "enforceable": true
                 },
-                "requiredMemes": ["comm.language.written"]
+                "requiredMemes": [
+                    "comm.language.written"
+                ],
+                "nutritionActivity": {
+                    "intensity": "rest",
+                    "energyMultiplier": 0.85,
+                    "proteinMultiplier": 1,
+                    "waterMultiplier": 0.95,
+                    "basis": "sleep and passive recovery; cost-signals"
+                }
             },
             {
                 "tag": "SET_QUOTAS",
@@ -54,6 +63,13 @@
                 "tradeEffect": {
                     "expectedInflow_grain": "+20%",
                     "ledgerNote": "tithe-updated"
+                },
+                "nutritionActivity": {
+                    "intensity": "rest",
+                    "energyMultiplier": 0.85,
+                    "proteinMultiplier": 1,
+                    "waterMultiplier": 0.95,
+                    "basis": "sleep and passive recovery; cost-signals"
                 }
             },
             {
@@ -80,7 +96,14 @@
                 "requiredMemes": [
                     "comm.language.written",
                     "org.workshop_practice"
-                ]
+                ],
+                "nutritionActivity": {
+                    "intensity": "rest",
+                    "energyMultiplier": 0.85,
+                    "proteinMultiplier": 1,
+                    "waterMultiplier": 0.95,
+                    "basis": "sleep and passive recovery; cost-signals"
+                }
             },
             {
                 "tag": "AUDIT_STOCKS",
@@ -105,6 +128,13 @@
                 "ownershipEffect": {
                     "lockInventory": true,
                     "accessScope": "granary"
+                },
+                "nutritionActivity": {
+                    "intensity": "rest",
+                    "energyMultiplier": 0.85,
+                    "proteinMultiplier": 1,
+                    "waterMultiplier": 0.95,
+                    "basis": "sleep and passive recovery; cost-signals"
                 }
             },
             {
@@ -131,6 +161,13 @@
                 "socialImpact": {
                     "SAFETY": 0.2,
                     "RESPECT": 0.1
+                },
+                "nutritionActivity": {
+                    "intensity": "rest",
+                    "energyMultiplier": 0.85,
+                    "proteinMultiplier": 1,
+                    "waterMultiplier": 0.95,
+                    "basis": "sleep and passive recovery; cost-signals"
                 }
             },
             {
@@ -157,6 +194,13 @@
                 "lawEffect": {
                     "appointmentWrit": "overseer_#23",
                     "enforceable": true
+                },
+                "nutritionActivity": {
+                    "intensity": "rest",
+                    "energyMultiplier": 0.85,
+                    "proteinMultiplier": 1,
+                    "waterMultiplier": 0.95,
+                    "basis": "sleep and passive recovery; cost-signals"
                 }
             },
             {
@@ -177,6 +221,13 @@
                 "lawEffect": {
                     "orderRef": "ord-178",
                     "enforceable": true
+                },
+                "nutritionActivity": {
+                    "intensity": "sedentary",
+                    "energyMultiplier": 2.35,
+                    "proteinMultiplier": 2.45,
+                    "waterMultiplier": 2.7,
+                    "basis": "seated cognitive, social or administrative work; cost-signals"
                 }
             },
             {
@@ -200,6 +251,13 @@
                     "decreeId": "dec-51",
                     "text": "market_open_hours",
                     "enforceable": true
+                },
+                "nutritionActivity": {
+                    "intensity": "sedentary",
+                    "energyMultiplier": 2.35,
+                    "proteinMultiplier": 2.45,
+                    "waterMultiplier": 2.7,
+                    "basis": "seated cognitive, social or administrative work; cost-signals"
                 }
             },
             {
@@ -222,6 +280,13 @@
                 "lawEffect": {
                     "enforcementAction": "warning|fine|detain",
                     "enforceable": true
+                },
+                "nutritionActivity": {
+                    "intensity": "rest",
+                    "energyMultiplier": 0.85,
+                    "proteinMultiplier": 1,
+                    "waterMultiplier": 0.95,
+                    "basis": "sleep and passive recovery; cost-signals"
                 }
             },
             {
@@ -234,7 +299,10 @@
                     "LOYALTY": 0.5,
                     "TRUST": 0.3
                 },
-                "requiresItem": ["rations", "tokens"],
+                "requiresItem": [
+                    "rations",
+                    "tokens"
+                ],
                 "targetType": "OTHER",
                 "socialImpact": {
                     "GRATITUDE": 0.3,
@@ -244,7 +312,16 @@
                     "spend_rations": -1,
                     "tokenIssued": "silver_mark"
                 },
-                "requiredMemes": ["comm.language.written"]
+                "requiredMemes": [
+                    "comm.language.written"
+                ],
+                "nutritionActivity": {
+                    "intensity": "sedentary",
+                    "energyMultiplier": 2.35,
+                    "proteinMultiplier": 2.45,
+                    "waterMultiplier": 2.7,
+                    "basis": "seated cognitive, social or administrative work; cost-signals"
+                }
             },
             {
                 "tag": "SANCTION_DISOBEDIENCE",
@@ -266,6 +343,13 @@
                 "lawEffect": {
                     "penalty": "fine|labor|ban",
                     "enforceable": true
+                },
+                "nutritionActivity": {
+                    "intensity": "sedentary",
+                    "energyMultiplier": 2.35,
+                    "proteinMultiplier": 2.45,
+                    "waterMultiplier": 2.7,
+                    "basis": "seated cognitive, social or administrative work; cost-signals"
                 }
             },
             {
@@ -292,7 +376,14 @@
                 "requiredMemes": [
                     "comm.language.written",
                     "tech.tool.use_basic"
-                ]
+                ],
+                "nutritionActivity": {
+                    "intensity": "rest",
+                    "energyMultiplier": 0.85,
+                    "proteinMultiplier": 1,
+                    "waterMultiplier": 0.95,
+                    "basis": "sleep and passive recovery; cost-signals"
+                }
             },
             {
                 "tag": "LOCKDOWN_AREA",
@@ -323,7 +414,14 @@
                 "requiredMemes": [
                     "culture.vigil_ritual",
                     "cog.timekeeping.basic"
-                ]
+                ],
+                "nutritionActivity": {
+                    "intensity": "rest",
+                    "energyMultiplier": 0.85,
+                    "proteinMultiplier": 1,
+                    "waterMultiplier": 0.95,
+                    "basis": "sleep and passive recovery; cost-signals"
+                }
             },
             {
                 "tag": "SET_CURFEW",
@@ -344,6 +442,13 @@
                 "socialImpact": {
                     "SAFETY": 0.2,
                     "FREEDOM": -0.2
+                },
+                "nutritionActivity": {
+                    "intensity": "sedentary",
+                    "energyMultiplier": 2.35,
+                    "proteinMultiplier": 2.45,
+                    "waterMultiplier": 2.7,
+                    "basis": "seated cognitive, social or administrative work; cost-signals"
                 }
             },
             {
@@ -356,7 +461,10 @@
                     "SECURITY": 0.5,
                     "ORDER": 0.4
                 },
-                "requiresItem": ["barrier", "sign"],
+                "requiresItem": [
+                    "barrier",
+                    "sign"
+                ],
                 "requiresLocation": "road",
                 "targetType": "AREA",
                 "ownershipEffect": {
@@ -372,6 +480,13 @@
                     "SAFETY": 0.25,
                     "TRUST": 0.1,
                     "INCONVENIENCE": 0.2
+                },
+                "nutritionActivity": {
+                    "intensity": "rest",
+                    "energyMultiplier": 0.85,
+                    "proteinMultiplier": 1,
+                    "waterMultiplier": 0.95,
+                    "basis": "sleep and passive recovery; cost-signals"
                 }
             },
             {
@@ -393,6 +508,13 @@
                 "lawEffect": {
                     "rotaPolicy": "weekly",
                     "enforceable": true
+                },
+                "nutritionActivity": {
+                    "intensity": "rest",
+                    "energyMultiplier": 0.85,
+                    "proteinMultiplier": 1,
+                    "waterMultiplier": 0.95,
+                    "basis": "sleep and passive recovery; cost-signals"
                 }
             }
         ]

@@ -16,7 +16,14 @@
                 "socialImpact": {
                     "respect": 0.2
                 },
-                "requiresLocation": "assembly"
+                "requiresLocation": "assembly",
+                "nutritionActivity": {
+                    "intensity": "rest",
+                    "energyMultiplier": 0.85,
+                    "proteinMultiplier": 1,
+                    "waterMultiplier": 0.95,
+                    "basis": "sleep and passive recovery; cost-signals"
+                }
             },
             {
                 "tag": "GATHER_EVIDENCE",
@@ -29,7 +36,14 @@
                     "LAW": 0.3
                 },
                 "requiresSkill": "Investigation",
-                "locationType": "any"
+                "locationType": "any",
+                "nutritionActivity": {
+                    "intensity": "rest",
+                    "energyMultiplier": 0.85,
+                    "proteinMultiplier": 1,
+                    "waterMultiplier": 0.95,
+                    "basis": "sleep and passive recovery; cost-signals"
+                }
             },
             {
                 "tag": "TESTIFY",
@@ -43,7 +57,14 @@
                 },
                 "requiresSkill": "Honesty",
                 "requiresLocation": "court",
-                "visibleToOthers": true
+                "visibleToOthers": true,
+                "nutritionActivity": {
+                    "intensity": "rest",
+                    "energyMultiplier": 0.85,
+                    "proteinMultiplier": 1,
+                    "waterMultiplier": 0.95,
+                    "basis": "sleep and passive recovery; cost-signals"
+                }
             },
             {
                 "tag": "DEMAND_RESTITUTION",
@@ -58,6 +79,13 @@
                 "targetType": "OTHER",
                 "socialImpact": {
                     "respect": 0.1
+                },
+                "nutritionActivity": {
+                    "intensity": "rest",
+                    "energyMultiplier": 0.85,
+                    "proteinMultiplier": 1,
+                    "waterMultiplier": 0.95,
+                    "basis": "sleep and passive recovery; cost-signals"
                 }
             },
             {
@@ -69,10 +97,19 @@
                     "STABILITY": 0.4,
                     "COMMUNITY": 0.3
                 },
-                "requiresItem": ["valuables"],
+                "requiresItem": [
+                    "valuables"
+                ],
                 "moralWeight": 0.5,
                 "socialImpact": {
                     "respect": 0.3
+                },
+                "nutritionActivity": {
+                    "intensity": "sedentary",
+                    "energyMultiplier": 2.35,
+                    "proteinMultiplier": 2.45,
+                    "waterMultiplier": 2.7,
+                    "basis": "seated cognitive, social or administrative work; cost-signals"
                 }
             },
             {
@@ -92,7 +129,14 @@
                     "health.sanitation_norms",
                     "health.waste_handling",
                     "comm.language.written"
-                ]
+                ],
+                "nutritionActivity": {
+                    "intensity": "sedentary",
+                    "energyMultiplier": 2.35,
+                    "proteinMultiplier": 2.45,
+                    "waterMultiplier": 2.7,
+                    "basis": "seated cognitive, social or administrative work; cost-signals"
+                }
             },
             {
                 "tag": "REPUTATION_RESTORATION",
@@ -106,6 +150,13 @@
                 "requiresSkill": "Diplomacy",
                 "socialImpact": {
                     "respect": 0.4
+                },
+                "nutritionActivity": {
+                    "intensity": "rest",
+                    "energyMultiplier": 0.85,
+                    "proteinMultiplier": 1,
+                    "waterMultiplier": 0.95,
+                    "basis": "sleep and passive recovery; cost-signals"
                 }
             },
             {
@@ -119,7 +170,14 @@
                     "COMMUNITY": 0.4
                 },
                 "requiresSkill": "Negotiation",
-                "targetType": "GROUP"
+                "targetType": "GROUP",
+                "nutritionActivity": {
+                    "intensity": "rest",
+                    "energyMultiplier": 0.85,
+                    "proteinMultiplier": 1,
+                    "waterMultiplier": 0.95,
+                    "basis": "sleep and passive recovery; cost-signals"
+                }
             },
             {
                 "tag": "MEDIATE_REPARATION",
@@ -131,7 +189,14 @@
                     "LAW": 0.3
                 },
                 "requiresSkill": "Mediation",
-                "targetType": "GROUP"
+                "targetType": "GROUP",
+                "nutritionActivity": {
+                    "intensity": "rest",
+                    "energyMultiplier": 0.85,
+                    "proteinMultiplier": 1,
+                    "waterMultiplier": 0.95,
+                    "basis": "sleep and passive recovery; cost-signals"
+                }
             },
             {
                 "tag": "SHUN_OFFENDER",
@@ -147,7 +212,14 @@
                 "socialImpact": {
                     "respect": 0.3
                 },
-                "targetType": "OTHER"
+                "targetType": "OTHER",
+                "nutritionActivity": {
+                    "intensity": "sedentary",
+                    "energyMultiplier": 2.35,
+                    "proteinMultiplier": 2.45,
+                    "waterMultiplier": 2.7,
+                    "basis": "seated cognitive, social or administrative work; cost-signals"
+                }
             },
             {
                 "tag": "CURSE_OFFENDER",
@@ -164,7 +236,14 @@
                 "requiredMemes": [
                     "culture.vigil_ritual",
                     "cog.timekeeping.basic"
-                ]
+                ],
+                "nutritionActivity": {
+                    "intensity": "rest",
+                    "energyMultiplier": 0.85,
+                    "proteinMultiplier": 1,
+                    "waterMultiplier": 0.95,
+                    "basis": "sleep and passive recovery; cost-signals"
+                }
             },
             {
                 "tag": "DUEL_OF_HONOR",
@@ -176,9 +255,18 @@
                     "HONOR": 0.6,
                     "STATUS": 0.4
                 },
-                "requiresItem": ["weapon"],
+                "requiresItem": [
+                    "weapon"
+                ],
                 "requiresSkill": "Combat",
-                "targetType": "OTHER"
+                "targetType": "OTHER",
+                "nutritionActivity": {
+                    "intensity": "rest",
+                    "energyMultiplier": 0.85,
+                    "proteinMultiplier": 1,
+                    "waterMultiplier": 0.95,
+                    "basis": "sleep and passive recovery; cost-signals"
+                }
             },
             {
                 "tag": "APPEAL_VERDICT",
@@ -192,7 +280,16 @@
                 },
                 "requiresSkill": "Rhetoric",
                 "requiresLocation": "council_hall",
-                "requiredMemes": ["comm.language.written"]
+                "requiredMemes": [
+                    "comm.language.written"
+                ],
+                "nutritionActivity": {
+                    "intensity": "rest",
+                    "energyMultiplier": 0.85,
+                    "proteinMultiplier": 1,
+                    "waterMultiplier": 0.95,
+                    "basis": "sleep and passive recovery; cost-signals"
+                }
             },
             {
                 "tag": "REDEEM_OFFENDER",
@@ -204,7 +301,14 @@
                     "LOYALTY": 0.3
                 },
                 "requiresSkill": "Leadership",
-                "targetType": "OTHER"
+                "targetType": "OTHER",
+                "nutritionActivity": {
+                    "intensity": "rest",
+                    "energyMultiplier": 0.85,
+                    "proteinMultiplier": 1,
+                    "waterMultiplier": 0.95,
+                    "basis": "sleep and passive recovery; cost-signals"
+                }
             },
             {
                 "tag": "PLEDGE_NO_REVENGE",
@@ -223,7 +327,14 @@
                     "record.ledgerkeeping",
                     "econ.pooling_common_fund",
                     "econ.deposit_contract"
-                ]
+                ],
+                "nutritionActivity": {
+                    "intensity": "sedentary",
+                    "energyMultiplier": 2.35,
+                    "proteinMultiplier": 2.45,
+                    "waterMultiplier": 2.7,
+                    "basis": "seated cognitive, social or administrative work; cost-signals"
+                }
             },
             {
                 "tag": "VOW_REVENGE",
@@ -235,7 +346,14 @@
                     "POWER": 0.2
                 },
                 "moralWeight": -0.3,
-                "emotionalImpact": -0.1
+                "emotionalImpact": -0.1,
+                "nutritionActivity": {
+                    "intensity": "sedentary",
+                    "energyMultiplier": 2.35,
+                    "proteinMultiplier": 2.45,
+                    "waterMultiplier": 2.7,
+                    "basis": "seated cognitive, social or administrative work; cost-signals"
+                }
             }
         ]
     }

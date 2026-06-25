@@ -12,7 +12,7 @@ import type { CreatureTemplateEntity } from '../domain/character/creature-templa
 import type { CharacterEntity } from '../domain/character/character.entity';
 import {
     estimateDailyFoodMassNeedLbFromStrengthAndBuild,
-    estimateHexVolume,
+    estimateHexVolumeFromMorphIdsAndTraits,
     getStrengthFromMorphIds,
 } from '@wohex/domain-data/rps';
 
@@ -36,8 +36,10 @@ export class ActorFactoryHelper {
     }): ActorEntity {
         const { template, hexId, id, name = template.name } = params;
 
-        // TODO: заменить на реальные формулы по ST/HT/SM
-        const volumeEstimate = estimateHexVolume(template.sizeModifier);
+        const volumeEstimate = estimateHexVolumeFromMorphIdsAndTraits(template.morphIds);
+        if (!volumeEstimate) {
+            throw new Error(`Cannot estimate hex volume for template ${template.name} without explicit ST morph.`);
+        }
         const physical = new CreaturePhysicalProfile({
             baseVolume: volumeEstimate.baseVolume,
             minVolume: volumeEstimate.minVolume,

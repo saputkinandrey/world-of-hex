@@ -12,15 +12,31 @@
                 "REST": {
                     "atMost": "SEVERE"
                 }
+            },
+            "nutritionActivity": {
+                "intensity": "rest",
+                "energyMultiplier": 0.85,
+                "proteinMultiplier": 1,
+                "waterMultiplier": 0.95,
+                "basis": "sleep and passive recovery; module:generic-actions"
             }
         },
         "SLEEP_REST": {
             "tag": "SLEEP_REST",
-            "requiredMorphs": ["core.vital.living"],
+            "requiredMorphs": [
+                "core.vital.living"
+            ],
             "needThresholds": {
                 "REST": {
                     "atLeast": "WARN"
                 }
+            },
+            "nutritionActivity": {
+                "intensity": "rest",
+                "energyMultiplier": 0.85,
+                "proteinMultiplier": 1,
+                "waterMultiplier": 0.95,
+                "basis": "sleep and passive recovery; module:generic-actions"
             }
         }
     }

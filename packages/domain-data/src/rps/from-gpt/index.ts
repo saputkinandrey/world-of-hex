@@ -1,4 +1,5 @@
 export * from "./action-definition";
+export * from "./action-nutrition-activity";
 export * from "./action-modules";
 export * from "./action-tags";
 export * from "./entities";

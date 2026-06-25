@@ -10,13 +10,22 @@
                 "SECURITY": 0.1
             },
             "skillRequired": "Survival",
-            "resourceOutput": ["raw_water"],
+            "resourceOutput": [
+                "raw_water"
+            ],
             "locationType": "riverbank|stream|spring",
             "environmentalImpact": -0.05,
             "needThresholds": {
                 "WATER": {
                     "atLeast": "WARN"
                 }
+            },
+            "nutritionActivity": {
+                "intensity": "light",
+                "energyMultiplier": 3,
+                "proteinMultiplier": 2.8,
+                "waterMultiplier": 3.2,
+                "basis": "light domestic, craft or self-care labor; module:water"
             }
         },
         "FETCH_WATER": {
@@ -29,13 +38,22 @@
                 "ORDER": 0.1
             },
             "skillRequired": "Labor",
-            "resourceOutput": ["raw_water"],
+            "resourceOutput": [
+                "raw_water"
+            ],
             "locationType": "well|cistern|riverbank",
             "emotionalImpact": 0.05,
             "needThresholds": {
                 "WATER": {
                     "atLeast": "WARN"
                 }
+            },
+            "nutritionActivity": {
+                "intensity": "light",
+                "energyMultiplier": 3,
+                "proteinMultiplier": 2.8,
+                "waterMultiplier": 3.2,
+                "basis": "light domestic, craft or self-care labor; module:water"
             }
         },
         "FILTER_WATER": {
@@ -47,8 +65,13 @@
                 "WATER": 0.2,
                 "HEALTH": 0.05
             },
-            "resourceInput": ["raw_water", "filter_media"],
-            "resourceOutput": ["filtered_water"],
+            "resourceInput": [
+                "raw_water",
+                "filter_media"
+            ],
+            "resourceOutput": [
+                "filtered_water"
+            ],
             "locationType": "camp|village",
             "emotionalImpact": 0.05,
             "requiredMemes": [
@@ -59,6 +82,13 @@
                 "WATER": {
                     "atLeast": "WARN"
                 }
+            },
+            "nutritionActivity": {
+                "intensity": "light",
+                "energyMultiplier": 3,
+                "proteinMultiplier": 2.8,
+                "waterMultiplier": 3.2,
+                "basis": "light domestic, craft or self-care labor; module:water"
             }
         },
         "BOIL_WATER": {
@@ -71,8 +101,14 @@
                 "HEALTH": 0.1,
                 "ORDER": 0.05
             },
-            "resourceInput": ["raw_water", "fuel", "pot"],
-            "resourceOutput": ["clean_water"],
+            "resourceInput": [
+                "raw_water",
+                "fuel",
+                "pot"
+            ],
+            "resourceOutput": [
+                "clean_water"
+            ],
             "locationType": "hearth|campfire|kitchen",
             "emotionalImpact": 0.1,
             "requiredMemes": [
@@ -84,6 +120,13 @@
                 "WATER": {
                     "atLeast": "WARN"
                 }
+            },
+            "nutritionActivity": {
+                "intensity": "light",
+                "energyMultiplier": 3,
+                "proteinMultiplier": 2.8,
+                "waterMultiplier": 3.2,
+                "basis": "light domestic, craft or self-care labor; module:water"
             }
         },
         "DRINK_WATER": {
@@ -95,7 +138,9 @@
                 "WATER": 1
             },
             "moralWeight": 0,
-            "resourceInput": ["clean_water|filtered_water"],
+            "resourceInput": [
+                "clean_water|filtered_water"
+            ],
             "locationType": "any",
             "emotionalImpact": 0.3,
             "requiredMemes": [
@@ -106,6 +151,13 @@
                 "WATER": {
                     "atLeast": "WARN"
                 }
+            },
+            "nutritionActivity": {
+                "intensity": "light",
+                "energyMultiplier": 3,
+                "proteinMultiplier": 2.8,
+                "waterMultiplier": 3.2,
+                "basis": "light domestic, craft or self-care labor"
             }
         },
         "DRINK_DIRTY_WATER": {
@@ -118,7 +170,9 @@
             },
             "locationType": "any",
             "emotionalImpact": -0.05,
-            "requiredMorphs": ["core.vital.living"],
+            "requiredMorphs": [
+                "core.vital.living"
+            ],
             "needThresholds": {
                 "WATER": {
                     "atLeast": "SEVERE"
@@ -126,6 +180,13 @@
                 "HEALTH": {
                     "atMost": "SEVERE"
                 }
+            },
+            "nutritionActivity": {
+                "intensity": "light",
+                "energyMultiplier": 3,
+                "proteinMultiplier": 2.8,
+                "waterMultiplier": 3.2,
+                "basis": "light domestic, craft or self-care labor; module:water"
             }
         },
         "SHARE_WATER": {
@@ -145,6 +206,13 @@
                 "WATER": {
                     "atLeast": "WARN"
                 }
+            },
+            "nutritionActivity": {
+                "intensity": "light",
+                "energyMultiplier": 3,
+                "proteinMultiplier": 2.8,
+                "waterMultiplier": 3.2,
+                "basis": "light domestic, craft or self-care labor; module:water"
             }
         },
         "TRADE_FOR_WATER": {
@@ -162,6 +230,13 @@
                 "WATER": {
                     "atLeast": "WARN"
                 }
+            },
+            "nutritionActivity": {
+                "intensity": "light",
+                "energyMultiplier": 3,
+                "proteinMultiplier": 2.8,
+                "waterMultiplier": 3.2,
+                "basis": "light domestic, craft or self-care labor; module:water"
             }
         },
         "WORK_FOR_WATER": {
@@ -179,6 +254,13 @@
                 "WATER": {
                     "atLeast": "WARN"
                 }
+            },
+            "nutritionActivity": {
+                "intensity": "light",
+                "energyMultiplier": 3,
+                "proteinMultiplier": 2.8,
+                "waterMultiplier": 3.2,
+                "basis": "light domestic, craft or self-care labor; module:water"
             }
         },
         "STEAL_WATER": {
@@ -201,6 +283,13 @@
                 "WATER": {
                     "atLeast": "SEVERE"
                 }
+            },
+            "nutritionActivity": {
+                "intensity": "light",
+                "energyMultiplier": 3,
+                "proteinMultiplier": 2.8,
+                "waterMultiplier": 3.2,
+                "basis": "light domestic, craft or self-care labor; module:water"
             }
         },
         "RATION_WATER": {
@@ -219,6 +308,13 @@
                 "WATER": {
                     "atLeast": "WARN"
                 }
+            },
+            "nutritionActivity": {
+                "intensity": "light",
+                "energyMultiplier": 3,
+                "proteinMultiplier": 2.8,
+                "waterMultiplier": 3.2,
+                "basis": "light domestic, craft or self-care labor; module:water"
             }
         },
         "GUARD_WATER_SOURCE": {
@@ -232,7 +328,14 @@
                 "TRUST": 0.1
             },
             "locationType": "well|spring|cistern",
-            "emotionalImpact": 0.05
+            "emotionalImpact": 0.05,
+            "nutritionActivity": {
+                "intensity": "light",
+                "energyMultiplier": 3,
+                "proteinMultiplier": 2.8,
+                "waterMultiplier": 3.2,
+                "basis": "light domestic, craft or self-care labor; module:water"
+            }
         },
         "BUILD_WELL": {
             "tag": "BUILD_WELL",
@@ -246,7 +349,14 @@
             },
             "locationType": "village|workyard",
             "emotionalImpact": 0.1,
-            "groupAffinity": 0.3
+            "groupAffinity": 0.3,
+            "nutritionActivity": {
+                "intensity": "light",
+                "energyMultiplier": 3,
+                "proteinMultiplier": 2.8,
+                "waterMultiplier": 3.2,
+                "basis": "light domestic, craft or self-care labor; module:water"
+            }
         },
         "MAINTAIN_WELL": {
             "tag": "MAINTAIN_WELL",
@@ -259,7 +369,14 @@
                 "QUALITY": 0.1
             },
             "locationType": "well|cistern",
-            "emotionalImpact": 0.05
+            "emotionalImpact": 0.05,
+            "nutritionActivity": {
+                "intensity": "light",
+                "energyMultiplier": 3,
+                "proteinMultiplier": 2.8,
+                "waterMultiplier": 3.2,
+                "basis": "light domestic, craft or self-care labor; module:water"
+            }
         },
         "DISCOVER_WATER_SOURCE": {
             "tag": "DISCOVER_WATER_SOURCE",
@@ -278,6 +395,13 @@
                 "WATER": {
                     "atLeast": "WARN"
                 }
+            },
+            "nutritionActivity": {
+                "intensity": "light",
+                "energyMultiplier": 3,
+                "proteinMultiplier": 2.8,
+                "waterMultiplier": 3.2,
+                "basis": "light domestic, craft or self-care labor; module:water"
             }
         },
         "BLESS_WATER": {
@@ -291,7 +415,14 @@
                 "TRUST": 0.1
             },
             "locationType": "temple|well|cistern",
-            "emotionalImpact": 0.2
+            "emotionalImpact": 0.2,
+            "nutritionActivity": {
+                "intensity": "light",
+                "energyMultiplier": 3,
+                "proteinMultiplier": 2.8,
+                "waterMultiplier": 3.2,
+                "basis": "light domestic, craft or self-care labor; module:water"
+            }
         },
         "WaterActions": [
             {
@@ -304,13 +435,22 @@
                     "SECURITY": 0.1
                 },
                 "skillRequired": "Survival",
-                "resourceOutput": ["raw_water"],
+                "resourceOutput": [
+                    "raw_water"
+                ],
                 "locationType": "riverbank|stream|spring",
                 "environmentalImpact": -0.05,
                 "needThresholds": {
                     "WATER": {
                         "atLeast": "WARN"
                     }
+                },
+                "nutritionActivity": {
+                    "intensity": "light",
+                    "energyMultiplier": 3,
+                    "proteinMultiplier": 2.8,
+                    "waterMultiplier": 3.2,
+                    "basis": "light domestic, craft or self-care labor; module:water"
                 }
             },
             {
@@ -323,13 +463,22 @@
                     "ORDER": 0.1
                 },
                 "skillRequired": "Labor",
-                "resourceOutput": ["raw_water"],
+                "resourceOutput": [
+                    "raw_water"
+                ],
                 "locationType": "well|cistern|riverbank",
                 "emotionalImpact": 0.05,
                 "needThresholds": {
                     "WATER": {
                         "atLeast": "WARN"
                     }
+                },
+                "nutritionActivity": {
+                    "intensity": "light",
+                    "energyMultiplier": 3,
+                    "proteinMultiplier": 2.8,
+                    "waterMultiplier": 3.2,
+                    "basis": "light domestic, craft or self-care labor; module:water"
                 }
             },
             {
@@ -341,8 +490,13 @@
                     "WATER": 0.2,
                     "HEALTH": 0.05
                 },
-                "resourceInput": ["raw_water", "filter_media"],
-                "resourceOutput": ["filtered_water"],
+                "resourceInput": [
+                    "raw_water",
+                    "filter_media"
+                ],
+                "resourceOutput": [
+                    "filtered_water"
+                ],
                 "locationType": "camp|village",
                 "emotionalImpact": 0.05,
                 "requiredMemes": [
@@ -353,6 +507,13 @@
                     "WATER": {
                         "atLeast": "WARN"
                     }
+                },
+                "nutritionActivity": {
+                    "intensity": "light",
+                    "energyMultiplier": 3,
+                    "proteinMultiplier": 2.8,
+                    "waterMultiplier": 3.2,
+                    "basis": "light domestic, craft or self-care labor; module:water"
                 }
             },
             {
@@ -365,8 +526,14 @@
                     "HEALTH": 0.1,
                     "ORDER": 0.05
                 },
-                "resourceInput": ["raw_water", "fuel", "pot"],
-                "resourceOutput": ["clean_water"],
+                "resourceInput": [
+                    "raw_water",
+                    "fuel",
+                    "pot"
+                ],
+                "resourceOutput": [
+                    "clean_water"
+                ],
                 "locationType": "hearth|campfire|kitchen",
                 "emotionalImpact": 0.1,
                 "requiredMemes": [
@@ -378,6 +545,13 @@
                     "WATER": {
                         "atLeast": "WARN"
                     }
+                },
+                "nutritionActivity": {
+                    "intensity": "light",
+                    "energyMultiplier": 3,
+                    "proteinMultiplier": 2.8,
+                    "waterMultiplier": 3.2,
+                    "basis": "light domestic, craft or self-care labor; module:water"
                 }
             },
             {
@@ -389,7 +563,9 @@
                     "WATER": 1
                 },
                 "moralWeight": 0,
-                "resourceInput": ["clean_water|filtered_water"],
+                "resourceInput": [
+                    "clean_water|filtered_water"
+                ],
                 "locationType": "any",
                 "emotionalImpact": 0.3,
                 "requiredMemes": [
@@ -400,6 +576,13 @@
                     "WATER": {
                         "atLeast": "WARN"
                     }
+                },
+                "nutritionActivity": {
+                    "intensity": "light",
+                    "energyMultiplier": 3,
+                    "proteinMultiplier": 2.8,
+                    "waterMultiplier": 3.2,
+                    "basis": "light domestic, craft or self-care labor"
                 }
             },
             {
@@ -412,7 +595,9 @@
                 },
                 "locationType": "any",
                 "emotionalImpact": -0.05,
-                "requiredMorphs": ["core.vital.living"],
+                "requiredMorphs": [
+                    "core.vital.living"
+                ],
                 "needThresholds": {
                     "WATER": {
                         "atLeast": "SEVERE"
@@ -420,6 +605,13 @@
                     "HEALTH": {
                         "atMost": "SEVERE"
                     }
+                },
+                "nutritionActivity": {
+                    "intensity": "light",
+                    "energyMultiplier": 3,
+                    "proteinMultiplier": 2.8,
+                    "waterMultiplier": 3.2,
+                    "basis": "light domestic, craft or self-care labor; module:water"
                 }
             },
             {
@@ -439,6 +631,13 @@
                     "WATER": {
                         "atLeast": "WARN"
                     }
+                },
+                "nutritionActivity": {
+                    "intensity": "light",
+                    "energyMultiplier": 3,
+                    "proteinMultiplier": 2.8,
+                    "waterMultiplier": 3.2,
+                    "basis": "light domestic, craft or self-care labor; module:water"
                 }
             },
             {
@@ -456,6 +655,13 @@
                     "WATER": {
                         "atLeast": "WARN"
                     }
+                },
+                "nutritionActivity": {
+                    "intensity": "light",
+                    "energyMultiplier": 3,
+                    "proteinMultiplier": 2.8,
+                    "waterMultiplier": 3.2,
+                    "basis": "light domestic, craft or self-care labor; module:water"
                 }
             },
             {
@@ -473,6 +679,13 @@
                     "WATER": {
                         "atLeast": "WARN"
                     }
+                },
+                "nutritionActivity": {
+                    "intensity": "light",
+                    "energyMultiplier": 3,
+                    "proteinMultiplier": 2.8,
+                    "waterMultiplier": 3.2,
+                    "basis": "light domestic, craft or self-care labor; module:water"
                 }
             },
             {
@@ -495,6 +708,13 @@
                     "WATER": {
                         "atLeast": "SEVERE"
                     }
+                },
+                "nutritionActivity": {
+                    "intensity": "light",
+                    "energyMultiplier": 3,
+                    "proteinMultiplier": 2.8,
+                    "waterMultiplier": 3.2,
+                    "basis": "light domestic, craft or self-care labor; module:water"
                 }
             },
             {
@@ -513,6 +733,13 @@
                     "WATER": {
                         "atLeast": "WARN"
                     }
+                },
+                "nutritionActivity": {
+                    "intensity": "light",
+                    "energyMultiplier": 3,
+                    "proteinMultiplier": 2.8,
+                    "waterMultiplier": 3.2,
+                    "basis": "light domestic, craft or self-care labor; module:water"
                 }
             },
             {
@@ -526,7 +753,14 @@
                     "TRUST": 0.1
                 },
                 "locationType": "well|spring|cistern",
-                "emotionalImpact": 0.05
+                "emotionalImpact": 0.05,
+                "nutritionActivity": {
+                    "intensity": "light",
+                    "energyMultiplier": 3,
+                    "proteinMultiplier": 2.8,
+                    "waterMultiplier": 3.2,
+                    "basis": "light domestic, craft or self-care labor; module:water"
+                }
             },
             {
                 "tag": "BUILD_WELL",
@@ -540,7 +774,14 @@
                 },
                 "locationType": "village|workyard",
                 "emotionalImpact": 0.1,
-                "groupAffinity": 0.3
+                "groupAffinity": 0.3,
+                "nutritionActivity": {
+                    "intensity": "light",
+                    "energyMultiplier": 3,
+                    "proteinMultiplier": 2.8,
+                    "waterMultiplier": 3.2,
+                    "basis": "light domestic, craft or self-care labor; module:water"
+                }
             },
             {
                 "tag": "MAINTAIN_WELL",
@@ -553,7 +794,14 @@
                     "QUALITY": 0.1
                 },
                 "locationType": "well|cistern",
-                "emotionalImpact": 0.05
+                "emotionalImpact": 0.05,
+                "nutritionActivity": {
+                    "intensity": "light",
+                    "energyMultiplier": 3,
+                    "proteinMultiplier": 2.8,
+                    "waterMultiplier": 3.2,
+                    "basis": "light domestic, craft or self-care labor; module:water"
+                }
             },
             {
                 "tag": "DISCOVER_WATER_SOURCE",
@@ -572,6 +820,13 @@
                     "WATER": {
                         "atLeast": "WARN"
                     }
+                },
+                "nutritionActivity": {
+                    "intensity": "light",
+                    "energyMultiplier": 3,
+                    "proteinMultiplier": 2.8,
+                    "waterMultiplier": 3.2,
+                    "basis": "light domestic, craft or self-care labor; module:water"
                 }
             },
             {
@@ -585,7 +840,14 @@
                     "TRUST": 0.1
                 },
                 "locationType": "temple|well|cistern",
-                "emotionalImpact": 0.2
+                "emotionalImpact": 0.2,
+                "nutritionActivity": {
+                    "intensity": "light",
+                    "energyMultiplier": 3,
+                    "proteinMultiplier": 2.8,
+                    "waterMultiplier": 3.2,
+                    "basis": "light domestic, craft or self-care labor; module:water"
+                }
             }
         ]
     }

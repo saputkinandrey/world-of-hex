@@ -9,7 +9,14 @@
                     "REST": 0.1,
                     "COMFORT": 0.1
                 },
-                "locationType": "any"
+                "locationType": "any",
+                "nutritionActivity": {
+                    "intensity": "rest",
+                    "energyMultiplier": 0.85,
+                    "proteinMultiplier": 1,
+                    "waterMultiplier": 0.95,
+                    "basis": "sleep and passive recovery; module:rest"
+                }
             },
             {
                 "tag": "LIE_DOWN",
@@ -20,7 +27,14 @@
                     "REST": 0.2,
                     "HEALTH": 0.1
                 },
-                "locationType": "camp"
+                "locationType": "camp",
+                "nutritionActivity": {
+                    "intensity": "rest",
+                    "energyMultiplier": 0.85,
+                    "proteinMultiplier": 1,
+                    "waterMultiplier": 0.95,
+                    "basis": "sleep and passive recovery; module:rest"
+                }
             },
             {
                 "tag": "NAP",
@@ -31,7 +45,14 @@
                     "REST": 0.4,
                     "MOOD": 0.2
                 },
-                "locationType": "any"
+                "locationType": "any",
+                "nutritionActivity": {
+                    "intensity": "rest",
+                    "energyMultiplier": 0.85,
+                    "proteinMultiplier": 1,
+                    "waterMultiplier": 0.95,
+                    "basis": "sleep and passive recovery"
+                }
             },
             {
                 "tag": "SLEEP",
@@ -43,7 +64,14 @@
                     "HEALTH": 0.5,
                     "MOOD": 0.4
                 },
-                "locationType": "shelter"
+                "locationType": "shelter",
+                "nutritionActivity": {
+                    "intensity": "rest",
+                    "energyMultiplier": 0.85,
+                    "proteinMultiplier": 1,
+                    "waterMultiplier": 0.95,
+                    "basis": "sleep and passive recovery"
+                }
             },
             {
                 "tag": "REST_AT_HOME",
@@ -57,6 +85,13 @@
                 "locationType": "home",
                 "socialImpact": {
                     "communication": 0.1
+                },
+                "nutritionActivity": {
+                    "intensity": "rest",
+                    "energyMultiplier": 0.85,
+                    "proteinMultiplier": 1,
+                    "waterMultiplier": 0.95,
+                    "basis": "sleep and passive recovery; module:rest"
                 }
             },
             {
@@ -68,7 +103,14 @@
                     "REST": 0.3,
                     "HEALTH": -0.1
                 },
-                "locationType": "field"
+                "locationType": "field",
+                "nutritionActivity": {
+                    "intensity": "rest",
+                    "energyMultiplier": 0.85,
+                    "proteinMultiplier": 1,
+                    "waterMultiplier": 0.95,
+                    "basis": "sleep and passive recovery; module:rest"
+                }
             },
             {
                 "tag": "REST_BY_FIRE",
@@ -80,7 +122,14 @@
                     "COMFORT": 0.4,
                     "SOCIAL": 0.2
                 },
-                "locationType": "campfire"
+                "locationType": "campfire",
+                "nutritionActivity": {
+                    "intensity": "rest",
+                    "energyMultiplier": 0.85,
+                    "proteinMultiplier": 1,
+                    "waterMultiplier": 0.95,
+                    "basis": "sleep and passive recovery; module:rest"
+                }
             },
             {
                 "tag": "MEDITATE",
@@ -92,7 +141,14 @@
                     "FOCUS": 0.6
                 },
                 "skillRequired": "Discipline",
-                "locationType": "quiet"
+                "locationType": "quiet",
+                "nutritionActivity": {
+                    "intensity": "rest",
+                    "energyMultiplier": 0.85,
+                    "proteinMultiplier": 1,
+                    "waterMultiplier": 0.95,
+                    "basis": "sleep and passive recovery; module:rest"
+                }
             },
             {
                 "tag": "RELAX",
@@ -102,7 +158,14 @@
                     "REST": 0.3,
                     "MOOD": 0.3
                 },
-                "locationType": "any"
+                "locationType": "any",
+                "nutritionActivity": {
+                    "intensity": "rest",
+                    "energyMultiplier": 0.85,
+                    "proteinMultiplier": 1,
+                    "waterMultiplier": 0.95,
+                    "basis": "sleep and passive recovery; module:rest"
+                }
             },
             {
                 "tag": "SOCIALIZE_FOR_REST",
@@ -114,7 +177,14 @@
                     "MOOD": 0.3
                 },
                 "locationType": "village",
-                "visibleToOthers": true
+                "visibleToOthers": true,
+                "nutritionActivity": {
+                    "intensity": "rest",
+                    "energyMultiplier": 0.85,
+                    "proteinMultiplier": 1,
+                    "waterMultiplier": 0.95,
+                    "basis": "sleep and passive recovery; module:rest"
+                }
             },
             {
                 "tag": "BATHING",
@@ -125,7 +195,14 @@
                     "HYGIENE": 0.4,
                     "COMFORT": 0.3
                 },
-                "locationType": "river"
+                "locationType": "river",
+                "nutritionActivity": {
+                    "intensity": "rest",
+                    "energyMultiplier": 0.85,
+                    "proteinMultiplier": 1,
+                    "waterMultiplier": 0.95,
+                    "basis": "sleep and passive recovery; module:rest"
+                }
             },
             {
                 "tag": "REST_GUARDED",
@@ -137,7 +214,14 @@
                     "TRUST": 0.4
                 },
                 "locationType": "camp",
-                "groupAffinity": 0.4
+                "groupAffinity": 0.4,
+                "nutritionActivity": {
+                    "intensity": "rest",
+                    "energyMultiplier": 0.85,
+                    "proteinMultiplier": 1,
+                    "waterMultiplier": 0.95,
+                    "basis": "sleep and passive recovery; module:rest"
+                }
             },
             {
                 "tag": "REST_IN_SHADE",
@@ -147,7 +231,14 @@
                     "REST": 0.3,
                     "COMFORT": 0.3
                 },
-                "locationType": "outdoor"
+                "locationType": "outdoor",
+                "nutritionActivity": {
+                    "intensity": "rest",
+                    "energyMultiplier": 0.85,
+                    "proteinMultiplier": 1,
+                    "waterMultiplier": 0.95,
+                    "basis": "sleep and passive recovery; module:rest"
+                }
             },
             {
                 "tag": "DREAM",
@@ -158,7 +249,14 @@
                     "INSPIRATION": 0.5,
                     "FAITH": 0.3
                 },
-                "locationType": "shelter"
+                "locationType": "shelter",
+                "nutritionActivity": {
+                    "intensity": "rest",
+                    "energyMultiplier": 0.85,
+                    "proteinMultiplier": 1,
+                    "waterMultiplier": 0.95,
+                    "basis": "sleep and passive recovery; module:rest"
+                }
             }
         ]
     }

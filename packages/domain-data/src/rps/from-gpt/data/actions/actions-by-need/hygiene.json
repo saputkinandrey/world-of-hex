@@ -9,8 +9,17 @@
                     "HYGIENE": 0.3,
                     "HEALTH": 0.2
                 },
-                "requiresItem": ["water"],
-                "requiresLocation": "home"
+                "requiresItem": [
+                    "water"
+                ],
+                "requiresLocation": "home",
+                "nutritionActivity": {
+                    "intensity": "sedentary",
+                    "energyMultiplier": 2.35,
+                    "proteinMultiplier": 2.45,
+                    "waterMultiplier": 2.7,
+                    "basis": "seated cognitive, social or administrative work; cost-signals"
+                }
             },
             {
                 "tag": "BATHE_IN_RIVER",
@@ -22,7 +31,14 @@
                     "MOOD": 0.4
                 },
                 "risk": 0.1,
-                "requiresLocation": "river"
+                "requiresLocation": "river",
+                "nutritionActivity": {
+                    "intensity": "rest",
+                    "energyMultiplier": 0.85,
+                    "proteinMultiplier": 1,
+                    "waterMultiplier": 0.95,
+                    "basis": "sleep and passive recovery; cost-signals"
+                }
             },
             {
                 "tag": "TAKE_BATH",
@@ -33,8 +49,18 @@
                     "HEALTH": 0.4,
                     "SOCIAL": 0.3
                 },
-                "requiresItem": ["hot_water", "soap"],
-                "requiresLocation": "bathhouse"
+                "requiresItem": [
+                    "hot_water",
+                    "soap"
+                ],
+                "requiresLocation": "bathhouse",
+                "nutritionActivity": {
+                    "intensity": "rest",
+                    "energyMultiplier": 0.85,
+                    "proteinMultiplier": 1,
+                    "waterMultiplier": 0.95,
+                    "basis": "sleep and passive recovery; cost-signals"
+                }
             },
             {
                 "tag": "CLEAN_BODY_WITH_ASH",
@@ -44,11 +70,21 @@
                     "HYGIENE": 0.6,
                     "HEALTH": 0.2
                 },
-                "requiresItem": ["ash", "cloth"],
+                "requiresItem": [
+                    "ash",
+                    "cloth"
+                ],
                 "requiredMemes": [
                     "health.sanitation_norms",
                     "health.waste_handling"
-                ]
+                ],
+                "nutritionActivity": {
+                    "intensity": "rest",
+                    "energyMultiplier": 0.85,
+                    "proteinMultiplier": 1,
+                    "waterMultiplier": 0.95,
+                    "basis": "sleep and passive recovery; cost-signals"
+                }
             },
             {
                 "tag": "CLEAN_CLOTHES",
@@ -58,12 +94,22 @@
                     "HYGIENE": 0.8,
                     "SOCIAL": 0.3
                 },
-                "requiresItem": ["soap", "water"],
+                "requiresItem": [
+                    "soap",
+                    "water"
+                ],
                 "requiresLocation": "river",
                 "requiredMemes": [
                     "health.sanitation_norms",
                     "health.waste_handling"
-                ]
+                ],
+                "nutritionActivity": {
+                    "intensity": "rest",
+                    "energyMultiplier": 0.85,
+                    "proteinMultiplier": 1,
+                    "waterMultiplier": 0.95,
+                    "basis": "sleep and passive recovery; cost-signals"
+                }
             },
             {
                 "tag": "APPLY_SCENT",
@@ -74,7 +120,17 @@
                     "RESPECT": 0.3,
                     "SOCIAL": 0.2
                 },
-                "requiresItem": ["perfume", "oil"]
+                "requiresItem": [
+                    "perfume",
+                    "oil"
+                ],
+                "nutritionActivity": {
+                    "intensity": "sedentary",
+                    "energyMultiplier": 2.35,
+                    "proteinMultiplier": 2.45,
+                    "waterMultiplier": 2.7,
+                    "basis": "seated cognitive, social or administrative work; cost-signals"
+                }
             },
             {
                 "tag": "CLEAN_HOME",
@@ -89,7 +145,14 @@
                 "requiredMemes": [
                     "health.sanitation_norms",
                     "health.waste_handling"
-                ]
+                ],
+                "nutritionActivity": {
+                    "intensity": "rest",
+                    "energyMultiplier": 0.85,
+                    "proteinMultiplier": 1,
+                    "waterMultiplier": 0.95,
+                    "basis": "sleep and passive recovery; cost-signals"
+                }
             },
             {
                 "tag": "DISPOSE_WASTE",
@@ -103,7 +166,14 @@
                 "requiredMemes": [
                     "health.sanitation_norms",
                     "health.waste_handling"
-                ]
+                ],
+                "nutritionActivity": {
+                    "intensity": "rest",
+                    "energyMultiplier": 0.85,
+                    "proteinMultiplier": 1,
+                    "waterMultiplier": 0.95,
+                    "basis": "sleep and passive recovery; cost-signals"
+                }
             },
             {
                 "tag": "CLEAN_WOUNDS",
@@ -113,11 +183,21 @@
                     "HYGIENE": 0.5,
                     "HEALTH": 0.6
                 },
-                "requiresItem": ["water", "cloth"],
+                "requiresItem": [
+                    "water",
+                    "cloth"
+                ],
                 "requiredMemes": [
                     "health.sanitation_norms",
                     "health.waste_handling"
-                ]
+                ],
+                "nutritionActivity": {
+                    "intensity": "rest",
+                    "energyMultiplier": 0.85,
+                    "proteinMultiplier": 1,
+                    "waterMultiplier": 0.95,
+                    "basis": "sleep and passive recovery; cost-signals"
+                }
             },
             {
                 "tag": "RITUAL_CLEANSING",
@@ -133,7 +213,14 @@
                 "requiredMemes": [
                     "culture.vigil_ritual",
                     "cog.timekeeping.basic"
-                ]
+                ],
+                "nutritionActivity": {
+                    "intensity": "rest",
+                    "energyMultiplier": 0.85,
+                    "proteinMultiplier": 1,
+                    "waterMultiplier": 0.95,
+                    "basis": "sleep and passive recovery; cost-signals"
+                }
             }
         ]
     }

@@ -37,7 +37,7 @@ export interface CreaturePhysicalProfileData {
     minVolume: number;
     carryVolumeCapacity: number;
     averageWeightLb?: number;
-    averageLengthFt?: number;
+    averageSilhouetteWidthFt?: number;
     averageHeightFt?: number;
 }
 

@@ -1,5 +1,3 @@
-import { getLeveledMorphLevel } from "./morphs";
-
 export interface BodyWeightRangeLb {
     min: number;
     average: number;
@@ -71,11 +69,11 @@ export const HEX_VOLUME_SIZE_MODIFIER_FACTOR = 2;
 
 export const OUNCES_PER_POUND = 16;
 
-export const SIZE_MODIFIER_MORPH_PREFIX = "morph.size.sm.";
-
 export const ST_ATTRIBUTE_MORPH_PREFIX = "morph.attribute.st.st";
 
 export const BUILD_TRAIT_PREFIX = "trait.attribute.build.";
+
+export const SIZE_PROPORTION_TRAIT_PREFIX = "trait.size.proportion.";
 
 export const BODY_WEIGHT_SR_LINEAR_MEASUREMENT_INCHES: Record<number, number> =
     {
@@ -456,25 +454,16 @@ const resolveBuildWeightRange = (
     return roundWeightRange(row.weightsLb[buildCategory]);
 };
 
-export const getSizeModifierFromMorphIds = (
-    morphIds: readonly string[],
-): number | undefined => {
-    for (const morphId of morphIds) {
-        if (!morphId.startsWith(SIZE_MODIFIER_MORPH_PREFIX)) continue;
-        const level = getLeveledMorphLevel(morphId);
-        if (level !== null && Number.isFinite(level)) return level;
-    }
-
-    return undefined;
-};
-
 export const getStrengthFromMorphIds = (
     morphIds: readonly string[],
 ): number | undefined => {
     for (const morphId of morphIds) {
         if (!morphId.startsWith(ST_ATTRIBUTE_MORPH_PREFIX)) continue;
-        const level = getLeveledMorphLevel(morphId);
-        if (level !== null && Number.isFinite(level)) return level;
+        const strength = Number.parseInt(
+            morphId.slice(ST_ATTRIBUTE_MORPH_PREFIX.length),
+            10,
+        );
+        if (Number.isFinite(strength) && strength > 0) return strength;
     }
 
     return undefined;
@@ -659,11 +648,250 @@ export const estimateHexVolume = (sizeModifier: number): HexVolumeEstimate => {
     };
 };
 
-export const estimateHexVolumeFromMorphIds = (
-    morphIds: readonly string[],
-): HexVolumeEstimate | undefined => {
-    const sizeModifier = getSizeModifierFromMorphIds(morphIds);
-    if (sizeModifier === undefined) return undefined;
+export const HUMANOID_BODY_PLAN_MORPH_ID = "morph.body_plan.humanoid";
 
-    return estimateHexVolume(sizeModifier);
+/** Silhouette width vs stature from `animal.mammal.primate.human` SM0 averages. */
+export const HUMANOID_WIDTH_TO_STATURE_FT_RATIO = 2 / 5.5;
+
+export const SM0_HUMANOID_SILHOUETTE_HEIGHT_FT = 5.5;
+
+export const SM0_HUMANOID_SILHOUETTE_WIDTH_FT = 2;
+
+export const SM0_HUMANOID_SILHOUETTE_AREA_SQ_FT =
+    SM0_HUMANOID_SILHOUETTE_HEIGHT_FT * SM0_HUMANOID_SILHOUETTE_WIDTH_FT;
+
+export const SIZE_PROPORTION_LEVEL_EXPONENT_DIVISOR = 12;
+
+export const SILHOUETTE_SIZE_MODIFIER_BASIS =
+    "Derived SM from silhouette area via equivalent linear size against GURPS SM table; SM0 humanoid reference is 5.5 ft x 2 ft.";
+
+const SIZE_PROPORTION_TRAIT_SUFFIX_TO_LEVEL: Record<string, number> = {
+    "very_robust.-2": -2,
+    "robust.-1": -1,
+    "average.0": 0,
+    "gracile.+1": 1,
+    "very_gracile.+2": 2,
 };
+
+export interface BodyPlanSilhouetteProportions {
+    averageHeightFt: number;
+    averageSilhouetteWidthFt: number;
+    basis: string;
+}
+
+export interface PhysicalDimensionsEstimate extends BodyPlanSilhouetteProportions {
+    equivalentLinearInches: number;
+    sizeModifier: number;
+}
+
+export interface SilhouetteSizeModifierEstimate {
+    sizeModifier: number;
+    equivalentLinearInches: number;
+    silhouetteAreaSqFt: number;
+    basis: string;
+}
+
+export const getSizeProportionLevelFromTraitIds = (
+    traitIds: readonly string[],
+): number => {
+    for (const traitId of traitIds) {
+        if (!traitId.startsWith(SIZE_PROPORTION_TRAIT_PREFIX)) continue;
+        const suffix = traitId.slice(SIZE_PROPORTION_TRAIT_PREFIX.length);
+        const level = SIZE_PROPORTION_TRAIT_SUFFIX_TO_LEVEL[suffix];
+        if (level !== undefined) return level;
+    }
+
+    return 0;
+};
+
+export const applySizeProportionToSilhouette = (
+    heightFt: number,
+    widthFt: number,
+    proportionLevel: number,
+): BodyPlanSilhouetteProportions => {
+    if (proportionLevel === 0) {
+        return {
+            averageHeightFt: heightFt,
+            averageSilhouetteWidthFt: widthFt,
+            basis: "body_plan_silhouette",
+        };
+    }
+
+    const heightScale = Math.pow(
+        10,
+        proportionLevel / SIZE_PROPORTION_LEVEL_EXPONENT_DIVISOR,
+    );
+
+    return {
+        averageHeightFt: heightFt * heightScale,
+        averageSilhouetteWidthFt: widthFt / heightScale,
+        basis: "body_plan_silhouette_with_size_proportion_trait",
+    };
+};
+
+export const estimateBodyPlanSilhouetteFromStatureInches = (
+    statureInchesAverage: number,
+    morphIds: readonly string[],
+): BodyPlanSilhouetteProportions => {
+    const statureFt = statureInchesAverage / 12;
+    const morphIdSet = new Set(morphIds);
+
+    if (morphIdSet.has(HUMANOID_BODY_PLAN_MORPH_ID)) {
+        return {
+            averageHeightFt: statureFt,
+            averageSilhouetteWidthFt:
+                statureFt * HUMANOID_WIDTH_TO_STATURE_FT_RATIO,
+            basis: "humanoid_stature_and_width_ratio",
+        };
+    }
+
+    if (
+        morphIdSet.has("morph.body_plan.serpentine_ground") ||
+        morphIdSet.has("morph.body_plan.serpentine_aquatic")
+    ) {
+        return {
+            averageHeightFt: statureFt * 0.15,
+            averageSilhouetteWidthFt: statureFt * 8,
+            basis: "serpentine_length_dominant",
+        };
+    }
+
+    if (morphIdSet.has("morph.body_plan.fish_like")) {
+        return {
+            averageHeightFt: statureFt * 0.35,
+            averageSilhouetteWidthFt: statureFt * 2.5,
+            basis: "fish_like_length_dominant",
+        };
+    }
+
+    if (
+        morphIdSet.has("morph.body_plan.tetrapod_small_ground") ||
+        morphIdSet.has("morph.body_plan.tetrapod_large_ground") ||
+        morphIdSet.has("morph.body_plan.tetrapod_climber")
+    ) {
+        return {
+            averageHeightFt: statureFt * 0.55,
+            averageSilhouetteWidthFt: statureFt * 1.6,
+            basis: "tetrapod_quadruped",
+        };
+    }
+
+    if (morphIdSet.has("morph.body_plan.avian")) {
+        return {
+            averageHeightFt: statureFt * 0.5,
+            averageSilhouetteWidthFt: statureFt * 1.1,
+            basis: "avian_compact",
+        };
+    }
+
+    return {
+        averageHeightFt: statureFt,
+        averageSilhouetteWidthFt: statureFt * HUMANOID_WIDTH_TO_STATURE_FT_RATIO,
+        basis: "stature_with_width_fallback",
+    };
+};
+
+export const deriveEquivalentLinearInchesFromSilhouetteArea = (
+    heightFt: number,
+    widthFt: number,
+): number => {
+    const silhouetteAreaSqFt = heightFt * widthFt;
+    if (silhouetteAreaSqFt <= 0) {
+        return BODY_WEIGHT_SM0_LINEAR_MEASUREMENT_INCHES;
+    }
+
+    const areaScale = Math.sqrt(
+        silhouetteAreaSqFt / SM0_HUMANOID_SILHOUETTE_AREA_SQ_FT,
+    );
+
+    return BODY_WEIGHT_SM0_LINEAR_MEASUREMENT_INCHES * areaScale;
+};
+
+export const deriveSizeModifierFromLinearInches = (
+    linearInches: number,
+): number => {
+    if (linearInches <= 0) return 0;
+
+    let bestSizeModifier = 0;
+    let bestDistance = Number.POSITIVE_INFINITY;
+
+    for (let sizeModifier = -15; sizeModifier <= 30; sizeModifier += 1) {
+        const tableLinear =
+            getLinearMeasurementInchesForSizeModifier(sizeModifier);
+        const distance = Math.abs(
+            Math.log10(linearInches) - Math.log10(tableLinear),
+        );
+        if (distance < bestDistance) {
+            bestDistance = distance;
+            bestSizeModifier = sizeModifier;
+        }
+    }
+
+    return bestSizeModifier;
+};
+
+export const deriveSizeModifierFromSilhouetteArea = (
+    heightFt: number,
+    widthFt: number,
+): SilhouetteSizeModifierEstimate => {
+    const silhouetteAreaSqFt = heightFt * widthFt;
+    const equivalentLinearInches = deriveEquivalentLinearInchesFromSilhouetteArea(
+        heightFt,
+        widthFt,
+    );
+
+    return {
+        sizeModifier: deriveSizeModifierFromLinearInches(equivalentLinearInches),
+        equivalentLinearInches,
+        silhouetteAreaSqFt,
+        basis: SILHOUETTE_SIZE_MODIFIER_BASIS,
+    };
+};
+
+export const estimatePhysicalDimensionsFromMorphIds = (
+    morphIds: readonly string[],
+    traitIds: readonly string[] = [],
+): PhysicalDimensionsEstimate | undefined => {
+    const bodyWeight = estimateBodyWeightLbFromMorphIdsAndTraits(
+        morphIds,
+        traitIds,
+    );
+    if (!bodyWeight) return undefined;
+
+    const bodyPlanSilhouette = estimateBodyPlanSilhouetteFromStatureInches(
+        bodyWeight.heightInches.average,
+        morphIds,
+    );
+    const proportionedSilhouette = applySizeProportionToSilhouette(
+        bodyPlanSilhouette.averageHeightFt,
+        bodyPlanSilhouette.averageSilhouetteWidthFt,
+        getSizeProportionLevelFromTraitIds(traitIds),
+    );
+    const sizeModifierEstimate = deriveSizeModifierFromSilhouetteArea(
+        proportionedSilhouette.averageHeightFt,
+        proportionedSilhouette.averageSilhouetteWidthFt,
+    );
+
+    return {
+        ...proportionedSilhouette,
+        equivalentLinearInches: sizeModifierEstimate.equivalentLinearInches,
+        sizeModifier: sizeModifierEstimate.sizeModifier,
+    };
+};
+
+export const estimateHexVolumeFromMorphIdsAndTraits = (
+    morphIds: readonly string[],
+    traitIds: readonly string[] = [],
+): HexVolumeEstimate | undefined => {
+    const dimensions = estimatePhysicalDimensionsFromMorphIds(
+        morphIds,
+        traitIds,
+    );
+    if (!dimensions) return undefined;
+
+    return estimateHexVolume(dimensions.sizeModifier);
+};
+
+/** @deprecated Use estimatePhysicalDimensionsFromMorphIds */
+export const estimatePhysicalProportionsFromMorphIds =
+    estimatePhysicalDimensionsFromMorphIds;

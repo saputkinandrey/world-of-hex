@@ -10,7 +10,10 @@
                 "CURIOSITY": 0.1
             },
             "skillRequired": "Survival",
-            "resourceOutput": ["berries", "roots"],
+            "resourceOutput": [
+                "berries",
+                "roots"
+            ],
             "locationType": "wilderness",
             "emotionalImpact": 0.1,
             "environmentalImpact": -0.1,
@@ -18,6 +21,13 @@
                 "FOOD": {
                     "atLeast": "WARN"
                 }
+            },
+            "nutritionActivity": {
+                "intensity": "moderate",
+                "energyMultiplier": 4.8,
+                "proteinMultiplier": 3.2,
+                "waterMultiplier": 6.5,
+                "basis": "walking, patrol, forage or travel"
             }
         },
         "HUNT": {
@@ -36,7 +46,10 @@
             "moralWeight": 0.3,
             "groupAffinity": 0.2,
             "skillRequired": "Hunting",
-            "resourceOutput": ["meat", "hide"],
+            "resourceOutput": [
+                "meat",
+                "hide"
+            ],
             "locationType": "wilderness",
             "respectGain": 0.3,
             "emotionalImpact": 0.2,
@@ -44,6 +57,13 @@
                 "FOOD": {
                     "atLeast": "IMPAIRED"
                 }
+            },
+            "nutritionActivity": {
+                "intensity": "vigorous",
+                "energyMultiplier": 6.5,
+                "proteinMultiplier": 7,
+                "waterMultiplier": 7,
+                "basis": "hunting, combat, construction or hauling"
             }
         },
         "STEAL_FOOD": {
@@ -66,6 +86,13 @@
                 "FOOD": {
                     "atLeast": "SEVERE"
                 }
+            },
+            "nutritionActivity": {
+                "intensity": "light",
+                "energyMultiplier": 3,
+                "proteinMultiplier": 2.8,
+                "waterMultiplier": 3.2,
+                "basis": "light domestic, craft or self-care labor; module:food"
             }
         },
         "EAT_ACCEPTABLE": {
@@ -79,11 +106,20 @@
             "locationType": "camp|village|road|wilderness",
             "emotionalImpact": 0.05,
             "moralWeight": 0,
-            "requiredMorphs": ["core.vital.living"],
+            "requiredMorphs": [
+                "core.vital.living"
+            ],
             "needThresholds": {
                 "FOOD": {
                     "atLeast": "IMPAIRED"
                 }
+            },
+            "nutritionActivity": {
+                "intensity": "light",
+                "energyMultiplier": 3,
+                "proteinMultiplier": 2.8,
+                "waterMultiplier": 3.2,
+                "basis": "light domestic, craft or self-care labor; module:food"
             }
         },
         "EAT_POOR": {
@@ -97,11 +133,20 @@
             "locationType": "camp|village|road|wilderness",
             "emotionalImpact": -0.02,
             "moralWeight": 0,
-            "requiredMorphs": ["core.vital.living"],
+            "requiredMorphs": [
+                "core.vital.living"
+            ],
             "needThresholds": {
                 "FOOD": {
                     "atLeast": "SEVERE"
                 }
+            },
+            "nutritionActivity": {
+                "intensity": "light",
+                "energyMultiplier": 3,
+                "proteinMultiplier": 2.8,
+                "waterMultiplier": 3.2,
+                "basis": "light domestic, craft or self-care labor; module:food"
             }
         },
         "EAT_ANYTHING": {
@@ -119,6 +164,13 @@
                 "FOOD": {
                     "atLeast": "CRITICAL"
                 }
+            },
+            "nutritionActivity": {
+                "intensity": "light",
+                "energyMultiplier": 3,
+                "proteinMultiplier": 2.8,
+                "waterMultiplier": 3.2,
+                "basis": "light domestic, craft or self-care labor; module:food"
             }
         },
         "FoodActions": [
@@ -132,7 +184,10 @@
                     "CURIOSITY": 0.1
                 },
                 "skillRequired": "Survival",
-                "resourceOutput": ["berries", "roots"],
+                "resourceOutput": [
+                    "berries",
+                    "roots"
+                ],
                 "locationType": "wilderness",
                 "emotionalImpact": 0.1,
                 "environmentalImpact": -0.1,
@@ -140,6 +195,13 @@
                     "FOOD": {
                         "atLeast": "WARN"
                     }
+                },
+                "nutritionActivity": {
+                    "intensity": "moderate",
+                    "energyMultiplier": 4.8,
+                    "proteinMultiplier": 3.2,
+                    "waterMultiplier": 6.5,
+                    "basis": "walking, patrol, forage or travel"
                 }
             },
             {
@@ -158,7 +220,10 @@
                 "moralWeight": 0.3,
                 "groupAffinity": 0.2,
                 "skillRequired": "Hunting",
-                "resourceOutput": ["meat", "hide"],
+                "resourceOutput": [
+                    "meat",
+                    "hide"
+                ],
                 "locationType": "wilderness",
                 "respectGain": 0.3,
                 "emotionalImpact": 0.2,
@@ -166,6 +231,13 @@
                     "FOOD": {
                         "atLeast": "IMPAIRED"
                     }
+                },
+                "nutritionActivity": {
+                    "intensity": "vigorous",
+                    "energyMultiplier": 6.5,
+                    "proteinMultiplier": 7,
+                    "waterMultiplier": 7,
+                    "basis": "hunting, combat, construction or hauling"
                 }
             },
             {
@@ -188,6 +260,13 @@
                     "FOOD": {
                         "atLeast": "SEVERE"
                     }
+                },
+                "nutritionActivity": {
+                    "intensity": "light",
+                    "energyMultiplier": 3,
+                    "proteinMultiplier": 2.8,
+                    "waterMultiplier": 3.2,
+                    "basis": "light domestic, craft or self-care labor; module:food"
                 }
             },
             {
@@ -201,11 +280,20 @@
                 "locationType": "camp|village|road|wilderness",
                 "emotionalImpact": 0.05,
                 "moralWeight": 0,
-                "requiredMorphs": ["core.vital.living"],
+                "requiredMorphs": [
+                    "core.vital.living"
+                ],
                 "needThresholds": {
                     "FOOD": {
                         "atLeast": "IMPAIRED"
                     }
+                },
+                "nutritionActivity": {
+                    "intensity": "light",
+                    "energyMultiplier": 3,
+                    "proteinMultiplier": 2.8,
+                    "waterMultiplier": 3.2,
+                    "basis": "light domestic, craft or self-care labor; module:food"
                 }
             },
             {
@@ -219,11 +307,20 @@
                 "locationType": "camp|village|road|wilderness",
                 "emotionalImpact": -0.02,
                 "moralWeight": 0,
-                "requiredMorphs": ["core.vital.living"],
+                "requiredMorphs": [
+                    "core.vital.living"
+                ],
                 "needThresholds": {
                     "FOOD": {
                         "atLeast": "SEVERE"
                     }
+                },
+                "nutritionActivity": {
+                    "intensity": "light",
+                    "energyMultiplier": 3,
+                    "proteinMultiplier": 2.8,
+                    "waterMultiplier": 3.2,
+                    "basis": "light domestic, craft or self-care labor; module:food"
                 }
             },
             {
@@ -241,6 +338,13 @@
                     "FOOD": {
                         "atLeast": "CRITICAL"
                     }
+                },
+                "nutritionActivity": {
+                    "intensity": "light",
+                    "energyMultiplier": 3,
+                    "proteinMultiplier": 2.8,
+                    "waterMultiplier": 3.2,
+                    "basis": "light domestic, craft or self-care labor; module:food"
                 }
             }
         ]

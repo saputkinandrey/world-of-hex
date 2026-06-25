@@ -15,7 +15,16 @@
                 "lawEffect": {
                     "newLaw": true
                 },
-                "requiredMemes": ["comm.language.written"]
+                "requiredMemes": [
+                    "comm.language.written"
+                ],
+                "nutritionActivity": {
+                    "intensity": "rest",
+                    "energyMultiplier": 0.85,
+                    "proteinMultiplier": 1,
+                    "waterMultiplier": 0.95,
+                    "basis": "sleep and passive recovery; cost-signals"
+                }
             },
             {
                 "tag": "HOLD_TRIAL",
@@ -28,7 +37,14 @@
                 },
                 "requiresSkill": "diplomacy",
                 "requiresLocation": "court",
-                "targetType": "GROUP"
+                "targetType": "GROUP",
+                "nutritionActivity": {
+                    "intensity": "rest",
+                    "energyMultiplier": 0.85,
+                    "proteinMultiplier": 1,
+                    "waterMultiplier": 0.95,
+                    "basis": "sleep and passive recovery; cost-signals"
+                }
             },
             {
                 "tag": "PASS_JUDGMENT",
@@ -40,7 +56,14 @@
                     "STATUS": 0.3
                 },
                 "requiresSkill": "judgment",
-                "targetType": "OTHER"
+                "targetType": "OTHER",
+                "nutritionActivity": {
+                    "intensity": "rest",
+                    "energyMultiplier": 0.85,
+                    "proteinMultiplier": 1,
+                    "waterMultiplier": 0.95,
+                    "basis": "sleep and passive recovery; cost-signals"
+                }
             },
             {
                 "tag": "PUNISH_OFFENDER",
@@ -53,7 +76,14 @@
                 },
                 "requiresSkill": "discipline",
                 "targetType": "OTHER",
-                "risk": 0.2
+                "risk": 0.2,
+                "nutritionActivity": {
+                    "intensity": "rest",
+                    "energyMultiplier": 0.85,
+                    "proteinMultiplier": 1,
+                    "waterMultiplier": 0.95,
+                    "basis": "sleep and passive recovery; cost-signals"
+                }
             },
             {
                 "tag": "GRANT_PARDON",
@@ -65,7 +95,14 @@
                     "STATUS": 0.4
                 },
                 "requiresSkill": "leadership",
-                "moralWeight": 0.4
+                "moralWeight": 0.4,
+                "nutritionActivity": {
+                    "intensity": "rest",
+                    "energyMultiplier": 0.85,
+                    "proteinMultiplier": 1,
+                    "waterMultiplier": 0.95,
+                    "basis": "sleep and passive recovery; cost-signals"
+                }
             },
             {
                 "tag": "COLLECT_FINE",
@@ -76,7 +113,16 @@
                     "WEALTH": 0.5,
                     "CONTROL": 0.3
                 },
-                "requiresItem": ["money"]
+                "requiresItem": [
+                    "money"
+                ],
+                "nutritionActivity": {
+                    "intensity": "rest",
+                    "energyMultiplier": 0.85,
+                    "proteinMultiplier": 1,
+                    "waterMultiplier": 0.95,
+                    "basis": "sleep and passive recovery; cost-signals"
+                }
             },
             {
                 "tag": "DRAFT_CODE",
@@ -88,7 +134,16 @@
                     "KNOWLEDGE": 0.4
                 },
                 "requiresSkill": "writing",
-                "requiresItem": ["parchment"]
+                "requiresItem": [
+                    "parchment"
+                ],
+                "nutritionActivity": {
+                    "intensity": "rest",
+                    "energyMultiplier": 0.85,
+                    "proteinMultiplier": 1,
+                    "waterMultiplier": 0.95,
+                    "basis": "sleep and passive recovery; cost-signals"
+                }
             },
             {
                 "tag": "SWEAR_OATH",
@@ -103,7 +158,14 @@
                 "requiredMemes": [
                     "culture.vigil_ritual",
                     "cog.timekeeping.basic"
-                ]
+                ],
+                "nutritionActivity": {
+                    "intensity": "rest",
+                    "energyMultiplier": 0.85,
+                    "proteinMultiplier": 1,
+                    "waterMultiplier": 0.95,
+                    "basis": "sleep and passive recovery; cost-signals"
+                }
             },
             {
                 "tag": "ISSUE_DECREE",
@@ -114,7 +176,14 @@
                     "CONTROL": 0.4,
                     "STATUS": 0.3
                 },
-                "requiresSkill": "administration"
+                "requiresSkill": "administration",
+                "nutritionActivity": {
+                    "intensity": "rest",
+                    "energyMultiplier": 0.85,
+                    "proteinMultiplier": 1,
+                    "waterMultiplier": 0.95,
+                    "basis": "sleep and passive recovery; cost-signals"
+                }
             },
             {
                 "tag": "REPORT_CRIME",
@@ -125,7 +194,14 @@
                     "TRUST": 0.3,
                     "JUSTICE": 0.2
                 },
-                "targetType": "GROUP"
+                "targetType": "GROUP",
+                "nutritionActivity": {
+                    "intensity": "sedentary",
+                    "energyMultiplier": 2.35,
+                    "proteinMultiplier": 2.45,
+                    "waterMultiplier": 2.7,
+                    "basis": "seated cognitive, social or administrative work; cost-signals"
+                }
             }
         ]
     }

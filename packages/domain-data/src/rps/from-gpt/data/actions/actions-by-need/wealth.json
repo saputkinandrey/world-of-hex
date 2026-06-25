@@ -10,12 +10,21 @@
                     "SECURITY": 0.3,
                     "STABILITY": 0.2
                 },
-                "requiresItem": ["pickaxe"],
+                "requiresItem": [
+                    "pickaxe"
+                ],
                 "requiresSkill": "mining",
                 "requiresLocation": "mine",
                 "tradeEffect": {
                     "resource": "ore",
                     "amount": 5
+                },
+                "nutritionActivity": {
+                    "intensity": "rest",
+                    "energyMultiplier": 0.85,
+                    "proteinMultiplier": 1,
+                    "waterMultiplier": 0.95,
+                    "basis": "sleep and passive recovery; cost-signals"
                 }
             },
             {
@@ -28,7 +37,9 @@
                     "MASTERY": 0.4
                 },
                 "requiresSkill": "crafting",
-                "requiresItem": ["materials"],
+                "requiresItem": [
+                    "materials"
+                ],
                 "requiresLocation": "workshop",
                 "tradeEffect": {
                     "itemValue": 10
@@ -36,7 +47,14 @@
                 "requiredMemes": [
                     "comm.language.written",
                     "org.workshop_practice"
-                ]
+                ],
+                "nutritionActivity": {
+                    "intensity": "rest",
+                    "energyMultiplier": 0.85,
+                    "proteinMultiplier": 1,
+                    "waterMultiplier": 0.95,
+                    "basis": "sleep and passive recovery; cost-signals"
+                }
             },
             {
                 "tag": "TRADE_WITH_MERCHANT",
@@ -52,6 +70,13 @@
                 "targetType": "MARKET",
                 "tradeEffect": {
                     "balance": 5
+                },
+                "nutritionActivity": {
+                    "intensity": "rest",
+                    "energyMultiplier": 0.85,
+                    "proteinMultiplier": 1,
+                    "waterMultiplier": 0.95,
+                    "basis": "sleep and passive recovery; cost-signals"
                 }
             },
             {
@@ -62,7 +87,14 @@
                     "WEALTH": 0.4,
                     "SECURITY": 0.4
                 },
-                "requiresLocation": "home"
+                "requiresLocation": "home",
+                "nutritionActivity": {
+                    "intensity": "rest",
+                    "energyMultiplier": 0.85,
+                    "proteinMultiplier": 1,
+                    "waterMultiplier": 0.95,
+                    "basis": "sleep and passive recovery; cost-signals"
+                }
             },
             {
                 "tag": "COLLECT_TAX",
@@ -77,6 +109,13 @@
                 "targetType": "GROUP",
                 "tradeEffect": {
                     "balance": 10
+                },
+                "nutritionActivity": {
+                    "intensity": "rest",
+                    "energyMultiplier": 0.85,
+                    "proteinMultiplier": 1,
+                    "waterMultiplier": 0.95,
+                    "basis": "sleep and passive recovery; cost-signals"
                 }
             },
             {
@@ -89,8 +128,17 @@
                     "STATUS": 0.3
                 },
                 "requiresSkill": "management",
-                "requiresItem": ["money"],
-                "targetType": "OTHER"
+                "requiresItem": [
+                    "money"
+                ],
+                "targetType": "OTHER",
+                "nutritionActivity": {
+                    "intensity": "rest",
+                    "energyMultiplier": 0.85,
+                    "proteinMultiplier": 1,
+                    "waterMultiplier": 0.95,
+                    "basis": "sleep and passive recovery; cost-signals"
+                }
             },
             {
                 "tag": "LEND_RESOURCES",
@@ -101,9 +149,18 @@
                     "TRUST": 0.5,
                     "COMMUNITY": 0.2
                 },
-                "requiresItem": ["money"],
+                "requiresItem": [
+                    "money"
+                ],
                 "tradeEffect": {
                     "balance": -5
+                },
+                "nutritionActivity": {
+                    "intensity": "rest",
+                    "energyMultiplier": 0.85,
+                    "proteinMultiplier": 1,
+                    "waterMultiplier": 0.95,
+                    "basis": "sleep and passive recovery; cost-signals"
                 }
             },
             {
@@ -116,7 +173,14 @@
                 },
                 "requiresSkill": "intimidation",
                 "targetType": "OTHER",
-                "risk": 0.2
+                "risk": 0.2,
+                "nutritionActivity": {
+                    "intensity": "rest",
+                    "energyMultiplier": 0.85,
+                    "proteinMultiplier": 1,
+                    "waterMultiplier": 0.95,
+                    "basis": "sleep and passive recovery; cost-signals"
+                }
             },
             {
                 "tag": "DONATE_WEALTH",
@@ -127,9 +191,18 @@
                     "RESPECT": 0.6,
                     "SPIRIT": 0.3
                 },
-                "requiresItem": ["money"],
+                "requiresItem": [
+                    "money"
+                ],
                 "tradeEffect": {
                     "balance": -5
+                },
+                "nutritionActivity": {
+                    "intensity": "rest",
+                    "energyMultiplier": 0.85,
+                    "proteinMultiplier": 1,
+                    "waterMultiplier": 0.95,
+                    "basis": "sleep and passive recovery; cost-signals"
                 }
             },
             {
@@ -141,10 +214,20 @@
                     "STATUS": 0.6,
                     "RESPECT": 0.4
                 },
-                "requiresItem": ["jewelry", "clothing"],
+                "requiresItem": [
+                    "jewelry",
+                    "clothing"
+                ],
                 "socialImpact": {
                     "admiration": 0.3,
                     "envy": 0.2
+                },
+                "nutritionActivity": {
+                    "intensity": "rest",
+                    "energyMultiplier": 0.85,
+                    "proteinMultiplier": 1,
+                    "waterMultiplier": 0.95,
+                    "basis": "sleep and passive recovery; cost-signals"
                 }
             }
         ]

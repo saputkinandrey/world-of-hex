@@ -26,7 +26,14 @@
                     "health.first_aid_basic",
                     "tech.heat.space.hearth",
                     "comm.language.written"
-                ]
+                ],
+                "nutritionActivity": {
+                    "intensity": "vigorous",
+                    "energyMultiplier": 6.5,
+                    "proteinMultiplier": 7,
+                    "waterMultiplier": 7,
+                    "basis": "hunting, combat, construction or hauling; cost-signals"
+                }
             },
             {
                 "tag": "POWER_NAP_20",
@@ -46,7 +53,14 @@
                     "culture.vigil_ritual",
                     "cog.timekeeping.basic",
                     "tech.heat.space.hearth"
-                ]
+                ],
+                "nutritionActivity": {
+                    "intensity": "moderate",
+                    "energyMultiplier": 4.8,
+                    "proteinMultiplier": 3.2,
+                    "waterMultiplier": 6.5,
+                    "basis": "walking, patrol, forage or travel; cost-signals"
+                }
             },
             {
                 "tag": "SUNLIGHT_STRETCH",
@@ -65,7 +79,14 @@
                 "requiredMemes": [
                     "health.sanitation_norms",
                     "health.waste_handling"
-                ]
+                ],
+                "nutritionActivity": {
+                    "intensity": "light",
+                    "energyMultiplier": 3,
+                    "proteinMultiplier": 2.8,
+                    "waterMultiplier": 3.2,
+                    "basis": "light domestic, craft or self-care labor; cost-signals"
+                }
             },
             {
                 "tag": "SHORT_SPRINT_EXERCISE",
@@ -82,7 +103,14 @@
                 "requiredMemes": [
                     "health.sanitation_norms",
                     "health.waste_handling"
-                ]
+                ],
+                "nutritionActivity": {
+                    "intensity": "sedentary",
+                    "energyMultiplier": 2.35,
+                    "proteinMultiplier": 2.45,
+                    "waterMultiplier": 2.7,
+                    "basis": "seated cognitive, social or administrative work; cost-signals"
+                }
             },
             {
                 "tag": "CAFFEINE_HERB_TONIC",
@@ -101,6 +129,13 @@
                 "risk": 0.05,
                 "ownershipEffect": {
                     "kettleState": "brewed"
+                },
+                "nutritionActivity": {
+                    "intensity": "moderate",
+                    "energyMultiplier": 4.8,
+                    "proteinMultiplier": 3.2,
+                    "waterMultiplier": 6.5,
+                    "basis": "walking, patrol, forage or travel; cost-signals"
                 }
             },
             {
@@ -118,7 +153,14 @@
                     "culture.vigil_ritual",
                     "cog.timekeeping.basic",
                     "tech.heat.space.hearth"
-                ]
+                ],
+                "nutritionActivity": {
+                    "intensity": "light",
+                    "energyMultiplier": 3,
+                    "proteinMultiplier": 2.8,
+                    "waterMultiplier": 3.2,
+                    "basis": "light domestic, craft or self-care labor; cost-signals"
+                }
             },
             {
                 "tag": "WATER_REHYDRATE",
@@ -142,7 +184,14 @@
                     "health.sanitation_norms",
                     "health.waste_handling",
                     "tech.food.preservation.salty"
-                ]
+                ],
+                "nutritionActivity": {
+                    "intensity": "light",
+                    "energyMultiplier": 3,
+                    "proteinMultiplier": 2.8,
+                    "waterMultiplier": 3.2,
+                    "basis": "light domestic, craft or self-care labor; cost-signals"
+                }
             },
             {
                 "tag": "MICRO_BREAK_EYESTRAIN",
@@ -156,6 +205,13 @@
                 },
                 "ownershipEffect": {
                     "taskState": "paused_micro"
+                },
+                "nutritionActivity": {
+                    "intensity": "sedentary",
+                    "energyMultiplier": 2.35,
+                    "proteinMultiplier": 2.45,
+                    "waterMultiplier": 2.7,
+                    "basis": "seated cognitive, social or administrative work; cost-signals"
                 }
             },
             {
@@ -175,7 +231,14 @@
                 "requiredMemes": [
                     "health.sanitation_norms",
                     "health.waste_handling"
-                ]
+                ],
+                "nutritionActivity": {
+                    "intensity": "light",
+                    "energyMultiplier": 3,
+                    "proteinMultiplier": 2.8,
+                    "waterMultiplier": 3.2,
+                    "basis": "light domestic, craft or self-care labor; cost-signals"
+                }
             },
             {
                 "tag": "SNACK_TRAIL_MIX",
@@ -194,6 +257,13 @@
                 },
                 "ownershipEffect": {
                     "storesLevel": "reduced_snacks"
+                },
+                "nutritionActivity": {
+                    "intensity": "moderate",
+                    "energyMultiplier": 4.8,
+                    "proteinMultiplier": 3.2,
+                    "waterMultiplier": 6.5,
+                    "basis": "walking, patrol, forage or travel; cost-signals"
                 }
             },
             {
@@ -216,7 +286,14 @@
                     "cog.timekeeping.basic",
                     "tech.heat.space.hearth",
                     "comm.language.written"
-                ]
+                ],
+                "nutritionActivity": {
+                    "intensity": "light",
+                    "energyMultiplier": 3,
+                    "proteinMultiplier": 2.8,
+                    "waterMultiplier": 3.2,
+                    "basis": "light domestic, craft or self-care labor; cost-signals"
+                }
             },
             {
                 "tag": "WORKLOAD_REBALANCE",
@@ -239,6 +316,13 @@
                 "lawEffect": {
                     "fatigueLimits": "posted",
                     "enforceable": true
+                },
+                "nutritionActivity": {
+                    "intensity": "light",
+                    "energyMultiplier": 3,
+                    "proteinMultiplier": 2.8,
+                    "waterMultiplier": 3.2,
+                    "basis": "light domestic, craft or self-care labor; cost-signals"
                 }
             },
             {
@@ -258,6 +342,13 @@
                 },
                 "ownershipEffect": {
                     "curfewReady": "true"
+                },
+                "nutritionActivity": {
+                    "intensity": "vigorous",
+                    "energyMultiplier": 6.5,
+                    "proteinMultiplier": 7,
+                    "waterMultiplier": 7,
+                    "basis": "hunting, combat, construction or hauling; cost-signals"
                 }
             },
             {
@@ -271,7 +362,14 @@
                     "HEALTH": 0.1
                 },
                 "requiresLocation": "well|river",
-                "risk": 0.03
+                "risk": 0.03,
+                "nutritionActivity": {
+                    "intensity": "light",
+                    "energyMultiplier": 3,
+                    "proteinMultiplier": 2.8,
+                    "waterMultiplier": 3.2,
+                    "basis": "light domestic, craft or self-care labor; cost-signals"
+                }
             },
             {
                 "tag": "WARMUP_BEFORE_LABOR",
@@ -290,7 +388,14 @@
                 "requiredMemes": [
                     "health.sanitation_norms",
                     "health.waste_handling"
-                ]
+                ],
+                "nutritionActivity": {
+                    "intensity": "sedentary",
+                    "energyMultiplier": 2.35,
+                    "proteinMultiplier": 2.45,
+                    "waterMultiplier": 2.7,
+                    "basis": "seated cognitive, social or administrative work; cost-signals"
+                }
             },
             {
                 "tag": "RECOVERY_MASSAGE",
@@ -316,7 +421,14 @@
                     "cog.timekeeping.basic",
                     "health.first_aid_basic",
                     "tech.heat.space.hearth"
-                ]
+                ],
+                "nutritionActivity": {
+                    "intensity": "moderate",
+                    "energyMultiplier": 4.8,
+                    "proteinMultiplier": 3.2,
+                    "waterMultiplier": 6.5,
+                    "basis": "walking, patrol, forage or travel; cost-signals"
+                }
             }
         ]
     }

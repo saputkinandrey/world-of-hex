@@ -18,6 +18,13 @@
                 "socialImpact": {
                     "respect": 0.3,
                     "conflict": 0.2
+                },
+                "nutritionActivity": {
+                    "intensity": "rest",
+                    "energyMultiplier": 0.85,
+                    "proteinMultiplier": 1,
+                    "waterMultiplier": 0.95,
+                    "basis": "sleep and passive recovery; cost-signals"
                 }
             },
             {
@@ -29,10 +36,20 @@
                     "STABILITY": 0.5,
                     "COMFORT": 0.4
                 },
-                "requiresItem": ["wood", "clay"],
+                "requiresItem": [
+                    "wood",
+                    "clay"
+                ],
                 "requiresSkill": "construction",
                 "ownershipEffect": {
                     "gain": "house"
+                },
+                "nutritionActivity": {
+                    "intensity": "rest",
+                    "energyMultiplier": 0.85,
+                    "proteinMultiplier": 1,
+                    "waterMultiplier": 0.95,
+                    "basis": "sleep and passive recovery; cost-signals"
                 }
             },
             {
@@ -43,8 +60,21 @@
                     "PROPERTY": 0.6,
                     "CONTROL": 0.3
                 },
-                "requiresItem": ["marker", "paint", "rope"],
-                "requiredMemes": ["comm.language.written"]
+                "requiresItem": [
+                    "marker",
+                    "paint",
+                    "rope"
+                ],
+                "requiredMemes": [
+                    "comm.language.written"
+                ],
+                "nutritionActivity": {
+                    "intensity": "rest",
+                    "energyMultiplier": 0.85,
+                    "proteinMultiplier": 1,
+                    "waterMultiplier": 0.95,
+                    "basis": "sleep and passive recovery; cost-signals"
+                }
             },
             {
                 "tag": "DEFEND_PROPERTY",
@@ -55,9 +85,18 @@
                     "SECURITY": 0.6,
                     "STATUS": 0.2
                 },
-                "requiresItem": ["weapon"],
+                "requiresItem": [
+                    "weapon"
+                ],
                 "requiresSkill": "combat",
-                "risk": 0.4
+                "risk": 0.4,
+                "nutritionActivity": {
+                    "intensity": "rest",
+                    "energyMultiplier": 0.85,
+                    "proteinMultiplier": 1,
+                    "waterMultiplier": 0.95,
+                    "basis": "sleep and passive recovery; cost-signals"
+                }
             },
             {
                 "tag": "REPAIR_PROPERTY",
@@ -67,8 +106,18 @@
                     "PROPERTY": 0.6,
                     "STABILITY": 0.5
                 },
-                "requiresItem": ["wood", "tools"],
-                "requiresSkill": "crafting"
+                "requiresItem": [
+                    "wood",
+                    "tools"
+                ],
+                "requiresSkill": "crafting",
+                "nutritionActivity": {
+                    "intensity": "rest",
+                    "energyMultiplier": 0.85,
+                    "proteinMultiplier": 1,
+                    "waterMultiplier": 0.95,
+                    "basis": "sleep and passive recovery; cost-signals"
+                }
             },
             {
                 "tag": "RENT_PROPERTY",
@@ -83,6 +132,13 @@
                 "targetType": "OTHER",
                 "ownershipEffect": {
                     "partialControl": true
+                },
+                "nutritionActivity": {
+                    "intensity": "rest",
+                    "energyMultiplier": 0.85,
+                    "proteinMultiplier": 1,
+                    "waterMultiplier": 0.95,
+                    "basis": "sleep and passive recovery; cost-signals"
                 }
             },
             {
@@ -97,6 +153,13 @@
                 "targetType": "OTHER",
                 "ownershipEffect": {
                     "transfer": true
+                },
+                "nutritionActivity": {
+                    "intensity": "rest",
+                    "energyMultiplier": 0.85,
+                    "proteinMultiplier": 1,
+                    "waterMultiplier": 0.95,
+                    "basis": "sleep and passive recovery; cost-signals"
                 }
             },
             {
@@ -109,7 +172,14 @@
                     "CONTROL": 0.5
                 },
                 "requiresSkill": "diplomacy",
-                "risk": 0.3
+                "risk": 0.3,
+                "nutritionActivity": {
+                    "intensity": "rest",
+                    "energyMultiplier": 0.85,
+                    "proteinMultiplier": 1,
+                    "waterMultiplier": 0.95,
+                    "basis": "sleep and passive recovery; cost-signals"
+                }
             },
             {
                 "tag": "EVICT_INTRUDER",
@@ -122,7 +192,14 @@
                 },
                 "requiresSkill": "intimidation",
                 "targetType": "OTHER",
-                "risk": 0.2
+                "risk": 0.2,
+                "nutritionActivity": {
+                    "intensity": "rest",
+                    "energyMultiplier": 0.85,
+                    "proteinMultiplier": 1,
+                    "waterMultiplier": 0.95,
+                    "basis": "sleep and passive recovery; cost-signals"
+                }
             },
             {
                 "tag": "STORE_ITEMS",
@@ -132,7 +209,14 @@
                     "PROPERTY": 0.4,
                     "STABILITY": 0.3
                 },
-                "requiresLocation": "home"
+                "requiresLocation": "home",
+                "nutritionActivity": {
+                    "intensity": "rest",
+                    "energyMultiplier": 0.85,
+                    "proteinMultiplier": 1,
+                    "waterMultiplier": 0.95,
+                    "basis": "sleep and passive recovery; cost-signals"
+                }
             }
         ]
     }
