@@ -16,7 +16,13 @@
     "domain-admin:dev": "npm --prefix domain-admin run dev",
     "heightmap:dev": "npm --prefix heightmap-generator run dev",
     "heightmap:generate": "npm --prefix heightmap-generator run generate --",
-    "web-client:dev": "npm --prefix web-client run dev"
+    "web-client:dev": "npm --prefix web-client run dev",
+    "wiki:setup": "node hex-wiki/scripts/run-wiki-script.mjs setup_wsl.sh",
+    "wiki:check": "node hex-wiki/scripts/run-wiki-script.mjs check_env.sh",
+    "wiki:dev": "node hex-wiki/scripts/run-wiki-script.mjs start_wiki.sh",
+    "wiki:readonly": "node hex-wiki/scripts/run-wiki-script.mjs start_readonly.sh",
+    "wiki:ngrok": "node hex-wiki/scripts/run-wiki-script.mjs start_ngrok.sh",
+    "wiki:export": "node hex-wiki/scripts/export-wiki.mjs"
   },
   "devDependencies": {
     "react": "18.3.1",
