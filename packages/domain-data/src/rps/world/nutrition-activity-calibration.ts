@@ -8,7 +8,7 @@ export interface ActivityScheduleEntry {
 }
 
 export interface DailyNutritionFromScheduleInput {
-    basalNutritionPerDay: CreatureNutritionNeedsData;
+    maintenanceNutritionPerDay: CreatureNutritionNeedsData;
     schedule: ActivityScheduleEntry[];
 }
 
@@ -22,28 +22,35 @@ export const computeDailyNutritionFromActivitySchedule = (
         0,
     );
     const unscheduledHours = Math.max(0, HOURS_PER_DAY - scheduledHours);
-    const basalPerHour = {
-        energy: input.basalNutritionPerDay.energyPerDay / HOURS_PER_DAY,
-        protein: input.basalNutritionPerDay.proteinPerDay / HOURS_PER_DAY,
+    const maintenancePerHour = {
+        energy: input.maintenanceNutritionPerDay.energyPerDay / HOURS_PER_DAY,
+        protein: input.maintenanceNutritionPerDay.proteinPerDay / HOURS_PER_DAY,
         water:
-            (input.basalNutritionPerDay.waterPerDay ?? 0) / HOURS_PER_DAY,
-        mass: input.basalNutritionPerDay.massPerDayLb / HOURS_PER_DAY,
+            (input.maintenanceNutritionPerDay.waterPerDay ?? 0) / HOURS_PER_DAY,
+        mass: input.maintenanceNutritionPerDay.massPerDayLb / HOURS_PER_DAY,
     };
 
     let energyPerDay = 0;
     let proteinPerDay = 0;
     let waterPerDay = 0;
-    let massPerDayLb = input.basalNutritionPerDay.massPerDayLb;
+    let massPerDayLb = input.maintenanceNutritionPerDay.massPerDayLb;
 
     const accumulateHours = (
         hours: number,
         nutritionActivity: NutritionActivityData,
     ) => {
-        energyPerDay += basalPerHour.energy * nutritionActivity.energyMultiplier * hours;
+        energyPerDay +=
+            maintenancePerHour.energy *
+            nutritionActivity.energyMultiplier *
+            hours;
         proteinPerDay +=
-            basalPerHour.protein * nutritionActivity.proteinMultiplier * hours;
+            maintenancePerHour.protein *
+            nutritionActivity.proteinMultiplier *
+            hours;
         waterPerDay +=
-            basalPerHour.water * nutritionActivity.waterMultiplier * hours;
+            maintenancePerHour.water *
+            nutritionActivity.waterMultiplier *
+            hours;
     };
 
     for (const entry of input.schedule) {
@@ -80,19 +87,23 @@ export interface ConsumerCalibrationSchedule {
     schedule: ActivityScheduleEntry[];
 }
 
-export const HUMAN_WARM_BLOODED_BASAL_NUTRITION: CreatureNutritionNeedsData = {
-    energyPerDay: 30,
-    proteinPerDay: 5,
-    waterPerDay: 15,
-    massPerDayLb: 3,
-};
+export const HUMAN_WARM_BLOODED_MAINTENANCE_NUTRITION: CreatureNutritionNeedsData =
+    {
+        energyPerDay: 30,
+        proteinPerDay: 5,
+        waterPerDay: 15,
+        massPerDayLb: 3,
+    };
 
 export const CONSUMER_CALIBRATION_SCHEDULES: ConsumerCalibrationSchedule[] = [
     {
         consumerId: "consumer-sedentary-scholar",
         schedule: [
             { hours: 8, nutritionActivity: NUTRITION_ACTIVITY_PRESETS.rest },
-            { hours: 10, nutritionActivity: NUTRITION_ACTIVITY_PRESETS.sedentary },
+            {
+                hours: 10,
+                nutritionActivity: NUTRITION_ACTIVITY_PRESETS.sedentary,
+            },
         ],
     },
     {
@@ -113,7 +124,10 @@ export const CONSUMER_CALIBRATION_SCHEDULES: ConsumerCalibrationSchedule[] = [
         consumerId: "consumer-guild-master",
         schedule: [
             { hours: 8, nutritionActivity: NUTRITION_ACTIVITY_PRESETS.rest },
-            { hours: 9, nutritionActivity: NUTRITION_ACTIVITY_PRESETS.sedentary },
+            {
+                hours: 9,
+                nutritionActivity: NUTRITION_ACTIVITY_PRESETS.sedentary,
+            },
             { hours: 2, nutritionActivity: NUTRITION_ACTIVITY_PRESETS.light },
         ],
     },
@@ -121,74 +135,116 @@ export const CONSUMER_CALIBRATION_SCHEDULES: ConsumerCalibrationSchedule[] = [
         consumerId: "consumer-natural-harvest",
         schedule: [
             { hours: 8, nutritionActivity: NUTRITION_ACTIVITY_PRESETS.rest },
-            { hours: 8, nutritionActivity: NUTRITION_ACTIVITY_PRESETS.moderate },
+            {
+                hours: 8,
+                nutritionActivity: NUTRITION_ACTIVITY_PRESETS.moderate,
+            },
         ],
     },
     {
         consumerId: "consumer-patrol-service-work",
         schedule: [
             { hours: 8, nutritionActivity: NUTRITION_ACTIVITY_PRESETS.rest },
-            { hours: 8, nutritionActivity: NUTRITION_ACTIVITY_PRESETS.moderate },
+            {
+                hours: 8,
+                nutritionActivity: NUTRITION_ACTIVITY_PRESETS.moderate,
+            },
         ],
     },
     {
         consumerId: "consumer-heavy-craft-work",
         schedule: [
             { hours: 8, nutritionActivity: NUTRITION_ACTIVITY_PRESETS.rest },
-            { hours: 4, nutritionActivity: NUTRITION_ACTIVITY_PRESETS.moderate },
-            { hours: 4, nutritionActivity: NUTRITION_ACTIVITY_PRESETS.vigorous },
+            {
+                hours: 4,
+                nutritionActivity: NUTRITION_ACTIVITY_PRESETS.moderate,
+            },
+            {
+                hours: 4,
+                nutritionActivity: NUTRITION_ACTIVITY_PRESETS.vigorous,
+            },
         ],
     },
     {
         consumerId: "consumer-hunting-work",
         schedule: [
             { hours: 8, nutritionActivity: NUTRITION_ACTIVITY_PRESETS.rest },
-            { hours: 6, nutritionActivity: NUTRITION_ACTIVITY_PRESETS.vigorous },
+            {
+                hours: 6,
+                nutritionActivity: NUTRITION_ACTIVITY_PRESETS.vigorous,
+            },
         ],
     },
     {
         consumerId: "consumer-load-carrying-work",
         schedule: [
             { hours: 8, nutritionActivity: NUTRITION_ACTIVITY_PRESETS.rest },
-            { hours: 7, nutritionActivity: NUTRITION_ACTIVITY_PRESETS.vigorous },
+            {
+                hours: 7,
+                nutritionActivity: NUTRITION_ACTIVITY_PRESETS.vigorous,
+            },
         ],
     },
     {
         consumerId: "consumer-building-work",
         schedule: [
             { hours: 8, nutritionActivity: NUTRITION_ACTIVITY_PRESETS.rest },
-            { hours: 8, nutritionActivity: NUTRITION_ACTIVITY_PRESETS.vigorous },
+            {
+                hours: 8,
+                nutritionActivity: NUTRITION_ACTIVITY_PRESETS.vigorous,
+            },
         ],
     },
     {
         consumerId: "consumer-caravan-work",
         schedule: [
             { hours: 8, nutritionActivity: NUTRITION_ACTIVITY_PRESETS.rest },
-            { hours: 8, nutritionActivity: NUTRITION_ACTIVITY_PRESETS.moderate },
-            { hours: 2, nutritionActivity: NUTRITION_ACTIVITY_PRESETS.vigorous },
+            {
+                hours: 8,
+                nutritionActivity: NUTRITION_ACTIVITY_PRESETS.moderate,
+            },
+            {
+                hours: 2,
+                nutritionActivity: NUTRITION_ACTIVITY_PRESETS.vigorous,
+            },
         ],
     },
     {
         consumerId: "consumer-long-travel-work",
         schedule: [
             { hours: 8, nutritionActivity: NUTRITION_ACTIVITY_PRESETS.rest },
-            { hours: 9, nutritionActivity: NUTRITION_ACTIVITY_PRESETS.moderate },
+            {
+                hours: 9,
+                nutritionActivity: NUTRITION_ACTIVITY_PRESETS.moderate,
+            },
         ],
     },
     {
         consumerId: "consumer-warrior-work",
         schedule: [
             { hours: 8, nutritionActivity: NUTRITION_ACTIVITY_PRESETS.rest },
-            { hours: 6, nutritionActivity: NUTRITION_ACTIVITY_PRESETS.vigorous },
-            { hours: 2, nutritionActivity: NUTRITION_ACTIVITY_PRESETS.moderate },
+            {
+                hours: 6,
+                nutritionActivity: NUTRITION_ACTIVITY_PRESETS.vigorous,
+            },
+            {
+                hours: 2,
+                nutritionActivity: NUTRITION_ACTIVITY_PRESETS.moderate,
+            },
         ],
     },
     {
         consumerId: "consumer-heavy-field-work",
         schedule: [
             { hours: 8, nutritionActivity: NUTRITION_ACTIVITY_PRESETS.rest },
-            { hours: 6, nutritionActivity: NUTRITION_ACTIVITY_PRESETS.vigorous },
-            { hours: 3, nutritionActivity: NUTRITION_ACTIVITY_PRESETS.moderate },
+            {
+                hours: 6,
+                nutritionActivity: NUTRITION_ACTIVITY_PRESETS.vigorous,
+            },
+            {
+                hours: 3,
+                nutritionActivity: NUTRITION_ACTIVITY_PRESETS.moderate,
+            },
         ],
     },
     {
@@ -196,7 +252,10 @@ export const CONSUMER_CALIBRATION_SCHEDULES: ConsumerCalibrationSchedule[] = [
         schedule: [
             { hours: 8, nutritionActivity: NUTRITION_ACTIVITY_PRESETS.rest },
             { hours: 7, nutritionActivity: NUTRITION_ACTIVITY_PRESETS.extreme },
-            { hours: 1, nutritionActivity: NUTRITION_ACTIVITY_PRESETS.moderate },
+            {
+                hours: 1,
+                nutritionActivity: NUTRITION_ACTIVITY_PRESETS.moderate,
+            },
         ],
     },
 ];

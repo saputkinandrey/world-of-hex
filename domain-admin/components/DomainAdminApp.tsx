@@ -30,6 +30,7 @@ import { BiomesScreen } from "./screens/BiomesScreen";
 import { ConfigScreen } from "./screens/ConfigScreen";
 import { ConsumersScreen } from "./screens/ConsumersScreen";
 import { CreatureSpeciesScreen } from "./screens/CreatureSpeciesScreen";
+import { CreatureManagerScreen } from "./screens/CreatureManagerScreen";
 import { FoodScreen } from "./screens/FoodScreen";
 import { GoodsScreen } from "./screens/GoodsScreen";
 import { ProductionScreen } from "./screens/ProductionScreen";
@@ -198,6 +199,9 @@ const DomainAdminContent = () => {
                     {tab === "techniques" ? <TechniquesScreen /> : null}
                     {tab === "creature-species" ? (
                         <CreatureSpeciesScreen />
+                    ) : null}
+                    {tab === "creature-manager" ? (
+                        <CreatureManagerScreen />
                     ) : null}
                     {tab === "behavior-actions" ? (
                         <BehaviorActionsScreen />

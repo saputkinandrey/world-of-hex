@@ -2,6 +2,6 @@ import { CreatureTemplateLensEntity } from '../../domain/character/creature-temp
 
 export const IQ2CreatureLens = new CreatureTemplateLensEntity({
     name: 'IQ2 Creature',
-    memeIdsAdd: ['cog.iq2'],
+    memeIdsAdd: ['morph.attribute.iq.2'],
     actionTagsAdd: [],
 });

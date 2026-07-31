@@ -1,42 +1,44 @@
 {
-  "id": "animal.mammal.artiodactyl.sheep",
-  "name": "Sheep",
-  "kind": "species",
-  "parentId": "animal.mammal.artiodactyl",
-  "defaultActorName": "Sheep",
-  "memes": [],
-  "morphs": [
-    "morph.integument.fur_dense"
-  ],
-  "traits": [],
-  "actions": [
-    {
-      "group": "etho",
-      "moduleName": "action-universal",
-      "exportName": "BASK_SUN_THERMOREGULATE"
+    "id": "animal.mammal.artiodactyl.sheep",
+    "name": "Sheep",
+    "kind": "species",
+    "parentId": "animal.mammal.artiodactyl",
+    "defaultActorName": "Sheep",
+    "memes": [],
+    "morphs": [
+        "morph.attribute.st.10",
+        "morph.integument.fur_dense",
+        "morph.regenerable.milk.3"
+    ],
+    "traits": [],
+    "actions": [
+        {
+            "group": "etho",
+            "moduleName": "action-universal",
+            "exportName": "BASK_SUN_THERMOREGULATE"
+        },
+        {
+            "group": "etho",
+            "moduleName": "action-universal",
+            "exportName": "SEEK_COOL_SHELTER"
+        }
+    ],
+    "nutritionNeedsPerDay": {
+        "energyPerDay": 0,
+        "proteinPerDay": 0,
+        "waterPerDay": 0,
+        "massPerDayLb": 0
     },
-    {
-      "group": "etho",
-      "moduleName": "action-universal",
-      "exportName": "SEEK_COOL_SHELTER"
-    }
-  ],
-  "nutritionNeedsPerDay": {
-    "energyPerDay": 0,
-    "proteinPerDay": 0,
-    "waterPerDay": 0,
-    "massPerDayLb": 0
-  },
-  "consumptionPerTurn": {
-    "energy": 0,
-    "protein": 0,
-    "water": 0,
-    "massLb": 0
-  },
-  "physical": {
-    "baseVolume": 0,
-    "minVolume": 0,
-    "carryVolumeCapacity": 0
-  },
-  "notes": "Species profile created for economy good source-sheep."
+    "consumptionPerTurn": {
+        "energy": 0,
+        "protein": 0,
+        "water": 0,
+        "massLb": 0
+    },
+    "physical": {
+        "baseVolume": 0,
+        "minVolume": 0,
+        "carryVolumeCapacity": 0
+    },
+    "notes": "Species profile created for economy good source-sheep."
 }

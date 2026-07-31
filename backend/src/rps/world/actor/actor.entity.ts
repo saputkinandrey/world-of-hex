@@ -28,7 +28,7 @@ export interface NutritionContent {
 
 /**
  * Суточные потребности вида.
- * Warm-blooded basal maintenance at ST10/Average: energy=30, protein=5, massLb≈3.
+ * Warm-blooded maintenance at ST10/Average: energy=30, protein=5, massLb≈3.
  */
 export interface NutritionNeeds {
     energyPerDay: number;
@@ -148,7 +148,7 @@ export function getSizeModifierFromMorphs(actor: ActorEntity): number | undefine
 
 /**
  * Stomach capacity in pounds for the actor.
- * ST10/Average build at 145 lb uses 1 lb; capacity scales linearly with body weight.
+ * ST10/Average build at 125 lb uses 1 lb; capacity scales linearly with body weight.
  */
 export function getStomachCapacityLb(actor: ActorEntity): number {
     const estimate = estimateStomachCapacityLbFromMorphIds(actor.getProfileMorphIds());

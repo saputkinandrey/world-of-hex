@@ -20,6 +20,13 @@ import { TurnAdvanceRequestRepository } from './repositories/turn-advance-reques
 import { EncounterEventReadRepository } from './repositories/encounter-event-read.repository';
 import { EncounterTurnAdvanceListener } from './services/encounter-turn-advance.listener';
 import { EncounterCleanupRepository } from './repositories/encounter-cleanup.repository';
+import { BullModule } from '@nestjs/bullmq';
+import { BullBoardModule } from '@bull-board/nestjs';
+import { BullMQAdapter } from '@bull-board/api/bullMQAdapter';
+import { SEA_COMBAT_ENCOUNTER_ROUNDS_QUEUE } from './queues/sea-combat.queue-names';
+import { SeaCombatRoundProducer } from './queues/sea-combat-round.producer';
+import { SeaCombatRoundProcessor } from './queues/sea-combat-round.processor';
+import { SeaCombatMinutePassedListener } from './services/sea-combat-minute-passed.listener';
 
 @Module({
     imports: [
@@ -29,6 +36,11 @@ import { EncounterCleanupRepository } from './repositories/encounter-cleanup.rep
         MongooseModule.forFeature([{ name: PendingIntent.name, schema: PendingIntentSchema }]),
         MongooseModule.forFeature([{ name: TurnEntropy.name, schema: TurnEntropySchema }]),
         MongooseModule.forFeature([{ name: TurnAdvanceRequest.name, schema: TurnAdvanceRequestSchema }]),
+        BullModule.registerQueue({ name: SEA_COMBAT_ENCOUNTER_ROUNDS_QUEUE }),
+        BullBoardModule.forFeature({
+            name: SEA_COMBAT_ENCOUNTER_ROUNDS_QUEUE,
+            adapter: BullMQAdapter,
+        }),
         PlayerModule,
     ],
     controllers: [PlayersController, EncountersController, ShipsController, ShipController],
@@ -43,6 +55,9 @@ import { EncounterCleanupRepository } from './repositories/encounter-cleanup.rep
         ShipRepository,
         SeaCombatGateway,
         EncounterTurnAdvanceListener,
+        SeaCombatRoundProducer,
+        SeaCombatRoundProcessor,
+        SeaCombatMinutePassedListener,
     ],
     exports: [EncounterService],
 })

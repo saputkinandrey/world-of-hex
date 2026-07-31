@@ -49,4 +49,11 @@ GOOGLE_CLIENT_SECRET=
 
 APPLE_APP_AUDIENCE=[]
 
-WORKER_HOST=redis://redis:6379/1
+# Local Nest (`npm run backend:dev`): use 127.0.0.1 after `npm run infra:up`.
+# Docker api service overrides these to the compose hostname `redis`.
+WORKER_HOST=redis://127.0.0.1:6379/1
+REDIS_HOST=127.0.0.1
+REDIS_PORT=6379
+
+JWT_SECRET=secret
+JWT_SECRET_EMAILS=secret_emails

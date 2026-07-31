@@ -2,65 +2,38 @@
     "tree": {
         "attribute": {
             "dx": {
-                "dx10": "morph.attribute.dx.dx10"
+                "0": "morph.attribute.dx.0",
+                "10": "morph.attribute.dx.10"
             },
-            "ht": {
-                "ht10": "morph.attribute.ht.ht10"
-            },
-            "st": {
-                "st1": "morph.attribute.st.st1",
-                "st2": "morph.attribute.st.st2",
-                "st3": "morph.attribute.st.st3",
-                "st4": "morph.attribute.st.st4",
-                "st5": "morph.attribute.st.st5",
-                "st6": "morph.attribute.st.st6",
-                "st7": "morph.attribute.st.st7",
-                "st8": "morph.attribute.st.st8",
-                "st9": "morph.attribute.st.st9",
-                "st10": "morph.attribute.st.st10",
-                "st11": "morph.attribute.st.st11",
-                "st12": "morph.attribute.st.st12",
-                "st13": "morph.attribute.st.st13",
-                "st14": "morph.attribute.st.st14",
-                "st15": "morph.attribute.st.st15",
-                "st16": "morph.attribute.st.st16",
-                "st17": "morph.attribute.st.st17",
-                "st18": "morph.attribute.st.st18",
-                "st19": "morph.attribute.st.st19",
-                "st20": "morph.attribute.st.st20"
-            }
+            "ht": "morph.attribute.ht.10",
+            "iq": "morph.attribute.iq.%level%",
+            "st": "morph.attribute.st.%level%"
         },
         "body_plan": {
             "arachnid": "morph.body_plan.arachnid",
+            "aquatic_wetland": "morph.body_plan.aquatic_wetland",
             "avian": "morph.body_plan.avian",
             "bivalve_mollusk": "morph.body_plan.bivalve_mollusk",
+            "climber_plant": "morph.body_plan.climber_plant",
             "crustacean": "morph.body_plan.crustacean",
             "fish_like": "morph.body_plan.fish_like",
+            "fungus": "morph.body_plan.fungus",
+            "herbaceous": "morph.body_plan.herbaceous",
             "hexapod_insect": "morph.body_plan.hexapod_insect",
             "humanoid": "morph.body_plan.humanoid",
             "serpentine_aquatic": "morph.body_plan.serpentine_aquatic",
             "serpentine_ground": "morph.body_plan.serpentine_ground",
             "tetrapod_climber": "morph.body_plan.tetrapod_climber",
             "tetrapod_large_ground": "morph.body_plan.tetrapod_large_ground",
-            "tetrapod_small_ground": "morph.body_plan.tetrapod_small_ground"
+            "tetrapod_small_ground": "morph.body_plan.tetrapod_small_ground",
+            "woody_shrub": "morph.body_plan.woody_shrub",
+            "woody_tree": "morph.body_plan.woody_tree"
         },
         "core": {
             "motor_coordination": "core.motor_coordination",
             "perception": "core.perception",
+            "fungus_living": "core.vital.fungus_living",
             "plant_living": "core.vital.plant_living"
-        },
-        "cognition": {
-            "iq": {
-                "iq2": "cog.iq2",
-                "iq3": "cog.iq3",
-                "iq4": "cog.iq4",
-                "iq5": "cog.iq5",
-                "iq6": "cog.iq6",
-                "iq7": "cog.iq7",
-                "iq8": "cog.iq8",
-                "iq9": "cog.iq9",
-                "iq10": "cog.iq10"
-            }
         },
         "ethology": {
             "maintenance": {
@@ -118,17 +91,66 @@
             "tentacles_flexible": "morph.manip.tentacles_flexible",
             "trunk_flexible": "morph.manip.trunk_flexible"
         },
+        "fungus": {
+            "fruiting_body": "morph.fungus.fruiting_body",
+            "mycelial_network": "morph.fungus.mycelial_network"
+        },
         "plant": {
             "annual_herbaceous": "morph.plant.annual_herbaceous",
             "climbing_growth": "morph.plant.climbing_growth",
+            "forage_crop": "morph.plant.forage_crop",
             "fruiting_body": "morph.plant.fruiting_body",
+            "nut_crop": "morph.plant.nut_crop",
             "photosynthesis_basic": "morph.plant.photosynthesis_basic",
             "rooted": "morph.plant.rooted",
+            "seed_crop": "morph.plant.seed_crop",
             "shrub_growth": "morph.plant.shrub_growth",
             "tree_growth": "morph.plant.tree_growth",
             "vascular_basic": "morph.plant.vascular_basic",
             "wetland_growth": "morph.plant.wetland_growth",
             "woody_perennial": "morph.plant.woody_perennial"
+        },
+        "regenerable": {
+            "bark": "morph.regenerable.bark.%level%",
+            "blood": "morph.regenerable.blood.%level%",
+            "bone": "morph.regenerable.bone.%level%",
+            "eggs": "morph.regenerable.eggs.%level%",
+            "exoskeleton": "morph.regenerable.exoskeleton.%level%",
+            "feathers": "morph.regenerable.feathers.%level%",
+            "foliage": "morph.regenerable.foliage.%level%",
+            "fruit": "morph.regenerable.fruit.%level%",
+            "fruiting_body": "morph.regenerable.fruiting_body.%level%",
+            "fur": "morph.regenerable.fur.%level%",
+            "hemolymph": "morph.regenerable.hemolymph.%level%",
+            "milk": "morph.regenerable.milk.%level%",
+            "muscle": "morph.regenerable.muscle.%level%",
+            "nuts": "morph.regenerable.nuts.%level%",
+            "sap": "morph.regenerable.sap.%level%",
+            "seeds": "morph.regenerable.seeds.%level%",
+            "skin": "morph.regenerable.skin.%level%",
+            "soft_tissue": "morph.regenerable.soft_tissue.%level%",
+            "wood": "morph.regenerable.wood.%level%"
+        },
+        "tissue": {
+            "bark": "morph.tissue.bark.%level%",
+            "blood": "morph.tissue.blood.%level%",
+            "bone": "morph.tissue.bone.%level%",
+            "eggs": "morph.tissue.eggs.%level%",
+            "exoskeleton": "morph.tissue.exoskeleton.%level%",
+            "feathers": "morph.tissue.feathers.%level%",
+            "foliage": "morph.tissue.foliage.%level%",
+            "fruit": "morph.tissue.fruit.%level%",
+            "fruiting_body": "morph.tissue.fruiting_body.%level%",
+            "fur": "morph.tissue.fur.%level%",
+            "hemolymph": "morph.tissue.hemolymph.%level%",
+            "milk": "morph.tissue.milk.%level%",
+            "muscle": "morph.tissue.muscle.%level%",
+            "nuts": "morph.tissue.nuts.%level%",
+            "sap": "morph.tissue.sap.%level%",
+            "seeds": "morph.tissue.seeds.%level%",
+            "skin": "morph.tissue.skin.%level%",
+            "soft_tissue": "morph.tissue.soft_tissue.%level%",
+            "wood": "morph.tissue.wood.%level%"
         },
         "natural_weapon": {
             "beak_peck": "morph.natural_weapon.beak_peck",
@@ -146,6 +168,26 @@
             "tail_whip": "morph.natural_weapon.tail_whip",
             "venom_fangs_front": "morph.natural_weapon.venom_fangs_front",
             "venom_fangs_rear": "morph.natural_weapon.venom_fangs_rear"
+        },
+        "organ": {
+            "blood_vessels": "morph.organ.blood_vessels.%level%",
+            "brain": "morph.organ.brain.%level%",
+            "digestive_tract": "morph.organ.digestive_tract.%level%",
+            "dorsal_vessel": "morph.organ.dorsal_vessel.%level%",
+            "gills": "morph.organ.gills.%level%",
+            "heart": "morph.organ.heart.%level%",
+            "kidneys": "morph.organ.kidneys.%level%",
+            "leaves": "morph.organ.leaves.%level%",
+            "liver": "morph.organ.liver.%level%",
+            "lungs": "morph.organ.lungs.%level%",
+            "malpighian_tubules": "morph.organ.malpighian_tubules.%level%",
+            "mycelium": "morph.organ.mycelium.%level%",
+            "pancreas": "morph.organ.pancreas.%level%",
+            "reproductive_organs": "morph.organ.reproductive_organs.%level%",
+            "roots": "morph.organ.roots.%level%",
+            "spleen": "morph.organ.spleen.%level%",
+            "stem": "morph.organ.stem.%level%",
+            "tracheal_system": "morph.organ.tracheal_system.%level%"
         },
         "respiration": {
             "gills_aquatic": "morph.respiration.gills_aquatic",
@@ -186,36 +228,9 @@
         }
     },
     "dependencies": {
-        "cog.iq10": ["cog.iq9"],
-        "cog.iq3": ["cog.iq2"],
-        "cog.iq4": ["cog.iq3"],
-        "cog.iq5": ["cog.iq4"],
-        "cog.iq6": ["cog.iq5"],
-        "cog.iq7": ["cog.iq6"],
-        "cog.iq8": ["cog.iq7"],
-        "cog.iq9": ["cog.iq8"],
         "eth.maintenance.cleanliness_core": ["core.perception"],
         "eth.maintenance.thermoregulation": ["core.perception"],
         "eth.predation.core": ["core.perception", "core.motor_coordination"],
-        "morph.attribute.st.st10": ["morph.attribute.st.st9"],
-        "morph.attribute.st.st11": ["morph.attribute.st.st10"],
-        "morph.attribute.st.st12": ["morph.attribute.st.st11"],
-        "morph.attribute.st.st13": ["morph.attribute.st.st12"],
-        "morph.attribute.st.st14": ["morph.attribute.st.st13"],
-        "morph.attribute.st.st15": ["morph.attribute.st.st14"],
-        "morph.attribute.st.st16": ["morph.attribute.st.st15"],
-        "morph.attribute.st.st17": ["morph.attribute.st.st16"],
-        "morph.attribute.st.st18": ["morph.attribute.st.st17"],
-        "morph.attribute.st.st19": ["morph.attribute.st.st18"],
-        "morph.attribute.st.st2": ["morph.attribute.st.st1"],
-        "morph.attribute.st.st20": ["morph.attribute.st.st19"],
-        "morph.attribute.st.st3": ["morph.attribute.st.st2"],
-        "morph.attribute.st.st4": ["morph.attribute.st.st3"],
-        "morph.attribute.st.st5": ["morph.attribute.st.st4"],
-        "morph.attribute.st.st6": ["morph.attribute.st.st5"],
-        "morph.attribute.st.st7": ["morph.attribute.st.st6"],
-        "morph.attribute.st.st8": ["morph.attribute.st.st7"],
-        "morph.attribute.st.st9": ["morph.attribute.st.st8"],
         "morph.natural_weapon.beak_peck": ["morph.manip.beak_toollike"]
     }
 }

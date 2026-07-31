@@ -15,9 +15,13 @@ const profileDirectory = path.join(
     "creature-profiles",
 );
 
-const stPrefix = "morph.attribute.st.st";
-const dxMorph = "morph.attribute.dx.dx10";
-const htMorph = "morph.attribute.ht.ht10";
+const stPrefix = "morph.attribute.st.";
+const dxMorphIds = new Set([
+    "morph.attribute.dx.0",
+    "morph.attribute.dx.10",
+]);
+const htMorph = "morph.attribute.ht.10";
+const bodyPlanPrefix = "morph.body_plan.";
 
 const loadProfiles = () => {
     return fs
@@ -47,11 +51,12 @@ const resolveEffectiveMorphs = (profile, profileById) => {
 const isCalculationEnabled = (profile, profileById) => {
     const morphs = resolveEffectiveMorphs(profile, profileById);
     const morphSet = new Set(morphs);
-    if (profile.kind !== "species") return true;
+    if (profile.kind !== "species" && profile.kind !== "culture") return true;
     return (
         morphs.some((morphId) => morphId.startsWith(stPrefix)) &&
-        morphSet.has(dxMorph) &&
-        morphSet.has(htMorph)
+        morphs.some((morphId) => dxMorphIds.has(morphId)) &&
+        morphSet.has(htMorph) &&
+        morphs.some((morphId) => morphId.startsWith(bodyPlanPrefix))
     );
 };
 

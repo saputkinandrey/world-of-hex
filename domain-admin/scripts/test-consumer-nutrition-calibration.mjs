@@ -5,7 +5,7 @@ import { fileURLToPath } from "node:url";
 import { config } from "./economy-config.mjs";
 import {
     CONSUMER_CALIBRATION_SCHEDULES,
-    HUMAN_WARM_BLOODED_BASAL_NUTRITION,
+    HUMAN_WARM_BLOODED_MAINTENANCE_NUTRITION,
     computeDailyNutritionFromActivitySchedule,
     isWithinCalibrationTolerance,
 } from "@wohex/domain-data/rps/world/nutrition-activity-calibration";
@@ -15,7 +15,9 @@ const workspaceDirectory = path.resolve(scriptDirectory, "..", "..");
 
 const consumers = config.consumers;
 
-const consumerById = new Map(consumers.map((consumer) => [consumer.id, consumer]));
+const consumerById = new Map(
+    consumers.map((consumer) => [consumer.id, consumer]),
+);
 const toleranceRatio = 0.22;
 
 const mismatches = [];
@@ -28,7 +30,7 @@ for (const fixture of CONSUMER_CALIBRATION_SCHEDULES) {
     }
 
     const computed = computeDailyNutritionFromActivitySchedule({
-        basalNutritionPerDay: HUMAN_WARM_BLOODED_BASAL_NUTRITION,
+        maintenanceNutritionPerDay: HUMAN_WARM_BLOODED_MAINTENANCE_NUTRITION,
         schedule: fixture.schedule,
     });
 

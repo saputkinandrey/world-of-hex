@@ -13,6 +13,7 @@ import type { CharacterEntity } from '../domain/character/character.entity';
 import {
     estimateDailyFoodMassNeedLbFromStrengthAndBuild,
     estimateHexVolumeFromMorphIdsAndTraits,
+    getCreatureProfileCalculationIssues,
     getStrengthFromMorphIds,
 } from '@wohex/domain-data/rps';
 
@@ -35,6 +36,16 @@ export class ActorFactoryHelper {
         name?: string;
     }): ActorEntity {
         const { template, hexId, id, name = template.name } = params;
+
+        const legalityIssues = getCreatureProfileCalculationIssues({
+            kind: 'species',
+            morphs: template.morphIds,
+        });
+        if (legalityIssues.length > 0) {
+            throw new Error(
+                `Creature template ${template.name} is not a legal species for actor creation: ${legalityIssues.join('; ')}`,
+            );
+        }
 
         const volumeEstimate = estimateHexVolumeFromMorphIdsAndTraits(template.morphIds);
         if (!volumeEstimate) {

@@ -24,6 +24,9 @@ import { JwtModule } from '@nestjs/jwt';
 import { AiModule } from './ai/ai.module';
 import { URL } from 'url';
 import { RpsModule } from './rps/rps.module';
+import { WorldSimulationModule } from './world-simulation/world-simulation.module';
+import { WorldPopulationModule } from './world-population/world-population.module';
+import { CreatureManagementModule } from './creature-management/creature-management.module';
 
 const infrastructureDatabaseModule = MongooseModule.forRootAsync({
     useClass: MongooseConfigService,
@@ -141,6 +144,9 @@ const resolveI18nPath = () => {
         SeaCombatModule,
         RpsModule,
         AiModule,
+        WorldSimulationModule,
+        WorldPopulationModule,
+        CreatureManagementModule,
     ],
 })
 export class AppModule {}

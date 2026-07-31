@@ -1,49 +1,47 @@
 {
-  "id": "animal.mammal.primate.human",
-  "name": "Human",
-  "kind": "template",
-  "parentId": "animal.mammal.primate",
-  "defaultActorName": "Human%N%",
-  "memes": [],
-  "morphs": [
-    "cog.iq10",
-    "morph.body_plan.humanoid",
-    "morph.locomotion.walk_biped",
-    "morph.manip.hands_grasping",
-    "morph.integument.skin_bare"
-  ],
-  "traits": [],
-  "actions": [
-    {
-      "group": "etho",
-      "moduleName": "action-universal",
-      "exportName": "BASK_SUN_THERMOREGULATE"
+    "id": "animal.mammal.primate.human",
+    "name": "Human",
+    "kind": "species",
+    "parentId": "animal.mammal.primate",
+    "defaultActorName": "Human%N%",
+    "memes": [],
+    "morphs": [
+        "morph.attribute.iq.10",
+        "morph.attribute.st.10",
+        "morph.body_plan.humanoid",
+        "morph.locomotion.walk_biped",
+        "morph.manip.hands_grasping",
+        "morph.integument.skin_bare"
+    ],
+    "traits": [],
+    "actions": [
+        {
+            "group": "etho",
+            "moduleName": "action-universal",
+            "exportName": "BASK_SUN_THERMOREGULATE"
+        },
+        {
+            "group": "etho",
+            "moduleName": "action-universal",
+            "exportName": "SEEK_COOL_SHELTER"
+        }
+    ],
+    "nutritionNeedsPerDay": {
+        "energyPerDay": 0,
+        "proteinPerDay": 0,
+        "waterPerDay": 0,
+        "massPerDayLb": 0
     },
-    {
-      "group": "etho",
-      "moduleName": "action-universal",
-      "exportName": "SEEK_COOL_SHELTER"
-    }
-  ],
-  "nutritionNeedsPerDay": {
-    "energyPerDay": 30,
-    "proteinPerDay": 5,
-    "waterPerDay": 15,
-    "massPerDayLb": 3
-  },
-  "consumptionPerTurn": {
-    "energy": 1.25,
-    "protein": 0.20833333333333334,
-    "water": 0.625,
-    "massLb": 0.125
-  },
-  "physical": {
-    "baseVolume": 1,
-    "minVolume": 0.5,
-    "carryVolumeCapacity": 4,
-    "averageWeightLb": 145,
-    "averageSilhouetteWidthFt": 2,
-    "averageHeightFt": 5.5
-  },
-  "notes": "Human biological template. Culture, language, writing, tool industries and social institutions should be modeled in child culture/species templates rather than on this root."
+    "consumptionPerTurn": {
+        "energy": 0,
+        "protein": 0,
+        "water": 0,
+        "massLb": 0
+    },
+    "physical": {
+        "baseVolume": 0,
+        "minVolume": 0,
+        "carryVolumeCapacity": 0
+    },
+    "notes": "Concrete human species profile with baseline ST10. Cultural peoples inherit from this root via cultureId / culture profiles; only exceptional cultures override strength."
 }

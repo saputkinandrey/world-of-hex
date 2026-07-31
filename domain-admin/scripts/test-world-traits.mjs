@@ -49,12 +49,12 @@ assert.equal(
 );
 assert.equal(
     morphIds.length,
-    136,
+    178,
     "Morph JSON data should preserve the migrated leaf/template count.",
 );
 assert.equal(
     Object.keys(morphWorldData.dependencies).length,
-    31,
+    4,
     "Morph JSON data should preserve dependency count.",
 );
 assert.equal(
@@ -110,21 +110,12 @@ for (const traitId of [
     );
 }
 for (const morphId of [
-    "morph.attribute.dx.dx10",
-    "morph.attribute.ht.ht10",
-    "morph.attribute.st.st1",
-    "morph.attribute.st.st10",
-    "morph.attribute.st.st20",
+    "morph.attribute.dx.0",
+    "morph.attribute.dx.10",
+    "morph.attribute.ht.10",
+    "morph.attribute.st.%level%",
     "core.vital.plant_living",
-    "cog.iq2",
-    "cog.iq3",
-    "cog.iq4",
-    "cog.iq5",
-    "cog.iq6",
-    "cog.iq7",
-    "cog.iq8",
-    "cog.iq9",
-    "cog.iq10",
+    "morph.attribute.iq.%level%",
     "morph.body_plan.bivalve_mollusk",
     "morph.body_plan.crustacean",
     "eth.maintenance.cleanliness_core",
@@ -138,13 +129,23 @@ for (const morphId of [
     "morph.plant.annual_herbaceous",
     "morph.plant.climbing_growth",
     "morph.plant.fruiting_body",
+    "morph.plant.nut_crop",
     "morph.plant.photosynthesis_basic",
     "morph.plant.rooted",
+    "morph.plant.seed_crop",
     "morph.plant.shrub_growth",
     "morph.plant.tree_growth",
     "morph.plant.vascular_basic",
     "morph.plant.wetland_growth",
     "morph.plant.woody_perennial",
+    "morph.plant.forage_crop",
+    "morph.body_plan.fungus",
+    "core.vital.fungus_living",
+    "morph.fungus.fruiting_body",
+    "morph.fungus.mycelial_network",
+    "morph.regenerable.fruiting_body.%level%",
+    "morph.tissue.fruiting_body.%level%",
+    "morph.organ.mycelium.%level%",
     "core.vital.living",
 ]) {
     assert.ok(morphIds.includes(morphId), `${morphId} should be a morph.`);
@@ -154,10 +155,25 @@ assert.ok(
     !morphIds.some((morphId) => morphId.startsWith("morph.size.sm.")),
     "Size modifier should be derived from silhouette dimensions, not stored as morph chips.",
 );
-assert.deepEqual(
-    morphWorldData.dependencies["morph.attribute.st.st20"],
-    ["morph.attribute.st.st19"],
-    "ST should be modeled as a concrete increasing morph gradient like IQ.",
+assert.equal(
+    morphWorldData.tree.attribute.iq,
+    "morph.attribute.iq.%level%",
+    "IQ should be defined as an attribute morph template alongside ST/DX/HT.",
+);
+for (const leveledAttributeMorphId of [
+    "morph.attribute.st.%level%",
+    "morph.attribute.iq.%level%",
+]) {
+    assert.equal(
+        morphWorldData.dependencies[leveledAttributeMorphId],
+        undefined,
+        `${leveledAttributeMorphId} should not depend on any other trait.`,
+    );
+}
+assert.equal(
+    morphWorldData.dependencies["morph.attribute.st.20"],
+    undefined,
+    "ST should be a leveled morph without concrete gradient dependencies.",
 );
 for (const memeId of [
     "eth.predation.drive.opportunistic",
@@ -184,8 +200,9 @@ assert.ok(
     "Meme dependencies should not encode perception as a meme prerequisite.",
 );
 for (const baseAttributeMorphId of [
-    "morph.attribute.dx.dx10",
-    "morph.attribute.ht.ht10",
+    "morph.attribute.dx.0",
+    "morph.attribute.dx.10",
+    "morph.attribute.ht.10",
 ]) {
     assert.equal(
         morphWorldData.dependencies[baseAttributeMorphId],
@@ -380,12 +397,10 @@ assert.ok(
 );
 
 assert.ok(
-    !morphIds.some(
-        (morphId) =>
-            morphId.startsWith("morph.tissue.") ||
-            morphId.startsWith("morph.organ."),
-    ),
-    "Morph tree should not expose tissue or organ percentage leaves.",
+    morphIds.includes("morph.tissue.muscle.%level%") &&
+        morphIds.includes("morph.organ.brain.%level%") &&
+        morphIds.includes("morph.regenerable.fur.%level%"),
+    "Morph tree should expose leveled tissue, organ and regenerable share templates.",
 );
 
 console.log("World traits memes/morphs/traits data and editor are wired.");

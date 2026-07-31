@@ -27,6 +27,29 @@ export class EncounterRepository {
         return this.encounterModel.find(filter, projection, options) as Promise<EncounterDocument[]>;
     }
 
+    /**
+     * Active encounters: still present and containing at least one ship.
+     * Bounded cursor page by `_id` ascending.
+     */
+    async findActiveEncounterIds(limit: number, afterId?: string): Promise<string[]> {
+        const filter: FilterQuery<Encounter> = {
+            'ships.0': { $exists: true },
+        };
+        if (afterId) {
+            filter._id = { $gt: afterId };
+        }
+
+        const rows = await this.encounterModel
+            .find(filter)
+            .select({ _id: 1 })
+            .sort({ _id: 1 })
+            .limit(limit)
+            .lean()
+            .exec();
+
+        return rows.map((row) => String(row._id));
+    }
+
     async removePlayerReferencesFromAll(playerId: string): Promise<RemovePlayerReferencesFromAllResult> {
         const encounters = await this.encounterModel.find({ 'players._id': playerId });
         let removedPlayerEntries = 0;

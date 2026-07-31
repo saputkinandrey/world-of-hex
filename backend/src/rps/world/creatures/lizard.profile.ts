@@ -20,7 +20,9 @@ import {
     BASK_SUN_THERMOREGULATE,
     BURROW_HIDE_OR_AMBUSH,
     DEFENSIVE_WARNING_DISPLAY,
+    NOCTURNAL_FORAGE,
     TERRITORY_MICROHABIT_EXPLORE,
+    VIBRATION_ALERT_HIDE,
 } from '../../from-gpt/etho/action-universal';
 import {
     FLEE_TO_COVER,
@@ -56,6 +58,8 @@ const LIZARD_ACTION_REGISTRY: ActionRegistry = {
     'etho/action-universal/TERRITORY_MICROHABIT_EXPLORE': TERRITORY_MICROHABIT_EXPLORE,
     'etho/action-universal/DEFENSIVE_WARNING_DISPLAY': DEFENSIVE_WARNING_DISPLAY,
     'etho/action-universal/BURROW_HIDE_OR_AMBUSH': BURROW_HIDE_OR_AMBUSH,
+    'etho/action-universal/NOCTURNAL_FORAGE': NOCTURNAL_FORAGE,
+    'etho/action-universal/VIBRATION_ALERT_HIDE': VIBRATION_ALERT_HIDE,
     'etho/action-small-vertebrate/FLEE_TO_COVER': FLEE_TO_COVER,
     'etho/action-small-vertebrate/FREEZE_IN_PLACE': FREEZE_IN_PLACE,
     'etho/action-small-vertebrate/SHORT_DASH_ATTACK': SHORT_DASH_ATTACK,

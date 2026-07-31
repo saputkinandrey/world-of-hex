@@ -8,16 +8,17 @@
 - [Motivation](#motivation)
 - [Description of the module structure](#description-of-the-module-structure)
 - [Recommendations](#recommendations)
-  - [Repository](#repository)
+    - [Repository](#repository)
+- [World simulation](#world-simulation)
 - [FAQ](#faq)
-  - [Is there a way to generate a new resource (controller, service, DTOs, etc) with Hexagonal Architecture?](#is-there-a-way-to-generate-a-new-resource-controller-service-dtos-etc-with-hexagonal-architecture)
+    - [Is there a way to generate a new resource (controller, service, DTOs, etc) with Hexagonal Architecture?](#is-there-a-way-to-generate-a-new-resource-controller-service-dtos-etc-with-hexagonal-architecture)
 - [Links](#links)
 
 ---
 
 ## Hexagonal Architecture
 
-NestJS Boilerplate is based on [Hexagonal Architecture](https://en.wikipedia.org/wiki/Hexagonal_architecture_(software)). This architecture is also known as Ports and Adapters.
+NestJS Boilerplate is based on [Hexagonal Architecture](<https://en.wikipedia.org/wiki/Hexagonal_architecture_(software)>). This architecture is also known as Ports and Adapters.
 
 ![Hexagonal Architecture Diagram](https://github.com/brocoders/nestjs-boilerplate/assets/6001723/6a6a763e-d1c9-43cc-910a-617cda3a71db)
 
@@ -84,26 +85,36 @@ Don't try to create universal methods in the repository because they are difficu
 ```typescript
 // ❌
 export class UsersRelationalRepository implements UserRepositoryAbstract {
-  async find(condition: UniversalConditionInterface): Promise<User> {
-    // ...
-  }
+    async find(condition: UniversalConditionInterface): Promise<User> {
+        // ...
+    }
 }
 
 // ✅
 export class UsersRelationalRepository implements UserRepositoryAbstract {
-  async findByEmail(email: string): Promise<User> {
-    // ...
-  }
-  
-  async findByRoles(roles: string[]): Promise<User> {
-    // ...
-  }
-  
-  async findByIds(ids: string[]): Promise<User> {
-    // ...
-  }
+    async findByEmail(email: string): Promise<User> {
+        // ...
+    }
+
+    async findByRoles(roles: string[]): Promise<User> {
+        // ...
+    }
+
+    async findByIds(ids: string[]): Promise<User> {
+        // ...
+    }
 }
 ```
+
+---
+
+## World simulation
+
+Logical region time, heartbeat, and world-event processing live in `src/world-simulation/`.
+
+See [World simulation](world-simulation.md) for wall clock vs simulation clock, collections, recovery, and how to add handlers.
+
+`WorldPopulationModule` (`src/world-population/`) registers `PopulationCohort` split/merge/reconcile handlers on that event contract. Naming deliberately avoids `Aggregate*` to prevent clashes with event-sourcing AggregateRoot and Mongo aggregation.
 
 ---
 

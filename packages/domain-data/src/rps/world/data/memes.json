@@ -211,20 +211,20 @@
         }
     },
     "dependencies": {
-        "cog.counting.tally": ["cog.iq6"],
-        "cog.measurement.rudimentary": ["cog.iq7"],
-        "cog.number_concept": ["cog.counting.tally", "cog.iq7"],
-        "cog.space_mapping": ["cog.iq7"],
-        "cog.standards.agreement": ["comm.language.spoken", "cog.iq7"],
-        "cog.timekeeping.basic": ["cog.iq7"],
-        "comm.language.spoken": ["comm.signaling", "cog.iq6"],
-        "comm.language.written": ["comm.language.spoken", "cog.iq8"],
+        "cog.counting.tally": ["morph.attribute.iq.6"],
+        "cog.measurement.rudimentary": ["morph.attribute.iq.7"],
+        "cog.number_concept": ["cog.counting.tally", "morph.attribute.iq.7"],
+        "cog.space_mapping": ["morph.attribute.iq.7"],
+        "cog.standards.agreement": ["comm.language.spoken", "morph.attribute.iq.7"],
+        "cog.timekeeping.basic": ["morph.attribute.iq.7"],
+        "comm.language.spoken": ["comm.signaling", "morph.attribute.iq.6"],
+        "comm.language.written": ["comm.language.spoken", "morph.attribute.iq.8"],
         "comm.persuasion.basic": ["comm.language.spoken"],
         "comm.rhetoric.public_debate": [
             "comm.language.spoken",
             "soc.shared_attention"
         ],
-        "comm.signaling": ["cog.iq3"],
+        "comm.signaling": ["morph.attribute.iq.3"],
         "culture.competition.ethos": ["culture.ritual_basic"],
         "culture.competition.fair_play_norm": [
             "culture.justice_concept",
@@ -234,9 +234,9 @@
         "culture.oath_norm": [
             "culture.ritual_basic",
             "comm.language.spoken",
-            "cog.iq8"
+            "morph.attribute.iq.8"
         ],
-        "culture.ritual_basic": ["cog.iq6"],
+        "culture.ritual_basic": ["morph.attribute.iq.6"],
         "culture.vigil_ritual": [
             "culture.ritual_basic",
             "cog.timekeeping.basic"
@@ -278,9 +278,9 @@
             "econ.market_norms",
             "record.ledgerkeeping"
         ],
-        "econ.deposit_contract": ["econ.pooling_common_fund", "cog.iq9"],
-        "econ.exchange_barter": ["cog.iq7"],
-        "econ.market_norms": ["econ.token_use", "org.scheduling", "cog.iq8"],
+        "econ.deposit_contract": ["econ.pooling_common_fund", "morph.attribute.iq.9"],
+        "econ.exchange_barter": ["morph.attribute.iq.7"],
+        "econ.market_norms": ["econ.token_use", "org.scheduling", "morph.attribute.iq.8"],
         "econ.market_price_system": [
             "econ.market_norms",
             "record.ledgerkeeping",
@@ -301,15 +301,15 @@
         "eth.tactics.ambush_stalk": ["core.motor_coordination"],
         "eth.tactics.constriction": ["core.motor_coordination"],
         "eth.tactics.pursuit_chase": ["core.motor_coordination"],
-        "eth.territory_marking": ["cog.iq2"],
+        "eth.territory_marking": ["morph.attribute.iq.2"],
         "eth.jungle.tribal_life": [
             "eth.sociality.cooperative",
             "tech.hunting.tracking_basic"
         ],
-        "health.first_aid_basic": ["cog.iq7"],
-        "health.herbal_knowledge": ["cog.iq7"],
-        "health.hygiene_tools": ["tech.tool.use_basic", "cog.iq7"],
-        "health.sanitation_norms": ["cog.iq7"],
+        "health.first_aid_basic": ["morph.attribute.iq.7"],
+        "health.herbal_knowledge": ["morph.attribute.iq.7"],
+        "health.hygiene_tools": ["tech.tool.use_basic", "morph.attribute.iq.7"],
+        "health.sanitation_norms": ["morph.attribute.iq.7"],
         "health.waste_handling": ["health.sanitation_norms"],
         "health.waste_sorting": ["health.waste_handling"],
         "law.public_posting": ["comm.language.written"],
@@ -328,7 +328,7 @@
             "culture.oath_norm",
             "record.ledgerkeeping"
         ],
-        "org.duty_roster": ["org.scheduling", "cog.iq8"],
+        "org.duty_roster": ["org.scheduling", "morph.attribute.iq.8"],
         "org.feudal_oath_network": [
             "culture.oath_norm",
             "record.contract_registry",
@@ -380,7 +380,7 @@
             "soc.networking.basic",
             "comm.language.spoken"
         ],
-        "soc.shared_attention": ["comm.signaling", "cog.iq4"],
+        "soc.shared_attention": ["comm.signaling", "morph.attribute.iq.4"],
         "tech.combat.bite_basic": ["tech.combat.core"],
         "tech.combat.core": ["core.motor_coordination"],
         "tech.combat.melee_basic": ["tech.combat.core", "tech.tool.use_basic"],
@@ -390,23 +390,23 @@
         ],
         "tech.combat.unarmed_basic": ["tech.combat.core"],
         "tech.combat.venom_delivery": ["tech.combat.bite_basic"],
-        "tech.fire.control": ["tech.fire.use", "cog.iq7"],
-        "tech.fire.use": ["cog.iq6"],
-        "tech.food.culinary.bake": ["tech.food.culinary.core", "cog.iq8"],
+        "tech.fire.control": ["tech.fire.use", "morph.attribute.iq.7"],
+        "tech.fire.use": ["morph.attribute.iq.6"],
+        "tech.food.culinary.bake": ["tech.food.culinary.core", "morph.attribute.iq.8"],
         "tech.food.culinary.boil": ["tech.food.culinary.core"],
         "tech.food.culinary.core": ["tech.heat.core"],
         "tech.food.culinary.roast": ["tech.food.culinary.core"],
         "tech.food.culinary.smoke": ["tech.food.culinary.core"],
-        "tech.food.prep.butchering_basic": ["tech.tool.use_basic", "cog.iq6"],
-        "tech.food.prep.leavening_basic": ["cog.iq8"],
-        "tech.food.prep.milling_basic": ["tech.tool.use_basic", "cog.iq7"],
-        "tech.food.preservation.drying": ["cog.iq7"],
-        "tech.food.preservation.fermentation": ["cog.iq7"],
-        "tech.food.preservation.pickling": ["cog.iq8"],
-        "tech.food.preservation.salty": ["cog.iq8"],
+        "tech.food.prep.butchering_basic": ["tech.tool.use_basic", "morph.attribute.iq.6"],
+        "tech.food.prep.leavening_basic": ["morph.attribute.iq.8"],
+        "tech.food.prep.milling_basic": ["tech.tool.use_basic", "morph.attribute.iq.7"],
+        "tech.food.preservation.drying": ["morph.attribute.iq.7"],
+        "tech.food.preservation.fermentation": ["morph.attribute.iq.7"],
+        "tech.food.preservation.pickling": ["morph.attribute.iq.8"],
+        "tech.food.preservation.salty": ["morph.attribute.iq.8"],
         "tech.food.sanitation.kitchen_hygiene": ["health.sanitation_norms"],
         "tech.heat.core": ["tech.fire.use"],
-        "tech.heat.industrial": ["tech.heat.core", "cog.iq9"],
+        "tech.heat.industrial": ["tech.heat.core", "morph.attribute.iq.9"],
         "tech.heat.factory_boiler": [
             "tech.steam.power_basic",
             "tech.heat.industrial"
@@ -453,8 +453,8 @@
         ],
         "tech.stone_tool_core": ["tech.tool.shaping", "tech.fire.use"],
         "tech.throwing.basic": ["core.motor_coordination"],
-        "tech.tool.making": ["tech.tool.shaping", "cog.iq7"],
-        "tech.tool.shaping": ["tech.tool.use_basic", "cog.iq6"],
-        "tech.tool.use_basic": ["core.motor_coordination", "cog.iq5"]
+        "tech.tool.making": ["tech.tool.shaping", "morph.attribute.iq.7"],
+        "tech.tool.shaping": ["tech.tool.use_basic", "morph.attribute.iq.6"],
+        "tech.tool.use_basic": ["core.motor_coordination", "morph.attribute.iq.5"]
     }
 }

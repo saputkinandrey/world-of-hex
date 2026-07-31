@@ -5,19 +5,10 @@ export interface BodyWeightRangeLb {
 }
 
 export type BodyBuildCategory =
-    | "very_skinny"
-    | "skinny"
-    | "average"
-    | "overweight"
-    | "fat"
-    | "very_fat";
+    "very_skinny" | "skinny" | "average" | "overweight" | "fat" | "very_fat";
 
 export type GurpsBuildColumn =
-    | "skinny"
-    | "average"
-    | "overweight"
-    | "fat"
-    | "very_fat";
+    "skinny" | "average" | "overweight" | "fat" | "very_fat";
 
 export interface BodyWeightEstimate {
     strength: number;
@@ -47,10 +38,16 @@ interface GurpsStWeightRow {
     weightsLb: Record<GurpsBuildColumn, BodyWeightRangeLb>;
 }
 
+/** GURPS body weight from ST: lb = (ST/2)^3. Used for all ST values. */
+export const estimateCubicBodyWeightLbFromStrength = (
+    strength: number,
+): number => Math.pow(strength / 2, 3);
+
+/** SM0 ST10 average build anchors on GURPS cubic mass (ST/2)^3 = 125 lb. */
 export const BODY_WEIGHT_SM0_ST10_AVERAGE_BUILD_LB: BodyWeightRangeLb = {
-    min: 115,
-    average: 145,
-    max: 175,
+    min: 87.5,
+    average: estimateCubicBodyWeightLbFromStrength(10),
+    max: 162.5,
 };
 
 export const BODY_WEIGHT_SM0_LINEAR_MEASUREMENT_INCHES = 72;
@@ -69,7 +66,7 @@ export const HEX_VOLUME_SIZE_MODIFIER_FACTOR = 2;
 
 export const OUNCES_PER_POUND = 16;
 
-export const ST_ATTRIBUTE_MORPH_PREFIX = "morph.attribute.st.st";
+export const ST_ATTRIBUTE_MORPH_PREFIX = "morph.attribute.st.";
 
 export const BUILD_TRAIT_PREFIX = "trait.attribute.build.";
 
@@ -131,108 +128,6 @@ const toWeightRangeLb = (min: number, max: number): BodyWeightRangeLb => ({
     average: (min + max) / 2,
 });
 
-const GURPS_ST_WEIGHT_ROWS: GurpsStWeightRow[] = [
-    {
-        strength: 6,
-        heightInches: toWeightRangeLb(52, 62),
-        weightsLb: {
-            skinny: toWeightRangeLb(40, 80),
-            average: toWeightRangeLb(60, 120),
-            overweight: toWeightRangeLb(80, 160),
-            fat: toWeightRangeLb(90, 180),
-            very_fat: toWeightRangeLb(120, 240),
-        },
-    },
-    {
-        strength: 7,
-        heightInches: toWeightRangeLb(55, 65),
-        weightsLb: {
-            skinny: toWeightRangeLb(50, 90),
-            average: toWeightRangeLb(75, 135),
-            overweight: toWeightRangeLb(100, 175),
-            fat: toWeightRangeLb(115, 205),
-            very_fat: toWeightRangeLb(150, 270),
-        },
-    },
-    {
-        strength: 8,
-        heightInches: toWeightRangeLb(58, 68),
-        weightsLb: {
-            skinny: toWeightRangeLb(60, 100),
-            average: toWeightRangeLb(90, 150),
-            overweight: toWeightRangeLb(120, 195),
-            fat: toWeightRangeLb(135, 225),
-            very_fat: toWeightRangeLb(180, 300),
-        },
-    },
-    {
-        strength: 9,
-        heightInches: toWeightRangeLb(61, 71),
-        weightsLb: {
-            skinny: toWeightRangeLb(70, 110),
-            average: toWeightRangeLb(105, 165),
-            overweight: toWeightRangeLb(140, 215),
-            fat: toWeightRangeLb(160, 250),
-            very_fat: toWeightRangeLb(210, 330),
-        },
-    },
-    {
-        strength: 10,
-        heightInches: toWeightRangeLb(63, 73),
-        weightsLb: {
-            skinny: toWeightRangeLb(80, 120),
-            average: toWeightRangeLb(115, 175),
-            overweight: toWeightRangeLb(150, 230),
-            fat: toWeightRangeLb(175, 265),
-            very_fat: toWeightRangeLb(230, 350),
-        },
-    },
-    {
-        strength: 11,
-        heightInches: toWeightRangeLb(65, 75),
-        weightsLb: {
-            skinny: toWeightRangeLb(85, 130),
-            average: toWeightRangeLb(125, 195),
-            overweight: toWeightRangeLb(165, 255),
-            fat: toWeightRangeLb(190, 295),
-            very_fat: toWeightRangeLb(250, 390),
-        },
-    },
-    {
-        strength: 12,
-        heightInches: toWeightRangeLb(68, 78),
-        weightsLb: {
-            skinny: toWeightRangeLb(95, 150),
-            average: toWeightRangeLb(140, 220),
-            overweight: toWeightRangeLb(185, 290),
-            fat: toWeightRangeLb(210, 330),
-            very_fat: toWeightRangeLb(280, 440),
-        },
-    },
-    {
-        strength: 13,
-        heightInches: toWeightRangeLb(71, 81),
-        weightsLb: {
-            skinny: toWeightRangeLb(105, 165),
-            average: toWeightRangeLb(155, 245),
-            overweight: toWeightRangeLb(205, 320),
-            fat: toWeightRangeLb(235, 370),
-            very_fat: toWeightRangeLb(310, 490),
-        },
-    },
-    {
-        strength: 14,
-        heightInches: toWeightRangeLb(74, 84),
-        weightsLb: {
-            skinny: toWeightRangeLb(115, 180),
-            average: toWeightRangeLb(170, 270),
-            overweight: toWeightRangeLb(225, 355),
-            fat: toWeightRangeLb(255, 405),
-            very_fat: toWeightRangeLb(340, 540),
-        },
-    },
-];
-
 const BUILD_TRAIT_SUFFIX_TO_CATEGORY: Record<string, BodyBuildCategory> = {
     "very_skinny.-2": "very_skinny",
     "skinny.-1": "skinny",
@@ -243,29 +138,16 @@ const BUILD_TRAIT_SUFFIX_TO_CATEGORY: Record<string, BodyBuildCategory> = {
 };
 
 export const BODY_WEIGHT_ESTIMATE_BASIS =
-    "GURPS Build Table: body weight comes from ST and build category; ST10/Average build uses 115-175 lb with midpoint 145 lb.";
+    "GURPS animal cubic scaling: body weight average lb=(ST/2)^3; build category scales that cubic baseline; linear size scales with ST relative to SM0 ST10.";
 
 export const STOMACH_CAPACITY_ESTIMATE_BASIS =
-    "ST10/Average build at 145 lb uses 1 lb stomach capacity; capacity scales linearly with body weight.";
+    "ST10/Average build at 125 lb uses 1 lb stomach capacity; capacity scales linearly with body weight.";
 
 export const DAILY_FOOD_MASS_ESTIMATE_BASIS =
     "Daily food mass scales with body weight through stomach capacity and BASE_MEALS_PER_DAY.";
 
 export const HEX_VOLUME_ESTIMATE_BASIS =
     "SM0 hex occupancy uses baseVolume 1, minVolume 0.5, carryVolumeCapacity 4; each SM step scales these abstract hex volumes linearly by factor 2.";
-
-const lerp = (left: number, right: number, factor: number): number =>
-    left + (right - left) * factor;
-
-const lerpWeightRange = (
-    left: BodyWeightRangeLb,
-    right: BodyWeightRangeLb,
-    factor: number,
-): BodyWeightRangeLb => ({
-    min: lerp(left.min, right.min, factor),
-    max: lerp(left.max, right.max, factor),
-    average: lerp(left.average, right.average, factor),
-});
 
 const roundWeightRange = (range: BodyWeightRangeLb): BodyWeightRangeLb => ({
     min: roundImperialMassLb(range.min),
@@ -284,163 +166,31 @@ const resolveVerySkinnyWeightRange = (
     });
 };
 
-const extrapolateWeightRowBeyond = (
-    previousRow: GurpsStWeightRow,
-    lastRow: GurpsStWeightRow,
-    strength: number,
-): GurpsStWeightRow => {
-    const factor = strength - lastRow.strength;
-    const extendRange = (
-        last: BodyWeightRangeLb,
-        previous: BodyWeightRangeLb,
-    ): BodyWeightRangeLb => ({
-        min: last.min + (last.min - previous.min) * factor,
-        max: last.max + (last.max - previous.max) * factor,
-        average: last.average + (last.average - previous.average) * factor,
-    });
+const resolveStWeightRow = (strength: number): GurpsStWeightRow => {
+    const averageLb = estimateCubicBodyWeightLbFromStrength(strength);
+    const heightAverage =
+        BODY_WEIGHT_SM0_LINEAR_MEASUREMENT_INCHES * (strength / 10);
+    const heightSpan = heightAverage * 0.15;
+    const toScaledRange = (
+        minFactor: number,
+        maxFactor: number,
+    ): BodyWeightRangeLb =>
+        toWeightRangeLb(averageLb * minFactor, averageLb * maxFactor);
 
     return {
         strength,
-        heightInches: extendRange(
-            lastRow.heightInches,
-            previousRow.heightInches,
+        heightInches: toWeightRangeLb(
+            Math.max(heightAverage - heightSpan, 0),
+            heightAverage + heightSpan,
         ),
         weightsLb: {
-            skinny: extendRange(
-                lastRow.weightsLb.skinny,
-                previousRow.weightsLb.skinny,
-            ),
-            average: extendRange(
-                lastRow.weightsLb.average,
-                previousRow.weightsLb.average,
-            ),
-            overweight: extendRange(
-                lastRow.weightsLb.overweight,
-                previousRow.weightsLb.overweight,
-            ),
-            fat: extendRange(
-                lastRow.weightsLb.fat,
-                previousRow.weightsLb.fat,
-            ),
-            very_fat: extendRange(
-                lastRow.weightsLb.very_fat,
-                previousRow.weightsLb.very_fat,
-            ),
+            skinny: toScaledRange(0.55, 0.85),
+            average: toScaledRange(0.7, 1.3),
+            overweight: toScaledRange(1.05, 1.7),
+            fat: toScaledRange(1.25, 2),
+            very_fat: toScaledRange(1.7, 2.7),
         },
     };
-};
-
-const extrapolateWeightRowBelow = (
-    firstRow: GurpsStWeightRow,
-    secondRow: GurpsStWeightRow,
-    strength: number,
-): GurpsStWeightRow => {
-    const factor = firstRow.strength - strength;
-    const extendRange = (
-        first: BodyWeightRangeLb,
-        second: BodyWeightRangeLb,
-    ): BodyWeightRangeLb => ({
-        min: first.min + (first.min - second.min) * factor,
-        max: first.max + (first.max - second.max) * factor,
-        average: first.average + (first.average - second.average) * factor,
-    });
-
-    return {
-        strength,
-        heightInches: extendRange(
-            firstRow.heightInches,
-            secondRow.heightInches,
-        ),
-        weightsLb: {
-            skinny: extendRange(
-                firstRow.weightsLb.skinny,
-                secondRow.weightsLb.skinny,
-            ),
-            average: extendRange(
-                firstRow.weightsLb.average,
-                secondRow.weightsLb.average,
-            ),
-            overweight: extendRange(
-                firstRow.weightsLb.overweight,
-                secondRow.weightsLb.overweight,
-            ),
-            fat: extendRange(firstRow.weightsLb.fat, secondRow.weightsLb.fat),
-            very_fat: extendRange(
-                firstRow.weightsLb.very_fat,
-                secondRow.weightsLb.very_fat,
-            ),
-        },
-    };
-};
-
-const resolveGurpsStWeightRow = (strength: number): GurpsStWeightRow => {
-    const firstRow = GURPS_ST_WEIGHT_ROWS[0];
-    const lastRow = GURPS_ST_WEIGHT_ROWS[GURPS_ST_WEIGHT_ROWS.length - 1];
-
-    if (strength < firstRow.strength) {
-        return extrapolateWeightRowBelow(
-            firstRow,
-            GURPS_ST_WEIGHT_ROWS[1],
-            strength,
-        );
-    }
-
-    if (strength > lastRow.strength) {
-        return extrapolateWeightRowBeyond(
-            GURPS_ST_WEIGHT_ROWS[GURPS_ST_WEIGHT_ROWS.length - 2],
-            lastRow,
-            strength,
-        );
-    }
-
-    for (let index = 0; index < GURPS_ST_WEIGHT_ROWS.length - 1; index += 1) {
-        const lowerRow = GURPS_ST_WEIGHT_ROWS[index];
-        const upperRow = GURPS_ST_WEIGHT_ROWS[index + 1];
-        if (strength < lowerRow.strength || strength > upperRow.strength) {
-            continue;
-        }
-        if (strength === lowerRow.strength) return lowerRow;
-        if (strength === upperRow.strength) return upperRow;
-
-        const factor = (strength - lowerRow.strength) / (upperRow.strength - lowerRow.strength);
-        return {
-            strength,
-            heightInches: lerpWeightRange(
-                lowerRow.heightInches,
-                upperRow.heightInches,
-                factor,
-            ),
-            weightsLb: {
-                skinny: lerpWeightRange(
-                    lowerRow.weightsLb.skinny,
-                    upperRow.weightsLb.skinny,
-                    factor,
-                ),
-                average: lerpWeightRange(
-                    lowerRow.weightsLb.average,
-                    upperRow.weightsLb.average,
-                    factor,
-                ),
-                overweight: lerpWeightRange(
-                    lowerRow.weightsLb.overweight,
-                    upperRow.weightsLb.overweight,
-                    factor,
-                ),
-                fat: lerpWeightRange(
-                    lowerRow.weightsLb.fat,
-                    upperRow.weightsLb.fat,
-                    factor,
-                ),
-                very_fat: lerpWeightRange(
-                    lowerRow.weightsLb.very_fat,
-                    upperRow.weightsLb.very_fat,
-                    factor,
-                ),
-            },
-        };
-    }
-
-    return lastRow;
 };
 
 const resolveBuildWeightRange = (
@@ -457,16 +207,19 @@ const resolveBuildWeightRange = (
 export const getStrengthFromMorphIds = (
     morphIds: readonly string[],
 ): number | undefined => {
+    let strongest: number | undefined;
     for (const morphId of morphIds) {
         if (!morphId.startsWith(ST_ATTRIBUTE_MORPH_PREFIX)) continue;
-        const strength = Number.parseInt(
+        const strength = Number.parseFloat(
             morphId.slice(ST_ATTRIBUTE_MORPH_PREFIX.length),
-            10,
         );
-        if (Number.isFinite(strength) && strength > 0) return strength;
+        if (!Number.isFinite(strength) || strength <= 0) continue;
+        if (strongest === undefined || strength > strongest) {
+            strongest = strength;
+        }
     }
 
-    return undefined;
+    return strongest;
 };
 
 export const getBuildCategoryFromTraitIds = (
@@ -501,7 +254,14 @@ export const roundImperialMassLb = (valueLb: number): number => {
 
     if (absoluteValueLb < 1) {
         const ounces = absoluteValueLb * OUNCES_PER_POUND;
-        const ounceStep = ounces < 0.1 ? 0.01 : 0.1;
+        const ounceStep =
+            ounces < 0.001
+                ? 0.00001
+                : ounces < 0.01
+                  ? 0.0001
+                  : ounces < 0.1
+                    ? 0.01
+                    : 0.1;
         return (
             (Math.round(ounces / ounceStep) * ounceStep * sign) /
             OUNCES_PER_POUND
@@ -516,7 +276,7 @@ export const estimateBodyWeightLbFromStrengthAndBuild = (
     strength: number,
     buildCategory: BodyBuildCategory = "average",
 ): BodyWeightEstimate => {
-    const row = resolveGurpsStWeightRow(strength);
+    const row = resolveStWeightRow(strength);
 
     return {
         strength,
@@ -574,9 +334,7 @@ export const estimateStomachCapacityLbFromMorphIdsAndTraits = (
     );
     if (!bodyWeight) return undefined;
 
-    return estimateStomachCapacityLbFromBodyWeight(
-        bodyWeight.weightLb.average,
-    );
+    return estimateStomachCapacityLbFromBodyWeight(bodyWeight.weightLb.average);
 };
 
 export const estimateStomachCapacityLbFromMorphIds = (
@@ -786,7 +544,8 @@ export const estimateBodyPlanSilhouetteFromStatureInches = (
 
     return {
         averageHeightFt: statureFt,
-        averageSilhouetteWidthFt: statureFt * HUMANOID_WIDTH_TO_STATURE_FT_RATIO,
+        averageSilhouetteWidthFt:
+            statureFt * HUMANOID_WIDTH_TO_STATURE_FT_RATIO,
         basis: "stature_with_width_fallback",
     };
 };
@@ -835,13 +594,13 @@ export const deriveSizeModifierFromSilhouetteArea = (
     widthFt: number,
 ): SilhouetteSizeModifierEstimate => {
     const silhouetteAreaSqFt = heightFt * widthFt;
-    const equivalentLinearInches = deriveEquivalentLinearInchesFromSilhouetteArea(
-        heightFt,
-        widthFt,
-    );
+    const equivalentLinearInches =
+        deriveEquivalentLinearInchesFromSilhouetteArea(heightFt, widthFt);
 
     return {
-        sizeModifier: deriveSizeModifierFromLinearInches(equivalentLinearInches),
+        sizeModifier: deriveSizeModifierFromLinearInches(
+            equivalentLinearInches,
+        ),
         equivalentLinearInches,
         silhouetteAreaSqFt,
         basis: SILHOUETTE_SIZE_MODIFIER_BASIS,

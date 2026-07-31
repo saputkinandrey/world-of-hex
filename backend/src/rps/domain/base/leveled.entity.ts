@@ -19,24 +19,41 @@ export class LeveledEntity extends NamedCostEntity {
 
     constructor({ level = 0, levelCost = 0, levelIncrease = 1, baseLevel = 0, ...rest }: LeveledEntityInit = {}) {
         super(rest);
-        this.setLevel(level)
-            .setLevelCost(levelCost)
-            .setBaseLevel(baseLevel)
-            .setLevelIncrease(levelIncrease)
-            .setTotalLevel();
+        // Assign fields before setters: setLevel/setTotalLevel depend on baseLevel and levelIncrease.
+        this.level = level;
+        this.levelCost = levelCost;
+        this.baseLevel = baseLevel;
+        this.levelIncrease = levelIncrease;
+        this.totalLevel = this.computeTotalLevel();
+    }
+
+    private computeTotalLevel(): number {
+        return this.baseLevel + this.level * this.levelIncrease;
     }
 
     setLevelIncrease(levelIncrease: number): this {
         this.levelIncrease = levelIncrease;
-        return this.setTotalLevel();
+        this.totalLevel = this.computeTotalLevel();
+        return this;
     }
 
-    setTotalLevel(totalLevel: number = this.baseLevel + this.level * this.levelIncrease): this {
-        if (totalLevel !== this.baseLevel + this.level * this.levelIncrease) {
-            this.totalLevel = totalLevel;
-            this.setLevel((totalLevel - this.baseLevel) / this.levelIncrease);
-        } else {
-            this.totalLevel = totalLevel;
+    setTotalLevel(totalLevel: number = this.computeTotalLevel()): this {
+        const expected = this.computeTotalLevel();
+        if (
+            totalLevel === expected ||
+            !Number.isFinite(totalLevel) ||
+            !Number.isFinite(this.levelIncrease) ||
+            this.levelIncrease === 0
+        ) {
+            this.totalLevel = Number.isFinite(expected) ? expected : totalLevel;
+            return this;
+        }
+
+        this.totalLevel = totalLevel;
+        const nextLevel = (totalLevel - this.baseLevel) / this.levelIncrease;
+        if (Number.isFinite(nextLevel) && nextLevel > -1) {
+            this.level = nextLevel;
+            this.totalLevel = this.computeTotalLevel();
         }
         return this;
     }
@@ -45,7 +62,8 @@ export class LeveledEntity extends NamedCostEntity {
         if (level > -1) {
             this.level = level;
         }
-        return this.setTotalLevel();
+        this.totalLevel = this.computeTotalLevel();
+        return this;
     }
 
     setLevelCost(levelCost: number): this {
@@ -55,6 +73,7 @@ export class LeveledEntity extends NamedCostEntity {
 
     setBaseLevel(baseLevel: number): this {
         this.baseLevel = baseLevel;
-        return this.setTotalLevel();
+        this.totalLevel = this.computeTotalLevel();
+        return this;
     }
 }

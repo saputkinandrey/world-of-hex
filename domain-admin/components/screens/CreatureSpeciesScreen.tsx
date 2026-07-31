@@ -41,7 +41,7 @@ import {
     flattenBehaviorActions,
     type BehaviorActionsFileResponse,
 } from "../../lib/behavior-actions-utils";
-import { BASAL_METABOLISM_MAINTENANCE_REQUIREMENT } from "@wohex/domain-data/rps/world/nutrition";
+import { METABOLIC_UPKEEP_MAINTENANCE_REQUIREMENT } from "@wohex/domain-data/rps/world/nutrition";
 import {
     resolveCreatureAnatomyProfile,
     type AnatomyTissuePresetId,
@@ -50,13 +50,19 @@ import {
     type TissueKind,
 } from "@wohex/domain-data/rps/world/tissue-composition";
 import {
-    buildBasalConsumptionPerTurnFromDailyNeeds,
+    leveledMorph,
+    sourceIdSatisfiesRequirement,
+    type LeveledMorphTemplateId,
+} from "@wohex/domain-data/rps/world/morphs";
+import {
+    buildMaintenanceConsumptionPerTurnFromDailyNeeds,
     createCreatureProfile,
     creatureActionRefKey,
     filterBehavioralNeedImpactRecords,
     getCreatureActionOptions,
     getCreatureMaintenanceRequirementRecords,
     getCreatureNeedImpactRecords,
+    getCreatureProfileCalculationIssues,
     getTraitOptionsByKind,
     parseCreatureProfilesResponse,
     resolveCreatureProfileMorphDerivedState,
@@ -102,6 +108,24 @@ interface TraitSelectorProps {
     options: WorldTraitRecord[];
     onChange: (values: string[]) => void;
 }
+
+const isLeveledTraitTemplate = (id: string): boolean => id.includes("%level%");
+
+const matchesLeveledTraitTemplate = (
+    traitId: string,
+    templateId: string,
+): boolean => {
+    if (!isLeveledTraitTemplate(templateId)) return false;
+    const [prefix, suffix] = templateId.split("%level%");
+    if (prefix === undefined || suffix === undefined) return false;
+    if (traitId === templateId) return false;
+    return traitId.startsWith(prefix) && traitId.endsWith(suffix);
+};
+
+const resolveLeveledTraitId = (templateId: string, level: number): string => {
+    if (!isLeveledTraitTemplate(templateId)) return templateId;
+    return leveledMorph(templateId as LeveledMorphTemplateId, level);
+};
 
 interface ActionSelectorProps {
     values: CreatureActionRefData[];
@@ -162,7 +186,7 @@ interface ActionListItem {
     inherited: boolean;
 }
 
-interface BasalMetabolismNutritionFieldsProps {
+interface MetabolicUpkeepNutritionFieldsProps {
     value: CreatureNutritionNeedsData;
     onChange: (value: CreatureNutritionNeedsData) => void;
 }
@@ -178,20 +202,16 @@ interface DerivedAnatomyViewerProps {
 interface MaintenanceRequirementsViewerProps {
     records: CreatureMaintenanceRequirementRecord[];
     nutritionNeedsPerDay: CreatureNutritionNeedsData;
-    onNutritionNeedsPerDayChange: (
-        value: CreatureNutritionNeedsData,
-    ) => void;
+    onNutritionNeedsPerDayChange: (value: CreatureNutritionNeedsData) => void;
 }
 
 interface MaintenanceSectionProps {
     records: CreatureMaintenanceRequirementRecord[];
     nutritionNeedsPerDay: CreatureNutritionNeedsData;
-    onNutritionNeedsPerDayChange: (
-        value: CreatureNutritionNeedsData,
-    ) => void;
+    onNutritionNeedsPerDayChange: (value: CreatureNutritionNeedsData) => void;
 }
 
-interface BasalConsumptionPreviewProps {
+interface MaintenanceConsumptionPreviewProps {
     nutritionNeedsPerDay: CreatureNutritionNeedsData;
 }
 
@@ -234,24 +254,37 @@ const getInheritedActionRefs = (
     );
 };
 
+const parseJsonResponse = async <TResponse extends { error?: string }>(
+    response: Response,
+    fallbackError: string,
+): Promise<TResponse> => {
+    const text = await response.text();
+    let body: TResponse;
+    try {
+        body = JSON.parse(text) as TResponse;
+    } catch {
+        throw new Error(
+            response.ok
+                ? `${fallbackError}: response was not JSON (${text.slice(0, 200)})`
+                : `${fallbackError} (${response.status}): ${text.slice(0, 200)}`,
+        );
+    }
+    if (!response.ok) {
+        throw new Error(body.error ?? fallbackError);
+    }
+    return body;
+};
+
 const parseWorldTraitsResponse = async (
     response: Response,
 ): Promise<WorldTraitsFileResponse> => {
-    const body = (await response.json()) as WorldTraitsFileResponse;
-    if (!response.ok) {
-        throw new Error(body.error ?? "World traits request failed");
-    }
-    return body;
+    return parseJsonResponse(response, "World traits request failed");
 };
 
 const parseBehaviorActionsResponse = async (
     response: Response,
 ): Promise<BehaviorActionsFileResponse> => {
-    const body = (await response.json()) as BehaviorActionsFileResponse;
-    if (!response.ok) {
-        throw new Error(body.error ?? "Behavior actions request failed");
-    }
-    return body;
+    return parseJsonResponse(response, "Behavior actions request failed");
 };
 
 const getProfileKindLabel = (profile: CreatureProfileData): string => {
@@ -556,10 +589,10 @@ const VolumeField = ({ label, value, onChange }: VolumeFieldProps) => {
     );
 };
 
-const BasalMetabolismNutritionFields = ({
+const MetabolicUpkeepNutritionFields = ({
     value,
     onChange,
-}: BasalMetabolismNutritionFieldsProps) => {
+}: MetabolicUpkeepNutritionFieldsProps) => {
     return (
         <Box
             sx={{
@@ -588,20 +621,17 @@ const BasalMetabolismNutritionFields = ({
             <FractionNumberField
                 label="Water"
                 value={value.waterPerDay}
-                onChange={(waterPerDay) =>
-                    onChange({ ...value, waterPerDay })
-                }
+                onChange={(waterPerDay) => onChange({ ...value, waterPerDay })}
             />
         </Box>
     );
 };
 
-const BasalConsumptionPreview = ({
+const MaintenanceConsumptionPreview = ({
     nutritionNeedsPerDay,
-}: BasalConsumptionPreviewProps) => {
-    const perTurn = buildBasalConsumptionPerTurnFromDailyNeeds(
-        nutritionNeedsPerDay,
-    );
+}: MaintenanceConsumptionPreviewProps) => {
+    const perTurn =
+        buildMaintenanceConsumptionPerTurnFromDailyNeeds(nutritionNeedsPerDay);
     const massUnit = getImperialMassUnit(perTurn.massLb);
     const massValue = convertLbToDisplayMass(perTurn.massLb, massUnit);
 
@@ -620,9 +650,21 @@ const TISSUE_KIND_ORDER: readonly TissueKind[] = [
     "bone",
     "skin",
     "feathers",
+    "fur",
     "blood",
     "exoskeleton",
     "hemolymph",
+    "wood",
+    "bark",
+    "foliage",
+    "soft_tissue",
+    "sap",
+    "fruit",
+    "fruiting_body",
+    "seeds",
+    "nuts",
+    "milk",
+    "eggs",
 ];
 
 const TISSUE_KIND_LABELS: Record<TissueKind, string> = {
@@ -630,9 +672,21 @@ const TISSUE_KIND_LABELS: Record<TissueKind, string> = {
     bone: "Bone",
     skin: "Skin",
     feathers: "Feathers",
+    fur: "Fur",
     blood: "Blood",
     exoskeleton: "Exoskeleton",
     hemolymph: "Hemolymph",
+    wood: "Wood",
+    bark: "Bark",
+    foliage: "Foliage",
+    soft_tissue: "Soft tissue",
+    sap: "Sap",
+    fruit: "Fruit",
+    fruiting_body: "Fruiting body",
+    seeds: "Seeds",
+    nuts: "Nuts",
+    milk: "Milk",
+    eggs: "Eggs",
 };
 
 const ANATOMY_PRESET_LABELS: Record<AnatomyTissuePresetId, string> = {
@@ -644,6 +698,16 @@ const ANATOMY_PRESET_LABELS: Record<AnatomyTissuePresetId, string> = {
     arachnid_body: "Arachnid body",
     avian_body: "Avian body",
     dinosaur_proxy: "Dinosaur proxy",
+    serpentine_body: "Serpentine body",
+    tetrapod_body: "Tetrapod body",
+    crustacean_body: "Crustacean body",
+    bivalve_mollusk_body: "Bivalve mollusk body",
+    herbaceous_body: "Herbaceous body",
+    woody_tree_body: "Woody tree body",
+    woody_shrub_body: "Woody shrub body",
+    climber_plant_body: "Climber plant body",
+    aquatic_wetland_body: "Aquatic wetland body",
+    fungus_body: "Fungus body",
 };
 
 const formatOrganLabel = (organ: OrganKind): string =>
@@ -652,20 +716,34 @@ const formatOrganLabel = (organ: OrganKind): string =>
         .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
         .join(" ");
 
-const shouldShowDerivedAnatomy = (
-    anatomy: CreatureAnatomyProfile,
-): boolean =>
-    anatomy.tissuePresetId !== undefined || anatomy.organs.length > 0;
+const shouldShowDerivedAnatomy = (anatomy: CreatureAnatomyProfile): boolean =>
+    anatomy.tissuePresetId !== undefined ||
+    anatomy.organs.length > 0 ||
+    anatomy.totalShares > 0;
 
 const DerivedAnatomyViewer = ({ anatomy }: DerivedAnatomyViewerProps) => {
     const tissueEntries = TISSUE_KIND_ORDER.flatMap((kind) => {
-        const percent = anatomy.tissueComposition[kind];
-        if (percent === undefined) return [];
+        const shares = anatomy.tissueShares[kind];
+        if (shares === undefined) return [];
         return [
             {
                 kind,
-                percent,
+                shares,
+                percent: anatomy.tissueComposition[kind],
                 weightLb: anatomy.tissueWeightsLb?.[kind],
+                regenerableShares: anatomy.regenerableTissueShares[kind],
+            },
+        ];
+    });
+    const regenerableEntries = TISSUE_KIND_ORDER.flatMap((kind) => {
+        const shares = anatomy.regenerableTissueShares[kind];
+        if (shares === undefined) return [];
+        return [
+            {
+                kind,
+                shares,
+                percent: anatomy.regenerableTissueComposition[kind],
+                weightLb: anatomy.regenerableTissueWeightsLb?.[kind],
             },
         ];
     });
@@ -675,121 +753,188 @@ const DerivedAnatomyViewer = ({ anatomy }: DerivedAnatomyViewerProps) => {
               0,
           )
         : undefined;
+    const accountedRegenerableTissueWeightLb =
+        anatomy.regenerableTissueWeightsLb
+            ? regenerableEntries.reduce(
+                  (total, entry) => total + (entry.weightLb ?? 0),
+                  0,
+              )
+            : undefined;
+    const hasTissueComposition = tissueEntries.length > 0;
 
     return (
         <Stack spacing={1}>
             <Typography variant="subtitle2">Derived anatomy</Typography>
             <Typography variant="caption" color="text.secondary">
-                Read-only coarse tissue preset and organs inferred from body
-                plan, respiration and taxonomy. Not editable morph chips.
+                Absolute shares partition body mass (body weight / total shares
+                = weight per share). Animals use tissue + organ shares; plants
+                use structural organs (roots / stem / leaves); fungi use
+                mycelium plus regenerable fruiting-body flushes. Annual
+                seed/grain harvest is non-regenerable tissue; perennial
+                fruit/nuts, pasture foliage, and mushroom fruiting bodies are
+                regenerable stocks.
             </Typography>
             {anatomy.tissuePresetId ? (
-                <>
+                <Box
+                    sx={{
+                        border: "1px solid var(--line)",
+                        borderRadius: 1,
+                        px: 1,
+                        py: 0.75,
+                    }}
+                >
+                    <Typography
+                        variant="body2"
+                        fontWeight={700}
+                        sx={{ mb: 0.75 }}
+                    >
+                        Tissue preset
+                    </Typography>
+                    <Chip
+                        size="small"
+                        color="secondary"
+                        variant="outlined"
+                        label={ANATOMY_PRESET_LABELS[anatomy.tissuePresetId]}
+                        sx={traitChipSx}
+                    />
+                    {anatomy.isReconstructionProxy ? (
+                        <Typography
+                            variant="caption"
+                            color="warning.main"
+                            sx={{ display: "block", mt: 0.75 }}
+                        >
+                            Reconstruction proxy: coarse estimate for extinct
+                            dinosaur lineage.
+                        </Typography>
+                    ) : null}
+                </Box>
+            ) : null}
+            {hasTissueComposition ? (
+                <Box
+                    sx={{
+                        border: "1px solid var(--line)",
+                        borderRadius: 1,
+                        px: 1,
+                        py: 0.75,
+                    }}
+                >
+                    <Typography
+                        variant="body2"
+                        fontWeight={700}
+                        sx={{ mb: 0.75 }}
+                    >
+                        Tissue composition
+                    </Typography>
+                    <Typography
+                        variant="caption"
+                        color="text.secondary"
+                        sx={{ display: "block", mb: 0.75 }}
+                    >
+                        Total shares: {formatNumber(anatomy.totalShares, 2)}
+                        {anatomy.shareWeightLb !== undefined
+                            ? ` · share weight ${formatNumber(anatomy.shareWeightLb, 3)} lb`
+                            : ""}
+                        {anatomy.bodyWeightLb !== undefined
+                            ? ` · body ${formatNumber(anatomy.bodyWeightLb, 2)} lb`
+                            : " · set average body weight to calculate mass"}
+                        {accountedTissueWeightLb !== undefined
+                            ? ` · modeled ${formatNumber(accountedTissueWeightLb, 2)} lb`
+                            : ""}
+                    </Typography>
                     <Box
                         sx={{
-                            border: "1px solid var(--line)",
-                            borderRadius: 1,
-                            px: 1,
-                            py: 0.75,
+                            display: "grid",
+                            gridTemplateColumns: {
+                                xs: "repeat(2, minmax(0, 1fr))",
+                                sm: "repeat(3, minmax(0, 1fr))",
+                            },
+                            gap: 1,
                         }}
                     >
-                        <Typography
-                            variant="body2"
-                            fontWeight={700}
-                            sx={{ mb: 0.75 }}
-                        >
-                            Tissue preset
-                        </Typography>
-                        <Chip
-                            size="small"
-                            color="secondary"
-                            variant="outlined"
-                            label={
-                                ANATOMY_PRESET_LABELS[anatomy.tissuePresetId]
-                            }
-                            sx={traitChipSx}
-                        />
-                        {anatomy.isReconstructionProxy ? (
-                            <Typography
-                                variant="caption"
-                                color="warning.main"
-                                sx={{ display: "block", mt: 0.75 }}
-                            >
-                                Reconstruction proxy: coarse estimate for
-                                extinct dinosaur lineage.
-                            </Typography>
-                        ) : null}
+                        {tissueEntries.map((entry) => (
+                            <Box key={entry.kind}>
+                                <Typography
+                                    variant="caption"
+                                    color="text.secondary"
+                                >
+                                    {TISSUE_KIND_LABELS[entry.kind]}
+                                    {entry.regenerableShares !== undefined
+                                        ? " · regenerable"
+                                        : ""}
+                                </Typography>
+                                <Typography variant="body2" fontWeight={700}>
+                                    {formatNumber(entry.shares, 2)} sh
+                                    {entry.percent !== undefined
+                                        ? ` · ${formatNumber(entry.percent, 0)}%`
+                                        : ""}
+                                    {entry.weightLb !== undefined
+                                        ? ` · ${formatNumber(entry.weightLb, 2)} lb`
+                                        : ""}
+                                </Typography>
+                            </Box>
+                        ))}
                     </Box>
+                </Box>
+            ) : null}
+            {regenerableEntries.length > 0 ? (
+                <Box
+                    sx={{
+                        border: "1px solid var(--line)",
+                        borderRadius: 1,
+                        px: 1,
+                        py: 0.75,
+                    }}
+                >
+                    <Typography
+                        variant="body2"
+                        fontWeight={700}
+                        sx={{ mb: 0.75 }}
+                    >
+                        Regenerable harvest
+                    </Typography>
+                    <Typography
+                        variant="caption"
+                        color="text.secondary"
+                        sx={{ display: "block", mb: 0.75 }}
+                    >
+                        Standing stocks from morph.regenerable.tissue.shares
+                        (level = share count) and related integument/fruiting
+                        morphs.
+                        {accountedRegenerableTissueWeightLb !== undefined
+                            ? ` · ${formatNumber(accountedRegenerableTissueWeightLb, 2)} lb`
+                            : ""}
+                    </Typography>
                     <Box
                         sx={{
-                            border: "1px solid var(--line)",
-                            borderRadius: 1,
-                            px: 1,
-                            py: 0.75,
+                            display: "grid",
+                            gridTemplateColumns: {
+                                xs: "repeat(2, minmax(0, 1fr))",
+                                sm: "repeat(3, minmax(0, 1fr))",
+                            },
+                            gap: 1,
                         }}
                     >
-                        <Typography
-                            variant="body2"
-                            fontWeight={700}
-                            sx={{ mb: 0.75 }}
-                        >
-                            Tissue composition
-                        </Typography>
-                        {anatomy.bodyWeightLb !== undefined ? (
-                            <Typography
-                                variant="caption"
-                                color="text.secondary"
-                                sx={{ display: "block", mb: 0.75 }}
-                            >
-                                Body weight basis:{" "}
-                                {formatNumber(anatomy.bodyWeightLb, 2)} lb
-                                {accountedTissueWeightLb !== undefined &&
-                                anatomy.accountedTissuePercent !== undefined
-                                    ? ` · modeled tissues ${formatNumber(accountedTissueWeightLb, 2)} lb (${formatNumber(anatomy.accountedTissuePercent, 0)}%)`
-                                    : ""}
-                            </Typography>
-                        ) : (
-                            <Typography
-                                variant="caption"
-                                color="text.secondary"
-                                sx={{ display: "block", mb: 0.75 }}
-                            >
-                                Set average body weight in Physical averages to
-                                calculate tissue mass.
-                            </Typography>
-                        )}
-                        <Box
-                            sx={{
-                                display: "grid",
-                                gridTemplateColumns: {
-                                    xs: "repeat(2, minmax(0, 1fr))",
-                                    sm: "repeat(3, minmax(0, 1fr))",
-                                },
-                                gap: 1,
-                            }}
-                        >
-                            {tissueEntries.map((entry) => (
-                                <Box key={entry.kind}>
-                                    <Typography
-                                        variant="caption"
-                                        color="text.secondary"
-                                    >
-                                        {TISSUE_KIND_LABELS[entry.kind]}
-                                    </Typography>
-                                    <Typography
-                                        variant="body2"
-                                        fontWeight={700}
-                                    >
-                                        {formatNumber(entry.percent, 0)}%
-                                        {entry.weightLb !== undefined
-                                            ? ` · ${formatNumber(entry.weightLb, 2)} lb`
-                                            : ""}
-                                    </Typography>
-                                </Box>
-                            ))}
-                        </Box>
+                        {regenerableEntries.map((entry) => (
+                            <Box key={entry.kind}>
+                                <Typography
+                                    variant="caption"
+                                    color="text.secondary"
+                                >
+                                    {TISSUE_KIND_LABELS[entry.kind]}
+                                </Typography>
+                                <Typography variant="body2" fontWeight={700}>
+                                    {formatNumber(entry.shares, 2)} sh
+                                    {entry.percent !== undefined
+                                        ? ` · ${formatNumber(entry.percent, 0)}%`
+                                        : ""}
+                                    {entry.weightLb !== undefined
+                                        ? ` · ${formatNumber(entry.weightLb, 2)} lb`
+                                        : ""}
+                                </Typography>
+                            </Box>
+                        ))}
                     </Box>
-                </>
+                </Box>
             ) : null}
             <Box
                 sx={{
@@ -807,22 +952,67 @@ const DerivedAnatomyViewer = ({ anatomy }: DerivedAnatomyViewerProps) => {
                         No organs derived from current morph capabilities.
                     </Typography>
                 ) : (
-                    <Stack
-                        direction="row"
-                        spacing={0.75}
-                        flexWrap="wrap"
-                        useFlexGap
-                    >
-                        {anatomy.organs.map((organ) => (
-                            <Chip
-                                key={organ}
-                                size="small"
-                                color="default"
-                                variant="outlined"
-                                label={formatOrganLabel(organ)}
-                                sx={traitChipSx}
-                            />
-                        ))}
+                    <Stack spacing={0.75}>
+                        <Typography variant="caption" color="text.secondary">
+                            Organ shares from body-plan / tissue presets,
+                            morph.organ templates (level = shares), and
+                            respiration / arthropod morphs.
+                            {!hasTissueComposition && anatomy.totalShares > 0
+                                ? ` · total shares ${formatNumber(anatomy.totalShares, 2)}`
+                                : ""}
+                            {!hasTissueComposition &&
+                            anatomy.shareWeightLb !== undefined
+                                ? ` · share weight ${formatNumber(anatomy.shareWeightLb, 3)} lb`
+                                : ""}
+                            {!hasTissueComposition &&
+                            anatomy.bodyWeightLb !== undefined
+                                ? ` · body ${formatNumber(anatomy.bodyWeightLb, 2)} lb`
+                                : ""}
+                            {anatomy.accountedOrganPercent !== undefined
+                                ? ` · ${formatNumber(anatomy.accountedOrganPercent, 0)}% of body shares`
+                                : ""}
+                        </Typography>
+                        <Box
+                            sx={{
+                                display: "grid",
+                                gridTemplateColumns: {
+                                    xs: "repeat(2, minmax(0, 1fr))",
+                                    sm: "repeat(3, minmax(0, 1fr))",
+                                },
+                                gap: 1,
+                            }}
+                        >
+                            {anatomy.organs.map((organ) => {
+                                const shares = anatomy.organShares[organ];
+                                const percent = anatomy.organComposition[organ];
+                                const weightLb =
+                                    anatomy.organWeightsLb?.[organ];
+                                return (
+                                    <Box key={organ}>
+                                        <Typography
+                                            variant="caption"
+                                            color="text.secondary"
+                                        >
+                                            {formatOrganLabel(organ)}
+                                        </Typography>
+                                        <Typography
+                                            variant="body2"
+                                            fontWeight={700}
+                                        >
+                                            {shares !== undefined
+                                                ? `${formatNumber(shares, 2)} sh`
+                                                : formatOrganLabel(organ)}
+                                            {percent !== undefined
+                                                ? ` · ${formatNumber(percent, 0)}%`
+                                                : ""}
+                                            {weightLb !== undefined
+                                                ? ` · ${formatNumber(weightLb, 2)} lb`
+                                                : ""}
+                                        </Typography>
+                                    </Box>
+                                );
+                            })}
+                        </Box>
                     </Stack>
                 )}
             </Box>
@@ -981,9 +1171,9 @@ const MaintenanceSection = ({
     nutritionNeedsPerDay,
     onNutritionNeedsPerDayChange,
 }: MaintenanceSectionProps) => {
-    const hasBasalMetabolismRequirement = records.some(
+    const hasMetabolicUpkeepRequirement = records.some(
         (record) =>
-            record.requirement === BASAL_METABOLISM_MAINTENANCE_REQUIREMENT,
+            record.requirement === METABOLIC_UPKEEP_MAINTENANCE_REQUIREMENT,
     );
 
     return (
@@ -994,7 +1184,7 @@ const MaintenanceSection = ({
                 nutritionNeedsPerDay={nutritionNeedsPerDay}
                 onNutritionNeedsPerDayChange={onNutritionNeedsPerDayChange}
             />
-            {!hasBasalMetabolismRequirement ? (
+            {!hasMetabolicUpkeepRequirement ? (
                 <Box
                     sx={{
                         border: "1px solid var(--line)",
@@ -1008,9 +1198,9 @@ const MaintenanceSection = ({
                         fontWeight={700}
                         sx={{ mb: 0.75 }}
                     >
-                        {BASAL_METABOLISM_MAINTENANCE_REQUIREMENT}
+                        {METABOLIC_UPKEEP_MAINTENANCE_REQUIREMENT}
                     </Typography>
-                    <BasalMetabolismNutritionFields
+                    <MetabolicUpkeepNutritionFields
                         value={nutritionNeedsPerDay}
                         onChange={onNutritionNeedsPerDayChange}
                     />
@@ -1031,7 +1221,7 @@ const MaintenanceSection = ({
                     }
                 />
             </Stack>
-            <BasalConsumptionPreview
+            <MaintenanceConsumptionPreview
                 nutritionNeedsPerDay={nutritionNeedsPerDay}
             />
         </Stack>
@@ -1049,13 +1239,12 @@ const isMaintenanceRequirementCovered = (
     if (!required) return true;
 
     const satisfiers = requirementRecords.filter(
-        (record) =>
-            record.mode === "satisfies" || record.mode === "regulates",
+        (record) => record.mode === "satisfies" || record.mode === "regulates",
     );
     if (satisfiers.length > 0) return true;
 
     if (
-        requirement === BASAL_METABOLISM_MAINTENANCE_REQUIREMENT &&
+        requirement === METABOLIC_UPKEEP_MAINTENANCE_REQUIREMENT &&
         nutritionNeedsPerDay.energyPerDay > 0
     ) {
         return true;
@@ -1166,9 +1355,9 @@ const MaintenanceRequirementsViewer = ({
                                         ))}
                                     </Stack>
                                     {requirement ===
-                                    BASAL_METABOLISM_MAINTENANCE_REQUIREMENT ? (
+                                    METABOLIC_UPKEEP_MAINTENANCE_REQUIREMENT ? (
                                         <Box sx={{ mt: 1 }}>
-                                            <BasalMetabolismNutritionFields
+                                            <MetabolicUpkeepNutritionFields
                                                 value={nutritionNeedsPerDay}
                                                 onChange={
                                                     onNutritionNeedsPerDayChange
@@ -1267,10 +1456,35 @@ const TraitSelector = ({
     onChange,
 }: TraitSelectorProps) => {
     const [selectedValue, setSelectedValue] = useState("");
+    const [selectedLevel, setSelectedLevel] = useState(1);
     const visibleValues = [...inheritedValues, ...values];
     const availableOptions = options.filter(
         (option) => !visibleValues.includes(option.id),
     );
+    const selectedIsLeveled = isLeveledTraitTemplate(selectedValue);
+    const selectedAllowsFractionalLevel = selectedValue.includes(
+        "morph.attribute.st.",
+    );
+
+    const addSelectedTrait = () => {
+        if (!selectedValue) return;
+
+        if (!selectedIsLeveled) {
+            onChange([...values, selectedValue]);
+            setSelectedValue("");
+            return;
+        }
+
+        const resolvedId = resolveLeveledTraitId(selectedValue, selectedLevel);
+        const nextValues = values.filter(
+            (value) =>
+                value !== selectedValue &&
+                !matchesLeveledTraitTemplate(value, selectedValue),
+        );
+        onChange([...nextValues, resolvedId]);
+        setSelectedValue("");
+        setSelectedLevel(1);
+    };
 
     return (
         <Stack spacing={1}>
@@ -1301,9 +1515,10 @@ const TraitSelector = ({
                     <Select
                         label={label}
                         value={selectedValue}
-                        onChange={(event) =>
-                            setSelectedValue(event.target.value)
-                        }
+                        onChange={(event) => {
+                            setSelectedValue(event.target.value);
+                            setSelectedLevel(1);
+                        }}
                     >
                         {availableOptions.map((option) => (
                             <MenuItem key={option.id} value={option.id}>
@@ -1312,14 +1527,38 @@ const TraitSelector = ({
                         ))}
                     </Select>
                 </FormControl>
+                {selectedIsLeveled ? (
+                    <TextField
+                        size="small"
+                        type="number"
+                        label="Level"
+                        value={selectedLevel}
+                        onChange={(event) => {
+                            const parsed = Number.parseFloat(
+                                event.target.value,
+                            );
+                            if (!Number.isFinite(parsed) || parsed < 0) {
+                                setSelectedLevel(0);
+                                return;
+                            }
+                            if (selectedAllowsFractionalLevel) {
+                                setSelectedLevel(Math.round(parsed * 10) / 10);
+                                return;
+                            }
+                            setSelectedLevel(Math.floor(parsed));
+                        }}
+                        inputProps={{
+                            min: 0,
+                            step: selectedAllowsFractionalLevel ? 0.1 : 1,
+                        }}
+                        sx={{ width: { xs: "100%", sm: 96 } }}
+                    />
+                ) : null}
                 <Button
                     size="small"
                     startIcon={<AddRoundedIcon />}
                     disabled={!selectedValue}
-                    onClick={() => {
-                        onChange([...values, selectedValue]);
-                        setSelectedValue("");
-                    }}
+                    onClick={addSelectedTrait}
                 >
                     Add
                 </Button>
@@ -1338,6 +1577,16 @@ const TraitSelector = ({
                     <Chip
                         key={value}
                         label={value}
+                        color={
+                            isLeveledTraitTemplate(value)
+                                ? "warning"
+                                : "default"
+                        }
+                        variant={
+                            isLeveledTraitTemplate(value)
+                                ? "outlined"
+                                : "filled"
+                        }
                         sx={traitChipSx}
                         onDelete={() =>
                             onChange(values.filter((item) => item !== value))
@@ -1350,6 +1599,12 @@ const TraitSelector = ({
                     </Typography>
                 ) : null}
             </Stack>
+            {values.some(isLeveledTraitTemplate) ? (
+                <Typography variant="caption" color="warning.main">
+                    Remove unresolved %level% templates and re-add them with a
+                    numeric level.
+                </Typography>
+            ) : null}
         </Stack>
     );
 };
@@ -1372,10 +1627,10 @@ const hasMorphDerivedEstimates = (
     if (!summary) return false;
     return Boolean(
         summary.estimatedPhysicalDimensions ||
-            summary.estimatedHexVolume ||
-            summary.estimatedAverageBuildWeight ||
-            summary.estimatedStomachCapacity ||
-            summary.estimatedDailyFoodMassNeedLb !== undefined,
+        summary.estimatedHexVolume ||
+        summary.estimatedAverageBuildWeight ||
+        summary.estimatedStomachCapacity ||
+        summary.estimatedDailyFoodMassNeedLb !== undefined,
     );
 };
 
@@ -1433,13 +1688,17 @@ const hasActionRequirements = (requirements: ActionRequirements) => {
 
 const actionMatchesSourceSet = (
     record: CreatureActionOption["record"] | undefined,
-    sourceSet: Set<string>,
+    sourceIds: readonly string[],
 ) => {
     const requirements = getActionRequirements(record);
     return (
         hasActionRequirements(requirements) &&
-        requirements.memes.every((id) => sourceSet.has(id)) &&
-        requirements.morphs.every((id) => sourceSet.has(id))
+        requirements.memes.every((id) =>
+            sourceIdSatisfiesRequirement(sourceIds, id),
+        ) &&
+        requirements.morphs.every((id) =>
+            sourceIdSatisfiesRequirement(sourceIds, id),
+        )
     );
 };
 
@@ -1462,7 +1721,6 @@ const syncActionRefsWithSources = ({
     ActionSelectorProps,
     "values" | "inheritedValues" | "options" | "sourceIds"
 >) => {
-    const sourceSet = new Set(sourceIds);
     const inheritedKeys = new Set(inheritedValues?.map(creatureActionRefKey));
     const optionByKey = new Map(options.map((option) => [option.key, option]));
     const syncedValues = values.filter((value) => {
@@ -1472,12 +1730,12 @@ const syncActionRefsWithSources = ({
         if (!option) return true;
         const requirements = getActionRequirements(option.record);
         if (!hasActionRequirements(requirements)) return true;
-        return actionMatchesSourceSet(option.record, sourceSet);
+        return actionMatchesSourceSet(option.record, sourceIds);
     });
 
     for (const option of options) {
         if (inheritedKeys.has(option.key)) continue;
-        if (!actionMatchesSourceSet(option.record, sourceSet)) continue;
+        if (!actionMatchesSourceSet(option.record, sourceIds)) continue;
         if (
             syncedValues.some(
                 (value) => creatureActionRefKey(value) === option.key,
@@ -1811,11 +2069,31 @@ const SpeciesTree = ({
         setCollapsedTemplateIds(new Set());
     };
 
+    const invalidSpeciesIds = useMemo(() => {
+        const invalidIds = new Set<string>();
+        for (const profile of profiles) {
+            if (profile.kind !== "species" && profile.kind !== "culture") {
+                continue;
+            }
+            const effectiveProfile = resolveEffectiveCreatureProfile(
+                profile,
+                profiles,
+            );
+            if (
+                getCreatureProfileCalculationIssues(effectiveProfile).length > 0
+            ) {
+                invalidIds.add(profile.id);
+            }
+        }
+        return invalidIds;
+    }, [profiles]);
+
     const renderNode = (node: SpeciesTreeNode, depth: number): ReactNode => {
         const canCollapse =
             node.profile.kind === "template" && node.children.length > 0;
         const isCollapsed =
             canCollapse && collapsedTemplateIds.has(node.profile.id);
+        const isInvalidSpecies = invalidSpeciesIds.has(node.profile.id);
 
         return (
             <Box key={`${node.index}:${node.profile.id}`}>
@@ -1882,6 +2160,7 @@ const SpeciesTree = ({
                                 label={getProfileKindLabel(node.profile)}
                                 size="small"
                                 variant="outlined"
+                                color={isInvalidSpecies ? "error" : "default"}
                             />
                         </Stack>
                     </Button>
@@ -2122,7 +2401,7 @@ export const CreatureSpeciesScreen = () => {
         patchSelectedProfile({
             nutritionNeedsPerDay,
             consumptionPerTurn:
-                buildBasalConsumptionPerTurnFromDailyNeeds(
+                buildMaintenanceConsumptionPerTurnFromDailyNeeds(
                     nutritionNeedsPerDay,
                 ),
         });
@@ -2423,6 +2702,44 @@ export const CreatureSpeciesScreen = () => {
                                     </FormControl>
                                 </Box>
 
+                                {summary &&
+                                summary.calculationIssues.length > 0 ? (
+                                    <Alert severity="error">
+                                        <Typography
+                                            variant="body2"
+                                            component="div"
+                                        >
+                                            {getProfileKindLabel(
+                                                selectedProfile,
+                                            )}{" "}
+                                            {
+                                                "is incomplete for organism calculations and is not legal for character creation until required morphs are present."
+                                            }
+                                        </Typography>
+                                        <Box
+                                            component="ul"
+                                            sx={{ m: 0, mt: 1, pl: 2.5 }}
+                                        >
+                                            {summary.calculationIssues.map(
+                                                (issue) => (
+                                                    <Box
+                                                        component="li"
+                                                        key={issue}
+                                                    >
+                                                        {issue}
+                                                    </Box>
+                                                ),
+                                            )}
+                                        </Box>
+                                        <Typography
+                                            variant="body2"
+                                            sx={{ mt: 1 }}
+                                        >
+                                            The profile can still be saved.
+                                        </Typography>
+                                    </Alert>
+                                ) : null}
+
                                 {effectiveProfile ? (
                                     <Alert severity="success">
                                         Effective chain:{" "}
@@ -2491,32 +2808,6 @@ export const CreatureSpeciesScreen = () => {
                                     }
                                 />
                                 <Divider />
-                                {summary &&
-                                summary.calculationIssues.length > 0 ? (
-                                    <Alert
-                                        severity={summary.calculationIssues.some(
-                                            (issue) =>
-                                                issue.includes(
-                                                    "Missing required ST morph",
-                                                ),
-                                        )
-                                            ? "error"
-                                            : "warning"}
-                                    >
-                                        Morph-derived calculations are
-                                        incomplete until required morphs are
-                                        present:{" "}
-                                        {summary.calculationIssues.join("; ")}.
-                                        {summary.calculationIssues.some(
-                                            (issue) =>
-                                                issue.includes(
-                                                    "Missing required ST morph",
-                                                ),
-                                        )
-                                            ? " Size, silhouette, and hex volume are not calculated without ST."
-                                            : " Existing profile values stay editable below."}
-                                    </Alert>
-                                ) : null}
                                 <PhysicalEditor
                                     value={
                                         displayPhysical ?? {

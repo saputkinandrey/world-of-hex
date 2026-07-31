@@ -45,6 +45,7 @@ export type DomainAdminTab =
     | "skills"
     | "techniques"
     | "creature-species"
+    | "creature-manager"
     | "behavior-actions"
     | "world-traits"
     | "config";
@@ -70,6 +71,7 @@ export const characterNavigationOptions: NavigationOption[] = [
     { value: "skills", label: "Skills" },
     { value: "techniques", label: "Techniques" },
     { value: "creature-species", label: "Creature Species" },
+    { value: "creature-manager", label: "Creature Manager" },
     { value: "behavior-actions", label: "Behavior Actions" },
     { value: "world-traits", label: "Memes, Morphs & Traits" },
 ];

@@ -6,21 +6,17 @@ import type {
     CreatureProfileData,
 } from "@wohex/domain-data/rps/world/creature-profiles";
 import {
-    estimateDailyFoodMassNeedLbFromMorphIds,
-    estimateAverageBuildBodyWeightLbFromMorphIds,
-    estimateHexVolumeFromMorphIdsAndTraits,
-    estimatePhysicalDimensionsFromMorphIds,
-    estimateStomachCapacityLbFromMorphIds,
     type BodyWeightEstimate,
     type HexVolumeEstimate,
     type PhysicalDimensionsEstimate,
     type StomachCapacityEstimate,
 } from "@wohex/domain-data/rps/world/body-size";
+import { METABOLIC_UPKEEP_MAINTENANCE_REQUIREMENT } from "@wohex/domain-data/rps/world/nutrition";
 import {
-    BASAL_METABOLISM_MAINTENANCE_REQUIREMENT,
-    estimateWarmBloodedBasalMaintenanceNutritionNeeds,
-    hasWarmBloodedThermoregMorph,
-} from "@wohex/domain-data/rps/world/nutrition";
+    buildMaintenanceConsumptionPerTurnFromDailyNeeds as buildCalculatedConsumptionPerTurnFromDomain,
+    calculateCreatureProfileFields as calculateCreatureProfileFieldsFromDomain,
+    getCreatureMaintenanceNutritionNeeds as getCreatureMaintenanceNutritionNeedsFromDomain,
+} from "@wohex/domain-data/rps/world/creature-profile-derived";
 import type { NutritionActivityData } from "@wohex/domain-data/rps/from-gpt";
 import {
     getNutritionActivityMultipliers,
@@ -32,6 +28,15 @@ import {
     type NeedImpactSourceKind,
 } from "@wohex/domain-data/rps/from-gpt";
 import type { WorldTraitRecord } from "@wohex/domain-data/rps/world/entities";
+import {
+    getCreatureProfileCalculationIssues as getCreatureProfileCalculationIssuesFromDomain,
+    isLegalCreatureSpeciesForCharacterCreation as isLegalCreatureSpeciesForCharacterCreationFromDomain,
+} from "@wohex/domain-data/rps/world/creature-profile-sanity";
+
+export const getCreatureProfileCalculationIssues =
+    getCreatureProfileCalculationIssuesFromDomain;
+export const isLegalCreatureSpeciesForCharacterCreation =
+    isLegalCreatureSpeciesForCharacterCreationFromDomain;
 
 export interface CreatureProfilesFileResponse {
     profiles: CreatureProfileData[];
@@ -70,11 +75,6 @@ export interface CreatureProfileSummary {
     averageHeightFt?: number;
 }
 
-const CREATURE_TURNS_PER_DAY = 24;
-const ST_ATTRIBUTE_MORPH_PREFIX = "morph.attribute.st.st";
-const DX10_ATTRIBUTE_MORPH = "morph.attribute.dx.dx10";
-const HT10_ATTRIBUTE_MORPH = "morph.attribute.ht.ht10";
-
 export const MAINTENANCE_BEHAVIORAL_NEED_TAGS = [
     "ENERGY",
     "FOOD",
@@ -84,9 +84,7 @@ export const MAINTENANCE_BEHAVIORAL_NEED_TAGS = [
 export const filterBehavioralNeedImpactRecords = (
     records: CreatureNeedImpactRecord[],
 ): CreatureNeedImpactRecord[] => {
-    const maintenanceNeeds = new Set<string>(
-        MAINTENANCE_BEHAVIORAL_NEED_TAGS,
-    );
+    const maintenanceNeeds = new Set<string>(MAINTENANCE_BEHAVIORAL_NEED_TAGS);
     return records.filter((record) => !maintenanceNeeds.has(record.need));
 };
 
@@ -108,8 +106,7 @@ export interface CreatureNeedImpactRecord {
     value?: number;
 }
 
-export interface CreatureMaintenanceRequirementRecord
-    extends MaintenanceRequirementData {
+export interface CreatureMaintenanceRequirementRecord extends MaintenanceRequirementData {
     key: string;
     sourceKind: NeedImpactSourceKind;
     sourceId: string;
@@ -208,40 +205,8 @@ export const getCreatureNeedImpactRecords = (
 
 export const getCreatureMaintenanceNutritionNeeds = (
     profile: EffectiveCreatureProfileData,
-): CreatureNutritionNeedsData => {
-    if (!hasWarmBloodedThermoregMorph(profile.morphs)) {
-        return {
-            energyPerDay: 0,
-            proteinPerDay: 0,
-            waterPerDay: 0,
-            massPerDayLb: 0,
-        };
-    }
-
-    const bodyWeight = estimateAverageBuildBodyWeightLbFromMorphIds(
-        profile.morphs,
-        profile.traits ?? [],
-    );
-    if (!bodyWeight) {
-        return {
-            energyPerDay: 0,
-            proteinPerDay: 0,
-            waterPerDay: 0,
-            massPerDayLb: 0,
-        };
-    }
-
-    const maintenance = estimateWarmBloodedBasalMaintenanceNutritionNeeds(
-        bodyWeight.weightLb.average,
-    );
-
-    return {
-        energyPerDay: maintenance.energyPerDay,
-        proteinPerDay: maintenance.proteinPerDay,
-        waterPerDay: maintenance.waterPerDay,
-        massPerDayLb: 0,
-    };
-};
+): CreatureNutritionNeedsData =>
+    getCreatureMaintenanceNutritionNeedsFromDomain(profile);
 
 const attachMaintenanceNutritionCosts = (
     profile: EffectiveCreatureProfileData,
@@ -254,7 +219,7 @@ const attachMaintenanceNutritionCosts = (
 
     return records.map((record) => {
         if (
-            record.requirement !== BASAL_METABOLISM_MAINTENANCE_REQUIREMENT ||
+            record.requirement !== METABOLIC_UPKEEP_MAINTENANCE_REQUIREMENT ||
             record.mode !== "requires"
         ) {
             return record;
@@ -397,30 +362,6 @@ export const clearCreatureProfileCalculatedFields = (
     };
 };
 
-export const getCreatureProfileCalculationIssues = (
-    profile: EffectiveCreatureProfileData,
-): string[] => {
-    const morphSet = new Set(profile.morphs);
-    const issues: string[] = [];
-    if (profile.kind !== "species") return issues;
-
-    if (
-        !profile.morphs.some((morphId) =>
-            morphId.startsWith(ST_ATTRIBUTE_MORPH_PREFIX),
-        )
-    ) {
-        issues.push("Missing required ST morph: morph.attribute.st.st1..st20");
-    }
-    if (!morphSet.has(DX10_ATTRIBUTE_MORPH)) {
-        issues.push(`Missing required DX morph: ${DX10_ATTRIBUTE_MORPH}`);
-    }
-    if (!morphSet.has(HT10_ATTRIBUTE_MORPH)) {
-        issues.push(`Missing required HT morph: ${HT10_ATTRIBUTE_MORPH}`);
-    }
-
-    return issues;
-};
-
 const mergeNumericProfileSection = <TSection extends object>(
     inherited: TSection,
     local: TSection,
@@ -440,7 +381,17 @@ const mergeNumericProfileSection = <TSection extends object>(
 export const parseCreatureProfilesResponse = async (
     response: Response,
 ): Promise<CreatureProfilesFileResponse> => {
-    const body = (await response.json()) as CreatureProfilesFileResponse;
+    const text = await response.text();
+    let body: CreatureProfilesFileResponse;
+    try {
+        body = JSON.parse(text) as CreatureProfilesFileResponse;
+    } catch {
+        throw new Error(
+            response.ok
+                ? `Creature profiles response was not JSON: ${text.slice(0, 200)}`
+                : `Creature profiles request failed (${response.status}): ${text.slice(0, 200)}`,
+        );
+    }
     if (!response.ok) {
         throw new Error(body.error ?? "Creature profiles request failed");
     }
@@ -658,103 +609,32 @@ interface CalculatedCreatureProfileFields {
     calculatedNutritionNeedsPerDay?: CreatureNutritionNeedsData;
     calculatedConsumptionPerTurn?: CreatureNutritionContentData;
     calculatedPhysical?: CreaturePhysicalProfileData;
+    usesAnimalFoodConsumption: boolean;
 }
 
-const buildCalculatedConsumptionPerTurn = (
-    nutritionNeedsPerDay: CreatureNutritionNeedsData,
-): CreatureNutritionContentData => ({
-    energy: nutritionNeedsPerDay.energyPerDay / CREATURE_TURNS_PER_DAY,
-    protein: nutritionNeedsPerDay.proteinPerDay / CREATURE_TURNS_PER_DAY,
-    water: (nutritionNeedsPerDay.waterPerDay ?? 0) / CREATURE_TURNS_PER_DAY,
-    massLb: nutritionNeedsPerDay.massPerDayLb / CREATURE_TURNS_PER_DAY,
-});
-
-export const buildBasalConsumptionPerTurnFromDailyNeeds =
-    buildCalculatedConsumptionPerTurn;
+export const buildMaintenanceConsumptionPerTurnFromDailyNeeds =
+    buildCalculatedConsumptionPerTurnFromDomain;
 
 const calculateCreatureProfileFields = (
     profile: EffectiveCreatureProfileData,
-): CalculatedCreatureProfileFields => {
-    const estimatedPhysicalDimensions = estimatePhysicalDimensionsFromMorphIds(
-        profile.morphs,
-        profile.traits ?? [],
-    );
-    const estimatedHexVolume = estimatedPhysicalDimensions
-        ? estimateHexVolumeFromMorphIdsAndTraits(
-              profile.morphs,
-              profile.traits ?? [],
-          )
-        : undefined;
-    const estimatedAverageBuildWeight =
-        estimateAverageBuildBodyWeightLbFromMorphIds(
-            profile.morphs,
-            profile.traits ?? [],
-        );
-    const estimatedStomachCapacity = estimateStomachCapacityLbFromMorphIds(
-        profile.morphs,
-        profile.traits ?? [],
-    );
-    const estimatedDailyFoodMassNeedLb =
-        estimateDailyFoodMassNeedLbFromMorphIds(
-            profile.morphs,
-            profile.traits ?? [],
-        );
-    const maintenanceNutrition = getCreatureMaintenanceNutritionNeeds(profile);
-    const calculatedNutritionNeedsPerDay =
-        estimatedDailyFoodMassNeedLb !== undefined ||
-        maintenanceNutrition.energyPerDay > 0 ||
-        maintenanceNutrition.proteinPerDay > 0 ||
-        (maintenanceNutrition.waterPerDay ?? 0) > 0
-            ? {
-                  energyPerDay: maintenanceNutrition.energyPerDay,
-                  proteinPerDay: maintenanceNutrition.proteinPerDay,
-                  waterPerDay: maintenanceNutrition.waterPerDay,
-                  massPerDayLb: estimatedDailyFoodMassNeedLb ?? 0,
-              }
-            : undefined;
-    const calculatedPhysical =
-        estimatedHexVolume || estimatedAverageBuildWeight
-            ? {
-                  baseVolume: estimatedHexVolume?.baseVolume ?? 0,
-                  minVolume: estimatedHexVolume?.minVolume ?? 0,
-                  carryVolumeCapacity:
-                      estimatedHexVolume?.carryVolumeCapacity ?? 0,
-                  averageWeightLb:
-                      estimatedAverageBuildWeight?.weightLb.average,
-                  averageSilhouetteWidthFt:
-                      estimatedPhysicalDimensions?.averageSilhouetteWidthFt,
-                  averageHeightFt: estimatedPhysicalDimensions?.averageHeightFt,
-              }
-            : undefined;
-
-    return {
-        estimatedHexVolume: estimatedHexVolume ?? undefined,
-        estimatedPhysicalDimensions:
-            estimatedPhysicalDimensions ?? undefined,
-        estimatedAverageBuildWeight: estimatedAverageBuildWeight ?? undefined,
-        estimatedStomachCapacity: estimatedStomachCapacity ?? undefined,
-        estimatedDailyFoodMassNeedLb,
-        calculatedNutritionNeedsPerDay,
-        calculatedConsumptionPerTurn: calculatedNutritionNeedsPerDay
-            ? buildCalculatedConsumptionPerTurn(
-                  calculatedNutritionNeedsPerDay,
-              )
-            : undefined,
-        calculatedPhysical,
-    };
-};
+): CalculatedCreatureProfileFields =>
+    calculateCreatureProfileFieldsFromDomain(profile);
 
 const hasCompleteCreatureProfileCalculations = (
     calculationIssues: string[],
     calculatedFields: CalculatedCreatureProfileFields,
 ): boolean => {
+    const animalFoodComplete = calculatedFields.usesAnimalFoodConsumption
+        ? calculatedFields.estimatedStomachCapacity !== undefined &&
+          calculatedFields.estimatedDailyFoodMassNeedLb !== undefined
+        : true;
+
     return (
         calculationIssues.length === 0 &&
         calculatedFields.estimatedHexVolume !== undefined &&
         calculatedFields.estimatedPhysicalDimensions !== undefined &&
         calculatedFields.estimatedAverageBuildWeight !== undefined &&
-        calculatedFields.estimatedStomachCapacity !== undefined &&
-        calculatedFields.estimatedDailyFoodMassNeedLb !== undefined &&
+        animalFoodComplete &&
         calculatedFields.calculatedNutritionNeedsPerDay !== undefined &&
         calculatedFields.calculatedPhysical !== undefined
     );
@@ -772,9 +652,10 @@ export const syncCreatureProfileCalculatedFields = (
     return {
         ...profile,
         nutritionNeedsPerDay,
-        consumptionPerTurn: buildCalculatedConsumptionPerTurn(
-            nutritionNeedsPerDay,
-        ),
+        consumptionPerTurn:
+            buildMaintenanceConsumptionPerTurnFromDailyNeeds(
+                nutritionNeedsPerDay,
+            ),
         physical: syncMorphDerivedPhysicalFields(
             profile.physical,
             calculatedFields,
@@ -805,8 +686,7 @@ export const resolveCreatureProfileMorphDerivedState = (
             profile.physical,
             calculatedFields,
         ),
-        nutritionNeedsPerDay:
-            syncMorphDerivedNutritionFields(calculatedFields),
+        nutritionNeedsPerDay: syncMorphDerivedNutritionFields(calculatedFields),
     };
 };
 

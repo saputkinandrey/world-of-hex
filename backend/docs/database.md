@@ -4,24 +4,24 @@
 
 - [About databases](#about-databases)
 - [Working with database schema (TypeORM)](#working-with-database-schema-typeorm)
-  - [Generate migration](#generate-migration)
-  - [Run migration](#run-migration)
-  - [Revert migration](#revert-migration)
-  - [Drop all tables in database](#drop-all-tables-in-database)
+    - [Generate migration](#generate-migration)
+    - [Run migration](#run-migration)
+    - [Revert migration](#revert-migration)
+    - [Drop all tables in database](#drop-all-tables-in-database)
 - [Working with database schema (Mongoose)](#working-with-database-schema-mongoose)
-  - [Create schema](#create-schema)
+    - [Create schema](#create-schema)
 - [Seeding (TypeORM)](#seeding-typeorm)
-  - [Creating seeds (TypeORM)](#creating-seeds-typeorm)
-  - [Run seed (TypeORM)](#run-seed-typeorm)
-  - [Factory and Faker (TypeORM)](#factory-and-faker-typeorm)
+    - [Creating seeds (TypeORM)](#creating-seeds-typeorm)
+    - [Run seed (TypeORM)](#run-seed-typeorm)
+    - [Factory and Faker (TypeORM)](#factory-and-faker-typeorm)
 - [Seeding (Mongoose)](#seeding-mongoose)
-  - [Creating seeds (Mongoose)](#creating-seeds-mongoose)
-  - [Run seed (Mongoose)](#run-seed-mongoose)
+    - [Creating seeds (Mongoose)](#creating-seeds-mongoose)
+    - [Run seed (Mongoose)](#run-seed-mongoose)
 - [Performance optimization (PostgreSQL + TypeORM)](#performance-optimization-postgresql--typeorm)
-  - [Indexes and Foreign Keys](#indexes-and-foreign-keys)
-  - [Max connections](#max-connections)
+    - [Indexes and Foreign Keys](#indexes-and-foreign-keys)
+    - [Max connections](#max-connections)
 - [Performance optimization (MongoDB + Mongoose)](#performance-optimization-mongodb--mongoose)
-  - [Design schema](#design-schema)
+    - [Design schema](#design-schema)
 - [Switch PostgreSQL to MySQL](#switch-postgresql-to-mysql)
 
 ---
@@ -38,32 +38,32 @@ For support of both databases used [Hexagonal Architecture](architecture.md#hexa
 
 1. Create entity file with extension `.entity.ts`. For example `post.entity.ts`:
 
-   ```ts
-   // /src/posts/infrastructure/persistence/relational/__entities/post.entity.ts
+    ```ts
+    // /src/posts/infrastructure/persistence/relational/__entities/post.entity.ts
 
-   import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
-   import { EntityRelationalHelper } from '../../../../../utils/relational-entity-helper';
+    import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+    import { EntityRelationalHelper } from '../../../../../utils/relational-entity-helper';
 
-   @Entity()
-   export class Post extends EntityRelationalHelper {
-     @PrimaryGeneratedColumn()
-     id: number;
+    @Entity()
+    export class Post extends EntityRelationalHelper {
+        @PrimaryGeneratedColumn()
+        id: number;
 
-     @Column()
-     title: string;
+        @Column()
+        title: string;
 
-     @Column()
-     body: string;
+        @Column()
+        body: string;
 
-     // Here any fields that you need
-   }
-   ```
+        // Here any fields that you need
+    }
+    ```
 
 1. Next, generate migration file:
 
-   ```bash
-   npm run migration:generate -- src/database/migrations/CreatePostTable
-   ```
+    ```bash
+    npm run migration:generate -- src/database/migrations/CreatePostTable
+    ```
 
 1. Apply this migration to database via [npm run migration:run](#run-migration).
 
@@ -93,33 +93,33 @@ npm run schema:drop
 
 1. Create entity file with extension `.schema.ts`. For example `post.schema.ts`:
 
-   ```ts
-   // /src/posts/infrastructure/persistence/document/__entities/post.schema.ts
+    ```ts
+    // /src/posts/infrastructure/persistence/document/__entities/post.schema.ts
 
-   import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-   import { HydratedDocument } from 'mongoose';
+    import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
+    import { HydratedDocument } from 'mongoose';
 
-   export type PostSchemaDocument = HydratedDocument<PostSchemaClass>;
+    export type PostSchemaDocument = HydratedDocument<PostSchemaClass>;
 
-   @Schema({
-     timestamps: true,
-     toJSON: {
-       virtuals: true,
-       getters: true,
-     },
-   })
-   export class PostSchemaClass extends EntityDocumentHelper {
-     @Prop()
-     title: string;
+    @Schema({
+        timestamps: true,
+        toJSON: {
+            virtuals: true,
+            getters: true,
+        },
+    })
+    export class PostSchemaClass extends EntityDocumentHelper {
+        @Prop()
+        title: string;
 
-     @Prop()
-     body: string;
+        @Prop()
+        body: string;
 
-     // Here any fields that you need
-   }
+        // Here any fields that you need
+    }
 
-   export const PostSchema = SchemaFactory.createForClass(PostSchemaClass);
-   ```
+    export const PostSchema = SchemaFactory.createForClass(PostSchemaClass);
+    ```
 
 ---
 
@@ -161,34 +161,34 @@ npm run seed:run:relational
 
     @Injectable()
     export class UserFactory {
-      constructor(
-        @InjectRepository(UserEntity)
-        private repositoryUser: Repository<UserEntity>,
-        @InjectRepository(RoleEntity)
-        private repositoryRole: Repository<RoleEntity>,
-        @InjectRepository(StatusEntity)
-        private repositoryStatus: Repository<StatusEntity>,
-      ) {}
+        constructor(
+            @InjectRepository(UserEntity)
+            private repositoryUser: Repository<UserEntity>,
+            @InjectRepository(RoleEntity)
+            private repositoryRole: Repository<RoleEntity>,
+            @InjectRepository(StatusEntity)
+            private repositoryStatus: Repository<StatusEntity>,
+        ) {}
 
-      createRandomUser() {
-        // Need for saving "this" context
-        return () => {
-          return this.repositoryUser.create({
-            firstName: faker.person.firstName(),
-            lastName: faker.person.lastName(),
-            email: faker.internet.email(),
-            password: faker.internet.password(),
-            role: this.repositoryRole.create({
-              id: RoleEnum.user,
-              name: 'User',
-            }),
-            status: this.repositoryStatus.create({
-              id: StatusEnum.active,
-              name: 'Active',
-            }),
-          });
-        };
-      }
+        createRandomUser() {
+            // Need for saving "this" context
+            return () => {
+                return this.repositoryUser.create({
+                    firstName: faker.person.firstName(),
+                    lastName: faker.person.lastName(),
+                    email: faker.internet.email(),
+                    password: faker.internet.password(),
+                    role: this.repositoryRole.create({
+                        id: RoleEnum.user,
+                        name: 'User',
+                    }),
+                    status: this.repositoryStatus.create({
+                        id: StatusEnum.active,
+                        name: 'Active',
+                    }),
+                });
+            };
+        }
     }
     ```
 
@@ -201,20 +201,20 @@ npm run seed:run:relational
 
     @Injectable()
     export class UserSeedService {
-      constructor(
-        // Some code here...
-        private userFactory: UserFactory,
-      ) {}
+        constructor(
+            // Some code here...
+            private userFactory: UserFactory,
+        ) {}
 
-      async run() {
-        // Some code here...
+        async run() {
+            // Some code here...
 
-        await this.repository.save(
-          faker.helpers.multiple(this.userFactory.createRandomUser(), {
-            count: 5,
-          }),
-        );
-      }
+            await this.repository.save(
+                faker.helpers.multiple(this.userFactory.createRandomUser(), {
+                    count: 5,
+                }),
+            );
+        }
     }
     ```
 
@@ -223,7 +223,7 @@ npm run seed:run:relational
     ```ts
     import { Module } from '@nestjs/common';
     import { TypeOrmModule } from '@nestjs/typeorm';
-    
+
     import { UserSeedService } from './user-seed.service';
     import { UserFactory } from './user.factory';
 
@@ -232,12 +232,11 @@ npm run seed:run:relational
     import { StatusEntity } from '../../../../statuses/infrastructure/persistence/relational/__entities/status.entity';
 
     @Module({
-      imports: [TypeOrmModule.forFeature([UserEntity, Role, Status])],
-      providers: [UserSeedService, UserFactory],
-      exports: [UserSeedService, UserFactory],
+        imports: [TypeOrmModule.forFeature([UserEntity, Role, Status])],
+        providers: [UserSeedService, UserFactory],
+        exports: [UserSeedService, UserFactory],
     })
     export class UserSeedModule {}
-
     ```
 
 1. Run seed:
@@ -290,6 +289,27 @@ Designing schema for MongoDB is completely different from designing schema for r
 1. [MongoDB Schema Design Anti-Patterns](https://www.mongodb.com/developer/products/mongodb/schema-design-anti-pattern-massive-arrays)
 1. [MongoDB Schema Design Best Practices](https://www.mongodb.com/developer/products/mongodb/mongodb-schema-design-best-practices/)
 
+### World simulation collections
+
+Application-managed process state for logical region time (not Event Store):
+
+- `world-simulation-events`
+- `world-simulation-tick-executions`
+- `world-simulation-region-leases`
+- `world-simulation-counters`
+- `world-simulation-regions`
+
+Details: [World simulation](world-simulation.md).
+
+### World population cohorts
+
+Application-managed cohort/substrate records for grouped creatures and mass organisms:
+
+- `world-population-substrates`
+- `world-population-cohorts`
+
+Domain naming uses `PopulationCohort` / `PopulationSubstrate` (not Aggregate*) to avoid clashing with event-sourcing AggregateRoot and Mongo aggregation.
+
 ## Switch PostgreSQL to MySQL
 
 If you want to use `MySQL` instead of `PostgreSQL`, you can make the changes after following the complete guide given [here](installing-and-running.md).
@@ -316,23 +336,23 @@ DATABASE_NAME=app
 
 ```yml
 services:
-  mysql:
-    image: mysql:9.2.0
-    ports:
-      - ${DATABASE_PORT}:3306
-    volumes:
-      - mysql-boilerplate-db:/var/lib/mysql
-    environment:
-      MYSQL_USER: ${DATABASE_USERNAME}
-      MYSQL_PASSWORD: ${DATABASE_PASSWORD}
-      MYSQL_ROOT_PASSWORD: ${DATABASE_PASSWORD}
-      MYSQL_DATABASE: ${DATABASE_NAME}
+    mysql:
+        image: mysql:9.2.0
+        ports:
+            - ${DATABASE_PORT}:3306
+        volumes:
+            - mysql-boilerplate-db:/var/lib/mysql
+        environment:
+            MYSQL_USER: ${DATABASE_USERNAME}
+            MYSQL_PASSWORD: ${DATABASE_PASSWORD}
+            MYSQL_ROOT_PASSWORD: ${DATABASE_PASSWORD}
+            MYSQL_DATABASE: ${DATABASE_NAME}
 
-  # other services here...
+    # other services here...
 
 volumes:
-  # other volumes here...
-  mysql-boilerplate-db:
+    # other volumes here...
+    mysql-boilerplate-db:
 ```
 
 After completing the above setup, run Docker with the following command:

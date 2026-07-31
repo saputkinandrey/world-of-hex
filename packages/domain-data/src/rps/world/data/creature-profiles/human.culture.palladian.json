@@ -1,42 +1,45 @@
 {
-  "id": "human.culture.palladian",
-  "name": "Palladian Culture",
-  "kind": "culture",
-  "parentId": "human.race.palladian",
-  "defaultActorName": "Palladian%N%",
-  "memes": [
-    "comm.rhetoric.public_debate",
-    "culture.competition.ethos",
-    "culture.competition.fair_play_norm",
-    "culture.justice_concept",
-    "culture.oath_norm",
-    "org.tournament.organizing_basic",
-    "econ.market_norms",
-    "econ.exchange_barter",
-    "record.scoreboard.basic",
-    "org.polis.civic_assembly",
-    "law.civic_court_public",
-    "econ.maritime_trade_custom"
-  ],
-  "morphs": [],
-  "traits": [],
-  "actions": [],
-  "nutritionNeedsPerDay": {
-    "energyPerDay": 0,
-    "proteinPerDay": 0,
-    "waterPerDay": 0,
-    "massPerDayLb": 0
-  },
-  "consumptionPerTurn": {
-    "energy": 0,
-    "protein": 0,
-    "water": 0,
-    "massLb": 0
-  },
-  "physical": {
-    "baseVolume": 0,
-    "minVolume": 0,
-    "carryVolumeCapacity": 0
-  },
-  "notes": "Ancient Greek polis analog: civic assembly, public courts, maritime trade and competitive games."
+    "id": "human.culture.palladian",
+    "name": "Palladian Culture",
+    "kind": "culture",
+    "parentId": "animal.mammal.primate.human",
+    "defaultActorName": "Palladian%N%",
+    "memes": [
+        "comm.rhetoric.public_debate",
+        "culture.competition.ethos",
+        "culture.competition.fair_play_norm",
+        "culture.justice_concept",
+        "culture.oath_norm",
+        "org.tournament.organizing_basic",
+        "econ.market_norms",
+        "econ.exchange_barter",
+        "record.scoreboard.basic",
+        "org.polis.civic_assembly",
+        "law.civic_court_public",
+        "econ.maritime_trade_custom"
+    ],
+    "morphs": [],
+    "traits": [],
+    "actions": [],
+    "nutritionNeedsPerDay": {
+        "energyPerDay": 30,
+        "proteinPerDay": 5,
+        "waterPerDay": 15,
+        "massPerDayLb": 3
+    },
+    "consumptionPerTurn": {
+        "energy": 1.25,
+        "protein": 0.20833333333333334,
+        "water": 0.625,
+        "massLb": 0.125
+    },
+    "physical": {
+        "baseVolume": 1,
+        "minVolume": 0.5,
+        "carryVolumeCapacity": 4,
+        "averageWeightLb": 145,
+        "averageSilhouetteWidthFt": 2.0606060606060606,
+        "averageHeightFt": 5.666666666666667
+    },
+    "notes": "Ancient Greek polis analog: civic assembly, public courts, maritime trade and competitive games."
 }

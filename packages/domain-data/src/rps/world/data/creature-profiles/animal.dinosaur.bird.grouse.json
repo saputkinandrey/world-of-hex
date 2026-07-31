@@ -1,40 +1,40 @@
 {
-  "id": "animal.dinosaur.bird.grouse",
-  "name": "Grouse",
-  "kind": "species",
-  "parentId": "animal.dinosaur.bird",
-  "defaultActorName": "Grouse",
-  "memes": [],
-  "morphs": [],
-  "traits": [],
-  "actions": [
-    {
-      "group": "etho",
-      "moduleName": "action-universal",
-      "exportName": "BASK_SUN_THERMOREGULATE"
+    "id": "animal.dinosaur.bird.grouse",
+    "name": "Grouse",
+    "kind": "species",
+    "parentId": "animal.dinosaur.bird",
+    "defaultActorName": "Grouse",
+    "memes": [],
+    "morphs": ["morph.attribute.st.2.2"],
+    "traits": [],
+    "actions": [
+        {
+            "group": "etho",
+            "moduleName": "action-universal",
+            "exportName": "BASK_SUN_THERMOREGULATE"
+        },
+        {
+            "group": "etho",
+            "moduleName": "action-universal",
+            "exportName": "SEEK_COOL_SHELTER"
+        }
+    ],
+    "nutritionNeedsPerDay": {
+        "energyPerDay": 0,
+        "proteinPerDay": 0,
+        "waterPerDay": 0,
+        "massPerDayLb": 0
     },
-    {
-      "group": "etho",
-      "moduleName": "action-universal",
-      "exportName": "SEEK_COOL_SHELTER"
-    }
-  ],
-  "nutritionNeedsPerDay": {
-    "energyPerDay": 0,
-    "proteinPerDay": 0,
-    "waterPerDay": 0,
-    "massPerDayLb": 0
-  },
-  "consumptionPerTurn": {
-    "energy": 0,
-    "protein": 0,
-    "water": 0,
-    "massLb": 0
-  },
-  "physical": {
-    "baseVolume": 0,
-    "minVolume": 0,
-    "carryVolumeCapacity": 0
-  },
-  "notes": "Species profile created for economy good source-grouse."
+    "consumptionPerTurn": {
+        "energy": 0,
+        "protein": 0,
+        "water": 0,
+        "massLb": 0
+    },
+    "physical": {
+        "baseVolume": 0,
+        "minVolume": 0,
+        "carryVolumeCapacity": 0
+    },
+    "notes": "Species profile created for economy good source-grouse."
 }
