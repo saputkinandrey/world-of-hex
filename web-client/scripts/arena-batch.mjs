@@ -1,79 +1,20 @@
-import fs from "node:fs";
-import path from "node:path";
-import ts from "typescript";
+import {
+    loadArenaEngine,
+    loadArenaModule,
+} from "./load-arena-engine.mjs";
 
 const battleCount = Number.parseInt(process.argv[2] ?? "100", 10);
 const firstSeed = Number.parseInt(process.argv[3] ?? "43117", 10);
 const scenario = process.argv[4] ?? "standard";
 const maxTurns = 300;
-const projectRoot = process.cwd();
-const arenaSourcePath = path.join(projectRoot, "app", "arena", "page.tsx");
-const generationSourcePath = path.join(
-    projectRoot,
-    "app",
-    "arena",
-    "combatant-generation.ts",
-);
-
 if (!Number.isFinite(battleCount) || battleCount < 1) {
     throw new Error("Battle count must be a positive integer.");
 }
-
-const transpile = (source, moduleKind) =>
-    ts.transpileModule(source, {
-        compilerOptions: {
-            target: ts.ScriptTarget.ES2022,
-            module: moduleKind,
-        },
-    }).outputText;
-
-const loadGenerationModule = () => {
-    const source = fs.readFileSync(generationSourcePath, "utf8");
-    const module = { exports: {} };
-    const compiled = transpile(source, ts.ModuleKind.CommonJS);
-    new Function("exports", "module", compiled)(module.exports, module);
-    return module.exports;
+const battleApi = {
+    ...loadArenaEngine(),
+    ...loadArenaModule("arena"),
+    ...loadArenaModule("engine"),
 };
-
-const loadBattleApi = (generation) => {
-    const source = fs.readFileSync(arenaSourcePath, "utf8");
-    const importEndMarker = '} from "./combatant-generation";';
-    const pureEndMarker = "const FighterRow =";
-    const pureStart = source.indexOf(importEndMarker);
-    const pureEnd = source.indexOf(pureEndMarker);
-
-    if (pureStart < 0 || pureEnd < 0) {
-        throw new Error("Arena source layout changed; update the batch harness markers.");
-    }
-
-    const pureSource = source.slice(
-        pureStart + importEndMarker.length,
-        pureEnd,
-    );
-    const compiled = transpile(pureSource, ts.ModuleKind.None);
-    const dependencyNames = [
-        "AMRITAR_DUST_SPEARMAN_LENS_ID",
-        "AMRITAR_DUST_SERGEANT_LENS_ID",
-        "AMRITAR_GUARD_OF_THE_HAND_LENS_ID",
-        "AMRITAR_GUARD_SERGEANT_LENS_ID",
-        "AMRITAR_SOLDIER_SPECIALIZATION_ID",
-        "applyCommandLens",
-        "generateFighterProfile",
-        "getPrimaryCombatSkill",
-        "getSkillLevel",
-        "getSkillPoints",
-        "profileHasAdvantage",
-    ];
-    const dependencyValues = dependencyNames.map((name) => generation[name]);
-    const factory = new Function(
-        ...dependencyNames,
-        `${compiled}\nreturn { createArenaSetup, advanceBattle, areAdjacent, getDistanceMeters };`,
-    );
-    return factory(...dependencyValues);
-};
-
-const generation = loadGenerationModule();
-const battleApi = loadBattleApi(generation);
 const results = [];
 const eventTrace = [];
 const maneuverCounts = {};

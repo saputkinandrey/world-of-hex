@@ -1,57 +1,16 @@
-import fs from "node:fs";
-import path from "node:path";
-import ts from "typescript";
+import {
+    loadArenaEngine,
+    loadArenaModule,
+} from "../scripts/load-arena-engine.mjs";
 
-const projectRoot = process.cwd();
 const seed = Number.parseInt(process.argv[2] ?? "43117", 10);
 const actorNumber = Number.parseInt(process.argv[3] ?? "9", 10);
-const arenaSource = fs.readFileSync(
-    path.join(projectRoot, "app", "arena", "page.tsx"),
-    "utf8",
-);
-const generationSource = fs.readFileSync(
-    path.join(projectRoot, "app", "arena", "combatant-generation.ts"),
-    "utf8",
-);
-const transpile = (source, moduleKind) =>
-    ts.transpileModule(source, {
-        compilerOptions: {
-            target: ts.ScriptTarget.ES2022,
-            module: moduleKind,
-        },
-    }).outputText;
-const generationModule = { exports: {} };
-new Function(
-    "exports",
-    "module",
-    transpile(generationSource, ts.ModuleKind.CommonJS),
-)(generationModule.exports, generationModule);
-const generation = generationModule.exports;
-const importEndMarker = '} from "./combatant-generation";';
-const pureEndMarker = "const FighterRow =";
-const pureSource = arenaSource.slice(
-    arenaSource.indexOf(importEndMarker) + importEndMarker.length,
-    arenaSource.indexOf(pureEndMarker),
-);
-const compiled = transpile(pureSource, ts.ModuleKind.None);
-const dependencyNames = [
-    "AMRITAR_DUST_SPEARMAN_LENS_ID",
-    "AMRITAR_DUST_SERGEANT_LENS_ID",
-    "AMRITAR_GUARD_OF_THE_HAND_LENS_ID",
-    "AMRITAR_GUARD_SERGEANT_LENS_ID",
-    "AMRITAR_SOLDIER_SPECIALIZATION_ID",
-    "applyCommandLens",
-    "generateFighterProfile",
-    "getPrimaryCombatSkill",
-    "getSkillLevel",
-    "getSkillPoints",
-    "profileHasAdvantage",
-];
-const dependencyValues = dependencyNames.map((name) => generation[name]);
-const battleApi = new Function(
-    ...dependencyNames,
-    `${compiled}\nreturn { createArenaSetup, advanceBattle, getFormationContext, getFormationRoleAssignment, assessHoldPosition, distanceBetween, getNeighbors, toKey };`,
-)(...dependencyValues);
+const battleApi = {
+    ...loadArenaEngine(),
+    ...loadArenaModule("arena"),
+    ...loadArenaModule("engine"),
+    ...loadArenaModule("formation"),
+};
 const setup = battleApi.createArenaSetup(seed);
 const obstacleKeys = new Set(setup.obstacles.map((obstacle) => obstacle.key));
 let battle = { ...setup.battle, phase: "running" };
