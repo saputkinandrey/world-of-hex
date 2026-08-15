@@ -4,6 +4,12 @@
   "version": "0.1.0",
   "type": "module",
   "scripts": {
+    "arena:batch": "node scripts/arena-batch.mjs",
+    "arena:video:prepare": "node scripts/arena-video-prepare.mjs",
+    "arena:video:encode": "node scripts/arena-video-encode.mjs",
+    "arena:video:restart": "node scripts/arena-video-restart.mjs",
+    "arena:video:server": "node scripts/arena-video-server.mjs",
+    "arena:video:stop": "node scripts/arena-video-stop.mjs",
     "dev": "node scripts/next-watch.mjs --port=3002 --debounce=2000",
     "build": "next build",
     "start": "next start",

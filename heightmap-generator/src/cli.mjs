@@ -3,7 +3,7 @@ import { mkdir, readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { DEFAULT_CONFIG, parseConfigText, withCliOverrides } from "./config.mjs";
 import { generateHeightmap } from "./generator.mjs";
-import { encodeGrayscalePng } from "./png.mjs";
+import { encodeHeightmapPng } from "./png.mjs";
 
 async function main() {
   const args = parseArgs(process.argv.slice(2));
@@ -25,7 +25,7 @@ async function main() {
   for (let index = 0; index < config.count; index += 1) {
     const seed = (baseSeed + index * 1013) >>> 0;
     const grid = generateHeightmap(config, seed);
-    const png = encodeGrayscalePng(grid, config.bitDepth);
+    const png = encodeHeightmapPng(grid, config.bitDepth);
     const fileName = `map_${index + 1}_${config.bitDepth}bit.png`;
     const outputPath = path.join(outputDir, fileName);
     await writeFile(outputPath, png);

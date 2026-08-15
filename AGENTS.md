@@ -16,6 +16,8 @@
 - When a local query or script needs changing input, put that input into repo-local files instead of passing it as changing shell arguments.
 - For Mongo inspection in `backend`, keep the query body in `backend/tmp/mongo-query.js` and optional database name in `backend/tmp/mongo-query.database.txt`, then run the stable wrapper `npm run mongo:query`.
 - Prefer adding a new fixed wrapper command over repeatedly inventing new long shell commands for the same local workflow.
+- Treat the fixed `arena:video:prepare`, `arena:video:restart`, `arena:video:server`, `arena:video:encode`, and `arena:video:stop` scripts as the pre-approved local autobattler video workflow; do not request separate approval for them.
+- Before running `arena:video:encode`, verify the complete frame set, identical frame dimensions, and visible arena content. Encode a requested video only after those checks so one video requires one final encoding pass.
 
 ## Project Sources
 - Treat `project-sources/roleplaying-systems.xlsx` as an important project data source. It contains multiple roleplaying systems planned for future implementation in this project.

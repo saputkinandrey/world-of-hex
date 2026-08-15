@@ -143,12 +143,12 @@
   },
   {
     "id": "technique-food-wheat-food-sourdough-bread",
-    "name": "Хлеб на закваске",
+    "name": "Ретанская заквасочная буханка",
     "baseSkillId": "skill-повар",
     "difficultyPenalty": -2,
     "maxRelativeLevel": 0,
     "prerequisiteTechniqueIds": [],
-    "notes": "Fermented bread: dough development, proofing and baking control make it harder than ordinary mixing. Difficulty is based on active process control, failure risk and required precision, not elapsed waiting time. This is a demanding application; focused training can buy off the penalty but not exceed base skill.",
+    "notes": "Retanian high baked sourdough loaf: dough development, proofing and baking control make it harder than ordinary mixing. This technique represents the Retanian production tradition; foreign markets may consume imported loaves. Difficulty is based on active process control, failure risk and required precision, not elapsed waiting time. This is a demanding application; focused training can buy off the penalty but not exceed base skill.",
     "productionRecipeId": "production-step-food-wheat-food-sourdough-bread"
   },
   {
@@ -2159,5 +2159,83 @@
     "prerequisiteTechniqueIds": [],
     "notes": "Routine production technique for a specific goods transformation. Difficulty is based on active process control, failure risk and required precision, not elapsed waiting time. This is a routine narrow use of the base skill: it has no default penalty, and focused technique training can improve it up to base skill +2.",
     "productionRecipeId": "production-step-resource-water-research-seaweed-liquid-seaweed-broth"
+  },
+  {
+    "id": "technique-food-wheat-food-wheat-flour",
+    "name": "Пшеничная мука",
+    "baseSkillId": "skill-повар",
+    "difficultyPenalty": 0,
+    "maxRelativeLevel": 2,
+    "prerequisiteTechniqueIds": [],
+    "notes": "Palladian wheat softening and milling. Difficulty is based on active process control, failure risk and required precision, not elapsed waiting time. This is a routine narrow use of the base skill.",
+    "productionRecipeId": "production-step-food-wheat-food-wheat-flour"
+  },
+  {
+    "id": "technique-research-barley-food-roasted-barley-flour",
+    "name": "Обжаренная ячменная мука",
+    "baseSkillId": "skill-повар",
+    "difficultyPenalty": -1,
+    "maxRelativeLevel": 1,
+    "prerequisiteTechniqueIds": [],
+    "notes": "Roasting must stop before the barley scorches, then the grain is milled evenly. Difficulty is based on active process control, failure risk and required precision, not elapsed waiting time.",
+    "productionRecipeId": "production-step-research-barley-food-roasted-barley-flour"
+  },
+  {
+    "id": "technique-food-roasted-barley-flour-food-palladian-barley-round",
+    "name": "Палладийский ячменный круг",
+    "baseSkillId": "skill-повар",
+    "difficultyPenalty": 0,
+    "maxRelativeLevel": 2,
+    "prerequisiteTechniqueIds": [
+      "technique-research-barley-food-roasted-barley-flour"
+    ],
+    "notes": "Routine mixing, shaping and quick baking of a low barley round. Difficulty is based on active process control, failure risk and required precision, not elapsed waiting time.",
+    "productionRecipeId": "production-step-food-roasted-barley-flour-food-palladian-barley-round"
+  },
+  {
+    "id": "technique-food-wheat-flour-food-palladian-wheat-round",
+    "name": "Палладийский пшеничный круг",
+    "baseSkillId": "skill-повар",
+    "difficultyPenalty": -1,
+    "maxRelativeLevel": 1,
+    "prerequisiteTechniqueIds": [
+      "technique-food-wheat-food-wheat-flour"
+    ],
+    "notes": "Low wheat bread with optional fermentation requires dough and heat control but no high-loaf proofing. Difficulty is based on active process control, failure risk and required precision, not elapsed waiting time.",
+    "productionRecipeId": "production-step-food-wheat-flour-food-palladian-wheat-round"
+  },
+  {
+    "id": "technique-food-palladian-wheat-round-dish-palladian-honey-cheese-round",
+    "name": "Праздничный сырно-медовый круг",
+    "baseSkillId": "skill-повар",
+    "difficultyPenalty": 0,
+    "maxRelativeLevel": 2,
+    "prerequisiteTechniqueIds": [
+      "technique-food-wheat-flour-food-palladian-wheat-round"
+    ],
+    "notes": "Routine finishing of a wheat round with balanced cheese and honey. Difficulty is based on active process control, failure risk and required precision, not elapsed waiting time.",
+    "productionRecipeId": "production-step-food-palladian-wheat-round-dish-palladian-honey-cheese-round"
+  },
+  {
+    "id": "technique-food-roasted-barley-flour-drink-palladian-barley-water",
+    "name": "Палладийский ячменный напиток",
+    "baseSkillId": "skill-повар",
+    "difficultyPenalty": 0,
+    "maxRelativeLevel": 2,
+    "prerequisiteTechniqueIds": [
+      "technique-research-barley-food-roasted-barley-flour"
+    ],
+    "notes": "Simple suspension of roasted barley flour in water for immediate use. Difficulty is based on active process control, failure risk and required precision, not elapsed waiting time.",
+    "productionRecipeId": "production-step-food-roasted-barley-flour-drink-palladian-barley-water"
+  },
+  {
+    "id": "technique-food-aged-raw-cheese-dish-palladian-cheese-garlic-paste",
+    "name": "Палладийская сырно-чесночная паста",
+    "baseSkillId": "skill-повар",
+    "difficultyPenalty": 0,
+    "maxRelativeLevel": 2,
+    "prerequisiteTechniqueIds": [],
+    "notes": "Routine grinding and seasoning of cheese, garlic, honey and olive oil. Difficulty is based on active process control, failure risk and required precision, not elapsed waiting time.",
+    "productionRecipeId": "production-step-food-aged-raw-cheese-dish-palladian-cheese-garlic-paste"
   }
 ]

@@ -4,7 +4,7 @@ const PNG_SIGNATURE = Buffer.from([
   0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a,
 ]);
 
-export function encodeGrayscalePng(grid, bitDepth) {
+export function encodeHeightmapPng(grid, bitDepth) {
   const bytesPerSample = bitDepth === 16 ? 2 : 1;
   const rowLength = 1 + grid.width * bytesPerSample;
   const raw = Buffer.alloc(rowLength * grid.height);
@@ -43,50 +43,6 @@ export function encodeGrayscalePng(grid, bitDepth) {
   ]);
 }
 
-export function encodeLandHeightmapPng(grid, bitDepth, options = {}) {
-  const seaLevel = Number.isFinite(options.seaLevel) ? options.seaLevel : 0.5;
-  const bytesPerSample = bitDepth === 16 ? 2 : 1;
-  const rowLength = 1 + grid.width * bytesPerSample;
-  const raw = Buffer.alloc(rowLength * grid.height);
-
-  for (let y = 0; y < grid.height; y += 1) {
-    const rowStart = y * rowLength;
-    raw[rowStart] = 0;
-
-    for (let x = 0; x < grid.width; x += 1) {
-      const value = clamp01(grid.values[y * grid.width + x]);
-      const landValue =
-        value <= seaLevel
-          ? 0
-          : 0.08 + clamp01((value - seaLevel) / Math.max(1 - seaLevel, 0.001)) * 0.92;
-      if (bitDepth === 16) {
-        const sample = Math.round(landValue * 65535);
-        const offset = rowStart + 1 + x * 2;
-        raw[offset] = sample >>> 8;
-        raw[offset + 1] = sample & 255;
-      } else {
-        raw[rowStart + 1 + x] = Math.round(landValue * 255);
-      }
-    }
-  }
-
-  const header = Buffer.alloc(13);
-  header.writeUInt32BE(grid.width, 0);
-  header.writeUInt32BE(grid.height, 4);
-  header[8] = bitDepth;
-  header[9] = 0;
-  header[10] = 0;
-  header[11] = 0;
-  header[12] = 0;
-
-  return Buffer.concat([
-    PNG_SIGNATURE,
-    createChunk("IHDR", header),
-    createChunk("IDAT", deflateSync(raw)),
-    createChunk("IEND", Buffer.alloc(0)),
-  ]);
-}
-
 export function encodeTerrainPreviewPng(grid, options = {}) {
   const seaLevel = Number.isFinite(options.seaLevel) ? options.seaLevel : 0.5;
   const rowLength = 1 + grid.width * 3;
@@ -99,7 +55,17 @@ export function encodeTerrainPreviewPng(grid, options = {}) {
     for (let x = 0; x < grid.width; x += 1) {
       const value = clamp01(grid.values[y * grid.width + x]);
       const shade = hillshade(grid, x, y);
-      const color = terrainColor(value, seaLevel, shade);
+      const index = y * grid.width + x;
+      const color = hydrologyColor(
+        terrainColor(value, seaLevel, shade),
+        grid.hydrology,
+        index,
+        shade,
+        grid.width,
+        grid.height,
+        x,
+        y,
+      );
       const offset = rowStart + 1 + x * 3;
       raw[offset] = color.r;
       raw[offset + 1] = color.g;
@@ -122,6 +88,61 @@ export function encodeTerrainPreviewPng(grid, options = {}) {
     createChunk("IDAT", deflateSync(raw)),
     createChunk("IEND", Buffer.alloc(0)),
   ]);
+}
+
+function hydrologyColor(
+  terrain,
+  hydrology,
+  index,
+  shade,
+  width,
+  height,
+  x,
+  y,
+) {
+  if (!hydrology) {
+    return terrain;
+  }
+
+  const lakeDepth = hydrology.lakeDepth[index];
+  if (lakeDepth > 0) {
+    const depth = clamp01(lakeDepth * 18);
+    return applyShade(
+      mixColor({ r: 75, g: 151, b: 168 }, { r: 22, g: 71, b: 104 }, depth),
+      shade,
+    );
+  }
+
+  const riverStrength = neighborhoodMaximum(
+    hydrology.riverStrength,
+    width,
+    height,
+    x,
+    y,
+  );
+  if (riverStrength > 0) {
+    return mixColor(
+      terrain,
+      { r: 35, g: 104, b: 143 },
+      0.45 + riverStrength * 0.5,
+    );
+  }
+
+  return terrain;
+}
+
+function neighborhoodMaximum(values, width, height, x, y) {
+  let maximum = 0;
+
+  for (let offsetY = -1; offsetY <= 1; offsetY += 1) {
+    const sampleY = Math.min(height - 1, Math.max(0, y + offsetY));
+    for (let offsetX = -1; offsetX <= 1; offsetX += 1) {
+      const sampleX = Math.min(width - 1, Math.max(0, x + offsetX));
+      maximum = Math.max(maximum, values[sampleY * width + sampleX]);
+    }
+  }
+
+  return maximum;
 }
 
 function createChunk(type, data) {

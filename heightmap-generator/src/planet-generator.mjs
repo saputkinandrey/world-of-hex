@@ -1,18 +1,27 @@
 import { createGrid, normalizeFixedRange, smoothstep } from "./grid.mjs";
+import { applyHydrology, cropHydrology } from "./hydrology.mjs";
 import { createNoise } from "./noise.mjs";
 import { createRandom } from "./random.mjs";
+import { applyReferenceFields } from "./references.mjs";
 
 const DEFAULT_SECTOR_DIRECTIVE = "free";
+const CONTINENT_LAND_STRENGTH = Object.freeze({
+  continentNorthAmerica: 0.5,
+  continentSouthAmerica: 0.5,
+  continentEurope: 0.5,
+  continentAsia: 0.54,
+  continentAustralia: 0.42,
+});
 const SECTOR_PROFILES = Object.freeze({
   free: { land: 0, mountain: 0, island: 0, terrain: 0, bridge: 0 },
   ocean: { land: -0.85, mountain: -0.75, island: -0.9, terrain: -0.3, bridge: 0 },
   archipelago: { land: -0.16, mountain: 0.06, island: 1.1, terrain: 0.08, bridge: 0 },
-  mountainBridge: { land: -0.42, mountain: 0, island: 0, terrain: 0.03, bridge: 1 },
-  continentNorthAmerica: { land: 0.42, mountain: 0.28, island: 0.08, terrain: 0.13, bridge: 0 },
-  continentSouthAmerica: { land: 0.36, mountain: 0.36, island: 0.06, terrain: 0.14, bridge: 0 },
-  continentEurope: { land: 0.4, mountain: 0.14, island: 0.42, terrain: 0.07, bridge: 0 },
-  continentAsia: { land: 0.5, mountain: 0.3, island: 0.08, terrain: 0.16, bridge: 0 },
-  continentAustralia: { land: 0.3, mountain: 0.08, island: 0.04, terrain: -0.16, bridge: 0 },
+  mountainBridge: { land: -0.42, mountain: -0.55, island: 0, terrain: 0.03, bridge: 1 },
+  continentNorthAmerica: { land: 0.1, mountain: 0.28, island: 0.08, terrain: 0.13, bridge: 0 },
+  continentSouthAmerica: { land: 0.1, mountain: 0.36, island: 0.06, terrain: 0.14, bridge: 0 },
+  continentEurope: { land: 0.08, mountain: 0.14, island: 0.42, terrain: 0.07, bridge: 0 },
+  continentAsia: { land: 0.12, mountain: 0.3, island: 0.08, terrain: 0.16, bridge: 0 },
+  continentAustralia: { land: 0.07, mountain: 0.08, island: 0.04, terrain: -0.16, bridge: 0 },
 });
 
 export function generatePlanetHeightmap(config, seed) {
@@ -37,35 +46,26 @@ export function generatePlanetHeightmap(config, seed) {
     }
   }
 
-  return normalizeFixedRange(grid, -1, 1);
+  normalizeFixedRange(grid, -1, 1);
+  applyReferenceFields(grid, config.referenceFields);
+  return applyHydrology(grid, config);
 }
 
 export function generatePlanetHeightmapRegion(config, seed, region) {
-  const noise = createNoise(seed ^ 0x51f15eed);
-  const random = createRandom(seed ^ 0x2d6d9f43);
   const safeRegion = normalizeRegion(config, region);
+  const fullGrid = generatePlanetHeightmap(config, seed);
   const grid = createGrid(safeRegion.width, safeRegion.height, 0);
-  const plates = createMountainBelts(config, random);
-  const islandArcs = createIslandArcs(config, random);
-  const directives = normalizeSectorDirectives(config);
 
   for (let localY = 0; localY < safeRegion.height; localY += 1) {
-    const y = safeRegion.y + localY;
-    for (let localX = 0; localX < safeRegion.width; localX += 1) {
-      const x = safeRegion.x + localX;
-      grid.values[localY * safeRegion.width + localX] = samplePlanetHeight({
-        config,
-        directives,
-        islandArcs,
-        noise,
-        plates,
-        x,
-        y,
-      });
-    }
+    const sourceStart = (safeRegion.y + localY) * config.width + safeRegion.x;
+    grid.values.set(
+      fullGrid.values.subarray(sourceStart, sourceStart + safeRegion.width),
+      localY * safeRegion.width,
+    );
   }
 
-  return normalizeFixedRange(grid, -1, 1);
+  grid.hydrology = cropHydrology(fullGrid.hydrology, config.width, safeRegion);
+  return grid;
 }
 
 function samplePlanetHeight({ config, directives, islandArcs, noise, plates, x, y }) {
@@ -81,9 +81,10 @@ function samplePlanetHeight({ config, directives, islandArcs, noise, plates, x, 
     noise,
     sphere,
     config,
-    sectorInfluence.land + regionalGeology.bridgeLand + regionalGeology.archipelagoLand,
-    longitudeT,
-    latitudeT,
+    sectorInfluence.land +
+      regionalGeology.bridgeLand +
+      regionalGeology.archipelagoLand +
+      regionalGeology.continentalLand,
   );
   const landMask = smoothstep(
     config.planetSeaLevel - config.planetCoastSoftness,
@@ -117,7 +118,7 @@ function normalizeRegion(config, region) {
   return { x, y, width, height };
 }
 
-function continentalField(noise, sphere, config, sectorBias, longitudeT, latitudeT) {
+function continentalField(noise, sphere, config, sectorBias) {
   const large =
     noise.fbm2(
       sphere.x * config.planetContinentScale + sphere.z * 0.37,
@@ -149,50 +150,8 @@ function continentalField(noise, sphere, config, sectorBias, longitudeT, latitud
     large * 0.68 +
     secondary * 0.24 +
     broken * config.planetIslandDensity * 0.08 +
-    hexAtlanticStructure(longitudeT, latitudeT, config) +
     sectorBias
   );
-}
-
-function hexAtlanticStructure(x, y, config) {
-  if (config.planetStructure !== "hexAtlantic") {
-    return 0;
-  }
-
-  const northAmerica =
-    continentBlob(x, y, 0.27, 0.38, 0.22, 0.24, 0.52) +
-    continentBlob(x, y, 0.22, 0.51, 0.16, 0.16, 0.26);
-  const centralAmerica =
-    continentBlob(x, y, 0.36, 0.58, 0.12, 0.08, 0.24) +
-    continentBlob(x, y, 0.44, 0.55, 0.08, 0.055, 0.14);
-  const europe =
-    continentBlob(x, y, 0.66, 0.36, 0.18, 0.17, 0.38) +
-    continentBlob(x, y, 0.61, 0.48, 0.11, 0.12, 0.18);
-  const atlantic =
-    continentBlob(x, y, 0.5, 0.43, 0.13, 0.24, -0.42) +
-    continentBlob(x, y, 0.5, 0.63, 0.16, 0.16, -0.18);
-  const polarOcean =
-    continentBlob(x, y, 0.5, 0.02, 0.7, 0.11, -0.14) +
-    continentBlob(x, y, 0.5, 0.98, 0.7, 0.11, -0.14);
-
-  return northAmerica + centralAmerica + europe + atlantic + polarOcean;
-}
-
-function continentBlob(x, y, centerX, centerY, radiusX, radiusY, strength) {
-  const dx = wrappedUnitDistance(x, centerX) / radiusX;
-  const dy = (y - centerY) / radiusY;
-  return Math.exp(-(dx * dx + dy * dy)) * strength;
-}
-
-function wrappedUnitDistance(a, b) {
-  const direct = a - b;
-  if (direct > 0.5) {
-    return direct - 1;
-  }
-  if (direct < -0.5) {
-    return direct + 1;
-  }
-  return direct;
 }
 
 function oceanHeight(noise, sphere, config, continental, landMask) {
@@ -296,7 +255,7 @@ function normalizeSectorDirectives(config) {
   const source = Array.isArray(config.sectorDirectives)
     ? config.sectorDirectives
     : [];
-  return {
+  const directives = {
     columns,
     rows,
     values: Array.from({ length: columns * rows }, (_, index) => {
@@ -306,6 +265,195 @@ function normalizeSectorDirectives(config) {
         : DEFAULT_SECTOR_DIRECTIVE;
     }),
   };
+  const componentData = createSectorComponents(directives);
+  return {
+    ...directives,
+    componentIds: componentData.componentIds,
+    components: componentData.components,
+  };
+}
+
+function createSectorComponents(directives) {
+  const componentIds = new Int16Array(directives.values.length);
+  const components = [];
+  const queue = new Int16Array(directives.values.length);
+  componentIds.fill(-1);
+
+  for (let start = 0; start < directives.values.length; start += 1) {
+    if (componentIds[start] >= 0) {
+      continue;
+    }
+
+    const directive = directives.values[start];
+    const kind = sectorComponentKind(directive);
+    const id = components.length;
+    const cells = [];
+    let queueStart = 0;
+    let queueEnd = 1;
+    queue[0] = start;
+    componentIds[start] = id;
+
+    while (queueStart < queueEnd) {
+      const index = queue[queueStart];
+      queueStart += 1;
+      const x = index % directives.columns;
+      const y = Math.floor(index / directives.columns);
+      cells.push({ x, y });
+
+      visitSectorNeighbors(directives, x, y, (neighborX, neighborY) => {
+        const neighborIndex = neighborY * directives.columns + neighborX;
+        if (
+          componentIds[neighborIndex] >= 0 ||
+          sectorComponentKind(directives.values[neighborIndex]) !== kind
+        ) {
+          return;
+        }
+        componentIds[neighborIndex] = id;
+        queue[queueEnd] = neighborIndex;
+        queueEnd += 1;
+      });
+    }
+
+    components.push(
+      createSectorComponent(
+        id,
+        kind,
+        cells,
+        directives,
+        componentIds,
+      ),
+    );
+  }
+
+  return { componentIds, components };
+}
+
+function createSectorComponent(
+  id,
+  kind,
+  cells,
+  directives,
+  componentIds,
+) {
+  const boundaries = [];
+  const continentBoundaries = [];
+  let minY = directives.rows;
+  let maxY = 0;
+
+  for (const cell of cells) {
+    minY = Math.min(minY, cell.y);
+    maxY = Math.max(maxY, cell.y);
+    addComponentBoundaries(boundaries, cell, id, directives, componentIds);
+    if (isContinentDirective(sectorDirectiveAt(directives, cell.x, cell.y))) {
+      addContinentBoundaries(continentBoundaries, cell, directives);
+    }
+  }
+
+  const horizontalBounds = componentHorizontalBounds(
+    cells,
+    directives.columns,
+  );
+
+  return {
+    id,
+    kind,
+    boundaries,
+    continentBoundaries,
+    startX: horizontalBounds.startX,
+    spanX: horizontalBounds.spanX,
+    minY,
+    maxY,
+  };
+}
+
+function sectorComponentKind(directive) {
+  return isContinentDirective(directive) || directive === "mountainBridge"
+    ? "landmass"
+    : directive;
+}
+
+function componentHorizontalBounds(cells, columns) {
+  const occupied = [...new Set(cells.map((cell) => cell.x))].sort(
+    (left, right) => left - right,
+  );
+  let largestGap = -1;
+  let startX = occupied[0];
+
+  for (let index = 0; index < occupied.length; index += 1) {
+    const current = occupied[index];
+    const next =
+      index + 1 < occupied.length ? occupied[index + 1] : occupied[0] + columns;
+    const gap = next - current;
+    if (gap > largestGap) {
+      largestGap = gap;
+      startX = wrap(next, columns);
+    }
+  }
+
+  return {
+    startX,
+    spanX: columns - largestGap,
+  };
+}
+
+function addComponentBoundaries(
+  boundaries,
+  cell,
+  componentId,
+  directives,
+  componentIds,
+) {
+  for (const edge of sectorEdges(cell)) {
+    const neighborY = cell.y + edge.stepY;
+    const neighborX = wrap(cell.x + edge.stepX, directives.columns);
+    const neighborIsSame =
+      neighborY >= 0 &&
+      neighborY < directives.rows &&
+      componentIds[neighborY * directives.columns + neighborX] === componentId;
+    if (!neighborIsSame) {
+      boundaries.push(edge);
+    }
+  }
+}
+
+function addContinentBoundaries(boundaries, cell, directives) {
+  for (const edge of sectorEdges(cell)) {
+    const neighborY = cell.y + edge.stepY;
+    const neighborX = wrap(cell.x + edge.stepX, directives.columns);
+    const neighborIsContinent =
+      neighborY >= 0 &&
+      neighborY < directives.rows &&
+      isContinentDirective(
+        sectorDirectiveAt(directives, neighborX, neighborY),
+      );
+    if (!neighborIsContinent) {
+      boundaries.push(edge);
+    }
+  }
+}
+
+function sectorEdges(cell) {
+  return [
+    { stepX: -1, stepY: 0, x1: cell.x, y1: cell.y, x2: cell.x, y2: cell.y + 1 },
+    { stepX: 1, stepY: 0, x1: cell.x + 1, y1: cell.y, x2: cell.x + 1, y2: cell.y + 1 },
+    { stepX: 0, stepY: -1, x1: cell.x, y1: cell.y, x2: cell.x + 1, y2: cell.y },
+    { stepX: 0, stepY: 1, x1: cell.x, y1: cell.y + 1, x2: cell.x + 1, y2: cell.y + 1 },
+  ];
+}
+
+function visitSectorNeighbors(directives, x, y, visit) {
+  const neighbors = [
+    [wrap(x - 1, directives.columns), y],
+    [wrap(x + 1, directives.columns), y],
+    [x, y - 1],
+    [x, y + 1],
+  ];
+
+  for (const [neighborX, neighborY] of neighbors) {
+    if (neighborY >= 0 && neighborY < directives.rows) {
+      visit(neighborX, neighborY);
+    }
+  }
 }
 
 function sampleSectorInfluence(directives, config, x, y) {
@@ -361,8 +509,31 @@ function sampleRegionalGeology(directives, config, noise, x, y) {
       const safeSectorX = wrap(sectorX, directives.columns);
       const safeSectorY = Math.min(directives.rows - 1, Math.max(0, sectorY));
       const directive = directives.values[safeSectorY * directives.columns + safeSectorX];
-      const runX = sectorRunX(directives, safeSectorX, safeSectorY, directive, gx);
-      const runY = sectorRunY(directives, safeSectorX, safeSectorY, directive, gy);
+      const componentPosition =
+        directive === "mountainBridge"
+          ? {
+              x: sectorRunX(
+                directives,
+                safeSectorX,
+                safeSectorY,
+                directive,
+                gx,
+              ),
+              y: sectorRunY(
+                directives,
+                safeSectorX,
+                safeSectorY,
+                directive,
+                gy,
+              ),
+            }
+          : sectorComponentPosition(
+              directives,
+              safeSectorX,
+              safeSectorY,
+              gx,
+              gy,
+            );
       const centerDistanceX = gx - (sectorX + 0.5);
       const centerDistanceY = gy - (sectorY + 0.5);
       const weight = Math.exp(-((centerDistanceX * centerDistanceX + centerDistanceY * centerDistanceY) / 0.42));
@@ -374,7 +545,15 @@ function sampleRegionalGeology(directives, config, noise, x, y) {
       const beltContinuity = directive === "mountainBridge"
         ? 0.7 + roughness * 0.3
         : brokenBelt;
-      mountain += regionalMountainHeight(directive, runX, runY, noise, gx, gy, config) * beltContinuity * weight;
+      mountain += regionalMountainHeight(
+        directive,
+        componentPosition.x,
+        componentPosition.y,
+        noise,
+        gx,
+        gy,
+        config,
+      ) * beltContinuity * weight;
       totalWeight += weight;
     }
   }
@@ -382,7 +561,14 @@ function sampleRegionalGeology(directives, config, noise, x, y) {
   return {
     mountain: totalWeight > 0 ? mountain / totalWeight : 0,
     bridgeLand: bridgeLandHeight(directives, config, gx, gy) + autoIsthmusHeight(directives, config, gx, gy),
-    archipelagoLand: archipelagoLandHeight(directives, config, noise, gx, gy),
+    archipelagoLand: archipelagoComponentLandHeight(
+      directives,
+      config,
+      noise,
+      gx,
+      gy,
+    ),
+    continentalLand: continentComponentLandHeight(directives, noise, gx, gy),
   };
 }
 
@@ -410,9 +596,8 @@ function regionalMountainHeight(directive, runX, runY, noise, gx, gy, config) {
     return edgeBelt(runX, 0.78, 0.11, 0.035);
   }
   if (directive === "mountainBridge") {
-    const ridgeStart = 0.5 - config.sectorBridgeRidgeWidth * 0.5;
-    const ridgeEnd = 0.5 + config.sectorBridgeRidgeWidth * 0.5;
-    const ridgeBand = smoothstep(ridgeStart, ridgeStart + 0.08, runY) * (1 - smoothstep(ridgeEnd - 0.08, ridgeEnd, runY));
+    const ridgeWidth = 0.035 + config.sectorBridgeRidgeWidth * 0.12;
+    const ridgeBand = edgeBelt(runY, 0.5, ridgeWidth, 1);
     const passNoise =
       noise.fbm2(gx * 2.6 + 17.1, gy * 1.4 - 9.3, 3, 2, 0.55) * 0.5 +
       0.5;
@@ -420,6 +605,205 @@ function regionalMountainHeight(directive, runX, runY, noise, gx, gy, config) {
     return ridgeBand * passes * config.sectorBridgeMountainStrength;
   }
   return 0;
+}
+
+function continentComponentLandHeight(directives, noise, gx, gy) {
+  const warpX =
+    noise.fbm2(gx * 1.9 + 43.1, gy * 2.3 - 17.4, 3, 2, 0.55) * 0.11;
+  const warpY =
+    noise.fbm2(gx * 2.2 - 31.7, gy * 1.8 + 26.9, 3, 2, 0.55) * 0.09;
+  const coastNoise =
+    noise.fbm2(gx * 5.1 + 8.3, gy * 4.7 - 12.6, 4, 2, 0.52) * 0.1;
+  const sampleX = gx + warpX;
+  const sampleY = gy + warpY;
+  let height = 0;
+
+  for (const component of directives.components) {
+    if (
+      component.kind !== "landmass" ||
+      component.continentBoundaries.length === 0
+    ) {
+      continue;
+    }
+
+    const strength = sampleContinentStrength(
+      directives,
+      component,
+      sampleX,
+      sampleY,
+    );
+
+    const signedDistance = signedDistanceToContinentComponent(
+      directives,
+      component,
+      sampleX,
+      sampleY,
+    );
+    const position = componentPosition(
+      directives,
+      component,
+      sampleX,
+      sampleY,
+    );
+    const dx = (position.x - 0.5) / 0.62;
+    const dy = (position.y - 0.5) / 0.62;
+    const envelope = 1 - Math.sqrt(dx * dx + dy * dy);
+    const componentNoise = noise.fbm2(
+      position.x * 2.7 + component.id * 3.1,
+      position.y * 2.4 - component.id * 2.3,
+      4,
+      2,
+      0.54,
+    );
+    const landField =
+      signedDistance * 0.18 +
+      envelope * 0.32 +
+      componentNoise * 0.15 +
+      coastNoise;
+    const coast = smoothstep(0.035, 0.2, landField);
+    height = Math.max(height, coast * strength);
+  }
+
+  return height;
+}
+
+function sampleContinentStrength(directives, component, gx, gy) {
+  const baseX = Math.floor(gx);
+  const baseY = Math.floor(gy);
+  let strength = 0;
+  let totalWeight = 0;
+
+  for (let dy = -1; dy <= 1; dy += 1) {
+    const sectorY = baseY + dy;
+    if (sectorY < 0 || sectorY >= directives.rows) {
+      continue;
+    }
+
+    for (let dx = -1; dx <= 1; dx += 1) {
+      const sectorX = baseX + dx;
+      const safeSectorX = wrap(sectorX, directives.columns);
+      const sectorIndex = sectorY * directives.columns + safeSectorX;
+      if (directives.componentIds[sectorIndex] !== component.id) {
+        continue;
+      }
+
+      const directive = directives.values[sectorIndex];
+      const directiveStrength = CONTINENT_LAND_STRENGTH[directive];
+      if (!directiveStrength) {
+        continue;
+      }
+
+      const distanceX = gx - (sectorX + 0.5);
+      const distanceY = gy - (sectorY + 0.5);
+      const weight = Math.exp(
+        -(distanceX * distanceX + distanceY * distanceY) / 0.42,
+      );
+      strength += directiveStrength * weight;
+      totalWeight += weight;
+    }
+  }
+
+  return totalWeight > 0 ? strength / totalWeight : 0;
+}
+
+function sectorComponentPosition(directives, sectorX, sectorY, gx, gy) {
+  const componentId = directives.componentIds[
+    sectorY * directives.columns + sectorX
+  ];
+  const component = directives.components[componentId];
+  return componentPosition(directives, component, gx, gy);
+}
+
+function componentPosition(directives, component, gx, gy) {
+  const wrappedX = wrap(gx, directives.columns);
+  const componentX =
+    wrappedX < component.startX ? wrappedX + directives.columns : wrappedX;
+  return {
+    x: clamp01(
+      (componentX - component.startX) / Math.max(1, component.spanX + 1),
+    ),
+    y: clamp01(
+      (gy - component.minY) /
+        Math.max(1, component.maxY - component.minY + 1),
+    ),
+  };
+}
+
+function signedDistanceToComponent(directives, component, x, y) {
+  const wrappedX = wrap(x, directives.columns);
+  const sectorX = Math.floor(wrappedX);
+  const sectorY = Math.floor(y);
+  const inside =
+    sectorY >= 0 &&
+    sectorY < directives.rows &&
+    directives.componentIds[sectorY * directives.columns + sectorX] ===
+      component.id;
+  return signedDistanceToBoundaries(
+    directives,
+    component.boundaries,
+    wrappedX,
+    y,
+    inside,
+  );
+}
+
+function signedDistanceToContinentComponent(directives, component, x, y) {
+  const wrappedX = wrap(x, directives.columns);
+  const sectorX = Math.floor(wrappedX);
+  const sectorY = Math.floor(y);
+  const inside =
+    sectorY >= 0 &&
+    sectorY < directives.rows &&
+    directives.componentIds[sectorY * directives.columns + sectorX] ===
+      component.id &&
+    isContinentDirective(sectorDirectiveAt(directives, sectorX, sectorY));
+  return signedDistanceToBoundaries(
+    directives,
+    component.continentBoundaries,
+    wrappedX,
+    y,
+    inside,
+  );
+}
+
+function signedDistanceToBoundaries(
+  directives,
+  boundaries,
+  wrappedX,
+  y,
+  inside,
+) {
+  let distance = Number.POSITIVE_INFINITY;
+
+  for (const boundary of boundaries) {
+    distance = Math.min(
+      distance,
+      wrappedDistanceToSegment(wrappedX, y, boundary, directives.columns),
+    );
+  }
+
+  return inside ? distance : -distance;
+}
+
+function wrappedDistanceToSegment(x, y, segment, width) {
+  return Math.min(
+    distanceToSegment(x - width, y, segment),
+    distanceToSegment(x, y, segment),
+    distanceToSegment(x + width, y, segment),
+  );
+}
+
+function distanceToSegment(x, y, segment) {
+  const dx = segment.x2 - segment.x1;
+  const dy = segment.y2 - segment.y1;
+  const lengthSquared = dx * dx + dy * dy;
+  const amount = clamp01(
+    ((x - segment.x1) * dx + (y - segment.y1) * dy) /
+      Math.max(Number.EPSILON, lengthSquared),
+  );
+  const nearestX = segment.x1 + dx * amount;
+  const nearestY = segment.y1 + dy * amount;
+  return Math.hypot(x - nearestX, y - nearestY);
 }
 
 function bridgeLandHeight(directives, config, gx, gy) {
@@ -477,37 +861,43 @@ function autoIsthmusHeight(directives, config, gx, gy) {
   return Math.max(horizontal, vertical);
 }
 
-function archipelagoLandHeight(directives, config, noise, gx, gy) {
-  const baseX = Math.floor(gx);
-  const baseY = Math.floor(gy);
+function archipelagoComponentLandHeight(directives, config, noise, gx, gy) {
   let height = 0;
 
-  for (let dy = -1; dy <= 1; dy += 1) {
-    for (let dx = -1; dx <= 1; dx += 1) {
-      const sectorX = baseX + dx;
-      const sectorY = baseY + dy;
-      const safeSectorX = wrap(sectorX, directives.columns);
-      const safeSectorY = Math.min(directives.rows - 1, Math.max(0, sectorY));
-      if (sectorDirectiveAt(directives, safeSectorX, safeSectorY) !== "archipelago") {
-        continue;
-      }
-
-      const localX = gx - sectorX;
-      const localY = gy - sectorY;
-      const edgeFade =
-        smoothstep(0.02, 0.18, localX) *
-        (1 - smoothstep(0.82, 0.98, localX)) *
-        smoothstep(0.02, 0.18, localY) *
-        (1 - smoothstep(0.82, 0.98, localY));
-      const chain =
-        Math.sin((localX * 1.7 + localY * 0.9 + safeSectorX * 0.37) * Math.PI * 2) *
-          0.5 +
-        0.5;
-      const clustered =
-        noise.ridgedFbm2(gx * 2.25 + safeSectorY * 5.7, gy * 2.25 - safeSectorX * 3.1, 4);
-      const islands = smoothstep(0.48, 0.82, clustered * 0.72 + chain * 0.28);
-      height = Math.max(height, edgeFade * islands * 0.42 * config.sectorArchipelagoStrength);
+  for (const component of directives.components) {
+    if (component.kind !== "archipelago") {
+      continue;
     }
+
+    const position = componentPosition(directives, component, gx, gy);
+    const signedDistance = signedDistanceToComponent(
+      directives,
+      component,
+      gx,
+      gy,
+    );
+    const componentFade = smoothstep(0.015, 0.16, signedDistance);
+    const chain =
+      Math.sin(
+        (position.x * 1.7 + position.y * 0.9 + component.id * 0.37) *
+          Math.PI *
+          2,
+      ) *
+        0.5 +
+      0.5;
+    const clustered = noise.ridgedFbm2(
+      gx * 2.25 + component.id * 5.7,
+      gy * 2.25 - component.id * 3.1,
+      4,
+    );
+    const islands = smoothstep(0.48, 0.82, clustered * 0.72 + chain * 0.28);
+    height = Math.max(
+      height,
+      componentFade *
+        islands *
+        0.42 *
+        config.sectorArchipelagoStrength,
+    );
   }
 
   return height;
@@ -533,6 +923,10 @@ function nearbyLand(directives, sectorX, sectorY, stepX, stepY) {
 
 function isLandDirective(directive) {
   return directive.startsWith("continent") || directive === "mountainBridge" || directive === "archipelago";
+}
+
+function isContinentDirective(directive) {
+  return directive.startsWith("continent");
 }
 
 function sectorRunX(directives, sectorX, sectorY, directive, gx) {

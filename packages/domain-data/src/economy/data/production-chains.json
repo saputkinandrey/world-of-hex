@@ -864,7 +864,7 @@
           }
         ],
         "preservesInputs": false,
-        "note": "Long-fermented sourdough bread.",
+        "note": "Retanian high baked sourdough loaf. Canonically produced locally only in Retania; other cultures may consume imported loaves. Culture restriction is defined in project-sources/grain-food-cultures.json until culture-aware recipes are wired into runtime data.",
         "durationMinutes": 1440
       },
       {
@@ -5255,6 +5255,208 @@
         "preservesInputs": false,
         "note": "Level 0 natural source to level 1 harvested good.",
         "durationMinutes": 0
+      }
+    ]
+  },
+  {
+    "id": "production-chain-palladian-grain-processing",
+    "name": "Palladian grain processing",
+    "recipes": [
+      {
+        "id": "production-step-food-wheat-food-wheat-flour",
+        "inputs": [
+          {
+            "id": "production-step-food-wheat-food-wheat-flour-input-1",
+            "goodId": "food-wheat",
+            "quantity": 10
+          }
+        ],
+        "outputs": [
+          {
+            "id": "production-step-food-wheat-food-wheat-flour-output-1",
+            "goodId": "food-wheat-flour",
+            "quantity": 8
+          }
+        ],
+        "preservesInputs": false,
+        "note": "Palladian milling of softened wheat; bran and handling losses account for the reduced output.",
+        "durationMinutes": 45
+      },
+      {
+        "id": "production-step-research-barley-food-roasted-barley-flour",
+        "inputs": [
+          {
+            "id": "production-step-research-barley-food-roasted-barley-flour-input-1",
+            "goodId": "research-barley",
+            "quantity": 10
+          }
+        ],
+        "outputs": [
+          {
+            "id": "production-step-research-barley-food-roasted-barley-flour-output-1",
+            "goodId": "food-roasted-barley-flour",
+            "quantity": 8
+          }
+        ],
+        "preservesInputs": false,
+        "note": "Palladian barley is roasted before milling to make the staple aromatic flour.",
+        "durationMinutes": 75
+      }
+    ]
+  },
+  {
+    "id": "production-chain-palladian-cuisine",
+    "name": "Palladian cuisine",
+    "recipes": [
+      {
+        "id": "production-step-food-roasted-barley-flour-food-palladian-barley-round",
+        "inputs": [
+          {
+            "id": "production-step-food-roasted-barley-flour-food-palladian-barley-round-input-1",
+            "goodId": "food-roasted-barley-flour",
+            "quantity": 40
+          },
+          {
+            "id": "production-step-food-roasted-barley-flour-food-palladian-barley-round-input-2",
+            "goodId": "resource-water",
+            "quantity": 20
+          },
+          {
+            "id": "production-step-food-roasted-barley-flour-food-palladian-barley-round-input-3",
+            "goodId": "food-salt",
+            "quantity": 1
+          }
+        ],
+        "outputs": [
+          {
+            "id": "production-step-food-roasted-barley-flour-food-palladian-barley-round-output-1",
+            "goodId": "food-palladian-barley-round",
+            "quantity": 50
+          }
+        ],
+        "preservesInputs": false,
+        "note": "Palladian staple shaped as a low round and baked quickly on stone or under a ceramic cover.",
+        "durationMinutes": 60
+      },
+      {
+        "id": "production-step-food-wheat-flour-food-palladian-wheat-round",
+        "inputs": [
+          {
+            "id": "production-step-food-wheat-flour-food-palladian-wheat-round-input-1",
+            "goodId": "food-wheat-flour",
+            "quantity": 40
+          },
+          {
+            "id": "production-step-food-wheat-flour-food-palladian-wheat-round-input-2",
+            "goodId": "resource-water",
+            "quantity": 20
+          },
+          {
+            "id": "production-step-food-wheat-flour-food-palladian-wheat-round-input-3",
+            "goodId": "food-salt",
+            "quantity": 1
+          }
+        ],
+        "outputs": [
+          {
+            "id": "production-step-food-wheat-flour-food-palladian-wheat-round-output-1",
+            "goodId": "food-palladian-wheat-round",
+            "quantity": 50
+          }
+        ],
+        "preservesInputs": false,
+        "note": "Palladian low wheat round, optionally fermented but never shaped or proofed as a Retanian high loaf.",
+        "durationMinutes": 180
+      },
+      {
+        "id": "production-step-food-palladian-wheat-round-dish-palladian-honey-cheese-round",
+        "inputs": [
+          {
+            "id": "production-step-food-palladian-wheat-round-dish-palladian-honey-cheese-round-input-1",
+            "goodId": "food-palladian-wheat-round",
+            "quantity": 5
+          },
+          {
+            "id": "production-step-food-palladian-wheat-round-dish-palladian-honey-cheese-round-input-2",
+            "goodId": "food-aged-raw-cheese",
+            "quantity": 1
+          },
+          {
+            "id": "production-step-food-palladian-wheat-round-dish-palladian-honey-cheese-round-input-3",
+            "goodId": "food-raw-honey",
+            "quantity": 1
+          }
+        ],
+        "outputs": [
+          {
+            "id": "production-step-food-palladian-wheat-round-dish-palladian-honey-cheese-round-output-1",
+            "goodId": "dish-palladian-honey-cheese-round",
+            "quantity": 6
+          }
+        ],
+        "preservesInputs": false,
+        "note": "Festival and guest-table version of the Palladian wheat round with cheese and honey.",
+        "durationMinutes": 20
+      },
+      {
+        "id": "production-step-food-roasted-barley-flour-drink-palladian-barley-water",
+        "inputs": [
+          {
+            "id": "production-step-food-roasted-barley-flour-drink-palladian-barley-water-input-1",
+            "goodId": "food-roasted-barley-flour",
+            "quantity": 1
+          },
+          {
+            "id": "production-step-food-roasted-barley-flour-drink-palladian-barley-water-input-2",
+            "goodId": "resource-water",
+            "quantity": 8
+          }
+        ],
+        "outputs": [
+          {
+            "id": "production-step-food-roasted-barley-flour-drink-palladian-barley-water-output-1",
+            "goodId": "drink-palladian-barley-water",
+            "quantity": 8
+          }
+        ],
+        "preservesInputs": false,
+        "note": "Simple Palladian working drink; honey, grated cheese or herbs are optional table additions.",
+        "durationMinutes": 15
+      },
+      {
+        "id": "production-step-food-aged-raw-cheese-dish-palladian-cheese-garlic-paste",
+        "inputs": [
+          {
+            "id": "production-step-food-aged-raw-cheese-dish-palladian-cheese-garlic-paste-input-1",
+            "goodId": "food-aged-raw-cheese",
+            "quantity": 2
+          },
+          {
+            "id": "production-step-food-aged-raw-cheese-dish-palladian-cheese-garlic-paste-input-2",
+            "goodId": "food-garlic",
+            "quantity": 1
+          },
+          {
+            "id": "production-step-food-aged-raw-cheese-dish-palladian-cheese-garlic-paste-input-3",
+            "goodId": "food-raw-honey",
+            "quantity": 1
+          },
+          {
+            "id": "production-step-food-aged-raw-cheese-dish-palladian-cheese-garlic-paste-input-4",
+            "goodId": "research-olive-oil",
+            "quantity": 1
+          }
+        ],
+        "outputs": [
+          {
+            "id": "production-step-food-aged-raw-cheese-dish-palladian-cheese-garlic-paste-output-1",
+            "goodId": "dish-palladian-cheese-garlic-paste",
+            "quantity": 4
+          }
+        ],
+        "preservesInputs": false,
+        "note": "Palladian table paste ground from cheese, garlic, honey and olive oil.",
+        "durationMinutes": 15
       }
     ]
   },

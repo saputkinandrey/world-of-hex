@@ -1,0 +1,352 @@
+{
+  "schemaVersion": 1,
+  "id": "grain-food-cultures",
+  "title": "Зерновые кухни Хекса",
+  "status": "canon",
+  "authority": 100,
+  "sourceType": "manual",
+  "updated": "2026-08-14",
+  "wikiPath": "/canon/economy/grain-food-cultures",
+  "sourceNotes": [
+    "Культурно-биомное исследование пользователя от 2026-08-11.",
+    "project-sources/culinary-system-world-of-hex.docx",
+    "Исследовательская статья о древнегреческой кухне, предоставленная пользователем 2026-08-14; адаптированы технологии и структура рациона без земных имен и топонимов."
+  ],
+  "canonicalRules": {
+    "highBakedLoaf": {
+      "nativeProducerCultureIds": [
+        "retania"
+      ],
+      "definition": "Высокий пористый хлеб, выпекаемый объемным изделием партиями и рассчитанный на хранение в течение нескольких дней.",
+      "foreignAvailability": "exotic-import",
+      "tradeDoesNotGrantLocalProductionTradition": true
+    },
+    "fermentation": {
+      "exclusiveToRetania": false,
+      "allowedCultureIds": [
+        "palladia",
+        "heavenly-empire",
+        "retania",
+        "amritar"
+      ],
+      "rule": "Ферментация теста не определяет форму хлеба и не превращает плоский или паровой хлеб в ретанскую буханку."
+    },
+    "flatbread": {
+      "definedByFormNotFermentation": true,
+      "mayBeFermented": true
+    },
+    "technologyTree": {
+      "linearProgressionRejected": "porridge -> flatbread -> fermented bread -> high loaf",
+      "branchingModelRequired": true
+    }
+  },
+  "biomeModel": {
+    "culturesMayCombineBiomeIds": true,
+    "overlayBiomeIds": [
+      "wetlands-coasts"
+    ],
+    "knownGap": {
+      "id": "temperate-monsoon-forest",
+      "status": "deferred",
+      "appliesToCultureIds": [
+        "heavenly-empire"
+      ],
+      "temporaryBiomeIds": [
+        "temperate-mixed-forest",
+        "wetlands-coasts"
+      ],
+      "mustNotDefaultToBiomeId": "tropical-monsoon-forest"
+    }
+  },
+  "cultures": [
+    {
+      "id": "palladia",
+      "name": "Палладия",
+      "referenceModel": "aegean-anatolian-bronze-age",
+      "wikiPath": "/canon/factions/palladia",
+      "cuisineWikiPath": "/canon/economy/palladian-cuisine",
+      "primaryBiomeIds": [
+        "shrubland-dry-woodland"
+      ],
+      "secondaryBiomeIds": [
+        "temperate-mixed-forest",
+        "wetlands-coasts"
+      ],
+      "grainGoodIds": [
+        "food-wheat",
+        "research-barley"
+      ],
+      "additionalGrainsNotYetModeled": [
+        "emmer",
+        "einkorn"
+      ],
+      "tableSilhouette": "low-round-breads",
+      "dailyStaple": "Невысокий круглый пшенично-ячменный хлеб.",
+      "secondaryProducts": [
+        "unleavened-low-round-bread",
+        "lightly-fermented-low-round-bread",
+        "fine-wheat-festival-bread"
+      ],
+      "implementedGoodIds": [
+        "food-wheat-flour",
+        "food-roasted-barley-flour",
+        "food-palladian-barley-round",
+        "food-palladian-wheat-round",
+        "dish-palladian-honey-cheese-round",
+        "drink-palladian-barley-water",
+        "dish-palladian-cheese-garlic-paste"
+      ],
+      "nativeHighBakedLoaf": false
+    },
+    {
+      "id": "heavenly-empire",
+      "name": "Небесная империя",
+      "referenceModel": "east-asian-early-industrial-siberia",
+      "wikiPath": "/canon/factions/heavenly-empire",
+      "primaryBiomeIds": [
+        "taiga",
+        "temperate-mixed-forest"
+      ],
+      "secondaryBiomeIds": [
+        "tundra-highlands",
+        "wetlands-coasts"
+      ],
+      "grainGoodIds": [
+        "food-wheat",
+        "research-millet",
+        "research-barley",
+        "food-rye",
+        "research-rice"
+      ],
+      "additionalGrainsNotYetModeled": [
+        "buckwheat"
+      ],
+      "tableSilhouette": "steamed-breads-and-dough-dishes",
+      "dailyStaple": "Ферментированный пшеничный или смешанный паровой хлеб.",
+      "secondaryProducts": [
+        "millet-porridge",
+        "wheat-noodles",
+        "dumplings",
+        "filled-steamed-bread",
+        "buckwheat-flatbread"
+      ],
+      "riceRole": "regional-prestige-good-distributed-by-rail",
+      "nativeHighBakedLoaf": false
+    },
+    {
+      "id": "retania",
+      "name": "Ретания",
+      "referenceModel": "northern-european-age-of-sail-archipelago",
+      "wikiPath": "/canon/factions/retania",
+      "primaryBiomeIds": [
+        "temperate-mixed-forest"
+      ],
+      "secondaryBiomeIds": [
+        "wetlands-coasts",
+        "taiga",
+        "tundra-highlands"
+      ],
+      "grainGoodIds": [
+        "food-rye",
+        "food-wheat",
+        "research-barley"
+      ],
+      "additionalGrainsNotYetModeled": [
+        "oats"
+      ],
+      "tableSilhouette": "high-loaf-at-home-dry-bread-at-sea",
+      "dailyStaple": "Большая кислая ржано-пшеничная буханка.",
+      "secondaryProducts": [
+        "ship-biscuit",
+        "twice-baked-bread",
+        "dry-bread-ring",
+        "reserve-flatbread"
+      ],
+      "nativeHighBakedLoaf": true,
+      "foreignTradeClassification": "exotic-import"
+    },
+    {
+      "id": "amritar",
+      "name": "Амритар",
+      "referenceModel": "indian-bronze-age-egypt-sinai-climate",
+      "wikiPath": "/canon/factions/amritar",
+      "primaryBiomeIds": [
+        "desert-oasis"
+      ],
+      "secondaryBiomeIds": [
+        "shrubland-dry-woodland",
+        "wetlands-coasts"
+      ],
+      "grainGoodIds": [
+        "food-wheat",
+        "research-barley",
+        "research-millet",
+        "research-rice"
+      ],
+      "additionalGrainsNotYetModeled": [
+        "sorghum"
+      ],
+      "tableSilhouette": "fresh-thin-flatbreads",
+      "dailyStaple": "Тонкая свежая пресная лепешка из пшеницы или смешанной муки.",
+      "secondaryProducts": [
+        "barley-flatbread",
+        "millet-flatbread",
+        "grain-legume-mixed-flatbread",
+        "fermented-thick-oven-flatbread"
+      ],
+      "riceRole": "irrigated-valley-temple-festival-prestige-good",
+      "nativeHighBakedLoaf": false
+    }
+  ],
+  "plannedProductionChains": [
+    {
+      "id": "planned-chain-imperial-steamed-bread",
+      "implementationStatus": "design-source",
+      "producerCultureIds": [
+        "heavenly-empire"
+      ],
+      "inputGoodIds": [
+        "food-wheat",
+        "food-rye",
+        "research-barley"
+      ],
+      "process": [
+        "mill",
+        "mix",
+        "ferment",
+        "shape-small-bread",
+        "steam"
+      ],
+      "plannedOutputGoodIds": [
+        "planned-food-imperial-steamed-bread"
+      ]
+    },
+    {
+      "id": "planned-chain-retanian-sourdough-loaf",
+      "implementationStatus": "design-source",
+      "producerCultureIds": [
+        "retania"
+      ],
+      "inputGoodIds": [
+        "food-rye",
+        "food-wheat",
+        "research-barley"
+      ],
+      "process": [
+        "mill",
+        "mix",
+        "ferment",
+        "proof-high-loaf",
+        "batch-bake"
+      ],
+      "existingGenericOutputGoodId": "food-sourdough-bread",
+      "plannedCanonicalOutputGoodIds": [
+        "planned-food-retanian-sourdough-loaf"
+      ]
+    },
+    {
+      "id": "planned-chain-retanian-ship-bread",
+      "implementationStatus": "design-source",
+      "producerCultureIds": [
+        "retania"
+      ],
+      "inputGoodIds": [
+        "food-rye",
+        "food-wheat",
+        "research-barley"
+      ],
+      "process": [
+        "mill",
+        "mix-low-water-dough",
+        "shape-for-storage",
+        "bake-or-twice-bake",
+        "dry"
+      ],
+      "plannedOutputGoodIds": [
+        "planned-food-retanian-ship-biscuit"
+      ]
+    },
+    {
+      "id": "planned-chain-amritar-daily-flatbread",
+      "implementationStatus": "design-source",
+      "producerCultureIds": [
+        "amritar"
+      ],
+      "inputGoodIds": [
+        "food-wheat",
+        "research-barley",
+        "research-millet"
+      ],
+      "process": [
+        "mill",
+        "optionally-mix-with-legume-flour",
+        "mix",
+        "shape-thin-flatbread",
+        "cook-quickly-on-hot-surface"
+      ],
+      "plannedOutputGoodIds": [
+        "planned-food-amritar-thin-flatbread"
+      ]
+    },
+    {
+      "id": "planned-chain-amritar-oven-flatbread",
+      "implementationStatus": "design-source",
+      "producerCultureIds": [
+        "amritar"
+      ],
+      "inputGoodIds": [
+        "food-wheat",
+        "research-barley",
+        "research-millet"
+      ],
+      "process": [
+        "mill",
+        "mix",
+        "optional-ferment",
+        "shape-thick-round-or-oval",
+        "bake-on-inner-clay-oven-surface"
+      ],
+      "plannedOutputGoodIds": [
+        "planned-food-amritar-oven-flatbread"
+      ]
+    }
+  ],
+  "implementedProductionChains": [
+    {
+      "id": "production-chain-palladian-grain-processing",
+      "producerCultureIds": [
+        "palladia"
+      ],
+      "recipeIds": [
+        "production-step-food-wheat-food-wheat-flour",
+        "production-step-research-barley-food-roasted-barley-flour"
+      ]
+    },
+    {
+      "id": "production-chain-palladian-cuisine",
+      "producerCultureIds": [
+        "palladia"
+      ],
+      "recipeIds": [
+        "production-step-food-roasted-barley-flour-food-palladian-barley-round",
+        "production-step-food-wheat-flour-food-palladian-wheat-round",
+        "production-step-food-palladian-wheat-round-dish-palladian-honey-cheese-round",
+        "production-step-food-roasted-barley-flour-drink-palladian-barley-water",
+        "production-step-food-aged-raw-cheese-dish-palladian-cheese-garlic-paste"
+      ]
+    }
+  ],
+  "integrationContract": {
+    "runtimeStatus": "partially-wired",
+    "requiredFutureRecipeField": "producerCultureIds",
+    "productionRestrictionAppliesToRecipesNotConsumption": true,
+    "regionalMarketPricingRequiredForImportedExoticMarkup": true,
+    "invariants": {
+      "nativeHighBakedLoafCultureIds": [
+        "retania"
+      ],
+      "fermentationRemainsAvailableOutsideRetania": true,
+      "retanianLoafMayBeConsumedOutsideRetania": true
+    }
+  }
+}

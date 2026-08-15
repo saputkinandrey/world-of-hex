@@ -1,0 +1,101 @@
+prefix_rule(
+    pattern = ["npm.cmd", "run", "arena:video:prepare"],
+    decision = "allow",
+    justification = "Prepare a workspace artifact folder and manifest for arena video capture.",
+    match = [
+        "npm.cmd run arena:video:prepare -- arena-43117-hold-support-current-1x",
+    ],
+)
+
+prefix_rule(
+    pattern = ["npm.cmd", "run", "arena:video:restart"],
+    decision = "allow",
+    justification = "Restart only the tracked local arena video server before capture.",
+    match = ["npm.cmd run arena:video:restart"],
+)
+
+prefix_rule(
+    pattern = ["npm.cmd", "run", "arena:video:server"],
+    decision = "allow",
+    justification = "Start the local World of Hex arena server for video capture.",
+    match = ["npm.cmd run arena:video:server"],
+)
+
+prefix_rule(
+    pattern = ["npm.cmd", "run", "arena:video:encode"],
+    decision = "allow",
+    justification = "Encode captured arena frames into the requested MP4 artifact.",
+    match = ["npm.cmd run arena:video:encode"],
+)
+
+prefix_rule(
+    pattern = ["npm.cmd", "run", "arena:video:stop"],
+    decision = "allow",
+    justification = "Stop only the tracked local arena video server.",
+    match = ["npm.cmd run arena:video:stop"],
+)
+
+prefix_rule(
+    pattern = [
+        "C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+        "-Command",
+        "npm.cmd run arena:video:prepare",
+    ],
+    decision = "allow",
+    justification = "Prepare a workspace artifact folder and manifest for arena video capture.",
+    match = [
+        "C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe -Command npm.cmd run arena:video:prepare -- arena-43117-hold-support-current-1x",
+    ],
+)
+
+prefix_rule(
+    pattern = [
+        "C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+        "-Command",
+        "npm.cmd run arena:video:restart",
+    ],
+    decision = "allow",
+    justification = "Restart only the tracked local arena video server before capture.",
+    match = [
+        "C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe -Command npm.cmd run arena:video:restart",
+    ],
+)
+
+prefix_rule(
+    pattern = [
+        "C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+        "-Command",
+        "npm.cmd run arena:video:server",
+    ],
+    decision = "allow",
+    justification = "Start the local World of Hex arena server for video capture.",
+    match = [
+        "C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe -Command npm.cmd run arena:video:server",
+    ],
+)
+
+prefix_rule(
+    pattern = [
+        "C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+        "-Command",
+        "npm.cmd run arena:video:encode",
+    ],
+    decision = "allow",
+    justification = "Encode captured arena frames into the requested MP4 artifact.",
+    match = [
+        "C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe -Command npm.cmd run arena:video:encode",
+    ],
+)
+
+prefix_rule(
+    pattern = [
+        "C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+        "-Command",
+        "npm.cmd run arena:video:stop",
+    ],
+    decision = "allow",
+    justification = "Stop only the local arena server recorded by the video helper.",
+    match = [
+        "C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe -Command npm.cmd run arena:video:stop",
+    ],
+)

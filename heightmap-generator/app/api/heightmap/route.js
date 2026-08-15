@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 import { DEFAULT_CONFIG, normalizeConfig } from '../../../src/config.mjs';
 import { generateHeightmap, generateHeightmapRegion } from '../../../src/generator.mjs';
-import { encodeLandHeightmapPng, encodeTerrainPreviewPng } from '../../../src/png.mjs';
+import { encodeHeightmapPng, encodeTerrainPreviewPng } from '../../../src/png.mjs';
 
 export const runtime = 'nodejs';
 
@@ -16,12 +16,16 @@ export async function POST(request) {
       config.seed === -1 ? Math.floor(Math.random() * 0xffffffff) : config.seed;
     const mode = body.mode === 'heightmap' ? 'heightmap' : 'preview';
     const region = normalizeRegion(config, body.region);
+    const generationConfig = {
+      ...config,
+      referenceFields: body.referenceFields,
+    };
     const grid = region && mode === 'preview'
-      ? generateHeightmapRegion(config, seed >>> 0, region)
-      : generateHeightmap(config, seed >>> 0);
+      ? generateHeightmapRegion(generationConfig, seed >>> 0, region)
+      : generateHeightmap(generationConfig, seed >>> 0);
     const png =
       mode === 'heightmap'
-        ? encodeLandHeightmapPng(grid, config.bitDepth, { seaLevel: 0.5 })
+        ? encodeHeightmapPng(grid, config.bitDepth)
         : encodeTerrainPreviewPng(grid, { seaLevel: 0.5 });
 
     return new Response(png, {

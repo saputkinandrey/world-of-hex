@@ -32,6 +32,7 @@ type NumericConfigKey =
   | 'voronoiFeatures'
   | 'thermalIterations'
   | 'erosionIterations'
+  | 'erosionStrength'
   | 'dropletLife'
   | 'riverCountFactor'
   | 'riverCount'
@@ -73,6 +74,30 @@ type SectorDirective =
   | 'continentAsia'
   | 'continentAustralia';
 
+type ReferenceRole = 'shape' | 'relief' | 'ridges' | 'rivers';
+
+interface ReferenceFieldPayload {
+  role: ReferenceRole;
+  strength: number;
+  inverted: boolean;
+  width: number;
+  height: number;
+  values: string;
+}
+
+interface ReferenceLayer {
+  id: string;
+  name: string;
+  previewUrl: string;
+  field: ReferenceFieldPayload;
+}
+
+interface ReferenceLayerPatch {
+  role?: ReferenceRole;
+  strength?: number;
+  inverted?: boolean;
+}
+
 interface HeightmapConfig extends Record<GenerationStage, boolean>, Record<NumericConfigKey, number> {
   count: number;
   boundaryFalloff: number;
@@ -83,7 +108,6 @@ interface HeightmapConfig extends Record<GenerationStage, boolean>, Record<Numer
   voronoiMaxSize: number;
   talusAngle: number;
   thermalErosionRate: number;
-  erosionStrength: number;
   depositionStrength: number;
   carryCapacity: number;
   inertia: number;
@@ -243,6 +267,34 @@ const stages: StageControl[] = [
   { key: 'enableAltitudeDetail', label: 'Высотная детализация' },
 ];
 
+const hydrologyStages = stages.filter(
+  ({ key }) => key === 'enableHydraulicErosion' || key === 'enableRivers',
+);
+
+const hydrologyControls: NumberControl[] = [
+  {
+    key: 'erosionIterations',
+    label: 'Интенсивность эрозии',
+    min: 0,
+    max: 80000,
+    step: 1000,
+  },
+  {
+    key: 'erosionStrength',
+    label: 'Глубина русел',
+    min: 0,
+    max: 0.3,
+    step: 0.01,
+  },
+  {
+    key: 'riverCount',
+    label: 'Плотность речной сети',
+    min: 0,
+    max: 24,
+    step: 1,
+  },
+];
+
 const terrainControls: NumberControl[] = [
   { key: 'tectonicPlates', label: 'Плит', min: 3, max: 50, step: 1 },
   { key: 'boundaryInfluenceRadius', label: 'Радиус границ', min: 4, max: 80, step: 1 },
@@ -309,6 +361,16 @@ const sectorProfileControls: NumberControl[] = [
 const maxPreviewWidth = 1024;
 const storedStateVersion = 1;
 const storedStateKey = 'world-of-hex.heightmap-generator.state.v1';
+const referenceFieldWidth = 512;
+const referenceFieldHeight = 256;
+const maximumReferenceLayers = 8;
+
+const referenceRoleLabels: Record<ReferenceRole, string> = {
+  shape: 'Форма высот',
+  relief: 'Детали рельефа',
+  ridges: 'Хребты',
+  rivers: 'Русла',
+};
 
 const presets: Preset[] = [
   { id: 'balanced', label: 'Сбалансированный мир', patch: {} },
@@ -382,6 +444,7 @@ export default function HeightmapAdminPage() {
   const [isStorageReady, setIsStorageReady] = useState(false);
   const [layoutMessage, setLayoutMessage] = useState<string | null>(null);
   const [sectorBrush, setSectorBrush] = useState<SectorDirective>('ocean');
+  const [referenceLayers, setReferenceLayers] = useState<ReferenceLayer[]>([]);
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const fullPreviewTimerRef = useRef<number | null>(null);
   const previewRequestRef = useRef(0);
@@ -395,10 +458,6 @@ export default function HeightmapAdminPage() {
     () => createSectorLayoutDataUrl(createSectorLayout(config)),
     [config],
   );
-
-  const patchConfig = (patch: Partial<HeightmapConfig>) => {
-    setConfig((current) => ({ ...current, ...patch }));
-  };
 
   const setNumber = (key: NumericConfigKey, value: number) => {
     if (key === 'sectorColumns' || key === 'sectorRows') {
@@ -418,7 +477,11 @@ export default function HeightmapAdminPage() {
   };
 
   const setStage = (key: GenerationStage, value: boolean) => {
-    patchConfig({ [key]: value } as Partial<HeightmapConfig>);
+    setConfig((current) => {
+      const nextConfig = { ...current, [key]: value } as HeightmapConfig;
+      scheduleFullPreview(nextConfig);
+      return nextConfig;
+    });
   };
 
   const setResolution = (size: number) => {
@@ -479,7 +542,10 @@ export default function HeightmapAdminPage() {
     });
   };
 
-  const generatePreview = async (sourceConfig = config) => {
+  const generatePreview = async (
+    sourceConfig = config,
+    sourceReferences = referenceLayers,
+  ) => {
     const requestId = previewRequestRef.current + 1;
     previewRequestRef.current = requestId;
     setIsGenerating(true);
@@ -491,7 +557,11 @@ export default function HeightmapAdminPage() {
       const response = await fetch('/api/heightmap', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ config: previewConfig, mode: 'preview' }),
+        body: JSON.stringify({
+          config: previewConfig,
+          mode: 'preview',
+          referenceFields: referenceFieldsOf(sourceReferences),
+        }),
       });
       if (!response.ok) {
         const body = (await response.json()) as { error?: string };
@@ -515,7 +585,11 @@ export default function HeightmapAdminPage() {
     }
   };
 
-  const generatePreviewRegion = async (sourceConfig: HeightmapConfig, region: PreviewRegion) => {
+  const generatePreviewRegion = async (
+    sourceConfig: HeightmapConfig,
+    region: PreviewRegion,
+    sourceReferences = referenceLayers,
+  ) => {
     const previewConfig = createPreviewConfig(sourceConfig);
     const canvas = canvasRef.current;
     if (!canvas || !previewReadyRef.current || canvas.width !== previewConfig.width || canvas.height !== previewConfig.height) {
@@ -532,7 +606,12 @@ export default function HeightmapAdminPage() {
       const response = await fetch('/api/heightmap', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ config: previewConfig, mode: 'preview', region }),
+        body: JSON.stringify({
+          config: previewConfig,
+          mode: 'preview',
+          referenceFields: referenceFieldsOf(sourceReferences),
+          region,
+        }),
       });
       if (!response.ok) {
         const body = (await response.json()) as { error?: string };
@@ -552,13 +631,16 @@ export default function HeightmapAdminPage() {
     }
   };
 
-  const scheduleFullPreview = (sourceConfig: HeightmapConfig) => {
+  const scheduleFullPreview = (
+    sourceConfig: HeightmapConfig,
+    sourceReferences = referenceLayers,
+  ) => {
     if (fullPreviewTimerRef.current) {
       window.clearTimeout(fullPreviewTimerRef.current);
     }
 
     fullPreviewTimerRef.current = window.setTimeout(() => {
-      void generatePreview(sourceConfig);
+      void generatePreview(sourceConfig, sourceReferences);
     }, 350);
   };
 
@@ -646,16 +728,91 @@ export default function HeightmapAdminPage() {
     });
   };
 
-  const downloadCurrentHeightmap = () => {
+  const addReferenceFiles = async (files: FileList | null) => {
+    if (!files || files.length === 0) {
+      return;
+    }
+
+    try {
+      const capacity = maximumReferenceLayers - referenceLayers.length;
+      if (capacity <= 0) {
+        throw new Error(`Можно использовать не больше ${maximumReferenceLayers} референсов.`);
+      }
+
+      const addedLayers = await Promise.all(
+        Array.from(files)
+          .slice(0, capacity)
+          .map((file) => createReferenceLayer(file)),
+      );
+      const nextLayers = [...referenceLayers, ...addedLayers];
+      setReferenceLayers(nextLayers);
+      await generatePreview(config, nextLayers);
+    } catch (referenceError) {
+      setError(referenceError instanceof Error ? referenceError.message : 'Не удалось прочитать референсы.');
+    }
+  };
+
+  const updateReferenceLayer = (id: string, patch: ReferenceLayerPatch) => {
+    const nextLayers = referenceLayers.map((layer) =>
+      layer.id === id
+        ? { ...layer, field: { ...layer.field, ...patch } }
+        : layer,
+    );
+    setReferenceLayers(nextLayers);
+    scheduleFullPreview(config, nextLayers);
+  };
+
+  const moveReferenceLayer = (index: number, direction: -1 | 1) => {
+    const targetIndex = index + direction;
+    if (targetIndex < 0 || targetIndex >= referenceLayers.length) {
+      return;
+    }
+
+    const nextLayers = [...referenceLayers];
+    [nextLayers[index], nextLayers[targetIndex]] = [nextLayers[targetIndex], nextLayers[index]];
+    setReferenceLayers(nextLayers);
+    scheduleFullPreview(config, nextLayers);
+  };
+
+  const removeReferenceLayer = (id: string) => {
+    const nextLayers = referenceLayers.filter((layer) => layer.id !== id);
+    setReferenceLayers(nextLayers);
+    scheduleFullPreview(config, nextLayers);
+  };
+
+  const downloadCurrentHeightmap = async () => {
     if (isGenerating || isDownloading) {
       return;
     }
 
     setIsDownloading(true);
     setError(null);
-    window.setTimeout(() => {
+    try {
+      const response = await fetch('/api/heightmap', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          config,
+          mode: 'heightmap',
+          referenceFields: referenceFieldsOf(referenceLayers),
+        }),
+      });
+      if (!response.ok) {
+        const body = (await response.json()) as { error?: string };
+        throw new Error(body.error ?? `Heightmap export failed with ${response.status}`);
+      }
+
+      const blob = await response.blob();
+      const seed = response.headers.get('X-Heightmap-Seed') ?? String(config.seed);
+      downloadBlob(
+        blob,
+        `heightmap_${seed}_${config.width}x${config.height}_${config.bitDepth}bit.png`,
+      );
+    } catch (downloadError) {
+      setError(downloadError instanceof Error ? downloadError.message : 'Не удалось скачать heightmap.');
+    } finally {
       setIsDownloading(false);
-    }, 1200);
+    }
   };
 
   return (
@@ -714,6 +871,118 @@ export default function HeightmapAdminPage() {
             <NumberControlGrid controls={sectorProfileControls} config={config} onChange={setNumber} />
           </Panel>
 
+          <Panel title="Гидрология">
+            <div className="stage-grid">
+              {hydrologyStages.map((stage) => (
+                <label className="switch-row" key={stage.key}>
+                  <input
+                    type="checkbox"
+                    checked={config[stage.key]}
+                    onChange={(event) => setStage(stage.key, event.target.checked)}
+                  />
+                  <span>{stage.label}</span>
+                </label>
+              ))}
+            </div>
+            <NumberControlGrid controls={hydrologyControls} config={config} onChange={setNumber} />
+          </Panel>
+
+          <Panel title="Референсы">
+            <div className="reference-heading">
+              <p>
+                Слои применяются сверху вниз перед гидрологией. Светлые области усиливают выбранный эффект.
+              </p>
+              <label className="file-button">
+                Добавить изображения
+                <input
+                  type="file"
+                  accept="image/png,image/jpeg,image/webp"
+                  multiple
+                  onChange={(event) => {
+                    void addReferenceFiles(event.target.files);
+                    event.target.value = '';
+                  }}
+                />
+              </label>
+            </div>
+
+            {referenceLayers.length === 0 ? (
+              <div className="reference-empty">
+                Можно загрузить до {maximumReferenceLayers} карт одновременно. Без слоёв seed работает как раньше.
+              </div>
+            ) : (
+              <div className="reference-stack">
+                {referenceLayers.map((layer, index) => (
+                  <article className="reference-card" key={layer.id}>
+                    <img src={layer.previewUrl} alt="" />
+                    <div className="reference-card-body">
+                      <strong title={layer.name}>{layer.name}</strong>
+                      <select
+                        aria-label={`Роль ${layer.name}`}
+                        value={layer.field.role}
+                        onChange={(event) => updateReferenceLayer(layer.id, {
+                          role: event.target.value as ReferenceRole,
+                        })}
+                      >
+                        {(Object.keys(referenceRoleLabels) as ReferenceRole[]).map((role) => (
+                          <option key={role} value={role}>{referenceRoleLabels[role]}</option>
+                        ))}
+                      </select>
+                      <label className="reference-strength">
+                        <span>Влияние {Math.round(layer.field.strength * 100)}%</span>
+                        <input
+                          type="range"
+                          min={0}
+                          max={1}
+                          step={0.05}
+                          value={layer.field.strength}
+                          onChange={(event) => updateReferenceLayer(layer.id, {
+                            strength: Number(event.target.value),
+                          })}
+                        />
+                      </label>
+                      <label className="reference-invert">
+                        <input
+                          type="checkbox"
+                          checked={layer.field.inverted}
+                          onChange={(event) => updateReferenceLayer(layer.id, {
+                            inverted: event.target.checked,
+                          })}
+                        />
+                        Инвертировать
+                      </label>
+                    </div>
+                    <div className="reference-order-actions">
+                      <button
+                        type="button"
+                        disabled={index === 0}
+                        onClick={() => moveReferenceLayer(index, -1)}
+                        aria-label={`Поднять ${layer.name}`}
+                      >
+                        ↑
+                      </button>
+                      <button
+                        type="button"
+                        disabled={index === referenceLayers.length - 1}
+                        onClick={() => moveReferenceLayer(index, 1)}
+                        aria-label={`Опустить ${layer.name}`}
+                      >
+                        ↓
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => removeReferenceLayer(layer.id)}
+                        aria-label={`Удалить ${layer.name}`}
+                      >
+                        ×
+                      </button>
+                    </div>
+                  </article>
+                ))}
+              </div>
+            )}
+          </Panel>
+
         </section>
 
         <section className="preview-panel">
@@ -724,7 +993,7 @@ export default function HeightmapAdminPage() {
             </div>
             <div className="preview-actions">
               <span>{directedSectorCount}/{config.sectorColumns * config.sectorRows} секторов заданы</span>
-              <button className="download-link" type="submit" form="heightmap-download-form" disabled={isGenerating || isDownloading} onClick={downloadCurrentHeightmap}>
+              <button className="download-link" type="button" disabled={isGenerating || isDownloading} onClick={() => void downloadCurrentHeightmap()}>
                 {isDownloading ? 'Готовлю...' : 'Скачать heightmap'}
               </button>
             </div>
@@ -826,13 +1095,9 @@ export default function HeightmapAdminPage() {
             <Metric label="Размер" value={`${config.width}x${config.height}`} />
             <Metric label="Превью" value="Цветная карта" />
             <Metric label="Экспорт" value={`${config.bitDepth}-bit grayscale`} />
+            <Metric label="Референсы" value={String(referenceLayers.length)} />
             <Metric label="Порог океана" value={`${Math.round(config.planetSeaLevel * 100)}%`} />
           </div>
-
-          <form id="heightmap-download-form" className="download-form" method="post" action="/api/heightmap/download" target="heightmap-download-frame">
-            <input type="hidden" name="config" value={JSON.stringify(config)} readOnly />
-          </form>
-          <iframe className="download-frame" name="heightmap-download-frame" title="Heightmap download" />
         </section>
       </div>
     </main>
@@ -1005,6 +1270,88 @@ function normalizeStoredConfig(config: Partial<HeightmapConfig>): HeightmapConfi
   };
 
   return resizeSectorGrid(mergedConfig, Number(config.sectorColumns) || defaultConfig.sectorColumns);
+}
+
+async function createReferenceLayer(file: File): Promise<ReferenceLayer> {
+  const image = await loadFileImage(file);
+  const canvas = document.createElement('canvas');
+  canvas.width = referenceFieldWidth;
+  canvas.height = referenceFieldHeight;
+  const context = canvas.getContext('2d', { willReadFrequently: true });
+  if (!context) {
+    throw new Error(`Не удалось обработать ${file.name}.`);
+  }
+
+  context.drawImage(image, 0, 0, canvas.width, canvas.height);
+  const pixels = context.getImageData(0, 0, canvas.width, canvas.height).data;
+  const values = new Uint8Array(canvas.width * canvas.height);
+  for (let index = 0; index < values.length; index += 1) {
+    const pixelIndex = index * 4;
+    values[index] = Math.round(
+      pixels[pixelIndex] * 0.2126 +
+      pixels[pixelIndex + 1] * 0.7152 +
+      pixels[pixelIndex + 2] * 0.0722,
+    );
+  }
+
+  return {
+    id: crypto.randomUUID(),
+    name: file.name,
+    previewUrl: canvas.toDataURL('image/jpeg', 0.78),
+    field: {
+      role: 'relief',
+      strength: 0.5,
+      inverted: false,
+      width: canvas.width,
+      height: canvas.height,
+      values: bytesToBase64(values),
+    },
+  };
+}
+
+function loadFileImage(file: File): Promise<HTMLImageElement> {
+  return new Promise((resolve, reject) => {
+    const image = new Image();
+    const url = URL.createObjectURL(file);
+    image.onload = () => {
+      URL.revokeObjectURL(url);
+      resolve(image);
+    };
+    image.onerror = () => {
+      URL.revokeObjectURL(url);
+      reject(new Error(`Не удалось прочитать изображение ${file.name}.`));
+    };
+    image.src = url;
+  });
+}
+
+function bytesToBase64(values: Uint8Array): string {
+  const chunks: string[] = [];
+  const chunkSize = 8192;
+  for (let offset = 0; offset < values.length; offset += chunkSize) {
+    const end = Math.min(values.length, offset + chunkSize);
+    let chunk = '';
+    for (let index = offset; index < end; index += 1) {
+      chunk += String.fromCharCode(values[index]);
+    }
+    chunks.push(chunk);
+  }
+  return btoa(chunks.join(''));
+}
+
+function referenceFieldsOf(layers: ReferenceLayer[]): ReferenceFieldPayload[] {
+  return layers.map((layer) => layer.field);
+}
+
+function downloadBlob(blob: Blob, filename: string) {
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement('a');
+  link.href = url;
+  link.download = filename;
+  document.body.append(link);
+  link.click();
+  link.remove();
+  URL.revokeObjectURL(url);
 }
 
 function loadBlobImage(blob: Blob): Promise<CanvasImageSource> {

@@ -1,7 +1,7 @@
 import "./globals.css";
 import type { ReactNode } from "react";
 import ThemeRegistry from "./theme-registry";
-import { LiveReload } from "@wohex/ui";
+import { LiveReloadGate } from "./live-reload-gate";
 
 export const metadata = {
   title: "World of Hex - Web Client",
@@ -17,7 +17,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
     <html lang="en">
       <body>
         <ThemeRegistry>
-          <LiveReload />
+          <LiveReloadGate />
           {children}
         </ThemeRegistry>
       </body>

@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 import { DEFAULT_CONFIG, normalizeConfig } from '../../../../src/config.mjs';
 import { generateHeightmap } from '../../../../src/generator.mjs';
-import { encodeLandHeightmapPng } from '../../../../src/png.mjs';
+import { encodeHeightmapPng } from '../../../../src/png.mjs';
 
 export const runtime = 'nodejs';
 
@@ -21,7 +21,7 @@ export async function POST(request) {
     const seed =
       config.seed === -1 ? Math.floor(Math.random() * 0xffffffff) : config.seed;
     const grid = generateHeightmap(config, seed >>> 0);
-    const png = encodeLandHeightmapPng(grid, config.bitDepth, { seaLevel: 0.5 });
+    const png = encodeHeightmapPng(grid, config.bitDepth);
     const filename = `heightmap_${seed}_${config.width}x${config.height}_${config.bitDepth}bit.png`;
 
     return new Response(png, {
