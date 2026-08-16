@@ -6,7 +6,8 @@ import {
 } from "./battle-actions";
 import { chooseAttackTarget } from "./combat-observation";
 import { getFormationContext } from "./formation";
-import type { BattleIntent, Combatant, CommunicationPlan } from "./model";
+import type { BattleIntent, Combatant, SensoryTrace } from "./model";
+import { observeCombatantsForDecision } from "./perception";
 import { createRandom } from "./random";
 import { getBehaviorFactors } from "./scenario";
 
@@ -14,33 +15,36 @@ export const MAX_EVALUATE_BONUS = 3;
 
 export const createBattleIntents = (
     combatants: Combatant[],
-    communicationPlans: CommunicationPlan[],
+    sensoryTraces: SensoryTrace[],
     obstacleKeys: Set<string>,
     seed: number,
     round: number,
 ): BattleIntent[] => {
     const living = combatants.filter((combatant) => combatant.health > 0);
-    const occupied = new Set(
-        living.map((combatant) => toKey(combatant.position)),
-    );
-    const blocked = new Set([...obstacleKeys, ...occupied]);
-    const communicationPlanBySenderId = new Map(
-        communicationPlans.map((plan) => [plan.senderId, plan]),
-    );
-
     return living.map((actor) => {
-        const enemies = living.filter((enemy) => enemy.team !== actor.team);
-        const teamAllies = living.filter(
+        const observed = observeCombatantsForDecision(
+            actor,
+            living.filter((candidate) => candidate.id !== actor.id),
+            sensoryTraces,
+            seed,
+            round,
+        );
+        const enemies = observed.filter((enemy) => enemy.team !== actor.team);
+        const teamAllies = observed.filter(
             (ally) => ally.team === actor.team && ally.id !== actor.id,
         );
+        const subjectiveLiving = [actor, ...observed];
+        const blocked = new Set([
+            ...obstacleKeys,
+            ...subjectiveLiving.map((combatant) => toKey(combatant.position)),
+        ]);
         const context: BattleActionContext = {
             actor,
-            living,
+            living: subjectiveLiving,
             enemies,
             teamAllies,
-            formationContext: getFormationContext(actor, living),
+            formationContext: getFormationContext(actor, subjectiveLiving),
             attackTarget: chooseAttackTarget(actor, enemies),
-            communicationPlan: communicationPlanBySenderId.get(actor.id),
             obstacleKeys,
             blocked,
             behavior: getBehaviorFactors(actor),
@@ -50,6 +54,7 @@ export const createBattleIntents = (
                     round * 811 +
                     actor.number * (actor.team === "blue" ? 47 : 83),
             ),
+            seed,
             round,
         };
 

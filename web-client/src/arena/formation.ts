@@ -1,5 +1,7 @@
 import { ARENA_CELL_BY_KEY, NEIGHBOR_OFFSETS, SQRT_3, areAdjacent, distanceBetween, getDistanceMeters, getNeighbors, toKey, toMeters } from "./arena";
 import { getSkillPoints } from "./fighter-generation";
+import { HUMAN_BASE_ATTRIBUTES } from "./fighter-catalog";
+import { getObviousWoundState } from "./combat-observation";
 import { CartesianPoint, Combatant, CommandKind, CommandScore, FormationContext, FormationRoleAssignment, HexCoord, HoldPositionAssessment } from "./model";
 import { CALM_COMMUNICATION_HEARING_PENALTY, PENETRATING_VOICE_HEARING_BONUS, SHOUT_HEARING_BONUS, getHearingDistanceModifier } from "./perception";
 import { getSoldierSpecialization, hasAdvantage } from "./scenario";
@@ -72,7 +74,7 @@ export const getCalmCommandHearingTarget = (
     sergeant: Combatant,
     recipient: Combatant,
 ): number =>
-    recipient.profile.attributes.IQ +
+    HUMAN_BASE_ATTRIBUTES.IQ +
     SHOUT_HEARING_BONUS +
     (hasAdvantage(sergeant, "penetrating_voice")
         ? PENETRATING_VOICE_HEARING_BONUS
@@ -331,18 +333,21 @@ export const chooseCommand = (
     enemies: Combatant[],
     invertCriteria = false,
 ): CommandKind => {
-    const averageHealthRatio =
-        squad.reduce(
-            (total, member) => total + member.health / member.maxHealth,
-            0,
-        ) / squad.length;
+    const visiblyWounded = squad.filter(
+        (member) => getObviousWoundState(member) !== "unhurt",
+    ).length;
+    const visiblyBadlyWounded = squad.filter(
+        (member) => getObviousWoundState(member) === "badly_wounded",
+    ).length;
     const engagedCount = squad.filter((member) =>
         enemies.some((enemy) => areAdjacent(member.position, enemy.position)),
     ).length;
     const closestEnemyDistance = Math.min(
         ...enemies.map((enemy) => distanceBetween(sergeant.position, enemy.position)),
     );
-    const healthEmergency = averageHealthRatio < 0.45;
+    const healthEmergency =
+        visiblyBadlyWounded > 0 &&
+        visiblyWounded >= Math.ceil(squad.length / 2);
     const isEngaged = engagedCount > 0;
     const enemyIsClose = closestEnemyDistance <= 3;
     const scores: CommandScore[] = [
@@ -358,7 +363,7 @@ export const chooseCommand = (
             command: "press",
             score: healthEmergency
                 ? -100
-                : isEngaged && averageHealthRatio >= 0.7
+                : isEngaged && visiblyWounded < Math.ceil(squad.length / 3)
                   ? 100
                   : -40,
         },
@@ -366,7 +371,8 @@ export const chooseCommand = (
             command: "hold",
             score: healthEmergency
                 ? -20
-                : (isEngaged && averageHealthRatio < 0.7) ||
+                : (isEngaged &&
+                      visiblyWounded >= Math.ceil(squad.length / 3)) ||
                     (!isEngaged && enemyIsClose)
                   ? 100
                   : 0,

@@ -128,6 +128,7 @@ export type BattleIntent = {
     actorId: string;
     maneuver: ManeuverKind;
     moveTarget?: HexCoord;
+    communicationPlan?: CommunicationPlan;
     actionState: ActionRuntimeState;
 };
 
@@ -228,6 +229,7 @@ export type CommunicationPlan = {
     senderId: string;
     audienceIds: string[];
     recipientIds: string[];
+    recipientScope?: "squad";
     command?: CommandKind;
     directive?: IndividualDirectiveKind;
     focusTargetId?: string;

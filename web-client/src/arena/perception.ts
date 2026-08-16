@@ -306,6 +306,43 @@ export const observeFormationFacing = (
     };
 };
 
+export const observeCombatantsForDecision = (
+    observer: Combatant,
+    candidates: Combatant[],
+    sensoryTraces: SensoryTrace[],
+    seed: number,
+    round: number,
+): Combatant[] => {
+    const ambient = getResidualAmbientInterference(seed, round);
+    return candidates.filter((candidate) => {
+        const distanceMeters = getDistanceMeters(
+            observer.position,
+            candidate.position,
+        );
+        if (distanceMeters <= 1) return true;
+        const interference = getCommunicationInterference(
+            candidate,
+            observer,
+            sensoryTraces,
+            ambient,
+        );
+        const visionTarget =
+            observer.profile.attributes.IQ +
+            getVisionDistanceModifier(distanceMeters) +
+            interference.visionPenalty -
+            observer.shockPenalty -
+            observer.panicPenalty;
+        const visionRoll = rollDice(
+            3,
+            6,
+            seed,
+            round,
+            `${observer.id}:${candidate.id}:decision-observation`,
+        );
+        return visionRoll.total <= visionTarget;
+    });
+};
+
 export const updateFormationObservations = (
     combatants: Combatant[],
     sensoryTraces: SensoryTrace[],

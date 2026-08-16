@@ -34,8 +34,8 @@ test("seed 43117 preserves the extracted engine baseline", () => {
     ).length;
 
     assert.equal(battle.winner, "blue");
-    assert.equal(battle.turn - 1, 27);
-    assert.equal(blueAlive, 6);
+    assert.equal(battle.turn - 1, 26);
+    assert.equal(blueAlive, 9);
     assert.equal(redAlive, 0);
 });
 
@@ -117,6 +117,49 @@ test("generic action planner has no arena or combat dependencies", () => {
 
     assert.doesNotMatch(source, /from ["']\.\/(model|arena|combat|formation)/);
     assert.doesNotMatch(source, /Combatant|Maneuver|BattleIntent|HexCoord/);
+});
+
+test("fighters choose communication through their own actions", () => {
+    const engineSource = fs.readFileSync(
+        path.join(process.cwd(), "src", "arena", "engine.ts"),
+        "utf8",
+    );
+    const decisionSource = fs.readFileSync(
+        path.join(process.cwd(), "src", "arena", "decision.ts"),
+        "utf8",
+    );
+    const actionSource = fs.readFileSync(
+        path.join(process.cwd(), "src", "arena", "battle-actions.ts"),
+        "utf8",
+    );
+
+    assert.doesNotMatch(engineSource, /createCommunicationPlans/);
+    assert.doesNotMatch(decisionSource, /communicationPlans/);
+    assert.match(actionSource, /sergeantCommunicationAction/);
+    assert.match(actionSource, /horizontalCommunicationAction/);
+    assert.match(actionSource, /communicationPlan,/);
+    assert.equal(
+        fs.existsSync(
+            path.join(
+                process.cwd(),
+                "src",
+                "arena",
+                "command-planning.ts",
+            ),
+        ),
+        false,
+    );
+});
+
+test("battle decisions receive only individually observed combatants", () => {
+    const decisionSource = fs.readFileSync(
+        path.join(process.cwd(), "src", "arena", "decision.ts"),
+        "utf8",
+    );
+
+    assert.match(decisionSource, /observeCombatantsForDecision/);
+    assert.match(decisionSource, /const subjectiveLiving = \[actor, \.\.\.observed\]/);
+    assert.doesNotMatch(decisionSource, /formationContext: getFormationContext\(actor, living\)/);
 });
 
 test("combat engine modules have no circular dependencies", () => {

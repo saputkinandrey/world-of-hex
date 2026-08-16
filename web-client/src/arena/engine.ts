@@ -1,9 +1,6 @@
 import { resolveAftermath } from "./aftermath";
 import { resolveAttackPhase } from "./attack-phase";
-import {
-    createCommunicationPlans,
-    resolveCommunications,
-} from "./communication";
+import { resolveCommunications } from "./communication";
 import { createBattleIntents } from "./decision";
 import type { BattleState, Team } from "./model";
 import {
@@ -66,17 +63,15 @@ export const advanceBattle = (
         battle.combatants,
         battle.turn,
     );
-    const communicationPlans = createCommunicationPlans(
-        preparedCombatants,
-        seed,
-        battle.turn,
-    );
     const intents = createBattleIntents(
         preparedCombatants,
-        communicationPlans,
+        battle.sensoryTraces,
         obstacleKeys,
         seed,
         battle.turn,
+    );
+    const communicationPlans = intents.flatMap((intent) =>
+        intent.communicationPlan ? [intent.communicationPlan] : [],
     );
     const movedCombatants = resolveMovement({
         combatants: preparedCombatants,

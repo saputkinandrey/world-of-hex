@@ -138,7 +138,23 @@ export const resolveCommunications = (
         const identificationBonus =
             sender.profile.commandLens?.equipmentModifier
                 .identificationVisionBonus ?? 0;
-        const intendedRecipients = new Set(plan.recipientIds);
+        const scopedRecipients =
+            plan.recipientScope === "squad"
+                ? living.filter(
+                      (recipient) =>
+                          recipient.id !== sender.id &&
+                          recipient.team === sender.team &&
+                          recipient.profile.lens.id === sender.profile.lens.id,
+                  )
+                : plan.recipientIds
+                      .map((recipientId) => byId.get(recipientId))
+                      .filter((recipient): recipient is Combatant => Boolean(recipient));
+        const intendedRecipients = new Set(
+            scopedRecipients.map((recipient) => recipient.id),
+        );
+        const audibleAudience = living.filter(
+            (recipient) => recipient.id !== sender.id,
+        );
         const hearingDiagnostics: HearingDiagnostic[] = [];
         const counters: CommunicationCounters = {
             eligible: 0,
@@ -150,11 +166,7 @@ export const resolveCommunications = (
             visionPenaltyTotal: 0,
         };
 
-        plan.audienceIds.forEach((recipientId) => {
-            const recipient = byId.get(recipientId);
-            if (!recipient) {
-                return;
-            }
+        audibleAudience.forEach((recipient) => {
             counters.eligible += 1;
             const distanceMeters = getDistanceMeters(
                 sender.position,

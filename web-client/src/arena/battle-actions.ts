@@ -3,9 +3,33 @@ import type {
     ActionDefinition,
     ActionRuntimeState,
 } from "./action-system";
-import { distanceBetween, toKey } from "./arena";
-import { canReachWithAttackThisRound, findConcentrationStep, findPathNearCombatant, findPathToAttackPosition, findPathToDestination, findStepTowardSquadCenter, findWithdrawalDestination } from "./navigation";
-import { chooseHoldFormationPosition, getCohesionOutliers, sergeantHasEnemyContact } from "./formation";
+import { areAdjacent, distanceBetween, toKey } from "./arena";
+import {
+    ORDER_ASSESSMENT_VALID_ROUNDS,
+    getCommandPlanningDelay,
+} from "./command-config";
+import {
+    AMRITAR_SOLDIER_SPECIALIZATION_ID,
+    getSkillLevel,
+    getSkillPoints,
+} from "./fighter-generation";
+import {
+    canReachWithAttackThisRound,
+    findConcentrationStep,
+    findPathNearCombatant,
+    findPathToAttackPosition,
+    findPathToDestination,
+    findStepTowardSquadCenter,
+    findWithdrawalDestination,
+} from "./navigation";
+import {
+    BASIC_SOLDIER_TRAINING_POINTS,
+    chooseCommand,
+    chooseHoldFormationPosition,
+    getCalmCommandHearingTarget,
+    getCohesionOutliers,
+    sergeantHasEnemyContact,
+} from "./formation";
 import type {
     BattleIntent,
     BehaviorFactors,
@@ -14,6 +38,11 @@ import type {
     FormationContext,
     ManeuverOption,
 } from "./model";
+import {
+    MIN_USEFUL_COMMAND_HEARING_TARGET,
+    hasFormationFacingChanged,
+} from "./perception";
+import { rollDice } from "./random";
 
 export interface BattleActionContext {
     actor: Combatant;
@@ -22,12 +51,12 @@ export interface BattleActionContext {
     teamAllies: Combatant[];
     formationContext: FormationContext | null;
     attackTarget: Combatant | undefined;
-    communicationPlan: CommunicationPlan | undefined;
     obstacleKeys: Set<string>;
     blocked: Set<string>;
     behavior: BehaviorFactors;
     healthRatio: number;
     random: () => number;
+    seed: number;
     round: number;
 }
 
@@ -71,6 +100,216 @@ const isSafeForAllOutAttack = (
             ),
     );
 
+const createHorizontalCommunicationPlan = (
+    context: BattleActionContext,
+): CommunicationPlan | null => {
+    const { actor, enemies, teamAllies, round } = context;
+    if (
+        round % 4 !== 2 ||
+        getSkillPoints(actor.profile, "soldier") <
+            BASIC_SOLDIER_TRAINING_POINTS
+    ) {
+        return null;
+    }
+    const perceivedSquad = [actor, ...teamAllies].filter(
+        (member) => member.profile.lens.id === actor.profile.lens.id,
+    );
+    const focusTarget = enemies
+        .map((enemy) => ({
+            enemy,
+            supporters: perceivedSquad.filter((member) =>
+                areAdjacent(member.position, enemy.position),
+            ),
+        }))
+        .filter((candidate) => candidate.supporters.length >= 2)
+        .sort(
+            (left, right) =>
+                right.supporters.length - left.supporters.length ||
+                left.enemy.id.localeCompare(right.enemy.id),
+        )[0];
+    if (!focusTarget) return null;
+
+    const perceivedCoordinator = [...focusTarget.supporters].sort(
+        (left, right) => left.number - right.number || left.id.localeCompare(right.id),
+    )[0];
+    if (perceivedCoordinator?.id !== actor.id) return null;
+
+    return {
+        kind: "horizontal_focus",
+        senderId: actor.id,
+        audienceIds: [],
+        recipientIds: [],
+        recipientScope: "squad",
+        focusTargetId: focusTarget.enemy.id,
+        soldierSpecialization: AMRITAR_SOLDIER_SPECIALIZATION_ID,
+    };
+};
+
+const createSergeantCommunicationPlan = (
+    context: BattleActionContext,
+): CommunicationPlan | null => {
+    const { actor: sergeant, enemies, formationContext, round } = context;
+    if (
+        !sergeant.profile.commandLens ||
+        !formationContext ||
+        formationContext.squadMembers.length <= 1 ||
+        enemies.length === 0 ||
+        enemies.some((enemy) => areAdjacent(sergeant.position, enemy.position))
+    ) {
+        return null;
+    }
+    const squad = formationContext.squadMembers;
+    const tacticsSkill = getSkillLevel(sergeant.profile, "tactics") ?? 6;
+    const planningDelayRounds = getCommandPlanningDelay(tacticsSkill);
+    const canUpdateFormationFront =
+        round - sergeant.lastOrderChangeTurn >= planningDelayRounds &&
+        hasFormationFacingChanged(
+            sergeant.orderedFormationFacing,
+            sergeant.observedFormationFacing,
+        );
+    const cohesionOutliers = getCohesionOutliers(formationContext);
+    if (
+        sergeant.hasReceivedInitialOrder &&
+        cohesionOutliers.length > 0 &&
+        !canUpdateFormationFront
+    ) {
+        const addressedRecipient = cohesionOutliers.find(
+            (member) =>
+                member.receivedDirective !== "regroup" &&
+                getCalmCommandHearingTarget(sergeant, member) >=
+                    MIN_USEFUL_COMMAND_HEARING_TARGET,
+        );
+        return addressedRecipient
+            ? {
+                  kind: "addressed_order",
+                  senderId: sergeant.id,
+                  audienceIds: [],
+                  recipientIds: [addressedRecipient.id],
+                  directive: "regroup",
+                  soldierSpecialization: AMRITAR_SOLDIER_SPECIALIZATION_ID,
+              }
+            : null;
+    }
+    const currentOrder = sergeant.receivedOrder;
+    if (currentOrder === null) {
+        if (sergeant.pendingInitialOrderAssessment === "none") {
+            return {
+                kind: "assess_tactics",
+                senderId: sergeant.id,
+                audienceIds: [],
+                recipientIds: [],
+                planningDelayRounds,
+            };
+        }
+        const initialOrder =
+            sergeant.pendingInitialOrderAssessment === "inverted"
+                ? chooseCommand(sergeant, squad, enemies, true)
+                : sergeant.pendingInitialOrderAssessment === "accurate"
+                  ? chooseCommand(sergeant, squad, enemies)
+                  : "hold";
+        return {
+            kind: "vertical_order",
+            senderId: sergeant.id,
+            audienceIds: [],
+            recipientIds: [],
+            recipientScope: "squad",
+            command: initialOrder,
+            planningDelayRounds,
+            isInvertedDecision:
+                sergeant.pendingInitialOrderAssessment === "inverted",
+            soldierSpecialization: AMRITAR_SOLDIER_SPECIALIZATION_ID,
+            formationFacing:
+                sergeant.observedFormationFacing ??
+                sergeant.orderedFormationFacing ??
+                undefined,
+        };
+    }
+
+    const canChangeOrder =
+        round - sergeant.lastOrderChangeTurn >= planningDelayRounds;
+    const assessmentAge = round - sergeant.orderAssessmentTurn;
+    const tacticsRoll =
+        canChangeOrder && !sergeant.invertNextOrderChoice
+            ? rollDice(
+                  3,
+                  6,
+                  context.seed,
+                  round,
+                  `${sergeant.id}:choose-order:tactics`,
+              )
+            : null;
+    const proposedOrder = canChangeOrder
+        ? sergeant.invertNextOrderChoice
+            ? chooseCommand(sergeant, squad, enemies, true)
+            : tacticsRoll && tacticsRoll.total <= tacticsSkill
+              ? chooseCommand(sergeant, squad, enemies)
+              : "hold"
+        : currentOrder;
+    if (
+        canChangeOrder &&
+        sergeant.invertNextOrderChoice &&
+        proposedOrder === currentOrder
+    ) {
+        return {
+            kind: "choose_order",
+            senderId: sergeant.id,
+            audienceIds: [],
+            recipientIds: [],
+            command: currentOrder,
+            planningDelayRounds,
+            isInvertedDecision: true,
+        };
+    }
+    const frontNeedsUpdate =
+        canChangeOrder &&
+        hasFormationFacingChanged(
+            sergeant.orderedFormationFacing,
+            sergeant.observedFormationFacing,
+        );
+    const shouldRepeatOrder =
+        proposedOrder === currentOrder &&
+        ((sergeant.orderAssessment === "poor" &&
+            assessmentAge <= ORDER_ASSESSMENT_VALID_ROUNDS) ||
+            frontNeedsUpdate);
+    if (
+        sergeant.orderExpiresAfterTurn - round <= 1 ||
+        proposedOrder !== currentOrder ||
+        shouldRepeatOrder
+    ) {
+        return {
+            kind: "vertical_order",
+            senderId: sergeant.id,
+            audienceIds: [],
+            recipientIds: [],
+            recipientScope: "squad",
+            command: proposedOrder,
+            planningDelayRounds,
+            isRepeatedOrder: proposedOrder === currentOrder,
+            isInvertedDecision:
+                sergeant.invertNextOrderChoice && proposedOrder !== currentOrder,
+            soldierSpecialization: AMRITAR_SOLDIER_SPECIALIZATION_ID,
+            formationFacing:
+                sergeant.observedFormationFacing ??
+                sergeant.orderedFormationFacing ??
+                undefined,
+        };
+    }
+    if (
+        sergeant.orderAssessment === "unknown" ||
+        assessmentAge >= ORDER_ASSESSMENT_VALID_ROUNDS
+    ) {
+        return {
+            kind: "assess_order",
+            senderId: sergeant.id,
+            audienceIds: [],
+            recipientIds: [],
+            command: currentOrder,
+            planningDelayRounds,
+        };
+    }
+    return null;
+};
+
 const incapacitatedAction: BattleActionDefinition = {
     id: "arena.incapacitated",
     priority: 1000,
@@ -83,41 +322,70 @@ const incapacitatedAction: BattleActionDefinition = {
             : null,
 };
 
-const communicateAction: BattleActionDefinition = {
-    id: "arena.communicate",
-    priority: 900,
-    createCandidate: (context) => {
-        const { actor, blocked, communicationPlan, enemies, formationContext, living } = context;
-        if (!communicationPlan) return null;
-
-        const addressedRecipient = communicationPlan.recipientIds
+const createCommunicationCandidate = (
+    definitionId: string,
+    context: BattleActionContext,
+    communicationPlan: CommunicationPlan,
+): ActionCandidate<BattleIntentDraft, ActionRuntimeState> => {
+    const { actor, blocked, enemies, formationContext, living } = context;
+    const addressedRecipient = communicationPlan.recipientIds
             .map((recipientId) =>
                 living.find((combatant) => combatant.id === recipientId),
             )
             .find(Boolean);
-        const addressedPath = addressedRecipient
-            ? findPathNearCombatant(actor, addressedRecipient, blocked)
-            : [];
-        const squadCenterStep =
-            communicationPlan.kind === "vertical_order" && formationContext
-                ? findStepTowardSquadCenter(
-                      actor,
-                      formationContext.squadMembers,
-                      blocked,
-                  )
-                : undefined;
-        const moveTarget =
-            communicationPlan.kind === "addressed_order"
-                ? addressedPath[0]
-                : communicationPlan.kind === "vertical_order"
-                  ? squadCenterStep
-                  : findConcentrationStep(actor, enemies, blocked);
+    const addressedPath = addressedRecipient
+        ? findPathNearCombatant(actor, addressedRecipient, blocked)
+        : [];
+    const squadCenterStep =
+        communicationPlan.kind === "vertical_order" && formationContext
+            ? findStepTowardSquadCenter(
+                  actor,
+                  formationContext.squadMembers,
+                  blocked,
+              )
+            : undefined;
+    const moveTarget =
+        communicationPlan.kind === "addressed_order"
+            ? addressedPath[0]
+            : communicationPlan.kind === "vertical_order"
+              ? squadCenterStep
+              : findConcentrationStep(actor, enemies, blocked);
 
-        return createCandidate("arena.communicate", context, {
-            actorId: actor.id,
-            maneuver: "concentrate",
-            moveTarget,
-        });
+    return createCandidate(definitionId, context, {
+        actorId: actor.id,
+        maneuver: "concentrate",
+        moveTarget,
+        communicationPlan,
+    });
+};
+
+const sergeantCommunicationAction: BattleActionDefinition = {
+    id: "arena.sergeant-communication",
+    priority: 900,
+    createCandidate: (context) => {
+        const communicationPlan = createSergeantCommunicationPlan(context);
+        return communicationPlan
+            ? createCommunicationCandidate(
+                  "arena.sergeant-communication",
+                  context,
+                  communicationPlan,
+              )
+            : null;
+    },
+};
+
+const horizontalCommunicationAction: BattleActionDefinition = {
+    id: "arena.horizontal-communication",
+    priority: 890,
+    createCandidate: (context) => {
+        const communicationPlan = createHorizontalCommunicationPlan(context);
+        return communicationPlan
+            ? createCommunicationCandidate(
+                  "arena.horizontal-communication",
+                  context,
+                  communicationPlan,
+              )
+            : null;
     },
 };
 
@@ -467,7 +735,8 @@ const approachEnemyAction: BattleActionDefinition = {
 
 export const BATTLE_ACTION_DEFINITIONS: ReadonlyArray<BattleActionDefinition> = [
     incapacitatedAction,
-    communicateAction,
+    sergeantCommunicationAction,
+    horizontalCommunicationAction,
     maintainOrderedFormationAction,
     restoreSergeantCohesionAction,
     awaitInitialOrderAction,
