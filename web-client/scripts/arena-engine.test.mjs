@@ -87,6 +87,45 @@ test("battle action state records the selected definition", () => {
     }
 });
 
+test("local formation contact overrides a stale ordered front", () => {
+    const {
+        getFormationRoleAssignment,
+        getLocalFormationContactFacing,
+    } = loadArenaModule("formation");
+    const setup = arena.createArenaSetup(43117);
+    const blue = setup.battle.combatants.filter(
+        (combatant) => combatant.team === "blue",
+    );
+    const red = setup.battle.combatants.find(
+        (combatant) => combatant.team === "red",
+    );
+    const squadMembers = [
+        { ...blue[0], position: { q: 0, r: 0 } },
+        { ...blue[1], position: { q: 0, r: 1 } },
+    ];
+    const contactEnemy = {
+        ...red,
+        position: { q: 2, r: 0 },
+    };
+    const facing = getLocalFormationContactFacing(
+        { sergeant: squadMembers[0], squadMembers },
+        [contactEnemy],
+    );
+
+    assert.ok(facing);
+    assert.ok(facing.x > 0);
+    assert.equal(
+        getFormationRoleAssignment(
+            {
+                ...squadMembers[0],
+                orderedFormationFacing: { x: -1, y: 0 },
+            },
+            facing,
+        ).facing,
+        facing,
+    );
+});
+
 test("combat engine has no UI or browser dependencies", () => {
     const sourceDirectory = path.join(process.cwd(), "src", "arena");
     const forbidden = [

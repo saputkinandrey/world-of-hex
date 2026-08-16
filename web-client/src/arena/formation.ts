@@ -84,12 +84,55 @@ export const getCalmCommandHearingTarget = (
         getDistanceMeters(sergeant.position, recipient.position),
     );
 
-export const getFormationRoleAssignment = (actor: Combatant): FormationRoleAssignment => {
+export const getFormationRoleAssignment = (
+    actor: Combatant,
+    localContactFacing: CartesianPoint | null = null,
+): FormationRoleAssignment => {
     return {
         role: actor.formationRole,
         facing:
-            actor.orderedFormationFacing ?? actor.observedFormationFacing,
+            localContactFacing ??
+            actor.orderedFormationFacing ??
+            actor.observedFormationFacing,
     };
+};
+
+const getCombatantCenter = (combatants: Combatant[]): CartesianPoint => {
+    const positions = combatants.map((combatant) =>
+        toMeters(combatant.position),
+    );
+    return {
+        x:
+            positions.reduce((total, position) => total + position.x, 0) /
+            positions.length,
+        y:
+            positions.reduce((total, position) => total + position.y, 0) /
+            positions.length,
+    };
+};
+
+export const getLocalFormationContactFacing = (
+    context: FormationContext,
+    enemies: Combatant[],
+): CartesianPoint | null => {
+    const contactEnemies = enemies.filter((enemy) =>
+        context.squadMembers.some(
+            (member) =>
+                distanceBetween(member.position, enemy.position) <=
+                Math.max(member.weaponReach, enemy.weaponReach),
+        ),
+    );
+    if (contactEnemies.length === 0) {
+        return null;
+    }
+
+    const squadCenter = getCombatantCenter(context.squadMembers);
+    const enemyCenter = getCombatantCenter(contactEnemies);
+    const facing = {
+        x: enemyCenter.x - squadCenter.x,
+        y: enemyCenter.y - squadCenter.y,
+    };
+    return facing.x === 0 && facing.y === 0 ? null : facing;
 };
 
 export const sergeantHasEnemyContact = (
@@ -303,7 +346,10 @@ export const chooseHoldFormationPosition = (
     blocked: Set<string>,
 ): HexCoord => {
     const allies = context.squadMembers.filter((ally) => ally.id !== actor.id);
-    const assignment = getFormationRoleAssignment(actor);
+    const assignment = getFormationRoleAssignment(
+        actor,
+        getLocalFormationContactFacing(context, enemies),
+    );
     const candidates = [actor.position, ...getNeighbors(actor.position)].filter(
         (candidate) => {
             const key = toKey(candidate);
