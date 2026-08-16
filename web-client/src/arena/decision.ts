@@ -6,7 +6,7 @@ import {
 } from "./battle-actions";
 import { chooseAttackTarget } from "./combat-observation";
 import { getFormationContext } from "./formation";
-import type { BattleIntent, Combatant, SensoryTrace } from "./model";
+import type { BattleIntent, Combatant } from "./model";
 import { observeCombatantsForDecision } from "./perception";
 import { createRandom } from "./random";
 import { getBehaviorFactors } from "./scenario";
@@ -15,7 +15,6 @@ export const MAX_EVALUATE_BONUS = 3;
 
 export const createBattleIntents = (
     combatants: Combatant[],
-    sensoryTraces: SensoryTrace[],
     obstacleKeys: Set<string>,
     seed: number,
     round: number,
@@ -24,9 +23,7 @@ export const createBattleIntents = (
     return living.map((actor) => {
         const observed = observeCombatantsForDecision(
             actor,
-            living.filter((candidate) => candidate.id !== actor.id),
-            sensoryTraces,
-            seed,
+            combatants.filter((candidate) => candidate.id !== actor.id),
             round,
         );
         const enemies = observed.filter((enemy) => enemy.team !== actor.team);

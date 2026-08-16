@@ -2,7 +2,10 @@ import { generateObstacles, selectSpawnCells } from "./arena";
 import { TEAM_SIZE } from "./config";
 import { AMRITAR_DUST_SERGEANT_LENS_ID, AMRITAR_DUST_SPEARMAN_LENS_ID, AMRITAR_GUARD_OF_THE_HAND_LENS_ID, AMRITAR_GUARD_SERGEANT_LENS_ID, AdvantageId, AttributeKey, DisadvantageId, SkillSpecializationId, applyCommandLens, generateFighterProfile, getPrimaryCombatSkill, getSkillLevel, profileHasAdvantage } from "./fighter-generation";
 import { ArenaSetup, BehaviorFactors, Combatant, HexCoord, ManeuverKind, Team } from "./model";
-import { updateFormationObservations } from "./perception";
+import {
+    initializeObservationMemories,
+    updateFormationObservations,
+} from "./perception";
 import { createRandom } from "./random";
 
 export const BLUE_NAMES = [
@@ -157,6 +160,7 @@ export const createCombatants = (
             observedFormationFacingUpdatedTurn: -1,
             orderedFormationFacing: null,
             orderedFormationFacingExpiresAfterTurn: -1,
+            observationMemory: [],
         };
     });
     return assignInitialFormationRoles(combatants);
@@ -211,11 +215,12 @@ export const getBehaviorFactors = (actor: Combatant): BehaviorFactors => {
 export const createArenaSetup = (seed: number): ArenaSetup => {
     const obstacles = generateObstacles(seed);
     const blocked = new Set(obstacles.map((obstacle) => obstacle.key));
-    const combatants = updateFormationObservations(
-        [
+    const initialCombatants = [
             ...createCombatants("blue", selectSpawnCells("blue", blocked), seed),
             ...createCombatants("red", selectSpawnCells("red", blocked), seed),
-        ],
+        ];
+    const combatants = updateFormationObservations(
+        initializeObservationMemories(initialCombatants, 0),
         [],
         seed,
         0,

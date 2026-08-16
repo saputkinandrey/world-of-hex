@@ -6,6 +6,7 @@ import type { BattleState, Team } from "./model";
 import {
     createSensoryTraces,
     decaySensoryTraces,
+    updatePassiveObservationMemories,
     updateFormationObservations,
 } from "./perception";
 import {
@@ -63,9 +64,14 @@ export const advanceBattle = (
         battle.combatants,
         battle.turn,
     );
-    const intents = createBattleIntents(
+    const observingCombatants = updatePassiveObservationMemories(
         preparedCombatants,
         battle.sensoryTraces,
+        seed,
+        battle.turn,
+    );
+    const intents = createBattleIntents(
+        observingCombatants,
         obstacleKeys,
         seed,
         battle.turn,
@@ -74,7 +80,7 @@ export const advanceBattle = (
         intent.communicationPlan ? [intent.communicationPlan] : [],
     );
     const movedCombatants = resolveMovement({
-        combatants: preparedCombatants,
+        combatants: observingCombatants,
         intents,
         obstacleKeys,
         seed,
@@ -102,7 +108,7 @@ export const advanceBattle = (
         damageByTarget: attack.damageByTarget,
         communication,
         orderChangeSenderIds: findOrderChangeSenders(
-            preparedCombatants,
+            observingCombatants,
             communicationPlans,
         ),
         messages: attack.messages,

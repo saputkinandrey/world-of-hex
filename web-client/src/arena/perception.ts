@@ -1,5 +1,6 @@
 import { distanceBetween, getDistanceMeters, toMeters } from "./arena";
-import { AmbientInterference, CartesianPoint, Combatant, CommunicationInterference, CommunicationPlan, ManeuverKind, ManeuverPollution, SensoryTrace } from "./model";
+import { getObviousWoundState } from "./combat-observation";
+import { AmbientInterference, CartesianPoint, Combatant, CombatantObservationMemory, CommunicationInterference, CommunicationPlan, ManeuverKind, ManeuverPollution, ObviousWoundState, SensoryTrace } from "./model";
 import { createRandom, rollDice } from "./random";
 
 export const MANEUVER_POLLUTION: Record<ManeuverKind, ManeuverPollution> = {
@@ -29,6 +30,10 @@ export const UNRELIABLE_RANGE_STEP_PENALTY = 1;
 export const VISION_NO_PENALTY_RANGE_METERS = 8;
 
 export const ACTION_POLLUTION_RADIUS_HEXES = 4;
+
+export const PASSIVE_OBSERVATION_PENALTY = -3;
+
+export const OBSERVATION_MEMORY_DURATION_ROUNDS = 8;
 
 export const DUST_POLLUTION_RADIUS_HEXES = 3;
 
@@ -306,41 +311,139 @@ export const observeFormationFacing = (
     };
 };
 
-export const observeCombatantsForDecision = (
+const createObservationMemory = (
+    candidate: Combatant,
+    round: number,
+): CombatantObservationMemory => ({
+    combatantId: candidate.id,
+    team: candidate.team,
+    lastKnownPosition: candidate.position,
+    lastKnownManeuver: candidate.maneuver,
+    obviousWoundState: getObviousWoundState(candidate),
+    observedAlive: candidate.health > 0,
+    lastSeenTurn: round,
+});
+
+export const initializeObservationMemories = (
+    combatants: Combatant[],
+    round: number,
+): Combatant[] =>
+    combatants.map((observer) => ({
+        ...observer,
+        observationMemory: combatants
+            .filter((candidate) => candidate.id !== observer.id)
+            .map((candidate) => createObservationMemory(candidate, round)),
+    }));
+
+const passivelyObserves = (
     observer: Combatant,
-    candidates: Combatant[],
+    candidate: Combatant,
     sensoryTraces: SensoryTrace[],
     seed: number,
     round: number,
-): Combatant[] => {
+): boolean => {
     const ambient = getResidualAmbientInterference(seed, round);
-    return candidates.filter((candidate) => {
-        const distanceMeters = getDistanceMeters(
-            observer.position,
-            candidate.position,
+    const distanceMeters = getDistanceMeters(
+        observer.position,
+        candidate.position,
+    );
+    if (distanceMeters <= 1) return true;
+    const interference = getCommunicationInterference(
+        candidate,
+        observer,
+        sensoryTraces,
+        ambient,
+    );
+    const visionTarget =
+        observer.profile.attributes.IQ +
+        PASSIVE_OBSERVATION_PENALTY +
+        getVisionDistanceModifier(distanceMeters) +
+        interference.visionPenalty -
+        observer.shockPenalty -
+        observer.panicPenalty;
+    const visionRoll = rollDice(
+        3,
+        6,
+        seed,
+        round,
+        `${observer.id}:${candidate.id}:passive-observation`,
+    );
+    return visionRoll.total <= visionTarget;
+};
+
+export const updatePassiveObservationMemories = (
+    combatants: Combatant[],
+    sensoryTraces: SensoryTrace[],
+    seed: number,
+    round: number,
+): Combatant[] =>
+    combatants.map((observer) => {
+        if (observer.health <= 0) return observer;
+        const retained = observer.observationMemory.filter(
+            (memory) =>
+                round - memory.lastSeenTurn <=
+                OBSERVATION_MEMORY_DURATION_ROUNDS,
         );
-        if (distanceMeters <= 1) return true;
-        const interference = getCommunicationInterference(
-            candidate,
-            observer,
-            sensoryTraces,
-            ambient,
+        const memoryByCombatantId = new Map(
+            retained.map((memory) => [memory.combatantId, memory]),
         );
-        const visionTarget =
-            observer.profile.attributes.IQ +
-            getVisionDistanceModifier(distanceMeters) +
-            interference.visionPenalty -
-            observer.shockPenalty -
-            observer.panicPenalty;
-        const visionRoll = rollDice(
-            3,
-            6,
-            seed,
-            round,
-            `${observer.id}:${candidate.id}:decision-observation`,
-        );
-        return visionRoll.total <= visionTarget;
+        combatants
+            .filter((candidate) => candidate.id !== observer.id)
+            .filter((candidate) =>
+                passivelyObserves(
+                    observer,
+                    candidate,
+                    sensoryTraces,
+                    seed,
+                    round,
+                ),
+            )
+            .forEach((candidate) => {
+                memoryByCombatantId.set(
+                    candidate.id,
+                    createObservationMemory(candidate, round),
+                );
+            });
+        return {
+            ...observer,
+            observationMemory: [...memoryByCombatantId.values()],
+        };
     });
+
+const getRememberedHealth = (state: ObviousWoundState): number => {
+    if (state === "badly_wounded") return 2;
+    if (state === "wounded") return 6;
+    return 10;
+};
+
+export const observeCombatantsForDecision = (
+    observer: Combatant,
+    candidates: Combatant[],
+    round: number,
+): Combatant[] => {
+    const candidateById = new Map(
+        candidates.map((candidate) => [candidate.id, candidate]),
+    );
+    return observer.observationMemory
+        .filter(
+            (memory) =>
+                memory.observedAlive &&
+                round - memory.lastSeenTurn <=
+                    OBSERVATION_MEMORY_DURATION_ROUNDS,
+        )
+        .map((memory) => {
+            const candidate = candidateById.get(memory.combatantId);
+            if (!candidate) return null;
+            return {
+                ...candidate,
+                health: getRememberedHealth(memory.obviousWoundState),
+                maxHealth: 10,
+                position: memory.lastKnownPosition,
+                lastMovementPath: [memory.lastKnownPosition],
+                maneuver: memory.lastKnownManeuver,
+            };
+        })
+        .filter((candidate): candidate is Combatant => candidate !== null);
 };
 
 export const updateFormationObservations = (

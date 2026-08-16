@@ -34,8 +34,8 @@ test("seed 43117 preserves the extracted engine baseline", () => {
     ).length;
 
     assert.equal(battle.winner, "blue");
-    assert.equal(battle.turn - 1, 26);
-    assert.equal(blueAlive, 9);
+    assert.equal(battle.turn - 1, 49);
+    assert.equal(blueAlive, 6);
     assert.equal(redAlive, 0);
 });
 
@@ -160,6 +160,57 @@ test("battle decisions receive only individually observed combatants", () => {
     assert.match(decisionSource, /observeCombatantsForDecision/);
     assert.match(decisionSource, /const subjectiveLiving = \[actor, \.\.\.observed\]/);
     assert.doesNotMatch(decisionSource, /formationContext: getFormationContext\(actor, living\)/);
+});
+
+test("combatant memory preserves only stale observable information", () => {
+    const perception = loadArenaModule("perception");
+    const setup = arena.createArenaSetup(43117);
+    const observer = setup.battle.combatants.find(
+        (combatant) => combatant.team === "blue" && combatant.number === 1,
+    );
+    const enemy = setup.battle.combatants.find(
+        (combatant) => combatant.team === "red" && combatant.number === 1,
+    );
+    const initialMemory = observer.observationMemory.find(
+        (memory) => memory.combatantId === enemy.id,
+    );
+    const rememberedPosition = { ...initialMemory.lastKnownPosition };
+    const rememberedObserver = {
+        ...observer,
+        observationMemory: [
+            {
+                ...initialMemory,
+                lastKnownManeuver: "move",
+                obviousWoundState: "wounded",
+                lastSeenTurn: 3,
+            },
+        ],
+    };
+    const changedEnemy = {
+        ...enemy,
+        health: 1,
+        position: { q: enemy.position.q - 3, r: enemy.position.r },
+        maneuver: "attack",
+    };
+
+    const remembered = perception.observeCombatantsForDecision(
+        rememberedObserver,
+        [changedEnemy],
+        8,
+    );
+    assert.equal(remembered.length, 1);
+    assert.deepEqual(remembered[0].position, rememberedPosition);
+    assert.equal(remembered[0].maneuver, "move");
+    assert.equal(remembered[0].health, 6);
+    assert.equal(remembered[0].maxHealth, 10);
+    assert.deepEqual(
+        perception.observeCombatantsForDecision(
+            rememberedObserver,
+            [changedEnemy],
+            12,
+        ),
+        [],
+    );
 });
 
 test("combat engine modules have no circular dependencies", () => {

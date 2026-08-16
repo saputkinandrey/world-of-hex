@@ -30,6 +30,16 @@ export type FormationRole =
 
 export type ObviousWoundState = "unhurt" | "wounded" | "badly_wounded";
 
+export type CombatantObservationMemory = {
+    combatantId: string;
+    team: Team;
+    lastKnownPosition: HexCoord;
+    lastKnownManeuver: ManeuverKind;
+    obviousWoundState: ObviousWoundState;
+    observedAlive: boolean;
+    lastSeenTurn: number;
+};
+
 export type CommunicationKind =
     | "vertical_order"
     | "addressed_order"
@@ -107,6 +117,7 @@ export type Combatant = {
     observedFormationFacingUpdatedTurn: number;
     orderedFormationFacing: CartesianPoint | null;
     orderedFormationFacingExpiresAfterTurn: number;
+    observationMemory: CombatantObservationMemory[];
 };
 
 export type BattleState = {
