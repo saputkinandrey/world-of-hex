@@ -2,7 +2,7 @@ import assert from "node:assert/strict";
 import fs from "node:fs";
 import path from "node:path";
 import test from "node:test";
-import { loadArenaEngine } from "./load-arena-engine.mjs";
+import { loadArenaEngine, loadArenaModule } from "./load-arena-engine.mjs";
 
 const arena = loadArenaEngine();
 
@@ -39,6 +39,54 @@ test("seed 43117 preserves the extracted engine baseline", () => {
     assert.equal(redAlive, 0);
 });
 
+test("generic action planner selects the highest-priority available action", () => {
+    const { selectAction } = loadArenaModule("action-system");
+    const selection = selectAction(
+        [
+            {
+                id: "low",
+                priority: 10,
+                createCandidate: () => ({ result: "low", nextState: 1 }),
+            },
+            {
+                id: "unavailable",
+                priority: 30,
+                createCandidate: () => null,
+            },
+            {
+                id: "high",
+                priority: 20,
+                createCandidate: () => ({ result: "high", nextState: 2 }),
+            },
+        ],
+        {},
+    );
+
+    assert.deepEqual(selection, {
+        definitionId: "high",
+        result: "high",
+        nextState: 2,
+    });
+});
+
+test("battle action state records the selected definition", () => {
+    let setup = arena.createArenaSetup(43117);
+    setup = {
+        ...setup,
+        battle: { ...setup.battle, phase: "running" },
+    };
+    setup = arena.advanceArena(setup);
+
+    for (const combatant of setup.battle.combatants) {
+        if (combatant.health <= 0) continue;
+        assert.match(combatant.actionState.definitionId, /^arena\./);
+        assert.equal(
+            combatant.actionState.updatedAt,
+            setup.battle.turn - 1,
+        );
+    }
+});
+
 test("combat engine has no UI or browser dependencies", () => {
     const sourceDirectory = path.join(process.cwd(), "src", "arena");
     const forbidden = [
@@ -59,6 +107,16 @@ test("combat engine has no UI or browser dependencies", () => {
             assert.doesNotMatch(source, pattern, `${entry}: ${pattern}`);
         }
     }
+});
+
+test("generic action planner has no arena or combat dependencies", () => {
+    const source = fs.readFileSync(
+        path.join(process.cwd(), "src", "arena", "action-system.ts"),
+        "utf8",
+    );
+
+    assert.doesNotMatch(source, /from ["']\.\/(model|arena|combat|formation)/);
+    assert.doesNotMatch(source, /Combatant|Maneuver|BattleIntent|HexCoord/);
 });
 
 test("combat engine modules have no circular dependencies", () => {

@@ -1,4 +1,5 @@
 import { GeneratedFighterProfile, SkillSpecializationId } from "./fighter-generation";
+import type { ActionRuntimeState } from "./action-system";
 
 export type Team = "blue" | "red";
 
@@ -82,6 +83,7 @@ export type Combatant = {
     damageBonus: number;
     damageResistance: number;
     maneuver: ManeuverKind;
+    actionState: ActionRuntimeState;
     evaluateBonus: number;
     shockPenalty: number;
     panicPenalty: number;
@@ -126,6 +128,7 @@ export type BattleIntent = {
     actorId: string;
     maneuver: ManeuverKind;
     moveTarget?: HexCoord;
+    actionState: ActionRuntimeState;
 };
 
 export type TeamSummary = {

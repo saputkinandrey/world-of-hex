@@ -1,5 +1,5 @@
 import { resolveAttack } from "./combat";
-import { chooseAttackTarget } from "./decision";
+import { chooseAttackTarget } from "./combat-observation";
 import type {
     AttackTargetGroup,
     Combatant,

@@ -129,6 +129,11 @@ export const createCombatants = (
                 equipment.weaponDamageBonus + Math.floor((attributes.ST - 10) / 2),
             damageResistance: equipment.damageResistance,
             maneuver: "do_nothing" as ManeuverKind,
+            actionState: {
+                definitionId: "arena.inactive",
+                startedAt: -1,
+                updatedAt: -1,
+            },
             evaluateBonus: 0,
             shockPenalty: 0,
             panicPenalty: 0,

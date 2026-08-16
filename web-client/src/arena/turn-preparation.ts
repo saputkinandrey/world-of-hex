@@ -105,6 +105,9 @@ export const resolveMovement = ({
             maneuver:
                 intentByActorId.get(combatant.id)?.maneuver ??
                 combatant.maneuver,
+            actionState:
+                intentByActorId.get(combatant.id)?.actionState ??
+                combatant.actionState,
             position: moveTarget ?? combatant.position,
         };
     });

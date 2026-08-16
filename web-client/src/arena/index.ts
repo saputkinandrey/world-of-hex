@@ -1,4 +1,11 @@
 export { ARENA_CELLS, toKey } from "./arena";
+export { selectAction } from "./action-system";
+export type {
+    ActionCandidate,
+    ActionDefinition,
+    ActionRuntimeState,
+    ActionSelection,
+} from "./action-system";
 export { TEAM_SIZE } from "./config";
 export type {
     ArenaSetup,

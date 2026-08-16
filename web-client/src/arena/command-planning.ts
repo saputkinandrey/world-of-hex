@@ -1,5 +1,5 @@
 import { areAdjacent } from "./arena";
-import { OBVIOUS_WOUND_RANK, getObviousWoundState } from "./decision";
+import { OBVIOUS_WOUND_RANK, getObviousWoundState } from "./combat-observation";
 import { AMRITAR_SOLDIER_SPECIALIZATION_ID, getSkillLevel, getSkillPoints } from "./fighter-generation";
 import { BASIC_SOLDIER_TRAINING_POINTS, chooseCommand, getCalmCommandHearingTarget, getCohesionOutliers } from "./formation";
 import type { Combatant, CommunicationPlan, FormationContext } from "./model";
