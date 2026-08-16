@@ -61,7 +61,7 @@ export const getCohesionOutliers = (context: FormationContext): Combatant[] =>
             (member) =>
                 member.id !== context.sergeant.id &&
                 distanceBetween(member.position, context.sergeant.position) >
-                    getFormationRadius(member),
+                    SIMPLE_FORMATION_RADIUS_HEXES,
         )
         .sort(
             (left, right) =>

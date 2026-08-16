@@ -14,7 +14,6 @@ import {
     getSkillPoints,
 } from "./fighter-generation";
 import {
-    canReachWithAttackThisRound,
     findConcentrationStep,
     findPathNearCombatant,
     findPathToAttackPosition,
@@ -84,20 +83,16 @@ const createCandidate = (
     },
 });
 
+const ASSUMED_COMBAT_MOVE_HEXES = 5;
+
 const isSafeForAllOutAttack = (
     actor: Combatant,
     enemies: Combatant[],
-    combatants: Combatant[],
-    obstacleKeys: Set<string>,
 ): boolean =>
     enemies.every(
         (enemy) =>
-            !canReachWithAttackThisRound(
-                enemy,
-                actor,
-                combatants,
-                obstacleKeys,
-            ),
+            distanceBetween(enemy.position, actor.position) >
+            ASSUMED_COMBAT_MOVE_HEXES + enemy.weaponReach,
     );
 
 const createHorizontalCommunicationPlan = (
@@ -175,7 +170,6 @@ const createSergeantCommunicationPlan = (
     ) {
         const addressedRecipient = cohesionOutliers.find(
             (member) =>
-                member.receivedDirective !== "regroup" &&
                 getCalmCommandHearingTarget(sergeant, member) >=
                     MIN_USEFUL_COMMAND_HEARING_TARGET,
         );
@@ -628,7 +622,8 @@ const engageEnemyAction: BattleActionDefinition = {
     id: "arena.engage-enemy",
     priority: 400,
     createCandidate: (context) => {
-        const { actor, attackTarget, behavior, enemies, healthRatio, living, obstacleKeys, random } = context;
+        const { actor, attackTarget, behavior, enemies, healthRatio, random } =
+            context;
         if (!attackTarget) return null;
 
         const options: ManeuverOption[] = [
@@ -655,7 +650,7 @@ const engageEnemyAction: BattleActionDefinition = {
                     random(),
             },
         ];
-        if (isSafeForAllOutAttack(actor, enemies, living, obstacleKeys)) {
+        if (isSafeForAllOutAttack(actor, enemies)) {
             options.push({
                 maneuver: "all_out_attack",
                 score:
