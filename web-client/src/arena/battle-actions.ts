@@ -33,6 +33,7 @@ import type {
     BattleIntent,
     BehaviorFactors,
     Combatant,
+    CombatantObservationMemory,
     CommunicationPlan,
     FormationContext,
     ManeuverOption,
@@ -84,6 +85,28 @@ const createCandidate = (
 });
 
 const ASSUMED_COMBAT_MOVE_HEXES = 5;
+
+const getLastKnownEnemyMemory = (
+    actor: Combatant,
+): CombatantObservationMemory | undefined =>
+    actor.observationMemory
+        .filter(
+            (memory) =>
+                memory.team !== actor.team && memory.observedAlive,
+        )
+        .sort(
+            (left, right) =>
+                right.lastSeenTurn - left.lastSeenTurn ||
+                distanceBetween(
+                    actor.position,
+                    left.lastKnownPosition,
+                ) -
+                    distanceBetween(
+                        actor.position,
+                        right.lastKnownPosition,
+                    ) ||
+                left.combatantId.localeCompare(right.combatantId),
+        )[0];
 
 const isSafeForAllOutAttack = (
     actor: Combatant,
@@ -316,6 +339,38 @@ const incapacitatedAction: BattleActionDefinition = {
             : null,
 };
 
+const searchLastKnownEnemyAction: BattleActionDefinition = {
+    id: "arena.search-last-known-enemy",
+    priority: 950,
+    createCandidate: (context) => {
+        const { actor, blocked, enemies } = context;
+        if (enemies.length > 0) {
+            return null;
+        }
+        const lastKnownEnemy = getLastKnownEnemyMemory(actor);
+        if (!lastKnownEnemy) {
+            return null;
+        }
+        const path = findPathToDestination(
+            actor,
+            lastKnownEnemy.lastKnownPosition,
+            blocked,
+        );
+        if (path.length === 0) {
+            return createCandidate("arena.search-last-known-enemy", context, {
+                actorId: actor.id,
+                maneuver: "concentrate",
+            });
+        }
+
+        return createCandidate("arena.search-last-known-enemy", context, {
+            actorId: actor.id,
+            maneuver: "move",
+            moveTarget: path[Math.min(actor.basicMove, path.length) - 1],
+        });
+    },
+};
+
 const createCommunicationCandidate = (
     definitionId: string,
     context: BattleActionContext,
@@ -508,7 +563,15 @@ const awaitInitialOrderAction: BattleActionDefinition = {
     priority: 600,
     createCandidate: (context) => {
         const { actor, attackTarget, blocked, enemies, formationContext, teamAllies } = context;
-        if (attackTarget || !formationContext || actor.hasReceivedInitialOrder) {
+        const lastKnownEnemy = getLastKnownEnemyMemory(actor);
+        const hasObservedCombatAfterDeployment =
+            lastKnownEnemy && lastKnownEnemy.lastSeenTurn > 0;
+        if (
+            attackTarget ||
+            !formationContext ||
+            actor.hasReceivedInitialOrder ||
+            hasObservedCombatAfterDeployment
+        ) {
             return null;
         }
         const formationSlot = chooseHoldFormationPosition(
@@ -730,6 +793,7 @@ const approachEnemyAction: BattleActionDefinition = {
 
 export const BATTLE_ACTION_DEFINITIONS: ReadonlyArray<BattleActionDefinition> = [
     incapacitatedAction,
+    searchLastKnownEnemyAction,
     sergeantCommunicationAction,
     horizontalCommunicationAction,
     maintainOrderedFormationAction,

@@ -33,6 +33,8 @@ export const ACTION_POLLUTION_RADIUS_HEXES = 4;
 
 export const PASSIVE_OBSERVATION_PENALTY = -3;
 
+export const PASSIVE_OBVIOUS_PRESENCE_RANGE_HEXES = 3;
+
 export const OBSERVATION_MEMORY_DURATION_ROUNDS = 8;
 
 export const DUST_POLLUTION_RADIUS_HEXES = 3;
@@ -343,20 +345,29 @@ const passivelyObserves = (
     round: number,
 ): boolean => {
     const ambient = getResidualAmbientInterference(seed, round);
+    const distanceHexes = distanceBetween(
+        observer.position,
+        candidate.position,
+    );
+    if (distanceHexes <= PASSIVE_OBVIOUS_PRESENCE_RANGE_HEXES) return true;
     const distanceMeters = getDistanceMeters(
         observer.position,
         candidate.position,
     );
-    if (distanceMeters <= 1) return true;
     const interference = getCommunicationInterference(
         candidate,
         observer,
         sensoryTraces,
         ambient,
     );
+    const observationPenalty =
+        observer.actionState.definitionId ===
+        "arena.search-last-known-enemy"
+            ? 0
+            : PASSIVE_OBSERVATION_PENALTY;
     const visionTarget =
         observer.profile.attributes.IQ +
-        PASSIVE_OBSERVATION_PENALTY +
+        observationPenalty +
         getVisionDistanceModifier(distanceMeters) +
         interference.visionPenalty -
         observer.shockPenalty -
@@ -379,13 +390,11 @@ export const updatePassiveObservationMemories = (
 ): Combatant[] =>
     combatants.map((observer) => {
         if (observer.health <= 0) return observer;
-        const retained = observer.observationMemory.filter(
-            (memory) =>
-                round - memory.lastSeenTurn <=
-                OBSERVATION_MEMORY_DURATION_ROUNDS,
-        );
         const memoryByCombatantId = new Map(
-            retained.map((memory) => [memory.combatantId, memory]),
+            observer.observationMemory.map((memory) => [
+                memory.combatantId,
+                memory,
+            ]),
         );
         combatants
             .filter((candidate) => candidate.id !== observer.id)
@@ -428,8 +437,9 @@ export const observeCombatantsForDecision = (
         .filter(
             (memory) =>
                 memory.observedAlive &&
-                round - memory.lastSeenTurn <=
-                    OBSERVATION_MEMORY_DURATION_ROUNDS,
+                (memory.team === observer.team ||
+                    round - memory.lastSeenTurn <=
+                        OBSERVATION_MEMORY_DURATION_ROUNDS),
         )
         .map((memory) => {
             const candidate = candidateById.get(memory.combatantId);

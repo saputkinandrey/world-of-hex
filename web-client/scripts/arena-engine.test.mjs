@@ -34,8 +34,8 @@ test("seed 43117 preserves the extracted engine baseline", () => {
     ).length;
 
     assert.equal(battle.winner, "blue");
-    assert.equal(battle.turn - 1, 49);
-    assert.equal(blueAlive, 6);
+    assert.equal(battle.turn - 1, 29);
+    assert.equal(blueAlive, 8);
     assert.equal(redAlive, 0);
 });
 
@@ -249,6 +249,65 @@ test("combatant memory preserves only stale observable information", () => {
             12,
         ),
         [],
+    );
+});
+
+test("obvious nearby presence refreshes passive observation through clutter", () => {
+    const perception = loadArenaModule("perception");
+    const setup = arena.createArenaSetup(43117);
+    const observer = setup.battle.combatants.find(
+        (combatant) => combatant.team === "blue" && combatant.number === 1,
+    );
+    const enemy = setup.battle.combatants.find(
+        (combatant) => combatant.team === "red" && combatant.number === 1,
+    );
+    const nearbyEnemy = {
+        ...enemy,
+        position: {
+            q: observer.position.q + 3,
+            r: observer.position.r,
+        },
+    };
+    const observed = perception.updatePassiveObservationMemories(
+        [{ ...observer, observationMemory: [] }, nearbyEnemy],
+        [],
+        43117,
+        20,
+    )[0];
+
+    assert.equal(observed.observationMemory.length, 1);
+    assert.equal(observed.observationMemory[0].combatantId, nearbyEnemy.id);
+    assert.equal(observed.observationMemory[0].lastSeenTurn, 20);
+});
+
+test("stale allies remain subjective while stale enemy positions are not exact", () => {
+    const perception = loadArenaModule("perception");
+    const setup = arena.createArenaSetup(43117);
+    const observer = setup.battle.combatants.find(
+        (combatant) => combatant.team === "blue" && combatant.number === 1,
+    );
+    const ally = setup.battle.combatants.find(
+        (combatant) => combatant.team === "blue" && combatant.number === 2,
+    );
+    const enemy = setup.battle.combatants.find(
+        (combatant) => combatant.team === "red" && combatant.number === 1,
+    );
+    const memories = observer.observationMemory
+        .filter(
+            (memory) =>
+                memory.combatantId === ally.id ||
+                memory.combatantId === enemy.id,
+        )
+        .map((memory) => ({ ...memory, lastSeenTurn: 0 }));
+    const observed = perception.observeCombatantsForDecision(
+        { ...observer, observationMemory: memories },
+        [ally, enemy],
+        20,
+    );
+
+    assert.deepEqual(
+        observed.map((combatant) => combatant.id),
+        [ally.id],
     );
 });
 
