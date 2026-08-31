@@ -11,6 +11,7 @@ export {
     applyCommandLens,
     generateFighterProfile,
     getPrimaryCombatSkill,
+    getProfileLeveledAdvantageLevel,
     getSkillLevel,
     getSkillPoints,
     profileHasAdvantage,

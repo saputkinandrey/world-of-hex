@@ -1,13 +1,13 @@
-import { selectAction } from "./action-system";
-import { toKey } from "./arena";
+import { applyFreeActions, selectAction } from "./action-system";
+import { ARENA_CELLS, ARENA_CELL_BY_KEY, toKey } from "./arena";
 import {
     BATTLE_ACTION_DEFINITIONS,
+    BATTLE_FREE_ACTION_DEFINITIONS,
     type BattleActionContext,
-} from "./battle-actions";
-import { chooseAttackTarget } from "./combat-observation";
+} from "./actions";
 import { getFormationContext } from "./formation";
 import type { BattleIntent, Combatant } from "./model";
-import { observeCombatantsForDecision } from "./perception";
+import { getSubjectivelyKnownCombatantsForDecision } from "./perception";
 import { createRandom } from "./random";
 import { getBehaviorFactors } from "./scenario";
 
@@ -21,7 +21,7 @@ export const createBattleIntents = (
 ): BattleIntent[] => {
     const living = combatants.filter((combatant) => combatant.health > 0);
     return living.map((actor) => {
-        const observed = observeCombatantsForDecision(
+        const observed = getSubjectivelyKnownCombatantsForDecision(
             actor,
             combatants.filter((candidate) => candidate.id !== actor.id),
             round,
@@ -41,7 +41,8 @@ export const createBattleIntents = (
             enemies,
             teamAllies,
             formationContext: getFormationContext(actor, subjectiveLiving),
-            attackTarget: chooseAttackTarget(actor, enemies),
+            arenaCells: ARENA_CELLS,
+            arenaCellKeys: new Set(ARENA_CELL_BY_KEY.keys()),
             obstacleKeys,
             blocked,
             behavior: getBehaviorFactors(actor),
@@ -56,15 +57,24 @@ export const createBattleIntents = (
         };
 
         blocked.delete(toKey(actor.position));
-        const selection = selectAction(BATTLE_ACTION_DEFINITIONS, context);
+        const selection = selectAction(BATTLE_ACTION_DEFINITIONS, context, {
+            definitionId: actor.actionState.definitionId,
+            completed: actor.actionState.completed ?? true,
+        });
         blocked.add(toKey(actor.position));
 
         if (!selection) {
             throw new Error(`No action available for combatant ${actor.id}.`);
         }
 
+        const result = applyFreeActions(
+            BATTLE_FREE_ACTION_DEFINITIONS,
+            context,
+            selection.result,
+        );
+
         return {
-            ...selection.result,
+            ...result,
             actionState: selection.nextState,
         };
     });

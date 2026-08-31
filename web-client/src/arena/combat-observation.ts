@@ -1,5 +1,5 @@
 import { distanceBetween } from "./arena";
-import type { Combatant, ObviousWoundState } from "./model";
+import type { Combatant, HexCoord, ObviousWoundState } from "./model";
 import { hashText } from "./random";
 
 export const OBVIOUS_WOUND_RANK: Record<ObviousWoundState, number> = {
@@ -41,3 +41,16 @@ export const chooseAttackTarget = (
         )[0]
     );
 };
+
+export const chooseAttackTargetFromPosition = (
+    actor: Combatant,
+    enemies: Combatant[],
+    position: HexCoord,
+): Combatant | undefined =>
+    chooseAttackTarget(
+        {
+            ...actor,
+            position,
+        },
+        enemies,
+    );

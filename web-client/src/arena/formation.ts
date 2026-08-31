@@ -1,10 +1,13 @@
-import { ARENA_CELL_BY_KEY, NEIGHBOR_OFFSETS, SQRT_3, areAdjacent, distanceBetween, getDistanceMeters, getNeighbors, toKey, toMeters } from "./arena";
+import { NEIGHBOR_OFFSETS, SQRT_3, areAdjacent, distanceBetween, getDistanceMeters, getNeighbors, toKey, toMeters } from "./arena";
 import { getSkillPoints } from "./fighter-generation";
-import { HUMAN_BASE_ATTRIBUTES } from "./fighter-catalog";
 import { getObviousWoundState } from "./combat-observation";
+import {
+    AVERAGE_TASK_DIFFICULTY_MODIFIER,
+    getCheckTarget,
+} from "./check";
 import { CartesianPoint, Combatant, CommandKind, CommandScore, FormationContext, FormationRoleAssignment, HexCoord, HoldPositionAssessment } from "./model";
 import { CALM_COMMUNICATION_HEARING_PENALTY, PENETRATING_VOICE_HEARING_BONUS, SHOUT_HEARING_BONUS, getHearingDistanceModifier } from "./perception";
-import { getSoldierSpecialization, hasAdvantage } from "./scenario";
+import { getSoldierSpecialization, hasAdvantage, hasMilitaryCommandAuthority } from "./scenario";
 
 export const FORMATION_CONTACT_DISTANCE_HEXES = 3;
 
@@ -30,7 +33,7 @@ export const getFormationContext = (
             member.team === actor.team &&
             member.profile.lens.id === actor.profile.lens.id,
     );
-    const sergeant = squadMembers.find((member) => member.profile.commandLens);
+    const sergeant = squadMembers.find(hasMilitaryCommandAuthority);
     if (!sergeant) {
         return null;
     }
@@ -38,6 +41,7 @@ export const getFormationContext = (
     return {
         sergeant,
         squadMembers,
+        knownSquadMemberIds: actor.knownSquadMemberIds,
     };
 };
 
@@ -74,15 +78,20 @@ export const getCalmCommandHearingTarget = (
     sergeant: Combatant,
     recipient: Combatant,
 ): number =>
-    HUMAN_BASE_ATTRIBUTES.IQ +
-    SHOUT_HEARING_BONUS +
-    (hasAdvantage(sergeant, "penetrating_voice")
-        ? PENETRATING_VOICE_HEARING_BONUS
-        : 0) +
-    CALM_COMMUNICATION_HEARING_PENALTY +
-    getHearingDistanceModifier(
-        getDistanceMeters(sergeant.position, recipient.position),
-    );
+    getCheckTarget({
+        base: recipient.perception,
+        difficultyModifier: AVERAGE_TASK_DIFFICULTY_MODIFIER,
+        situationalModifiers: [
+            SHOUT_HEARING_BONUS,
+            hasAdvantage(sergeant, "penetrating_voice")
+                ? PENETRATING_VOICE_HEARING_BONUS
+                : 0,
+            CALM_COMMUNICATION_HEARING_PENALTY,
+            getHearingDistanceModifier(
+                getDistanceMeters(sergeant.position, recipient.position),
+            ),
+        ],
+    });
 
 export const getFormationRoleAssignment = (
     actor: Combatant,
@@ -344,6 +353,7 @@ export const chooseHoldFormationPosition = (
     teamAllies: Combatant[],
     enemies: Combatant[],
     blocked: Set<string>,
+    arenaCellKeys: ReadonlySet<string>,
 ): HexCoord => {
     const allies = context.squadMembers.filter((ally) => ally.id !== actor.id);
     const assignment = getFormationRoleAssignment(
@@ -354,7 +364,7 @@ export const chooseHoldFormationPosition = (
         (candidate) => {
             const key = toKey(candidate);
             return (
-                ARENA_CELL_BY_KEY.has(key) &&
+                arenaCellKeys.has(key) &&
                 (key === toKey(actor.position) || !blocked.has(key))
             );
         },
@@ -396,6 +406,18 @@ export const chooseCommand = (
         visiblyWounded >= Math.ceil(squad.length / 2);
     const isEngaged = engagedCount > 0;
     const enemyIsClose = closestEnemyDistance <= 3;
+    const unsupportedEngagedMember = squad.some(
+        (member) =>
+            enemies.some((enemy) =>
+                areAdjacent(member.position, enemy.position),
+            ) &&
+            !squad.some(
+                (ally) =>
+                    ally.id !== member.id &&
+                    areAdjacent(member.position, ally.position),
+            ),
+    );
+    const withdrawalIsExecutable = !unsupportedEngagedMember;
     const scores: CommandScore[] = [
         {
             command: "advance",
@@ -416,7 +438,9 @@ export const chooseCommand = (
         {
             command: "hold",
             score: healthEmergency
-                ? -20
+                ? withdrawalIsExecutable
+                    ? -20
+                    : 100
                 : (isEngaged &&
                       visiblyWounded >= Math.ceil(squad.length / 3)) ||
                     (!isEngaged && enemyIsClose)
@@ -425,7 +449,8 @@ export const chooseCommand = (
         },
         {
             command: "withdraw",
-            score: healthEmergency ? 100 : -100,
+            score:
+                healthEmergency && withdrawalIsExecutable ? 100 : -100,
         },
     ];
 

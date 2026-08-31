@@ -1,12 +1,20 @@
 import { generateObstacles, selectSpawnCells } from "./arena";
 import { TEAM_SIZE } from "./config";
-import { AMRITAR_DUST_SERGEANT_LENS_ID, AMRITAR_DUST_SPEARMAN_LENS_ID, AMRITAR_GUARD_OF_THE_HAND_LENS_ID, AMRITAR_GUARD_SERGEANT_LENS_ID, AdvantageId, AttributeKey, DisadvantageId, SkillSpecializationId, applyCommandLens, generateFighterProfile, getPrimaryCombatSkill, getSkillLevel, profileHasAdvantage } from "./fighter-generation";
+import { AMRITAR_DUST_SERGEANT_LENS_ID, AMRITAR_DUST_SPEARMAN_LENS_ID, AMRITAR_GUARD_OF_THE_HAND_LENS_ID, AMRITAR_GUARD_SERGEANT_LENS_ID, AdvantageId, AttributeKey, DisadvantageId, LeveledAdvantageId, SkillSpecializationId, applyCommandLens, generateFighterProfile, getPrimaryCombatSkill, getProfileLeveledAdvantageLevel, getSkillLevel, profileHasAdvantage } from "./fighter-generation";
 import { ArenaSetup, BehaviorFactors, Combatant, HexCoord, ManeuverKind, Team } from "./model";
+import { getInitialBodyFacing } from "./facing";
 import {
     initializeObservationMemories,
     updateFormationObservations,
 } from "./perception";
 import { createRandom } from "./random";
+
+const PERSISTENT_ORDER_EXPIRY_TURN = Number.MAX_SAFE_INTEGER;
+
+export const MILITARY_RANK = {
+    ENLISTED: 0,
+    SQUAD_LEADER: 1,
+} as const;
 
 export const BLUE_NAMES = [
     "Aquila",
@@ -113,10 +121,12 @@ export const createCombatants = (
             team,
             number: index + 1,
             name: names[index],
+            knownSquadMemberIds: [],
             profile,
             health: maxHealth,
             maxHealth,
             position,
+            bodyFacing: getInitialBodyFacing(team),
             lastMovementPath: [position],
             meleeSkill,
             block: shieldBlock === null ? null : shieldBlock + defenseBonus,
@@ -126,6 +136,7 @@ export const createCombatants = (
                 Math.floor(basicSpeed) + 3 + defenseBonus - equipment.movePenalty,
             ),
             healthAttribute: attributes.HT,
+            perception: attributes.IQ,
             basicMove: Math.max(3, Math.floor(basicSpeed) - equipment.movePenalty),
             weaponReach: equipment.weaponReach,
             damageBonus:
@@ -140,9 +151,10 @@ export const createCombatants = (
             evaluateBonus: 0,
             shockPenalty: 0,
             panicPenalty: 0,
-            stunnedRounds: 0,
+            isStunned: false,
             hasReceivedInitialOrder: false,
             receivedOrder: null,
+            receivedOrderSenderId: null,
             receivedOrderSpecialization: null,
             orderExpiresAfterTurn: -1,
             lastOrderChangeTurn: -1000,
@@ -161,13 +173,73 @@ export const createCombatants = (
             orderedFormationFacing: null,
             orderedFormationFacingExpiresAfterTurn: -1,
             observationMemory: [],
+            attentionFocus: {
+                combatantIds: [],
+                distanceModifier: null,
+                updatedTurn: -1,
+            },
+            threatAwarenessByCombatantId: {},
         };
     });
-    return assignInitialFormationRoles(combatants);
+    const formedCombatants = assignInitialFormationRoles(combatants);
+    return formedCombatants.map((combatant) => ({
+        ...combatant,
+        knownSquadMemberIds: formedCombatants
+            .filter(
+                (member) =>
+                    member.team === combatant.team &&
+                    member.profile.lens.id === combatant.profile.lens.id,
+            )
+            .map((member) => member.id),
+    }));
+};
+
+const assignInitialStandingOrders = (
+    combatants: Combatant[],
+): Combatant[] => {
+    const sergeantByLensId = new Map(
+        combatants
+            .filter(
+                (combatant) =>
+                    combatant.team === "blue" &&
+                    hasMilitaryCommandAuthority(combatant),
+            )
+            .map((sergeant) => [sergeant.profile.lens.id, sergeant]),
+    );
+
+    return combatants.map((combatant) => {
+        if (
+            combatant.team !== "blue" ||
+            hasMilitaryCommandAuthority(combatant)
+        ) {
+            return combatant;
+        }
+        const sergeant = sergeantByLensId.get(combatant.profile.lens.id);
+        if (!sergeant) return combatant;
+
+        return {
+            ...combatant,
+            hasReceivedInitialOrder: true,
+            receivedOrder: "await_orders",
+            receivedOrderSenderId: sergeant.id,
+            receivedOrderSpecialization: getSoldierSpecialization(combatant),
+            orderExpiresAfterTurn: PERSISTENT_ORDER_EXPIRY_TURN,
+            lastOrderChangeTurn: -1,
+        };
+    });
 };
 
 export const hasAdvantage = (actor: Combatant, advantage: AdvantageId): boolean =>
     profileHasAdvantage(actor.profile, advantage);
+
+export const getLeveledAdvantageLevel = (
+    actor: Combatant,
+    advantage: LeveledAdvantageId,
+): number | null => getProfileLeveledAdvantageLevel(actor.profile, advantage);
+
+export const hasMilitaryCommandAuthority = (actor: Combatant): boolean =>
+    (getLeveledAdvantageLevel(actor, "military_rank") ?? -1) >=
+    MILITARY_RANK.SQUAD_LEADER;
 
 export const hasDisadvantage = (
     actor: Combatant,
@@ -215,10 +287,10 @@ export const getBehaviorFactors = (actor: Combatant): BehaviorFactors => {
 export const createArenaSetup = (seed: number): ArenaSetup => {
     const obstacles = generateObstacles(seed);
     const blocked = new Set(obstacles.map((obstacle) => obstacle.key));
-    const initialCombatants = [
+    const initialCombatants = assignInitialStandingOrders([
             ...createCombatants("blue", selectSpawnCells("blue", blocked), seed),
             ...createCombatants("red", selectSpawnCells("red", blocked), seed),
-        ];
+        ]);
     const combatants = updateFormationObservations(
         initializeObservationMemories(initialCombatants, 0),
         [],

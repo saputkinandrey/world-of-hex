@@ -31,6 +31,7 @@ export const COMBAT_LENSES: CombatLens[] = [
             },
         ],
         advantages: [],
+        leveledAdvantages: [{ id: "military_rank", level: 0 }],
         disadvantages: ["duty"],
         equipment: {
             weapon: "spear and knife",
@@ -71,6 +72,7 @@ export const COMBAT_LENSES: CombatLens[] = [
             },
         ],
         advantages: ["combat_reflexes", "high_pain_threshold"],
+        leveledAdvantages: [{ id: "military_rank", level: 0 }],
         disadvantages: ["duty", "code_of_honor"],
         equipment: {
             weapon: "spear and Hand of Ra",
@@ -93,6 +95,7 @@ export const COMBAT_LENSES: CombatLens[] = [
             { id: "tactics", label: "Tactics", attribute: "IQ", relativeLevel: -1 },
         ],
         advantages: ["combat_reflexes", "high_pain_threshold"],
+        leveledAdvantages: [],
         disadvantages: ["overconfidence"],
         equipment: {
             weapon: "gladius",
@@ -115,6 +118,7 @@ export const COMBAT_LENSES: CombatLens[] = [
             { id: "tactics", label: "Tactics", attribute: "IQ", relativeLevel: 0 },
         ],
         advantages: ["combat_reflexes", "fit"],
+        leveledAdvantages: [],
         disadvantages: ["code_of_honor"],
         equipment: {
             weapon: "spear",
@@ -137,6 +141,7 @@ export const COMBAT_LENSES: CombatLens[] = [
             { id: "tactics", label: "Tactics", attribute: "IQ", relativeLevel: -1 },
         ],
         advantages: ["flexibility"],
+        leveledAdvantages: [],
         disadvantages: ["impulsiveness"],
         equipment: {
             weapon: "sica",
@@ -159,6 +164,7 @@ export const COMBAT_LENSES: CombatLens[] = [
             { id: "tactics", label: "Tactics", attribute: "IQ", relativeLevel: 0 },
         ],
         advantages: ["peripheral_vision", "fit"],
+        leveledAdvantages: [],
         disadvantages: ["overconfidence"],
         equipment: {
             weapon: "trident",
@@ -181,6 +187,7 @@ export const COMBAT_LENSES: CombatLens[] = [
             { id: "tactics", label: "Tactics", attribute: "IQ", relativeLevel: 0 },
         ],
         advantages: ["high_pain_threshold"],
+        leveledAdvantages: [],
         disadvantages: ["stubbornness"],
         equipment: {
             weapon: "gladius",
@@ -210,6 +217,7 @@ export const COMMAND_LENSES: CommandLens[] = [
             },
         ],
         advantages: ["penetrating_voice"],
+        leveledAdvantages: [{ id: "military_rank", level: 1 }],
         equipmentModifier: {
             additions: ["red command sash", "spear pennon"],
             identificationVisionBonus: 3,
@@ -229,6 +237,7 @@ export const COMMAND_LENSES: CommandLens[] = [
             },
         ],
         advantages: ["penetrating_voice"],
+        leveledAdvantages: [{ id: "military_rank", level: 1 }],
         equipmentModifier: {
             additions: ["high bronze crest", "gold command mantle"],
             identificationVisionBonus: 3,
@@ -245,6 +254,7 @@ export const TIRO_LENS: CombatLens = {
         { id: "tactics", label: "Tactics", attribute: "IQ", relativeLevel: -2 },
     ],
     advantages: [],
+    leveledAdvantages: [],
     disadvantages: ["cowardice"],
     equipment: {
         weapon: "wooden club",

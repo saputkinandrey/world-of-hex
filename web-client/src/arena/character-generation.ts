@@ -1,4 +1,4 @@
-import type { AdvantageId, AttributeKey, AttributeSet, CombatLens, GeneratedFighterProfile, MutationLedger, RandomSource, SkillSpecializationId } from "./character-model";
+import type { AdvantageId, AttributeKey, AttributeSet, CombatLens, GeneratedFighterProfile, LeveledAdvantageId, MutationLedger, RandomSource, SkillSpecializationId } from "./character-model";
 import { COMBAT_LENSES, COMMAND_LENSES, HUMAN_BASE_ATTRIBUTES, TIRO_LENS } from "./fighter-catalog";
 
 const ATTRIBUTE_KEYS: AttributeKey[] = ["ST", "DX", "IQ", "HT"];
@@ -157,6 +157,24 @@ export const profileHasAdvantage = (
 ): boolean =>
     profile.lens.advantages.includes(advantage) ||
     Boolean(profile.commandLens?.advantages.includes(advantage));
+
+export const getProfileLeveledAdvantageLevel = (
+    profile: GeneratedFighterProfile,
+    advantage: LeveledAdvantageId,
+): number | null => {
+    const levels = [
+        ...profile.lens.leveledAdvantages,
+        ...(profile.commandLens?.leveledAdvantages ?? []),
+    ]
+        .filter((candidate) => candidate.id === advantage)
+        .map((candidate) => candidate.level);
+
+    if (levels.some((level) => !Number.isInteger(level) || level < 0)) {
+        throw new Error(`Invalid level for advantage ${advantage}.`);
+    }
+
+    return levels.length > 0 ? Math.max(...levels) : null;
+};
 
 export const getPrimaryCombatSkill = (profile: GeneratedFighterProfile): number => {
     const primarySkill = profile.lens.skills.find(

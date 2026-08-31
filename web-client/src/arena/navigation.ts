@@ -1,4 +1,4 @@
-import { ARENA_CELLS, ARENA_CELL_BY_KEY, areAdjacent, distanceBetween, getNeighbors, toKey, toMeters } from "./arena";
+import { areAdjacent, distanceBetween, getNeighbors, toKey, toMeters } from "./arena";
 import { UNENCUMBERED_OBSERVED_MOVE_HEXES } from "./config";
 import { Combatant, HexCoord } from "./model";
 
@@ -58,11 +58,12 @@ export const findPathNearCombatant = (
     actor: Combatant,
     target: Combatant,
     blocked: Set<string>,
+    arenaCellKeys: ReadonlySet<string>,
 ): HexCoord[] =>
     getNeighbors(target.position)
         .filter((candidate) => {
             const key = toKey(candidate);
-            return ARENA_CELL_BY_KEY.has(key) && !blocked.has(key);
+            return arenaCellKeys.has(key) && !blocked.has(key);
         })
         .map((candidate) => findPathToDestination(actor, candidate, blocked))
         .filter((path) => path.length > 0)
@@ -72,6 +73,7 @@ export const findStepTowardSquadCenter = (
     actor: Combatant,
     squadMembers: Combatant[],
     blocked: Set<string>,
+    arenaCellKeys: ReadonlySet<string>,
 ): HexCoord | undefined => {
     if (squadMembers.length === 0) {
         return undefined;
@@ -91,7 +93,7 @@ export const findStepTowardSquadCenter = (
     const bestStep = getNeighbors(actor.position)
         .filter((candidate) => {
             const key = toKey(candidate);
-            return ARENA_CELL_BY_KEY.has(key) && !blocked.has(key);
+            return arenaCellKeys.has(key) && !blocked.has(key);
         })
         .sort(
             (left, right) =>
@@ -108,11 +110,12 @@ export const findPathToAttackPosition = (
     actor: Combatant,
     enemies: Combatant[],
     blocked: Set<string>,
+    arenaCells: HexCoord[],
 ): HexCoord[] => {
     const startKey = toKey(actor.position);
     const goalKeys = new Set<string>();
 
-    ARENA_CELLS.forEach((cell) => {
+    arenaCells.forEach((cell) => {
         const key = toKey(cell);
         if (
             (!blocked.has(key) || key === startKey) &&
@@ -170,8 +173,9 @@ export const canReachWithAttackThisRound = (
     target: Combatant,
     combatants: Combatant[],
     obstacleKeys: Set<string>,
+    arenaCells: HexCoord[],
 ): boolean => {
-    if (attacker.stunnedRounds > 0) {
+    if (attacker.isStunned) {
         return false;
     }
     if (
@@ -190,7 +194,12 @@ export const canReachWithAttackThisRound = (
             )
             .map((combatant) => toKey(combatant.position)),
     ]);
-    const path = findPathToAttackPosition(attacker, [target], blocked);
+    const path = findPathToAttackPosition(
+        attacker,
+        [target],
+        blocked,
+        arenaCells,
+    );
     const observedMove = Math.max(
         3,
         UNENCUMBERED_OBSERVED_MOVE_HEXES -
@@ -203,6 +212,8 @@ export const findWithdrawalDestination = (
     actor: Combatant,
     enemies: Combatant[],
     blocked: Set<string>,
+    supportPositions: HexCoord[] = [],
+    maximumSupportDistance = Number.POSITIVE_INFINITY,
 ): HexCoord | undefined => {
     const maxSteps = Math.max(1, Math.ceil(actor.basicMove / 2));
     const startKey = toKey(actor.position);
@@ -223,7 +234,14 @@ export const findWithdrawalDestination = (
             ...enemies.map((enemy) => distanceBetween(current, enemy.position)),
         );
 
-        if (score > bestScore) {
+        const remainsSupported =
+            supportPositions.length === 0 ||
+            supportPositions.some(
+                (position) =>
+                    distanceBetween(current, position) <=
+                    maximumSupportDistance,
+            );
+        if (remainsSupported && score > bestScore) {
             bestScore = score;
             bestCoord = current;
         }
@@ -248,10 +266,11 @@ export const findConcentrationStep = (
     actor: Combatant,
     enemies: Combatant[],
     blocked: Set<string>,
+    arenaCellKeys: ReadonlySet<string>,
 ): HexCoord | undefined => {
     const candidates = getNeighbors(actor.position).filter((candidate) => {
         const key = toKey(candidate);
-        return ARENA_CELL_BY_KEY.has(key) && !blocked.has(key);
+        return arenaCellKeys.has(key) && !blocked.has(key);
     });
     if (candidates.length === 0 || enemies.length === 0) {
         return undefined;

@@ -1,7 +1,14 @@
 import { getSkillLevel } from "./fighter-generation";
+import { distanceBetween } from "./arena";
+import { SIMPLE_FORMATION_RADIUS_HEXES } from "./formation";
+import {
+    AVERAGE_TASK_DIFFICULTY_MODIFIER,
+    getCheckTarget,
+} from "./check";
 import type {
     AmbientInterference,
     Combatant,
+    CombatantObservationMemory,
     CommandKind,
     OrderAssessment,
     OrderAssessmentResult,
@@ -13,38 +20,64 @@ import { getObservationVisualPenalty } from "./perception";
 import { rollDice } from "./random";
 import { POOR_ORDER_COMPLIANCE_RATIO } from "./command-config";
 
-export const doesManeuverFollowOrder = (
-    combatant: Combatant,
+export const doesObservedActionFollowOrder = (
+    observation: CombatantObservationMemory,
     order: CommandKind,
 ): boolean => {
-    if (combatant.receivedOrder !== order || combatant.stunnedRounds > 0) {
-        return false;
+    if (order === "await_orders") {
+        return (
+            observation.observedActionPurpose === "defending" ||
+            observation.observedActionPurpose === "holding_position" ||
+            observation.observedActionPurpose === "regrouping_with_allies" ||
+            observation.observedActionPurpose === "engaging_enemy"
+        );
     }
     if (order === "advance") {
         return (
-            combatant.maneuver === "move" ||
-            combatant.maneuver === "move_and_attack"
+            observation.observedActionPurpose === "closing_with_enemy" ||
+            observation.observedActionPurpose === "engaging_enemy" ||
+            observation.observedActionPurpose === "regrouping_with_allies"
         );
     }
     if (order === "press") {
         return (
-            combatant.maneuver === "attack" ||
-            combatant.maneuver === "move_and_attack" ||
-            combatant.maneuver === "all_out_attack"
+            observation.observedActionPurpose === "closing_with_enemy" ||
+            observation.observedActionPurpose === "engaging_enemy"
         );
     }
     if (order === "withdraw") {
-        return (
-            combatant.maneuver === "move" ||
-            combatant.maneuver === "all_out_defense"
-        );
+        return observation.observedActionPurpose === "withdrawing_from_enemy";
     }
 
     return (
-        combatant.maneuver === "attack" ||
-        combatant.maneuver === "all_out_defense" ||
-        combatant.maneuver === "evaluate" ||
-        combatant.maneuver === "wait"
+        observation.observedActionPurpose === "engaging_enemy" ||
+        observation.observedActionPurpose === "defending" ||
+        observation.observedActionPurpose === "holding_position" ||
+        observation.observedActionPurpose === "regrouping_with_allies"
+    );
+};
+
+export const hasObservedOwnOrderExecutionStarted = (
+    sergeant: Combatant,
+    observedSubordinates: Combatant[],
+    round: number,
+): boolean => {
+    const order = sergeant.receivedOrder;
+    if (order === null || sergeant.receivedOrderSenderId !== sergeant.id) {
+        return true;
+    }
+    if (round <= sergeant.lastOrderChangeTurn + 1) {
+        return false;
+    }
+
+    const subordinateIds = new Set(
+        observedSubordinates.map((subordinate) => subordinate.id),
+    );
+    return sergeant.observationMemory.some(
+        (observation) =>
+            subordinateIds.has(observation.combatantId) &&
+            observation.actionObservedTurn === round &&
+            doesObservedActionFollowOrder(observation, order),
     );
 };
 
@@ -66,7 +99,11 @@ export const resolveTacticalAssessment = (
         ambient,
     );
     const tacticsSkill = getSkillLevel(sergeant.profile, "tactics") ?? 6;
-    const tacticsTarget = tacticsSkill + visualPenalty;
+    const tacticsTarget = getCheckTarget({
+        base: tacticsSkill,
+        difficultyModifier: AVERAGE_TASK_DIFFICULTY_MODIFIER,
+        situationalModifiers: [visualPenalty],
+    });
     const tacticsRoll = rollDice(
         3,
         6,
@@ -109,7 +146,11 @@ export const resolveOrderAssessment = (
         ambient,
     );
     const tacticsSkill = getSkillLevel(sergeant.profile, "tactics") ?? 6;
-    const tacticsTarget = tacticsSkill + visualPenalty;
+    const tacticsTarget = getCheckTarget({
+        base: tacticsSkill,
+        difficultyModifier: AVERAGE_TASK_DIFFICULTY_MODIFIER,
+        situationalModifiers: [visualPenalty],
+    });
     const tacticsRoll = rollDice(
         3,
         6,
@@ -117,13 +158,28 @@ export const resolveOrderAssessment = (
         round,
         `${sergeant.id}:assess-order:tactics`,
     );
-    const following = subordinates.filter((member) =>
-        doesManeuverFollowOrder(member, order),
-    ).length;
+    const following = subordinates.filter((member) => {
+        const observation = sergeant.observationMemory.find(
+            (memory) =>
+                memory.combatantId === member.id &&
+                memory.actionObservedTurn === round,
+        );
+        return (
+            observation !== undefined &&
+            doesObservedActionFollowOrder(observation, order) &&
+            (order !== "withdraw" ||
+                distanceBetween(member.position, sergeant.position) <=
+                    SIMPLE_FORMATION_RADIUS_HEXES)
+        );
+    }).length;
     const complianceRatio =
         subordinates.length > 0 ? following / subordinates.length : 1;
     const actualAssessment: OrderAssessment =
-        complianceRatio < POOR_ORDER_COMPLIANCE_RATIO ? "poor" : "adequate";
+        subordinates.length === 0
+            ? "unknown"
+            : complianceRatio < POOR_ORDER_COMPLIANCE_RATIO
+              ? "poor"
+              : "adequate";
     const criticalFailure = isGurpsCriticalFailure(
         tacticsRoll.total,
         tacticsTarget,

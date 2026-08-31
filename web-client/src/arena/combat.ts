@@ -1,4 +1,15 @@
-import { ActiveDefenseKind, ActiveDefenseOption, AttackResolution, Combatant, DefenseUsage } from "./model";
+import type {
+    ActiveDefenseKind,
+    ActiveDefenseOption,
+    AttackResolution,
+    Combatant,
+    DefenseUsage,
+} from "./model";
+import {
+    AVERAGE_TASK_DIFFICULTY_MODIFIER,
+    getCheckTarget,
+} from "./check";
+import { THREAT_AWARENESS_DURATION_ROUNDS } from "./config";
 import { rollDice } from "./random";
 
 export const MOVE_AND_ATTACK_SKILL_CAP = 9;
@@ -8,6 +19,18 @@ export const ALL_OUT_ATTACK_SKILL_BONUS = 4;
 export const ALL_OUT_DEFENSE_BONUS = 2;
 
 export const MAX_SHOCK_PENALTY = 4;
+
+export const isAwareOfAttacker = (
+    target: Combatant,
+    actor: Combatant,
+    round: number,
+): boolean =>
+    target.observationMemory.some(
+        (memory) =>
+            memory.combatantId === actor.id && memory.lastSeenTurn === round,
+    ) ||
+    round - (target.threatAwarenessByCombatantId[actor.id] ?? -1000) <=
+        THREAT_AWARENESS_DURATION_ROUNDS;
 
 export const getAttackSkill = (actor: Combatant): number => {
     const baseSkill =
@@ -37,12 +60,20 @@ export const chooseActiveDefense = (
     const options: ActiveDefenseOption[] = [
         {
             kind: "parry",
-            target: target.parry - usage.parries * 4 + maneuverBonus,
+            target: getCheckTarget({
+                base: target.parry,
+                difficultyModifier: AVERAGE_TASK_DIFFICULTY_MODIFIER,
+                situationalModifiers: [usage.parries * -4, maneuverBonus],
+            }),
             penalty: usage.parries * -4,
         },
         {
             kind: "dodge",
-            target: target.dodge - usage.dodges + maneuverBonus,
+            target: getCheckTarget({
+                base: target.dodge,
+                difficultyModifier: AVERAGE_TASK_DIFFICULTY_MODIFIER,
+                situationalModifiers: [usage.dodges * -1, maneuverBonus],
+            }),
             penalty: usage.dodges * -1,
         },
     ];
@@ -50,7 +81,11 @@ export const chooseActiveDefense = (
     if (target.block !== null && usage.blocks === 0) {
         options.push({
             kind: "block",
-            target: target.block + maneuverBonus,
+            target: getCheckTarget({
+                base: target.block,
+                difficultyModifier: AVERAGE_TASK_DIFFICULTY_MODIFIER,
+                situationalModifiers: [maneuverBonus],
+            }),
             penalty: 0,
         });
     }
@@ -87,7 +122,14 @@ export const resolveAttack = (
     seed: number,
     round: number,
 ): AttackResolution => {
-    const effectiveSkill = Math.max(3, getAttackSkill(actor));
+    const effectiveSkill = Math.max(
+        3,
+        getCheckTarget({
+            base: getAttackSkill(actor),
+            difficultyModifier: AVERAGE_TASK_DIFFICULTY_MODIFIER,
+            situationalModifiers: [],
+        }),
+    );
     const attackRoll = rollDice(3, 6, seed, round, `${actor.id}:attack`);
     const criticalHit = attackRoll.total <= 4;
     const automaticMiss = attackRoll.total >= 17;
@@ -103,7 +145,11 @@ export const resolveAttack = (
         };
     }
 
-    const defenseAllowed = !criticalHit && target.maneuver !== "all_out_attack";
+    const awareOfAttacker = isAwareOfAttacker(target, actor, round);
+    const defenseAllowed =
+        !criticalHit &&
+        target.maneuver !== "all_out_attack" &&
+        awareOfAttacker;
     const defense = defenseAllowed
         ? chooseActiveDefense(target, defenseUsage)
         : null;
@@ -128,6 +174,9 @@ export const resolveAttack = (
         defense && defenseRoll
             ? `${target.name}: ${ACTIVE_DEFENSE_LABELS[defense.kind]}${defensePenaltyLabel} ${defenseRoll.total}/${defense.target}${defenseSucceeded ? "." : " — провал."}`
             : null;
+    const awarenessMessage = !awareOfAttacker
+        ? `${target.name}: атака не замечена — активная защита невозможна.`
+        : null;
 
     if (defenseSucceeded) {
         return {
@@ -153,9 +202,12 @@ export const resolveAttack = (
               ]
             : [`${target.name}: броня останавливает удар.`];
 
+    const defenseMessages = [awarenessMessage, defenseMessage].filter(
+        (message): message is string => message !== null,
+    );
     return {
         targetId: target.id,
         injury,
-        messages: defenseMessage ? [defenseMessage, ...messages] : messages,
+        messages: [...defenseMessages, ...messages],
     };
 };

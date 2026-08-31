@@ -20,17 +20,21 @@ const compileArenaEngine = (projectRoot) => {
         "utf8",
     );
 
-    for (const entry of fs.readdirSync(sourceDirectory, {
-        withFileTypes: true,
-    })) {
-        if (!entry.isFile() || !entry.name.endsWith(".ts")) {
-            continue;
-        }
-        const sourcePath = path.join(sourceDirectory, entry.name);
+    const sourcePaths = fs
+        .readdirSync(sourceDirectory, {
+            recursive: true,
+            withFileTypes: true,
+        })
+        .filter((entry) => entry.isFile() && entry.name.endsWith(".ts"))
+        .map((entry) => path.join(entry.parentPath, entry.name));
+
+    for (const sourcePath of sourcePaths) {
+        const relativeSourcePath = path.relative(sourceDirectory, sourcePath);
         const outputPath = path.join(
             outputDirectory,
-            entry.name.replace(/\.ts$/, ".js"),
+            relativeSourcePath.replace(/\.ts$/, ".js"),
         );
+        fs.mkdirSync(path.dirname(outputPath), { recursive: true });
         const compiled = ts.transpileModule(
             fs.readFileSync(sourcePath, "utf8"),
             {

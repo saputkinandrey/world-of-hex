@@ -7,6 +7,7 @@ import type {
 } from "./model";
 import { findPathToDestination } from "./navigation";
 import { hasFormationFacingChanged } from "./perception";
+import { getFacingToward } from "./facing";
 import { createRandom, shuffle } from "./random";
 
 export interface MovementResolutionInput {
@@ -26,6 +27,10 @@ export const prepareCombatantsForTurn = (
         receivedOrder:
             combatant.orderExpiresAfterTurn >= turn
                 ? combatant.receivedOrder
+                : null,
+        receivedOrderSenderId:
+            combatant.orderExpiresAfterTurn >= turn
+                ? combatant.receivedOrderSenderId
                 : null,
         receivedOrderSpecialization:
             combatant.orderExpiresAfterTurn >= turn
@@ -85,6 +90,7 @@ export const resolveMovement = ({
     });
 
     return combatants.map((combatant) => {
+        const intent = intentByActorId.get(combatant.id);
         const moveTarget = moveByActorId.get(combatant.id);
         const movementBlockers = new Set([
             ...obstacleKeys,
@@ -98,17 +104,32 @@ export const resolveMovement = ({
         const movementPath = moveTarget
             ? findPathToDestination(combatant, moveTarget, movementBlockers)
             : [];
+        const previousMovementPosition =
+            movementPath.length > 1
+                ? movementPath[movementPath.length - 2]
+                : combatant.position;
+        const bodyFacing =
+            intent?.facingTarget
+                ? getFacingToward(
+                      moveTarget ?? combatant.position,
+                      intent.facingTarget,
+                      combatant.bodyFacing,
+                  )
+                : moveTarget && intent?.movementMode !== "backward"
+                ? getFacingToward(
+                      previousMovementPosition,
+                      moveTarget,
+                      combatant.bodyFacing,
+                  )
+                : combatant.bodyFacing;
 
         return {
             ...combatant,
             lastMovementPath: [combatant.position, ...movementPath],
-            maneuver:
-                intentByActorId.get(combatant.id)?.maneuver ??
-                combatant.maneuver,
-            actionState:
-                intentByActorId.get(combatant.id)?.actionState ??
-                combatant.actionState,
+            maneuver: intent?.maneuver ?? combatant.maneuver,
+            actionState: intent?.actionState ?? combatant.actionState,
             position: moveTarget ?? combatant.position,
+            bodyFacing,
         };
     });
 };

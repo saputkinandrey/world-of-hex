@@ -1,10 +1,18 @@
 export { ARENA_CELLS, toKey } from "./arena";
-export { selectAction } from "./action-system";
+export {
+    ActionEnterRejectedError,
+    applyFreeActions,
+    selectAction,
+} from "./action-system";
 export type {
     ActionCandidate,
+    ActionCondition,
     ActionDefinition,
+    ActionLifecycleState,
     ActionRuntimeState,
     ActionSelection,
+    FreeActionDefinition,
+    FreeActionCondition,
 } from "./action-system";
 export { TEAM_SIZE } from "./config";
 export type {
@@ -17,8 +25,11 @@ export type {
 } from "./model";
 export {
     ATTRIBUTE_KEYS,
+    MILITARY_RANK,
     applyMixedSpecializationScenario,
     createArenaSetup,
+    getLeveledAdvantageLevel,
     getSoldierSpecialization,
+    hasMilitaryCommandAuthority,
 } from "./scenario";
 export { advanceArena } from "./simulation";

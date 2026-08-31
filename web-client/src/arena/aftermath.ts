@@ -1,17 +1,23 @@
 import { MAX_SHOCK_PENALTY } from "./combat";
 import {
+    AVERAGE_TASK_DIFFICULTY_MODIFIER,
+    getCheckTarget,
+} from "./check";
+import {
     FOCUS_DURATION_ROUNDS,
     INDIVIDUAL_DIRECTIVE_DURATION_ROUNDS,
     ORDER_DURATION_ROUNDS,
 } from "./communication";
 import { MAX_EVALUATE_BONUS } from "./decision";
 import type { Combatant, CommandResolution } from "./model";
+import { recordThreatObservations } from "./perception";
 import { rollDice } from "./random";
-import { hasAdvantage } from "./scenario";
+import { hasAdvantage, hasMilitaryCommandAuthority } from "./scenario";
 
 export interface ResolveAftermathInput {
     combatants: Combatant[];
     damageByTarget: Map<string, number>;
+    attackerIdsByTargetId: Map<string, string[]>;
     communication: CommandResolution;
     orderChangeSenderIds: Set<string>;
     messages: string[];
@@ -27,6 +33,7 @@ export interface AftermathResult {
 export const resolveAftermath = ({
     combatants,
     damageByTarget,
+    attackerIdsByTargetId,
     communication,
     orderChangeSenderIds,
     messages,
@@ -45,6 +52,8 @@ export const resolveAftermath = ({
     );
 
     const resolvedCombatants = combatants.map((combatant) => {
+        const attackerIds =
+            attackerIdsByTargetId.get(combatant.id) ?? [];
         const injury = damageByTarget.get(combatant.id) ?? 0;
         const health = Math.max(0, combatant.health - injury);
         const majorWound = injury >= combatant.maxHealth / 2;
@@ -57,12 +66,38 @@ export const resolveAftermath = ({
                   `${combatant.id}:major-wound`,
               )
             : null;
-        const majorWoundTarget =
-            combatant.healthAttribute +
-            (hasAdvantage(combatant, "high_pain_threshold") ? 3 : 0) +
-            (hasAdvantage(combatant, "fit") ? 1 : 0);
+        const majorWoundTarget = getCheckTarget({
+            base: combatant.healthAttribute,
+            difficultyModifier: AVERAGE_TASK_DIFFICULTY_MODIFIER,
+            situationalModifiers: [
+                hasAdvantage(combatant, "high_pain_threshold") ? 3 : 0,
+                hasAdvantage(combatant, "fit") ? 1 : 0,
+            ],
+        });
         const newlyStunned = Boolean(
             healthRoll && healthRoll.total > majorWoundTarget,
+        );
+        const spentTurnStunned =
+            combatant.isStunned &&
+            combatant.maneuver === "do_nothing";
+        const stunRecoveryTarget = getCheckTarget({
+            base: combatant.healthAttribute,
+            difficultyModifier: AVERAGE_TASK_DIFFICULTY_MODIFIER,
+            situationalModifiers: [],
+        });
+        const stunRecoveryRoll =
+            health > 0 && spentTurnStunned && !newlyStunned
+                ? rollDice(
+                      3,
+                      6,
+                      seed,
+                      turn,
+                      `${combatant.id}:stun-recovery`,
+                  )
+                : null;
+        const recoveredFromStun = Boolean(
+            stunRecoveryRoll &&
+                stunRecoveryRoll.total <= stunRecoveryTarget,
         );
         const teamMembers = combatants.filter(
             (member) => member.team === combatant.team,
@@ -74,7 +109,7 @@ export const resolveAftermath = ({
         const sergeantDown = teamMembers.some(
             (member) =>
                 member.profile.lens.id === combatant.profile.lens.id &&
-                member.profile.commandLens &&
+                hasMilitaryCommandAuthority(member) &&
                 (projectedHealthById.get(member.id) ?? 0) <= 0,
         );
         const rawPanicPenalty =
@@ -85,6 +120,8 @@ export const resolveAftermath = ({
             (hasAdvantage(combatant, "combat_reflexes") ? 1 : 0);
         const acceptedOrder =
             communication.ordersByCombatantId.get(combatant.id);
+        const acceptedOrderSenderId =
+            communication.orderSendersByCombatantId.get(combatant.id);
         const acceptedOrderSpecialization =
             communication.orderSpecializationsByCombatantId.get(
                 combatant.id,
@@ -114,9 +151,26 @@ export const resolveAftermath = ({
                 `${combatant.name}: С‚СЏР¶С‘Р»Р°СЏ СЂР°РЅР°, HT ${healthRoll.total}/${majorWoundTarget} вЂ” РѕРіР»СѓС€РµРЅРёРµ.`,
             );
         }
+        if (stunRecoveryRoll) {
+            messages.push(
+                `${combatant.name}: Stun recovery HT ${stunRecoveryRoll.total}/${stunRecoveryTarget} - ${recoveredFromStun ? "recovered" : "remains stunned"}.`,
+            );
+        }
 
         return {
             ...combatant,
+            observationMemory: recordThreatObservations(
+                combatant,
+                combatants,
+                attackerIds,
+                turn,
+            ),
+            threatAwarenessByCombatantId: {
+                ...combatant.threatAwarenessByCombatantId,
+                ...Object.fromEntries(
+                    attackerIds.map((attackerId) => [attackerId, turn]),
+                ),
+            },
             health,
             evaluateBonus:
                 combatant.maneuver === "evaluate"
@@ -131,14 +185,17 @@ export const resolveAftermath = ({
             )
                 ? 0
                 : Math.min(MAX_SHOCK_PENALTY, injury),
-            stunnedRounds: newlyStunned
-                ? 1
-                : Math.max(0, combatant.stunnedRounds - 1),
+            isStunned:
+                newlyStunned ||
+                (combatant.isStunned && !recoveredFromStun),
             panicPenalty: Math.max(0, Math.min(4, rawPanicPenalty)),
             hasReceivedInitialOrder:
                 acceptedOrder !== undefined ||
                 combatant.hasReceivedInitialOrder,
             receivedOrder: acceptedOrder ?? combatant.receivedOrder,
+            receivedOrderSenderId: acceptedOrder
+                ? acceptedOrderSenderId ?? null
+                : combatant.receivedOrderSenderId,
             receivedOrderSpecialization: acceptedOrder
                 ? acceptedOrderSpecialization ?? null
                 : combatant.receivedOrderSpecialization,

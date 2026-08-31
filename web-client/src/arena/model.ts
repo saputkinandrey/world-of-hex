@@ -18,7 +18,14 @@ export type ManeuverKind =
     | "evaluate"
     | "wait";
 
-export type CommandKind = "advance" | "press" | "hold" | "withdraw";
+export type MovementMode = "forward" | "backward";
+
+export type CommandKind =
+    | "await_orders"
+    | "advance"
+    | "press"
+    | "hold"
+    | "withdraw";
 
 export type IndividualDirectiveKind = "regroup";
 
@@ -30,14 +37,38 @@ export type FormationRole =
 
 export type ObviousWoundState = "unhurt" | "wounded" | "badly_wounded";
 
+export type ObservedActionPurpose =
+    | "closing_with_enemy"
+    | "engaging_enemy"
+    | "withdrawing_from_enemy"
+    | "regrouping_with_allies"
+    | "defending"
+    | "holding_position"
+    | "communicating_or_observing"
+    | "unknown";
+
+export type AttentionFocus = {
+    combatantIds: string[];
+    distanceModifier: number | null;
+    updatedTurn: number;
+};
+
 export type CombatantObservationMemory = {
     combatantId: string;
     team: Team;
+    identityKnown: boolean;
     lastKnownPosition: HexCoord;
     lastKnownManeuver: ManeuverKind;
     obviousWoundState: ObviousWoundState;
     observedAlive: boolean;
     lastSeenTurn: number;
+    observedActionPurpose: ObservedActionPurpose;
+    actionObservedTurn: number;
+};
+
+export type CombatantObservationBelief = CombatantObservationMemory & {
+    observedThisTurn: boolean;
+    positionUncertaintyHexes: number;
 };
 
 export type CommunicationKind =
@@ -78,16 +109,19 @@ export type Combatant = {
     team: Team;
     number: number;
     name: string;
+    knownSquadMemberIds: string[];
     profile: GeneratedFighterProfile;
     health: number;
     maxHealth: number;
     position: HexCoord;
+    bodyFacing: HexCoord;
     lastMovementPath: HexCoord[];
     meleeSkill: number;
     block: number | null;
     parry: number;
     dodge: number;
     healthAttribute: number;
+    perception: number;
     basicMove: number;
     weaponReach: number;
     damageBonus: number;
@@ -97,9 +131,10 @@ export type Combatant = {
     evaluateBonus: number;
     shockPenalty: number;
     panicPenalty: number;
-    stunnedRounds: number;
+    isStunned: boolean;
     hasReceivedInitialOrder: boolean;
     receivedOrder: CommandKind | null;
+    receivedOrderSenderId: string | null;
     receivedOrderSpecialization: SkillSpecializationId | null;
     orderExpiresAfterTurn: number;
     lastOrderChangeTurn: number;
@@ -118,6 +153,8 @@ export type Combatant = {
     orderedFormationFacing: CartesianPoint | null;
     orderedFormationFacingExpiresAfterTurn: number;
     observationMemory: CombatantObservationMemory[];
+    attentionFocus: AttentionFocus;
+    threatAwarenessByCombatantId: Record<string, number>;
 };
 
 export type BattleState = {
@@ -138,7 +175,11 @@ export type ArenaSetup = {
 export type BattleIntent = {
     actorId: string;
     maneuver: ManeuverKind;
+    attackTargetId?: string;
+    attentionTargetIds?: string[];
     moveTarget?: HexCoord;
+    movementMode?: MovementMode;
+    facingTarget?: HexCoord;
     communicationPlan?: CommunicationPlan;
     actionState: ActionRuntimeState;
 };
@@ -198,6 +239,7 @@ export type CommandScore = {
 export type FormationContext = {
     sergeant: Combatant;
     squadMembers: Combatant[];
+    knownSquadMemberIds: string[];
 };
 
 export type FormationRoleAssignment = {
@@ -222,6 +264,7 @@ export type HoldPositionAssessment = {
 
 export type CommandResolution = {
     ordersByCombatantId: Map<string, CommandKind>;
+    orderSendersByCombatantId: Map<string, string>;
     directivesByCombatantId: Map<string, IndividualDirectiveKind>;
     orderSpecializationsByCombatantId: Map<
         string,
@@ -270,6 +313,7 @@ export type HearingDiagnostic = {
     baseHearing: number;
     shoutBonus: number;
     penetratingVoiceBonus: number;
+    expectedOrderBonus: number;
     interferencePenalty: number;
     distanceModifier: number;
     effectiveHearing: number;

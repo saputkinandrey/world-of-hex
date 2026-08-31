@@ -17,6 +17,13 @@ export type AdvantageId =
     | "flexibility"
     | "penetrating_voice";
 
+export type LeveledAdvantageId = "military_rank";
+
+export interface LeveledAdvantage {
+    id: LeveledAdvantageId;
+    level: number;
+}
+
 export type DisadvantageId =
     | "overconfidence"
     | "impulsiveness"
@@ -53,6 +60,7 @@ export type CombatLens = {
     requirements: Partial<AttributeSet>;
     skills: LensSkill[];
     advantages: AdvantageId[];
+    leveledAdvantages: LeveledAdvantage[];
     disadvantages: DisadvantageId[];
     equipment: EquipmentLoadout;
 };
@@ -68,6 +76,7 @@ export type CommandLens = {
     allowedCombatLensIds: string[];
     skills: LensSkill[];
     advantages: AdvantageId[];
+    leveledAdvantages: LeveledAdvantage[];
     equipmentModifier: CommandEquipmentModifier;
 };
 

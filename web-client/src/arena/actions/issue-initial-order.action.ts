@@ -1,0 +1,103 @@
+import { areAdjacent } from "../arena";
+import { getCommandPlanningDelay } from "../command-config";
+import { chooseCommand } from "../formation";
+import {
+    AMRITAR_SOLDIER_SPECIALIZATION_ID,
+    getSkillLevel,
+} from "../fighter-generation";
+import type { CommunicationPlan } from "../model";
+import { hasMilitaryCommandAuthority } from "../scenario";
+import {
+    createAttentionPreferences,
+    mergeAttentionPreferences,
+} from "./attention";
+import { createCommunicationCandidate } from "./communication-candidate";
+import { BATTLE_ATTENTION_RELEVANCE } from "./rules";
+import type { BattleActionDefinition } from "./types";
+
+const ACTION_ID = "arena.issue-initial-order";
+
+export const ISSUE_INITIAL_ORDER_ACTION: BattleActionDefinition = {
+    id: ACTION_ID,
+    priority: 902,
+    enterConditions: [
+        {
+            id: "actor-has-military-command-authority",
+            isSatisfied: ({ actor }) => hasMilitaryCommandAuthority(actor),
+        },
+        {
+            id: "known-squad-has-subordinates",
+            isSatisfied: ({ formationContext }) =>
+                (formationContext?.knownSquadMemberIds.length ?? 0) > 1,
+        },
+        {
+            id: "enemy-is-observed",
+            isSatisfied: ({ enemies }) => enemies.length > 0,
+        },
+        {
+            id: "commander-is-not-in-melee",
+            isSatisfied: ({ actor, enemies }) =>
+                enemies.every(
+                    (enemy) => !areAdjacent(actor.position, enemy.position),
+                ),
+        },
+        {
+            id: "initial-order-is-not-chosen",
+            isSatisfied: ({ actor }) => actor.receivedOrder === null,
+        },
+        {
+            id: "initial-assessment-is-ready",
+            isSatisfied: ({ actor }) =>
+                actor.pendingInitialOrderAssessment !== "none",
+        },
+    ],
+    exitConditions: [],
+    perform: (context) => {
+        const { actor: sergeant, enemies, formationContext } = context;
+        if (!formationContext) throw new Error("Formation context is required.");
+        const squad = formationContext.squadMembers;
+        const planningDelayRounds = getCommandPlanningDelay(
+            getSkillLevel(sergeant.profile, "tactics") ?? 6,
+        );
+        const initialOrder =
+            sergeant.pendingInitialOrderAssessment === "inverted"
+                ? chooseCommand(sergeant, squad, enemies, true)
+                : sergeant.pendingInitialOrderAssessment === "accurate"
+                  ? chooseCommand(sergeant, squad, enemies)
+                  : "hold";
+        const plan: CommunicationPlan = {
+            kind: "vertical_order",
+            senderId: sergeant.id,
+            audienceIds: [],
+            recipientIds: [],
+            recipientScope: "squad",
+            command: initialOrder,
+            planningDelayRounds,
+            isInvertedDecision:
+                sergeant.pendingInitialOrderAssessment === "inverted",
+            soldierSpecialization: AMRITAR_SOLDIER_SPECIALIZATION_ID,
+            formationFacing:
+                sergeant.observedFormationFacing ??
+                sergeant.orderedFormationFacing ??
+                undefined,
+        };
+        const squadMembers = squad.filter(
+            (member) => member.id !== sergeant.id,
+        );
+        return createCommunicationCandidate({
+            definitionId: ACTION_ID,
+            context,
+            communicationPlan: plan,
+            attentionPreferences: mergeAttentionPreferences([
+                createAttentionPreferences(
+                    squadMembers,
+                    BATTLE_ATTENTION_RELEVANCE.primaryAction,
+                ),
+                createAttentionPreferences(
+                    enemies,
+                    BATTLE_ATTENTION_RELEVANCE.relevantActor,
+                ),
+            ]),
+        });
+    },
+};

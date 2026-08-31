@@ -1,4 +1,8 @@
 import { getDistanceMeters } from "./arena";
+import {
+    AVERAGE_TASK_DIFFICULTY_MODIFIER,
+    getCheckTarget,
+} from "./check";
 import { SkillSpecializationId, getSkillLevel, getSkillPoints } from "./fighter-generation";
 import { BASIC_SOLDIER_TRAINING_POINTS } from "./formation";
 import type {
@@ -17,7 +21,10 @@ import type {
 import {
     PENETRATING_VOICE_HEARING_BONUS,
     SHOUT_HEARING_BONUS,
+    EXPECTED_ORDER_HEARING_BONUS,
+    FAMILIAR_IDENTITY_RECOGNITION_BONUS,
     getCommunicationInterference,
+    getCurrentlyAttendedCombatantsForDecision,
     getHearingDistanceModifier,
     getResidualAmbientInterference,
     getVisionDistanceModifier,
@@ -26,6 +33,8 @@ import { rollDice } from "./random";
 import { hasAdvantage, hasDisadvantage } from "./scenario";
 import { COMMAND_LABELS, INDIVIDUAL_DIRECTIVE_LABELS } from "./command-config";
 import { resolveOrderAssessment, resolveTacticalAssessment } from "./command-assessment";
+
+const DEFAULT_COMMAND_AUTHORITY_ACCEPTANCE_BONUS = 7;
 
 export const resolveCommunications = (
     combatants: Combatant[],
@@ -37,6 +46,7 @@ export const resolveCommunications = (
     const living = combatants.filter((combatant) => combatant.health > 0);
     const byId = new Map(living.map((combatant) => [combatant.id, combatant]));
     const ordersByCombatantId = new Map<string, CommandKind>();
+    const orderSendersByCombatantId = new Map<string, string>();
     const directivesByCombatantId = new Map<
         string,
         IndividualDirectiveKind
@@ -58,13 +68,19 @@ export const resolveCommunications = (
 
     plans.forEach((plan) => {
         const sender = byId.get(plan.senderId);
-        if (!sender || sender.stunnedRounds > 0) {
+        if (!sender || sender.isStunned) {
             return;
         }
         if (plan.kind === "assess_tactics") {
+            const attendedCombatants =
+                getCurrentlyAttendedCombatantsForDecision(
+                    sender,
+                    living.filter((combatant) => combatant.id !== sender.id),
+                    round,
+                );
             const result = resolveTacticalAssessment(
                 sender,
-                living.filter((combatant) => combatant.id !== sender.id),
+                attendedCombatants,
                 sensoryTraces,
                 ambient,
                 seed,
@@ -90,7 +106,13 @@ export const resolveCommunications = (
             return;
         }
         if (plan.kind === "assess_order" && plan.command) {
-            const squad = living.filter(
+            const attendedCombatants =
+                getCurrentlyAttendedCombatantsForDecision(
+                    sender,
+                    living.filter((combatant) => combatant.id !== sender.id),
+                    round,
+                );
+            const squad = [sender, ...attendedCombatants].filter(
                 (member) =>
                     member.team === sender.team &&
                     member.profile.lens.id === sender.profile.lens.id,
@@ -126,11 +148,16 @@ export const resolveCommunications = (
             round,
             `${sender.id}:communication:leadership`,
         );
+        const leadershipTarget = getCheckTarget({
+            base: leadershipSkill,
+            difficultyModifier: AVERAGE_TASK_DIFFICULTY_MODIFIER,
+            situationalModifiers: [],
+        });
         const isOrder =
             plan.kind === "vertical_order" || plan.kind === "addressed_order";
         const leadershipModifier =
             isOrder
-                ? Math.max(-2, Math.min(2, leadershipSkill - leadershipRoll.total))
+                ? Math.max(-2, Math.min(2, leadershipTarget - leadershipRoll.total))
                 : 0;
         const penetratingVoiceBonus = hasAdvantage(sender, "penetrating_voice")
             ? PENETRATING_VOICE_HEARING_BONUS
@@ -182,12 +209,21 @@ export const resolveCommunications = (
             counters.visionPenaltyTotal += interference.visionPenalty;
             const hearingDistanceModifier =
                 getHearingDistanceModifier(distanceMeters);
-            const hearingTarget =
-                recipient.profile.attributes.IQ +
-                SHOUT_HEARING_BONUS +
-                penetratingVoiceBonus +
-                interference.hearingPenalty +
-                hearingDistanceModifier;
+            const expectedOrderBonus =
+                isOrder && intendedRecipients.has(recipient.id)
+                    ? EXPECTED_ORDER_HEARING_BONUS
+                    : 0;
+            const hearingTarget = getCheckTarget({
+                base: recipient.perception,
+                difficultyModifier: AVERAGE_TASK_DIFFICULTY_MODIFIER,
+                situationalModifiers: [
+                    SHOUT_HEARING_BONUS,
+                    penetratingVoiceBonus,
+                    expectedOrderBonus,
+                    interference.hearingPenalty,
+                    hearingDistanceModifier,
+                ],
+            });
             const hearingRoll = rollDice(
                 3,
                 6,
@@ -201,9 +237,10 @@ export const resolveCommunications = (
                 recipientTeam: recipient.team,
                 intendedRecipient: intendedRecipients.has(recipient.id),
                 distanceMeters,
-                baseHearing: recipient.profile.attributes.IQ,
+                baseHearing: recipient.perception,
                 shoutBonus: SHOUT_HEARING_BONUS,
                 penetratingVoiceBonus,
+                expectedOrderBonus,
                 interferencePenalty: interference.hearingPenalty,
                 distanceModifier: hearingDistanceModifier,
                 effectiveHearing: hearingTarget,
@@ -215,11 +252,22 @@ export const resolveCommunications = (
             }
             counters.heard += 1;
 
-            const visionTarget =
-                recipient.profile.attributes.IQ +
-                identificationBonus +
-                getVisionDistanceModifier(distanceMeters) +
-                interference.visionPenalty;
+            const familiarIdentityBonus = recipient.observationMemory.some(
+                (memory) =>
+                    memory.combatantId === sender.id && memory.identityKnown,
+            )
+                ? FAMILIAR_IDENTITY_RECOGNITION_BONUS
+                : 0;
+            const visionTarget = getCheckTarget({
+                base: recipient.perception,
+                difficultyModifier: AVERAGE_TASK_DIFFICULTY_MODIFIER,
+                situationalModifiers: [
+                    identificationBonus,
+                    familiarIdentityBonus,
+                    getVisionDistanceModifier(distanceMeters),
+                    interference.visionPenalty,
+                ],
+            });
             const visionRoll = rollDice(
                 3,
                 6,
@@ -238,11 +286,18 @@ export const resolveCommunications = (
                 BASIC_SOLDIER_TRAINING_POINTS;
             const communicationPenalty =
                 recipient.shockPenalty + recipient.panicPenalty;
-            const understandingTarget =
-                Math.max(recipient.profile.attributes.IQ, soldierSkill) +
-                leadershipModifier -
-                communicationPenalty +
-                (isTrained ? 4 : 0);
+            const understandingTarget = getCheckTarget({
+                base: Math.max(
+                    recipient.perception,
+                    soldierSkill,
+                ),
+                difficultyModifier: AVERAGE_TASK_DIFFICULTY_MODIFIER,
+                situationalModifiers: [
+                    leadershipModifier,
+                    -communicationPenalty,
+                    isTrained ? 4 : 0,
+                ],
+            });
             const understandingRoll = rollDice(
                 3,
                 6,
@@ -267,12 +322,20 @@ export const resolveCommunications = (
                     hasDisadvantage(recipient, "code_of_honor"))
                     ? 1
                     : 0;
-            const acceptanceTarget =
-                Math.max(recipient.profile.attributes.IQ, soldierSkill) +
-                leadershipModifier +
-                dutyBonus -
-                recipient.shockPenalty -
-                recipient.panicPenalty;
+            const acceptanceTarget = getCheckTarget({
+                base: Math.max(
+                    recipient.perception,
+                    soldierSkill,
+                ),
+                difficultyModifier: AVERAGE_TASK_DIFFICULTY_MODIFIER,
+                situationalModifiers: [
+                    leadershipModifier,
+                    DEFAULT_COMMAND_AUTHORITY_ACCEPTANCE_BONUS,
+                    dutyBonus,
+                    -recipient.shockPenalty,
+                    -recipient.panicPenalty,
+                ],
+            });
             const acceptanceRoll = rollDice(
                 3,
                 6,
@@ -286,6 +349,7 @@ export const resolveCommunications = (
             counters.accepted += 1;
             if (plan.kind === "vertical_order" && plan.command) {
                 ordersByCombatantId.set(recipient.id, plan.command);
+                orderSendersByCombatantId.set(recipient.id, sender.id);
                 if (plan.formationFacing) {
                     formationFacingsByCombatantId.set(
                         recipient.id,
@@ -307,6 +371,7 @@ export const resolveCommunications = (
 
         if (plan.kind === "vertical_order" && plan.command) {
             ordersByCombatantId.set(sender.id, plan.command);
+            orderSendersByCombatantId.set(sender.id, sender.id);
             if (plan.formationFacing) {
                 formationFacingsByCombatantId.set(sender.id, plan.formationFacing);
             }
@@ -346,7 +411,7 @@ export const resolveCommunications = (
             ? ` Горизонт плана: ${plan.planningDelayRounds} с.`
             : "";
         messages.push(
-            `${sender.name} тратит секунду на Концентрацию: ${content}.${planningMessage} Средние помехи Hearing ${averageHearingPenalty}, Vision ${averageVisionPenalty}.${ambientMessage} Услышали ${counters.heard}/${counters.eligible}, опознали ${counters.identified}, поняли ${counters.understood}; из ${plan.recipientIds.length} адресатов приняли ${counters.accepted}.`,
+            `${sender.name} тратит секунду на Концентрацию: ${content}.${planningMessage} Средние помехи Hearing ${averageHearingPenalty}, Vision ${averageVisionPenalty}.${ambientMessage} Услышали ${counters.heard}/${counters.eligible}, опознали ${counters.identified}, поняли ${counters.understood}; из ${scopedRecipients.length} адресатов приняли ${counters.accepted}.`,
         );
         if (isOrder) {
             const formatModifier = (modifier: number): string =>
@@ -354,7 +419,7 @@ export const resolveCommunications = (
             const formatDiagnostic = (
                 diagnostic: HearingDiagnostic,
             ): string =>
-                `${diagnostic.recipientName} #${diagnostic.recipientNumber} (${diagnostic.recipientTeam === "blue" ? "синий" : "красный"}, ${diagnostic.intendedRecipient ? "адресат" : "окружающий"}): ${diagnostic.distanceMeters.toFixed(1)} м; Hearing ${diagnostic.roll}/${diagnostic.effectiveHearing} [Per(IQ) ${diagnostic.baseHearing}, крик ${formatModifier(diagnostic.shoutBonus)}, Лужёная глотка ${formatModifier(diagnostic.penetratingVoiceBonus)}, шум ${formatModifier(diagnostic.interferencePenalty)}, дистанция ${formatModifier(diagnostic.distanceModifier)}] — ${diagnostic.heard ? "услышал" : "не услышал"}`;
+                `${diagnostic.recipientName} #${diagnostic.recipientNumber} (${diagnostic.recipientTeam === "blue" ? "синий" : "красный"}, ${diagnostic.intendedRecipient ? "адресат" : "окружающий"}): ${diagnostic.distanceMeters.toFixed(1)} м; Hearing ${diagnostic.roll}/${diagnostic.effectiveHearing} [Per(IQ) ${diagnostic.baseHearing}, крик ${formatModifier(diagnostic.shoutBonus)}, Лужёная глотка ${formatModifier(diagnostic.penetratingVoiceBonus)}, ожидает приказ ${formatModifier(diagnostic.expectedOrderBonus)}, шум ${formatModifier(diagnostic.interferencePenalty)}, дистанция ${formatModifier(diagnostic.distanceModifier)}] — ${diagnostic.heard ? "услышал" : "не услышал"}`;
             const intendedDiagnostics = hearingDiagnostics
                 .filter((diagnostic) => diagnostic.intendedRecipient)
                 .map(formatDiagnostic);
@@ -372,6 +437,7 @@ export const resolveCommunications = (
 
     return {
         ordersByCombatantId,
+        orderSendersByCombatantId,
         directivesByCombatantId,
         orderSpecializationsByCombatantId,
         formationFacingsByCombatantId,

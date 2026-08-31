@@ -18,6 +18,14 @@ const battleApi = {
 const results = [];
 const eventTrace = [];
 const maneuverCounts = {};
+const communicationCounts = {
+    repeatedOrders: 0,
+    battlesWithRepeatedOrders: 0,
+    repeatedOrdersBySender: {},
+    horizontalFocusSignals: 0,
+    battlesWithHorizontalFocusSignals: 0,
+    horizontalFocusSignalsBySender: {},
+};
 const specializationCohesion = {
     matched: { samples: 0, totalDistance: 0 },
     foreign: { samples: 0, totalDistance: 0 },
@@ -25,6 +33,28 @@ const specializationCohesion = {
 const cohesion = {
     beforeContact: { samples: 0, totalDistance: 0, withinFour: 0, withinEight: 0 },
     melee: { samples: 0, totalDistance: 0, withinFour: 0, withinEight: 0 },
+};
+
+const getNewLogEntries = (previousLog, nextLog) => {
+    const maximumOverlap = Math.min(previousLog.length, nextLog.length);
+    for (let overlap = maximumOverlap; overlap >= 0; overlap -= 1) {
+        const nextSuffix = nextLog.slice(nextLog.length - overlap);
+        const previousPrefix = previousLog.slice(0, overlap);
+        if (
+            nextSuffix.every(
+                (message, index) => message === previousPrefix[index],
+            )
+        ) {
+            return nextLog.slice(0, nextLog.length - overlap);
+        }
+    }
+    return nextLog;
+};
+
+const getMessageSender = (message) => message.split(" ", 1)[0];
+
+const incrementSenderCount = (counts, sender) => {
+    counts[sender] = (counts[sender] ?? 0) + 1;
 };
 
 const sampleCohesion = (battle) => {
@@ -43,12 +73,12 @@ const sampleCohesion = (battle) => {
     const bucket = contact ? cohesion.melee : cohesion.beforeContact;
 
     blue.forEach((combatant) => {
-        if (combatant.profile.commandLens) {
+        if (battleApi.hasMilitaryCommandAuthority(combatant)) {
             return;
         }
         const sergeant = blue.find(
             (candidate) =>
-                candidate.profile.commandLens &&
+                battleApi.hasMilitaryCommandAuthority(candidate) &&
                 candidate.profile.lens.id === combatant.profile.lens.id,
         );
         if (!sergeant) {
@@ -127,6 +157,8 @@ for (let offset = 0; offset < battleCount; offset += 1) {
     let firstContactTurn = null;
     let firstInjuryTurn = null;
     let lastInjuryTurn = null;
+    let repeatedOrderObserved = false;
+    let horizontalFocusObserved = false;
 
     sampleCohesion(battle);
     while (battle.phase === "running" && battle.turn <= maxTurns) {
@@ -136,6 +168,28 @@ for (let offset = 0; offset < battleCount; offset += 1) {
             0,
         );
         battle = battleApi.advanceBattle(battle, obstacleKeys, seed);
+        const newLogEntries = getNewLogEntries(
+            previousBattle.log,
+            battle.log,
+        );
+        newLogEntries.forEach((message) => {
+            if (message.includes("повторяет приказ")) {
+                communicationCounts.repeatedOrders += 1;
+                repeatedOrderObserved = true;
+                incrementSenderCount(
+                    communicationCounts.repeatedOrdersBySender,
+                    getMessageSender(message),
+                );
+            }
+            if (message.includes("сигнал «Бьём одного!»")) {
+                communicationCounts.horizontalFocusSignals += 1;
+                horizontalFocusObserved = true;
+                incrementSenderCount(
+                    communicationCounts.horizontalFocusSignalsBySender,
+                    getMessageSender(message),
+                );
+            }
+        });
         battle.combatants
             .filter((combatant) => combatant.health > 0)
             .forEach((combatant) => {
@@ -164,7 +218,7 @@ for (let offset = 0; offset < battleCount; offset += 1) {
                     const sergeant = battle.combatants.find(
                         (candidate) =>
                             candidate.team === combatant.team &&
-                            candidate.profile.commandLens &&
+                            battleApi.hasMilitaryCommandAuthority(candidate) &&
                             candidate.profile.lens.id ===
                                 combatant.profile.lens.id,
                     );
@@ -191,7 +245,7 @@ for (let offset = 0; offset < battleCount; offset += 1) {
                     const sergeant = battle.combatants.find(
                         (candidate) =>
                             candidate.team === combatant.team &&
-                            candidate.profile.commandLens &&
+                            battleApi.hasMilitaryCommandAuthority(candidate) &&
                             candidate.profile.lens.id ===
                                 combatant.profile.lens.id,
                     );
@@ -250,6 +304,12 @@ for (let offset = 0; offset < battleCount; offset += 1) {
         }
         sampleCohesion(battle);
     }
+
+    communicationCounts.battlesWithRepeatedOrders += repeatedOrderObserved
+        ? 1
+        : 0;
+    communicationCounts.battlesWithHorizontalFocusSignals +=
+        horizontalFocusObserved ? 1 : 0;
 
     results.push({
         seed,
@@ -316,6 +376,7 @@ process.stdout.write(
             scenario,
             winnerCounts,
             maneuverCounts,
+            communicationCounts,
             averageTurns:
                 results.reduce((total, result) => total + result.turns, 0) /
                 results.length,

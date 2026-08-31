@@ -14,6 +14,7 @@ const expectedHarvestSources = new Map([
     ["food-rye", "source-rye-plant"],
     ["spice-tea-leaves", "source-tea-shrub"],
     ["food-raw-honey", "source-bee-colony"],
+    ["food-meat-honey", "source-carnivorous-bee-colony"],
 ]);
 
 const expectedFermentedGoods = [
@@ -105,6 +106,16 @@ const honeyRecipe = animalHarvesting.recipes.find(
 assert.ok(
     honeyRecipe?.preservesInputs,
     "honey harvest should explicitly preserve the bee colony input",
+);
+
+const meatHoneyRecipe = animalHarvesting.recipes.find(
+    (recipe) =>
+        recipe.id ===
+        "production-step-source-carnivorous-bee-colony-food-meat-honey",
+);
+assert.ok(
+    meatHoneyRecipe?.preservesInputs,
+    "meat honey harvest should explicitly preserve the carnivorous bee colony input",
 );
 
 const fermentation = chainsById.get("production-chain-fermentation");

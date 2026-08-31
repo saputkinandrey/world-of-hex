@@ -2,6 +2,7 @@ import type { CommandKind, IndividualDirectiveKind } from "./model";
 
 
 export const COMMAND_LABELS: Record<CommandKind, string> = {
+    await_orders: "Ждать приказа",
     advance: "Сблизиться",
     press: "Натиск",
     hold: "Держать строй",

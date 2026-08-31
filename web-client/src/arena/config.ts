@@ -1,3 +1,5 @@
 export const TEAM_SIZE = 10;
 
 export const UNENCUMBERED_OBSERVED_MOVE_HEXES = 5;
+
+export const THREAT_AWARENESS_DURATION_ROUNDS = 1;

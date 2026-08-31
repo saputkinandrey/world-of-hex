@@ -300,7 +300,11 @@ export default function ArenaPage() {
             }}
         >
             {captureMode ? (
-                <style>{`body > div[style*="position:fixed"][style*="z-index:2000"], body > div[style*="position: fixed"][style*="z-index: 2000"] { display: none !important; }`}</style>
+                <style>{`
+                    html { overflow-y: scroll !important; overflow-x: hidden !important; }
+                    body > div[style*="position:fixed"][style*="z-index:2000"],
+                    body > div[style*="position: fixed"][style*="z-index: 2000"] { display: none !important; }
+                `}</style>
             ) : null}
             <Container
                 maxWidth={captureMode ? false : "xl"}

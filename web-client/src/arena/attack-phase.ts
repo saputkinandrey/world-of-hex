@@ -1,7 +1,8 @@
 import { resolveAttack } from "./combat";
-import { chooseAttackTarget } from "./combat-observation";
+import { distanceBetween } from "./arena";
 import type {
     AttackTargetGroup,
+    BattleIntent,
     Combatant,
     DefenseUsage,
     ManeuverKind,
@@ -9,6 +10,7 @@ import type {
 
 export interface AttackPhaseResult {
     damageByTarget: Map<string, number>;
+    attackerIdsByTargetId: Map<string, string[]>;
     messages: string[];
 }
 
@@ -21,14 +23,19 @@ const ATTACKING_MANEUVERS = new Set<ManeuverKind>([
 
 export const resolveAttackPhase = (
     combatants: Combatant[],
+    intents: BattleIntent[],
     seed: number,
     turn: number,
     initialMessages: string[],
 ): AttackPhaseResult => {
     const damageByTarget = new Map<string, number>();
+    const attackerIdsByTargetId = new Map<string, string[]>();
     const defenseUsageByTargetId = new Map<string, DefenseUsage>();
     const attackGroupsByTargetId = new Map<string, AttackTargetGroup>();
     const messages = [...initialMessages];
+    const intentByActorId = new Map(
+        intents.map((intent) => [intent.actorId, intent]),
+    );
 
     combatants
         .filter(
@@ -37,12 +44,21 @@ export const resolveAttackPhase = (
                 ATTACKING_MANEUVERS.has(combatant.maneuver),
         )
         .forEach((actor) => {
-            const enemies = combatants.filter(
+            const targetId = intentByActorId.get(actor.id)?.attackTargetId;
+            const target = combatants.find(
                 (combatant) =>
-                    combatant.health > 0 && combatant.team !== actor.team,
+                    combatant.id === targetId &&
+                    combatant.health > 0 &&
+                    combatant.team !== actor.team &&
+                    distanceBetween(actor.position, combatant.position) <=
+                        actor.weaponReach,
             );
-            const target = chooseAttackTarget(actor, enemies);
             if (!target) return;
+
+            attackerIdsByTargetId.set(target.id, [
+                ...(attackerIdsByTargetId.get(target.id) ?? []),
+                actor.id,
+            ]);
 
             const attackGroup = attackGroupsByTargetId.get(target.id) ?? {
                 target,
@@ -88,5 +104,5 @@ export const resolveAttackPhase = (
         );
     });
 
-    return { damageByTarget, messages };
+    return { damageByTarget, attackerIdsByTargetId, messages };
 };

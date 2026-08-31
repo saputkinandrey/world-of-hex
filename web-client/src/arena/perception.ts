@@ -1,7 +1,15 @@
 import { distanceBetween, getDistanceMeters, toMeters } from "./arena";
 import { getObviousWoundState } from "./combat-observation";
-import { AmbientInterference, CartesianPoint, Combatant, CombatantObservationMemory, CommunicationInterference, CommunicationPlan, ManeuverKind, ManeuverPollution, ObviousWoundState, SensoryTrace } from "./model";
+import { THREAT_AWARENESS_DURATION_ROUNDS } from "./config";
+import {
+    AUTOMATIC_TASK_DIFFICULTY_MODIFIER,
+    AVERAGE_TASK_DIFFICULTY_MODIFIER,
+    HUMAN_SIZE_MODIFIER,
+    getCheckTarget,
+} from "./check";
+import { AmbientInterference, BattleIntent, CartesianPoint, Combatant, CombatantObservationBelief, CombatantObservationMemory, CommunicationInterference, CommunicationPlan, ManeuverKind, ManeuverPollution, ObviousWoundState, ObservedActionPurpose, SensoryTrace } from "./model";
 import { createRandom, rollDice } from "./random";
+import { isInFrontVisualArc } from "./facing";
 
 export const MANEUVER_POLLUTION: Record<ManeuverKind, ManeuverPollution> = {
     do_nothing: { sound: 0, visual: 0 },
@@ -19,6 +27,10 @@ export const PENETRATING_VOICE_HEARING_BONUS = 2;
 
 export const SHOUT_HEARING_BONUS = 3;
 
+export const EXPECTED_ORDER_HEARING_BONUS = 3;
+
+export const FAMILIAR_IDENTITY_RECOGNITION_BONUS = 10;
+
 export const CALM_COMMUNICATION_HEARING_PENALTY = -1;
 
 export const MIN_USEFUL_COMMAND_HEARING_TARGET = 12;
@@ -35,7 +47,7 @@ export const PASSIVE_OBSERVATION_PENALTY = -3;
 
 export const PASSIVE_OBVIOUS_PRESENCE_RANGE_HEXES = 3;
 
-export const OBSERVATION_MEMORY_DURATION_ROUNDS = 8;
+export const NORMAL_HUMAN_ATTENTION_CAPACITY = 4;
 
 export const DUST_POLLUTION_RADIUS_HEXES = 3;
 
@@ -264,10 +276,19 @@ export const observeFormationFacing = (
     seed: number,
     round: number,
 ): CartesianPoint | null => {
-    if (observer.stunnedRounds > 0) {
+    if (observer.isStunned) {
         return null;
     }
     const observedEnemies = enemies.filter((enemy) => {
+        if (
+            !isInFrontVisualArc(
+                observer.position,
+                observer.bodyFacing,
+                enemy.position,
+            )
+        ) {
+            return false;
+        }
         const distanceMeters = getDistanceMeters(
             observer.position,
             enemy.position,
@@ -278,12 +299,16 @@ export const observeFormationFacing = (
             sensoryTraces,
             ambient,
         );
-        const visionTarget =
-            observer.profile.attributes.IQ +
-            getVisionDistanceModifier(distanceMeters) +
-            interference.visionPenalty -
-            observer.shockPenalty -
-            observer.panicPenalty;
+        const visionTarget = getCheckTarget({
+            base: observer.perception,
+            difficultyModifier: AVERAGE_TASK_DIFFICULTY_MODIFIER,
+            situationalModifiers: [
+                getVisionDistanceModifier(distanceMeters),
+                interference.visionPenalty,
+                -observer.shockPenalty,
+                -observer.panicPenalty,
+            ],
+        });
         const visionRoll = rollDice(
             3,
             6,
@@ -313,18 +338,279 @@ export const observeFormationFacing = (
     };
 };
 
+interface AttentionCandidate {
+    combatant: Combatant;
+    baseRelevance: number;
+    distanceModifier: number;
+    stalenessBonus: number;
+    continuityBonus: number;
+    totalRelevance: number;
+    preferenceIndex: number;
+}
+
+export interface AttentionTargetPreference {
+    combatant: Combatant;
+    baseRelevance: number;
+}
+
+interface PositionedTeamObservation {
+    id: string;
+    team: Combatant["team"];
+    position: Combatant["position"];
+}
+
+export const getPerception = (combatant: Combatant): number =>
+    combatant.perception;
+
+export const getAttentionCapacity = (perception: number): number => {
+    if (perception <= 8) return 3;
+    if (perception <= 11) return NORMAL_HUMAN_ATTENTION_CAPACITY;
+    if (perception <= 13) return 5;
+    if (perception <= 15) return 6;
+    return 7;
+};
+
+export const getStalenessInterestBonus = (age: number): number => {
+    if (age <= 1) return 0;
+    if (age === 2) return 1;
+    if (age <= 4) return 2;
+    if (age <= 7) return 3;
+    if (age <= 12) return 4;
+    return 5;
+};
+
+export const getAttentionStalenessBonus = (
+    observer: Combatant,
+    combatantId: string,
+    round: number,
+): number => {
+    const observation = observer.observationMemory.find(
+        (memory) => memory.combatantId === combatantId,
+    );
+    if (!observation || observation.actionObservedTurn < 0) return 5;
+    return getStalenessInterestBonus(
+        Math.max(0, round - observation.actionObservedTurn),
+    );
+};
+
+export const selectAttentionTargetIds = (
+    observer: Combatant,
+    preferences: AttentionTargetPreference[],
+    round: number,
+): string[] => {
+    const currentFocusIds = new Set(observer.attentionFocus.combatantIds);
+    const preferenceByCombatantId = new Map<string, AttentionTargetPreference>();
+    preferences.forEach((preference) => {
+        const existing = preferenceByCombatantId.get(preference.combatant.id);
+        if (!existing || preference.baseRelevance > existing.baseRelevance) {
+            preferenceByCombatantId.set(preference.combatant.id, preference);
+        }
+    });
+    const candidates = [...preferenceByCombatantId.values()]
+        .filter((preference) =>
+            isInFrontVisualArc(
+                observer.position,
+                observer.bodyFacing,
+                preference.combatant.position,
+            ),
+        )
+        .map((preference, preferenceIndex): AttentionCandidate => {
+            const stalenessBonus = getAttentionStalenessBonus(
+                observer,
+                preference.combatant.id,
+                round,
+            );
+            const continuityBonus = currentFocusIds.has(preference.combatant.id)
+                ? 1
+                : 0;
+            return {
+                ...preference,
+                distanceModifier: getVisionDistanceModifier(
+                    getDistanceMeters(
+                        observer.position,
+                        preference.combatant.position,
+                    ),
+                ),
+                stalenessBonus,
+                continuityBonus,
+                totalRelevance:
+                    preference.baseRelevance +
+                    stalenessBonus +
+                    continuityBonus,
+                preferenceIndex,
+            };
+        })
+        .sort(
+            (left, right) =>
+                right.totalRelevance - left.totalRelevance ||
+                right.baseRelevance - left.baseRelevance ||
+                right.stalenessBonus - left.stalenessBonus ||
+                right.continuityBonus - left.continuityBonus ||
+                left.preferenceIndex - right.preferenceIndex ||
+                left.combatant.id.localeCompare(right.combatant.id),
+        );
+    const selectedDistanceModifier = candidates[0]?.distanceModifier;
+    if (selectedDistanceModifier === undefined) return [];
+
+    return candidates
+        .filter(
+            (candidate) =>
+                candidate.distanceModifier === selectedDistanceModifier,
+        )
+        .slice(0, getAttentionCapacity(getPerception(observer)))
+        .map((candidate) => candidate.combatant.id);
+};
+
+const getClosestDistance = (
+    position: Combatant["position"],
+    candidates: PositionedTeamObservation[],
+): number | null =>
+    candidates.length > 0
+        ? Math.min(
+              ...candidates.map((candidate) =>
+                  distanceBetween(position, candidate.position),
+              ),
+          )
+        : null;
+
+const inferObservedActionPurpose = (
+    observer: Combatant,
+    candidate: Combatant,
+): ObservedActionPurpose => {
+    if (
+        candidate.maneuver === "attack" ||
+        candidate.maneuver === "move_and_attack" ||
+        candidate.maneuver === "all_out_attack"
+    ) {
+        return "engaging_enemy";
+    }
+
+    const movementStart = candidate.lastMovementPath[0];
+    const moved =
+        movementStart !== undefined && candidate.lastMovementPath.length > 1;
+    if (moved) {
+        const rememberedCandidates = observer.observationMemory
+            .filter(
+                (memory) =>
+                    memory.observedAlive && memory.combatantId !== candidate.id,
+            )
+            .map((memory): PositionedTeamObservation => ({
+                id: memory.combatantId,
+                team: memory.team,
+                position: memory.lastKnownPosition,
+            }));
+        const enemies = rememberedCandidates.filter(
+            (other) => other.team !== candidate.team,
+        );
+        const enemyDistanceBefore = getClosestDistance(movementStart, enemies);
+        const enemyDistanceAfter = getClosestDistance(
+            candidate.position,
+            enemies,
+        );
+        if (
+            enemyDistanceBefore !== null &&
+            enemyDistanceAfter !== null &&
+            enemyDistanceAfter < enemyDistanceBefore
+        ) {
+            return "closing_with_enemy";
+        }
+        if (
+            enemyDistanceBefore !== null &&
+            enemyDistanceAfter !== null &&
+            enemyDistanceAfter > enemyDistanceBefore
+        ) {
+            return "withdrawing_from_enemy";
+        }
+
+        const allies = rememberedCandidates.filter(
+            (other) =>
+                other.team === candidate.team &&
+                other.id !== candidate.id,
+        );
+        const allyDistanceBefore = getClosestDistance(movementStart, allies);
+        const allyDistanceAfter = getClosestDistance(
+            candidate.position,
+            allies,
+        );
+        if (
+            allyDistanceBefore !== null &&
+            allyDistanceAfter !== null &&
+            allyDistanceAfter < allyDistanceBefore
+        ) {
+            return "regrouping_with_allies";
+        }
+    }
+
+    if (candidate.maneuver === "all_out_defense") return "defending";
+    if (candidate.maneuver === "wait" || candidate.maneuver === "evaluate") {
+        return "holding_position";
+    }
+    if (candidate.maneuver === "concentrate") {
+        return "communicating_or_observing";
+    }
+    return "unknown";
+};
+
 const createObservationMemory = (
     candidate: Combatant,
     round: number,
+    previousMemory?: CombatantObservationMemory,
+    observedActionPurpose: ObservedActionPurpose = "unknown",
+    observesAction = false,
+    identityKnown = previousMemory?.identityKnown ?? false,
 ): CombatantObservationMemory => ({
     combatantId: candidate.id,
     team: candidate.team,
+    identityKnown,
     lastKnownPosition: candidate.position,
-    lastKnownManeuver: candidate.maneuver,
+    lastKnownManeuver: observesAction
+        ? candidate.maneuver
+        : (previousMemory?.lastKnownManeuver ?? "do_nothing"),
     obviousWoundState: getObviousWoundState(candidate),
     observedAlive: candidate.health > 0,
     lastSeenTurn: round,
+    observedActionPurpose: observesAction
+        ? observedActionPurpose
+        : (previousMemory?.observedActionPurpose ?? "unknown"),
+    actionObservedTurn: observesAction
+        ? round
+        : (previousMemory?.actionObservedTurn ?? -1),
 });
+
+export const recordThreatObservations = (
+    observer: Combatant,
+    candidates: Combatant[],
+    attackerIds: string[],
+    round: number,
+): CombatantObservationMemory[] => {
+    const attackerIdSet = new Set(attackerIds);
+    const memoryByCombatantId = new Map(
+        observer.observationMemory.map((memory) => [
+            memory.combatantId,
+            memory,
+        ]),
+    );
+
+    candidates
+        .filter(
+            (candidate) =>
+                candidate.health > 0 && attackerIdSet.has(candidate.id),
+        )
+        .forEach((candidate) => {
+            memoryByCombatantId.set(
+                candidate.id,
+                createObservationMemory(
+                    candidate,
+                    round,
+                    memoryByCombatantId.get(candidate.id),
+                    "engaging_enemy",
+                    true,
+                ),
+            );
+        });
+
+    return [...memoryByCombatantId.values()];
+};
 
 export const initializeObservationMemories = (
     combatants: Combatant[],
@@ -333,8 +619,26 @@ export const initializeObservationMemories = (
     combatants.map((observer) => ({
         ...observer,
         observationMemory: combatants
-            .filter((candidate) => candidate.id !== observer.id)
-            .map((candidate) => createObservationMemory(candidate, round)),
+            .filter(
+                (candidate) =>
+                    candidate.id !== observer.id &&
+                    candidate.team === observer.team,
+            )
+            .map((candidate) =>
+                createObservationMemory(
+                    candidate,
+                    round,
+                    undefined,
+                    "unknown",
+                    false,
+                    true,
+                ),
+            ),
+        attentionFocus: {
+            combatantIds: [],
+            distanceModifier: null,
+            updatedTurn: round,
+        },
     }));
 
 const passivelyObserves = (
@@ -344,6 +648,15 @@ const passivelyObserves = (
     seed: number,
     round: number,
 ): boolean => {
+    if (
+        !isInFrontVisualArc(
+            observer.position,
+            observer.bodyFacing,
+            candidate.position,
+        )
+    ) {
+        return false;
+    }
     const ambient = getResidualAmbientInterference(seed, round);
     const distanceHexes = distanceBetween(
         observer.position,
@@ -360,18 +673,26 @@ const passivelyObserves = (
         sensoryTraces,
         ambient,
     );
-    const observationPenalty =
+    const performsConcentratedVisualSearch =
         observer.actionState.definitionId ===
-        "arena.search-last-known-enemy"
-            ? 0
-            : PASSIVE_OBSERVATION_PENALTY;
-    const visionTarget =
-        observer.profile.attributes.IQ +
-        observationPenalty +
-        getVisionDistanceModifier(distanceMeters) +
-        interference.visionPenalty -
-        observer.shockPenalty -
-        observer.panicPenalty;
+            "arena.search-last-known-enemy" ||
+        observer.actionState.definitionId ===
+            "arena.search-known-subordinate";
+    const observationPenalty = performsConcentratedVisualSearch
+        ? 0
+        : PASSIVE_OBSERVATION_PENALTY;
+    const visionTarget = getCheckTarget({
+        base: observer.perception,
+        difficultyModifier: AUTOMATIC_TASK_DIFFICULTY_MODIFIER,
+        situationalModifiers: [
+            HUMAN_SIZE_MODIFIER,
+            observationPenalty,
+            getVisionDistanceModifier(distanceMeters),
+            interference.visionPenalty,
+            -observer.shockPenalty,
+            -observer.panicPenalty,
+        ],
+    });
     const visionRoll = rollDice(
         3,
         6,
@@ -396,7 +717,7 @@ export const updatePassiveObservationMemories = (
                 memory,
             ]),
         );
-        combatants
+        const visibleCandidates = combatants
             .filter((candidate) => candidate.id !== observer.id)
             .filter((candidate) =>
                 passivelyObserves(
@@ -406,18 +727,105 @@ export const updatePassiveObservationMemories = (
                     seed,
                     round,
                 ),
-            )
-            .forEach((candidate) => {
-                memoryByCombatantId.set(
-                    candidate.id,
-                    createObservationMemory(candidate, round),
-                );
-            });
+            );
+        visibleCandidates.forEach((candidate) => {
+            memoryByCombatantId.set(
+                candidate.id,
+                createObservationMemory(
+                    candidate,
+                    round,
+                    memoryByCombatantId.get(candidate.id),
+                ),
+            );
+        });
         return {
             ...observer,
             observationMemory: [...memoryByCombatantId.values()],
         };
     });
+
+export const updateFocusedActionObservations = (
+    combatants: Combatant[],
+    intents: BattleIntent[],
+    round: number,
+): Combatant[] => {
+    const intentByActorId = new Map(
+        intents.map((intent) => [intent.actorId, intent]),
+    );
+    const combatantById = new Map(
+        combatants.map((combatant) => [combatant.id, combatant]),
+    );
+    return combatants.map((observer) => {
+        if (observer.health <= 0) return observer;
+        const preferredCandidates =
+            intentByActorId
+                .get(observer.id)
+                ?.attentionTargetIds?.map((id) => combatantById.get(id))
+                .filter((candidate): candidate is Combatant => Boolean(candidate)) ??
+            [];
+        const attentionTargetIds = selectAttentionTargetIds(
+            observer,
+            preferredCandidates.map((combatant) => ({
+                combatant,
+                baseRelevance: 0,
+            })),
+            round,
+        );
+        const attentionIds = new Set(attentionTargetIds);
+        const attentionCandidates = preferredCandidates.filter((candidate) =>
+            attentionIds.has(candidate.id),
+        );
+        const memoryByCombatantId = new Map(
+            observer.observationMemory.map((memory) => [
+                memory.combatantId,
+                memory,
+            ]),
+        );
+        attentionCandidates.forEach((candidate) => {
+            memoryByCombatantId.set(
+                candidate.id,
+                createObservationMemory(
+                    candidate,
+                    round,
+                    memoryByCombatantId.get(candidate.id),
+                    inferObservedActionPurpose(observer, candidate),
+                    true,
+                ),
+            );
+        });
+        return {
+            ...observer,
+            observationMemory: [...memoryByCombatantId.values()],
+            attentionFocus: {
+                combatantIds: attentionTargetIds,
+                distanceModifier:
+                    attentionCandidates[0] === undefined
+                        ? null
+                        : getVisionDistanceModifier(
+                              getDistanceMeters(
+                                  observer.position,
+                                  attentionCandidates[0].position,
+                              ),
+                          ),
+                updatedTurn: round,
+            },
+        };
+    });
+};
+
+export const getCombatantObservationBeliefs = (
+    observer: Combatant,
+    round: number,
+    assumedMoveHexes: number,
+): CombatantObservationBelief[] =>
+    observer.observationMemory
+        .filter((memory) => memory.observedAlive)
+        .map((memory) => ({
+            ...memory,
+            observedThisTurn: memory.lastSeenTurn === round,
+            positionUncertaintyHexes:
+                Math.max(0, round - memory.lastSeenTurn) * assumedMoveHexes,
+        }));
 
 const getRememberedHealth = (state: ObviousWoundState): number => {
     if (state === "badly_wounded") return 2;
@@ -425,7 +833,7 @@ const getRememberedHealth = (state: ObviousWoundState): number => {
     return 10;
 };
 
-export const observeCombatantsForDecision = (
+export const getCurrentlyObservedCombatantsForDecision = (
     observer: Combatant,
     candidates: Combatant[],
     round: number,
@@ -433,14 +841,8 @@ export const observeCombatantsForDecision = (
     const candidateById = new Map(
         candidates.map((candidate) => [candidate.id, candidate]),
     );
-    return observer.observationMemory
-        .filter(
-            (memory) =>
-                memory.observedAlive &&
-                (memory.team === observer.team ||
-                    round - memory.lastSeenTurn <=
-                        OBSERVATION_MEMORY_DURATION_ROUNDS),
-        )
+    return getCombatantObservationBeliefs(observer, round, 0)
+        .filter((belief) => belief.observedThisTurn)
         .map((memory) => {
             const candidate = candidateById.get(memory.combatantId);
             if (!candidate) return null;
@@ -449,11 +851,79 @@ export const observeCombatantsForDecision = (
                 health: getRememberedHealth(memory.obviousWoundState),
                 maxHealth: 10,
                 position: memory.lastKnownPosition,
-                lastMovementPath: [memory.lastKnownPosition],
-                maneuver: memory.lastKnownManeuver,
+                lastMovementPath:
+                    memory.actionObservedTurn === round
+                        ? candidate.lastMovementPath
+                        : [memory.lastKnownPosition],
+                maneuver:
+                    memory.actionObservedTurn === round
+                        ? memory.lastKnownManeuver
+                        : "do_nothing",
             };
         })
         .filter((candidate): candidate is Combatant => candidate !== null);
+};
+
+export const getSubjectivelyKnownCombatantsForDecision = (
+    observer: Combatant,
+    candidates: Combatant[],
+    round: number,
+): Combatant[] => {
+    const observed = getCurrentlyObservedCombatantsForDecision(
+        observer,
+        candidates,
+        round,
+    );
+    const knownById = new Map(
+        observed.map((candidate) => [candidate.id, candidate]),
+    );
+    const candidateById = new Map(
+        candidates.map((candidate) => [candidate.id, candidate]),
+    );
+    const memoryById = new Map(
+        observer.observationMemory.map((memory) => [
+            memory.combatantId,
+            memory,
+        ]),
+    );
+
+    Object.entries(observer.threatAwarenessByCombatantId)
+        .filter(
+            ([, awarenessTurn]) =>
+                round - awarenessTurn <= THREAT_AWARENESS_DURATION_ROUNDS,
+        )
+        .forEach(([attackerId]) => {
+            if (knownById.has(attackerId)) return;
+            const candidate = candidateById.get(attackerId);
+            const memory = memoryById.get(attackerId);
+            if (!candidate || !memory?.observedAlive || candidate.health <= 0) {
+                return;
+            }
+            knownById.set(attackerId, {
+                ...candidate,
+                health: getRememberedHealth(memory.obviousWoundState),
+                maxHealth: 10,
+                position: memory.lastKnownPosition,
+                lastMovementPath: [memory.lastKnownPosition],
+                maneuver: "do_nothing",
+            });
+        });
+
+    return [...knownById.values()];
+};
+
+export const getCurrentlyAttendedCombatantsForDecision = (
+    observer: Combatant,
+    candidates: Combatant[],
+    round: number,
+): Combatant[] => {
+    if (observer.attentionFocus.updatedTurn !== round) return [];
+    const focusIds = new Set(observer.attentionFocus.combatantIds);
+    return getCurrentlyObservedCombatantsForDecision(
+        observer,
+        candidates,
+        round,
+    ).filter((candidate) => focusIds.has(candidate.id));
 };
 
 export const updateFormationObservations = (
@@ -467,11 +937,14 @@ export const updateFormationObservations = (
         if (combatant.health <= 0) {
             return combatant;
         }
+        const focusIds = new Set(combatant.attentionFocus.combatantIds);
         const observedFacing = observeFormationFacing(
             combatant,
             combatants.filter(
                 (candidate) =>
-                    candidate.health > 0 && candidate.team !== combatant.team,
+                    candidate.health > 0 &&
+                    candidate.team !== combatant.team &&
+                    focusIds.has(candidate.id),
             ),
             sensoryTraces,
             ambient,
@@ -527,10 +1000,5 @@ export const getObservationVisualPenalty = (
         );
     });
 
-    return visualModifiers.length > 0
-        ? Math.round(
-              visualModifiers.reduce((total, modifier) => total + modifier, 0) /
-                  visualModifiers.length,
-          )
-        : 0;
+    return visualModifiers.length > 0 ? Math.min(...visualModifiers) : 0;
 };
