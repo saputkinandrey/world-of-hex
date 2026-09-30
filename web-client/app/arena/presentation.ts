@@ -76,6 +76,48 @@ export const toPixel = (coord: HexCoord, size: number): CartesianPoint => ({
     y: size * SQRT_3 * (coord.r + coord.q / 2),
 });
 
+export type SpriteFacing = {
+    body: string;
+    weapon: string;
+    flip: boolean;
+    frameSize: number;
+};
+
+export const getSpriteFacing = (facing: HexCoord): SpriteFacing => {
+    const horizontal = Math.abs(facing.q) > Math.abs(facing.r) * 0.55;
+    const vertical = Math.abs(facing.r) > Math.abs(facing.q) * 0.55;
+    if (vertical && facing.r < 0) {
+        return {
+            body: "Char1_body_back.png",
+            weapon: "Char1_body_back.png",
+            flip: false,
+            frameSize: 110,
+        };
+    }
+    if (vertical) {
+        return {
+            body: "Char1_body.png",
+            weapon: "Char1_weapon1.png",
+            flip: false,
+            frameSize: 110,
+        };
+    }
+    if (horizontal && facing.q < 0) {
+        return {
+            body: "Idle_body_NW1.png",
+            weapon: "Idle_body_NW1_weapon.png",
+            flip: facing.r > 0,
+            frameSize: 150,
+        };
+    }
+    return {
+        body: "Idle_body_SW1.png",
+        weapon: "Idle_body_SW1_weapon.png",
+        flip: facing.r < 0,
+        frameSize: 150,
+    };
+};
+
 export const buildHexPoints = (center: CartesianPoint): string => {
     const points: string[] = [];
 

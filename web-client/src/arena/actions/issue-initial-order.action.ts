@@ -43,7 +43,8 @@ export const ISSUE_INITIAL_ORDER_ACTION: BattleActionDefinition = {
         },
         {
             id: "initial-order-is-not-chosen",
-            isSatisfied: ({ actor }) => actor.receivedOrder === null,
+            isSatisfied: ({ actor }) =>
+                (actor.issuedOrder?.command ?? null) === null,
         },
         {
             id: "initial-assessment-is-ready",
@@ -54,7 +55,8 @@ export const ISSUE_INITIAL_ORDER_ACTION: BattleActionDefinition = {
     exitConditions: [],
     perform: (context) => {
         const { actor: sergeant, enemies, formationContext } = context;
-        if (!formationContext) throw new Error("Formation context is required.");
+        if (!formationContext)
+            throw new Error("Formation context is required.");
         const squad = formationContext.squadMembers;
         const planningDelayRounds = getCommandPlanningDelay(
             getSkillLevel(sergeant.profile, "tactics") ?? 6,
@@ -78,7 +80,8 @@ export const ISSUE_INITIAL_ORDER_ACTION: BattleActionDefinition = {
             soldierSpecialization: AMRITAR_SOLDIER_SPECIALIZATION_ID,
             formationFacing:
                 sergeant.observedFormationFacing ??
-                sergeant.orderedFormationFacing ??
+                sergeant.issuedOrder?.formationFacing ??
+                null ??
                 undefined,
         };
         const squadMembers = squad.filter(

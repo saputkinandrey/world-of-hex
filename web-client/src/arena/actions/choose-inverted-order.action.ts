@@ -1,3 +1,4 @@
+import { ActionEnterRejectedError } from "../action-errors";
 import { areAdjacent } from "../arena";
 import { getCommandPlanningDelay } from "../command-config";
 import { chooseCommand } from "../formation";
@@ -40,7 +41,8 @@ export const CHOOSE_INVERTED_ORDER_ACTION: BattleActionDefinition = {
         },
         {
             id: "current-order-exists",
-            isSatisfied: ({ actor }) => actor.receivedOrder !== null,
+            isSatisfied: ({ actor }) =>
+                (actor.issuedOrder?.command ?? null) !== null,
         },
         {
             id: "next-order-choice-is-inverted",
@@ -54,23 +56,26 @@ export const CHOOSE_INVERTED_ORDER_ACTION: BattleActionDefinition = {
                     getSkillLevel(actor.profile, "tactics") ?? 6,
                 ),
         },
-        {
-            id: "worst-order-is-current-order",
-            isSatisfied: ({ actor, enemies, formationContext }) =>
-                formationContext !== null &&
-                chooseCommand(
-                    actor,
-                    formationContext.squadMembers,
-                    enemies,
-                    true,
-                ) === actor.receivedOrder,
-        },
     ],
     exitConditions: [],
     perform: (context) => {
         const { actor: sergeant, enemies, formationContext, round } = context;
-        if (!formationContext || !sergeant.receivedOrder) {
-            throw new Error("Current order and formation context are required.");
+        if (!formationContext || !(sergeant.issuedOrder?.command ?? null)) {
+            throw new Error(
+                "Current order and formation context are required.",
+            );
+        }
+        const worstOrder = chooseCommand(
+            sergeant,
+            formationContext.squadMembers,
+            enemies,
+            true,
+        );
+        if (worstOrder !== (sergeant.issuedOrder?.command ?? null)) {
+            throw new ActionEnterRejectedError(
+                ACTION_ID,
+                "INVERTED_CHOICE_REQUIRES_ORDER_CHANGE",
+            );
         }
         const planningDelayRounds = getCommandPlanningDelay(
             getSkillLevel(sergeant.profile, "tactics") ?? 6,
@@ -80,7 +85,7 @@ export const CHOOSE_INVERTED_ORDER_ACTION: BattleActionDefinition = {
             senderId: sergeant.id,
             audienceIds: [],
             recipientIds: [],
-            command: sergeant.receivedOrder,
+            command: sergeant.issuedOrder!.command,
             planningDelayRounds,
             isInvertedDecision: true,
         };

@@ -8,6 +8,47 @@ Monorepo for the current game prototype.
 - `admin` - Next.js admin UI
 - `web-client` - Next.js player client
 - `packages/ui` - shared UI components
+- `worldbuilding-map` - Azgaar's Fantasy Map Generator fork, connected as a Git submodule
+
+## Worldbuilding Map Editor
+
+Based on [Azgaar's Fantasy Map Generator](https://github.com/Azgaar/Fantasy-Map-Generator)
+by Max Haniyeu (Azgaar), distributed under the MIT license.
+Our [fork](https://github.com/saputkinandrey/Fantasy-Map-Generator) preserves the
+original source, author credits and `worldbuilding-map/LICENSE`.
+The initial integration adds local launch commands; map generation behavior is unchanged.
+
+Requires Node.js 24 or newer. From the repository root:
+
+```sh
+npm run worldbuilding:setup
+npm run worldbuilding:dev
+```
+
+Open <http://127.0.0.1:3004/Fantasy-Map-Generator/>. Save editable worlds as `.map`
+files using the editor's Save menu. The editor has its own dependencies and lockfile
+and is intentionally outside the root npm workspaces.
+
+- `npm run worldbuilding:setup` initializes the pinned submodule and installs its dependencies.
+- `npm run worldbuilding:build` creates the web build.
+- `npm run worldbuilding:preview` serves the built editor at the same local address.
+
+The parent repository pins an exact submodule commit; setup does not fetch the latest
+upstream version automatically. Commit and push future editor customizations in the
+fork first, then record the new `worldbuilding-map` commit in this repository.
+Use a `codex/` branch for customizations, especially after setup leaves a detached HEAD.
+
+To inspect upstream updates from a fresh checkout:
+
+```sh
+git -C worldbuilding-map remote add upstream https://github.com/Azgaar/Fantasy-Map-Generator.git
+git -C worldbuilding-map fetch upstream
+git -C worldbuilding-map log --oneline HEAD..upstream/master
+```
+
+Add the remote only once. Merge selected upstream changes into the customization
+branch, verify the editor, push the fork, and update the parent submodule pointer.
+World of Hex presets and game-data import are separate follow-up work.
 
 ## Local Tooling
 

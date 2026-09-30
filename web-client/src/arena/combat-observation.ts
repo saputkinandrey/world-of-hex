@@ -1,3 +1,7 @@
+import type {
+    ObservedCombatant,
+    PositionedObservation,
+} from "./actors/observation.types";
 import { distanceBetween } from "./arena";
 import type { Combatant, HexCoord, ObviousWoundState } from "./model";
 import { hashText } from "./random";
@@ -18,13 +22,23 @@ export const getObviousWoundState = (
     return visibleInjury > 0 ? "wounded" : "unhurt";
 };
 
+export const hasEnemyInWeaponReach = (
+    position: HexCoord,
+    weaponReach: number,
+    enemies: readonly PositionedObservation[],
+): boolean =>
+    enemies.some(
+        (enemy) => distanceBetween(position, enemy.position) <= weaponReach,
+    );
+
 export const chooseAttackTarget = (
     actor: Combatant,
-    enemies: Combatant[],
-): Combatant | undefined => {
+    enemies: ObservedCombatant[],
+): ObservedCombatant | undefined => {
     const reachableEnemies = enemies.filter(
         (enemy) =>
-            distanceBetween(actor.position, enemy.position) <= actor.weaponReach,
+            distanceBetween(actor.position, enemy.position) <=
+            actor.weaponReach,
     );
     const coordinatedTarget = reachableEnemies.find(
         (enemy) => enemy.id === actor.focusTargetId,
@@ -34,8 +48,8 @@ export const chooseAttackTarget = (
         coordinatedTarget ??
         reachableEnemies.sort(
             (left, right) =>
-                OBVIOUS_WOUND_RANK[getObviousWoundState(right)] -
-                    OBVIOUS_WOUND_RANK[getObviousWoundState(left)] ||
+                OBVIOUS_WOUND_RANK[right.obviousWoundState] -
+                    OBVIOUS_WOUND_RANK[left.obviousWoundState] ||
                 hashText(`${actor.id}:${left.id}`) -
                     hashText(`${actor.id}:${right.id}`),
         )[0]
@@ -44,9 +58,9 @@ export const chooseAttackTarget = (
 
 export const chooseAttackTargetFromPosition = (
     actor: Combatant,
-    enemies: Combatant[],
+    enemies: ObservedCombatant[],
     position: HexCoord,
-): Combatant | undefined =>
+): ObservedCombatant | undefined =>
     chooseAttackTarget(
         {
             ...actor,

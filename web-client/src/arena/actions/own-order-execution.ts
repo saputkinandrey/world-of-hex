@@ -1,3 +1,4 @@
+import type { ObservedCombatant } from "../actors/observation.types";
 import { distanceBetween } from "../arena";
 import { hasObservedOwnOrderExecutionStarted } from "../command-assessment";
 import type { Combatant, FormationContext, HexCoord } from "../model";
@@ -6,7 +7,7 @@ import { hasMilitaryCommandAuthority } from "../scenario";
 
 export interface OwnOrderExecutionInput {
     actor: Combatant;
-    attackTarget: Combatant | undefined;
+    attackTarget: ObservedCombatant | undefined;
     formationContext: FormationContext | null;
     blocked: Set<string>;
     arenaCellKeys: ReadonlySet<string>;

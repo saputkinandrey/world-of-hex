@@ -1,13 +1,35 @@
-import { NEIGHBOR_OFFSETS, SQRT_3, areAdjacent, distanceBetween, getDistanceMeters, getNeighbors, toKey, toMeters } from "./arena";
-import { getSkillPoints } from "./fighter-generation";
-import { getObviousWoundState } from "./combat-observation";
+import type { ObservedCombatant } from "./actors/observation.types";
 import {
-    AVERAGE_TASK_DIFFICULTY_MODIFIER,
-    getCheckTarget,
-} from "./check";
-import { CartesianPoint, Combatant, CommandKind, CommandScore, FormationContext, FormationRoleAssignment, HexCoord, HoldPositionAssessment } from "./model";
-import { CALM_COMMUNICATION_HEARING_PENALTY, PENETRATING_VOICE_HEARING_BONUS, SHOUT_HEARING_BONUS, getHearingDistanceModifier } from "./perception";
-import { getSoldierSpecialization, hasAdvantage, hasMilitaryCommandAuthority } from "./scenario";
+    NEIGHBOR_OFFSETS,
+    SQRT_3,
+    areAdjacent,
+    distanceBetween,
+    getDistanceMeters,
+    getHexNeighbors,
+    toKey,
+    toMeters,
+} from "./arena";
+import { getSkillPoints } from "./fighter-generation";
+import { AVERAGE_TASK_DIFFICULTY_MODIFIER, getCheckTarget } from "./check";
+import {
+    CartesianPoint,
+    Combatant,
+    CommandKind,
+    CommandScore,
+    FormationContext,
+    FormationRoleAssignment,
+    HexCoord,
+    HoldPositionAssessment,
+} from "./model";
+import {
+    CALM_COMMUNICATION_HEARING_PENALTY,
+    PENETRATING_VOICE_HEARING_BONUS,
+    SHOUT_HEARING_BONUS,
+    getHearingDistanceModifier,
+} from "./perception";
+import { getSoldierSpecialization, hasAdvantage } from "./scenario";
+
+const ASSUMED_RECIPIENT_PERCEPTION = 10;
 
 export const FORMATION_CONTACT_DISTANCE_HEXES = 3;
 
@@ -19,7 +41,7 @@ export const UNTUNED_FORMATION_RADIUS_HEXES = 3;
 
 export const getFormationContext = (
     actor: Combatant,
-    combatants: Combatant[],
+    combatants: ObservedCombatant[],
 ): FormationContext | null => {
     if (
         getSkillPoints(actor.profile, "soldier") < BASIC_SOLDIER_TRAINING_POINTS
@@ -29,11 +51,11 @@ export const getFormationContext = (
 
     const squadMembers = combatants.filter(
         (member) =>
-            member.health > 0 &&
             member.team === actor.team &&
-            member.profile.lens.id === actor.profile.lens.id,
+            (member.id === actor.id ||
+                actor.knownSquadMemberIds.includes(member.id)),
     );
-    const sergeant = squadMembers.find(hasMilitaryCommandAuthority);
+    const sergeant = squadMembers.find((member) => member.knownCommander);
     if (!sergeant) {
         return null;
     }
@@ -59,14 +81,19 @@ export const getFormationRadius = (actor: Combatant): number => {
         : UNTUNED_FORMATION_RADIUS_HEXES;
 };
 
-export const getCohesionOutliers = (context: FormationContext): Combatant[] =>
+export const isCohesionOutlier = (
+    member: ObservedCombatant,
+    sergeant: ObservedCombatant,
+): boolean =>
+    member.id !== sergeant.id &&
+    distanceBetween(member.position, sergeant.position) >
+        SIMPLE_FORMATION_RADIUS_HEXES;
+
+export const getCohesionOutliers = (
+    context: FormationContext,
+): ObservedCombatant[] =>
     context.squadMembers
-        .filter(
-            (member) =>
-                member.id !== context.sergeant.id &&
-                distanceBetween(member.position, context.sergeant.position) >
-                    SIMPLE_FORMATION_RADIUS_HEXES,
-        )
+        .filter((member) => isCohesionOutlier(member, context.sergeant))
         .sort(
             (left, right) =>
                 distanceBetween(context.sergeant.position, right.position) -
@@ -76,10 +103,10 @@ export const getCohesionOutliers = (context: FormationContext): Combatant[] =>
 
 export const getCalmCommandHearingTarget = (
     sergeant: Combatant,
-    recipient: Combatant,
+    recipient: ObservedCombatant,
 ): number =>
     getCheckTarget({
-        base: recipient.perception,
+        base: ASSUMED_RECIPIENT_PERCEPTION,
         difficultyModifier: AVERAGE_TASK_DIFFICULTY_MODIFIER,
         situationalModifiers: [
             SHOUT_HEARING_BONUS,
@@ -106,7 +133,9 @@ export const getFormationRoleAssignment = (
     };
 };
 
-const getCombatantCenter = (combatants: Combatant[]): CartesianPoint => {
+const getCombatantCenter = (
+    combatants: ObservedCombatant[],
+): CartesianPoint => {
     const positions = combatants.map((combatant) =>
         toMeters(combatant.position),
     );
@@ -122,7 +151,7 @@ const getCombatantCenter = (combatants: Combatant[]): CartesianPoint => {
 
 export const getLocalFormationContactFacing = (
     context: FormationContext,
-    enemies: Combatant[],
+    enemies: ObservedCombatant[],
 ): CartesianPoint | null => {
     const contactEnemies = enemies.filter((enemy) =>
         context.squadMembers.some(
@@ -146,7 +175,7 @@ export const getLocalFormationContactFacing = (
 
 export const sergeantHasEnemyContact = (
     context: FormationContext,
-    enemies: Combatant[],
+    enemies: ObservedCombatant[],
 ): boolean =>
     enemies.some(
         (enemy) =>
@@ -167,7 +196,7 @@ export const getForwardHexOffset = (facing: CartesianPoint): HexCoord =>
 
 export const countAlliesDirectlyAhead = (
     position: HexCoord,
-    allies: Combatant[],
+    allies: ObservedCombatant[],
     facing: CartesianPoint | null,
 ): number => {
     if (!facing) {
@@ -193,19 +222,21 @@ export const countAlliesDirectlyAhead = (
 export const assessHoldPosition = (
     actor: Combatant,
     position: HexCoord,
-    formationAllies: Combatant[],
-    teamAllies: Combatant[],
-    enemies: Combatant[],
+    formationAllies: ObservedCombatant[],
+    teamAllies: ObservedCombatant[],
+    enemies: ObservedCombatant[],
     assignment: FormationRoleAssignment,
 ): HoldPositionAssessment => {
     const adjacentAllies = formationAllies.filter((ally) =>
         areAdjacent(position, ally.position),
     );
     const attackableEnemies = enemies.filter(
-        (enemy) => distanceBetween(position, enemy.position) <= actor.weaponReach,
+        (enemy) =>
+            distanceBetween(position, enemy.position) <= actor.weaponReach,
     );
     const threateningEnemies = enemies.filter(
-        (enemy) => distanceBetween(position, enemy.position) <= enemy.weaponReach,
+        (enemy) =>
+            distanceBetween(position, enemy.position) <= enemy.weaponReach,
     );
     const supportedThreatenedAllies = adjacentAllies.filter((ally) => {
         const allyThreats = enemies.filter(
@@ -218,7 +249,7 @@ export const assessHoldPosition = (
                 distanceBetween(position, enemy.position) <= actor.weaponReach,
         );
     });
-    const getSideCrossProduct = (neighbor: Combatant): number => {
+    const getSideCrossProduct = (neighbor: ObservedCombatant): number => {
         if (!assignment.facing) {
             return 0;
         }
@@ -233,7 +264,7 @@ export const assessHoldPosition = (
             assignment.facing.y * neighborDirection.x
         );
     };
-    const isLateralConnection = (neighbor: Combatant): boolean => {
+    const isLateralConnection = (neighbor: ObservedCombatant): boolean => {
         if (!assignment.facing) {
             return true;
         }
@@ -268,28 +299,19 @@ export const assessHoldPosition = (
               ? leftConnections
               : [];
     const usesTwoSidedConnections =
-        assignment.role === "frontliner" ||
-        assignment.role === "line_fighter";
-    const roleConnections =
-        !assignment.facing
-            ? Math.min(
-                  usesTwoSidedConnections ? 2 : 1,
-                  adjacentAllies.length,
-              )
-            : usesTwoSidedConnections
-            ? Number(leftConnections.length > 0) +
-              Number(rightConnections.length > 0)
-            : Number(innerConnections.length > 0);
+        assignment.role === "frontliner" || assignment.role === "line_fighter";
+    const roleConnections = !assignment.facing
+        ? Math.min(usesTwoSidedConnections ? 2 : 1, adjacentAllies.length)
+        : usesTwoSidedConnections
+          ? Number(leftConnections.length > 0) +
+            Number(rightConnections.length > 0)
+          : Number(innerConnections.length > 0);
     const preferredRoleConnections = innerConnections.filter(
         (ally) => ally.formationRole === "line_fighter",
     ).length;
     const alliesDirectlyAhead =
         assignment.role === "frontliner"
-            ? countAlliesDirectlyAhead(
-                  position,
-                  teamAllies,
-                  assignment.facing,
-              )
+            ? countAlliesDirectlyAhead(position, teamAllies, assignment.facing)
             : 0;
 
     return {
@@ -336,8 +358,7 @@ export const compareHoldPositions = (
     left.alliesDirectlyAhead - right.alliesDirectlyAhead ||
     right.roleConnections - left.roleConnections ||
     right.preferredRoleConnections - left.preferredRoleConnections ||
-    Number(right.attackableEnemies > 0) -
-        Number(left.attackableEnemies > 0) ||
+    Number(right.attackableEnemies > 0) - Number(left.attackableEnemies > 0) ||
     right.supportedSurroundedAllies - left.supportedSurroundedAllies ||
     right.supportedThreatenedAllies - left.supportedThreatenedAllies ||
     right.adjacentAllies - left.adjacentAllies ||
@@ -350,8 +371,8 @@ export const compareHoldPositions = (
 export const chooseHoldFormationPosition = (
     actor: Combatant,
     context: FormationContext,
-    teamAllies: Combatant[],
-    enemies: Combatant[],
+    teamAllies: ObservedCombatant[],
+    enemies: ObservedCombatant[],
     blocked: Set<string>,
     arenaCellKeys: ReadonlySet<string>,
 ): HexCoord => {
@@ -360,15 +381,16 @@ export const chooseHoldFormationPosition = (
         actor,
         getLocalFormationContactFacing(context, enemies),
     );
-    const candidates = [actor.position, ...getNeighbors(actor.position)].filter(
-        (candidate) => {
-            const key = toKey(candidate);
-            return (
-                arenaCellKeys.has(key) &&
-                (key === toKey(actor.position) || !blocked.has(key))
-            );
-        },
-    );
+    const candidates = [
+        actor.position,
+        ...getHexNeighbors(actor.position),
+    ].filter((candidate) => {
+        const key = toKey(candidate);
+        return (
+            arenaCellKeys.has(key) &&
+            (key === toKey(actor.position) || !blocked.has(key))
+        );
+    });
     const assessments = candidates.map((candidate) =>
         assessHoldPosition(
             actor,
@@ -380,26 +402,31 @@ export const chooseHoldFormationPosition = (
         ),
     );
 
-    return [...assessments].sort(compareHoldPositions)[0]?.position ?? actor.position;
+    return (
+        [...assessments].sort(compareHoldPositions)[0]?.position ??
+        actor.position
+    );
 };
 
 export const chooseCommand = (
     sergeant: Combatant,
-    squad: Combatant[],
-    enemies: Combatant[],
+    squad: ObservedCombatant[],
+    enemies: ObservedCombatant[],
     invertCriteria = false,
 ): CommandKind => {
     const visiblyWounded = squad.filter(
-        (member) => getObviousWoundState(member) !== "unhurt",
+        (member) => member.obviousWoundState !== "unhurt",
     ).length;
     const visiblyBadlyWounded = squad.filter(
-        (member) => getObviousWoundState(member) === "badly_wounded",
+        (member) => member.obviousWoundState === "badly_wounded",
     ).length;
     const engagedCount = squad.filter((member) =>
         enemies.some((enemy) => areAdjacent(member.position, enemy.position)),
     ).length;
     const closestEnemyDistance = Math.min(
-        ...enemies.map((enemy) => distanceBetween(sergeant.position, enemy.position)),
+        ...enemies.map((enemy) =>
+            distanceBetween(sergeant.position, enemy.position),
+        ),
     );
     const healthEmergency =
         visiblyBadlyWounded > 0 &&
@@ -442,15 +469,14 @@ export const chooseCommand = (
                     ? -20
                     : 100
                 : (isEngaged &&
-                      visiblyWounded >= Math.ceil(squad.length / 3)) ||
+                        visiblyWounded >= Math.ceil(squad.length / 3)) ||
                     (!isEngaged && enemyIsClose)
                   ? 100
                   : 0,
         },
         {
             command: "withdraw",
-            score:
-                healthEmergency && withdrawalIsExecutable ? 100 : -100,
+            score: healthEmergency && withdrawalIsExecutable ? 100 : -100,
         },
     ];
 

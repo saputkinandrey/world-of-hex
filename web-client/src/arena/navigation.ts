@@ -1,4 +1,11 @@
-import { areAdjacent, distanceBetween, getNeighbors, toKey, toMeters } from "./arena";
+import type { PositionedObservation } from "./actors/observation.types";
+import {
+    areAdjacent,
+    distanceBetween,
+    getHexNeighbors,
+    toKey,
+    toMeters,
+} from "./arena";
 import { UNENCUMBERED_OBSERVED_MOVE_HEXES } from "./config";
 import { Combatant, HexCoord } from "./model";
 
@@ -6,6 +13,7 @@ export const findPathToDestination = (
     actor: Combatant,
     destination: HexCoord,
     blocked: Set<string>,
+    arenaCellKeys: ReadonlySet<string>,
 ): HexCoord[] => {
     const startKey = toKey(actor.position);
     const destinationKey = toKey(destination);
@@ -36,9 +44,10 @@ export const findPathToDestination = (
             return path;
         }
 
-        getNeighbors(current).forEach((neighbor) => {
+        getHexNeighbors(current).forEach((neighbor) => {
             const key = toKey(neighbor);
             if (
+                !arenaCellKeys.has(key) ||
                 visited.has(key) ||
                 (blocked.has(key) && key !== destinationKey)
             ) {
@@ -56,22 +65,24 @@ export const findPathToDestination = (
 
 export const findPathNearCombatant = (
     actor: Combatant,
-    target: Combatant,
+    target: PositionedObservation,
     blocked: Set<string>,
     arenaCellKeys: ReadonlySet<string>,
 ): HexCoord[] =>
-    getNeighbors(target.position)
+    getHexNeighbors(target.position)
         .filter((candidate) => {
             const key = toKey(candidate);
             return arenaCellKeys.has(key) && !blocked.has(key);
         })
-        .map((candidate) => findPathToDestination(actor, candidate, blocked))
+        .map((candidate) =>
+            findPathToDestination(actor, candidate, blocked, arenaCellKeys),
+        )
         .filter((path) => path.length > 0)
         .sort((left, right) => left.length - right.length)[0] ?? [];
 
 export const findStepTowardSquadCenter = (
     actor: Combatant,
-    squadMembers: Combatant[],
+    squadMembers: PositionedObservation[],
     blocked: Set<string>,
     arenaCellKeys: ReadonlySet<string>,
 ): HexCoord | undefined => {
@@ -90,7 +101,7 @@ export const findStepTowardSquadCenter = (
         return Math.hypot(meters.x - center.x, meters.y - center.y);
     };
     const currentDistance = distanceToCenter(actor.position);
-    const bestStep = getNeighbors(actor.position)
+    const bestStep = getHexNeighbors(actor.position)
         .filter((candidate) => {
             const key = toKey(candidate);
             return arenaCellKeys.has(key) && !blocked.has(key);
@@ -108,12 +119,13 @@ export const findStepTowardSquadCenter = (
 
 export const findPathToAttackPosition = (
     actor: Combatant,
-    enemies: Combatant[],
+    enemies: PositionedObservation[],
     blocked: Set<string>,
     arenaCells: HexCoord[],
 ): HexCoord[] => {
     const startKey = toKey(actor.position);
     const goalKeys = new Set<string>();
+    const arenaCellKeys = new Set(arenaCells.map(toKey));
 
     arenaCells.forEach((cell) => {
         const key = toKey(cell);
@@ -152,9 +164,13 @@ export const findPathToAttackPosition = (
             return path;
         }
 
-        getNeighbors(current).forEach((neighbor) => {
+        getHexNeighbors(current).forEach((neighbor) => {
             const key = toKey(neighbor);
-            if (blocked.has(key) || visited.has(key)) {
+            if (
+                !arenaCellKeys.has(key) ||
+                blocked.has(key) ||
+                visited.has(key)
+            ) {
                 return;
             }
 
@@ -170,7 +186,7 @@ export const findPathToAttackPosition = (
 
 export const canReachWithAttackThisRound = (
     attacker: Combatant,
-    target: Combatant,
+    target: PositionedObservation,
     combatants: Combatant[],
     obstacleKeys: Set<string>,
     arenaCells: HexCoord[],
@@ -210,8 +226,9 @@ export const canReachWithAttackThisRound = (
 
 export const findWithdrawalDestination = (
     actor: Combatant,
-    enemies: Combatant[],
+    enemies: PositionedObservation[],
     blocked: Set<string>,
+    arenaCellKeys: ReadonlySet<string>,
     supportPositions: HexCoord[] = [],
     maximumSupportDistance = Number.POSITIVE_INFINITY,
 ): HexCoord | undefined => {
@@ -249,9 +266,13 @@ export const findWithdrawalDestination = (
             continue;
         }
 
-        getNeighbors(current).forEach((neighbor) => {
+        getHexNeighbors(current).forEach((neighbor) => {
             const key = toKey(neighbor);
-            if (blocked.has(key) || stepsByKey.has(key)) {
+            if (
+                !arenaCellKeys.has(key) ||
+                blocked.has(key) ||
+                stepsByKey.has(key)
+            ) {
                 return;
             }
             stepsByKey.set(key, currentSteps + 1);
@@ -264,11 +285,11 @@ export const findWithdrawalDestination = (
 
 export const findConcentrationStep = (
     actor: Combatant,
-    enemies: Combatant[],
+    enemies: PositionedObservation[],
     blocked: Set<string>,
     arenaCellKeys: ReadonlySet<string>,
 ): HexCoord | undefined => {
-    const candidates = getNeighbors(actor.position).filter((candidate) => {
+    const candidates = getHexNeighbors(actor.position).filter((candidate) => {
         const key = toKey(candidate);
         return arenaCellKeys.has(key) && !blocked.has(key);
     });
@@ -277,7 +298,9 @@ export const findConcentrationStep = (
     }
 
     const currentDistance = Math.min(
-        ...enemies.map((enemy) => distanceBetween(actor.position, enemy.position)),
+        ...enemies.map((enemy) =>
+            distanceBetween(actor.position, enemy.position),
+        ),
     );
     const shouldStepBack =
         actor.receivedOrder === "withdraw" ||

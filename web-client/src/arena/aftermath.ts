@@ -1,8 +1,5 @@
 import { MAX_SHOCK_PENALTY } from "./combat";
-import {
-    AVERAGE_TASK_DIFFICULTY_MODIFIER,
-    getCheckTarget,
-} from "./check";
+import { AVERAGE_TASK_DIFFICULTY_MODIFIER, getCheckTarget } from "./check";
 import {
     FOCUS_DURATION_ROUNDS,
     INDIVIDUAL_DIRECTIVE_DURATION_ROUNDS,
@@ -12,14 +9,14 @@ import { MAX_EVALUATE_BONUS } from "./decision";
 import type { Combatant, CommandResolution } from "./model";
 import { recordThreatObservations } from "./perception";
 import { rollDice } from "./random";
-import { hasAdvantage, hasMilitaryCommandAuthority } from "./scenario";
+import { hasAdvantage } from "./scenario";
+import { getActorPanicPenalty } from "./actors/morale";
 
 export interface ResolveAftermathInput {
     combatants: Combatant[];
     damageByTarget: Map<string, number>;
     attackerIdsByTargetId: Map<string, string[]>;
     communication: CommandResolution;
-    orderChangeSenderIds: Set<string>;
     messages: string[];
     seed: number;
     turn: number;
@@ -35,36 +32,17 @@ export const resolveAftermath = ({
     damageByTarget,
     attackerIdsByTargetId,
     communication,
-    orderChangeSenderIds,
     messages,
     seed,
     turn,
 }: ResolveAftermathInput): AftermathResult => {
-    const projectedHealthById = new Map(
-        combatants.map((combatant) => [
-            combatant.id,
-            Math.max(
-                0,
-                combatant.health -
-                    (damageByTarget.get(combatant.id) ?? 0),
-            ),
-        ]),
-    );
-
     const resolvedCombatants = combatants.map((combatant) => {
-        const attackerIds =
-            attackerIdsByTargetId.get(combatant.id) ?? [];
+        const attackerIds = attackerIdsByTargetId.get(combatant.id) ?? [];
         const injury = damageByTarget.get(combatant.id) ?? 0;
         const health = Math.max(0, combatant.health - injury);
         const majorWound = injury >= combatant.maxHealth / 2;
         const healthRoll = majorWound
-            ? rollDice(
-                  3,
-                  6,
-                  seed,
-                  turn,
-                  `${combatant.id}:major-wound`,
-              )
+            ? rollDice(3, 6, seed, turn, `${combatant.id}:major-wound`)
             : null;
         const majorWoundTarget = getCheckTarget({
             base: combatant.healthAttribute,
@@ -78,8 +56,7 @@ export const resolveAftermath = ({
             healthRoll && healthRoll.total > majorWoundTarget,
         );
         const spentTurnStunned =
-            combatant.isStunned &&
-            combatant.maneuver === "do_nothing";
+            combatant.isStunned && combatant.maneuver === "do_nothing";
         const stunRecoveryTarget = getCheckTarget({
             base: combatant.healthAttribute,
             difficultyModifier: AVERAGE_TASK_DIFFICULTY_MODIFIER,
@@ -87,60 +64,42 @@ export const resolveAftermath = ({
         });
         const stunRecoveryRoll =
             health > 0 && spentTurnStunned && !newlyStunned
-                ? rollDice(
-                      3,
-                      6,
-                      seed,
-                      turn,
-                      `${combatant.id}:stun-recovery`,
-                  )
+                ? rollDice(3, 6, seed, turn, `${combatant.id}:stun-recovery`)
                 : null;
         const recoveredFromStun = Boolean(
-            stunRecoveryRoll &&
-                stunRecoveryRoll.total <= stunRecoveryTarget,
+            stunRecoveryRoll && stunRecoveryRoll.total <= stunRecoveryTarget,
         );
-        const teamMembers = combatants.filter(
-            (member) => member.team === combatant.team,
+        const issuedOrder = communication.issuedOrdersBySenderId.get(
+            combatant.id,
         );
-        const fallenAllies = teamMembers.filter(
-            (member) =>
-                (projectedHealthById.get(member.id) ?? 0) <= 0,
-        ).length;
-        const sergeantDown = teamMembers.some(
-            (member) =>
-                member.profile.lens.id === combatant.profile.lens.id &&
-                hasMilitaryCommandAuthority(member) &&
-                (projectedHealthById.get(member.id) ?? 0) <= 0,
-        );
-        const rawPanicPenalty =
-            (health > 0 && health <= combatant.maxHealth / 3 ? 2 : 0) +
-            (fallenAllies >= Math.ceil(teamMembers.length / 2) ? 1 : 0) +
-            (sergeantDown ? 1 : 0) +
-            (newlyStunned ? 1 : 0) -
-            (hasAdvantage(combatant, "combat_reflexes") ? 1 : 0);
         const acceptedOrder =
+            issuedOrder?.command ??
             communication.ordersByCombatantId.get(combatant.id);
-        const acceptedOrderSenderId =
-            communication.orderSendersByCombatantId.get(combatant.id);
+        const acceptedOrderSenderId = issuedOrder
+            ? combatant.id
+            : communication.orderSendersByCombatantId.get(combatant.id);
         const acceptedOrderSpecialization =
-            communication.orderSpecializationsByCombatantId.get(
-                combatant.id,
-            );
+            issuedOrder?.specialization ??
+            communication.orderSpecializationsByCombatantId.get(combatant.id);
         const acceptedFormationFacing =
+            issuedOrder?.formationFacing ??
             communication.formationFacingsByCombatantId.get(combatant.id);
-        const acceptedDirective =
-            communication.directivesByCombatantId.get(combatant.id);
-        const acceptedFocusTarget =
-            communication.focusTargetsByCombatantId.get(combatant.id);
-        const acceptedAssessment =
-            communication.assessmentsBySergeantId.get(combatant.id);
+        const acceptedDirective = communication.directivesByCombatantId.get(
+            combatant.id,
+        );
+        const acceptedFocusTarget = communication.focusTargetsByCombatantId.get(
+            combatant.id,
+        );
+        const acceptedAssessment = communication.assessmentsBySergeantId.get(
+            combatant.id,
+        );
         const acceptedTacticalAssessment =
             communication.tacticalAssessmentsBySergeantId.get(combatant.id);
         const invertedChoiceConsumed =
-            communication.consumedInvertedChoiceSergeantIds.has(
-                combatant.id,
-            );
-        const orderChanged = orderChangeSenderIds.has(combatant.id);
+            communication.consumedInvertedChoiceSergeantIds.has(combatant.id);
+        const orderChanged = communication.changedOrderSenderIds.has(
+            combatant.id,
+        );
 
         if (combatant.health > 0 && health === 0) {
             messages.push(
@@ -174,30 +133,27 @@ export const resolveAftermath = ({
             health,
             evaluateBonus:
                 combatant.maneuver === "evaluate"
-                    ? Math.min(
-                          MAX_EVALUATE_BONUS,
-                          combatant.evaluateBonus + 1,
-                      )
+                    ? Math.min(MAX_EVALUATE_BONUS, combatant.evaluateBonus + 1)
                     : 0,
-            shockPenalty: hasAdvantage(
-                combatant,
-                "high_pain_threshold",
-            )
+            shockPenalty: hasAdvantage(combatant, "high_pain_threshold")
                 ? 0
                 : Math.min(MAX_SHOCK_PENALTY, injury),
             isStunned:
-                newlyStunned ||
-                (combatant.isStunned && !recoveredFromStun),
-            panicPenalty: Math.max(0, Math.min(4, rawPanicPenalty)),
+                newlyStunned || (combatant.isStunned && !recoveredFromStun),
+            panicPenalty: getActorPanicPenalty(
+                { ...combatant, health },
+                newlyStunned,
+            ),
             hasReceivedInitialOrder:
                 acceptedOrder !== undefined ||
                 combatant.hasReceivedInitialOrder,
             receivedOrder: acceptedOrder ?? combatant.receivedOrder,
+            issuedOrder: issuedOrder ?? combatant.issuedOrder,
             receivedOrderSenderId: acceptedOrder
-                ? acceptedOrderSenderId ?? null
+                ? (acceptedOrderSenderId ?? null)
                 : combatant.receivedOrderSenderId,
             receivedOrderSpecialization: acceptedOrder
-                ? acceptedOrderSpecialization ?? null
+                ? (acceptedOrderSpecialization ?? null)
                 : combatant.receivedOrderSpecialization,
             orderExpiresAfterTurn: acceptedOrder
                 ? turn + ORDER_DURATION_ROUNDS
@@ -207,11 +163,11 @@ export const resolveAftermath = ({
                 : combatant.lastOrderChangeTurn,
             orderAssessment: orderChanged
                 ? "unknown"
-                : acceptedAssessment?.assessment ?? combatant.orderAssessment,
+                : (acceptedAssessment?.assessment ?? combatant.orderAssessment),
             orderAssessmentConfidence: orderChanged
                 ? "none"
-                : acceptedAssessment?.confidence ??
-                  combatant.orderAssessmentConfidence,
+                : (acceptedAssessment?.confidence ??
+                  combatant.orderAssessmentConfidence),
             orderAssessmentTurn: orderChanged
                 ? turn
                 : acceptedAssessment
@@ -226,21 +182,19 @@ export const resolveAftermath = ({
                     : combatant.invertNextOrderChoice,
             pendingInitialOrderAssessment: orderChanged
                 ? "none"
-                : acceptedTacticalAssessment ??
-                  combatant.pendingInitialOrderAssessment,
-            receivedDirective:
-                acceptedDirective ?? combatant.receivedDirective,
+                : (acceptedTacticalAssessment ??
+                  combatant.pendingInitialOrderAssessment),
+            receivedDirective: acceptedDirective ?? combatant.receivedDirective,
             directiveExpiresAfterTurn: acceptedDirective
                 ? turn + INDIVIDUAL_DIRECTIVE_DURATION_ROUNDS
                 : combatant.directiveExpiresAfterTurn,
-            focusTargetId:
-                acceptedFocusTarget ?? combatant.focusTargetId,
+            focusTargetId: acceptedFocusTarget ?? combatant.focusTargetId,
             focusExpiresAfterTurn: acceptedFocusTarget
                 ? turn + FOCUS_DURATION_ROUNDS
                 : combatant.focusExpiresAfterTurn,
-            orderedFormationFacing:
-                acceptedFormationFacing ??
-                combatant.orderedFormationFacing,
+            orderedFormationFacing: acceptedFormationFacing
+                ? { ...acceptedFormationFacing }
+                : combatant.orderedFormationFacing,
             orderedFormationFacingExpiresAfterTurn: acceptedFormationFacing
                 ? turn + ORDER_DURATION_ROUNDS
                 : combatant.orderedFormationFacingExpiresAfterTurn,

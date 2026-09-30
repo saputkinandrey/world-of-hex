@@ -1,4 +1,11 @@
-import { ArenaCell, ArenaObstacle, CartesianPoint, HexCoord, ObstacleKind, Team } from "./model";
+import {
+    ArenaCell,
+    ArenaObstacle,
+    CartesianPoint,
+    HexCoord,
+    ObstacleKind,
+    Team,
+} from "./model";
 import { TEAM_SIZE } from "./config";
 import { createRandom } from "./random";
 
@@ -82,12 +89,18 @@ export const ARENA_CELL_BY_KEY = new Map(
     ARENA_CELLS.map((cell) => [cell.key, cell]),
 );
 
+export const getHexNeighbors = (coord: HexCoord): HexCoord[] =>
+    NEIGHBOR_OFFSETS.map((offset) => addCoords(coord, offset));
+
 export const getNeighbors = (coord: HexCoord): HexCoord[] =>
-    NEIGHBOR_OFFSETS.map((offset) => addCoords(coord, offset)).filter(
-        (neighbor) => ARENA_CELL_BY_KEY.has(toKey(neighbor)),
+    getHexNeighbors(coord).filter((neighbor) =>
+        ARENA_CELL_BY_KEY.has(toKey(neighbor)),
     );
 
-export const selectSpawnCells = (team: Team, blocked: Set<string>): HexCoord[] => {
+export const selectSpawnCells = (
+    team: Team,
+    blocked: Set<string>,
+): HexCoord[] => {
     const direction = team === "blue" ? -1 : 1;
     const formationCenter = {
         x: direction * ARENA_RADIUS_X_METERS * 0.72,
@@ -96,8 +109,7 @@ export const selectSpawnCells = (team: Team, blocked: Set<string>): HexCoord[] =
     const candidates = ARENA_CELLS.filter((cell) => {
         const meters = toMeters(cell);
         return (
-            direction * meters.x >
-                ARENA_RADIUS_X_METERS * SPAWN_BAND_RATIO &&
+            direction * meters.x > ARENA_RADIUS_X_METERS * SPAWN_BAND_RATIO &&
             !blocked.has(cell.key)
         );
     }).sort((left, right) => {
@@ -109,7 +121,9 @@ export const selectSpawnCells = (team: Team, blocked: Set<string>): HexCoord[] =
         const rightDistance =
             (rightMeters.x - formationCenter.x) ** 2 +
             (rightMeters.y - formationCenter.y) ** 2;
-        return leftDistance - rightDistance || left.key.localeCompare(right.key);
+        return (
+            leftDistance - rightDistance || left.key.localeCompare(right.key)
+        );
     });
 
     return candidates
@@ -161,14 +175,16 @@ export const generateObstacles = (seed: number): ArenaObstacle[] => {
     for (let cluster = 0; cluster < OBSTACLE_CLUSTER_COUNT; cluster += 1) {
         const origin = candidates[Math.floor(random() * candidates.length)];
         const kind = kinds[Math.floor(random() * kinds.length)];
-        const clusterSize = kind === "column" ? 1 : 1 + Math.floor(random() * 3);
+        const clusterSize =
+            kind === "column" ? 1 : 1 + Math.floor(random() * 3);
         let current: HexCoord = origin;
 
         for (let index = 0; index < clusterSize; index += 1) {
             const key = toKey(current);
             obstacleByKey.set(key, { key, kind });
             const neighbors = getNeighbors(current);
-            current = neighbors[Math.floor(random() * neighbors.length)] ?? current;
+            current =
+                neighbors[Math.floor(random() * neighbors.length)] ?? current;
         }
     }
 
@@ -178,15 +194,13 @@ export const generateObstacles = (seed: number): ArenaObstacle[] => {
 };
 
 export const areAdjacent = (left: HexCoord, right: HexCoord): boolean =>
-    getNeighbors(left).some((neighbor) => toKey(neighbor) === toKey(right));
+    getHexNeighbors(left).some((neighbor) => toKey(neighbor) === toKey(right));
 
 export const distanceBetween = (left: HexCoord, right: HexCoord): number => {
     const deltaQ = left.q - right.q;
     const deltaR = left.r - right.r;
     const deltaS = -left.q - left.r + right.q + right.r;
-    return (
-        (Math.abs(deltaQ) + Math.abs(deltaR) + Math.abs(deltaS)) / 2
-    );
+    return (Math.abs(deltaQ) + Math.abs(deltaR) + Math.abs(deltaS)) / 2;
 };
 
 export const getDistanceMeters = (left: HexCoord, right: HexCoord): number =>

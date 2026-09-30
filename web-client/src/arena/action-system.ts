@@ -23,6 +23,7 @@ export interface ActionCandidate<TResult, TState> {
 export interface ActionDefinition<TContext, TResult, TState> {
     id: string;
     priority: number;
+    interruptsActiveAction?: boolean;
     getPriority?: (context: TContext) => number;
     enterConditions: ReadonlyArray<ActionCondition<TContext>>;
     exitConditions: ReadonlyArray<ActionCondition<TContext>>;
@@ -74,9 +75,16 @@ export const selectAction = <TContext, TResult, TState>(
               (definition) => definition.id === lifecycle.definitionId,
           )
         : undefined;
+    const interruptRequested = definitions.some(
+        (definition) =>
+            definition.id !== activeDefinition?.id &&
+            definition.interruptsActiveAction === true &&
+            conditionsAreSatisfied(definition.enterConditions, context),
+    );
     if (
         activeDefinition &&
         !lifecycle?.completed &&
+        !interruptRequested &&
         !conditionsAreSatisfied(activeDefinition.exitConditions, context)
     ) {
         try {
@@ -105,6 +113,8 @@ export const selectAction = <TContext, TResult, TState>(
             }));
     ranked.sort(
         (left, right) =>
+            Number(right.definition.interruptsActiveAction === true) -
+                Number(left.definition.interruptsActiveAction === true) ||
             right.priority - left.priority ||
             left.definitionId.localeCompare(right.definitionId),
     );

@@ -1,5 +1,8 @@
 import { distanceBetween } from "../arena";
-import { chooseAttackTarget } from "../combat-observation";
+import {
+    chooseAttackTarget,
+    hasEnemyInWeaponReach,
+} from "../combat-observation";
 import type { ManeuverOption } from "../model";
 import { getOrdinaryActionAttentionPreferences } from "./attention";
 import { createBattleCandidate } from "./candidate";
@@ -15,7 +18,11 @@ export const ENGAGE_ENEMY_ACTION: BattleActionDefinition = {
         {
             id: "enemy-is-in-weapon-reach",
             isSatisfied: ({ actor, enemies }) =>
-                chooseAttackTarget(actor, enemies) !== undefined,
+                hasEnemyInWeaponReach(
+                    actor.position,
+                    actor.weaponReach,
+                    enemies,
+                ),
         },
     ],
     exitConditions: [],
@@ -24,17 +31,27 @@ export const ENGAGE_ENEMY_ACTION: BattleActionDefinition = {
         const attackTarget = chooseAttackTarget(actor, enemies);
         if (!attackTarget) throw new Error("Attack target is required.");
         const options: ManeuverOption[] = [
-            { maneuver: "attack", score: 6 + (actor.meleeSkill - 10) * 0.3 + random() },
+            {
+                maneuver: "attack",
+                score: 6 + (actor.meleeSkill - 10) * 0.3 + random(),
+            },
             {
                 maneuver: "all_out_defense",
-                score: 2 + behavior.caution + (1 - healthRatio) * 9 +
-                    (actor.maneuver === "all_out_defense" ? -12 : 0) + random(),
+                score:
+                    2 +
+                    behavior.caution +
+                    (1 - healthRatio) * 9 +
+                    (actor.maneuver === "all_out_defense" ? -12 : 0) +
+                    random(),
             },
             {
                 maneuver: "evaluate",
-                score: 2.5 + behavior.discipline +
+                score:
+                    2.5 +
+                    behavior.discipline +
                     Math.max(0, 13 - actor.meleeSkill) * 0.5 -
-                    actor.evaluateBonus * 2 + random(),
+                    actor.evaluateBonus * 2 +
+                    random(),
             },
         ];
         if (
@@ -46,11 +63,17 @@ export const ENGAGE_ENEMY_ACTION: BattleActionDefinition = {
         ) {
             options.push({
                 maneuver: "all_out_attack",
-                score: 3 + behavior.aggression + (1 - healthRatio) * 5 +
-                    (actor.receivedOrder === "press" ? 2 : 0) + random(),
+                score:
+                    3 +
+                    behavior.aggression +
+                    (1 - healthRatio) * 5 +
+                    (actor.receivedOrder === "press" ? 2 : 0) +
+                    random(),
             });
         }
-        const chosen = options.sort((left, right) => right.score - left.score)[0];
+        const chosen = options.sort(
+            (left, right) => right.score - left.score,
+        )[0];
         return createBattleCandidate({
             definitionId: ACTION_ID,
             context,
@@ -58,7 +81,8 @@ export const ENGAGE_ENEMY_ACTION: BattleActionDefinition = {
                 actorId: actor.id,
                 maneuver: chosen.maneuver,
                 attackTargetId:
-                    chosen.maneuver === "attack" || chosen.maneuver === "all_out_attack"
+                    chosen.maneuver === "attack" ||
+                    chosen.maneuver === "all_out_attack"
                         ? attackTarget.id
                         : undefined,
                 facingTarget: attackTarget.position,

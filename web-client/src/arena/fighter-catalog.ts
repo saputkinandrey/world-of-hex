@@ -5,6 +5,12 @@ export const AMRITAR_GUARD_OF_THE_HAND_LENS_ID = "amritar_guard_of_the_hand";
 export const AMRITAR_DUST_SERGEANT_LENS_ID = "amritar_dust_sergeant";
 export const AMRITAR_GUARD_SERGEANT_LENS_ID = "amritar_guard_sergeant";
 export const AMRITAR_SOLDIER_SPECIALIZATION_ID = "amritar";
+export const ROMAN_SOLDIER_SPECIALIZATION_ID = "roman";
+export const ROMAN_VELITES_LENS_ID = "roman_velites";
+export const ROMAN_HASTATI_LENS_ID = "roman_hastati";
+export const ROMAN_PRINCIPES_LENS_ID = "roman_principes";
+export const ROMAN_TRIARII_LENS_ID = "roman_triarii";
+export const ROMAN_EQUITES_LENS_ID = "roman_equites";
 
 export const HUMAN_BASE_ATTRIBUTES: AttributeSet = {
     ST: 10,
@@ -15,12 +21,237 @@ export const HUMAN_BASE_ATTRIBUTES: AttributeSet = {
 
 export const COMBAT_LENSES: CombatLens[] = [
     {
+        id: ROMAN_VELITES_LENS_ID,
+        name: "Roman Velites",
+        requirements: { ST: 8 },
+        skills: [
+            {
+                id: "javelin",
+                label: "Javelin",
+                attribute: "DX",
+                relativeLevel: 0,
+            },
+            {
+                id: "shortsword",
+                label: "Gladius",
+                attribute: "DX",
+                relativeLevel: 0,
+            },
+            {
+                id: "shield",
+                label: "Shield",
+                attribute: "DX",
+                relativeLevel: 0,
+            },
+            {
+                id: "soldier",
+                label: "Soldier (Roman)",
+                attribute: "IQ",
+                relativeLevel: 1,
+                points: 1,
+                specialization: ROMAN_SOLDIER_SPECIALIZATION_ID,
+            },
+        ],
+        advantages: [],
+        leveledAdvantages: [{ id: "military_rank", level: 0 }],
+        disadvantages: [],
+        equipment: {
+            loadoutId: "roman_velites",
+            weapon: "hasta_velitaris",
+            armor: "simple_bronze_helmet",
+            shield: "parma_velita",
+            weaponReach: 1,
+            weaponDamageBonus: 1,
+            damageResistance: 0,
+            defenseBonus: 2,
+            movePenalty: 2,
+        },
+    },
+    {
+        id: ROMAN_HASTATI_LENS_ID,
+        name: "Roman Hastati",
+        requirements: { ST: 10 },
+        skills: [
+            {
+                id: "shortsword",
+                label: "Gladius",
+                attribute: "DX",
+                relativeLevel: 0,
+            },
+            { id: "spear", label: "Pilum", attribute: "DX", relativeLevel: 0 },
+            {
+                id: "shield",
+                label: "Shield",
+                attribute: "DX",
+                relativeLevel: 0,
+            },
+            {
+                id: "soldier",
+                label: "Soldier (Roman)",
+                attribute: "IQ",
+                relativeLevel: 1,
+                points: 1,
+                specialization: ROMAN_SOLDIER_SPECIALIZATION_ID,
+            },
+        ],
+        advantages: [],
+        leveledAdvantages: [{ id: "military_rank", level: 0 }],
+        disadvantages: [],
+        equipment: {
+            loadoutId: "roman_hastati",
+            weapon: "gladius",
+            armor: "pectorale_hastati",
+            shield: "republican_scutum",
+            weaponReach: 1,
+            weaponDamageBonus: 1,
+            damageResistance: 0,
+            defenseBonus: 3,
+            movePenalty: 2,
+        },
+    },
+    {
+        id: ROMAN_PRINCIPES_LENS_ID,
+        name: "Roman Principes",
+        requirements: { ST: 11 },
+        skills: [
+            {
+                id: "shortsword",
+                label: "Gladius",
+                attribute: "DX",
+                relativeLevel: 0,
+            },
+            { id: "spear", label: "Pilum", attribute: "DX", relativeLevel: 0 },
+            {
+                id: "shield",
+                label: "Shield",
+                attribute: "DX",
+                relativeLevel: 0,
+            },
+            {
+                id: "soldier",
+                label: "Soldier (Roman)",
+                attribute: "IQ",
+                relativeLevel: 1,
+                points: 1,
+                specialization: ROMAN_SOLDIER_SPECIALIZATION_ID,
+            },
+        ],
+        advantages: [],
+        leveledAdvantages: [{ id: "military_rank", level: 0 }],
+        disadvantages: [],
+        equipment: {
+            loadoutId: "roman_principes",
+            weapon: "gladius",
+            armor: "lorica_hamata",
+            shield: "republican_scutum",
+            weaponReach: 1,
+            weaponDamageBonus: 1,
+            damageResistance: 5,
+            defenseBonus: 3,
+            movePenalty: 2,
+        },
+    },
+    {
+        id: ROMAN_TRIARII_LENS_ID,
+        name: "Roman Triarii",
+        requirements: { ST: 11 },
+        skills: [
+            { id: "spear", label: "Hasta", attribute: "DX", relativeLevel: 1 },
+            {
+                id: "shortsword",
+                label: "Gladius",
+                attribute: "DX",
+                relativeLevel: 0,
+            },
+            {
+                id: "shield",
+                label: "Shield",
+                attribute: "DX",
+                relativeLevel: 0,
+            },
+            {
+                id: "soldier",
+                label: "Soldier (Roman)",
+                attribute: "IQ",
+                relativeLevel: 1,
+                points: 1,
+                specialization: ROMAN_SOLDIER_SPECIALIZATION_ID,
+            },
+        ],
+        advantages: [],
+        leveledAdvantages: [{ id: "military_rank", level: 0 }],
+        disadvantages: [],
+        equipment: {
+            loadoutId: "roman_triarii",
+            weapon: "hasta_triarii",
+            armor: "bronze_cuirass",
+            shield: "triarii_round_shield",
+            weaponReach: 3,
+            weaponDamageBonus: 2,
+            damageResistance: 5,
+            defenseBonus: 2,
+            movePenalty: 2,
+        },
+    },
+    {
+        id: ROMAN_EQUITES_LENS_ID,
+        name: "Roman Equites",
+        requirements: { ST: 11 },
+        skills: [
+            {
+                id: "spear",
+                label: "Cavalry Spear",
+                attribute: "DX",
+                relativeLevel: 1,
+            },
+            {
+                id: "shortsword",
+                label: "Gladius",
+                attribute: "DX",
+                relativeLevel: 0,
+            },
+            {
+                id: "shield",
+                label: "Shield",
+                attribute: "DX",
+                relativeLevel: 0,
+            },
+            {
+                id: "soldier",
+                label: "Soldier (Roman)",
+                attribute: "IQ",
+                relativeLevel: 1,
+                points: 1,
+                specialization: ROMAN_SOLDIER_SPECIALIZATION_ID,
+            },
+        ],
+        advantages: [],
+        leveledAdvantages: [{ id: "military_rank", level: 0 }],
+        disadvantages: [],
+        equipment: {
+            loadoutId: "roman_equites",
+            weapon: "hasta_cavalry",
+            armor: "bronze_cuirass",
+            shield: "equites_round_shield",
+            weaponReach: 3,
+            weaponDamageBonus: 2,
+            damageResistance: 5,
+            defenseBonus: 2,
+            movePenalty: 2,
+        },
+    },
+    {
         id: AMRITAR_DUST_SPEARMAN_LENS_ID,
         name: "Dust Spearman",
         requirements: { ST: 11, DX: 11 },
         skills: [
             { id: "spear", label: "Spear", attribute: "DX", relativeLevel: 1 },
-            { id: "shield", label: "Shield", attribute: "DX", relativeLevel: 1 },
+            {
+                id: "shield",
+                label: "Shield",
+                attribute: "DX",
+                relativeLevel: 1,
+            },
             {
                 id: "soldier",
                 label: "Soldier (Amritar)",
@@ -90,17 +321,32 @@ export const COMBAT_LENSES: CombatLens[] = [
         name: "Murmillo",
         requirements: { ST: 11, HT: 10 },
         skills: [
-            { id: "broadsword", label: "Gladius", attribute: "DX", relativeLevel: 1 },
-            { id: "shield", label: "Shield", attribute: "DX", relativeLevel: 0 },
-            { id: "tactics", label: "Tactics", attribute: "IQ", relativeLevel: -1 },
+            {
+                id: "broadsword",
+                label: "Gladius",
+                attribute: "DX",
+                relativeLevel: 1,
+            },
+            {
+                id: "shield",
+                label: "Shield",
+                attribute: "DX",
+                relativeLevel: 0,
+            },
+            {
+                id: "tactics",
+                label: "Tactics",
+                attribute: "IQ",
+                relativeLevel: -1,
+            },
         ],
         advantages: ["combat_reflexes", "high_pain_threshold"],
         leveledAdvantages: [],
         disadvantages: ["overconfidence"],
         equipment: {
             weapon: "gladius",
-            armor: "mail and helmet",
-            shield: "scutum",
+            armor: "bronze_cuirass",
+            shield: "republican_scutum",
             weaponReach: 1,
             weaponDamageBonus: 2,
             damageResistance: 3,
@@ -114,8 +360,18 @@ export const COMBAT_LENSES: CombatLens[] = [
         requirements: { ST: 10, DX: 11 },
         skills: [
             { id: "spear", label: "Spear", attribute: "DX", relativeLevel: 1 },
-            { id: "shield", label: "Shield", attribute: "DX", relativeLevel: 0 },
-            { id: "tactics", label: "Tactics", attribute: "IQ", relativeLevel: 0 },
+            {
+                id: "shield",
+                label: "Shield",
+                attribute: "DX",
+                relativeLevel: 0,
+            },
+            {
+                id: "tactics",
+                label: "Tactics",
+                attribute: "IQ",
+                relativeLevel: 0,
+            },
         ],
         advantages: ["combat_reflexes", "fit"],
         leveledAdvantages: [],
@@ -136,9 +392,24 @@ export const COMBAT_LENSES: CombatLens[] = [
         name: "Thraex",
         requirements: { DX: 12 },
         skills: [
-            { id: "shortsword", label: "Sica", attribute: "DX", relativeLevel: 1 },
-            { id: "shield", label: "Shield", attribute: "DX", relativeLevel: 0 },
-            { id: "tactics", label: "Tactics", attribute: "IQ", relativeLevel: -1 },
+            {
+                id: "shortsword",
+                label: "Sica",
+                attribute: "DX",
+                relativeLevel: 1,
+            },
+            {
+                id: "shield",
+                label: "Shield",
+                attribute: "DX",
+                relativeLevel: 0,
+            },
+            {
+                id: "tactics",
+                label: "Tactics",
+                attribute: "IQ",
+                relativeLevel: -1,
+            },
         ],
         advantages: ["flexibility"],
         leveledAdvantages: [],
@@ -159,9 +430,19 @@ export const COMBAT_LENSES: CombatLens[] = [
         name: "Retiarius",
         requirements: { DX: 11, IQ: 10 },
         skills: [
-            { id: "polearm", label: "Trident", attribute: "DX", relativeLevel: 1 },
+            {
+                id: "polearm",
+                label: "Trident",
+                attribute: "DX",
+                relativeLevel: 1,
+            },
             { id: "net", label: "Net", attribute: "DX", relativeLevel: 0 },
-            { id: "tactics", label: "Tactics", attribute: "IQ", relativeLevel: 0 },
+            {
+                id: "tactics",
+                label: "Tactics",
+                attribute: "IQ",
+                relativeLevel: 0,
+            },
         ],
         advantages: ["peripheral_vision", "fit"],
         leveledAdvantages: [],
@@ -182,9 +463,24 @@ export const COMBAT_LENSES: CombatLens[] = [
         name: "Provocator",
         requirements: { DX: 10, HT: 11 },
         skills: [
-            { id: "shortsword", label: "Gladius", attribute: "DX", relativeLevel: 0 },
-            { id: "shield", label: "Shield", attribute: "DX", relativeLevel: 1 },
-            { id: "tactics", label: "Tactics", attribute: "IQ", relativeLevel: 0 },
+            {
+                id: "shortsword",
+                label: "Gladius",
+                attribute: "DX",
+                relativeLevel: 0,
+            },
+            {
+                id: "shield",
+                label: "Shield",
+                attribute: "DX",
+                relativeLevel: 1,
+            },
+            {
+                id: "tactics",
+                label: "Tactics",
+                attribute: "IQ",
+                relativeLevel: 0,
+            },
         ],
         advantages: ["high_pain_threshold"],
         leveledAdvantages: [],
@@ -202,13 +498,38 @@ export const COMBAT_LENSES: CombatLens[] = [
     },
 ];
 
+const ROMAN_SKILL_DIFFICULTIES: Record<string, "E" | "A"> = {
+    javelin: "E",
+    shield: "E",
+    shortsword: "A",
+    spear: "A",
+    soldier: "A",
+};
+
+for (const lens of COMBAT_LENSES.filter((candidate) =>
+    candidate.id.startsWith("roman_"),
+)) {
+    for (const skill of lens.skills) {
+        const difficulty = ROMAN_SKILL_DIFFICULTIES[skill.id];
+        if (!difficulty) continue;
+        skill.points = 1;
+        skill.difficulty = difficulty;
+        skill.relativeLevel = 1;
+    }
+}
+
 export const COMMAND_LENSES: CommandLens[] = [
     {
         id: AMRITAR_DUST_SERGEANT_LENS_ID,
         name: "Dust Sergeant",
         allowedCombatLensIds: [AMRITAR_DUST_SPEARMAN_LENS_ID],
         skills: [
-            { id: "tactics", label: "Tactics", attribute: "IQ", relativeLevel: 0 },
+            {
+                id: "tactics",
+                label: "Tactics",
+                attribute: "IQ",
+                relativeLevel: 0,
+            },
             {
                 id: "leadership",
                 label: "Leadership",
@@ -228,7 +549,12 @@ export const COMMAND_LENSES: CommandLens[] = [
         name: "Guard Sergeant",
         allowedCombatLensIds: [AMRITAR_GUARD_OF_THE_HAND_LENS_ID],
         skills: [
-            { id: "tactics", label: "Tactics", attribute: "IQ", relativeLevel: 1 },
+            {
+                id: "tactics",
+                label: "Tactics",
+                attribute: "IQ",
+                relativeLevel: 1,
+            },
             {
                 id: "leadership",
                 label: "Leadership",
@@ -250,7 +576,12 @@ export const TIRO_LENS: CombatLens = {
     name: "Tiro",
     requirements: { ST: 7, DX: 7, IQ: 7, HT: 7 },
     skills: [
-        { id: "brawling", label: "Brawling", attribute: "DX", relativeLevel: -1 },
+        {
+            id: "brawling",
+            label: "Brawling",
+            attribute: "DX",
+            relativeLevel: -1,
+        },
         { id: "tactics", label: "Tactics", attribute: "IQ", relativeLevel: -2 },
     ],
     advantages: [],

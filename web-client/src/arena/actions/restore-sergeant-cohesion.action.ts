@@ -1,6 +1,9 @@
 import { distanceBetween } from "../arena";
-import { chooseAttackTarget } from "../combat-observation";
-import { getCohesionOutliers } from "../formation";
+import {
+    chooseAttackTarget,
+    hasEnemyInWeaponReach,
+} from "../combat-observation";
+import { getCohesionOutliers, isCohesionOutlier } from "../formation";
 import { findPathNearCombatant } from "../navigation";
 import { getOrdinaryActionAttentionPreferences } from "./attention";
 import { createBattleCandidate } from "./candidate";
@@ -25,20 +28,27 @@ export const RESTORE_SERGEANT_COHESION_ACTION: BattleActionDefinition = {
         {
             id: "no-enemy-is-in-weapon-reach",
             isSatisfied: ({ actor, enemies }) =>
-                chooseAttackTarget(actor, enemies) === undefined,
+                !hasEnemyInWeaponReach(
+                    actor.position,
+                    actor.weaponReach,
+                    enemies,
+                ),
         },
         {
             id: "cohesion-outlier-exists",
             isSatisfied: ({ formationContext }) =>
                 formationContext !== null &&
-                getCohesionOutliers(formationContext).length > 0,
+                formationContext.squadMembers.some((member) =>
+                    isCohesionOutlier(member, formationContext.sergeant),
+                ),
         },
     ],
     exitConditions: [],
     perform: (context) => {
         const { actor, blocked, enemies, formationContext } = context;
         const attackTarget = chooseAttackTarget(actor, enemies);
-        if (!formationContext) throw new Error("Formation context is required.");
+        if (!formationContext)
+            throw new Error("Formation context is required.");
         const closestOutlier = getCohesionOutliers(formationContext).sort(
             (left, right) =>
                 distanceBetween(actor.position, left.position) -
@@ -58,6 +68,7 @@ export const RESTORE_SERGEANT_COHESION_ACTION: BattleActionDefinition = {
             result: {
                 actorId: actor.id,
                 maneuver: path.length === 0 ? "wait" : "move",
+                movePath: path.slice(0, actor.basicMove),
                 moveTarget:
                     path.length === 0
                         ? undefined

@@ -1,4 +1,10 @@
-import { GeneratedFighterProfile, SkillSpecializationId } from "./fighter-generation";
+import type { TerrainKnowledge } from "./actors/terrain-knowledge.types";
+import type { IssuedOrder } from "./actors/issued-order.types";
+import type { ObservedCombatant } from "./actors/observation.types";
+import {
+    GeneratedFighterProfile,
+    SkillSpecializationId,
+} from "./fighter-generation";
 import type { ActionRuntimeState } from "./action-system";
 
 export type Team = "blue" | "red";
@@ -55,6 +61,10 @@ export type AttentionFocus = {
 
 export type CombatantObservationMemory = {
     combatantId: string;
+    number: number;
+    weaponReach: number;
+    knownFormationRole: FormationRole | null;
+    knownCommander: boolean;
     team: Team;
     identityKnown: boolean;
     lastKnownPosition: HexCoord;
@@ -132,8 +142,10 @@ export type Combatant = {
     shockPenalty: number;
     panicPenalty: number;
     isStunned: boolean;
+    visualSearchActive: boolean;
     hasReceivedInitialOrder: boolean;
     receivedOrder: CommandKind | null;
+    issuedOrder: IssuedOrder | null;
     receivedOrderSenderId: string | null;
     receivedOrderSpecialization: SkillSpecializationId | null;
     orderExpiresAfterTurn: number;
@@ -152,6 +164,7 @@ export type Combatant = {
     observedFormationFacingUpdatedTurn: number;
     orderedFormationFacing: CartesianPoint | null;
     orderedFormationFacingExpiresAfterTurn: number;
+    terrainKnowledge: TerrainKnowledge;
     observationMemory: CombatantObservationMemory[];
     attentionFocus: AttentionFocus;
     threatAwarenessByCombatantId: Record<string, number>;
@@ -177,7 +190,9 @@ export type BattleIntent = {
     maneuver: ManeuverKind;
     attackTargetId?: string;
     attentionTargetIds?: string[];
+    visualSearchActive?: boolean;
     moveTarget?: HexCoord;
+    movePath?: HexCoord[];
     movementMode?: MovementMode;
     facingTarget?: HexCoord;
     communicationPlan?: CommunicationPlan;
@@ -237,8 +252,8 @@ export type CommandScore = {
 };
 
 export type FormationContext = {
-    sergeant: Combatant;
-    squadMembers: Combatant[];
+    sergeant: ObservedCombatant;
+    squadMembers: ObservedCombatant[];
     knownSquadMemberIds: string[];
 };
 
@@ -263,13 +278,12 @@ export type HoldPositionAssessment = {
 };
 
 export type CommandResolution = {
+    issuedOrdersBySenderId: Map<string, IssuedOrder>;
+    changedOrderSenderIds: Set<string>;
     ordersByCombatantId: Map<string, CommandKind>;
     orderSendersByCombatantId: Map<string, string>;
     directivesByCombatantId: Map<string, IndividualDirectiveKind>;
-    orderSpecializationsByCombatantId: Map<
-        string,
-        SkillSpecializationId
-    >;
+    orderSpecializationsByCombatantId: Map<string, SkillSpecializationId>;
     formationFacingsByCombatantId: Map<string, CartesianPoint>;
     focusTargetsByCombatantId: Map<string, string>;
     assessmentsBySergeantId: Map<string, OrderAssessmentResult>;
@@ -346,6 +360,7 @@ export type CommunicationInterference = {
 };
 
 export type OrderAssessmentResult = {
+    unknown: number;
     assessment: OrderAssessment;
     confidence: OrderAssessmentConfidence;
     criticalFailure: boolean;

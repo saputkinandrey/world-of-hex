@@ -4,6 +4,7 @@ import { getCommandPlanningDelay } from "../command-config";
 import {
     getCalmCommandHearingTarget,
     getCohesionOutliers,
+    isCohesionOutlier,
 } from "../formation";
 import {
     AMRITAR_SOLDIER_SPECIALIZATION_ID,
@@ -25,9 +26,7 @@ import type { BattleActionContext, BattleActionDefinition } from "./types";
 
 const ACTION_ID = "arena.issue-addressed-order";
 
-const formationFrontCanBeUpdated = (
-    context: BattleActionContext,
-): boolean => {
+const formationFrontCanBeUpdated = (context: BattleActionContext): boolean => {
     const planningDelayRounds = getCommandPlanningDelay(
         getSkillLevel(context.actor.profile, "tactics") ?? 6,
     );
@@ -71,24 +70,25 @@ export const ISSUE_ADDRESSED_ORDER_ACTION: BattleActionDefinition = {
         },
         {
             id: "formation-front-does-not-need-update",
-            isSatisfied: (context) =>
-                !formationFrontCanBeUpdated(context),
+            isSatisfied: (context) => !formationFrontCanBeUpdated(context),
         },
         {
             id: "audible-cohesion-outlier-exists",
             isSatisfied: ({ actor, formationContext }) =>
                 formationContext !== null &&
-                getCohesionOutliers(formationContext).some(
+                formationContext.squadMembers.some(
                     (member) =>
+                        isCohesionOutlier(member, formationContext.sergeant) &&
                         getCalmCommandHearingTarget(actor, member) >=
-                        MIN_USEFUL_COMMAND_HEARING_TARGET,
+                            MIN_USEFUL_COMMAND_HEARING_TARGET,
                 ),
         },
     ],
     exitConditions: [],
     perform: (context) => {
         const { actor: sergeant, enemies, formationContext, round } = context;
-        if (!formationContext) throw new Error("Formation context is required.");
+        if (!formationContext)
+            throw new Error("Formation context is required.");
         const planningDelayRounds = getCommandPlanningDelay(
             getSkillLevel(sergeant.profile, "tactics") ?? 6,
         );

@@ -1,4 +1,7 @@
-import { chooseAttackTarget } from "../combat-observation";
+import {
+    chooseAttackTarget,
+    hasEnemyInWeaponReach,
+} from "../combat-observation";
 import { chooseHoldFormationPosition } from "../formation";
 import { findPathToDestination } from "../navigation";
 import { getOrdinaryActionAttentionPreferences } from "./attention";
@@ -19,12 +22,17 @@ export const AWAIT_ORDERS_ACTION: BattleActionDefinition = {
         {
             id: "no-enemy-is-in-weapon-reach",
             isSatisfied: ({ actor, enemies }) =>
-                chooseAttackTarget(actor, enemies) === undefined,
+                !hasEnemyInWeaponReach(
+                    actor.position,
+                    actor.weaponReach,
+                    enemies,
+                ),
         },
     ],
     exitConditions: [],
     perform: (context) => {
-        const { actor, blocked, enemies, formationContext, teamAllies } = context;
+        const { actor, blocked, enemies, formationContext, teamAllies } =
+            context;
         const attackTarget = chooseAttackTarget(actor, enemies);
         const path = formationContext
             ? findPathToDestination(
@@ -38,6 +46,7 @@ export const AWAIT_ORDERS_ACTION: BattleActionDefinition = {
                       context.arenaCellKeys,
                   ),
                   blocked,
+                  context.arenaCellKeys,
               )
             : [];
         return createBattleCandidate({

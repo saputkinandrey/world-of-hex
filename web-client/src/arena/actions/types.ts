@@ -1,3 +1,4 @@
+import type { ObservedCombatant } from "../actors/observation.types";
 import type {
     ActionDefinition,
     ActionRuntimeState,
@@ -13,13 +14,12 @@ import type {
 
 export interface BattleActionContext {
     actor: Combatant;
-    living: Combatant[];
-    enemies: Combatant[];
-    teamAllies: Combatant[];
+    living: ObservedCombatant[];
+    enemies: ObservedCombatant[];
+    teamAllies: ObservedCombatant[];
     formationContext: FormationContext | null;
     arenaCells: HexCoord[];
     arenaCellKeys: ReadonlySet<string>;
-    obstacleKeys: Set<string>;
     blocked: Set<string>;
     behavior: BehaviorFactors;
     healthRatio: number;

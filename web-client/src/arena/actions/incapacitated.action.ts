@@ -6,6 +6,7 @@ const ACTION_ID = "arena.incapacitated";
 export const INCAPACITATED_ACTION: BattleActionDefinition = {
     id: ACTION_ID,
     priority: 1000,
+    interruptsActiveAction: true,
     enterConditions: [
         {
             id: "actor-is-stunned",

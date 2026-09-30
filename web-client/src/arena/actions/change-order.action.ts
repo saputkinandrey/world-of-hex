@@ -1,8 +1,6 @@
+import { ActionEnterRejectedError } from "../action-errors";
 import { areAdjacent } from "../arena";
-import {
-    AVERAGE_TASK_DIFFICULTY_MODIFIER,
-    getCheckTarget,
-} from "../check";
+import { AVERAGE_TASK_DIFFICULTY_MODIFIER, getCheckTarget } from "../check";
 import { getCommandPlanningDelay } from "../command-config";
 import { chooseCommand } from "../formation";
 import {
@@ -25,17 +23,12 @@ const ACTION_ID = "arena.change-order";
 
 const getProposedOrder = (context: BattleActionContext): CommandKind => {
     const { actor: sergeant, enemies, formationContext, round } = context;
-    if (!formationContext || !sergeant.receivedOrder) {
+    if (!formationContext || !(sergeant.issuedOrder?.command ?? null)) {
         throw new Error("Current order and formation context are required.");
     }
     const tacticsSkill = getSkillLevel(sergeant.profile, "tactics") ?? 6;
     return sergeant.invertNextOrderChoice
-        ? chooseCommand(
-              sergeant,
-              formationContext.squadMembers,
-              enemies,
-              true,
-          )
+        ? chooseCommand(sergeant, formationContext.squadMembers, enemies, true)
         : rollDice(
                 3,
                 6,
@@ -78,7 +71,8 @@ export const CHANGE_ORDER_ACTION: BattleActionDefinition = {
         },
         {
             id: "current-order-exists",
-            isSatisfied: ({ actor }) => actor.receivedOrder !== null,
+            isSatisfied: ({ actor }) =>
+                (actor.issuedOrder?.command ?? null) !== null,
         },
         {
             id: "tactics-allows-order-change",
@@ -88,30 +82,30 @@ export const CHANGE_ORDER_ACTION: BattleActionDefinition = {
                     getSkillLevel(actor.profile, "tactics") ?? 6,
                 ),
         },
-        {
-            id: "order-or-formation-front-needs-change",
-            isSatisfied: (context) =>
-                getProposedOrder(context) !== context.actor.receivedOrder ||
-                hasFormationFacingChanged(
-                    context.actor.orderedFormationFacing,
-                    context.actor.observedFormationFacing,
-                ),
-        },
     ],
     exitConditions: [],
     perform: (context) => {
         const { actor: sergeant, enemies, formationContext } = context;
-        const currentOrder = sergeant.receivedOrder;
+        const currentOrder = sergeant.issuedOrder?.command ?? null;
         if (!formationContext || !currentOrder) {
-            throw new Error("Current order and formation context are required.");
+            throw new Error(
+                "Current order and formation context are required.",
+            );
         }
         const tacticsSkill = getSkillLevel(sergeant.profile, "tactics") ?? 6;
         const planningDelayRounds = getCommandPlanningDelay(tacticsSkill);
         const proposedOrder = getProposedOrder(context);
         const frontNeedsUpdate = hasFormationFacingChanged(
-            sergeant.orderedFormationFacing,
+            sergeant.issuedOrder?.formationFacing ?? null,
             sergeant.observedFormationFacing,
         );
+
+        if (proposedOrder === currentOrder && !frontNeedsUpdate) {
+            throw new ActionEnterRejectedError(
+                ACTION_ID,
+                "ORDER_AND_FRONT_UNCHANGED",
+            );
+        }
 
         const plan: CommunicationPlan = {
             kind: "vertical_order",
@@ -128,7 +122,8 @@ export const CHANGE_ORDER_ACTION: BattleActionDefinition = {
             soldierSpecialization: AMRITAR_SOLDIER_SPECIALIZATION_ID,
             formationFacing:
                 sergeant.observedFormationFacing ??
-                sergeant.orderedFormationFacing ??
+                sergeant.issuedOrder?.formationFacing ??
+                null ??
                 undefined,
         };
         const squadMembers = formationContext.squadMembers.filter(

@@ -39,9 +39,11 @@ export const MAINTAIN_FORMATION_ACTION: BattleActionDefinition = {
     ],
     exitConditions: [],
     perform: (context) => {
-        const { actor, blocked, enemies, formationContext, teamAllies } = context;
+        const { actor, blocked, enemies, formationContext, teamAllies } =
+            context;
         const attackTarget = chooseAttackTarget(actor, enemies);
-        if (!formationContext) throw new Error("Formation context is required.");
+        if (!formationContext)
+            throw new Error("Formation context is required.");
         const createCandidate = (plannedResult: BattleIntentDraft) => {
             const assessment = assessOwnOrderExecution({
                 actor,
@@ -52,8 +54,7 @@ export const MAINTAIN_FORMATION_ACTION: BattleActionDefinition = {
                 round: context.round,
             });
             const result =
-                plannedResult.moveTarget &&
-                assessment.delayIndependentMovement
+                plannedResult.moveTarget && assessment.delayIndependentMovement
                     ? {
                           actorId: actor.id,
                           maneuver: assessment.attackTargetId
@@ -96,6 +97,7 @@ export const MAINTAIN_FORMATION_ACTION: BattleActionDefinition = {
                 actor,
                 rolePosition,
                 blocked,
+                context.arenaCellKeys,
             );
             if (formationPath.length > 0) {
                 const formationStep = formationPath[0];

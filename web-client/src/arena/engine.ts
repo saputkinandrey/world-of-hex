@@ -10,11 +10,7 @@ import {
     updatePassiveObservationMemories,
     updateFormationObservations,
 } from "./perception";
-import {
-    findOrderChangeSenders,
-    prepareCombatantsForTurn,
-    resolveMovement,
-} from "./turn-preparation";
+import { prepareCombatantsForTurn, resolveMovement } from "./turn-preparation";
 
 export const MAX_LOG_ENTRIES = 80;
 
@@ -71,12 +67,7 @@ export const advanceBattle = (
         seed,
         battle.turn,
     );
-    const intents = createBattleIntents(
-        observingCombatants,
-        obstacleKeys,
-        seed,
-        battle.turn,
-    );
+    const intents = createBattleIntents(observingCombatants, seed, battle.turn);
     const communicationPlans = intents.flatMap((intent) =>
         intent.communicationPlan ? [intent.communicationPlan] : [],
     );
@@ -115,10 +106,6 @@ export const advanceBattle = (
         damageByTarget: attack.damageByTarget,
         attackerIdsByTargetId: attack.attackerIdsByTargetId,
         communication,
-        orderChangeSenderIds: findOrderChangeSenders(
-            observingCombatants,
-            communicationPlans,
-        ),
         messages: attack.messages,
         seed,
         turn: battle.turn,
@@ -142,10 +129,7 @@ export const advanceBattle = (
         turn: battle.turn + 1,
         combatants: nextCombatants,
         sensoryTraces: nextSensoryTraces,
-        log: [...aftermath.messages, ...battle.log].slice(
-            0,
-            MAX_LOG_ENTRIES,
-        ),
+        log: [...aftermath.messages, ...battle.log].slice(0, MAX_LOG_ENTRIES),
         winner: outcome.winner,
     };
 };

@@ -1,10 +1,8 @@
 import type { ActionCandidate, ActionRuntimeState } from "../action-system";
+import { planActionMovement } from "./movement-plan";
 import type { AttentionTargetPreference } from "../perception";
 import { selectAttentionTargetIds } from "../perception";
-import type {
-    BattleActionContext,
-    BattleIntentDraft,
-} from "./types";
+import type { BattleActionContext, BattleIntentDraft } from "./types";
 
 export interface CreateBattleCandidateInput {
     definitionId: string;
@@ -25,7 +23,7 @@ export const createBattleCandidate = ({
     ActionRuntimeState
 > => ({
     result: {
-        ...result,
+        ...planActionMovement(result, context),
         attentionTargetIds:
             result.attentionTargetIds ??
             selectAttentionTargetIds(

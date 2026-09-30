@@ -1,4 +1,7 @@
-import { chooseAttackTargetFromPosition, chooseAttackTarget } from "../combat-observation";
+import {
+    chooseAttackTargetFromPosition,
+    chooseAttackTarget,
+} from "../combat-observation";
 import { chooseHoldFormationPosition } from "../formation";
 import { findPathToDestination } from "../navigation";
 import type { ManeuverKind } from "../model";
@@ -24,9 +27,11 @@ export const REGROUP_ACTION: BattleActionDefinition = {
     ],
     exitConditions: [],
     perform: (context) => {
-        const { actor, blocked, enemies, formationContext, teamAllies } = context;
+        const { actor, blocked, enemies, formationContext, teamAllies } =
+            context;
         const attackTarget = chooseAttackTarget(actor, enemies);
-        if (!formationContext) throw new Error("Formation context is required.");
+        if (!formationContext)
+            throw new Error("Formation context is required.");
         const path = findPathToDestination(
             actor,
             chooseHoldFormationPosition(
@@ -38,13 +43,10 @@ export const REGROUP_ACTION: BattleActionDefinition = {
                 context.arenaCellKeys,
             ),
             blocked,
+            context.arenaCellKeys,
         );
         let maneuver: ManeuverKind =
-            path.length === 0
-                ? attackTarget
-                    ? "attack"
-                    : "wait"
-                : "move";
+            path.length === 0 ? (attackTarget ? "attack" : "wait") : "move";
         let moveTarget = path[0];
         let target = attackTarget;
         if (path.length > 0) {
@@ -52,7 +54,10 @@ export const REGROUP_ACTION: BattleActionDefinition = {
             if (target) {
                 maneuver = "attack";
             } else {
-                const defensiveLimit = Math.max(1, Math.ceil(actor.basicMove / 2));
+                const defensiveLimit = Math.max(
+                    1,
+                    Math.ceil(actor.basicMove / 2),
+                );
                 const usesDefense = path.length <= defensiveLimit;
                 maneuver = usesDefense ? "all_out_defense" : "move";
                 const limit = usesDefense ? defensiveLimit : actor.basicMove;
@@ -67,6 +72,9 @@ export const REGROUP_ACTION: BattleActionDefinition = {
                 maneuver,
                 attackTargetId: maneuver === "attack" ? target?.id : undefined,
                 moveTarget,
+                movePath: moveTarget
+                    ? path.slice(0, path.indexOf(moveTarget) + 1)
+                    : undefined,
                 facingTarget: target?.position ?? enemies[0]?.position,
             },
             attentionPreferences: getOrdinaryActionAttentionPreferences({

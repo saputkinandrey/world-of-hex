@@ -39,11 +39,13 @@ export type LensSkill = {
     label: string;
     attribute: AttributeKey;
     relativeLevel: number;
+    difficulty?: "E" | "A" | "H" | "VH";
     points?: number;
     specialization?: SkillSpecializationId;
 };
 
 export type EquipmentLoadout = {
+    loadoutId?: string;
     weapon: string;
     armor: string;
     shield: string | null;

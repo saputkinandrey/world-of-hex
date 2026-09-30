@@ -1,3 +1,4 @@
+import type { ObservedCombatant } from "../actors/observation.types";
 import { distanceBetween } from "../arena";
 import { hasObservedOwnOrderExecutionStarted } from "../command-assessment";
 import type { Combatant, FormationContext } from "../model";
@@ -15,29 +16,29 @@ export interface AttentionRelevance {
 
 export interface DefaultCombatAttentionInput {
     actor: Combatant;
-    attackTarget: Combatant | undefined;
-    enemies: Combatant[];
-    teamAllies: Combatant[];
+    attackTarget: ObservedCombatant | undefined;
+    enemies: ObservedCombatant[];
+    teamAllies: ObservedCombatant[];
     formationContext: FormationContext | null;
     awaitsOwnOrderExecution: boolean;
     relevance: AttentionRelevance;
 }
 
 export interface CommunicationAttentionInput {
-    enemies: Combatant[];
-    primaryCombatants: Combatant[];
-    squadMembers: Combatant[];
+    enemies: ObservedCombatant[];
+    primaryCombatants: ObservedCombatant[];
+    squadMembers: ObservedCombatant[];
     relevance: AttentionRelevance;
 }
 
 export interface OrdinaryActionAttentionInput {
     context: BattleActionContext;
-    attackTarget: Combatant | undefined;
+    attackTarget: ObservedCombatant | undefined;
     relevance: AttentionRelevance;
 }
 
 export const createAttentionPreferences = (
-    combatants: Combatant[],
+    combatants: ObservedCombatant[],
     baseRelevance: number,
 ): AttentionTargetPreference[] =>
     combatants.map((combatant) => ({ combatant, baseRelevance }));
@@ -45,7 +46,10 @@ export const createAttentionPreferences = (
 export const mergeAttentionPreferences = (
     groups: AttentionTargetPreference[][],
 ): AttentionTargetPreference[] => {
-    const preferenceByCombatantId = new Map<string, AttentionTargetPreference>();
+    const preferenceByCombatantId = new Map<
+        string,
+        AttentionTargetPreference
+    >();
     groups.flat().forEach((preference) => {
         const existing = preferenceByCombatantId.get(preference.combatant.id);
         if (!existing || preference.baseRelevance > existing.baseRelevance) {
@@ -104,8 +108,7 @@ export const getOrdinaryActionAttentionPreferences = ({
         ) ?? [];
     const awaitsOwnOrderExecution =
         hasMilitaryCommandAuthority(context.actor) &&
-        context.actor.receivedOrder !== null &&
-        context.actor.receivedOrderSenderId === context.actor.id &&
+        context.actor.issuedOrder !== null &&
         !hasObservedOwnOrderExecutionStarted(
             context.actor,
             observedSubordinates,

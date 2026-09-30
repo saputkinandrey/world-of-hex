@@ -6,6 +6,311 @@ import { loadArenaEngine, loadArenaModule } from "./load-arena-engine.mjs";
 
 const arena = loadArenaEngine();
 
+test("issued orders are separate from reception and personal execution", () => {
+    const { resolveCommunications } = loadArenaModule(
+        "communication-resolution",
+    );
+    const { resolveAftermath } = loadArenaModule("aftermath");
+    const actor = arena.createArenaSetup(43117).battle.combatants[0];
+    const plan = {
+        kind: "vertical_order",
+        senderId: actor.id,
+        command: "hold",
+        recipientIds: [],
+        recipientScope: "squad",
+        audienceIds: [],
+        formationFacing: { x: 1, y: 0 },
+        soldierSpecialization: "amritar",
+    };
+    const communication = resolveCommunications([actor], [plan], [], 43117, 2);
+    assert.equal(communication.ordersByCombatantId.has(actor.id), false);
+    assert.equal(
+        communication.issuedOrdersBySenderId.get(actor.id).command,
+        "hold",
+    );
+    assert.equal(actor.issuedOrder, null);
+    const apply = (combatant, result, turn) =>
+        resolveAftermath({
+            combatants: [combatant],
+            damageByTarget: new Map(),
+            attackerIdsByTargetId: new Map(),
+            communication: result,
+            messages: [],
+            seed: 43117,
+            turn,
+        }).combatants[0];
+    const committed = apply(actor, communication, 2);
+    assert.equal(committed.receivedOrder, "hold");
+    assert.equal(committed.issuedOrder.command, "hold");
+    assert.notEqual(
+        committed.orderedFormationFacing,
+        committed.issuedOrder.formationFacing,
+    );
+    const reception = resolveCommunications([committed], [], [], 43117, 3);
+    reception.ordersByCombatantId.set(actor.id, "withdraw");
+    reception.orderSendersByCombatantId.set(actor.id, "another-officer");
+    const followingOther = apply(committed, reception, 3);
+    assert.equal(followingOther.receivedOrder, "withdraw");
+    assert.deepEqual(followingOther.issuedOrder, committed.issuedOrder);
+    assert.equal(
+        followingOther.lastOrderChangeTurn,
+        committed.lastOrderChangeTurn,
+    );
+    const repeated = resolveCommunications(
+        [followingOther],
+        [{ ...plan, isRepeatedOrder: true }],
+        [],
+        43117,
+        4,
+    );
+    assert.equal(repeated.changedOrderSenderIds.size, 0);
+});
+
+test("repeat uses the issued payload instead of the personally received order", () => {
+    const { REPEAT_ORDER_FREE_ACTION } = loadArenaModule(
+        "actions/repeat-order.free-action",
+    );
+    const actor = {
+        ...arena.createArenaSetup(43117).battle.combatants[2],
+        receivedOrder: "withdraw",
+        receivedOrderSenderId: "another-officer",
+        issuedOrder: {
+            command: "hold",
+            formationFacing: { x: 1, y: 0 },
+            specialization: "roman",
+            expiresAfterTurn: 100,
+        },
+        orderAssessment: "poor",
+        orderAssessmentTurn: 5,
+    };
+    const context = { actor, round: 5 };
+    const intent = { actorId: actor.id, maneuver: "attack" };
+    assert.equal(
+        REPEAT_ORDER_FREE_ACTION.enterConditions.every((c) =>
+            c.isSatisfied(context, intent),
+        ),
+        true,
+    );
+    const plan = REPEAT_ORDER_FREE_ACTION.perform(
+        context,
+        intent,
+    ).communicationPlan;
+    assert.equal(plan.command, "hold");
+    assert.equal(plan.soldierSpecialization, "roman");
+    assert.deepEqual(plan.formationFacing, actor.issuedOrder.formationFacing);
+});
+
+test("movement executes the supplied route and stops instead of finding a detour", () => {
+    const { resolveMovementPaths } = loadArenaModule("movement-resolution");
+    const actor = {
+        ...arena.createArenaSetup(43117).battle.combatants[0],
+        position: { q: 0, r: 0 },
+    };
+    const route = [
+        { q: 0, r: 1 },
+        { q: 1, r: 1 },
+        { q: 2, r: 0 },
+    ];
+    const input = {
+        combatants: [actor],
+        intents: [{ actorId: actor.id, moveTarget: route[2], movePath: route }],
+        cellKeys: new Set(["0:0", "0:1", "1:0", "1:1", "2:0"]),
+        obstacleKeys: new Set(),
+        random: () => 0.5,
+    };
+    const before = structuredClone(input.intents);
+    assert.deepEqual(resolveMovementPaths(input).get(actor.id), route);
+    assert.deepEqual(
+        resolveMovementPaths({ ...input, obstacleKeys: new Set(["1:1"]) }).get(
+            actor.id,
+        ),
+        route.slice(0, 1),
+    );
+    assert.deepEqual(
+        resolveMovementPaths({
+            ...input,
+            cellKeys: new Set(["0:0", "0:1"]),
+        }).get(actor.id),
+        route.slice(0, 1),
+    );
+    assert.deepEqual(input.intents, before);
+    assert.throws(
+        () =>
+            resolveMovementPaths({
+                ...input,
+                intents: [{ actorId: actor.id, moveTarget: route[2] }],
+            }),
+        /Missing or inconsistent/,
+    );
+});
+
+test("movement resolves occupied intermediate cells and simultaneous departures", () => {
+    const { resolveMovementPaths } = loadArenaModule("movement-resolution");
+    const actors = arena
+        .createArenaSetup(43117)
+        .battle.combatants.slice(0, 3)
+        .map((actor, q) => ({ ...actor, position: { q, r: 0 } }));
+    const move = (actor, cells) => ({
+        actorId: actor.id,
+        movePath: cells,
+        moveTarget: cells[cells.length - 1],
+    });
+    const input = {
+        combatants: actors,
+        cellKeys: new Set(["0:0", "1:0", "2:0", "3:0"]),
+        obstacleKeys: new Set(),
+        random: () => 0.5,
+    };
+    assert.equal(
+        resolveMovementPaths({
+            ...input,
+            intents: [
+                move(actors[0], [
+                    { q: 1, r: 0 },
+                    { q: 2, r: 0 },
+                ]),
+            ],
+        }).size,
+        0,
+    );
+    const chain = actors.map((actor) =>
+        move(actor, [{ q: actor.position.q + 1, r: 0 }]),
+    );
+    assert.equal(resolveMovementPaths({ ...input, intents: chain }).size, 3);
+    assert.equal(
+        resolveMovementPaths({
+            ...input,
+            intents: chain,
+            obstacleKeys: new Set(["3:0"]),
+        }).size,
+        0,
+    );
+    const swap = [
+        move(actors[0], [actors[1].position]),
+        move(actors[1], [actors[0].position]),
+    ];
+    assert.equal(resolveMovementPaths({ ...input, intents: swap }).size, 2);
+    const conflict = [
+        move(actors[0], [actors[1].position]),
+        move(actors[2], [actors[1].position]),
+    ];
+    const result = resolveMovementPaths({
+        ...input,
+        combatants: [actors[0], actors[2]],
+        intents: conflict,
+    });
+    assert.equal(result.size, 1);
+});
+
+test("terrain knowledge is an independent scenario snapshot", () => {
+    const setup = arena.createArenaSetup(43117);
+    const [first, second] = setup.battle.combatants;
+    const expected = structuredClone(second.terrainKnowledge);
+    first.terrainKnowledge.cells[0].q += 100;
+    first.terrainKnowledge.obstacleKeys.push("0:0");
+    setup.obstacles.splice(0);
+    assert.deepEqual(second.terrainKnowledge, expected);
+});
+
+test("navigation uses supplied knowledge rather than global arena bounds", () => {
+    const { findPathToDestination, findPathToAttackPosition } =
+        loadArenaModule("navigation");
+    const actor = {
+        ...arena.createArenaSetup(43117).battle.combatants[0],
+        position: { q: 100, r: 0 },
+        weaponReach: 1,
+    };
+    const cells = [actor.position, { q: 101, r: 0 }, { q: 102, r: 0 }];
+    const keys = new Set(cells.map(({ q, r }) => `${q}:${r}`));
+    assert.deepEqual(
+        findPathToDestination(actor, cells[2], new Set(), keys),
+        cells.slice(1),
+    );
+    assert.deepEqual(
+        findPathToDestination(
+            actor,
+            cells[2],
+            new Set(),
+            new Set(["100:0", "102:0"]),
+        ),
+        [],
+    );
+    assert.deepEqual(
+        findPathToAttackPosition(
+            actor,
+            [{ id: "enemy", position: cells[2] }],
+            new Set(),
+            cells,
+        ),
+        [cells[1]],
+    );
+});
+
+test("decisions route using personal terrain knowledge", () => {
+    const { createBattleIntents } = loadArenaModule("decision");
+    const setup = arena.createArenaSetup(43117);
+    const enemy = { ...setup.battle.combatants[0], position: { q: 4, r: 0 } };
+    const actor = {
+        ...setup.battle.combatants.find(
+            (combatant) => combatant.team === "red",
+        ),
+        position: { q: 0, r: 0 },
+        observationMemory: [createObservedMemory(enemy, 1)],
+        terrainKnowledge: {
+            cells: [0, 1, 2, 3, 4].map((q) => ({ q, r: 0 })),
+            obstacleKeys: [],
+        },
+    };
+    const expected = createBattleIntents([actor], 43117, 1)[0];
+    assert.ok(expected.moveTarget);
+    setup.obstacles.splice(0, setup.obstacles.length, {
+        key: "1:0",
+        kind: "column",
+    });
+    assert.deepEqual(createBattleIntents([actor], 43117, 1)[0], expected);
+    const changedKnowledge = {
+        ...actor,
+        terrainKnowledge: { ...actor.terrainKnowledge, obstacleKeys: ["1:0"] },
+    };
+    assert.equal(
+        createBattleIntents([changedKnowledge], 43117, 1)[0].moveTarget,
+        undefined,
+    );
+});
+
+test("physical movement rejects a blocked or unreachable destination", () => {
+    const { resolveMovement } = loadArenaModule("turn-preparation");
+    const actor = {
+        ...arena.createArenaSetup(43117).battle.combatants[0],
+        position: { q: 0, r: 0 },
+    };
+    const moveTarget = { q: 1, r: 0 };
+    const resolve = (obstacleKeys, target = moveTarget) =>
+        resolveMovement({
+            combatants: [actor],
+            intents: [
+                {
+                    actorId: actor.id,
+                    maneuver: "move",
+                    moveTarget: target,
+                    movePath: [target],
+                },
+            ],
+            obstacleKeys,
+            seed: 43117,
+            turn: 1,
+        })[0];
+    assert.deepEqual(resolve(new Set()).position, moveTarget);
+    assert.deepEqual(resolve(new Set(["1:0"])).position, actor.position);
+    assert.throws(
+        () => resolve(new Set(), { q: 100, r: 0 }),
+        /Non-adjacent movement step/,
+    );
+    assert.deepEqual(resolve(new Set(["1:0"])).lastMovementPath, [
+        actor.position,
+    ]);
+});
+
 const runBattle = (seed) => {
     let setup = arena.createArenaSetup(seed);
     setup = {
@@ -20,10 +325,18 @@ const runBattle = (seed) => {
     return setup.battle;
 };
 
-const createObservedMemory = (combatant, turn = 0) => ({
+const createObservedMemory = (combatant, turn = 0, identityKnown = false) => ({
     combatantId: combatant.id,
+    number: combatant.number,
+    weaponReach: combatant.weaponReach,
+    knownFormationRole: identityKnown ? combatant.formationRole : null,
+    knownCommander:
+        identityKnown &&
+        loadArenaModule("actors/military-rank").hasMilitaryCommandAuthority(
+            combatant,
+        ),
     team: combatant.team,
-    identityKnown: false,
+    identityKnown,
     lastKnownPosition: combatant.position,
     lastKnownManeuver: combatant.maneuver,
     obviousWoundState: "unhurt",
@@ -37,7 +350,7 @@ test("seeded combat remains deterministic", () => {
     assert.deepEqual(runBattle(43117), runBattle(43117));
 });
 
-test("seed 43117 preserves the extracted engine baseline", () => {
+test("seed 43117 preserves the explicit-movement-path baseline", () => {
     const battle = runBattle(43117);
     const blueAlive = battle.combatants.filter(
         (combatant) => combatant.team === "blue" && combatant.health > 0,
@@ -47,8 +360,8 @@ test("seed 43117 preserves the extracted engine baseline", () => {
     ).length;
 
     assert.equal(battle.winner, "blue");
-    assert.equal(battle.turn - 1, 23);
-    assert.equal(blueAlive, 7);
+    assert.equal(battle.turn - 1, 28);
+    assert.equal(blueAlive, 6);
     assert.equal(redAlive, 0);
 });
 
@@ -73,13 +386,676 @@ test("expected squad orders use command attention and authority", () => {
     assert.doesNotMatch(hearingMessage, /— не услышал/);
 });
 
+const createCommunicationReactionFixture = () => {
+    const setup = arena.createArenaSetup(43117);
+    const actor = structuredClone(
+        setup.battle.combatants.find((a) => a.id === "blue-4"),
+    );
+    return {
+        actor,
+        seed: 43117,
+        round: 3,
+        signal: {
+            senderId: "blue-3",
+            kind: "vertical_order",
+            command: "hold",
+            recipientIds: [actor.id],
+            penetratingVoiceBonus: 2,
+            identificationBonus: 100,
+            leadershipModifier: 100,
+            hearingDistanceModifier: 0,
+            visionDistanceModifier: 0,
+            hearingInterference: 100,
+            visionInterference: 0,
+        },
+    };
+};
+
+test("recipient reaction stops at the failed communication stage", () => {
+    const { reactToCommunication } = loadArenaModule(
+        "actors/communication-reaction",
+    );
+    const input = createCommunicationReactionFixture();
+    const unheard = reactToCommunication({
+        ...input,
+        signal: { ...input.signal, hearingInterference: -100 },
+    });
+    assert.equal(unheard.hearing.successful, false);
+    assert.equal(unheard.identification, undefined);
+    assert.equal(unheard.acceptedMessage, undefined);
+    const unidentified = reactToCommunication({
+        ...input,
+        signal: { ...input.signal, visionInterference: -300 },
+    });
+    assert.equal(unidentified.hearing.successful, true);
+    assert.equal(unidentified.identification.successful, false);
+    assert.equal(unidentified.understanding, undefined);
+    const misunderstood = reactToCommunication({
+        ...input,
+        actor: { ...input.actor, shockPenalty: 300 },
+    });
+    assert.equal(misunderstood.identification.successful, true);
+    assert.equal(misunderstood.understanding.successful, false);
+    assert.equal(misunderstood.acceptance, undefined);
+    const refused = reactToCommunication({
+        ...input,
+        signal: { ...input.signal, leadershipModifier: -100 },
+    });
+    assert.equal(refused.understanding.automatic, true);
+    assert.equal(refused.understanding.successful, true);
+    assert.equal(refused.acceptance.successful, false);
+    assert.equal(refused.acceptedMessage, undefined);
+});
+
+test("recipient adopts message content without applying it or mutating inputs", () => {
+    const { reactToCommunication } = loadArenaModule(
+        "actors/communication-reaction",
+    );
+    const input = createCommunicationReactionFixture();
+    input.signal.formationFacing = { x: 1, y: 0 };
+    const before = structuredClone(input);
+    const accepted = reactToCommunication(input);
+    assert.equal(accepted.acceptedMessage.kind, "order");
+    assert.equal(accepted.acceptedMessage.command, "hold");
+    assert.deepEqual(input, before);
+    accepted.acceptedMessage.formationFacing.x = 2;
+    assert.deepEqual(input, before);
+    const focus = reactToCommunication({
+        ...input,
+        signal: {
+            ...input.signal,
+            kind: "horizontal_focus",
+            focusTargetId: "red-1",
+        },
+    });
+    assert.deepEqual(focus.acceptedMessage, {
+        kind: "focus",
+        targetId: "red-1",
+    });
+    const bystander = reactToCommunication({
+        ...input,
+        signal: { ...input.signal, recipientIds: [] },
+    });
+    assert.equal(bystander.understanding.successful, true);
+    assert.equal(bystander.acceptance, undefined);
+    assert.equal(bystander.acceptedMessage, undefined);
+});
+
+test("speaker recognition uses the recipient's remembered identity", () => {
+    const { reactToCommunication } = loadArenaModule(
+        "actors/communication-reaction",
+    );
+    const input = createCommunicationReactionFixture();
+    const known = reactToCommunication(input);
+    const unknown = reactToCommunication({
+        ...input,
+        actor: { ...input.actor, observationMemory: [] },
+    });
+    assert.equal(
+        known.identification.target - unknown.identification.target,
+        10,
+    );
+    assert.equal(known.identification.roll, unknown.identification.roll);
+});
+
+test("squad communication addresses the sender's known roster rather than recipient lenses", () => {
+    const { resolveCommunications } = loadArenaModule(
+        "communication-resolution",
+    );
+    const setup = arena.createArenaSetup(43117);
+    const sender = structuredClone(
+        setup.battle.combatants.find((a) => a.id === "blue-3"),
+    );
+    const known = {
+        ...setup.battle.combatants.find((a) => a.id === "blue-2"),
+        perception: 100,
+    };
+    const outsider = {
+        ...setup.battle.combatants.find((a) => a.id === "blue-4"),
+        perception: 100,
+    };
+    sender.knownSquadMemberIds = [sender.id, known.id];
+    const result = resolveCommunications(
+        [sender, known, outsider],
+        [
+            {
+                kind: "vertical_order",
+                senderId: sender.id,
+                recipientScope: "squad",
+                recipientIds: [],
+                audienceIds: [],
+                command: "hold",
+            },
+        ],
+        [],
+        43117,
+        3,
+    );
+    assert.equal(result.ordersByCombatantId.get(known.id), "hold");
+    assert.equal(result.ordersByCombatantId.has(outsider.id), false);
+});
+
+test("sender commits to its own broadcast without mutating state or adopting an addressed directive", () => {
+    const { prepareCommunicationEmission } = loadArenaModule(
+        "actors/communication-emission",
+    );
+    const actor = structuredClone(
+        arena
+            .createArenaSetup(43117)
+            .battle.combatants.find((a) => a.id === "blue-3"),
+    );
+    const plan = {
+        kind: "vertical_order",
+        senderId: actor.id,
+        command: "withdraw",
+        recipientScope: "squad",
+        recipientIds: [],
+        audienceIds: [],
+        formationFacing: { x: 1, y: 0 },
+    };
+    const before = structuredClone(actor);
+    const emission = prepareCommunicationEmission({
+        actor,
+        plan,
+        seed: 43117,
+        round: 4,
+    });
+    assert.equal(emission.selfCommitment.command, "withdraw");
+    assert.equal(emission.selfCommitment.senderId, actor.id);
+    assert.deepEqual(
+        emission.recipientIds,
+        actor.knownSquadMemberIds.filter((id) => id !== actor.id),
+    );
+    assert.deepEqual(actor, before);
+    emission.selfCommitment.formationFacing.x = 7;
+    assert.equal(plan.formationFacing.x, 1);
+    const addressed = prepareCommunicationEmission({
+        actor,
+        plan: { ...plan, kind: "addressed_order", directive: "regroup" },
+        seed: 43117,
+        round: 4,
+    });
+    assert.equal(addressed.selfCommitment, undefined);
+    assert.throws(
+        () =>
+            prepareCommunicationEmission({
+                actor,
+                plan: { ...plan, senderId: "red-1" },
+                seed: 43117,
+                round: 4,
+            }),
+        /another actor/,
+    );
+});
+
+test("actor assessment uses only attended known subordinates and supplied visual evidence", () => {
+    const { resolveOrderAssessment } = loadArenaModule(
+        "actors/command-assessment",
+    );
+    const setup = arena.createArenaSetup(43117);
+    const actor = structuredClone(
+        setup.battle.combatants.find((a) => a.id === "blue-3"),
+    );
+    const member = setup.battle.combatants.find((a) => a.id === "blue-4");
+    actor.observationMemory = [
+        {
+            ...createObservedMemory(member, 5, true),
+            observedActionPurpose: "engaging_enemy",
+        },
+    ];
+    actor.attentionFocus = {
+        combatantIds: [member.id],
+        updatedTurn: 5,
+        distanceModifier: 0,
+    };
+    const before = structuredClone(actor);
+    const input = {
+        actor,
+        order: "hold",
+        visualPenalties: new Map([[member.id, 100]]),
+        seed: 43117,
+        round: 5,
+    };
+    const result = resolveOrderAssessment(input);
+    assert.equal(result.squadSize, 1);
+    assert.equal(result.following, 1);
+    assert.equal(result.assessment, "adequate");
+    assert.deepEqual(actor, before);
+    const withoutAttention = resolveOrderAssessment({
+        ...input,
+        actor: {
+            ...actor,
+            attentionFocus: { ...actor.attentionFocus, combatantIds: [] },
+        },
+    });
+    assert.equal(withoutAttention.squadSize, 0);
+    const withoutMembership = resolveOrderAssessment({
+        ...input,
+        actor: { ...actor, knownSquadMemberIds: [actor.id] },
+    });
+    assert.equal(withoutMembership.squadSize, 0);
+    assert.throws(
+        () => resolveOrderAssessment({ ...input, visualPenalties: new Map() }),
+        /Missing visual evidence/,
+    );
+});
+
+test("actor tactical assessment preserves critical inversion without changing its state immediately", () => {
+    const { resolveTacticalAssessment } = loadArenaModule(
+        "actors/command-assessment",
+    );
+    const setup = arena.createArenaSetup(43117);
+    const actor = structuredClone(
+        setup.battle.combatants.find((a) => a.id === "blue-3"),
+    );
+    const enemy = setup.battle.combatants.find((a) => a.id === "red-1");
+    actor.observationMemory = [createObservedMemory(enemy, 5)];
+    actor.attentionFocus = {
+        combatantIds: [enemy.id],
+        updatedTurn: 5,
+        distanceModifier: 0,
+    };
+    const before = structuredClone(actor);
+    const result = resolveTacticalAssessment({
+        actor,
+        visualPenalties: new Map([[enemy.id, -100]]),
+        seed: 43117,
+        round: 5,
+    });
+    assert.equal(result.assessment, "inverted");
+    assert.deepEqual(actor, before);
+});
+
+test("command entry conditions read state without rolling or proposing orders", () => {
+    const definitions = [
+        loadArenaModule("actions/change-order.action").CHANGE_ORDER_ACTION,
+        loadArenaModule("actions/choose-inverted-order.action")
+            .CHOOSE_INVERTED_ORDER_ACTION,
+        loadArenaModule("actions/assess-order.action").ASSESS_ORDER_ACTION,
+    ];
+    const actor = structuredClone(
+        arena
+            .createArenaSetup(43117)
+            .battle.combatants.find((a) => a.id === "blue-3"),
+    );
+    actor.receivedOrder = "hold";
+    actor.issuedOrder = {
+        command: actor.receivedOrder,
+        formationFacing: null,
+        specialization: "amritar",
+        expiresAfterTurn: 100,
+    };
+    actor.lastOrderChangeTurn = -100;
+    actor.orderExpiresAfterTurn = 100;
+    actor.orderAssessment = "unknown";
+    actor.orderAssessmentTurn = -100;
+    actor.invertNextOrderChoice = true;
+    actor.orderedFormationFacing = null;
+    actor.observedFormationFacing = null;
+    const before = structuredClone(actor);
+    const context = {
+        actor,
+        round: 10,
+        enemies: [
+            {
+                id: "red-1",
+                position: { q: actor.position.q + 5, r: actor.position.r },
+            },
+        ],
+        formationContext: {
+            knownSquadMemberIds: actor.knownSquadMemberIds,
+            get squadMembers() {
+                throw new Error(
+                    "Conditions must not rank candidate orders using the squad.",
+                );
+            },
+        },
+        get seed() {
+            throw new Error("Conditions must not request tactical rolls.");
+        },
+        random() {
+            throw new Error("Conditions must not consume randomness.");
+        },
+    };
+    for (const definition of definitions) {
+        assert.equal(
+            definition.enterConditions.every((condition) =>
+                condition.isSatisfied(context),
+            ),
+            true,
+        );
+        assert.equal(
+            definition.enterConditions.every((condition) =>
+                condition.isSatisfied(context),
+            ),
+            true,
+        );
+    }
+    assert.deepEqual(actor, before);
+});
+
+test("command execution declines an unchanged order without mutating the actor", () => {
+    const { CHANGE_ORDER_ACTION } = loadArenaModule(
+        "actions/change-order.action",
+    );
+    const { CHOOSE_INVERTED_ORDER_ACTION } = loadArenaModule(
+        "actions/choose-inverted-order.action",
+    );
+    const { chooseCommand } = loadArenaModule("formation");
+    const { observeSelf } = loadArenaModule("actors/observation");
+    const actor = structuredClone(
+        arena
+            .createArenaSetup(43117)
+            .battle.combatants.find((a) => a.id === "blue-3"),
+    );
+    const squadMembers = [observeSelf(actor)];
+    const enemies = [
+        {
+            id: "red-1",
+            position: { q: actor.position.q + 5, r: actor.position.r },
+            weaponReach: 1,
+        },
+    ];
+    const worst = chooseCommand(actor, squadMembers, enemies, true);
+    actor.receivedOrder = worst;
+    actor.issuedOrder = {
+        command: actor.receivedOrder,
+        formationFacing: null,
+        specialization: "amritar",
+        expiresAfterTurn: 100,
+    };
+    actor.invertNextOrderChoice = true;
+    actor.orderedFormationFacing = null;
+    actor.observedFormationFacing = null;
+    const before = structuredClone(actor);
+    const context = {
+        actor,
+        enemies,
+        formationContext: { squadMembers },
+        round: 10,
+    };
+    assert.throws(
+        () => CHANGE_ORDER_ACTION.perform(context),
+        (error) =>
+            error.actionId === CHANGE_ORDER_ACTION.id &&
+            error.reason === "ORDER_AND_FRONT_UNCHANGED",
+    );
+    assert.deepEqual(actor, before);
+    actor.receivedOrder = worst === "hold" ? "advance" : "hold";
+    actor.issuedOrder = {
+        command: actor.receivedOrder,
+        formationFacing: null,
+        specialization: "amritar",
+        expiresAfterTurn: 100,
+    };
+    assert.throws(
+        () => CHOOSE_INVERTED_ORDER_ACTION.perform(context),
+        (error) =>
+            error.actionId === CHOOSE_INVERTED_ORDER_ACTION.id &&
+            error.reason === "INVERTED_CHOICE_REQUIRES_ORDER_CHANGE",
+    );
+    assert.equal(actor.invertNextOrderChoice, true);
+});
+
+test("weapon reach conditions do not inspect wounds or choose an attack target", () => {
+    const { hasEnemyInWeaponReach } = loadArenaModule("combat-observation");
+    const { ENGAGE_ENEMY_ACTION } = loadArenaModule(
+        "actions/engage-enemy.action",
+    );
+    const actor = { position: { q: 0, r: 0 }, weaponReach: 2 };
+    const enemy = {
+        id: "red-1",
+        position: { q: 2, r: 0 },
+        get obviousWoundState() {
+            throw new Error("Reach checks must not rank wounds.");
+        },
+    };
+    Object.defineProperty(actor, "focusTargetId", {
+        get() {
+            throw new Error(
+                "Reach checks must not choose a coordinated target.",
+            );
+        },
+    });
+    assert.equal(
+        hasEnemyInWeaponReach(actor.position, actor.weaponReach, [enemy]),
+        true,
+    );
+    assert.equal(hasEnemyInWeaponReach(actor.position, 1, [enemy]), false);
+    assert.equal(hasEnemyInWeaponReach(actor.position, 2, []), false);
+    assert.equal(
+        ENGAGE_ENEMY_ACTION.enterConditions.every((c) =>
+            c.isSatisfied({ actor, enemies: [enemy] }),
+        ),
+        true,
+    );
+});
+
+test("repeat eligibility does not assemble a message or read its formation payload", () => {
+    const { REPEAT_ORDER_FREE_ACTION } = loadArenaModule(
+        "actions/repeat-order.free-action",
+    );
+    const actor = structuredClone(
+        arena
+            .createArenaSetup(43117)
+            .battle.combatants.find((a) => a.id === "blue-3"),
+    );
+    actor.receivedOrder = "hold";
+    actor.issuedOrder = {
+        command: actor.receivedOrder,
+        formationFacing: null,
+        specialization: "amritar",
+        expiresAfterTurn: 100,
+    };
+    actor.receivedOrderSenderId = actor.id;
+    actor.orderAssessment = "poor";
+    actor.orderAssessmentTurn = 5;
+    Object.defineProperty(actor.issuedOrder, "formationFacing", {
+        get() {
+            throw new Error(
+                "Message payload should only be read during execution.",
+            );
+        },
+    });
+    const result = {
+        actorId: actor.id,
+        maneuver: "attack",
+        attackTargetId: "red-1",
+    };
+    const context = { actor, round: 5 };
+    for (let i = 0; i < 2; i++) {
+        assert.equal(
+            REPEAT_ORDER_FREE_ACTION.enterConditions.every((c) =>
+                c.isSatisfied(context, result),
+            ),
+            true,
+        );
+    }
+    assert.equal(result.communicationPlan, undefined);
+});
+
+test("horizontal signal preserves the chosen attack target and coordinator rules without mutating inputs", () => {
+    const { ANNOUNCE_TARGET_FREE_ACTION } = loadArenaModule(
+        "actions/announce-target.free-action",
+    );
+    const setup = arena.createArenaSetup(43117);
+    const actor = structuredClone(
+        setup.battle.combatants.find((a) => a.id === "blue-4"),
+    );
+    actor.position = { q: 0, r: 0 };
+    const ally = {
+        id: "blue-5",
+        number: 5,
+        position: { q: 0, r: 1 },
+        weaponReach: 2,
+    };
+    const enemy = { id: "red-1", position: { q: 1, r: 0 } };
+    const context = { actor, enemies: [enemy], teamAllies: [ally] };
+    const result = {
+        actorId: actor.id,
+        maneuver: "attack",
+        attackTargetId: enemy.id,
+    };
+    const before = structuredClone({ context, result });
+    const eligible = (ctx) =>
+        ANNOUNCE_TARGET_FREE_ACTION.enterConditions.every((c) =>
+            c.isSatisfied(ctx, result),
+        );
+    assert.equal(eligible(context), true);
+    assert.equal(eligible(context), true);
+    assert.equal(eligible({ ...context, teamAllies: [] }), false);
+    assert.equal(
+        eligible({ ...context, teamAllies: [{ ...ally, number: 3 }] }),
+        false,
+    );
+    const next = ANNOUNCE_TARGET_FREE_ACTION.perform(context, result);
+    assert.equal(next.attackTargetId, result.attackTargetId);
+    assert.equal(next.communicationPlan.focusTargetId, result.attackTargetId);
+    assert.equal(next.maneuver, "attack");
+    assert.deepEqual({ context, result }, before);
+});
+
+test("memory availability does not read positions or rank remembered targets", () => {
+    const { getSubordinateSearchAvailability } = loadArenaModule(
+        "actions/subordinate-search",
+    );
+    const { SEARCH_LAST_KNOWN_ENEMY_ACTION } = loadArenaModule(
+        "actions/search-last-known-enemy.action",
+    );
+    const setup = arena.createArenaSetup(43117);
+    const actor = structuredClone(
+        setup.battle.combatants.find((a) => a.id === "blue-3"),
+    );
+    const member = setup.battle.combatants.find((a) => a.id === "blue-4");
+    const enemy = setup.battle.combatants.find((a) => a.id === "red-1");
+    const memory = createObservedMemory(member, 0, true);
+    Object.defineProperty(memory, "lastKnownPosition", {
+        get() {
+            throw new Error(
+                "Availability must not inspect remembered positions.",
+            );
+        },
+    });
+    actor.observationMemory = [memory];
+    assert.deepEqual(getSubordinateSearchAvailability({ actor, round: 5 }), {
+        hasSufficientCurrentObservations: false,
+        hasLostSubordinateMemory: true,
+    });
+    assert.deepEqual(getSubordinateSearchAvailability({ actor, round: 0 }), {
+        hasSufficientCurrentObservations: true,
+        hasLostSubordinateMemory: false,
+    });
+    const enemyMemory = createObservedMemory(enemy, 0);
+    Object.defineProperty(enemyMemory, "lastKnownPosition", {
+        get() {
+            throw new Error("Enemy existence must not rank positions.");
+        },
+    });
+    actor.observationMemory = [enemyMemory];
+    const context = { actor, enemies: [] };
+    assert.equal(
+        SEARCH_LAST_KNOWN_ENEMY_ACTION.enterConditions.every((c) =>
+            c.isSatisfied(context),
+        ),
+        true,
+    );
+    assert.equal(
+        SEARCH_LAST_KNOWN_ENEMY_ACTION.exitConditions.some((c) =>
+            c.isSatisfied(context),
+        ),
+        false,
+    );
+    enemyMemory.observedAlive = false;
+    assert.equal(
+        SEARCH_LAST_KNOWN_ENEMY_ACTION.enterConditions.every((c) =>
+            c.isSatisfied(context),
+        ),
+        false,
+    );
+    assert.equal(
+        SEARCH_LAST_KNOWN_ENEMY_ACTION.exitConditions.some((c) =>
+            c.isSatisfied(context),
+        ),
+        true,
+    );
+});
+
+test("subordinate selection preserves stale-memory ranking without changing the memory", () => {
+    const { selectSubordinateSearchMemory } = loadArenaModule(
+        "actions/subordinate-search",
+    );
+    const setup = arena.createArenaSetup(43117);
+    const actor = structuredClone(
+        setup.battle.combatants.find((a) => a.id === "blue-3"),
+    );
+    const memories = ["blue-4", "blue-5"].map((id, index) => ({
+        ...createObservedMemory(
+            setup.battle.combatants.find((a) => a.id === id),
+            index === 0 ? 9 : 0,
+            true,
+        ),
+        lastKnownPosition: { ...actor.position },
+    }));
+    actor.observationMemory = memories;
+    const before = structuredClone(actor);
+    const selected = selectSubordinateSearchMemory({
+        actor,
+        round: 10,
+        assumedMoveHexes: 5,
+    });
+    assert.equal(selected.combatantId, "blue-5");
+    assert.deepEqual(actor, before);
+});
+
+test("cohesion entry conditions check existence without sorting candidates", () => {
+    const { RESTORE_SERGEANT_COHESION_ACTION } = loadArenaModule(
+        "actions/restore-sergeant-cohesion.action",
+    );
+    const { ISSUE_ADDRESSED_ORDER_ACTION } = loadArenaModule(
+        "actions/issue-addressed-order.action",
+    );
+    const setup = arena.createArenaSetup(43117);
+    const actor = structuredClone(
+        setup.battle.combatants.find((a) => a.id === "blue-3"),
+    );
+    actor.position = { q: 0, r: 0 };
+    class UnrankedCandidates extends Array {
+        sort() {
+            throw new Error(
+                "Entry conditions must not sort cohesion candidates.",
+            );
+        }
+    }
+    const member = { id: "blue-4", position: { q: 3, r: 0 } };
+    const context = {
+        actor,
+        formationContext: {
+            sergeant: actor,
+            squadMembers: new UnrankedCandidates(member),
+        },
+    };
+    const existence = RESTORE_SERGEANT_COHESION_ACTION.enterConditions.find(
+        (c) => c.id === "cohesion-outlier-exists",
+    );
+    const audible = ISSUE_ADDRESSED_ORDER_ACTION.enterConditions.find(
+        (c) => c.id === "audible-cohesion-outlier-exists",
+    );
+    assert.equal(existence.isSatisfied(context), true);
+    assert.equal(audible.isSatisfied(context), true);
+    member.position = { q: 1, r: 0 };
+    assert.equal(existence.isSatisfied(context), false);
+    assert.equal(audible.isSatisfied(context), false);
+});
+
 test("known squad roster does not collapse with current attention", () => {
     const { getFormationContext } = loadArenaModule("formation");
     const setup = arena.createArenaSetup(43117);
     const sergeant = setup.battle.combatants.find(
         (combatant) => combatant.id === "blue-3",
     );
-    const context = getFormationContext(sergeant, [sergeant]);
+    const context = getFormationContext(sergeant, [
+        loadArenaModule("actors/observation").observeSelf(sergeant),
+    ]);
 
     assert.equal(context.squadMembers.length, 1);
     assert.equal(context.knownSquadMemberIds.length, 8);
@@ -110,10 +1086,8 @@ test("initial memory knows allies but contains no enemies", () => {
 });
 
 test("military command authority follows the leveled advantage", () => {
-    const {
-        getLeveledAdvantageLevel,
-        hasMilitaryCommandAuthority,
-    } = loadArenaModule("scenario");
+    const { getLeveledAdvantageLevel, hasMilitaryCommandAuthority } =
+        loadArenaModule("scenario");
     const setup = arena.createArenaSetup(43117);
     const enlisted = setup.battle.combatants.find(
         (combatant) =>
@@ -129,9 +1103,7 @@ test("military command authority follows the leveled advantage", () => {
             ...enlisted.profile,
             lens: {
                 ...enlisted.profile.lens,
-                leveledAdvantages: [
-                    { id: "military_rank", level: 1 },
-                ],
+                leveledAdvantages: [{ id: "military_rank", level: 1 }],
             },
         },
     };
@@ -141,31 +1113,17 @@ test("military command authority follows the leveled advantage", () => {
             ...sergeant.profile,
             commandLens: {
                 ...sergeant.profile.commandLens,
-                leveledAdvantages: [
-                    { id: "military_rank", level: 0 },
-                ],
+                leveledAdvantages: [{ id: "military_rank", level: 0 }],
             },
         },
     };
 
-    assert.equal(
-        getLeveledAdvantageLevel(enlisted, "military_rank"),
-        0,
-    );
-    assert.equal(
-        getLeveledAdvantageLevel(sergeant, "military_rank"),
-        1,
-    );
+    assert.equal(getLeveledAdvantageLevel(enlisted, "military_rank"), 0);
+    assert.equal(getLeveledAdvantageLevel(sergeant, "military_rank"), 1);
     assert.equal(hasMilitaryCommandAuthority(enlisted), false);
     assert.equal(hasMilitaryCommandAuthority(sergeant), true);
-    assert.equal(
-        hasMilitaryCommandAuthority(rankOneWithoutCommandLens),
-        true,
-    );
-    assert.equal(
-        hasMilitaryCommandAuthority(rankZeroWithCommandLens),
-        false,
-    );
+    assert.equal(hasMilitaryCommandAuthority(rankOneWithoutCommandLens), true);
+    assert.equal(hasMilitaryCommandAuthority(rankZeroWithCommandLens), false);
 });
 
 test("generic action planner selects the highest-priority available action", () => {
@@ -289,14 +1247,22 @@ test("an active action remains selected until an exit condition is met", () => {
         },
     ];
 
-    const retained = selectAction(definitions, { released: false }, {
-        definitionId: "persistent",
-        completed: false,
-    });
-    const released = selectAction(definitions, { released: true }, {
-        definitionId: "persistent",
-        completed: false,
-    });
+    const retained = selectAction(
+        definitions,
+        { released: false },
+        {
+            definitionId: "persistent",
+            completed: false,
+        },
+    );
+    const released = selectAction(
+        definitions,
+        { released: true },
+        {
+            definitionId: "persistent",
+            completed: false,
+        },
+    );
 
     assert.equal(retained.definitionId, "persistent");
     assert.equal(released.definitionId, "higher-priority");
@@ -313,10 +1279,7 @@ test("an expected entry rejection falls through to the next action", () => {
                 enterConditions: [],
                 exitConditions: [],
                 onEnter: () => {
-                    throw new ActionEnterRejectedError(
-                        "rejected",
-                        "EXPECTED",
-                    );
+                    throw new ActionEnterRejectedError("rejected", "EXPECTED");
                 },
                 perform: () => ({ result: "rejected", nextState: 1 }),
             },
@@ -332,6 +1295,66 @@ test("an expected entry rejection falls through to the next action", () => {
     );
 
     assert.equal(selection.definitionId, "fallback");
+});
+
+test("an interrupt closes a persistent action before entering recovery", () => {
+    const { selectAction } = loadArenaModule("action-system");
+    const events = [];
+    const definitions = [
+        {
+            id: "search",
+            priority: 100,
+            enterConditions: [],
+            exitConditions: [{ id: "found", isSatisfied: () => false }],
+            perform: () => {
+                throw new Error("Interrupted search performed");
+            },
+            onExit: () => events.push("search-exit"),
+        },
+        {
+            id: "recover",
+            priority: 1,
+            interruptsActiveAction: true,
+            enterConditions: [
+                { id: "injured", isSatisfied: (ctx) => ctx.injured },
+            ],
+            exitConditions: [],
+            onEnter: () => events.push("recovery-enter"),
+            perform: () => ({ result: "recovering", nextState: 1 }),
+        },
+    ];
+    const selected = selectAction(
+        definitions,
+        { injured: true },
+        {
+            definitionId: "search",
+            completed: false,
+        },
+    );
+    assert.equal(selected.definitionId, "recover");
+    assert.deepEqual(events, ["search-exit", "recovery-enter"]);
+});
+
+test("stun interrupts an unfinished search without active observation or communication", () => {
+    const { createBattleIntents } = loadArenaModule("decision");
+    const setup = arena.createArenaSetup(43117);
+    const actor = {
+        ...setup.battle.combatants[0],
+        isStunned: true,
+        visualSearchActive: true,
+        actionState: {
+            definitionId: "arena.search-known-subordinate",
+            completed: false,
+            startedAt: 1,
+            updatedAt: 2,
+        },
+    };
+    const intent = createBattleIntents([actor], 43117, 3)[0];
+    assert.equal(intent.actionState.definitionId, "arena.incapacitated");
+    assert.equal(intent.maneuver, "do_nothing");
+    assert.deepEqual(intent.attentionTargetIds, []);
+    assert.equal(intent.communicationPlan, undefined);
+    assert.notEqual(intent.visualSearchActive, true);
 });
 
 test("stun ends only after a successful HT recovery roll", () => {
@@ -352,6 +1375,8 @@ test("stun ends only after a successful HT recovery roll", () => {
         },
     };
     const emptyCommunication = {
+        issuedOrdersBySenderId: new Map(),
+        changedOrderSenderIds: new Set(),
         ordersByCombatantId: new Map(),
         orderSendersByCombatantId: new Map(),
         directivesByCombatantId: new Map(),
@@ -369,7 +1394,6 @@ test("stun ends only after a successful HT recovery roll", () => {
             damageByTarget: new Map(),
             attackerIdsByTargetId: new Map(),
             communication: emptyCommunication,
-            orderChangeSenderIds: new Set(),
             messages: [],
             seed,
             turn,
@@ -377,27 +1401,36 @@ test("stun ends only after a successful HT recovery roll", () => {
     const seeds = Array.from({ length: 1000 }, (_value, index) => index + 1);
     const successSeed = seeds.find(
         (seed) =>
-            rollDice(
-                3,
-                6,
-                seed,
-                turn,
-                `${stunned.id}:stun-recovery`,
-            ).total <= stunned.healthAttribute,
+            rollDice(3, 6, seed, turn, `${stunned.id}:stun-recovery`).total <=
+            stunned.healthAttribute,
     );
     const failureSeed = seeds.find(
         (seed) =>
-            rollDice(
-                3,
-                6,
-                seed,
-                turn,
-                `${stunned.id}:stun-recovery`,
-            ).total > stunned.healthAttribute,
+            rollDice(3, 6, seed, turn, `${stunned.id}:stun-recovery`).total >
+            stunned.healthAttribute,
     );
 
     assert.equal(resolve(successSeed).combatants[0].isStunned, false);
     assert.equal(resolve(failureSeed).combatants[0].isStunned, true);
+});
+
+test("morale responds to remembered casualties and leaves the memory unchanged", () => {
+    const { getActorPanicPenalty } = loadArenaModule("actors/morale");
+    const setup = arena.createArenaSetup(43117);
+    const base = setup.battle.combatants.find((actor) => actor.id === "blue-4");
+    const unaware = { ...base, receivedOrderSenderId: "blue-3" };
+    const before = structuredClone(unaware);
+    const knownLoss = {
+        ...unaware,
+        observationMemory: unaware.observationMemory.map((memory) =>
+            memory.combatantId === "blue-3"
+                ? { ...memory, observedAlive: false }
+                : memory,
+        ),
+    };
+    assert.equal(getActorPanicPenalty(unaware, false), 0);
+    assert.equal(getActorPanicPenalty(knownLoss, false), 1);
+    assert.deepEqual(unaware, before);
 });
 
 test("incapacitated actors do not actively focus attention", () => {
@@ -409,7 +1442,6 @@ test("incapacitated actors do not actively focus attention", () => {
     };
     const intent = createBattleIntents(
         [actor, ...setup.battle.combatants.slice(1)],
-        new Set(),
         43117,
         5,
     ).find((candidate) => candidate.actorId === actor.id);
@@ -424,6 +1456,8 @@ test("new stun does not receive an immediate recovery roll", () => {
     const combatant = setup.battle.combatants[0];
     const damage = Math.ceil(combatant.maxHealth / 2);
     const emptyCommunication = {
+        issuedOrdersBySenderId: new Map(),
+        changedOrderSenderIds: new Set(),
         ordersByCombatantId: new Map(),
         orderSendersByCombatantId: new Map(),
         directivesByCombatantId: new Map(),
@@ -435,19 +1469,20 @@ test("new stun does not receive an immediate recovery roll", () => {
         consumedInvertedChoiceSergeantIds: new Set(),
         messages: [],
     };
-    const results = Array.from({ length: 1000 }, (_value, index) => index + 1)
-        .map((seed) =>
-            resolveAftermath({
-                combatants: [combatant],
-                damageByTarget: new Map([[combatant.id, damage]]),
-                attackerIdsByTargetId: new Map(),
-                communication: emptyCommunication,
-                orderChangeSenderIds: new Set(),
-                messages: [],
-                seed,
-                turn: 5,
-            }),
-        );
+    const results = Array.from(
+        { length: 1000 },
+        (_value, index) => index + 1,
+    ).map((seed) =>
+        resolveAftermath({
+            combatants: [combatant],
+            damageByTarget: new Map([[combatant.id, damage]]),
+            attackerIdsByTargetId: new Map(),
+            communication: emptyCommunication,
+            messages: [],
+            seed,
+            turn: 5,
+        }),
+    );
     const newlyStunned = results.find(
         (result) => result.combatants[0].isStunned,
     );
@@ -531,12 +1566,9 @@ test("fighters coordinate a target at weapon reach without a cadence gate", () =
             createObservedMemory(enemy, 3),
         ],
     };
-    const intent = createBattleIntents(
-        [actor, ally, enemy],
-        new Set(),
-        43117,
-        3,
-    ).find((candidate) => candidate.actorId === actor.id);
+    const intent = createBattleIntents([actor, ally, enemy], 43117, 3).find(
+        (candidate) => candidate.actorId === actor.id,
+    );
 
     assert.equal(intent.communicationPlan?.kind, "horizontal_focus");
     assert.equal(intent.communicationPlan?.focusTargetId, enemy.id);
@@ -576,6 +1608,12 @@ test("a sergeant repeats an unchanged order without sacrificing his maneuver", (
         orderAssessmentTurn: 8,
         orderExpiresAfterTurn: 100,
         lastOrderChangeTurn: 7,
+        issuedOrder: {
+            command: "hold",
+            formationFacing: orderedFormationFacing,
+            specialization: "amritar",
+            expiresAfterTurn: 100,
+        },
         orderedFormationFacing,
         observedFormationFacing: { x: -1, y: 0 },
         observationMemory: [
@@ -585,7 +1623,6 @@ test("a sergeant repeats an unchanged order without sacrificing his maneuver", (
     };
     const intent = createBattleIntents(
         [sergeant, subordinate, enemy],
-        new Set(),
         43117,
         8,
     ).find((candidate) => candidate.actorId === sergeant.id);
@@ -617,18 +1654,19 @@ test("a sergeant searches remembered subordinates before assessing an empty squa
         receivedOrder: "hold",
         receivedOrderSenderId: sergeantBase.id,
         orderAssessment: "unknown",
+        issuedOrder: {
+            command: "hold",
+            formationFacing: null,
+            specialization: "amritar",
+            expiresAfterTurn: 8,
+        },
         observationMemory: sergeantBase.observationMemory.map((memory) =>
             memory.combatantId === subordinate.id
                 ? { ...memory, lastSeenTurn: 0 }
                 : memory,
         ),
     };
-    const intent = createBattleIntents(
-        [sergeant],
-        new Set(),
-        43117,
-        8,
-    )[0];
+    const intent = createBattleIntents([sergeant], 43117, 8)[0];
 
     assert.equal(
         intent.actionState.definitionId,
@@ -653,17 +1691,21 @@ test("a sergeant searches for missing squad members while another is observed", 
     const sergeant = {
         ...sergeantBase,
         receivedOrder: "hold",
+        issuedOrder: {
+            command: "hold",
+            formationFacing: null,
+            specialization: "amritar",
+            expiresAfterTurn: 100,
+        },
         receivedOrderSenderId: sergeantBase.id,
         orderAssessment: "unknown",
         observationMemory: sergeantBase.observationMemory.map((memory) => ({
             ...memory,
-            lastSeenTurn:
-                memory.combatantId === observedSubordinate.id ? 8 : 0,
+            lastSeenTurn: memory.combatantId === observedSubordinate.id ? 8 : 0,
         })),
     };
     const intent = createBattleIntents(
         [sergeant, observedSubordinate],
-        new Set(),
         43117,
         8,
     ).find((candidate) => candidate.actorId === sergeant.id);
@@ -699,16 +1741,13 @@ test("regroup remains an action while its fighter is in combat", () => {
         receivedDirective: "regroup",
         directiveExpiresAfterTurn: 10,
         observationMemory: [
-            createObservedMemory(sergeant, 5),
+            createObservedMemory(sergeant, 5, true),
             createObservedMemory(enemy, 5),
         ],
     };
-    const intent = createBattleIntents(
-        [actor, sergeant, enemy],
-        new Set(),
-        43117,
-        5,
-    ).find((candidate) => candidate.actorId === actor.id);
+    const intent = createBattleIntents([actor, sergeant, enemy], 43117, 5).find(
+        (candidate) => candidate.actorId === actor.id,
+    );
 
     assert.equal(intent.actionState.definitionId, "arena.regroup");
     assert.equal(intent.maneuver, "attack");
@@ -726,10 +1765,7 @@ test("battle action state records the selected definition", () => {
     for (const combatant of setup.battle.combatants) {
         if (combatant.health <= 0) continue;
         assert.match(combatant.actionState.definitionId, /^arena\./);
-        assert.equal(
-            combatant.actionState.updatedAt,
-            setup.battle.turn - 1,
-        );
+        assert.equal(combatant.actionState.updatedAt, setup.battle.turn - 1);
     }
 });
 
@@ -765,10 +1801,8 @@ test("commanded fighters keep the standing await-orders order until a new order 
 });
 
 test("local formation contact overrides a stale ordered front", () => {
-    const {
-        getFormationRoleAssignment,
-        getLocalFormationContactFacing,
-    } = loadArenaModule("formation");
+    const { getFormationRoleAssignment, getLocalFormationContactFacing } =
+        loadArenaModule("formation");
     const setup = arena.createArenaSetup(43117);
     const blue = setup.battle.combatants.filter(
         (combatant) => combatant.team === "blue",
@@ -844,17 +1878,10 @@ test("fighters choose communication through their own actions", () => {
         path.join(process.cwd(), "src", "arena", "decision.ts"),
         "utf8",
     );
-    const actionDirectory = path.join(
-        process.cwd(),
-        "src",
-        "arena",
-        "actions",
-    );
+    const actionDirectory = path.join(process.cwd(), "src", "arena", "actions");
     const actionSources = fs
         .readdirSync(actionDirectory)
-        .filter((fileName) =>
-            /\.(?:action|free-action)\.ts$/.test(fileName),
-        )
+        .filter((fileName) => /\.(?:action|free-action)\.ts$/.test(fileName))
         .map((fileName) => ({
             fileName,
             source: fs.readFileSync(
@@ -888,12 +1915,7 @@ test("fighters choose communication through their own actions", () => {
     });
     assert.equal(
         fs.existsSync(
-            path.join(
-                process.cwd(),
-                "src",
-                "arena",
-                "command-planning.ts",
-            ),
+            path.join(process.cwd(), "src", "arena", "command-planning.ts"),
         ),
         false,
     );
@@ -906,8 +1928,14 @@ test("battle decisions receive only subjectively known combatants", () => {
     );
 
     assert.match(decisionSource, /getSubjectivelyKnownCombatantsForDecision/);
-    assert.match(decisionSource, /const subjectiveLiving = \[actor, \.\.\.observed\]/);
-    assert.doesNotMatch(decisionSource, /formationContext: getFormationContext\(actor, living\)/);
+    assert.match(
+        decisionSource,
+        /const subjectiveLiving = \[observeSelf\(actor\), \.\.\.observed\]/,
+    );
+    assert.doesNotMatch(
+        decisionSource,
+        /formationContext: getFormationContext\(actor, living\)/,
+    );
 });
 
 test("combatant memory persists as an uncertain belief", () => {
@@ -937,15 +1965,15 @@ test("combatant memory persists as an uncertain belief", () => {
         5,
     );
     assert.equal(beliefs.length, 1);
-    assert.deepEqual(beliefs[0].lastKnownPosition, initialMemory.lastKnownPosition);
+    assert.deepEqual(
+        beliefs[0].lastKnownPosition,
+        initialMemory.lastKnownPosition,
+    );
     assert.equal(beliefs[0].observedThisTurn, false);
     assert.equal(beliefs[0].positionUncertaintyHexes, 25);
     assert.equal(
-        perception.getCombatantObservationBeliefs(
-            rememberedObserver,
-            12,
-            5,
-        )[0].positionUncertaintyHexes,
+        perception.getCombatantObservationBeliefs(rememberedObserver, 12, 5)[0]
+            .positionUncertaintyHexes,
         45,
     );
 });
@@ -1033,12 +2061,14 @@ test("search treats old enemy memory as an uncertain area", () => {
     };
     const intent = decision.createBattleIntents(
         [isolatedObserver, enemy],
-        new Set(setup.obstacles.map((obstacle) => obstacle.key)),
         43117,
         20,
     )[0];
 
-    assert.equal(intent.actionState.definitionId, "arena.search-last-known-enemy");
+    assert.equal(
+        intent.actionState.definitionId,
+        "arena.search-last-known-enemy",
+    );
     assert.equal(intent.maneuver, "concentrate");
     assert.equal(intent.moveTarget, undefined);
 });
@@ -1066,13 +2096,11 @@ test("search sweeps different sectors while memory remains stale", () => {
     );
     const firstIntent = decision.createBattleIntents(
         [searchingActor],
-        obstacleKeys,
         43117,
         10,
     )[0];
     const secondIntent = decision.createBattleIntents(
         [searchingActor],
-        obstacleKeys,
         43117,
         11,
     )[0];
@@ -1112,7 +2140,6 @@ test("stale memories remain beliefs but are not current observations", () => {
     ];
     const observed = perception.getCurrentlyObservedCombatantsForDecision(
         { ...observer, observationMemory: memories },
-        [ally, enemy],
         20,
     );
     const beliefs = perception.getCombatantObservationBeliefs(
@@ -1145,6 +2172,7 @@ test("backward movement preserves body facing while forward movement turns", () 
         actorId: actor.id,
         maneuver: "move",
         moveTarget: destination,
+        movePath: [destination],
         movementMode,
         actionState: {
             definitionId: "test.move",
@@ -1208,8 +2236,12 @@ test("an unnoticed attacker denies active defense until the threat is known", ()
         5,
     );
 
-    assert.ok(unaware.messages.some((message) => message.includes("не замечена")));
-    assert.ok(aware.messages.every((message) => !message.includes("не замечена")));
+    assert.ok(
+        unaware.messages.some((message) => message.includes("не замечена")),
+    );
+    assert.ok(
+        aware.messages.every((message) => !message.includes("не замечена")),
+    );
     assert.ok(
         aware.messages.some((message) => /Block|Parry|Dodge/.test(message)),
     );
@@ -1228,7 +2260,10 @@ test("a recently recognized attacker remains a subjective threat without live co
     const attacker = setup.battle.combatants.find(
         (combatant) => combatant.team === "red" && combatant.number === 8,
     );
-    const attackPosition = { q: observer.position.q, r: observer.position.r - 2 };
+    const attackPosition = {
+        q: observer.position.q,
+        r: observer.position.r - 2,
+    };
     const attackingCombatant = {
         ...attacker,
         position: attackPosition,
@@ -1251,22 +2286,116 @@ test("a recently recognized attacker remains a subjective threat without live co
     };
 
     assert.deepEqual(
-        getCurrentlyObservedCombatantsForDecision(
-            awareObserver,
-            [attackerAfterMoving],
-            5,
-        ),
+        getCurrentlyObservedCombatantsForDecision(awareObserver, 5),
         [],
     );
     const subjectiveThreats = getSubjectivelyKnownCombatantsForDecision(
         awareObserver,
-        [attackerAfterMoving],
         5,
     );
 
     assert.equal(subjectiveThreats.length, 1);
     assert.equal(subjectiveThreats[0].id, attacker.id);
     assert.deepEqual(subjectiveThreats[0].position, attackPosition);
+});
+
+test("hidden world changes cannot change an actor decision with identical knowledge", () => {
+    const { createBattleIntents } = loadArenaModule("decision");
+    const setup = arena.createArenaSetup(43117);
+    const actor = structuredClone(
+        setup.battle.combatants.find((a) => a.id === "blue-4"),
+    );
+    const enemy = structuredClone(
+        setup.battle.combatants.find((a) => a.id === "red-1"),
+    );
+    const ally = structuredClone(
+        setup.battle.combatants.find((a) => a.id === "blue-5"),
+    );
+    actor.position = { q: 0, r: 0 };
+    enemy.position = { q: 1, r: 0 };
+    ally.position = { q: 0, r: 1 };
+    actor.observationMemory = [
+        createObservedMemory(enemy, 4),
+        createObservedMemory(ally, 5, true),
+    ];
+    actor.threatAwarenessByCombatantId = { [enemy.id]: 4 };
+    const decide = (others) =>
+        createBattleIntents([actor, ...others], 43117, 5).find(
+            (intent) => intent.actorId === actor.id,
+        );
+    const initialActor = structuredClone(actor);
+    const expected = decide([enemy, ally]);
+    assert.equal(expected.attackTargetId, enemy.id);
+    for (const health of [0, 1, 100]) {
+        const changed = [enemy, ally].map((other) => ({
+            ...other,
+            health,
+            maxHealth: 100,
+            perception: 20,
+            meleeSkill: 30,
+            weaponReach: 20,
+            position: { q: 10, r: -2 },
+            formationRole: "right_flanker",
+            profile: {
+                ...other.profile,
+                attributes: { ST: 30, DX: 30, IQ: 30, HT: 30 },
+            },
+        }));
+        assert.deepEqual(decide(changed), expected);
+    }
+    assert.deepEqual(decide([]), expected);
+    assert.deepEqual(actor, initialActor);
+});
+
+test("decision observations expose no hidden fighter state and do not alias memory positions", () => {
+    const { getCurrentlyObservedCombatantsForDecision } =
+        loadArenaModule("actors/observation");
+    const setup = arena.createArenaSetup(43117);
+    const actor = setup.battle.combatants[0];
+    const memory = actor.observationMemory[0];
+    const originalPosition = { ...memory.lastKnownPosition };
+    const observed = getCurrentlyObservedCombatantsForDecision(actor, 0)[0];
+    for (const key of [
+        "health",
+        "maxHealth",
+        "profile",
+        "perception",
+        "parry",
+        "dodge",
+        "block",
+        "receivedOrder",
+        "observationMemory",
+        "isStunned",
+    ]) {
+        assert.equal(key in observed, false, key);
+    }
+    observed.position.q += 1;
+    assert.deepEqual(memory.lastKnownPosition, originalPosition);
+});
+
+test("a new observation updates remembered wounds and reach without access to world during decisions", () => {
+    const { recordThreatObservations } = loadArenaModule("perception");
+    const { getSubjectivelyKnownCombatantsForDecision } =
+        loadArenaModule("actors/observation");
+    const setup = arena.createArenaSetup(43117);
+    const actor = structuredClone(setup.battle.combatants[0]);
+    const enemy = setup.battle.combatants.find((a) => a.team === "red");
+    actor.observationMemory = [createObservedMemory(enemy, 4)];
+    actor.threatAwarenessByCombatantId = { [enemy.id]: 4 };
+    assert.equal(
+        getSubjectivelyKnownCombatantsForDecision(actor, 5)[0]
+            .obviousWoundState,
+        "unhurt",
+    );
+    actor.observationMemory = recordThreatObservations(
+        actor,
+        [{ ...enemy, health: 1, weaponReach: 3 }],
+        [enemy.id],
+        5,
+    );
+    const updated = getSubjectivelyKnownCombatantsForDecision(actor, 5)[0];
+    assert.equal(updated.obviousWoundState, "badly_wounded");
+    assert.equal(updated.weaponReach, 3);
 });
 
 test("a sergeant does not execute a unit withdrawal after losing the unit", () => {
@@ -1281,25 +2410,25 @@ test("a sergeant does not execute a unit withdrawal after losing the unit", () =
     const isolatedSergeant = {
         ...sergeant,
         receivedOrder: "withdraw",
+        issuedOrder: {
+            command: "withdraw",
+            formationFacing: null,
+            specialization: "amritar",
+            expiresAfterTurn: 100,
+        },
         hasReceivedInitialOrder: true,
         observationMemory: sergeant.observationMemory.filter(
             (memory) => memory.combatantId === enemy.id,
         ),
     };
-    const intent = createBattleIntents(
-        [isolatedSergeant, enemy],
-        new Set(setup.obstacles.map((obstacle) => obstacle.key)),
-        43117,
-        0,
-    )[0];
+    const intent = createBattleIntents([isolatedSergeant, enemy], 43117, 0)[0];
 
     assert.notEqual(intent.actionState.definitionId, "arena.withdraw");
 });
 
 test("order assessment reads interpreted behavior instead of movement alone", () => {
-    const { doesObservedActionFollowOrder } = loadArenaModule(
-        "command-assessment",
-    );
+    const { doesObservedActionFollowOrder } =
+        loadArenaModule("command-assessment");
     const setup = arena.createArenaSetup(43117);
     const observation = setup.battle.combatants[0].observationMemory.find(
         (memory) => memory.team === "blue",
@@ -1325,9 +2454,8 @@ test("order assessment reads interpreted behavior instead of movement alone", ()
 });
 
 test("a sergeant waits for an attended action consistent with his order", () => {
-    const { hasObservedOwnOrderExecutionStarted } = loadArenaModule(
-        "battle-actions",
-    );
+    const { hasObservedOwnOrderExecutionStarted } =
+        loadArenaModule("battle-actions");
     const setup = arena.createArenaSetup(43117);
     const sergeant = setup.battle.combatants.find(
         (combatant) => combatant.team === "blue" && combatant.number === 1,
@@ -1338,6 +2466,12 @@ test("a sergeant waits for an attended action consistent with his order", () => 
     const selfIssuedOrder = (order, purpose, observedTurn = 7) => ({
         ...sergeant,
         receivedOrder: order,
+        issuedOrder: {
+            command: order,
+            formationFacing: null,
+            specialization: "amritar",
+            expiresAfterTurn: 100,
+        },
         receivedOrderSenderId: sergeant.id,
         lastOrderChangeTurn: 5,
         observationMemory: sergeant.observationMemory.map((memory) =>
@@ -1517,15 +2651,16 @@ test("attention remains stable until an older ally or enemy needs refreshing", (
         ...setup.battle.combatants
             .filter((combatant) => combatant.team === "red")
             .slice(0, 2),
-    ]
-        .map((combatant, index) => ({
-            ...combatant,
-            position: {
-                q: observer.position.q + offsets[index].q,
-                r: observer.position.r + offsets[index].r,
-            },
-        }));
-    const currentFocusIds = candidates.slice(0, 4).map((candidate) => candidate.id);
+    ].map((combatant, index) => ({
+        ...combatant,
+        position: {
+            q: observer.position.q + offsets[index].q,
+            r: observer.position.r + offsets[index].r,
+        },
+    }));
+    const currentFocusIds = candidates
+        .slice(0, 4)
+        .map((candidate) => candidate.id);
     const equallyFreshObserver = {
         ...observer,
         perception: 10,
@@ -1553,10 +2688,11 @@ test("attention remains stable until an older ally or enemy needs refreshing", (
     const staleEnemy = candidates[4];
     const staleEnemyObserver = {
         ...equallyFreshObserver,
-        observationMemory: equallyFreshObserver.observationMemory.map((memory) =>
-            memory.combatantId === staleEnemy.id
-                ? { ...memory, actionObservedTurn: 2 }
-                : memory,
+        observationMemory: equallyFreshObserver.observationMemory.map(
+            (memory) =>
+                memory.combatantId === staleEnemy.id
+                    ? { ...memory, actionObservedTurn: 2 }
+                    : memory,
         ),
     };
     const refreshedFocus = perception.selectAttentionTargetIds(
@@ -1564,7 +2700,9 @@ test("attention remains stable until an older ally or enemy needs refreshing", (
         preferences,
         10,
     );
-    const alternateFocusIds = candidates.slice(1, 5).map((candidate) => candidate.id);
+    const alternateFocusIds = candidates
+        .slice(1, 5)
+        .map((candidate) => candidate.id);
     const staleAlly = candidates[0];
     const staleAllyObserver = {
         ...equallyFreshObserver,
@@ -1572,10 +2710,11 @@ test("attention remains stable until an older ally or enemy needs refreshing", (
             ...equallyFreshObserver.attentionFocus,
             combatantIds: alternateFocusIds,
         },
-        observationMemory: equallyFreshObserver.observationMemory.map((memory) =>
-            memory.combatantId === staleAlly.id
-                ? { ...memory, actionObservedTurn: 2 }
-                : memory,
+        observationMemory: equallyFreshObserver.observationMemory.map(
+            (memory) =>
+                memory.combatantId === staleAlly.id
+                    ? { ...memory, actionObservedTurn: 2 }
+                    : memory,
         ),
     };
     const allyRefreshedFocus = perception.selectAttentionTargetIds(
@@ -1621,7 +2760,9 @@ test("tactical command choice rejects an unsupported fighting withdrawal", () =>
     assert.equal(
         chooseCommand(
             woundedSergeant,
-            [woundedSergeant, isolatedWoundedSubordinate],
+            [woundedSergeant, isolatedWoundedSubordinate].map(
+                loadArenaModule("actors/observation").observeSelf,
+            ),
             [adjacentEnemy],
         ),
         "hold",

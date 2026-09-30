@@ -1,17 +1,18 @@
-import {
-    NEIGHBOR_OFFSETS,
-    distanceBetween,
-} from "../arena";
+import { getCurrentlyObservedCombatantsForDecision } from "../actors/observation";
+import { NEIGHBOR_OFFSETS, distanceBetween } from "../arena";
 import { ActionEnterRejectedError } from "../action-errors";
 import { ORDER_ASSESSMENT_VALID_ROUNDS } from "../command-config";
-import { chooseAttackTarget } from "../combat-observation";
+import { hasEnemyInWeaponReach } from "../combat-observation";
 import { SIMPLE_FORMATION_RADIUS_HEXES } from "../formation";
 import { findPathToDestination } from "../navigation";
 import { hasMilitaryCommandAuthority } from "../scenario";
 import { createBattleCandidate } from "./candidate";
 import { ASSUMED_COMBAT_MOVE_HEXES } from "./rules";
 import { getSearchSweepFacingTarget } from "./spatial-search";
-import { assessSubordinateSearch } from "./subordinate-search";
+import {
+    getSubordinateSearchAvailability,
+    selectSubordinateSearchMemory,
+} from "./subordinate-search";
 import type { BattleActionContext, BattleActionDefinition } from "./types";
 
 const ACTION_ID = "arena.search-known-subordinate";
@@ -20,24 +21,26 @@ const UNDER_THREAT_PRIORITY = 350;
 const SEARCH_SWEEP_DIRECTION_OFFSETS = [0, 1, -1, 2, -2, 3];
 
 const assessmentIsNeeded = (context: BattleActionContext): boolean =>
-    context.actor.receivedOrder !== null &&
-    context.actor.receivedOrderSenderId === context.actor.id &&
+    context.actor.issuedOrder !== null &&
     (context.actor.orderAssessment === "unknown" ||
         context.round - context.actor.orderAssessmentTurn >=
             ORDER_ASSESSMENT_VALID_ROUNDS);
 
 const getSubordinateSearchAssessment = (context: BattleActionContext) =>
-    assessSubordinateSearch({
+    getSubordinateSearchAvailability({
         actor: context.actor,
         round: context.round,
-        assumedMoveHexes: ASSUMED_COMBAT_MOVE_HEXES,
     });
 
 export const SEARCH_KNOWN_SUBORDINATE_ACTION: BattleActionDefinition = {
     id: ACTION_ID,
     priority: DEFAULT_PRIORITY,
     getPriority: (context) =>
-        chooseAttackTarget(context.actor, context.enemies)
+        hasEnemyInWeaponReach(
+            context.actor.position,
+            context.actor.weaponReach,
+            context.enemies,
+        )
             ? UNDER_THREAT_PRIORITY
             : DEFAULT_PRIORITY,
     enterConditions: [
@@ -55,7 +58,7 @@ export const SEARCH_KNOWN_SUBORDINATE_ACTION: BattleActionDefinition = {
                 const assessment = getSubordinateSearchAssessment(context);
                 return (
                     !assessment.hasSufficientCurrentObservations &&
-                    assessment.targetMemory !== undefined
+                    assessment.hasLostSubordinateMemory
                 );
             },
         },
@@ -68,15 +71,22 @@ export const SEARCH_KNOWN_SUBORDINATE_ACTION: BattleActionDefinition = {
                 return (
                     assessment.hasSufficientCurrentObservations ||
                     !assessmentIsNeeded(context) ||
-                    chooseAttackTarget(context.actor, context.enemies) !==
-                        undefined
+                    hasEnemyInWeaponReach(
+                        context.actor.position,
+                        context.actor.weaponReach,
+                        context.enemies,
+                    )
                 );
             },
         },
     ],
     perform: (context) => {
         const { actor, blocked, round } = context;
-        const memory = getSubordinateSearchAssessment(context).targetMemory;
+        const memory = selectSubordinateSearchMemory({
+            actor,
+            round,
+            assumedMoveHexes: ASSUMED_COMBAT_MOVE_HEXES,
+        });
         if (!memory) {
             throw new ActionEnterRejectedError(
                 ACTION_ID,
@@ -88,10 +98,10 @@ export const SEARCH_KNOWN_SUBORDINATE_ACTION: BattleActionDefinition = {
             actor,
             memory.lastKnownPosition,
             blocked,
+            context.arenaCellKeys,
         );
         const searchesUncertainArea =
-            path.length === 0 ||
-            path.length <= memory.positionUncertaintyHexes;
+            path.length === 0 || path.length <= memory.positionUncertaintyHexes;
         const moveTarget =
             !searchesUncertainArea &&
             distanceBetween(actor.position, memory.lastKnownPosition) >
@@ -105,6 +115,7 @@ export const SEARCH_KNOWN_SUBORDINATE_ACTION: BattleActionDefinition = {
             result: {
                 actorId: actor.id,
                 maneuver: "concentrate",
+                visualSearchActive: true,
                 moveTarget,
                 facingTarget: searchesUncertainArea
                     ? getSearchSweepFacingTarget({
@@ -123,7 +134,9 @@ export const SEARCH_KNOWN_SUBORDINATE_ACTION: BattleActionDefinition = {
                       })
                     : memory.lastKnownPosition,
             },
-            attentionPreferences: [],
+            attentionPreferences: getCurrentlyObservedCombatantsForDecision(actor, round)
+                .filter(observed => observed.id === memory.combatantId)
+                .map(combatant => ({ combatant, baseRelevance: 0 })),
             completed: false,
         });
     },

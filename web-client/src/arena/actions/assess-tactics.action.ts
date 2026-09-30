@@ -39,7 +39,8 @@ export const ASSESS_TACTICS_ACTION: BattleActionDefinition = {
         },
         {
             id: "initial-order-is-not-chosen",
-            isSatisfied: ({ actor }) => actor.receivedOrder === null,
+            isSatisfied: ({ actor }) =>
+                (actor.issuedOrder?.command ?? null) === null,
         },
         {
             id: "initial-assessment-is-not-ready",
@@ -50,7 +51,8 @@ export const ASSESS_TACTICS_ACTION: BattleActionDefinition = {
     exitConditions: [],
     perform: (context) => {
         const { actor: sergeant, enemies, formationContext } = context;
-        if (!formationContext) throw new Error("Formation context is required.");
+        if (!formationContext)
+            throw new Error("Formation context is required.");
         const planningDelayRounds = getCommandPlanningDelay(
             getSkillLevel(sergeant.profile, "tactics") ?? 6,
         );

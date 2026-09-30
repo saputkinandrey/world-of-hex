@@ -1,4 +1,7 @@
-import { chooseAttackTarget, chooseAttackTargetFromPosition } from "../combat-observation";
+import {
+    chooseAttackTarget,
+    chooseAttackTargetFromPosition,
+} from "../combat-observation";
 import { findPathToAttackPosition } from "../navigation";
 import { getOrdinaryActionAttentionPreferences } from "./attention";
 import { createBattleCandidate } from "./candidate";
@@ -26,12 +29,17 @@ export const APPROACH_ENEMY_ACTION: BattleActionDefinition = {
         if (path.length === 0) {
             result = { actorId: actor.id, maneuver: "wait" };
         } else if (path.length === 1) {
-            const target = chooseAttackTargetFromPosition(actor, enemies, path[0]);
+            const target = chooseAttackTargetFromPosition(
+                actor,
+                enemies,
+                path[0],
+            );
             result = {
                 actorId: actor.id,
                 maneuver: "attack",
                 attackTargetId: target?.id,
                 moveTarget: path[0],
+                movePath: path.slice(0, 1),
                 facingTarget: target?.position,
             };
         } else if (
@@ -47,9 +55,12 @@ export const APPROACH_ENEMY_ACTION: BattleActionDefinition = {
                     actorId: actor.id,
                     maneuver: "all_out_defense",
                     moveTarget: path[path.length - 1],
+                    movePath: path,
                 };
             } else if (path.length <= actor.basicMove) {
-                const coordinated = actor.receivedOrder === "press" && actor.focusTargetId !== null;
+                const coordinated =
+                    actor.receivedOrder === "press" &&
+                    actor.focusTargetId !== null;
                 const moveTarget = path[path.length - 1];
                 const target = coordinated
                     ? chooseAttackTargetFromPosition(actor, enemies, moveTarget)
@@ -59,13 +70,16 @@ export const APPROACH_ENEMY_ACTION: BattleActionDefinition = {
                     maneuver: coordinated ? "move_and_attack" : "move",
                     attackTargetId: target?.id,
                     moveTarget,
+                    movePath: path,
                     facingTarget: target?.position,
                 };
             } else {
                 result = {
                     actorId: actor.id,
                     maneuver: "move",
-                    moveTarget: path[Math.min(actor.basicMove, path.length) - 1],
+                    moveTarget:
+                        path[Math.min(actor.basicMove, path.length) - 1],
+                    movePath: path.slice(0, actor.basicMove),
                 };
             }
         }

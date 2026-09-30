@@ -1,9 +1,10 @@
+import type { ObservedCombatant } from "../actors/observation.types";
 import {
     findConcentrationStep,
     findPathNearCombatant,
     findStepTowardSquadCenter,
 } from "../navigation";
-import type { Combatant, CommunicationPlan } from "../model";
+import type { CommunicationPlan } from "../model";
 import type { AttentionTargetPreference } from "../perception";
 import { createBattleCandidate } from "./candidate";
 import type {
@@ -40,7 +41,7 @@ export const createCommunicationCandidate = ({
         .map((recipientId) =>
             living.find((combatant) => combatant.id === recipientId),
         )
-        .find((combatant): combatant is Combatant => Boolean(combatant));
+        .find((combatant): combatant is ObservedCombatant => Boolean(combatant));
     const addressedPath = addressedRecipient
         ? findPathNearCombatant(
               actor,

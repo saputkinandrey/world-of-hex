@@ -1,4 +1,7 @@
-import { chooseAttackTarget } from "../combat-observation";
+import {
+    chooseAttackTarget,
+    hasEnemyInWeaponReach,
+} from "../combat-observation";
 import { sergeantHasEnemyContact } from "../formation";
 import { findPathToAttackPosition } from "../navigation";
 import { getOrdinaryActionAttentionPreferences } from "./attention";
@@ -24,14 +27,19 @@ export const HOLD_POSITION_ACTION: BattleActionDefinition = {
         {
             id: "no-enemy-is-in-weapon-reach",
             isSatisfied: ({ actor, enemies }) =>
-                chooseAttackTarget(actor, enemies) === undefined,
+                !hasEnemyInWeaponReach(
+                    actor.position,
+                    actor.weaponReach,
+                    enemies,
+                ),
         },
     ],
     exitConditions: [],
     perform: (context) => {
         const { actor, blocked, enemies, formationContext } = context;
         const attackTarget = chooseAttackTarget(actor, enemies);
-        if (!formationContext) throw new Error("Formation context is required.");
+        if (!formationContext)
+            throw new Error("Formation context is required.");
         let result: BattleIntentDraft = { actorId: actor.id, maneuver: "wait" };
         if (
             actor.id === formationContext.sergeant.id &&

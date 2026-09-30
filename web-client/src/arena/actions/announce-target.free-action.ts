@@ -5,49 +5,41 @@ import {
     getSkillPoints,
 } from "../fighter-generation";
 import type { CommunicationPlan } from "../model";
-import type {
-    BattleActionContext,
-    BattleFreeActionDefinition,
-} from "./types";
+import type { BattleActionContext, BattleFreeActionDefinition } from "./types";
 
-const createHorizontalFocusPlan = (
+const shouldAnnounceTarget = (
     context: BattleActionContext,
     attackTargetId: string | undefined,
-): CommunicationPlan | null => {
+): boolean => {
     const { actor, enemies, teamAllies } = context;
     if (
         !attackTargetId ||
-        getSkillPoints(actor.profile, "soldier") <
-            BASIC_SOLDIER_TRAINING_POINTS
+        getSkillPoints(actor.profile, "soldier") < BASIC_SOLDIER_TRAINING_POINTS
     ) {
-        return null;
+        return false;
     }
     const focusTarget = enemies.find((enemy) => enemy.id === attackTargetId);
-    if (!focusTarget || actor.focusTargetId === focusTarget.id) return null;
+    if (!focusTarget || actor.focusTargetId === focusTarget.id) return false;
     const perceivedSquad = [actor, ...teamAllies].filter(
-        (member) => member.profile.lens.id === actor.profile.lens.id,
+        (member) =>
+            member.id === actor.id ||
+            actor.knownSquadMemberIds.includes(member.id),
     );
     const supporters = perceivedSquad.filter(
         (member) =>
             distanceBetween(member.position, focusTarget.position) <=
             member.weaponReach,
     );
-    if (supporters.length < 2) return null;
-    const perceivedCoordinator = [...supporters].sort(
-        (left, right) =>
-            left.number - right.number || left.id.localeCompare(right.id),
-    )[0];
-    if (perceivedCoordinator?.id !== actor.id) return null;
-
-    return {
-        kind: "horizontal_focus",
-        senderId: actor.id,
-        audienceIds: [],
-        recipientIds: [],
-        recipientScope: "squad",
-        focusTargetId: focusTarget.id,
-        soldierSpecialization: AMRITAR_SOLDIER_SPECIALIZATION_ID,
-    };
+    if (supporters.length < 2) return false;
+    return (
+        supporters.some((member) => member.id === actor.id) &&
+        supporters.every(
+            (member) =>
+                member.number > actor.number ||
+                (member.number === actor.number &&
+                    member.id.localeCompare(actor.id) >= 0),
+        )
+    );
 };
 
 export const ANNOUNCE_TARGET_FREE_ACTION: BattleFreeActionDefinition = {
@@ -58,22 +50,23 @@ export const ANNOUNCE_TARGET_FREE_ACTION: BattleFreeActionDefinition = {
             isSatisfied: (_context, result) => !result.communicationPlan,
         },
         {
-            id: "horizontal-focus-plan-is-available",
+            id: "announcing-chosen-target-is-useful",
             isSatisfied: (context, result) =>
-                createHorizontalFocusPlan(
-                    context,
-                    result.attackTargetId,
-                ) !== null,
+                shouldAnnounceTarget(context, result.attackTargetId),
         },
     ],
     perform: (context, result) => {
-        const communicationPlan = createHorizontalFocusPlan(
-            context,
-            result.attackTargetId,
-        );
-        if (!communicationPlan) {
-            throw new Error("Horizontal focus plan is required.");
-        }
+        const targetId = result.attackTargetId;
+        if (!targetId) throw new Error("Chosen attack target is required.");
+        const communicationPlan: CommunicationPlan = {
+            kind: "horizontal_focus",
+            senderId: context.actor.id,
+            audienceIds: [],
+            recipientIds: [],
+            recipientScope: "squad",
+            focusTargetId: targetId,
+            soldierSpecialization: AMRITAR_SOLDIER_SPECIALIZATION_ID,
+        };
         return { ...result, communicationPlan };
     },
 };

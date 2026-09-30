@@ -9,15 +9,17 @@ import {
 } from "../perception";
 import { getOrdinaryActionAttentionPreferences } from "./attention";
 import { createBattleCandidate } from "./candidate";
-import {
-    ASSUMED_COMBAT_MOVE_HEXES,
-    BATTLE_ATTENTION_RELEVANCE,
-} from "./rules";
+import { ASSUMED_COMBAT_MOVE_HEXES, BATTLE_ATTENTION_RELEVANCE } from "./rules";
 import { getSearchSweepFacingTarget } from "./spatial-search";
 import type { BattleActionContext, BattleActionDefinition } from "./types";
 
 const ACTION_ID = "arena.search-last-known-enemy";
 const SEARCH_SWEEP_DIRECTION_OFFSETS = [0, 1, -1, 2, -2, 3];
+
+const hasEnemyMemory = (actor: Combatant): boolean =>
+    actor.observationMemory.some(
+        (memory) => memory.observedAlive && memory.team !== actor.team,
+    );
 
 interface LastKnownEnemyInput {
     actor: Combatant;
@@ -60,15 +62,14 @@ export const SEARCH_LAST_KNOWN_ENEMY_ACTION: BattleActionDefinition = {
         },
         {
             id: "enemy-memory-exists",
-            isSatisfied: (context) => findLastKnownEnemy(context) !== undefined,
+            isSatisfied: ({ actor }) => hasEnemyMemory(actor),
         },
     ],
     exitConditions: [
         {
             id: "enemy-is-observed-or-memory-is-lost",
             isSatisfied: (context) =>
-                context.enemies.length > 0 ||
-                findLastKnownEnemy(context) === undefined,
+                context.enemies.length > 0 || !hasEnemyMemory(context.actor),
         },
     ],
     perform: (context) => {
@@ -84,6 +85,7 @@ export const SEARCH_LAST_KNOWN_ENEMY_ACTION: BattleActionDefinition = {
             actor,
             lastKnownEnemy.lastKnownPosition,
             blocked,
+            context.arenaCellKeys,
         );
         const attackTarget = chooseAttackTarget(actor, enemies);
         const attentionPreferences = getOrdinaryActionAttentionPreferences({
@@ -101,6 +103,7 @@ export const SEARCH_LAST_KNOWN_ENEMY_ACTION: BattleActionDefinition = {
                 result: {
                     actorId: actor.id,
                     maneuver: "concentrate",
+                    visualSearchActive: true,
                     facingTarget: getSearchSweepFacingTarget({
                         position: actor.position,
                         bodyFacing: actor.bodyFacing,
@@ -127,6 +130,7 @@ export const SEARCH_LAST_KNOWN_ENEMY_ACTION: BattleActionDefinition = {
             result: {
                 actorId: actor.id,
                 maneuver: "concentrate",
+                visualSearchActive: true,
                 moveTarget: path[0],
                 facingTarget: lastKnownEnemy.lastKnownPosition,
             },

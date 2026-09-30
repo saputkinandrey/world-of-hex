@@ -1,6 +1,8 @@
+import { hasMilitaryCommandAuthority } from "./actors/military-rank";
+export { getCurrentlyObservedCombatantsForDecision, getSubjectivelyKnownCombatantsForDecision, getCurrentlyAttendedCombatantsForDecision } from "./actors/observation";
+import type { PositionedObservation } from "./actors/observation.types";
 import { distanceBetween, getDistanceMeters, toMeters } from "./arena";
 import { getObviousWoundState } from "./combat-observation";
-import { THREAT_AWARENESS_DURATION_ROUNDS } from "./config";
 import {
     AUTOMATIC_TASK_DIFFICULTY_MODIFIER,
     AVERAGE_TASK_DIFFICULTY_MODIFIER,
@@ -200,8 +202,8 @@ export const decaySensoryTraces = (traces: SensoryTrace[]): SensoryTrace[] =>
         );
 
 export const getCommunicationInterference = (
-    sender: Combatant,
-    recipient: Combatant,
+    sender: PositionedObservation,
+    recipient: PositionedObservation,
     sensoryTraces: SensoryTrace[],
     ambient: AmbientInterference,
 ): CommunicationInterference => {
@@ -339,7 +341,7 @@ export const observeFormationFacing = (
 };
 
 interface AttentionCandidate {
-    combatant: Combatant;
+    combatant: PositionedObservation;
     baseRelevance: number;
     distanceModifier: number;
     stalenessBonus: number;
@@ -349,7 +351,7 @@ interface AttentionCandidate {
 }
 
 export interface AttentionTargetPreference {
-    combatant: Combatant;
+    combatant: PositionedObservation;
     baseRelevance: number;
 }
 
@@ -560,6 +562,10 @@ const createObservationMemory = (
     identityKnown = previousMemory?.identityKnown ?? false,
 ): CombatantObservationMemory => ({
     combatantId: candidate.id,
+    number: candidate.number,
+    weaponReach: candidate.weaponReach,
+    knownFormationRole: previousMemory?.knownFormationRole ?? (identityKnown ? candidate.formationRole : null),
+    knownCommander: previousMemory?.knownCommander ?? (identityKnown && hasMilitaryCommandAuthority(candidate)),
     team: candidate.team,
     identityKnown,
     lastKnownPosition: candidate.position,
@@ -674,10 +680,7 @@ const passivelyObserves = (
         ambient,
     );
     const performsConcentratedVisualSearch =
-        observer.actionState.definitionId ===
-            "arena.search-last-known-enemy" ||
-        observer.actionState.definitionId ===
-            "arena.search-known-subordinate";
+        observer.visualSearchActive && !observer.isStunned;
     const observationPenalty = performsConcentratedVisualSearch
         ? 0
         : PASSIVE_OBSERVATION_PENALTY;
@@ -827,105 +830,6 @@ export const getCombatantObservationBeliefs = (
                 Math.max(0, round - memory.lastSeenTurn) * assumedMoveHexes,
         }));
 
-const getRememberedHealth = (state: ObviousWoundState): number => {
-    if (state === "badly_wounded") return 2;
-    if (state === "wounded") return 6;
-    return 10;
-};
-
-export const getCurrentlyObservedCombatantsForDecision = (
-    observer: Combatant,
-    candidates: Combatant[],
-    round: number,
-): Combatant[] => {
-    const candidateById = new Map(
-        candidates.map((candidate) => [candidate.id, candidate]),
-    );
-    return getCombatantObservationBeliefs(observer, round, 0)
-        .filter((belief) => belief.observedThisTurn)
-        .map((memory) => {
-            const candidate = candidateById.get(memory.combatantId);
-            if (!candidate) return null;
-            return {
-                ...candidate,
-                health: getRememberedHealth(memory.obviousWoundState),
-                maxHealth: 10,
-                position: memory.lastKnownPosition,
-                lastMovementPath:
-                    memory.actionObservedTurn === round
-                        ? candidate.lastMovementPath
-                        : [memory.lastKnownPosition],
-                maneuver:
-                    memory.actionObservedTurn === round
-                        ? memory.lastKnownManeuver
-                        : "do_nothing",
-            };
-        })
-        .filter((candidate): candidate is Combatant => candidate !== null);
-};
-
-export const getSubjectivelyKnownCombatantsForDecision = (
-    observer: Combatant,
-    candidates: Combatant[],
-    round: number,
-): Combatant[] => {
-    const observed = getCurrentlyObservedCombatantsForDecision(
-        observer,
-        candidates,
-        round,
-    );
-    const knownById = new Map(
-        observed.map((candidate) => [candidate.id, candidate]),
-    );
-    const candidateById = new Map(
-        candidates.map((candidate) => [candidate.id, candidate]),
-    );
-    const memoryById = new Map(
-        observer.observationMemory.map((memory) => [
-            memory.combatantId,
-            memory,
-        ]),
-    );
-
-    Object.entries(observer.threatAwarenessByCombatantId)
-        .filter(
-            ([, awarenessTurn]) =>
-                round - awarenessTurn <= THREAT_AWARENESS_DURATION_ROUNDS,
-        )
-        .forEach(([attackerId]) => {
-            if (knownById.has(attackerId)) return;
-            const candidate = candidateById.get(attackerId);
-            const memory = memoryById.get(attackerId);
-            if (!candidate || !memory?.observedAlive || candidate.health <= 0) {
-                return;
-            }
-            knownById.set(attackerId, {
-                ...candidate,
-                health: getRememberedHealth(memory.obviousWoundState),
-                maxHealth: 10,
-                position: memory.lastKnownPosition,
-                lastMovementPath: [memory.lastKnownPosition],
-                maneuver: "do_nothing",
-            });
-        });
-
-    return [...knownById.values()];
-};
-
-export const getCurrentlyAttendedCombatantsForDecision = (
-    observer: Combatant,
-    candidates: Combatant[],
-    round: number,
-): Combatant[] => {
-    if (observer.attentionFocus.updatedTurn !== round) return [];
-    const focusIds = new Set(observer.attentionFocus.combatantIds);
-    return getCurrentlyObservedCombatantsForDecision(
-        observer,
-        candidates,
-        round,
-    ).filter((candidate) => focusIds.has(candidate.id));
-};
-
 export const updateFormationObservations = (
     combatants: Combatant[],
     sensoryTraces: SensoryTrace[],
@@ -979,7 +883,7 @@ export const hasFormationFacingChanged = (
 
 export const getObservationVisualPenalty = (
     observer: Combatant,
-    observed: Combatant[],
+    observed: PositionedObservation[],
     sensoryTraces: SensoryTrace[],
     ambient: AmbientInterference,
 ): number => {

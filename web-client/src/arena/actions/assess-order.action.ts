@@ -1,17 +1,14 @@
+import { assessOrderInformation } from "../actors/order-information";
+import { SIMPLE_FORMATION_RADIUS_HEXES } from "../formation";
 import { areAdjacent } from "../arena";
 import {
-    AVERAGE_TASK_DIFFICULTY_MODIFIER,
-    getCheckTarget,
-} from "../check";
-import {
     ORDER_ASSESSMENT_VALID_ROUNDS,
+    POOR_ORDER_COMPLIANCE_RATIO,
     getCommandPlanningDelay,
 } from "../command-config";
-import { chooseCommand } from "../formation";
 import { getSkillLevel } from "../fighter-generation";
-import type { CommandKind, CommunicationPlan } from "../model";
+import type { CommunicationPlan } from "../model";
 import { hasFormationFacingChanged } from "../perception";
-import { rollDice } from "../random";
 import { hasMilitaryCommandAuthority } from "../scenario";
 import {
     createAttentionPreferences,
@@ -24,57 +21,35 @@ import type { BattleActionContext, BattleActionDefinition } from "./types";
 const ACTION_ID = "arena.assess-order";
 
 const assessmentIsDue = (context: BattleActionContext): boolean => {
-    const { actor: sergeant, enemies, formationContext, round } = context;
-    const currentOrder = sergeant.receivedOrder;
+    const { actor: sergeant, formationContext, round } = context;
+    const currentOrder = sergeant.issuedOrder?.command ?? null;
     if (!formationContext || !currentOrder) return false;
+    const information = assessOrderInformation({
+        actor: sergeant, order: currentOrder, round,
+        maxEvidenceAge: ORDER_ASSESSMENT_VALID_ROUNDS,
+        complianceThreshold: POOR_ORDER_COMPLIANCE_RATIO,
+        supportDistance: SIMPLE_FORMATION_RADIUS_HEXES,
+    });
+    if (information.conclusion === "unknown" || !information.hasNewEvidence) return false;
     const tacticsSkill = getSkillLevel(sergeant.profile, "tactics") ?? 6;
     const planningDelayRounds = getCommandPlanningDelay(tacticsSkill);
     const canChangeOrder =
         round - sergeant.lastOrderChangeTurn >= planningDelayRounds;
     const assessmentAge = round - sergeant.orderAssessmentTurn;
-    const proposedOrder: CommandKind = canChangeOrder
-        ? sergeant.invertNextOrderChoice
-            ? chooseCommand(
-                  sergeant,
-                  formationContext.squadMembers,
-                  enemies,
-                  true,
-              )
-            : rollDice(
-                    3,
-                    6,
-                    context.seed,
-                    round,
-                    `${sergeant.id}:choose-order:tactics`,
-                ).total <=
-                getCheckTarget({
-                    base: tacticsSkill,
-                    difficultyModifier: AVERAGE_TASK_DIFFICULTY_MODIFIER,
-                    situationalModifiers: [],
-                })
-              ? chooseCommand(
-                    sergeant,
-                    formationContext.squadMembers,
-                    enemies,
-                )
-              : "hold"
-        : currentOrder;
     const frontNeedsUpdate =
         canChangeOrder &&
         hasFormationFacingChanged(
-            sergeant.orderedFormationFacing,
+            sergeant.issuedOrder?.formationFacing ?? null,
             sergeant.observedFormationFacing,
         );
     const shouldRepeatOrder =
-        proposedOrder === currentOrder &&
-        ((sergeant.orderAssessment === "poor" &&
+        (sergeant.orderAssessment === "poor" &&
             assessmentAge <= ORDER_ASSESSMENT_VALID_ROUNDS) ||
-            frontNeedsUpdate);
+        frontNeedsUpdate;
     return (
-        proposedOrder === currentOrder &&
         !frontNeedsUpdate &&
         !shouldRepeatOrder &&
-        sergeant.orderExpiresAfterTurn - round > 1 &&
+        (sergeant.issuedOrder?.expiresAfterTurn ?? -1) - round > 1 &&
         (sergeant.orderAssessment === "unknown" ||
             assessmentAge >= ORDER_ASSESSMENT_VALID_ROUNDS)
     );
@@ -106,7 +81,8 @@ export const ASSESS_ORDER_ACTION: BattleActionDefinition = {
         },
         {
             id: "current-order-exists",
-            isSatisfied: ({ actor }) => actor.receivedOrder !== null,
+            isSatisfied: ({ actor }) =>
+                (actor.issuedOrder?.command ?? null) !== null,
         },
         {
             id: "order-assessment-is-due",
@@ -116,9 +92,11 @@ export const ASSESS_ORDER_ACTION: BattleActionDefinition = {
     exitConditions: [],
     perform: (context) => {
         const { actor: sergeant, enemies, formationContext } = context;
-        const currentOrder = sergeant.receivedOrder;
+        const currentOrder = sergeant.issuedOrder?.command ?? null;
         if (!formationContext || !currentOrder) {
-            throw new Error("Current order and formation context are required.");
+            throw new Error(
+                "Current order and formation context are required.",
+            );
         }
         const tacticsSkill = getSkillLevel(sergeant.profile, "tactics") ?? 6;
         const planningDelayRounds = getCommandPlanningDelay(tacticsSkill);

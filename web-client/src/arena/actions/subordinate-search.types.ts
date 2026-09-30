@@ -6,9 +6,14 @@ export interface SubordinateSearchInput {
     assumedMoveHexes: number;
 }
 
-export interface SubordinateSearchAssessment {
+export interface SubordinateSearchAvailability {
     hasSufficientCurrentObservations: boolean;
-    targetMemory: CombatantObservationBelief | undefined;
+    hasLostSubordinateMemory: boolean;
+}
+
+export interface SubordinateSearchAvailabilityInput {
+    actor: Combatant;
+    round: number;
 }
 
 export interface RankedSubordinateMemory {

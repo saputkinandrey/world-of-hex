@@ -1,7 +1,31 @@
-import { generateObstacles, selectSpawnCells } from "./arena";
+import { ARENA_CELLS, generateObstacles, selectSpawnCells } from "./arena";
 import { TEAM_SIZE } from "./config";
-import { AMRITAR_DUST_SERGEANT_LENS_ID, AMRITAR_DUST_SPEARMAN_LENS_ID, AMRITAR_GUARD_OF_THE_HAND_LENS_ID, AMRITAR_GUARD_SERGEANT_LENS_ID, AdvantageId, AttributeKey, DisadvantageId, LeveledAdvantageId, SkillSpecializationId, applyCommandLens, generateFighterProfile, getPrimaryCombatSkill, getProfileLeveledAdvantageLevel, getSkillLevel, profileHasAdvantage } from "./fighter-generation";
-import { ArenaSetup, BehaviorFactors, Combatant, HexCoord, ManeuverKind, Team } from "./model";
+import {
+    AMRITAR_DUST_SERGEANT_LENS_ID,
+    AMRITAR_DUST_SPEARMAN_LENS_ID,
+    AMRITAR_GUARD_OF_THE_HAND_LENS_ID,
+    AMRITAR_GUARD_SERGEANT_LENS_ID,
+    AdvantageId,
+    AttributeKey,
+    DisadvantageId,
+    LeveledAdvantageId,
+    SkillSpecializationId,
+    applyCommandLens,
+    generateFighterProfile,
+    getPrimaryCombatSkill,
+    getProfileLeveledAdvantageLevel,
+    getSkillLevel,
+    profileHasAdvantage,
+} from "./fighter-generation";
+import { ARMOR_ITEMS, SHIELDS, WEAPONS } from "./fighter-generation";
+import {
+    ArenaSetup,
+    BehaviorFactors,
+    Combatant,
+    HexCoord,
+    ManeuverKind,
+    Team,
+} from "./model";
 import { getInitialBodyFacing } from "./facing";
 import {
     initializeObservationMemories,
@@ -11,10 +35,11 @@ import { createRandom } from "./random";
 
 const PERSISTENT_ORDER_EXPIRY_TURN = Number.MAX_SAFE_INTEGER;
 
-export const MILITARY_RANK = {
-    ENLISTED: 0,
-    SQUAD_LEADER: 1,
-} as const;
+import { hasMilitaryCommandAuthority } from "./actors/military-rank";
+export {
+    MILITARY_RANK,
+    hasMilitaryCommandAuthority,
+} from "./actors/military-rank";
 
 export const BLUE_NAMES = [
     "Aquila",
@@ -44,10 +69,13 @@ export const RED_NAMES = [
 
 export const ATTRIBUTE_KEYS: AttributeKey[] = ["ST", "DX", "IQ", "HT"];
 
-export const assignInitialFormationRoles = (combatants: Combatant[]): Combatant[] => {
+export const assignInitialFormationRoles = (
+    combatants: Combatant[],
+): Combatant[] => {
     const formationMembersByLensId = new Map<string, Combatant[]>();
     combatants.forEach((combatant) => {
-        const members = formationMembersByLensId.get(combatant.profile.lens.id) ?? [];
+        const members =
+            formationMembersByLensId.get(combatant.profile.lens.id) ?? [];
         members.push(combatant);
         formationMembersByLensId.set(combatant.profile.lens.id, members);
     });
@@ -89,7 +117,10 @@ export const createCombatants = (
                     ? [AMRITAR_GUARD_OF_THE_HAND_LENS_ID]
                     : [AMRITAR_DUST_SPEARMAN_LENS_ID]
                 : [];
-        const generatedProfile = generateFighterProfile(random, preferredLensIds);
+        const generatedProfile = generateFighterProfile(
+            random,
+            preferredLensIds,
+        );
         const profile =
             team === "blue" && index === 0
                 ? applyCommandLens(
@@ -104,6 +135,9 @@ export const createCombatants = (
                   : generatedProfile;
         const attributes = profile.attributes;
         const equipment = profile.lens.equipment;
+        const weapon = WEAPONS[equipment.weapon];
+        const armor = ARMOR_ITEMS[equipment.armor];
+        const shield = SHIELDS[equipment.shield ?? ""];
         const meleeSkill = getPrimaryCombatSkill(profile);
         const shieldSkill = getSkillLevel(profile, "shield");
         const combatReflexes = profileHasAdvantage(profile, "combat_reflexes")
@@ -112,7 +146,8 @@ export const createCombatants = (
         const shieldBlock =
             shieldSkill === null ? null : Math.floor(shieldSkill / 2) + 3;
         const weaponParry = Math.floor(meleeSkill / 2) + 3;
-        const defenseBonus = equipment.defenseBonus + combatReflexes;
+        const defenseBonus =
+            (shield?.defenseBonus ?? equipment.defenseBonus) + combatReflexes;
         const basicSpeed = (attributes.DX + attributes.HT) / 4;
         const maxHealth = attributes.ST;
 
@@ -133,15 +168,26 @@ export const createCombatants = (
             parry: weaponParry + defenseBonus,
             dodge: Math.max(
                 3,
-                Math.floor(basicSpeed) + 3 + defenseBonus - equipment.movePenalty,
+                Math.floor(basicSpeed) +
+                    3 +
+                    defenseBonus -
+                    equipment.movePenalty,
             ),
             healthAttribute: attributes.HT,
             perception: attributes.IQ,
-            basicMove: Math.max(3, Math.floor(basicSpeed) - equipment.movePenalty),
-            weaponReach: equipment.weaponReach,
+            basicMove: Math.max(
+                3,
+                Math.floor(basicSpeed) - equipment.movePenalty,
+            ),
+            weaponReach: weapon
+                ? Math.max(...weapon.reach)
+                : equipment.weaponReach,
             damageBonus:
-                equipment.weaponDamageBonus + Math.floor((attributes.ST - 10) / 2),
-            damageResistance: equipment.damageResistance,
+                (weapon?.damage.thrust.bonus ?? equipment.weaponDamageBonus) +
+                Math.floor((attributes.ST - 10) / 2),
+            damageResistance: armor?.locations.includes("torso")
+                ? armor.damageResistance
+                : equipment.damageResistance,
             maneuver: "do_nothing" as ManeuverKind,
             actionState: {
                 definitionId: "arena.inactive",
@@ -152,11 +198,13 @@ export const createCombatants = (
             shockPenalty: 0,
             panicPenalty: 0,
             isStunned: false,
+            visualSearchActive: false,
             hasReceivedInitialOrder: false,
             receivedOrder: null,
             receivedOrderSenderId: null,
             receivedOrderSpecialization: null,
             orderExpiresAfterTurn: -1,
+            issuedOrder: null,
             lastOrderChangeTurn: -1000,
             orderAssessment: "unknown",
             orderAssessmentConfidence: "none",
@@ -172,6 +220,7 @@ export const createCombatants = (
             observedFormationFacingUpdatedTurn: -1,
             orderedFormationFacing: null,
             orderedFormationFacingExpiresAfterTurn: -1,
+            terrainKnowledge: { cells: [], obstacleKeys: [] },
             observationMemory: [],
             attentionFocus: {
                 combatantIds: [],
@@ -194,9 +243,7 @@ export const createCombatants = (
     }));
 };
 
-const assignInitialStandingOrders = (
-    combatants: Combatant[],
-): Combatant[] => {
+const assignInitialStandingOrders = (combatants: Combatant[]): Combatant[] => {
     const sergeantByLensId = new Map(
         combatants
             .filter(
@@ -229,17 +276,15 @@ const assignInitialStandingOrders = (
     });
 };
 
-export const hasAdvantage = (actor: Combatant, advantage: AdvantageId): boolean =>
-    profileHasAdvantage(actor.profile, advantage);
+export const hasAdvantage = (
+    actor: Combatant,
+    advantage: AdvantageId,
+): boolean => profileHasAdvantage(actor.profile, advantage);
 
 export const getLeveledAdvantageLevel = (
     actor: Combatant,
     advantage: LeveledAdvantageId,
 ): number | null => getProfileLeveledAdvantageLevel(actor.profile, advantage);
-
-export const hasMilitaryCommandAuthority = (actor: Combatant): boolean =>
-    (getLeveledAdvantageLevel(actor, "military_rank") ?? -1) >=
-    MILITARY_RANK.SQUAD_LEADER;
 
 export const hasDisadvantage = (
     actor: Combatant,
@@ -288,11 +333,20 @@ export const createArenaSetup = (seed: number): ArenaSetup => {
     const obstacles = generateObstacles(seed);
     const blocked = new Set(obstacles.map((obstacle) => obstacle.key));
     const initialCombatants = assignInitialStandingOrders([
-            ...createCombatants("blue", selectSpawnCells("blue", blocked), seed),
-            ...createCombatants("red", selectSpawnCells("red", blocked), seed),
-        ]);
+        ...createCombatants("blue", selectSpawnCells("blue", blocked), seed),
+        ...createCombatants("red", selectSpawnCells("red", blocked), seed),
+    ]);
     const combatants = updateFormationObservations(
-        initializeObservationMemories(initialCombatants, 0),
+        initializeObservationMemories(
+            initialCombatants.map((actor) => ({
+                ...actor,
+                terrainKnowledge: {
+                    cells: ARENA_CELLS.map(({ q, r }) => ({ q, r })),
+                    obstacleKeys: [...blocked],
+                },
+            })),
+            0,
+        ),
         [],
         seed,
         0,
@@ -316,7 +370,9 @@ export const createArenaSetup = (seed: number): ArenaSetup => {
     };
 };
 
-export const applyMixedSpecializationScenario = (setup: ArenaSetup): ArenaSetup => {
+export const applyMixedSpecializationScenario = (
+    setup: ArenaSetup,
+): ArenaSetup => {
     const romanFighterNumbers = new Set([4, 5, 6]);
 
     return {
@@ -337,14 +393,15 @@ export const applyMixedSpecializationScenario = (setup: ArenaSetup): ArenaSetup 
                         ...combatant.profile,
                         lens: {
                             ...combatant.profile.lens,
-                            skills: combatant.profile.lens.skills.map((skill) =>
-                                skill.id === "soldier"
-                                    ? {
-                                          ...skill,
-                                          label: "Soldier (Roman)",
-                                          specialization: "roman",
-                                      }
-                                    : skill,
+                            skills: combatant.profile.lens.skills.map(
+                                (skill) =>
+                                    skill.id === "soldier"
+                                        ? {
+                                              ...skill,
+                                              label: "Soldier (Roman)",
+                                              specialization: "roman",
+                                          }
+                                        : skill,
                             ),
                         },
                     },

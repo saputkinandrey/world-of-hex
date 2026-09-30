@@ -1,5 +1,8 @@
 import { distanceBetween } from "../arena";
-import { doesObservedActionFollowOrder, hasObservedOwnOrderExecutionStarted } from "../command-assessment";
+import {
+    doesObservedActionFollowOrder,
+    hasObservedOwnOrderExecutionStarted,
+} from "../command-assessment";
 import { chooseAttackTarget } from "../combat-observation";
 import { SIMPLE_FORMATION_RADIUS_HEXES } from "../formation";
 import { findWithdrawalDestination } from "../navigation";
@@ -26,28 +29,40 @@ export const WITHDRAW_ACTION: BattleActionDefinition = {
                 !hasMilitaryCommandAuthority(actor) ||
                 (formationContext?.squadMembers.some(
                     (member) => member.id !== actor.id,
-                ) ?? false),
+                ) ??
+                    false),
         },
     ],
     exitConditions: [],
     perform: (context) => {
         const { actor, blocked, enemies, formationContext, round } = context;
         const attackTarget = chooseAttackTarget(actor, enemies);
-        const squadMembers = formationContext?.squadMembers ?? [actor];
-        const subordinates = squadMembers.filter((member) => member.id !== actor.id);
+        const squadMembers = formationContext?.squadMembers ?? [];
+        const subordinates = squadMembers.filter(
+            (member) => member.id !== actor.id,
+        );
         const unsupported = subordinates.find((member) => {
             const observation = actor.observationMemory.find(
-                (memory) => memory.combatantId === member.id && memory.actionObservedTurn === round,
+                (memory) =>
+                    memory.combatantId === member.id &&
+                    memory.actionObservedTurn === round,
             );
-            return round > actor.lastOrderChangeTurn + 1 &&
+            return (
+                round > actor.lastOrderChangeTurn + 1 &&
                 observation !== undefined &&
                 !doesObservedActionFollowOrder(observation, "withdraw") &&
-                enemies.some((enemy) => distanceBetween(member.position, enemy.position) <= enemy.weaponReach);
+                enemies.some(
+                    (enemy) =>
+                        distanceBetween(member.position, enemy.position) <=
+                        enemy.weaponReach,
+                )
+            );
         });
         let result: BattleIntentDraft;
         if (
             hasMilitaryCommandAuthority(actor) &&
-            (!hasObservedOwnOrderExecutionStarted(actor, subordinates, round) || unsupported)
+            (!hasObservedOwnOrderExecutionStarted(actor, subordinates, round) ||
+                unsupported)
         ) {
             result = {
                 actorId: actor.id,
@@ -63,6 +78,7 @@ export const WITHDRAW_ACTION: BattleActionDefinition = {
                     actor,
                     enemies,
                     blocked,
+                    context.arenaCellKeys,
                     subordinates.map((member) => member.position),
                     SIMPLE_FORMATION_RADIUS_HEXES,
                 ),
