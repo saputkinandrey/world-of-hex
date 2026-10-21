@@ -23,5 +23,15 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0, 0.5, 1, 2, 2.8, 4.1333333, 4.9333333, 5.9333333, 6.4333333, 6.9333333, 7.4333333, 8.7666667, 9.2666667)
 }
 
+tracks/2/type = "animation"
+tracks/2/path = NodePath("Viewport/SouthWest/AnimationPlayer")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/enabled = true
+tracks/2/keys = {
+"clips": PackedStringArray("RESET", "idle_to_walk", "walk_loop", "walk_to_run", "run_loop", "run_to_walk", "walk_loop", "walk_to_idle", "RESET", "idle_to_run", "run_loop", "run_to_idle", "RESET"),
+"times": PackedFloat32Array(0, 0.5, 1, 2, 2.8, 4.1333333, 4.9333333, 5.9333333, 6.4333333, 6.9333333, 7.4333333, 8.7666667, 9.2666667)
+}
+
 [resource]
 _data = {&"comparison": SubResource("Comparison")}

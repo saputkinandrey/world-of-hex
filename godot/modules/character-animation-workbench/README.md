@@ -165,3 +165,6 @@ south_west-клип, для north_east — north_west; отражение вып
 
 Полный набор North, исправление слоёв и синхронное сравнение S/N:
 [NORTH-WORKFLOW.md](NORTH-WORKFLOW.md).
+
+Диагональ SW и сравнение S/N/SW в трёх колонках:
+[SOUTH-WEST-WORKFLOW.md](SOUTH-WEST-WORKFLOW.md).

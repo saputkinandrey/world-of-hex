@@ -126,10 +126,10 @@ func _run() -> void:
 	_sample(player, "walk_loop", .2)
 	_compare(white, _pose(skeleton), "Both shirt variants use the same bone keys")
 	_check(shirt.get_bone_weights(1) == original_weights, "Appearance changes preserve painted skin weights")
-	for view: String in ["south-west", "north-west"]:
+	for view: String in ["north-west"]:
 		var library: AnimationLibrary = load("res://modules/character-animation-workbench/animations/skeletal-library-%s.tres" % view)
 		for clip: String in CLIPS:
-			_check(not library.has_animation(clip), "Walking is unavailable for unauthored diagonals")
+			_check(not library.has_animation(clip), "Walking is unavailable for unauthored rear diagonals")
 	workbench.reset_motion()
 	var sequence_player: AnimationPlayer = scene.get_node("SequencePlayer")
 	sequence_player.play("walk_sequence")

@@ -1,5 +1,5 @@
 param(
-    [ValidateSet('import', 'test', 'visual-test', 'parse', 'smoke', 'source', 'deformation', 'skeletal-test', 'skeletal-visual', 'skeletal-smoke', 'skeletal-proof', 'skeletal-editor', 'walk-render', 'walk-test', 'walk-preview', 'run-bake', 'run-test', 'run-render', 'run-preview', 'north-bake', 'comparison-test', 'comparison-render', 'comparison-preview', 'north-layer-test')]
+    [ValidateSet('import', 'test', 'visual-test', 'parse', 'smoke', 'source', 'deformation', 'skeletal-test', 'skeletal-visual', 'skeletal-smoke', 'skeletal-proof', 'skeletal-editor', 'walk-render', 'walk-test', 'walk-preview', 'run-bake', 'run-test', 'run-render', 'run-preview', 'north-bake', 'comparison-test', 'comparison-render', 'comparison-preview', 'north-layer-test', 'south-west-bake', 'south-west-test')]
     [string]$Action = 'test'
 )
 $ErrorActionPreference = 'Stop'
@@ -18,6 +18,8 @@ $modulePath = 'res://modules/character-animation-workbench'
 $engineLogPath = Join-Path $outputPath "$Action-engine.log"
 $engineArguments = @('--path', '.', '--log-file', ('"' + $engineLogPath + '"'))
 switch ($Action) {
+    'south-west-bake' { $engineArguments += @('--headless', '--script', "$modulePath/tests/author-south-west.gd") }
+    'south-west-test' { $engineArguments += @('--headless', '--script', "$modulePath/tests/south-west-acceptance.gd") }
     'north-layer-test' { $engineArguments += @('--rendering-method', 'gl_compatibility', '--script', "$modulePath/tests/north-layer-acceptance.gd") }
     'north-bake' { $engineArguments += @('--headless', '--script', "$modulePath/tests/author-north.gd") }
     'comparison-test' { $engineArguments += @('--headless', '--script', "$modulePath/tests/comparison-acceptance.gd") }

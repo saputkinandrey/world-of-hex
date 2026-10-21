@@ -8,7 +8,7 @@
 script = ExtResource("2")
 
 [node name="Viewport" type="SubViewport" parent="."]
-size = Vector2i(1024, 512)
+size = Vector2i(1536, 512)
 render_target_update_mode = 4
 
 [node name="GroundSouth" type="Line2D" parent="Viewport"]
@@ -38,6 +38,20 @@ source_direction = 1
 preview_zoom = 3.5
 show_stage = false
 
+[node name="GroundSouthWest" type="Line2D" parent="Viewport"]
+z_index = -1
+points = PackedVector2Array(1120, 440, 1440, 440)
+width = 1.0
+default_color = Color(0.32, 0.4, 0.45, 1)
+
+[node name="SouthWest" parent="Viewport" instance=ExtResource("1")]
+position = Vector2(1024, 17)
+outfit = 1
+source_pose = 0
+source_direction = 2
+preview_zoom = 3.5
+show_stage = false
+
 [node name="CaptionSouth" type="Label" parent="Viewport"]
 offset_left = 20.0
 offset_top = 16.0
@@ -54,5 +68,22 @@ offset_bottom = 45.0
 theme_override_font_sizes/font_size = 20
 text = "N (North)"
 
+[node name="CaptionSouthWest" type="Label" parent="Viewport"]
+offset_left = 1044.0
+offset_top = 16.0
+offset_right = 1516.0
+offset_bottom = 45.0
+theme_override_font_sizes/font_size = 20
+text = "SW (South west)"
+
 [node name="SequencePlayer" type="AnimationPlayer" parent="."]
 libraries = {&"": ExtResource("3")}
+
+[node name="AvailabilitySouthWest" type="Label" parent="Viewport"]
+offset_left = 1044.0
+offset_top = 50.0
+offset_right = 1516.0
+offset_bottom = 76.0
+theme_override_colors/font_color = Color(0.7, 0.75, 0.8, 1)
+theme_override_font_sizes/font_size = 14
+text = "Source assets: body only"

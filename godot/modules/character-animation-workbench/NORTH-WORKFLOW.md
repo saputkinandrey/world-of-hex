@@ -1,5 +1,10 @@
 # North motion and synchronized South/North comparison
 
+The later [SW extension](SOUTH-WEST-WORKFLOW.md) adds a third synchronized
+column. The two-column dimensions and output location below describe the
+previous delivery, whose media remain available. Current supported authored
+locomotion views are S, N and SW; the North-specific correction is unchanged.
+
 North now has independent saved native animations for all eight motions:
 `walk_loop`, `idle_to_walk`, `walk_to_idle`, `run_loop`, `walk_to_run`,
 `run_to_walk`, `idle_to_run`, `run_to_idle`.
