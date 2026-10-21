@@ -1,5 +1,8 @@
 # Приёмка Sprite Animation Workbench v1.0.0
 
+Для скелетной версии v1.1 см. [SKELETAL-ACCEPTANCE.md](SKELETAL-ACCEPTANCE.md).
+Ниже сохранён исходный отчёт по жёстким слоям v1.0.
+
 Проверено 2026-10-21 на Windows, Godot 4.7.2 stable Steam, OpenGL Compatibility,
 NVIDIA RTX 3060 Laptop. В `project.godot` указана версия 4.6; отдельный прогон
 движком 4.6 не выполнялся. Использованы штатные API AnimationPlayer,

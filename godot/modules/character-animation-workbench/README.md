@@ -1,5 +1,16 @@
 # Sprite Animation Workbench
 
+## v1.1: skeletal mesh deformation
+
+Основной стенд v1.1: **`skeletal-animation-workbench.tscn`**.
+В нём цельные изображения деформируются через Polygon2D и общий Skeleton2D.
+Подробная инструкция по костям, UV и весам: [SKELETAL-WORKFLOW.md](SKELETAL-WORKFLOW.md).
+Результаты и ограничения проверки: [SKELETAL-ACCEPTANCE.md](SKELETAL-ACCEPTANCE.md).
+Сцена `tests/deformation-proof.tscn` запускает минимальный пример одного цельного тела.
+
+Ниже сохранена инструкция исходной версии v1.0 с жёсткими слоями. Её сцена
+и клипы оставлены для сравнения; они не являются скелетным ригом v1.1.
+
 Отдельный стенд ключевой анимации модульного персонажа. Откройте
 `character-animation-workbench.tscn` в существующем Godot-проекте.
 Персонаж виден сразу в 2D-редакторе. F6 запускает панель предпросмотра.

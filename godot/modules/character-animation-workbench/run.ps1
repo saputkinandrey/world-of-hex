@@ -1,5 +1,5 @@
 param(
-    [ValidateSet('import', 'test', 'visual-test', 'parse', 'smoke', 'source')]
+    [ValidateSet('import', 'test', 'visual-test', 'parse', 'smoke', 'source', 'deformation', 'skeletal-test', 'skeletal-visual', 'skeletal-smoke', 'skeletal-proof', 'skeletal-editor')]
     [string]$Action = 'test'
 )
 $ErrorActionPreference = 'Stop'
@@ -18,6 +18,12 @@ $modulePath = 'res://modules/character-animation-workbench'
 $engineLogPath = Join-Path $outputPath "$Action-engine.log"
 $engineArguments = @('--path', '.', '--log-file', ('"' + $engineLogPath + '"'))
 switch ($Action) {
+    'skeletal-editor' { $engineArguments += @('--headless', '--editor', '--import', "$modulePath/skeletal-animation-workbench.tscn") }
+    'skeletal-proof' { $engineArguments += @('--rendering-method', 'gl_compatibility', "$modulePath/tests/deformation-proof.tscn", '--quit-after', '120') }
+    'skeletal-test' { $engineArguments += @('--headless', '--script', "$modulePath/tests/skeletal-acceptance.gd") }
+    'skeletal-visual' { $engineArguments += @('--rendering-method', 'gl_compatibility', '--script', "$modulePath/tests/skeletal-acceptance.gd") }
+    'skeletal-smoke' { $engineArguments += @('--rendering-method', 'gl_compatibility', "$modulePath/skeletal-animation-workbench.tscn", '--quit-after', '120') }
+    'deformation' { $engineArguments += @('--rendering-method', 'gl_compatibility', '--script', "$modulePath/tests/render-deformation.gd") }
     'import' { $engineArguments += @('--headless', '--script', "$modulePath/import-source.gd") }
     'test' { $engineArguments += @('--headless', '--script', "$modulePath/tests/acceptance.gd") }
     'visual-test' { $engineArguments += @('--rendering-method', 'gl_compatibility', '--script', "$modulePath/tests/acceptance.gd") }

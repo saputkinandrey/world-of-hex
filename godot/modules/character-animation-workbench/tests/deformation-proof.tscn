@@ -1,0 +1,16 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" path="res://modules/character-animation-workbench/rigs/south-rig.tscn" id="1"]
+[ext_resource type="Script" path="res://modules/character-animation-workbench/tests/proof-preview.gd" id="2"]
+
+[node name="DeformationProof" type="SubViewportContainer"]
+script = ExtResource("2")
+
+[node name="Viewport" type="SubViewport" parent="."]
+size = Vector2i(512, 512)
+render_target_update_mode = 4
+
+[node name="Rig" parent="Viewport" instance=ExtResource("1")]
+position = Vector2(235, 215)
+scale = Vector2(3.5, 3.5)
+body_only = true

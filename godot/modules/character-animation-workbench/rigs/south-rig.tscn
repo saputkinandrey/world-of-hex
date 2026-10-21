@@ -1,0 +1,219 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://modules/character-animation-workbench/skinned-rig.gd" id="1"]
+[ext_resource type="Script" path="res://modules/character-animation-workbench/skin-overlay.gd" id="2"]
+[ext_resource type="AnimationLibrary" path="res://modules/character-animation-workbench/animations/skeletal-library.tres" id="3"]
+[ext_resource type="Script" path="res://modules/character-animation-workbench/module-pivot.gd" id="4"]
+[ext_resource type="PackedScene" path="res://modules/character-animation-workbench/rigs/south-surface-0.tscn" id="south-surface-0"]
+
+[node name="Rig" type="Node2D"]
+script = ExtResource("1")
+authored_direction = 0
+snapshot_key = "Saved source:0:0"
+
+[node name="Skeleton2D" type="Skeleton2D" parent="."]
+
+[node name="Pelvis" type="Bone2D" parent="Skeleton2D"]
+position = Vector2(0, 25)
+rest = Transform2D(1, 0, 0, 1, 0, 25)
+auto_calculate_length_and_angle = false
+length = 15
+bone_angle = -90.0
+
+[node name="Spine" type="Bone2D" parent="Skeleton2D/Pelvis"]
+position = Vector2(0, -20)
+rest = Transform2D(1, 0, 0, 1, 0, -20)
+auto_calculate_length_and_angle = false
+length = 20
+bone_angle = -90.0
+
+[node name="Chest" type="Bone2D" parent="Skeleton2D/Pelvis/Spine"]
+position = Vector2(0, -20)
+rest = Transform2D(1, 0, 0, 1, 0, -20)
+auto_calculate_length_and_angle = false
+length = 12
+bone_angle = -90.0
+
+[node name="Head" type="Bone2D" parent="Skeleton2D/Pelvis/Spine/Chest"]
+position = Vector2(0, -12)
+rest = Transform2D(1, 0, 0, 1, 0, -12)
+auto_calculate_length_and_angle = false
+length = 15
+bone_angle = -90.0
+
+[node name="ArmL" type="Bone2D" parent="Skeleton2D/Pelvis/Spine/Chest"]
+position = Vector2(-23, 2)
+rest = Transform2D(1, 0, 0, 1, -23, 2)
+auto_calculate_length_and_angle = false
+length = 20
+bone_angle = 90.0
+
+[node name="ForearmL" type="Bone2D" parent="Skeleton2D/Pelvis/Spine/Chest/ArmL"]
+position = Vector2(-4, 20)
+rest = Transform2D(1, 0, 0, 1, -4, 20)
+auto_calculate_length_and_angle = false
+length = 17
+bone_angle = 90.0
+
+[node name="ArmR" type="Bone2D" parent="Skeleton2D/Pelvis/Spine/Chest"]
+position = Vector2(23, 2)
+rest = Transform2D(1, 0, 0, 1, 23, 2)
+auto_calculate_length_and_angle = false
+length = 20
+bone_angle = 90.0
+
+[node name="ForearmR" type="Bone2D" parent="Skeleton2D/Pelvis/Spine/Chest/ArmR"]
+position = Vector2(4, 20)
+rest = Transform2D(1, 0, 0, 1, 4, 20)
+auto_calculate_length_and_angle = false
+length = 17
+bone_angle = 90.0
+
+[node name="ThighL" type="Bone2D" parent="Skeleton2D/Pelvis"]
+position = Vector2(-10, 4)
+rest = Transform2D(1, 0, 0, 1, -10, 4)
+auto_calculate_length_and_angle = false
+length = 13
+bone_angle = 90.0
+
+[node name="CalfL" type="Bone2D" parent="Skeleton2D/Pelvis/ThighL"]
+position = Vector2(0, 13)
+rest = Transform2D(1, 0, 0, 1, 0, 13)
+auto_calculate_length_and_angle = false
+length = 12
+bone_angle = 90.0
+
+[node name="ThighR" type="Bone2D" parent="Skeleton2D/Pelvis"]
+position = Vector2(10, 4)
+rest = Transform2D(1, 0, 0, 1, 10, 4)
+auto_calculate_length_and_angle = false
+length = 13
+bone_angle = 90.0
+
+[node name="CalfR" type="Bone2D" parent="Skeleton2D/Pelvis/ThighR"]
+position = Vector2(0, 13)
+rest = Transform2D(1, 0, 0, 1, 0, 13)
+auto_calculate_length_and_angle = false
+length = 12
+bone_angle = 90.0
+
+[node name="Layers" type="Node2D" parent="."]
+
+[node name="BodyBase" type="Node2D" parent="Layers"]
+metadata/slot = "body"
+metadata/registration = Transform2D(1.0, 0.0, 0.0, 1.0, 0.0, 0.0)
+
+[node name="Surface" parent="Layers/BodyBase" instance=ExtResource("south-surface-0")]
+
+[node name="BootsBase" type="Node2D" parent="Layers"]
+metadata/slot = "boots"
+metadata/registration = Transform2D(1.0, 0.0, 0.0, 1.0, 0.0, 0.0)
+
+[node name="Surface" parent="Layers/BootsBase" instance=ExtResource("south-surface-0")]
+
+[node name="PantsBase" type="Node2D" parent="Layers"]
+metadata/slot = "pants"
+metadata/registration = Transform2D(1.0, 0.0, 0.0, 1.0, 0.0, 0.0)
+
+[node name="Surface" parent="Layers/PantsBase" instance=ExtResource("south-surface-0")]
+
+[node name="ShirtsBase" type="Node2D" parent="Layers"]
+metadata/slot = "shirts"
+metadata/registration = Transform2D(1.0, 0.0, 0.0, 1.0, 0.0, 0.0)
+
+[node name="Surface" parent="Layers/ShirtsBase" instance=ExtResource("south-surface-0")]
+
+[node name="ArmorBase" type="Node2D" parent="Layers"]
+metadata/slot = "armor"
+metadata/registration = Transform2D(1.0, 0.0, 0.0, 1.0, 0.0, 0.0)
+
+[node name="Surface" parent="Layers/ArmorBase" instance=ExtResource("south-surface-0")]
+
+[node name="BeardBase" type="Node2D" parent="Layers"]
+metadata/slot = "beard"
+metadata/registration = Transform2D(1.0, 0.0, 0.0, 1.0, 0.0, 0.0)
+
+[node name="Surface" parent="Layers/BeardBase" instance=ExtResource("south-surface-0")]
+
+[node name="MustacheBase" type="Node2D" parent="Layers"]
+metadata/slot = "mustache"
+metadata/registration = Transform2D(1.0, 0.0, 0.0, 1.0, 0.0, 0.0)
+
+[node name="Surface" parent="Layers/MustacheBase" instance=ExtResource("south-surface-0")]
+
+[node name="SideburnsBase" type="Node2D" parent="Layers"]
+metadata/slot = "sideburns"
+metadata/registration = Transform2D(1.0, 0.0, 0.0, 1.0, 0.0, 0.0)
+
+[node name="Surface" parent="Layers/SideburnsBase" instance=ExtResource("south-surface-0")]
+
+[node name="EyesBase" type="Node2D" parent="Layers"]
+metadata/slot = "eyes"
+metadata/registration = Transform2D(1.0, 0.0, 0.0, 1.0, 0.0, 0.0)
+
+[node name="Surface" parent="Layers/EyesBase" instance=ExtResource("south-surface-0")]
+
+[node name="EyebrowsBase" type="Node2D" parent="Layers"]
+metadata/slot = "eyebrows"
+metadata/registration = Transform2D(1.0, 0.0, 0.0, 1.0, 0.0, 0.0)
+
+[node name="Surface" parent="Layers/EyebrowsBase" instance=ExtResource("south-surface-0")]
+
+[node name="EyeBandageBase" type="Node2D" parent="Layers"]
+metadata/slot = "eye_bandage"
+metadata/registration = Transform2D(1.0, 0.0, 0.0, 1.0, 0.0, 0.0)
+
+[node name="Surface" parent="Layers/EyeBandageBase" instance=ExtResource("south-surface-0")]
+
+[node name="HairBase" type="Node2D" parent="Layers"]
+metadata/slot = "hair"
+metadata/registration = Transform2D(1.0, 0.0, 0.0, 1.0, 0.0, 0.0)
+
+[node name="Surface" parent="Layers/HairBase" instance=ExtResource("south-surface-0")]
+
+[node name="HeadwearBase" type="Node2D" parent="Layers"]
+metadata/slot = "headwear"
+metadata/registration = Transform2D(1.0, 0.0, 0.0, 1.0, 0.0, 0.0)
+
+[node name="Surface" parent="Layers/HeadwearBase" instance=ExtResource("south-surface-0")]
+
+[node name="HeadBandageBase" type="Node2D" parent="Layers"]
+metadata/slot = "head_bandage"
+metadata/registration = Transform2D(1.0, 0.0, 0.0, 1.0, 0.0, 0.0)
+
+[node name="Surface" parent="Layers/HeadBandageBase" instance=ExtResource("south-surface-0")]
+
+[node name="WeaponBase" type="Node2D" parent="Layers"]
+metadata/slot = "weapon"
+metadata/registration = Transform2D(1.0, 0.0, 0.0, 1.0, 0.0, 0.0)
+script = ExtResource("4")
+
+[node name="PivotOrigin" type="Node2D" parent="Layers/WeaponBase"]
+
+[node name="MotionPivot" type="Node2D" parent="Layers/WeaponBase/PivotOrigin" groups=["skeletal_weapon_motion"]]
+
+[node name="CounterPivot" type="Node2D" parent="Layers/WeaponBase/PivotOrigin/MotionPivot"]
+
+[node name="Surface" type="Sprite2D" parent="Layers/WeaponBase/PivotOrigin/MotionPivot/CounterPivot"]
+z_as_relative = false
+
+[node name="WeaponSecondaryBase" type="Node2D" parent="Layers"]
+metadata/slot = "weapon_secondary"
+metadata/registration = Transform2D(1.0, 0.0, 0.0, 1.0, 0.0, 0.0)
+script = ExtResource("4")
+
+[node name="PivotOrigin" type="Node2D" parent="Layers/WeaponSecondaryBase"]
+
+[node name="MotionPivot" type="Node2D" parent="Layers/WeaponSecondaryBase/PivotOrigin" groups=["skeletal_weapon_motion"]]
+
+[node name="CounterPivot" type="Node2D" parent="Layers/WeaponSecondaryBase/PivotOrigin/MotionPivot"]
+
+[node name="Surface" type="Sprite2D" parent="Layers/WeaponSecondaryBase/PivotOrigin/MotionPivot/CounterPivot"]
+z_as_relative = false
+
+[node name="Overlay" type="Node2D" parent="."]
+z_index = 1000
+script = ExtResource("2")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {&"": ExtResource("3")}

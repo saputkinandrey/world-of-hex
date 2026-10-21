@@ -1,0 +1,17 @@
+[gd_scene format=3]
+[ext_resource type="PackedScene" path="res://modules/character-sprite-tool/character-sprite-tool.tscn" id="1"]
+[ext_resource type="PackedScene" path="res://modules/character-animation-workbench/skeletal-animation-workbench.tscn" id="2"]
+[node name="SkeletalAcceptance" type="Node"]
+[node name="SourceViewport" type="SubViewport" parent="."]
+size = Vector2i(512, 512)
+transparent_bg = true
+render_target_update_mode = 4
+[node name="Origin" type="Node2D" parent="SourceViewport"]
+position = Vector2(256, 320)
+[node name="Source" parent="SourceViewport" instance=ExtResource("1")]
+[node name="RigViewport" type="SubViewport" parent="."]
+size = Vector2i(512, 512)
+transparent_bg = true
+render_target_update_mode = 4
+[node name="Workbench" parent="RigViewport" instance=ExtResource("2")]
+show_stage = false
