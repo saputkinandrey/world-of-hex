@@ -160,3 +160,5 @@ south_west-клип, для north_east — north_west; отражение вып
 описаны в `ACCEPTANCE.md`.
 
 Ходьба South и оба перехода скелетного рига: [WALK-WORKFLOW.md](WALK-WORKFLOW.md).
+
+Бег South и переходы ходьба/idle ↔ бег: [RUN-WORKFLOW.md](RUN-WORKFLOW.md).

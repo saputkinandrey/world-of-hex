@@ -3,6 +3,9 @@ extends SubViewportContainer
 signal preview_ready
 
 @export var play_sequence: bool = false
+@export var initial_animation: StringName = &"walk_loop"
+@export var sequence_animation: StringName = &"walk_sequence"
+@export var sequence_caption: String = "South | idle > walk > idle"
 
 func _ready() -> void:
 	var workbench: Node2D = $Viewport/Workbench
@@ -15,8 +18,8 @@ func _ready() -> void:
 	for slot: String in ["WeaponBase", "WeaponSecondaryBase"]:
 		rig.get_node("Layers/%s/PivotOrigin/MotionPivot/CounterPivot/Surface" % slot).visible = false
 	if play_sequence:
-		$Viewport/Caption.text = "South | idle > walk > idle"
-		$SequencePlayer.play("walk_sequence")
+		$Viewport/Caption.text = sequence_caption
+		$SequencePlayer.play(sequence_animation)
 	else:
-		workbench.get_node("AnimationPlayer").play("walk_loop")
+		workbench.get_node("AnimationPlayer").play(initial_animation)
 	preview_ready.emit()

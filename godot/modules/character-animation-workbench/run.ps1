@@ -1,5 +1,5 @@
 param(
-    [ValidateSet('import', 'test', 'visual-test', 'parse', 'smoke', 'source', 'deformation', 'skeletal-test', 'skeletal-visual', 'skeletal-smoke', 'skeletal-proof', 'skeletal-editor', 'walk-render', 'walk-test', 'walk-preview')]
+    [ValidateSet('import', 'test', 'visual-test', 'parse', 'smoke', 'source', 'deformation', 'skeletal-test', 'skeletal-visual', 'skeletal-smoke', 'skeletal-proof', 'skeletal-editor', 'walk-render', 'walk-test', 'walk-preview', 'run-bake', 'run-test', 'run-render', 'run-preview')]
     [string]$Action = 'test'
 )
 $ErrorActionPreference = 'Stop'
@@ -18,6 +18,10 @@ $modulePath = 'res://modules/character-animation-workbench'
 $engineLogPath = Join-Path $outputPath "$Action-engine.log"
 $engineArguments = @('--path', '.', '--log-file', ('"' + $engineLogPath + '"'))
 switch ($Action) {
+    'run-bake' { $engineArguments += @('--headless', '--script', "$modulePath/tests/author-run.gd") }
+    'run-test' { $engineArguments += @('--headless', '--script', "$modulePath/tests/run-acceptance.gd") }
+    'run-render' { $engineArguments += @('--rendering-method', 'gl_compatibility', '--script', "$modulePath/tests/render-run.gd") }
+    'run-preview' { $engineArguments += @('--rendering-method', 'gl_compatibility', "$modulePath/tests/run-sequence-preview.tscn", '--quit-after', '300') }
     'walk-preview' { $engineArguments += @('--rendering-method', 'gl_compatibility', "$modulePath/tests/walk-sequence-preview.tscn", '--quit-after', '300') }
     'walk-test' { $engineArguments += @('--headless', '--script', "$modulePath/tests/walk-acceptance.gd") }
     'walk-render' { $engineArguments += @('--rendering-method', 'gl_compatibility', '--script', "$modulePath/tests/render-walk.gd") }

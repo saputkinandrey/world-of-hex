@@ -1,0 +1,15 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" path="res://modules/character-animation-workbench/tests/walk-preview.tscn" id="1"]
+[ext_resource type="AnimationLibrary" path="res://modules/character-animation-workbench/tests/run-sequence-library.tres" id="2"]
+
+[node name="RunPreview" instance=ExtResource("1")]
+initial_animation = &"run_loop"
+sequence_animation = &"run_sequence"
+sequence_caption = "South | idle > walk > run > idle"
+
+[node name="Caption" parent="Viewport" index="2"]
+text = "South | run loop"
+
+[node name="SequencePlayer" parent="." index="1"]
+libraries = {&"": ExtResource("2")}
