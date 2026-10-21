@@ -1,0 +1,353 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://modules/character-animation-workbench/character-animation-workbench.gd" id="1"]
+[ext_resource type="Script" path="res://modules/character-animation-workbench/module-pivot.gd" id="2"]
+[ext_resource type="AnimationLibrary" path="res://modules/character-animation-workbench/animations/demo-library.tres" id="3"]
+
+[node name="CharacterAnimationWorkbench" type="Node2D"]
+script = ExtResource("1")
+
+[node name="Preview" type="Node2D" parent="."]
+position = Vector2(900, 620)
+
+[node name="Mirror" type="Node2D" parent="Preview"]
+
+[node name="BodyMotion" type="Node2D" parent="Preview/Mirror" groups=["animation_workbench_motion"]]
+
+[node name="BodyBase" type="Node2D" parent="Preview/Mirror/BodyMotion" groups=["animation_workbench_base"]]
+script = ExtResource("2")
+metadata/slot = "body"
+
+[node name="PivotOrigin" type="Node2D" parent="Preview/Mirror/BodyMotion/BodyBase"]
+
+[node name="MotionPivot" type="Node2D" parent="Preview/Mirror/BodyMotion/BodyBase/PivotOrigin" groups=["animation_workbench_motion"]]
+
+[node name="CounterPivot" type="Node2D" parent="Preview/Mirror/BodyMotion/BodyBase/PivotOrigin/MotionPivot"]
+
+[node name="Visual" type="Sprite2D" parent="Preview/Mirror/BodyMotion/BodyBase/PivotOrigin/MotionPivot/CounterPivot"]
+z_as_relative = false
+
+[node name="BootsBase" type="Node2D" parent="Preview/Mirror/BodyMotion" groups=["animation_workbench_base"]]
+script = ExtResource("2")
+metadata/slot = "boots"
+
+[node name="PivotOrigin" type="Node2D" parent="Preview/Mirror/BodyMotion/BootsBase"]
+
+[node name="MotionPivot" type="Node2D" parent="Preview/Mirror/BodyMotion/BootsBase/PivotOrigin" groups=["animation_workbench_motion"]]
+
+[node name="CounterPivot" type="Node2D" parent="Preview/Mirror/BodyMotion/BootsBase/PivotOrigin/MotionPivot"]
+
+[node name="Visual" type="Sprite2D" parent="Preview/Mirror/BodyMotion/BootsBase/PivotOrigin/MotionPivot/CounterPivot"]
+z_as_relative = false
+
+[node name="PantsBase" type="Node2D" parent="Preview/Mirror/BodyMotion" groups=["animation_workbench_base"]]
+script = ExtResource("2")
+metadata/slot = "pants"
+
+[node name="PivotOrigin" type="Node2D" parent="Preview/Mirror/BodyMotion/PantsBase"]
+
+[node name="MotionPivot" type="Node2D" parent="Preview/Mirror/BodyMotion/PantsBase/PivotOrigin" groups=["animation_workbench_motion"]]
+
+[node name="CounterPivot" type="Node2D" parent="Preview/Mirror/BodyMotion/PantsBase/PivotOrigin/MotionPivot"]
+
+[node name="Visual" type="Sprite2D" parent="Preview/Mirror/BodyMotion/PantsBase/PivotOrigin/MotionPivot/CounterPivot"]
+z_as_relative = false
+
+[node name="ShirtsBase" type="Node2D" parent="Preview/Mirror/BodyMotion" groups=["animation_workbench_base"]]
+script = ExtResource("2")
+metadata/slot = "shirts"
+
+[node name="PivotOrigin" type="Node2D" parent="Preview/Mirror/BodyMotion/ShirtsBase"]
+
+[node name="MotionPivot" type="Node2D" parent="Preview/Mirror/BodyMotion/ShirtsBase/PivotOrigin" groups=["animation_workbench_motion"]]
+
+[node name="CounterPivot" type="Node2D" parent="Preview/Mirror/BodyMotion/ShirtsBase/PivotOrigin/MotionPivot"]
+
+[node name="Visual" type="Sprite2D" parent="Preview/Mirror/BodyMotion/ShirtsBase/PivotOrigin/MotionPivot/CounterPivot"]
+z_as_relative = false
+
+[node name="ArmorBase" type="Node2D" parent="Preview/Mirror/BodyMotion" groups=["animation_workbench_base"]]
+script = ExtResource("2")
+metadata/slot = "armor"
+
+[node name="PivotOrigin" type="Node2D" parent="Preview/Mirror/BodyMotion/ArmorBase"]
+
+[node name="MotionPivot" type="Node2D" parent="Preview/Mirror/BodyMotion/ArmorBase/PivotOrigin" groups=["animation_workbench_motion"]]
+
+[node name="CounterPivot" type="Node2D" parent="Preview/Mirror/BodyMotion/ArmorBase/PivotOrigin/MotionPivot"]
+
+[node name="Visual" type="Sprite2D" parent="Preview/Mirror/BodyMotion/ArmorBase/PivotOrigin/MotionPivot/CounterPivot"]
+z_as_relative = false
+
+[node name="HeadMotion" type="Node2D" parent="Preview/Mirror/BodyMotion" groups=["animation_workbench_motion"]]
+
+[node name="BeardBase" type="Node2D" parent="Preview/Mirror/BodyMotion/HeadMotion" groups=["animation_workbench_base"]]
+script = ExtResource("2")
+metadata/slot = "beard"
+
+[node name="PivotOrigin" type="Node2D" parent="Preview/Mirror/BodyMotion/HeadMotion/BeardBase"]
+
+[node name="MotionPivot" type="Node2D" parent="Preview/Mirror/BodyMotion/HeadMotion/BeardBase/PivotOrigin" groups=["animation_workbench_motion"]]
+
+[node name="CounterPivot" type="Node2D" parent="Preview/Mirror/BodyMotion/HeadMotion/BeardBase/PivotOrigin/MotionPivot"]
+
+[node name="Visual" type="Sprite2D" parent="Preview/Mirror/BodyMotion/HeadMotion/BeardBase/PivotOrigin/MotionPivot/CounterPivot"]
+z_as_relative = false
+
+[node name="MustacheBase" type="Node2D" parent="Preview/Mirror/BodyMotion/HeadMotion" groups=["animation_workbench_base"]]
+script = ExtResource("2")
+metadata/slot = "mustache"
+
+[node name="PivotOrigin" type="Node2D" parent="Preview/Mirror/BodyMotion/HeadMotion/MustacheBase"]
+
+[node name="MotionPivot" type="Node2D" parent="Preview/Mirror/BodyMotion/HeadMotion/MustacheBase/PivotOrigin" groups=["animation_workbench_motion"]]
+
+[node name="CounterPivot" type="Node2D" parent="Preview/Mirror/BodyMotion/HeadMotion/MustacheBase/PivotOrigin/MotionPivot"]
+
+[node name="Visual" type="Sprite2D" parent="Preview/Mirror/BodyMotion/HeadMotion/MustacheBase/PivotOrigin/MotionPivot/CounterPivot"]
+z_as_relative = false
+
+[node name="SideburnsBase" type="Node2D" parent="Preview/Mirror/BodyMotion/HeadMotion" groups=["animation_workbench_base"]]
+script = ExtResource("2")
+metadata/slot = "sideburns"
+
+[node name="PivotOrigin" type="Node2D" parent="Preview/Mirror/BodyMotion/HeadMotion/SideburnsBase"]
+
+[node name="MotionPivot" type="Node2D" parent="Preview/Mirror/BodyMotion/HeadMotion/SideburnsBase/PivotOrigin" groups=["animation_workbench_motion"]]
+
+[node name="CounterPivot" type="Node2D" parent="Preview/Mirror/BodyMotion/HeadMotion/SideburnsBase/PivotOrigin/MotionPivot"]
+
+[node name="Visual" type="Sprite2D" parent="Preview/Mirror/BodyMotion/HeadMotion/SideburnsBase/PivotOrigin/MotionPivot/CounterPivot"]
+z_as_relative = false
+
+[node name="EyesBase" type="Node2D" parent="Preview/Mirror/BodyMotion/HeadMotion" groups=["animation_workbench_base"]]
+script = ExtResource("2")
+metadata/slot = "eyes"
+
+[node name="PivotOrigin" type="Node2D" parent="Preview/Mirror/BodyMotion/HeadMotion/EyesBase"]
+
+[node name="MotionPivot" type="Node2D" parent="Preview/Mirror/BodyMotion/HeadMotion/EyesBase/PivotOrigin" groups=["animation_workbench_motion"]]
+
+[node name="CounterPivot" type="Node2D" parent="Preview/Mirror/BodyMotion/HeadMotion/EyesBase/PivotOrigin/MotionPivot"]
+
+[node name="Visual" type="Sprite2D" parent="Preview/Mirror/BodyMotion/HeadMotion/EyesBase/PivotOrigin/MotionPivot/CounterPivot"]
+z_as_relative = false
+
+[node name="EyebrowsBase" type="Node2D" parent="Preview/Mirror/BodyMotion/HeadMotion" groups=["animation_workbench_base"]]
+script = ExtResource("2")
+metadata/slot = "eyebrows"
+
+[node name="PivotOrigin" type="Node2D" parent="Preview/Mirror/BodyMotion/HeadMotion/EyebrowsBase"]
+
+[node name="MotionPivot" type="Node2D" parent="Preview/Mirror/BodyMotion/HeadMotion/EyebrowsBase/PivotOrigin" groups=["animation_workbench_motion"]]
+
+[node name="CounterPivot" type="Node2D" parent="Preview/Mirror/BodyMotion/HeadMotion/EyebrowsBase/PivotOrigin/MotionPivot"]
+
+[node name="Visual" type="Sprite2D" parent="Preview/Mirror/BodyMotion/HeadMotion/EyebrowsBase/PivotOrigin/MotionPivot/CounterPivot"]
+z_as_relative = false
+
+[node name="EyeBandageBase" type="Node2D" parent="Preview/Mirror/BodyMotion/HeadMotion" groups=["animation_workbench_base"]]
+script = ExtResource("2")
+metadata/slot = "eye_bandage"
+
+[node name="PivotOrigin" type="Node2D" parent="Preview/Mirror/BodyMotion/HeadMotion/EyeBandageBase"]
+
+[node name="MotionPivot" type="Node2D" parent="Preview/Mirror/BodyMotion/HeadMotion/EyeBandageBase/PivotOrigin" groups=["animation_workbench_motion"]]
+
+[node name="CounterPivot" type="Node2D" parent="Preview/Mirror/BodyMotion/HeadMotion/EyeBandageBase/PivotOrigin/MotionPivot"]
+
+[node name="Visual" type="Sprite2D" parent="Preview/Mirror/BodyMotion/HeadMotion/EyeBandageBase/PivotOrigin/MotionPivot/CounterPivot"]
+z_as_relative = false
+
+[node name="HairBase" type="Node2D" parent="Preview/Mirror/BodyMotion/HeadMotion" groups=["animation_workbench_base"]]
+script = ExtResource("2")
+metadata/slot = "hair"
+
+[node name="PivotOrigin" type="Node2D" parent="Preview/Mirror/BodyMotion/HeadMotion/HairBase"]
+
+[node name="MotionPivot" type="Node2D" parent="Preview/Mirror/BodyMotion/HeadMotion/HairBase/PivotOrigin" groups=["animation_workbench_motion"]]
+
+[node name="CounterPivot" type="Node2D" parent="Preview/Mirror/BodyMotion/HeadMotion/HairBase/PivotOrigin/MotionPivot"]
+
+[node name="Visual" type="Sprite2D" parent="Preview/Mirror/BodyMotion/HeadMotion/HairBase/PivotOrigin/MotionPivot/CounterPivot"]
+z_as_relative = false
+
+[node name="HeadwearBase" type="Node2D" parent="Preview/Mirror/BodyMotion/HeadMotion" groups=["animation_workbench_base"]]
+script = ExtResource("2")
+metadata/slot = "headwear"
+
+[node name="PivotOrigin" type="Node2D" parent="Preview/Mirror/BodyMotion/HeadMotion/HeadwearBase"]
+
+[node name="MotionPivot" type="Node2D" parent="Preview/Mirror/BodyMotion/HeadMotion/HeadwearBase/PivotOrigin" groups=["animation_workbench_motion"]]
+
+[node name="CounterPivot" type="Node2D" parent="Preview/Mirror/BodyMotion/HeadMotion/HeadwearBase/PivotOrigin/MotionPivot"]
+
+[node name="Visual" type="Sprite2D" parent="Preview/Mirror/BodyMotion/HeadMotion/HeadwearBase/PivotOrigin/MotionPivot/CounterPivot"]
+z_as_relative = false
+
+[node name="HeadBandageBase" type="Node2D" parent="Preview/Mirror/BodyMotion/HeadMotion" groups=["animation_workbench_base"]]
+script = ExtResource("2")
+metadata/slot = "head_bandage"
+
+[node name="PivotOrigin" type="Node2D" parent="Preview/Mirror/BodyMotion/HeadMotion/HeadBandageBase"]
+
+[node name="MotionPivot" type="Node2D" parent="Preview/Mirror/BodyMotion/HeadMotion/HeadBandageBase/PivotOrigin" groups=["animation_workbench_motion"]]
+
+[node name="CounterPivot" type="Node2D" parent="Preview/Mirror/BodyMotion/HeadMotion/HeadBandageBase/PivotOrigin/MotionPivot"]
+
+[node name="Visual" type="Sprite2D" parent="Preview/Mirror/BodyMotion/HeadMotion/HeadBandageBase/PivotOrigin/MotionPivot/CounterPivot"]
+z_as_relative = false
+
+[node name="WeaponBase" type="Node2D" parent="Preview/Mirror" groups=["animation_workbench_base"]]
+script = ExtResource("2")
+metadata/slot = "weapon"
+
+[node name="PivotOrigin" type="Node2D" parent="Preview/Mirror/WeaponBase"]
+
+[node name="MotionPivot" type="Node2D" parent="Preview/Mirror/WeaponBase/PivotOrigin" groups=["animation_workbench_motion"]]
+
+[node name="CounterPivot" type="Node2D" parent="Preview/Mirror/WeaponBase/PivotOrigin/MotionPivot"]
+
+[node name="Visual" type="Sprite2D" parent="Preview/Mirror/WeaponBase/PivotOrigin/MotionPivot/CounterPivot"]
+z_as_relative = false
+
+[node name="WeaponSecondaryBase" type="Node2D" parent="Preview/Mirror" groups=["animation_workbench_base"]]
+script = ExtResource("2")
+metadata/slot = "weapon_secondary"
+
+[node name="PivotOrigin" type="Node2D" parent="Preview/Mirror/WeaponSecondaryBase"]
+
+[node name="MotionPivot" type="Node2D" parent="Preview/Mirror/WeaponSecondaryBase/PivotOrigin" groups=["animation_workbench_motion"]]
+
+[node name="CounterPivot" type="Node2D" parent="Preview/Mirror/WeaponSecondaryBase/PivotOrigin/MotionPivot"]
+
+[node name="Visual" type="Sprite2D" parent="Preview/Mirror/WeaponSecondaryBase/PivotOrigin/MotionPivot/CounterPivot"]
+z_as_relative = false
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {&"": ExtResource("3")}
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="Panel" type="PanelContainer" parent="UI"]
+offset_left = 16.0
+offset_top = 16.0
+offset_right = 348.0
+offset_bottom = 1000.0
+
+[node name="Margin" type="MarginContainer" parent="UI/Panel"]
+layout_mode = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="Controls" type="VBoxContainer" parent="UI/Panel/Margin"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="Title" type="Label" parent="UI/Panel/Margin/Controls"]
+layout_mode = 2
+text = "SPRITE ANIMATION
+Keyframe workbench"
+theme_override_font_sizes/font_size = 22
+
+[node name="Hint" type="Label" parent="UI/Panel/Margin/Controls"]
+layout_mode = 2
+text = "Author keys in AnimationPlayer.
+Source controls reset playback.
+Base data comes from saved source."
+
+[node name="OutfitLabel" type="Label" parent="UI/Panel/Margin/Controls"]
+layout_mode = 2
+text = "Outfit"
+
+[node name="Outfit" type="OptionButton" parent="UI/Panel/Margin/Controls"]
+layout_mode = 2
+
+
+[node name="PoseLabel" type="Label" parent="UI/Panel/Margin/Controls"]
+layout_mode = 2
+text = "Pose"
+
+[node name="Pose" type="OptionButton" parent="UI/Panel/Margin/Controls"]
+layout_mode = 2
+
+
+[node name="DirectionLabel" type="Label" parent="UI/Panel/Margin/Controls"]
+layout_mode = 2
+text = "Direction"
+
+[node name="Direction" type="OptionButton" parent="UI/Panel/Margin/Controls"]
+layout_mode = 2
+
+
+[node name="ClipLabel" type="Label" parent="UI/Panel/Margin/Controls"]
+layout_mode = 2
+text = "Clip"
+
+[node name="Clip" type="OptionButton" parent="UI/Panel/Margin/Controls"]
+layout_mode = 2
+
+
+[node name="Play" type="Button" parent="UI/Panel/Margin/Controls"]
+layout_mode = 2
+text = "Play selected clip"
+
+[node name="Stop" type="Button" parent="UI/Panel/Margin/Controls"]
+layout_mode = 2
+text = "Stop / RESET"
+
+[node name="SpeedLabel" type="Label" parent="UI/Panel/Margin/Controls"]
+layout_mode = 2
+text = "Playback speed"
+
+[node name="Speed" type="SpinBox" parent="UI/Panel/Margin/Controls"]
+layout_mode = 2
+min_value = 0.1
+max_value = 4.0
+step = 0.1
+value = 1.0
+
+[node name="ZoomLabel" type="Label" parent="UI/Panel/Margin/Controls"]
+layout_mode = 2
+text = "Preview zoom"
+
+[node name="Zoom" type="SpinBox" parent="UI/Panel/Margin/Controls"]
+layout_mode = 2
+min_value = 0.25
+max_value = 4.0
+step = 0.05
+value = 3.0
+
+[node name="Grid" type="CheckButton" parent="UI/Panel/Margin/Controls"]
+layout_mode = 2
+text = "Grid"
+button_pressed = true
+
+[node name="DiagnosticsTitle" type="Label" parent="UI/Panel/Margin/Controls"]
+layout_mode = 2
+text = "Source diagnostics"
+
+[node name="Diagnostics" type="Label" parent="UI/Panel/Margin/Controls"]
+layout_mode = 2
+custom_minimum_size = Vector2(300, 0)
+autowrap_mode = 2
+theme_override_font_sizes/font_size = 13
+text = "Loading saved composition..."
+
+[connection signal="item_selected" from="UI/Panel/Margin/Controls/Outfit" to="." method="_on_outfit_selected"]
+
+[connection signal="item_selected" from="UI/Panel/Margin/Controls/Pose" to="." method="_on_pose_selected"]
+
+[connection signal="item_selected" from="UI/Panel/Margin/Controls/Direction" to="." method="_on_direction_selected"]
+
+[connection signal="pressed" from="UI/Panel/Margin/Controls/Play" to="." method="_on_play_pressed"]
+
+[connection signal="pressed" from="UI/Panel/Margin/Controls/Stop" to="." method="_on_stop_pressed"]
+
+[connection signal="value_changed" from="UI/Panel/Margin/Controls/Speed" to="." method="_on_speed_changed"]
+
+[connection signal="value_changed" from="UI/Panel/Margin/Controls/Zoom" to="." method="_on_zoom_changed"]
+
+[connection signal="toggled" from="UI/Panel/Margin/Controls/Grid" to="." method="_on_grid_toggled"]
