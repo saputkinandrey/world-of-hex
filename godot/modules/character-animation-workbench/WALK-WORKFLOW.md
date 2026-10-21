@@ -1,5 +1,38 @@
 # South: walking and transitions
 
+## Revised gait after reference review
+
+The latest refinement removes animated bone scaling completely after feedback
+that the first revision looked rubbery. It uses a smaller stride and body arc,
+restrained arm movement, quick weight acceptance followed by a held low position,
+and a slower recovery. The body keeps its proportions. The regression check
+requires unit bone scales and a meaningful front/back excursion, so reducing
+stretch does not restore the original shuffling motion. The larger arc and
+squash/stretch described in the revision history below are superseded.
+
+Current Godot 4.7.2 acceptance: 0 failures; maximum projected ground error
+0.074774 source pixels, swing clearance 4.500 pixels, front/back foot excursion
+10.714 pixels. Transition joins and native sequence playback also pass.
+
+### Intermediate revision history (superseded)
+
+The first version below was rejected as shuffling. Its stationary support-foot
+criterion was insufficient and has been replaced for the revised clips.
+The new cycle uses Contact / Down / Passing / Up, alternating projected
+front/back foot placement, opposite arm swing, a stronger vertical body arc,
+subtle torso squash/stretch and delayed head motion. South remains front-facing.
+Each foot follows backward ground travel during approximately 60% of its cycle
+and recovers forward during 40%, with toe clearance during recovery. Because
+the character stays in place, a planted foot moves relative to the torso.
+This is a stylized projection, not a biomechanical or medical simulation.
+
+The updated acceptance checks projected ground travel, front/back excursion,
+swing clearance, distinct Down/Up heights, opposing arms, plus the existing
+transition/source integrity checks. The measurements at the end of this document
+record the original version only; they are not results for the revised gait.
+
+## Saved clips and playback
+
 Three native Animation resources are registered in the South skeletal library:
 
 | Clip | Duration | Playback |
