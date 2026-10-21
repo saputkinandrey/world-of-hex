@@ -1,0 +1,21 @@
+[gd_resource type="AnimationLibrary" format=3]
+
+[sub_resource type="Animation" id="Animation_tv7iw"]
+resource_name = "walk_sequence"
+length = 4.5
+loop_mode = 1
+tracks/0/type = "animation"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Viewport/Workbench/AnimationPlayer")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"clips": PackedStringArray("RESET", "idle_to_walk", "walk_loop", "walk_to_idle", "RESET"),
+"times": PackedFloat32Array(0, 0.75, 1.25, 3.25, 3.75)
+}
+
+[resource]
+_data = {
+&"walk_sequence": SubResource("Animation_tv7iw")
+}

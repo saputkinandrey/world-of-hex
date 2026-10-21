@@ -158,3 +158,5 @@ south_west-клип, для north_east — north_west; отражение вып
 не интерактивный launcher; для работы используйте F6. Журналы находятся в
 `tmp/animation-workbench`. Полная приёмка и известные внешние ошибки
 описаны в `ACCEPTANCE.md`.
+
+Ходьба South и оба перехода скелетного рига: [WALK-WORKFLOW.md](WALK-WORKFLOW.md).
