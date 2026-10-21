@@ -1,5 +1,9 @@
 # South: running and speed transitions
 
+North support and the later S/N comparison are documented in
+[NORTH-WORKFLOW.md](NORTH-WORKFLOW.md). South-only restrictions below refer to
+the original delivery; both S and N are now supported.
+
 The South skeletal library adds five editable native Animation resources:
 
 | Clip | Duration | Playback |

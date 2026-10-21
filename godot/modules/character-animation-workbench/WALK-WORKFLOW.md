@@ -1,5 +1,9 @@
 # South: walking and transitions
 
+North support and the later S/N comparison are documented in
+[NORTH-WORKFLOW.md](NORTH-WORKFLOW.md). South-only restrictions below refer to
+the original delivery; both S and N are now supported.
+
 ## Revised gait after reference review
 
 The latest refinement removes animated bone scaling completely after feedback

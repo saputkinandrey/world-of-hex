@@ -66,10 +66,10 @@ func _run() -> void:
 	_check(maximum_ground_error < .25, "Run support follows projected ground")
 	_check(maximum_clearance > 7.5 and flight_samples >= 16, "Run has swing clearance and both-feet flight")
 	_check(player.get_animation("run_loop").length < player.get_animation("walk_loop").length, "Run cadence is faster than walk")
-	for view: String in ["north", "south-west", "north-west"]:
+	for view: String in ["south-west", "north-west"]:
 		var other: AnimationLibrary = load("res://modules/character-animation-workbench/animations/skeletal-library-%s.tres" % view)
 		for clip: String in RUN_CLIPS:
-			_check(not other.has_animation(clip), "Running is restricted to South")
+			_check(not other.has_animation(clip), "Running is unavailable for unauthored diagonals")
 	var outer: AnimationPlayer = scene.get_node("SequencePlayer")
 	workbench.reset_motion()
 	outer.play("run_sequence")

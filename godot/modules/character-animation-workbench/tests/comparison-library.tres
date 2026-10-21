@@ -1,0 +1,27 @@
+[gd_resource type="AnimationLibrary" format=3]
+
+[sub_resource type="Animation" id="Comparison"]
+resource_name = "comparison"
+length = 9.7666667
+loop_mode = 1
+tracks/0/type = "animation"
+tracks/0/path = NodePath("Viewport/South/AnimationPlayer")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/enabled = true
+tracks/0/keys = {
+"clips": PackedStringArray("RESET", "idle_to_walk", "walk_loop", "walk_to_run", "run_loop", "run_to_walk", "walk_loop", "walk_to_idle", "RESET", "idle_to_run", "run_loop", "run_to_idle", "RESET"),
+"times": PackedFloat32Array(0, 0.5, 1, 2, 2.8, 4.1333333, 4.9333333, 5.9333333, 6.4333333, 6.9333333, 7.4333333, 8.7666667, 9.2666667)
+}
+tracks/1/type = "animation"
+tracks/1/path = NodePath("Viewport/North/AnimationPlayer")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/enabled = true
+tracks/1/keys = {
+"clips": PackedStringArray("RESET", "idle_to_walk", "walk_loop", "walk_to_run", "run_loop", "run_to_walk", "walk_loop", "walk_to_idle", "RESET", "idle_to_run", "run_loop", "run_to_idle", "RESET"),
+"times": PackedFloat32Array(0, 0.5, 1, 2, 2.8, 4.1333333, 4.9333333, 5.9333333, 6.4333333, 6.9333333, 7.4333333, 8.7666667, 9.2666667)
+}
+
+[resource]
+_data = {&"comparison": SubResource("Comparison")}

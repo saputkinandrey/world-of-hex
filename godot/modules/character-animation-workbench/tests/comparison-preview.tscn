@@ -1,0 +1,58 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" path="res://modules/character-animation-workbench/skeletal-animation-workbench.tscn" id="1"]
+[ext_resource type="Script" path="res://modules/character-animation-workbench/tests/comparison-preview.gd" id="2"]
+[ext_resource type="AnimationLibrary" path="res://modules/character-animation-workbench/tests/comparison-library.tres" id="3"]
+
+[node name="ComparisonPreview" type="SubViewportContainer"]
+script = ExtResource("2")
+
+[node name="Viewport" type="SubViewport" parent="."]
+size = Vector2i(1024, 512)
+render_target_update_mode = 4
+
+[node name="GroundSouth" type="Line2D" parent="Viewport"]
+z_index = -1
+points = PackedVector2Array(96, 440, 416, 440)
+width = 1.0
+default_color = Color(0.32, 0.4, 0.45, 1)
+
+[node name="GroundNorth" type="Line2D" parent="Viewport"]
+z_index = -1
+points = PackedVector2Array(608, 440, 928, 440)
+width = 1.0
+default_color = Color(0.32, 0.4, 0.45, 1)
+
+[node name="South" parent="Viewport" instance=ExtResource("1")]
+outfit = 1
+source_pose = 0
+source_direction = 0
+preview_zoom = 3.5
+show_stage = false
+
+[node name="North" parent="Viewport" instance=ExtResource("1")]
+position = Vector2(512, 0)
+outfit = 1
+source_pose = 0
+source_direction = 1
+preview_zoom = 3.5
+show_stage = false
+
+[node name="CaptionSouth" type="Label" parent="Viewport"]
+offset_left = 20.0
+offset_top = 16.0
+offset_right = 492.0
+offset_bottom = 45.0
+theme_override_font_sizes/font_size = 20
+text = "S (South)"
+
+[node name="CaptionNorth" type="Label" parent="Viewport"]
+offset_left = 532.0
+offset_top = 16.0
+offset_right = 1004.0
+offset_bottom = 45.0
+theme_override_font_sizes/font_size = 20
+text = "N (North)"
+
+[node name="SequencePlayer" type="AnimationPlayer" parent="."]
+libraries = {&"": ExtResource("3")}

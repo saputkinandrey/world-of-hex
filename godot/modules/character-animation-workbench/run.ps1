@@ -1,5 +1,5 @@
 param(
-    [ValidateSet('import', 'test', 'visual-test', 'parse', 'smoke', 'source', 'deformation', 'skeletal-test', 'skeletal-visual', 'skeletal-smoke', 'skeletal-proof', 'skeletal-editor', 'walk-render', 'walk-test', 'walk-preview', 'run-bake', 'run-test', 'run-render', 'run-preview')]
+    [ValidateSet('import', 'test', 'visual-test', 'parse', 'smoke', 'source', 'deformation', 'skeletal-test', 'skeletal-visual', 'skeletal-smoke', 'skeletal-proof', 'skeletal-editor', 'walk-render', 'walk-test', 'walk-preview', 'run-bake', 'run-test', 'run-render', 'run-preview', 'north-bake', 'comparison-test', 'comparison-render', 'comparison-preview', 'north-layer-test')]
     [string]$Action = 'test'
 )
 $ErrorActionPreference = 'Stop'
@@ -18,6 +18,11 @@ $modulePath = 'res://modules/character-animation-workbench'
 $engineLogPath = Join-Path $outputPath "$Action-engine.log"
 $engineArguments = @('--path', '.', '--log-file', ('"' + $engineLogPath + '"'))
 switch ($Action) {
+    'north-layer-test' { $engineArguments += @('--rendering-method', 'gl_compatibility', '--script', "$modulePath/tests/north-layer-acceptance.gd") }
+    'north-bake' { $engineArguments += @('--headless', '--script', "$modulePath/tests/author-north.gd") }
+    'comparison-test' { $engineArguments += @('--headless', '--script', "$modulePath/tests/comparison-acceptance.gd") }
+    'comparison-render' { $engineArguments += @('--rendering-method', 'gl_compatibility', '--script', "$modulePath/tests/render-comparison.gd") }
+    'comparison-preview' { $engineArguments += @('--rendering-method', 'gl_compatibility', "$modulePath/tests/comparison-preview.tscn", '--quit-after', '300') }
     'run-bake' { $engineArguments += @('--headless', '--script', "$modulePath/tests/author-run.gd") }
     'run-test' { $engineArguments += @('--headless', '--script', "$modulePath/tests/run-acceptance.gd") }
     'run-render' { $engineArguments += @('--rendering-method', 'gl_compatibility', '--script', "$modulePath/tests/render-run.gd") }

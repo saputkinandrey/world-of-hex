@@ -62,9 +62,21 @@ func _run() -> void:
 						influences += int(weight > 0.0)
 					_check(absf(total - 1.0) < 0.00001 and influences <= 4, "Normalized GPU-compatible weights")
 		if DisplayServer.get_name() != "headless":
+			# Compare the intentional North presentation correction on both the
+			# Sprite2D reference and the skinned rig. The layer regression test
+			# independently verifies that the corrected shirt has no body halo.
+			var source_body: Sprite2D = source.get_node(source.LAYER_NODE_PATH.body)
+			var source_shirt: Sprite2D = source.get_node(source.LAYER_NODE_PATH.shirts)
+			var old_material: Material = source_body.material
+			var old_shirt_position: Vector2 = source_shirt.position
+			if direction == 1:
+				source_body.material = rig.get_node("Layers/BodyBase/Surface").material
+				source_shirt.position.y -= .6
 			await process_frame
 			RenderingServer.force_draw(false)
 			_compare_images(fixture, "neutral direction %s" % direction)
+			source_body.material = old_material
+			source_shirt.position = old_shirt_position
 	var full: Dictionary = load("res://modules/character-animation-workbench/source-settings.tres").get_meta("outfits")["Full layers"]
 	var original_properties: Dictionary = {}
 	source.direction = 0

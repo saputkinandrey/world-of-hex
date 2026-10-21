@@ -162,3 +162,6 @@ south_west-клип, для north_east — north_west; отражение вып
 Ходьба South и оба перехода скелетного рига: [WALK-WORKFLOW.md](WALK-WORKFLOW.md).
 
 Бег South и переходы ходьба/idle ↔ бег: [RUN-WORKFLOW.md](RUN-WORKFLOW.md).
+
+Полный набор North, исправление слоёв и синхронное сравнение S/N:
+[NORTH-WORKFLOW.md](NORTH-WORKFLOW.md).

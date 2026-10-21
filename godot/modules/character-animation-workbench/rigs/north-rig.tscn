@@ -1,12 +1,17 @@
 [gd_scene format=3]
 
-[ext_resource type="Script" path="res://modules/character-animation-workbench/skinned-rig.gd" id="1"]
+[ext_resource type="Script" path="res://modules/character-animation-workbench/north-rig.gd" id="1"]
 [ext_resource type="Script" path="res://modules/character-animation-workbench/skin-overlay.gd" id="2"]
 [ext_resource type="AnimationLibrary" path="res://modules/character-animation-workbench/animations/skeletal-library-north.tres" id="3"]
 [ext_resource type="Script" path="res://modules/character-animation-workbench/module-pivot.gd" id="4"]
 [ext_resource type="PackedScene" path="res://modules/character-animation-workbench/rigs/north-surface-0.tscn" id="north-surface-0"]
 [ext_resource type="PackedScene" path="res://modules/character-animation-workbench/rigs/north-surface-1.tscn" id="north-surface-1"]
 [ext_resource type="PackedScene" path="res://modules/character-animation-workbench/rigs/north-surface-2.tscn" id="north-surface-2"]
+[ext_resource type="Shader" path="res://modules/character-animation-workbench/north-shirt-occlusion.gdshader" id="shirt-occlusion"]
+
+[sub_resource type="ShaderMaterial" id="BodyMaterial"]
+resource_local_to_scene = true
+shader = ExtResource("shirt-occlusion")
 
 [node name="Rig" type="Node2D"]
 script = ExtResource("1")
@@ -106,6 +111,7 @@ metadata/slot = "body"
 metadata/registration = Transform2D(1.0, 0.0, 0.0, 1.0, 0.0, 0.0)
 
 [node name="Surface" parent="Layers/BodyBase" instance=ExtResource("north-surface-0")]
+material = SubResource("BodyMaterial")
 
 [node name="BootsBase" type="Node2D" parent="Layers"]
 metadata/slot = "boots"
@@ -124,6 +130,7 @@ metadata/slot = "shirts"
 metadata/registration = Transform2D(1.0, 0.0, 0.0, 1.0, 0.0, 6.666666)
 
 [node name="Surface" parent="Layers/ShirtsBase" instance=ExtResource("north-surface-1")]
+position = Vector2(0, -0.6666667)
 
 [node name="ArmorBase" type="Node2D" parent="Layers"]
 metadata/slot = "armor"
