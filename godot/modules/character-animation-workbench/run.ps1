@@ -1,5 +1,5 @@
 param(
-    [ValidateSet('import', 'test', 'visual-test', 'parse', 'smoke', 'source', 'deformation', 'skeletal-test', 'skeletal-visual', 'skeletal-smoke', 'skeletal-proof', 'skeletal-editor', 'walk-render', 'walk-test', 'walk-preview', 'run-bake', 'run-test', 'run-render', 'run-preview', 'north-bake', 'comparison-test', 'comparison-render', 'comparison-preview', 'north-layer-test', 'south-west-bake', 'south-west-test', 'north-west-bake', 'north-west-test', 'hand-test', 'anatomy-test', 'seam-visual', 'seam-test', 'mask-test', 'mask-init', 'mask-refine', 'mask-bake')]
+    [ValidateSet('import', 'test', 'visual-test', 'parse', 'smoke', 'source', 'deformation', 'skeletal-test', 'skeletal-visual', 'skeletal-smoke', 'skeletal-proof', 'skeletal-editor', 'walk-render', 'walk-test', 'walk-preview', 'run-bake', 'run-test', 'run-render', 'run-preview', 'north-bake', 'comparison-test', 'comparison-render', 'comparison-preview', 'north-layer-test', 'south-west-bake', 'south-west-test', 'north-west-bake', 'north-west-test', 'hand-test', 'surface-test', 'anatomy-test', 'seam-visual', 'seam-test', 'mask-test', 'mask-init', 'mask-refine', 'mask-bake')]
     [string]$Action = 'test'
 )
 $ErrorActionPreference = 'Stop'
@@ -25,8 +25,9 @@ $modulePath = 'res://modules/character-animation-workbench'
 $engineLogPath = Join-Path $outputPath "$Action-engine.log"
 $engineArguments = @('--path', '.', '--log-file', ('"' + $engineLogPath + '"'))
 switch ($Action) {
+    'surface-test' { $engineArguments += @('--headless', '--script', "$modulePath/tests/surface-quality-acceptance.gd") }
     'anatomy-test' { $engineArguments += @('--headless', '--script', "$modulePath/tests/anatomy-acceptance.gd") }
-    'seam-visual' { $engineArguments += @('--rendering-method', 'gl_compatibility', '--script', "$modulePath/tests/seam-visual-acceptance.gd") }
+    'seam-visual' { $engineArguments += @('--rendering-method', 'gl_compatibility', '--script', "$modulePath/tests/surface-quality-acceptance.gd") }
     'seam-test' { $engineArguments += @('--headless', '--script', "$modulePath/tests/seam-acceptance.gd") }
     'mask-test' { $engineArguments += @('--headless', '--script', "$modulePath/tests/mask-acceptance.gd") }
     'hand-test' { $engineArguments += @('--headless', '--script', "$modulePath/tests/hand-rigidity-acceptance.gd") }

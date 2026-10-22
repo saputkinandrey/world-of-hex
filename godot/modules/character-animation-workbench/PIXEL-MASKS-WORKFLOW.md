@@ -111,3 +111,39 @@ intended bone ownership and 0.000% measured shape strain. This checks local
 shape preservation, not the artistic quality of the full gait. Native bone
 anchors and animation keyframes are unchanged. The latest four-column video
 frames are exported to `tmp/animation-workbench/comparison-anatomy/`.
+
+## Finite textured joints (supersedes elastic skirts)
+
+The zero-area edge skirts described above are no longer generated. Their UVs
+sampled a single pixel row, creating repeated streaks when stretched. Current
+meshes use actual source texels in narrow flexible bands (two pixels on each
+side of a joint boundary). Connected parent/child regions share vertices across
+these bands. Rigid interior texels retain single-bone weights. Accidental
+contacts between unrelated parts, such as hand and thigh, remain separate;
+they are not sealed with colored webs.
+
+South has a separate `south-body` profile for the body and complete hand
+outlines, including dark edge pixels. Clothing keeps `south-0`, so correcting
+the palm cannot drag nearby pants pixels along with it. `mask-refine` creates
+this body profile once and paints the finite bands after the authored regions.
+It therefore also overwrites mask rigidity inside the generated joint bands.
+
+Native triangles are drawn by the view's anatomical part order rather than by
+source image row. Far limbs precede the torso and near arms follow it.
+`metadata/cell_triangle_indices` maps source cells to their sorted triangles;
+UVs, vertices and native animation timelines retain their existing roles.
+
+`surface-test` rejects triangles with collapsed UV area: the old four views had
+139/142/645/556 such visible triangles. `seam-test` now checks shared vertices
+at actual anatomical joints instead of requiring skirts at every opaque pixel
+contact. `seam-visual` runs the surface check with the GPU renderer. The obsolete
+test that required zero-area silhouette strips has been replaced. Existing
+neutral-source, rigid-palm and anatomical-landmark checks still apply.
+
+Current comparison frames: `tmp/animation-workbench/comparison-finite-bands/`.
+
+Vertex sharing is partitioned into local anatomical charts as well as bone
+weights. Gray pixels on an arm/torso contact must not weld just because both
+are flexible. `seam-test` checks both sides of this rule: real joints share
+their vertices, unrelated contact edges do not share both endpoints. Palm
+regression landmarks now include dark outline pixels along the lower hand.

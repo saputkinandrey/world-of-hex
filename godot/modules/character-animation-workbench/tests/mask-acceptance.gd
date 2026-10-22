@@ -11,6 +11,7 @@ func _run() -> void:
 		var surface: Polygon2D = load(MESH_ROOT + profile + ".tscn").instantiate()
 		var rigidity: Image = Image.load_from_file(surface.rigidity_mask_path)
 		var owners: Image = Image.load_from_file(surface.ownership_mask_path)
+		var cell_triangles: PackedInt32Array = surface.get_meta("cell_triangle_indices")
 		var weights: Array[PackedFloat32Array] = []
 		for bone: int in surface.get_bone_count():
 			weights.append(surface.get_bone_weights(bone))
@@ -34,8 +35,8 @@ func _run() -> void:
 					if color.is_equal_approx(Color.from_rgba8(int(rgb[0]), int(rgb[1]), int(rgb[2]))):
 						owner = candidate
 						break
-				var triangle: PackedInt32Array = surface.polygons[(y * rigidity.get_width() + x) * 2]
-				var second: PackedInt32Array = surface.polygons[(y * rigidity.get_width() + x) * 2 + 1]
+				var triangle: PackedInt32Array = surface.polygons[cell_triangles[(y * rigidity.get_width() + x) * 2]]
+				var second: PackedInt32Array = surface.polygons[cell_triangles[(y * rigidity.get_width() + x) * 2 + 1]]
 				for vertex: int in [triangle[0], triangle[1], triangle[2], second[2]]:
 					for bone: int in weights.size():
 						if not is_equal_approx(weights[bone][vertex], 1.0 if bone == owner else 0.0):

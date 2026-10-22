@@ -1,9 +1,12 @@
 extends "res://modules/character-animation-workbench/tests/hand-rigidity-acceptance.gd"
 
 const COMPARISON = preload("res://modules/character-animation-workbench/tests/comparison-preview.tscn")
-const BONE_INDICES: Dictionary = {"Pelvis": 0, "Head": 3, "ArmL": 4, "ArmR": 6, "CalfL": 9, "CalfR": 11}
+const BONE_INDICES: Dictionary = {"Pelvis": 0, "Head": 3, "ArmL": 4, "ForearmL": 5, "ArmR": 6, "ForearmR": 7, "CalfL": 9, "CalfR": 11}
 const LANDMARKS: Dictionary = {
-	"South": {"Head": [Vector2(45,28), Vector2(64,28), Vector2(55,43)]},
+	"South": {
+		"Head": [Vector2(45,28), Vector2(64,28), Vector2(55,43)],
+		"ForearmL": [Vector2(30,83), Vector2(35,82), Vector2(28,78)],
+		"ForearmR": [Vector2(79,83), Vector2(75,82), Vector2(82,78)]},
 	"North": {"Head": [Vector2(48,23), Vector2(60,23), Vector2(55,30)]},
 	"SouthWest": {
 		"Head": [Vector2(66,40), Vector2(80,40), Vector2(69,58)],

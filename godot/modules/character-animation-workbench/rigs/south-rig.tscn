@@ -7,6 +7,7 @@
 
 [ext_resource type="PackedScene" path="res://modules/character-animation-workbench/rigs/masked/south-0.tscn" id="mask_south-0"]
 [ext_resource type="PackedScene" path="res://modules/character-animation-workbench/rigs/masked/south-1.tscn" id="mask_south-1"]
+[ext_resource type="PackedScene" path="res://modules/character-animation-workbench/rigs/masked/south-body.tscn" id="mask_south-body"]
 
 [node name="Rig" type="Node2D"]
 script = ExtResource("1")
@@ -105,7 +106,7 @@ bone_angle = 90.0
 metadata/slot = "body"
 metadata/registration = Transform2D(1.0, 0.0, 0.0, 1.0, 0.0, 0.0)
 
-[node name="Surface" parent="Layers/BodyBase" instance=ExtResource("mask_south-0")]
+[node name="Surface" parent="Layers/BodyBase" instance=ExtResource("mask_south-body")]
 
 [node name="BootsBase" type="Node2D" parent="Layers"]
 metadata/slot = "boots"

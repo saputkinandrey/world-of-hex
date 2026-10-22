@@ -15,6 +15,7 @@ OUTPUT = ROOT / 'rigs/masked'
 MANIFEST = MASKS / 'profiles.json'
 BONES = ['Pelvis', 'Spine', 'Chest', 'Head', 'ArmL', 'ForearmL', 'ArmR', 'ForearmR', 'ThighL', 'CalfL', 'ThighR', 'CalfR']
 PARENTS = [-1, 0, 1, 2, 2, 4, 2, 6, 0, 8, 0, 10]
+GARMENT_SLEEVE_LINKS = {frozenset((BONES.index('Spine'), BONES.index(arm))) for arm in ['ArmL','ArmR']}
 PATHS = ['Pelvis', 'Pelvis/Spine', 'Pelvis/Spine/Chest', 'Pelvis/Spine/Chest/Head',
          'Pelvis/Spine/Chest/ArmL', 'Pelvis/Spine/Chest/ArmL/ForearmL',
          'Pelvis/Spine/Chest/ArmR', 'Pelvis/Spine/Chest/ArmR/ForearmR',
@@ -32,6 +33,12 @@ ASSETS = {
 }
 SEEDS = [(0, 24), (0, 5), (0, -12), (0, -33), (-25, -3), (-27, 22),
          (25, -3), (27, 22), (-10, 34), (-12, 45), (10, 34), (12, 45)]
+DRAW_ORDER = {
+    'south': ['ThighL','CalfL','ThighR','CalfR','Pelvis','Spine','Chest','Head','ArmL','ForearmL','ArmR','ForearmR'],
+    'north': ['ThighL','CalfL','ThighR','CalfR','Pelvis','Spine','Chest','Head','ArmL','ForearmL','ArmR','ForearmR'],
+    'south-west': ['ArmL','ForearmL','ThighL','CalfL','ThighR','CalfR','Pelvis','Spine','Chest','Head','ArmR','ForearmR'],
+    'north-west': ['ArmR','ForearmR','ThighR','CalfR','ThighL','CalfL','Pelvis','Spine','Chest','Head','ArmL','ForearmL'],
+}
 
 
 def resource(path):
@@ -167,39 +174,7 @@ def initialize():
         print('Initialized', name, profile['frame'], flush=True)
 
 
-def seam_triangles(cells, width, height):
-    """Join duplicate edge vertices without changing either rigid texel's weights.
-
-    These strips have zero area at rest and sample the shared source texel edge.
-    Native skinning opens them only when the two owners move apart.
-    """
-    triangles = []
-    for y in range(height):
-        for x in range(width):
-            quad = cells[y*width+x]
-            edges = []
-            if x+1 < width:
-                neighbor = cells[y*width+x+1]
-                edges.append((quad[1], quad[2], neighbor[0], neighbor[3]))
-            if y+1 < height:
-                neighbor = cells[(y+1)*width+x]
-                edges.append((quad[3], quad[2], neighbor[0], neighbor[1]))
-            for a,b,c,d in edges:
-                if a != c or b != d:
-                    triangles.extend([(a,b,c), (b,d,c)])
-    # Edge strips leave a small polygon where three or four owners meet. Fill
-    # that junction using the same source corner and its native bone weights.
-    for y in range(1, height):
-        for x in range(1, width):
-            corners = [cells[(y-1)*width+x-1][2], cells[(y-1)*width+x][3],
-                       cells[y*width+x][0], cells[y*width+x-1][1]]
-            unique = list(dict.fromkeys(corners))
-            for index in range(1, len(unique)-1):
-                triangles.append((unique[0], unique[index], unique[index+1]))
-    return triangles
-
-
-def compile_profile(name, profile):
+def compile_profile(name, profile, body_profile):
     width, height = profile['frame']
     owner_image = Image.open(MASKS / f'{name}-owners.png').convert('RGB')
     rigid_image = Image.open(MASKS / f'{name}-rigidity.png').convert('L')
@@ -217,9 +192,25 @@ def compile_profile(name, profile):
         index = y*width+x
         return owners[index], rigid[index]
 
+    def joined(a,b):
+        return connected(a,b) or (not body_profile and frozenset((a,b)) in GARMENT_SLEEVE_LINKS)
+
     @lru_cache(None)
-    def field(x,y):
-        around = [cell(x-1,y-1),cell(x,y-1),cell(x-1,y),cell(x,y)]
+    def chart(x,y,cx,cy):
+        positions = [(x-1,y-1),(x,y-1),(x,y),(x-1,y)]
+        start = positions.index((cx,cy))
+        selected, queue = {start}, [start]
+        while queue:
+            index = queue.pop()
+            for other in [(index-1)%4,(index+1)%4]:
+                if other not in selected and joined(cell(*positions[index])[0],cell(*positions[other])[0]):
+                    selected.add(other)
+                    queue.append(other)
+        return tuple(sorted({cell(*positions[index])[0] for index in selected}))
+
+    @lru_cache(None)
+    def field(x,y,region):
+        around = [pair for pair in [cell(x-1,y-1),cell(x,y-1),cell(x-1,y),cell(x,y)] if pair[0] in region]
         hard = {owner for owner, value in around if value == 255}
         if len(hard) == 1:
             return ((next(iter(hard)),1.0),)
@@ -228,7 +219,7 @@ def compile_profile(name, profile):
         for dy in range(-2,3):
             for dx in range(-2,3):
                 owner, _ = cell(x+dx,y+dy)
-                if connected(main, owner):
+                if owner in region:
                     counts[owner] += 1/(1+dx*dx+dy*dy)
         total = sum(counts.values())
         strength = sum(value for owner,value in around)/(4*255)
@@ -238,24 +229,35 @@ def compile_profile(name, profile):
         total = sum(value for bone,value in selected)
         return tuple(sorted((bone,round(value/total,8)) for bone,value in selected if value > .00000001))
 
-    vertices, weights, lookup, triangles, cells = [], [], {}, [], []
-    def vertex(x,y,influences):
-        key = (x,y,influences)
+    vertices, weights, lookup, triangles = [], [], {}, []
+    def vertex(x,y,influences,region):
+        key = (x,y,influences,region)
         if key not in lookup:
             lookup[key] = len(vertices)
             vertices.append((x-width/2,y-height/2))
             weights.append(dict(influences))
         return lookup[key]
     for x,y in [(0,0),(width,0),(width,height),(0,height)]:
-        vertex(x,y,field(x,y))
+        region = chart(x,y,min(x,width-1),min(y,height-1))
+        vertex(x,y,field(x,y,region),region)
     for y in range(height):
         for x in range(width):
             owner, strength = cell(x,y)
             corners = [(x,y),(x+1,y),(x+1,y+1),(x,y+1)]
-            indices = [vertex(px,py,((owner,1.0),) if strength == 255 else field(px,py)) for px,py in corners]
-            cells.append(indices)
+            indices = []
+            for px,py in corners:
+                region = chart(px,py,x,y)
+                influences = ((owner,1.0),) if strength == 255 else field(px,py,region)
+                indices.append(vertex(px,py,influences,region))
             triangles.extend([(indices[0],indices[1],indices[2]), (indices[0],indices[2],indices[3])])
-    seams = seam_triangles(cells, width, height)
+    # Flexible bands share actual textured vertices. No zero-area UV skirts:
+    # unrelated touching parts remain separate instead of extruding a texel.
+    ranks = {BONES.index(bone): rank for rank,bone in enumerate(DRAW_ORDER[profile['view']])}
+    order = sorted(range(len(triangles)), key=lambda index: ranks[owners[index//2]])
+    cell_triangles = [0]*len(triangles)
+    for destination,source in enumerate(order):
+        cell_triangles[source] = destination
+    triangles = [triangles[index] for index in order]
     def number(value):
         return str(round(value,8))
     text = '[gd_scene format=3]\n\n[ext_resource type="Script" path="'+RES+'skin-surface.gd" id="1"]\n\n[node name="Surface" type="Polygon2D"]\nscript = ExtResource("1")\nz_as_relative = false\ntexture_filter = 1\nskeleton = NodePath("../../../Skeleton2D")\n'
@@ -263,16 +265,14 @@ def compile_profile(name, profile):
     text += 'polygon = PackedVector2Array('+', '.join(number(v) for point in vertices for v in point)+')\n'
     text += 'uv = PackedVector2Array('+', '.join(number(v) for x,y in vertices for v in (x+width/2,y+height/2))+')\n'
     text += f'internal_vertex_count = {len(vertices)-4}\nmetadata/frame_size = Vector2i({width}, {height})\nmetadata/mask_profile = "{name}"\n'
-    if seams:
-        text += f'metadata/base_triangle_count = {len(triangles)}\n'
-        text += 'metadata/elastic_triangles = ['+', '.join('PackedInt32Array('+', '.join(map(str, t))+')' for t in seams)+']\n'
+    text += 'metadata/cell_triangle_indices = PackedInt32Array('+', '.join(map(str,cell_triangles))+')\n'
     text += 'polygons = ['+', '.join('PackedInt32Array('+', '.join(map(str, t))+')' for t in triangles)+']\n'
     bones = []
     for bone,path in enumerate(PATHS):
         bones.extend(['"'+path+'"','PackedFloat32Array('+', '.join(number(w.get(bone,0)) for w in weights)+')'])
     text += 'bones = ['+', '.join(bones)+']\n'
     (OUTPUT / f'{name}.tscn').write_text(text,encoding='utf-8')
-    print(f'Compiled {name}: {len(vertices)} vertices, {len(triangles)} triangles (+{len(seams)} seam candidates)',flush=True)
+    print(f'Compiled {name}: {len(vertices)} vertices, {len(triangles)} textured triangles',flush=True)
 
 
 def bind_rigs(manifest):
@@ -296,7 +296,7 @@ def bake():
     manifest = json.loads(MANIFEST.read_text(encoding='utf-8'))
     OUTPUT.mkdir(parents=True,exist_ok=True)
     for name,profile in manifest['profiles'].items():
-        compile_profile(name,profile)
+        compile_profile(name,profile,name == manifest['bindings'][profile['view']]['Layers/BodyBase'])
     bind_rigs(manifest)
 
 

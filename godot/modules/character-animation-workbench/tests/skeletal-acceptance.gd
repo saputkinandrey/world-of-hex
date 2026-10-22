@@ -121,7 +121,7 @@ func _run() -> void:
 	_check(shape_changed, "Within-image distances change: deformation is not a rigid PNG transform")
 	_check(mesh.polygon == vertices and mesh.get_parent().transform == base_transform, "Skinning preserves immutable base geometry and registration")
 	_check(mesh.get_node(mesh.skeleton) == shirt.get_node(shirt.skeleton), "Body and clothing share one skeleton")
-	_check(mesh.get_bone_weights(1) == shirt.get_bone_weights(1), "Compatible body and clothing share weight template")
+	_check(mesh.ownership_mask_path != shirt.ownership_mask_path, "Body hand contours have a separate template from clothing")
 	workbench.outfit = 0
 	workbench.apply_source()
 	_check(shirt.get_bone_weights(1) == weights and mesh.polygon == vertices, "Appearance switch preserves painted weights and geometry")
