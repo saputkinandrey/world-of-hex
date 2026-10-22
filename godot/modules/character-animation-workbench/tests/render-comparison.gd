@@ -1,7 +1,7 @@
 extends "res://modules/character-animation-workbench/tests/render-walk.gd"
 
 const COMPARISON = preload("res://modules/character-animation-workbench/tests/comparison-preview.tscn")
-const COMPARISON_OUTPUT = "res://../tmp/animation-workbench/comparison-no-joint-envelope"
+const COMPARISON_OUTPUT = "res://../tmp/animation-workbench/comparison-red-bones"
 const PROOF_FRAMES: Array[int] = [30,37,67,84,90,94,98,99,112,162,179,223,257]
 
 func _run() -> void:
@@ -13,6 +13,13 @@ func _run() -> void:
 	var sources: Dictionary = {}
 	for index: int in scene.VIEWS.size():
 		var workbench: Node2D = scene.get_node("Viewport/" + scene.VIEWS[index])
+		var overlay: Node2D = workbench._active_rig.get_node("Overlay")
+		overlay.show_surface_mesh = false
+		overlay.bone_color = Color.RED
+		overlay.joint_color = Color.RED
+		overlay.z_as_relative = false
+		overlay.z_index = RenderingServer.CANVAS_ITEM_Z_MAX
+		overlay.show()
 		var surface: Polygon2D = workbench._active_rig.get_node("Layers/BodyBase/Surface")
 		sources[surface.texture.resource_path] = true
 		if workbench.source_direction != index:
