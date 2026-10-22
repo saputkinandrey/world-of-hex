@@ -129,7 +129,7 @@ func _run() -> void:
 	for view: String in ["north-west"]:
 		var library: AnimationLibrary = load("res://modules/character-animation-workbench/animations/skeletal-library-%s.tres" % view)
 		for clip: String in CLIPS:
-			_check(not library.has_animation(clip), "Walking is unavailable for unauthored rear diagonals")
+			_check(library.has_animation(clip), "Walking is available for the authored rear diagonal")
 	workbench.reset_motion()
 	var sequence_player: AnimationPlayer = scene.get_node("SequencePlayer")
 	sequence_player.play("walk_sequence")

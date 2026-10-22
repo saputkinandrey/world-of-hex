@@ -168,3 +168,6 @@ south_west-клип, для north_east — north_west; отражение вып
 
 Диагональ SW и сравнение S/N/SW в трёх колонках:
 [SOUTH-WEST-WORKFLOW.md](SOUTH-WEST-WORKFLOW.md).
+
+Диагональ NW и полное сравнение S/N/SW/NW в четырёх колонках:
+[NORTH-WEST-WORKFLOW.md](NORTH-WEST-WORKFLOW.md).

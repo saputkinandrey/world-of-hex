@@ -1,5 +1,10 @@
 # SW: authored diagonal motion and three-column preview
 
+The later [NW extension](NORTH-WEST-WORKFLOW.md) adds a fourth synchronized
+column and completes the four authored source views. Three-column dimensions,
+output paths and the earlier absence of NW clips below describe the prior
+delivery; its media and the SW resources remain available unchanged.
+
 SW (South west) is an original source view. The source files are
 `idle/Char1_south_west_idle/Idle_body_SW1.png` and its weapon sheet;
 the existing SE direction reflects SW. The third comparison column uses SW

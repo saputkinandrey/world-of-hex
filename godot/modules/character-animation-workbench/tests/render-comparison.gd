@@ -1,7 +1,7 @@
 extends "res://modules/character-animation-workbench/tests/render-walk.gd"
 
 const COMPARISON = preload("res://modules/character-animation-workbench/tests/comparison-preview.tscn")
-const COMPARISON_OUTPUT = "res://../tmp/animation-workbench/comparison-three"
+const COMPARISON_OUTPUT = "res://../tmp/animation-workbench/comparison-four"
 
 func _run() -> void:
 	var scene: Node = COMPARISON.instantiate()
@@ -38,6 +38,6 @@ func _run() -> void:
 	else:
 		var size: Vector2i = scene.get_node("Viewport").size
 		file.store_string(JSON.stringify({"fps": FPS, "size": [size.x, size.y], "clips": {"sequence": frames}}, "  "))
-	print("Rendered S/N/SW comparison: %s frames, 1536x512, 30 FPS." % frames)
+	print("Rendered S/N/SW/NW comparison: %s frames, 2048x512, 30 FPS." % frames)
 	scene.free()
 	quit(1 if _failed else 0)

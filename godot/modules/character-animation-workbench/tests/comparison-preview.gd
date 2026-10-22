@@ -2,8 +2,8 @@ extends SubViewportContainer
 
 signal preview_ready
 @export var autoplay: bool = true
-const VIEWS: Array[String] = ["South", "North", "SouthWest"]
-const LABELS: Dictionary = {"South": "S (South)", "North": "N (North)", "SouthWest": "SW (South west)"}
+const VIEWS: Array[String] = ["South", "North", "SouthWest", "NorthWest"]
+const LABELS: Dictionary = {"South": "S (South)", "North": "N (North)", "SouthWest": "SW (South west)", "NorthWest": "NW (North west)"}
 
 func _ready() -> void:
 	RenderingServer.set_default_clear_color(Color(.10, .12, .15))

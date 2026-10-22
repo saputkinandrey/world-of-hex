@@ -25,7 +25,7 @@ func _run() -> void:
 	_check(workbench.source_direction == 2 and rig.authored_direction == 2 and not rig.mirrored, "SW is an authored source direction, not a reflected view")
 	_check(body.texture.resource_path.contains("/Char1_south_west_idle/Idle_body_SW1.png"), "SW uses its own original source PNG")
 	_check(not rig.get_node("Layers/ShirtsBase").visible and not rig.get_node("Layers/HairBase").visible, "Missing SW clothing/hair remain absent without replacement assets")
-	_check(scene.get_node("Viewport").size == Vector2i(1536, 512) and workbench.position.x == 1024, "SW occupies the third column")
+	_check(scene.get_node("Viewport").size == Vector2i(2048, 512) and workbench.position.x == 1024, "SW occupies the third column")
 	var reloaded: AnimationLibrary = ResourceLoader.load(DIAGONAL.resource_path, "", ResourceLoader.CACHE_MODE_IGNORE)
 	for clip: String in MOTIONS:
 		_check(reloaded.has_animation(clip), "SW clip survives independent disk reload: " + clip)
@@ -87,9 +87,9 @@ func _run() -> void:
 	_check(maximum_clearance > 7.5 and flight_samples >= 16, "SW run retains swing clearance and both-feet flight")
 	var outer: AnimationPlayer = scene.get_node("SequencePlayer")
 	var sequence: Animation = outer.get_animation("comparison")
-	_check(sequence.get_track_count() == 3, "Native sequence drives all three directions")
+	_check(sequence.get_track_count() == 4, "Native sequence drives all four directions")
 	for key: int in sequence.track_get_key_count(0):
-		for track: int in [1, 2]:
+		for track: int in [1, 2, 3]:
 			_check(sequence.track_get_key_time(0, key) == sequence.track_get_key_time(track, key) and sequence.animation_track_get_key_animation(0, key) == sequence.animation_track_get_key_animation(track, key), "All columns use identical native events")
 	var players: Array[AnimationPlayer] = []
 	for name: String in scene.VIEWS:
@@ -103,10 +103,10 @@ func _run() -> void:
 		outer.advance(1.0 / 30)
 		for view_player: AnimationPlayer in players:
 			view_player.advance(1.0 / 30)
-			_check(view_player.assigned_animation == players[0].assigned_animation and is_equal_approx(view_player.current_animation_position, players[0].current_animation_position), "Three-column native playback stays synchronized")
+			_check(view_player.assigned_animation == players[0].assigned_animation and is_equal_approx(view_player.current_animation_position, players[0].current_animation_position), "Four-column native playback stays synchronized")
 		visited[player.assigned_animation] = true
 	for clip: String in MOTIONS:
-		_check(visited.has(clip), "Three-column comparison includes " + clip)
+		_check(visited.has(clip), "Four-column comparison includes " + clip)
 	_compare(anchors["idle"], _pose(skeleton), "SW finishes at idle")
 	outer.stop()
 	print("SW acceptance: %s failure(s); diagonal support error %.6f px; swing clearance %.3f px; flight %s/160 samples." % [_failures, maximum_error, maximum_clearance, flight_samples])
