@@ -3,6 +3,7 @@ import { spawn } from "node:child_process";
 import { fileURLToPath } from "node:url";
 import path from "node:path";
 import fs from "node:fs/promises";
+import { createRequire } from "node:module";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const projectRoot = path.resolve(__dirname, "..");
@@ -30,20 +31,12 @@ const watchTargets = [
   ".env.local",
 ];
 
-const nextBin = path.join(
-  projectRoot,
-  "node_modules",
-  ".bin",
-  process.platform === "win32" ? "next.cmd" : "next",
-);
+const nextBin = createRequire(import.meta.url).resolve("next/dist/bin/next");
 const publicDir = path.join(projectRoot, "public");
 const buildStatusPath = path.join(publicDir, buildStatusFilename);
 
 const spawnCommand = (command, argsList, options) => {
-  if (process.platform === "win32") {
-    return spawn("cmd.exe", ["/c", command, ...argsList], options);
-  }
-  return spawn(command, argsList, options);
+  return spawn(process.execPath, [command, ...argsList], options);
 };
 
 const log = (message) => {
@@ -64,12 +57,7 @@ const stopServer = async () => {
 
   if (process.platform === "win32") {
     await new Promise((resolve) => {
-      const killer = spawn("taskkill", [
-        "/PID",
-        String(proc.pid),
-        "/T",
-        "/F",
-      ]);
+      const killer = spawn("taskkill", ["/PID", String(proc.pid), "/T", "/F"]);
       killer.on("close", () => resolve());
       killer.on("error", () => resolve());
     });
@@ -84,11 +72,10 @@ const stopServer = async () => {
 };
 
 const startServer = () => {
-  serverProcess = spawnCommand(
-    nextBin,
-    ["start", "-p", String(port)],
-    { cwd: projectRoot, stdio: "inherit" },
-  );
+  serverProcess = spawnCommand(nextBin, ["start", "-p", String(port)], {
+    cwd: projectRoot,
+    stdio: "inherit",
+  });
 };
 
 let lastBuildId = Date.now();

@@ -1,0 +1,122 @@
+{
+    "id": "fighter-02",
+    "name": "Marcus",
+    "race": "human",
+    "baseAttributes": {
+        "ST": 10,
+        "DX": 10,
+        "IQ": 10,
+        "HT": 10
+    },
+    "mutation": {
+        "increases": {
+            "ST": 1,
+            "DX": 1,
+            "IQ": 0,
+            "HT": 3
+        },
+        "decreases": {
+            "ST": 1,
+            "DX": 0,
+            "IQ": 1,
+            "HT": 0
+        },
+        "increaseCost": 60,
+        "decreaseCost": 30
+    },
+    "attributes": {
+        "ST": 10,
+        "DX": 11,
+        "IQ": 9,
+        "HT": 13
+    },
+    "lens": {
+        "id": "roman_hastati",
+        "name": "Roman Hastati",
+        "requirements": {
+            "ST": 10
+        },
+        "skills": [
+            {
+                "id": "shortsword",
+                "label": "Gladius",
+                "attribute": "DX",
+                "relativeLevel": 2,
+                "points": 4,
+                "difficulty": "A"
+            },
+            {
+                "id": "spear",
+                "label": "Pilum",
+                "attribute": "DX",
+                "relativeLevel": 1,
+                "points": 1,
+                "difficulty": "A"
+            },
+            {
+                "id": "shield",
+                "label": "Shield",
+                "attribute": "DX",
+                "relativeLevel": 1,
+                "points": 2,
+                "difficulty": "E"
+            },
+            {
+                "id": "soldier",
+                "label": "Soldier (Roman)",
+                "attribute": "IQ",
+                "relativeLevel": 1,
+                "points": 1,
+                "specialization": "roman",
+                "difficulty": "A"
+            },
+            {
+                "id": "fighter",
+                "label": "Боец",
+                "attribute": "HT",
+                "relativeLevel": 0,
+                "points": 1,
+                "difficulty": "A"
+            },
+            {
+                "id": "tactics",
+                "label": "Tactics",
+                "attribute": "IQ",
+                "relativeLevel": 0,
+                "points": 1,
+                "difficulty": "H"
+            }
+        ],
+        "advantages": [],
+        "leveledAdvantages": [
+            {
+                "id": "military_rank",
+                "level": 0
+            }
+        ],
+        "disadvantages": []
+    },
+    "commandLens": null,
+    "equipmentLoadoutId": "roman_hastati",
+    "will": 9,
+    "combatDeck": {
+        "startingCards": [
+            "equipment:republican_scutum:0",
+            "equipment:gladius:0",
+            "evaluate:0"
+        ],
+        "equipment": {
+            "republican_scutum": 2,
+            "gladius": 2
+        },
+        "stratagems": {
+            "evaluate": 1,
+            "shield-slam": 2,
+            "feverish-defense": 3,
+            "mighty-blow": 3,
+            "flurry-of-blows": 3,
+            "corner": 1,
+            "withdraw": 1
+        }
+    }
+}

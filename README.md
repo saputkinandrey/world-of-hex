@@ -7,8 +7,22 @@ Monorepo for the current game prototype.
 - `backend` - NestJS backend, MongoDB, event-sourced sea-combat command model
 - `admin` - Next.js admin UI
 - `web-client` - Next.js player client
+- `card-combat` - independent Next.js card-duel prototype using shared RPS data and rules
 - `packages/ui` - shared UI components
 - `worldbuilding-map` - Azgaar's Fantasy Map Generator fork, connected as a Git submodule
+
+## Card Duel Prototype
+
+Run `npm run card-combat:dev` from the repository root and open
+<http://localhost:3006>. Select two of the 12 shared fighters, build their decks,
+and play a duel with two players at one screen. The prototype includes permanent
+equipment cards, 12 stratagems, physical ammunition, five echelons per fighter,
+AP reserves, a persistent hand, draw/discard piles, and shared RPS injury rules.
+
+`npm run card-combat:build` builds the client; `npm run card-combat:test` checks
+duel transitions. See [card-combat/README.md](card-combat/README.md) for rules and
+prototype limits. The root pins MUI to the clients' version so shared UI peer
+dependencies cannot pull a conflicting major version into Next.js builds.
 
 ## Worldbuilding Map Editor
 
@@ -61,6 +75,14 @@ World of Hex presets and game-data import are separate follow-up work.
 - When a local Mongo query needs changing input, keep the query body in `backend/tmp/mongo-query.js` and the optional database name in `backend/tmp/mongo-query.database.txt` instead of passing changing CLI arguments.
 
 ## Current Architecture Decisions
+
+### Roleplaying Rules / Godot Integration
+
+- [Accepted decision: platform-neutral rules and GodotJS proxies](docs/adr/0001-platform-neutral-rules-godot-proxy.md).
+- The TypeScript rules package accepts structural contracts and has no Godot, Node, or browser API dependencies.
+- Consumers own entities, entity factories, world state, and scheduling. The rules package owns rules and calculations.
+- Prefer a thin external Godot adapter over GodotJS `Dictionary` / `Array` proxies, without intermediate JSON serialization in the hot path.
+- JSON remains a contract and serialization format. Copying or specialized representations require profiling evidence; long computations must support logical steps scheduled by the consumer.
 
 ### Backend
 

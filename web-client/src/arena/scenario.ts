@@ -1,5 +1,6 @@
 import { ARENA_CELLS, generateObstacles, selectSpawnCells } from "./arena";
 import { TEAM_SIZE } from "./config";
+import { getBaseCombatStats } from "@wohex/domain-data/rps/combat";
 import {
     AMRITAR_DUST_SERGEANT_LENS_ID,
     AMRITAR_DUST_SPEARMAN_LENS_ID,
@@ -22,6 +23,7 @@ import {
     ArenaSetup,
     BehaviorFactors,
     Combatant,
+    DamageRules,
     HexCoord,
     ManeuverKind,
     Team,
@@ -32,6 +34,7 @@ import {
     updateFormationObservations,
 } from "./perception";
 import { createRandom } from "./random";
+import { getArenaWornArmor, getArenaWeaponDamage } from "./rps-damage";
 
 const PERSISTENT_ORDER_EXPIRY_TURN = Number.MAX_SAFE_INTEGER;
 
@@ -148,8 +151,8 @@ export const createCombatants = (
         const weaponParry = Math.floor(meleeSkill / 2) + 3;
         const defenseBonus =
             (shield?.defenseBonus ?? equipment.defenseBonus) + combatReflexes;
-        const basicSpeed = (attributes.DX + attributes.HT) / 4;
-        const maxHealth = attributes.ST;
+        const baseStats = getBaseCombatStats(profile);
+        const maxHealth = baseStats.maxHP;
 
         return {
             id: `${team}-${index + 1}`,
@@ -168,17 +171,13 @@ export const createCombatants = (
             parry: weaponParry + defenseBonus,
             dodge: Math.max(
                 3,
-                Math.floor(basicSpeed) +
-                    3 +
-                    defenseBonus -
+                baseStats.dodge +
+                    (shield?.defenseBonus ?? equipment.defenseBonus) -
                     equipment.movePenalty,
             ),
             healthAttribute: attributes.HT,
             perception: attributes.IQ,
-            basicMove: Math.max(
-                3,
-                Math.floor(basicSpeed) - equipment.movePenalty,
-            ),
+            basicMove: Math.max(3, baseStats.move - equipment.movePenalty),
             weaponReach: weapon
                 ? Math.max(...weapon.reach)
                 : equipment.weaponReach,
@@ -329,13 +328,24 @@ export const getBehaviorFactors = (actor: Combatant): BehaviorFactors => {
     return factors;
 };
 
-export const createArenaSetup = (seed: number): ArenaSetup => {
+export const createArenaSetup = (
+    seed: number,
+    damageRules: DamageRules = "legacy",
+): ArenaSetup => {
+    if (damageRules !== "legacy" && damageRules !== "rps")
+        throw new Error(`Unsupported arena damage rules: ${damageRules}`);
     const obstacles = generateObstacles(seed);
     const blocked = new Set(obstacles.map((obstacle) => obstacle.key));
     const initialCombatants = assignInitialStandingOrders([
         ...createCombatants("blue", selectSpawnCells("blue", blocked), seed),
         ...createCombatants("red", selectSpawnCells("red", blocked), seed),
     ]);
+    if (damageRules === "rps") {
+        for (const actor of initialCombatants) {
+            getArenaWeaponDamage(actor.profile);
+            getArenaWornArmor(actor.profile);
+        }
+    }
     const combatants = updateFormationObservations(
         initializeObservationMemories(
             initialCombatants.map((actor) => ({
@@ -356,6 +366,7 @@ export const createArenaSetup = (seed: number): ArenaSetup => {
         seed,
         obstacles,
         battle: {
+            ...(damageRules === "rps" ? { damageRules } : {}),
             phase: "ready",
             turn: 0,
             combatants,

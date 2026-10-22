@@ -6,15 +6,18 @@ import {
     ORDER_DURATION_ROUNDS,
 } from "./communication";
 import { MAX_EVALUATE_BONUS } from "./decision";
-import type { Combatant, CommandResolution } from "./model";
+import type { Combatant, CommandResolution, DamageRules } from "./model";
 import { recordThreatObservations } from "./perception";
 import { rollDice } from "./random";
 import { hasAdvantage } from "./scenario";
 import { getActorPanicPenalty } from "./actors/morale";
+import { resolveArenaRpsInjuries } from "./rps-injury";
 
 export interface ResolveAftermathInput {
     combatants: Combatant[];
     damageByTarget: Map<string, number>;
+    injuriesByTarget?: Map<string, number[]>;
+    damageRules?: DamageRules;
     attackerIdsByTargetId: Map<string, string[]>;
     communication: CommandResolution;
     messages: string[];
@@ -30,45 +33,71 @@ export interface AftermathResult {
 export const resolveAftermath = ({
     combatants,
     damageByTarget,
+    injuriesByTarget,
+    damageRules = "legacy",
     attackerIdsByTargetId,
     communication,
     messages,
     seed,
     turn,
 }: ResolveAftermathInput): AftermathResult => {
+    if (damageRules === "rps" && !injuriesByTarget)
+        throw new Error("RPS aftermath requires individual injuries");
     const resolvedCombatants = combatants.map((combatant) => {
         const attackerIds = attackerIdsByTargetId.get(combatant.id) ?? [];
         const injury = damageByTarget.get(combatant.id) ?? 0;
-        const health = Math.max(0, combatant.health - injury);
+        const wounds = injuriesByTarget?.get(combatant.id) ?? [];
+        if (
+            damageRules === "rps" &&
+            wounds.reduce((total, wound) => total + wound, 0) !== injury
+        )
+            throw new Error(`Inconsistent injury totals for ${combatant.id}`);
+        const rps =
+            damageRules === "rps"
+                ? resolveArenaRpsInjuries(combatant, wounds, seed, turn)
+                : null;
+        const health = rps
+            ? rps.health
+            : Math.max(0, combatant.health - injury);
         const majorWound = injury >= combatant.maxHealth / 2;
-        const healthRoll = majorWound
-            ? rollDice(3, 6, seed, turn, `${combatant.id}:major-wound`)
-            : null;
-        const majorWoundTarget = getCheckTarget({
-            base: combatant.healthAttribute,
-            difficultyModifier: AVERAGE_TASK_DIFFICULTY_MODIFIER,
-            situationalModifiers: [
-                hasAdvantage(combatant, "high_pain_threshold") ? 3 : 0,
-                hasAdvantage(combatant, "fit") ? 1 : 0,
-            ],
-        });
-        const newlyStunned = Boolean(
-            healthRoll && healthRoll.total > majorWoundTarget,
-        );
+        const healthRoll = rps
+            ? rps.healthRoll
+            : majorWound
+              ? rollDice(3, 6, seed, turn, `${combatant.id}:major-wound`)
+              : null;
+        const majorWoundTarget = rps
+            ? rps.majorWoundTarget
+            : getCheckTarget({
+                  base: combatant.healthAttribute,
+                  difficultyModifier: AVERAGE_TASK_DIFFICULTY_MODIFIER,
+                  situationalModifiers: [
+                      hasAdvantage(combatant, "high_pain_threshold") ? 3 : 0,
+                      hasAdvantage(combatant, "fit") ? 1 : 0,
+                  ],
+              });
+        const newlyStunned = rps
+            ? rps.newlyStunned
+            : Boolean(healthRoll && healthRoll.total > majorWoundTarget);
         const spentTurnStunned =
             combatant.isStunned && combatant.maneuver === "do_nothing";
-        const stunRecoveryTarget = getCheckTarget({
-            base: combatant.healthAttribute,
-            difficultyModifier: AVERAGE_TASK_DIFFICULTY_MODIFIER,
-            situationalModifiers: [],
-        });
-        const stunRecoveryRoll =
-            health > 0 && spentTurnStunned && !newlyStunned
-                ? rollDice(3, 6, seed, turn, `${combatant.id}:stun-recovery`)
-                : null;
-        const recoveredFromStun = Boolean(
-            stunRecoveryRoll && stunRecoveryRoll.total <= stunRecoveryTarget,
-        );
+        const stunRecoveryTarget = rps
+            ? rps.stunRecoveryTarget
+            : getCheckTarget({
+                  base: combatant.healthAttribute,
+                  difficultyModifier: AVERAGE_TASK_DIFFICULTY_MODIFIER,
+                  situationalModifiers: [],
+              });
+        const stunRecoveryRoll = rps
+            ? rps.stunRecoveryRoll
+            : health > 0 && spentTurnStunned && !newlyStunned
+              ? rollDice(3, 6, seed, turn, `${combatant.id}:stun-recovery`)
+              : null;
+        const recoveredFromStun = rps
+            ? rps.recoveredFromStun
+            : Boolean(
+                  stunRecoveryRoll &&
+                      stunRecoveryRoll.total <= stunRecoveryTarget,
+              );
         const issuedOrder = communication.issuedOrdersBySenderId.get(
             combatant.id,
         );
@@ -118,6 +147,13 @@ export const resolveAftermath = ({
 
         return {
             ...combatant,
+            ...(rps
+                ? {
+                      basicMove: rps.basicMove,
+                      dodge: rps.dodge,
+                      rpsMobilityBase: rps.rpsMobilityBase,
+                  }
+                : {}),
             observationMemory: recordThreatObservations(
                 combatant,
                 combatants,
@@ -135,11 +171,14 @@ export const resolveAftermath = ({
                 combatant.maneuver === "evaluate"
                     ? Math.min(MAX_EVALUATE_BONUS, combatant.evaluateBonus + 1)
                     : 0,
-            shockPenalty: hasAdvantage(combatant, "high_pain_threshold")
-                ? 0
-                : Math.min(MAX_SHOCK_PENALTY, injury),
-            isStunned:
-                newlyStunned || (combatant.isStunned && !recoveredFromStun),
+            shockPenalty: rps
+                ? rps.shockPenalty
+                : hasAdvantage(combatant, "high_pain_threshold")
+                  ? 0
+                  : Math.min(MAX_SHOCK_PENALTY, injury),
+            isStunned: rps
+                ? rps.isStunned
+                : newlyStunned || (combatant.isStunned && !recoveredFromStun),
             panicPenalty: getActorPanicPenalty(
                 { ...combatant, health },
                 newlyStunned,

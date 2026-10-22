@@ -28,6 +28,7 @@ import {
     toKey,
     type ArenaSetup,
     type Combatant,
+    type DamageRules,
     type ObstacleKind,
     type Team,
     type TeamSummary,
@@ -276,7 +277,7 @@ export default function ArenaPage() {
 
     const regenerateArena = () => {
         const nextSeed = Math.floor(Math.random() * 999999) + 1;
-        const nextSetup = createArenaSetup(nextSeed);
+        const nextSetup = createArenaSetup(nextSeed, setup.battle.damageRules);
         setSetup(
             scenario === "mixed"
                 ? applyMixedSpecializationScenario(nextSetup)
@@ -297,7 +298,10 @@ export default function ArenaPage() {
 
     const resetBattle = () => {
         setSetup((current) => {
-            const nextSetup = createArenaSetup(current.seed);
+            const nextSetup = createArenaSetup(
+                current.seed,
+                current.battle.damageRules,
+            );
             return scenario === "mixed"
                 ? applyMixedSpecializationScenario(nextSetup)
                 : nextSetup;
@@ -322,6 +326,15 @@ export default function ArenaPage() {
                 },
             };
         });
+    };
+
+    const changeDamageRules = (damageRules: DamageRules) => {
+        const nextSetup = createArenaSetup(setup.seed, damageRules);
+        setSetup(
+            scenario === "mixed"
+                ? applyMixedSpecializationScenario(nextSetup)
+                : nextSetup,
+        );
     };
 
     return (
@@ -955,6 +968,36 @@ export default function ArenaPage() {
                                                 </MenuItem>
                                                 <MenuItem value={4}>
                                                     4×
+                                                </MenuItem>
+                                            </Select>
+                                        </FormControl>
+                                        <FormControl size="small" fullWidth>
+                                            <InputLabel id="damage-rules-label">
+                                                Расчёт урона
+                                            </InputLabel>
+                                            <Select
+                                                labelId="damage-rules-label"
+                                                label="Расчёт урона"
+                                                value={
+                                                    setup.battle.damageRules ??
+                                                    "legacy"
+                                                }
+                                                disabled={
+                                                    setup.battle.phase !==
+                                                    "ready"
+                                                }
+                                                onChange={(event) =>
+                                                    changeDamageRules(
+                                                        event.target
+                                                            .value as DamageRules,
+                                                    )
+                                                }
+                                            >
+                                                <MenuItem value="legacy">
+                                                    Упрощённый
+                                                </MenuItem>
+                                                <MenuItem value="rps">
+                                                    Оружие и броня (РПС)
                                                 </MenuItem>
                                             </Select>
                                         </FormControl>

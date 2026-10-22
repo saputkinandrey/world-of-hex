@@ -4,12 +4,24 @@
     "version": "0.0.0",
     "type": "commonjs",
     "scripts": {
-        "build": "node scripts/clean-dist.cjs && tsc -p tsconfig.json"
+        "combat:test": "npm run build && node --test scripts/combat.test.cjs",
+        "equipment:generate": "node scripts/generate-equipment.cjs",
+        "equipment:test": "npm run build && node --test scripts/equipment.test.cjs",
+        "build": "npm run equipment:generate && node scripts/clean-dist.cjs && tsc -p tsconfig.json"
     },
     "main": "./dist/index.js",
     "types": "./dist/index.d.ts",
     "typesVersions": {
         "*": {
+            "rps/combat": [
+                "dist/rps/combat/index.d.ts"
+            ],
+            "rps/characters": [
+                "dist/rps/characters/index.d.ts"
+            ],
+            "rps/characters/*": [
+                "dist/rps/characters/*"
+            ],
             "economy": [
                 "dist/economy/index.d.ts"
             ],
@@ -26,7 +38,7 @@
                 "dist/rps/social/types.d.ts"
             ],
             "rps/equipment": [
-                "dist/rps/equipment/utils.d.ts"
+                "dist/rps/equipment/index.d.ts"
             ],
             "rps/world/*": [
                 "dist/rps/world/*"
@@ -43,6 +55,18 @@
         }
     },
     "exports": {
+        "./rps/combat": {
+            "types": "./dist/rps/combat/index.d.ts",
+            "default": "./dist/rps/combat/index.js"
+        },
+        "./rps/characters": {
+            "types": "./dist/rps/characters/index.d.ts",
+            "default": "./dist/rps/characters/index.js"
+        },
+        "./rps/characters/*": {
+            "types": "./dist/rps/characters/*.d.ts",
+            "default": "./dist/rps/characters/*.js"
+        },
         ".": {
             "types": "./dist/index.d.ts",
             "default": "./dist/index.js"
@@ -68,8 +92,8 @@
             "default": "./dist/rps/social/types.js"
         },
         "./rps/equipment": {
-            "types": "./dist/rps/equipment/utils.d.ts",
-            "default": "./dist/rps/equipment/utils.js"
+            "types": "./dist/rps/equipment/index.d.ts",
+            "default": "./dist/rps/equipment/index.js"
         },
         "./rps/world/*": {
             "types": "./dist/rps/world/*.d.ts",

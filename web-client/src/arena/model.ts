@@ -11,6 +11,8 @@ export type Team = "blue" | "red";
 
 export type BattlePhase = "ready" | "running" | "paused" | "finished";
 
+export type DamageRules = "legacy" | "rps";
+
 export type ObstacleKind = "column" | "rubble" | "pit";
 
 export type ManeuverKind =
@@ -115,6 +117,7 @@ export type ArenaObstacle = {
 };
 
 export type Combatant = {
+    rpsMobilityBase?: RpsMobilityBase;
     id: string;
     team: Team;
     number: number;
@@ -170,7 +173,13 @@ export type Combatant = {
     threatAwarenessByCombatantId: Record<string, number>;
 };
 
+export interface RpsMobilityBase {
+    move: number;
+    dodge: number;
+}
+
 export type BattleState = {
+    damageRules?: "rps";
     phase: BattlePhase;
     turn: number;
     combatants: Combatant[];

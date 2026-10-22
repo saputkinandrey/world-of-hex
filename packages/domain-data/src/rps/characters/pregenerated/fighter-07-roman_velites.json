@@ -1,0 +1,122 @@
+{
+    "id": "fighter-07",
+    "name": "Theron",
+    "race": "human",
+    "baseAttributes": {
+        "ST": 10,
+        "DX": 10,
+        "IQ": 10,
+        "HT": 10
+    },
+    "mutation": {
+        "increases": {
+            "ST": 2,
+            "DX": 2,
+            "IQ": 0,
+            "HT": 0
+        },
+        "decreases": {
+            "ST": 3,
+            "DX": 0,
+            "IQ": 0,
+            "HT": 0
+        },
+        "increaseCost": 60,
+        "decreaseCost": 30
+    },
+    "attributes": {
+        "ST": 9,
+        "DX": 12,
+        "IQ": 10,
+        "HT": 10
+    },
+    "lens": {
+        "id": "roman_velites",
+        "name": "Roman Velites",
+        "requirements": {
+            "ST": 8
+        },
+        "skills": [
+            {
+                "id": "javelin",
+                "label": "Javelin",
+                "attribute": "DX",
+                "relativeLevel": 1,
+                "points": 1,
+                "difficulty": "E"
+            },
+            {
+                "id": "shortsword",
+                "label": "Gladius",
+                "attribute": "DX",
+                "relativeLevel": -1,
+                "points": 1,
+                "difficulty": "A"
+            },
+            {
+                "id": "shield",
+                "label": "Shield",
+                "attribute": "DX",
+                "relativeLevel": 2,
+                "points": 4,
+                "difficulty": "E"
+            },
+            {
+                "id": "soldier",
+                "label": "Soldier (Roman)",
+                "attribute": "IQ",
+                "relativeLevel": 1,
+                "points": 1,
+                "specialization": "roman",
+                "difficulty": "A"
+            },
+            {
+                "id": "fighter",
+                "label": "Боец",
+                "attribute": "HT",
+                "relativeLevel": 0,
+                "points": 1,
+                "difficulty": "A"
+            },
+            {
+                "id": "tactics",
+                "label": "Tactics",
+                "attribute": "IQ",
+                "relativeLevel": 0,
+                "points": 1,
+                "difficulty": "H"
+            }
+        ],
+        "advantages": [],
+        "leveledAdvantages": [
+            {
+                "id": "military_rank",
+                "level": 0
+            }
+        ],
+        "disadvantages": []
+    },
+    "commandLens": null,
+    "equipmentLoadoutId": "roman_velites_pilum_test",
+    "will": 10,
+    "combatDeck": {
+        "startingCards": [
+            "equipment:parma_velita:0",
+            "equipment:gladius:0",
+            "evaluate:0"
+        ],
+        "equipment": {
+            "parma_velita": 3,
+            "gladius": 1
+        },
+        "stratagems": {
+            "evaluate": 1,
+            "shield-slam": 1,
+            "feverish-defense": 2,
+            "mighty-blow": 2,
+            "flurry-of-blows": 1,
+            "corner": 1,
+            "withdraw": 1
+        }
+    }
+}

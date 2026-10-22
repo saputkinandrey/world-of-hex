@@ -1,0 +1,122 @@
+{
+    "id": "fighter-05",
+    "name": "Titus",
+    "race": "human",
+    "baseAttributes": {
+        "ST": 10,
+        "DX": 10,
+        "IQ": 10,
+        "HT": 10
+    },
+    "mutation": {
+        "increases": {
+            "ST": 2,
+            "DX": 1,
+            "IQ": 1,
+            "HT": 0
+        },
+        "decreases": {
+            "ST": 0,
+            "DX": 0,
+            "IQ": 0,
+            "HT": 3
+        },
+        "increaseCost": 60,
+        "decreaseCost": 30
+    },
+    "attributes": {
+        "ST": 12,
+        "DX": 11,
+        "IQ": 11,
+        "HT": 7
+    },
+    "lens": {
+        "id": "roman_principes",
+        "name": "Roman Principes",
+        "requirements": {
+            "ST": 11
+        },
+        "skills": [
+            {
+                "id": "shortsword",
+                "label": "Gladius",
+                "attribute": "DX",
+                "relativeLevel": 4,
+                "points": 12,
+                "difficulty": "A"
+            },
+            {
+                "id": "spear",
+                "label": "Pilum",
+                "attribute": "DX",
+                "relativeLevel": 1,
+                "points": 1,
+                "difficulty": "A"
+            },
+            {
+                "id": "shield",
+                "label": "Shield",
+                "attribute": "DX",
+                "relativeLevel": 1,
+                "points": 2,
+                "difficulty": "E"
+            },
+            {
+                "id": "soldier",
+                "label": "Soldier (Roman)",
+                "attribute": "IQ",
+                "relativeLevel": 1,
+                "points": 1,
+                "specialization": "roman",
+                "difficulty": "A"
+            },
+            {
+                "id": "fighter",
+                "label": "Боец",
+                "attribute": "HT",
+                "relativeLevel": 0,
+                "points": 1,
+                "difficulty": "A"
+            },
+            {
+                "id": "tactics",
+                "label": "Tactics",
+                "attribute": "IQ",
+                "relativeLevel": 0,
+                "points": 1,
+                "difficulty": "H"
+            }
+        ],
+        "advantages": [],
+        "leveledAdvantages": [
+            {
+                "id": "military_rank",
+                "level": 0
+            }
+        ],
+        "disadvantages": []
+    },
+    "commandLens": null,
+    "equipmentLoadoutId": "roman_principes",
+    "will": 11,
+    "combatDeck": {
+        "startingCards": [
+            "equipment:republican_scutum:0",
+            "equipment:gladius:0",
+            "evaluate:0"
+        ],
+        "equipment": {
+            "republican_scutum": 2,
+            "gladius": 3
+        },
+        "stratagems": {
+            "evaluate": 1,
+            "shield-slam": 2,
+            "feverish-defense": 4,
+            "mighty-blow": 2,
+            "flurry-of-blows": 2,
+            "corner": 1,
+            "withdraw": 1
+        }
+    }
+}

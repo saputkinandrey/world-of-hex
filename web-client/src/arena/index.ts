@@ -19,6 +19,7 @@ export type {
     ArenaSetup,
     BattleState,
     Combatant,
+    DamageRules,
     ObstacleKind,
     Team,
     TeamSummary,

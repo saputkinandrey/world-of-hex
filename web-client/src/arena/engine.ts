@@ -100,10 +100,13 @@ export const advanceBattle = (
         seed,
         battle.turn,
         communication.messages,
+        battle.damageRules,
     );
     const aftermath = resolveAftermath({
         combatants: attendingCombatants,
         damageByTarget: attack.damageByTarget,
+        injuriesByTarget: attack.injuriesByTarget,
+        damageRules: battle.damageRules,
         attackerIdsByTargetId: attack.attackerIdsByTargetId,
         communication,
         messages: attack.messages,

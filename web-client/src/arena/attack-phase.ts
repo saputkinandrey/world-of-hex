@@ -4,11 +4,13 @@ import type {
     AttackTargetGroup,
     BattleIntent,
     Combatant,
+    DamageRules,
     DefenseUsage,
     ManeuverKind,
 } from "./model";
 
 export interface AttackPhaseResult {
+    injuriesByTarget: Map<string, number[]>;
     damageByTarget: Map<string, number>;
     attackerIdsByTargetId: Map<string, string[]>;
     messages: string[];
@@ -27,8 +29,10 @@ export const resolveAttackPhase = (
     seed: number,
     turn: number,
     initialMessages: string[],
+    damageRules: DamageRules = "legacy",
 ): AttackPhaseResult => {
     const damageByTarget = new Map<string, number>();
+    const injuriesByTarget = new Map<string, number[]>();
     const attackerIdsByTargetId = new Map<string, string[]>();
     const defenseUsageByTargetId = new Map<string, DefenseUsage>();
     const attackGroupsByTargetId = new Map<string, AttackTargetGroup>();
@@ -79,6 +83,7 @@ export const resolveAttackPhase = (
                 defenseUsage,
                 seed,
                 turn,
+                damageRules,
             );
             damageByTarget.set(
                 resolution.targetId,
@@ -86,6 +91,11 @@ export const resolveAttackPhase = (
                     resolution.injury,
             );
             messages.push(...resolution.messages);
+            if (resolution.injury > 0)
+                injuriesByTarget.set(resolution.targetId, [
+                    ...(injuriesByTarget.get(resolution.targetId) ?? []),
+                    resolution.injury,
+                ]);
         });
 
     attackGroupsByTargetId.forEach(({ target, attackers }) => {
@@ -104,5 +114,10 @@ export const resolveAttackPhase = (
         );
     });
 
-    return { damageByTarget, attackerIdsByTargetId, messages };
+    return {
+        damageByTarget,
+        injuriesByTarget,
+        attackerIdsByTargetId,
+        messages,
+    };
 };

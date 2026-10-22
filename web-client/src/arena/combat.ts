@@ -4,14 +4,14 @@ import type {
     AttackResolution,
     Combatant,
     DefenseUsage,
+    DamageRules,
 } from "./model";
-import {
-    AVERAGE_TASK_DIFFICULTY_MODIFIER,
-    getCheckTarget,
-} from "./check";
+import { AVERAGE_TASK_DIFFICULTY_MODIFIER, getCheckTarget } from "./check";
 import { THREAT_AWARENESS_DURATION_ROUNDS } from "./config";
 import { rollDice } from "./random";
 import { chooseActiveDefense } from "./actors/active-defense";
+import { resolveArenaRpsDamage } from "./rps-damage";
+import { STUN_DEFENSE_PENALTY } from "@wohex/domain-data/rps/combat";
 
 export const MOVE_AND_ATTACK_SKILL_CAP = 9;
 
@@ -50,7 +50,6 @@ export const ACTIVE_DEFENSE_LABELS: Record<ActiveDefenseKind, string> = {
     dodge: "Dodge",
 };
 
-
 export const consumeActiveDefense = (
     defense: ActiveDefenseOption,
     usage: DefenseUsage,
@@ -70,6 +69,7 @@ export const resolveAttack = (
     defenseUsage: DefenseUsage,
     seed: number,
     round: number,
+    damageRules: DamageRules = "legacy",
 ): AttackResolution => {
     const effectiveSkill = Math.max(
         3,
@@ -82,7 +82,8 @@ export const resolveAttack = (
     const attackRoll = rollDice(3, 6, seed, round, `${actor.id}:attack`);
     const criticalHit = attackRoll.total <= 4;
     const automaticMiss = attackRoll.total >= 17;
-    const hit = !automaticMiss && (criticalHit || attackRoll.total <= effectiveSkill);
+    const hit =
+        !automaticMiss && (criticalHit || attackRoll.total <= effectiveSkill);
 
     if (!hit) {
         return {
@@ -96,11 +97,22 @@ export const resolveAttack = (
 
     const awareOfAttacker = isAwareOfAttacker(target, actor, round);
     const defenseAllowed =
-        !criticalHit &&
-        target.maneuver !== "all_out_attack" &&
-        awareOfAttacker;
+        !criticalHit && target.maneuver !== "all_out_attack" && awareOfAttacker;
     const defense = defenseAllowed
-        ? chooseActiveDefense(target, defenseUsage)
+        ? chooseActiveDefense(
+              damageRules === "rps" && target.isStunned
+                  ? {
+                        ...target,
+                        block:
+                            target.block === null
+                                ? null
+                                : target.block - STUN_DEFENSE_PENALTY,
+                        parry: target.parry - STUN_DEFENSE_PENALTY,
+                        dodge: target.dodge - STUN_DEFENSE_PENALTY,
+                    }
+                  : target,
+              defenseUsage,
+          )
         : null;
     const defenseRoll = defense
         ? rollDice(
@@ -135,19 +147,22 @@ export const resolveAttack = (
         };
     }
 
-    const damageRoll = rollDice(
-        1,
-        6,
-        seed,
-        round,
-        `${actor.id}:${target.id}:damage`,
-    );
-    const rawDamage = damageRoll.total + actor.damageBonus;
-    const injury = Math.max(0, rawDamage - target.damageResistance);
+    const rpsDamage =
+        damageRules === "rps"
+            ? resolveArenaRpsDamage(actor, target, seed, round)
+            : null;
+    const rawDamage =
+        rpsDamage?.rawDamage ??
+        rollDice(1, 6, seed, round, `${actor.id}:${target.id}:damage`).total +
+            actor.damageBonus;
+    const damageResistance =
+        rpsDamage?.damageResistance ?? target.damageResistance;
+    const injury =
+        rpsDamage?.injury ?? Math.max(0, rawDamage - damageResistance);
     const messages =
         injury > 0
             ? [
-                  `${target.name}: ${injury} HP урона (${rawDamage}−DR ${target.damageResistance}).`,
+                  `${target.name}: ${injury} HP урона (${rawDamage}${rpsDamage ? ` ${rpsDamage.type}` : ""}−DR ${damageResistance}).`,
               ]
             : [`${target.name}: броня останавливает удар.`];
 

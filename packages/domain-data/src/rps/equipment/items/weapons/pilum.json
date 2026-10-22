@@ -1,0 +1,40 @@
+{
+    "id": "pilum",
+    "name": "Pilum",
+    "gurpsEquivalent": "Spear + Pilum rules",
+    "damage": {
+        "thrust": {
+            "bonus": 2,
+            "type": "imp"
+        },
+        "thrownThrust": {
+            "bonus": 3,
+            "type": "imp"
+        }
+    },
+    "reach": [1],
+    "range": {
+        "accuracy": 2,
+        "halfDamageMultiplier": 1,
+        "maxMultiplier": 1.5
+    },
+    "rules": [
+        {
+            "id": "deforms-on-hit"
+        },
+        {
+            "id": "sticks-in-nonmetallic-shield"
+        }
+    ],
+    "weightLb": 4,
+    "cost": 40,
+    "minimumStrength": 10,
+    "kind": "weapon",
+    "attackSkills": {
+        "thrust": "spear",
+        "throw": "spear"
+    },
+    "tags": ["melee", "throwing", "thrusting"],
+    "handsRequired": 1,
+    "defaultAttack": "thrust"
+}

@@ -2,9 +2,434 @@ import assert from "node:assert/strict";
 import fs from "node:fs";
 import path from "node:path";
 import test from "node:test";
+import { createHash } from "node:crypto";
 import { loadArenaEngine, loadArenaModule } from "./load-arena-engine.mjs";
 
 const arena = loadArenaEngine();
+
+test("RPS base-stat integration preserves three seeded battle trajectories", () => {
+    const fixtures = JSON.parse(
+        fs.readFileSync(
+            new URL("./fixtures/arena-rps-baseline.json", import.meta.url),
+            "utf8",
+        ),
+    );
+    for (const fixture of fixtures) {
+        let setup = arena.createArenaSetup(fixture.seed);
+        setup = { ...setup, battle: { ...setup.battle, phase: "running" } };
+        const states = [setup.battle];
+        for (
+            let turn = 0;
+            turn < fixture.turns && setup.battle.phase === "running";
+            turn++
+        ) {
+            setup = arena.advanceArena(setup);
+            states.push(setup.battle);
+        }
+        for (const state of states)
+            for (const actor of state.combatants)
+                assert.equal(actor.profile.will, actor.profile.attributes.IQ);
+        // Will is additive profile metadata; retain the existing mechanics baseline.
+        const digest = createHash("sha256")
+            .update(
+                JSON.stringify(states, (key, value) =>
+                    key === "will" ? undefined : value,
+                ),
+            )
+            .digest("hex");
+        assert.equal(
+            digest,
+            fixture.sha256,
+            `Battle trajectory changed for seed ${fixture.seed}`,
+        );
+    }
+});
+
+test("RPS damage uses weapon type and actual torso coverage instead of cached bonuses", () => {
+    const { resolveAttack } = loadArenaModule("combat");
+    const { rollDice } = loadArenaModule("random");
+    const setup = arena.createArenaSetup(43117, "rps");
+    const baseActor = setup.battle.combatants[0];
+    const baseTarget = setup.battle.combatants.find(
+        (actor) => actor.team === "red",
+    );
+    const actor = {
+        ...baseActor,
+        meleeSkill: 99,
+        damageBonus: 999,
+        maneuver: "attack",
+        profile: {
+            ...baseActor.profile,
+            attributes: { ...baseActor.profile.attributes, ST: 10 },
+            lens: {
+                ...baseActor.profile.lens,
+                equipment: {
+                    ...baseActor.profile.lens.equipment,
+                    weapon: "gladius",
+                },
+            },
+        },
+    };
+    const target = {
+        ...baseTarget,
+        damageResistance: 999,
+        maneuver: "all_out_attack",
+        profile: {
+            ...baseTarget.profile,
+            lens: {
+                ...baseTarget.profile.lens,
+                equipment: {
+                    ...baseTarget.profile.lens.equipment,
+                    armor: "manica",
+                },
+            },
+        },
+    };
+    const usage = () => ({ blocks: 0, parries: 0, dodges: 0 });
+    const before = structuredClone({ actor, target });
+    const roll = rollDice(
+        1,
+        6,
+        43117,
+        1,
+        `${actor.id}:${target.id}:damage`,
+    ).total;
+    const result = resolveAttack(actor, target, usage(), 43117, 1, "rps");
+    assert.equal(result.injury, Math.max(1, roll - 1) * 2);
+    assert.match(result.messages.join(" "), /imp/);
+    const armored = {
+        ...target,
+        profile: {
+            ...target.profile,
+            lens: {
+                ...target.profile.lens,
+                equipment: {
+                    ...target.profile.lens.equipment,
+                    armor: "bronze_cuirass",
+                },
+            },
+        },
+    };
+    assert.equal(
+        resolveAttack(actor, armored, usage(), 43117, 1, "rps").injury,
+        0,
+    );
+    const cutter = {
+        ...actor,
+        profile: {
+            ...actor.profile,
+            lens: {
+                ...actor.profile.lens,
+                equipment: { ...actor.profile.lens.equipment, weapon: "sica" },
+            },
+        },
+    };
+    assert.equal(
+        resolveAttack(cutter, target, usage(), 43117, 1, "rps").injury,
+        Math.floor((roll + 1) * 1.5),
+    );
+    assert.deepEqual({ actor, target }, before);
+    const defending = {
+        ...target,
+        maneuver: "attack",
+        dodge: 99,
+        parry: 99,
+        block: 99,
+        threatAwarenessByCombatantId: { [actor.id]: 1 },
+    };
+    let defendedCases = 0;
+    for (let seed = 1; seed <= 20; seed++) {
+        const attackRoll = rollDice(3, 6, seed, 1, `${actor.id}:attack`).total;
+        if (attackRoll <= 4 || attackRoll >= 17) continue;
+        const legacyUsage = usage();
+        const rpsUsage = usage();
+        const legacy = resolveAttack(actor, defending, legacyUsage, seed, 1);
+        assert.deepEqual(
+            resolveAttack(actor, defending, rpsUsage, seed, 1, "rps"),
+            legacy,
+        );
+        assert.deepEqual(rpsUsage, legacyUsage);
+        assert.equal(legacy.injury, 0);
+        defendedCases++;
+    }
+    assert.ok(defendedCases > 0);
+});
+
+test("RPS equipment adapter covers every arena lens and rejects missing definitions", () => {
+    const { COMBAT_LENSES, TIRO_LENS } = loadArenaModule("fighter-catalog");
+    const { getArenaWeaponDamage, getArenaWornArmor } =
+        loadArenaModule("rps-damage");
+    const profile = arena.createArenaSetup(43117).battle.combatants[0].profile;
+    for (const lens of [...COMBAT_LENSES, TIRO_LENS]) {
+        const fighter = { ...profile, lens };
+        assert.ok(getArenaWeaponDamage(fighter).dice > 0, lens.id);
+        assert.equal(getArenaWornArmor(fighter)[0].item.kind, "armor", lens.id);
+    }
+    const unknown = {
+        ...profile,
+        lens: {
+            ...profile.lens,
+            equipment: { ...profile.lens.equipment, armor: "undefined-armor" },
+        },
+    };
+    assert.throws(() => getArenaWornArmor(unknown), /Unknown equipment item/);
+});
+
+test("RPS damage mode survives full simulation and remains deterministic", () => {
+    assert.deepEqual(
+        arena.createArenaSetup(43117, "rps").battle.combatants,
+        arena.createArenaSetup(43117).battle.combatants,
+    );
+    assert.throws(
+        () => arena.createArenaSetup(43117, "unknown"),
+        /Unsupported arena damage rules/,
+    );
+    const run = (seed) => {
+        let setup = arena.createArenaSetup(seed, "rps");
+        setup = { ...setup, battle: { ...setup.battle, phase: "running" } };
+        while (setup.battle.phase === "running" && setup.battle.turn <= 100) {
+            setup = arena.advanceArena(setup);
+            assert.equal(setup.battle.damageRules, "rps");
+            for (const actor of setup.battle.combatants)
+                assert.ok(
+                    Number.isSafeInteger(actor.health) && actor.health >= 0,
+                );
+        }
+        assert.equal(setup.battle.phase, "finished");
+        return setup.battle;
+    };
+    for (const seed of [43117, 43295, 20261101])
+        assert.deepEqual(run(seed), run(seed));
+    assert.ok(run(43117).log.some((message) => / (imp|cut|cr)/.test(message)));
+});
+
+test("RPS injury aftermath checks each wound and expires shock after the next turn", () => {
+    const { resolveAftermath } = loadArenaModule("aftermath");
+    const { resolveCommunications } = loadArenaModule(
+        "communication-resolution",
+    );
+    const { getAttackSkill } = loadArenaModule("combat");
+    const base = arena.createArenaSetup(43117, "rps").battle.combatants[0];
+    const actor = {
+        ...base,
+        health: 10,
+        maxHealth: 10,
+        maneuver: "attack",
+        evaluateBonus: 0,
+        profile: {
+            ...base.profile,
+            attributes: { ...base.profile.attributes, HT: 3 },
+            lens: { ...base.profile.lens, advantages: [] },
+            commandLens: null,
+        },
+    };
+    const apply = (fighter, wounds, turn = 1) =>
+        resolveAftermath({
+            combatants: [fighter],
+            damageRules: "rps",
+            damageByTarget: new Map([
+                [fighter.id, wounds.reduce((sum, wound) => sum + wound, 0)],
+            ]),
+            injuriesByTarget: new Map([[fighter.id, wounds]]),
+            attackerIdsByTargetId: new Map(),
+            communication: resolveCommunications(
+                [fighter],
+                [],
+                [],
+                43117,
+                turn,
+            ),
+            messages: [],
+            seed: 43117,
+            turn,
+        }).combatants[0];
+    const before = structuredClone(actor);
+    const smallWounds = apply(actor, [3, 3]);
+    assert.equal(smallWounds.health, 4);
+    assert.equal(smallWounds.isStunned, false);
+    assert.equal(smallWounds.shockPenalty, 4);
+    assert.equal(getAttackSkill(smallWounds), actor.meleeSkill - 4);
+    assert.equal(apply(smallWounds, [], 2).shockPenalty, 0);
+    assert.equal(apply(actor, [5]).isStunned, false);
+    const severe = apply(actor, [6]);
+    assert.equal(severe.isStunned, true);
+    assert.deepEqual(actor, before);
+    assert.throws(
+        () =>
+            resolveAftermath({
+                combatants: [actor],
+                damageRules: "rps",
+                damageByTarget: new Map(),
+                attackerIdsByTargetId: new Map(),
+                communication: resolveCommunications([actor], [], [], 43117, 1),
+                messages: [],
+                seed: 43117,
+                turn: 1,
+            }),
+        /requires individual injuries/,
+    );
+    assert.throws(
+        () =>
+            resolveAftermath({
+                combatants: [actor],
+                damageRules: "rps",
+                damageByTarget: new Map([[actor.id, 7]]),
+                injuriesByTarget: new Map([[actor.id, [3, 3]]]),
+                attackerIdsByTargetId: new Map(),
+                communication: resolveCommunications([actor], [], [], 43117, 1),
+                messages: [],
+                seed: 43117,
+                turn: 1,
+            }),
+        /Inconsistent injury totals/,
+    );
+});
+
+test("RPS low HP halves mobility once and preserves baseline scores", () => {
+    const { resolveArenaRpsInjuries } = loadArenaModule("rps-injury");
+    const base = arena.createArenaSetup(43117, "rps").battle.combatants[0];
+    const actor = {
+        ...base,
+        health: 12,
+        maxHealth: 12,
+        basicMove: 5,
+        dodge: 9,
+    };
+    const apply = (fighter, wounds, turn = 1) => {
+        const result = resolveArenaRpsInjuries(fighter, wounds, 43117, turn);
+        return {
+            ...fighter,
+            health: result.health,
+            basicMove: result.basicMove,
+            dodge: result.dodge,
+            rpsMobilityBase: result.rpsMobilityBase,
+        };
+    };
+    const boundary = apply(actor, [8]);
+    assert.equal(boundary.basicMove, 5);
+    assert.equal(boundary.dodge, 9);
+    const wounded = apply(boundary, [1], 2);
+    assert.equal(wounded.basicMove, 3);
+    assert.equal(wounded.dodge, 5);
+    const unchanged = apply(wounded, [], 3);
+    assert.equal(unchanged.basicMove, 3);
+    assert.equal(unchanged.dodge, 5);
+    const restored = apply({ ...unchanged, health: 6 }, [], 4);
+    assert.equal(restored.basicMove, 5);
+    assert.equal(restored.dodge, 9);
+});
+
+test("RPS stun recovery waits a turn and uses Fit health bonus", () => {
+    const { resolveArenaRpsInjuries } = loadArenaModule("rps-injury");
+    const base = arena.createArenaSetup(43117, "rps").battle.combatants[0];
+    const weak = {
+        ...base,
+        health: 10,
+        maxHealth: 10,
+        maneuver: "do_nothing",
+        isStunned: false,
+        profile: {
+            ...base.profile,
+            attributes: { ...base.profile.attributes, HT: 3 },
+            lens: { ...base.profile.lens, advantages: [] },
+            commandLens: null,
+        },
+    };
+    const wounded = resolveArenaRpsInjuries(weak, [6], 43117, 1);
+    assert.equal(wounded.newlyStunned, true);
+    assert.equal(wounded.stunRecoveryRoll, null);
+    const fit = {
+        ...weak,
+        health: 4,
+        isStunned: true,
+        profile: {
+            ...weak.profile,
+            attributes: { ...weak.profile.attributes, HT: 10 },
+            lens: { ...weak.profile.lens, advantages: ["fit"] },
+        },
+    };
+    const recovered = resolveArenaRpsInjuries(fit, [], 43117, 2);
+    assert.equal(recovered.stunRecoveryTarget, 11);
+    assert.ok(recovered.stunRecoveryRoll);
+    assert.equal(
+        resolveArenaRpsInjuries({ ...fit, maneuver: "attack" }, [], 43117, 2)
+            .stunRecoveryRoll,
+        null,
+    );
+    const painResistant = {
+        ...weak,
+        profile: {
+            ...weak.profile,
+            lens: { ...weak.profile.lens, advantages: ["high_pain_threshold"] },
+        },
+    };
+    assert.equal(
+        resolveArenaRpsInjuries(painResistant, [3], 43117, 1).shockPenalty,
+        0,
+    );
+});
+
+test("RPS stunned defense loses four points without changing legacy defense", () => {
+    const { resolveAttack } = loadArenaModule("combat");
+    const { rollDice } = loadArenaModule("random");
+    const setup = arena.createArenaSetup(43117, "rps");
+    const base = setup.battle.combatants[0];
+    const actor = {
+        ...base,
+        meleeSkill: 99,
+        maneuver: "attack",
+        profile: {
+            ...base.profile,
+            lens: {
+                ...base.profile.lens,
+                equipment: {
+                    ...base.profile.lens.equipment,
+                    weapon: "gladius",
+                },
+            },
+        },
+    };
+    const enemy = setup.battle.combatants.find(
+        (fighter) => fighter.team === "red",
+    );
+    const target = {
+        ...enemy,
+        isStunned: true,
+        dodge: 20,
+        parry: 0,
+        block: null,
+        maneuver: "do_nothing",
+        threatAwarenessByCombatantId: { [actor.id]: 1 },
+        profile: {
+            ...enemy.profile,
+            lens: {
+                ...enemy.profile.lens,
+                equipment: { ...enemy.profile.lens.equipment, armor: "manica" },
+            },
+        },
+    };
+    const seed = Array.from({ length: 300 }, (_, index) => index + 1).find(
+        (value) => {
+            const attack = rollDice(3, 6, value, 1, `${actor.id}:attack`).total;
+            const defense = rollDice(
+                3,
+                6,
+                value,
+                1,
+                `${actor.id}:${target.id}:defense:dodge`,
+            ).total;
+            return attack > 4 && attack < 17 && defense > 16;
+        },
+    );
+    assert.ok(seed);
+    const usage = () => ({ blocks: 0, parries: 0, dodges: 0 });
+    const legacy = resolveAttack(actor, target, usage(), seed, 1);
+    const rps = resolveAttack(actor, target, usage(), seed, 1, "rps");
+    assert.equal(legacy.injury, 0);
+    assert.ok(rps.injury > 0);
+    assert.match(rps.messages.join(" "), /\/16/);
+    assert.equal(target.dodge, 20);
+});
 
 test("issued orders are separate from reception and personal execution", () => {
     const { resolveCommunications } = loadArenaModule(

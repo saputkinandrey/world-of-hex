@@ -4,6 +4,11 @@
   "version": "0.1.0",
   "type": "module",
   "scripts": {
+    "domain:build": "npm --prefix ../packages/domain-data run build",
+    "predev": "npm run domain:build",
+    "prebuild": "npm run domain:build",
+    "prearena:test": "npm run domain:build",
+    "prearena:batch": "npm run domain:build",
     "arena:batch": "node scripts/arena-batch.mjs",
     "arena:test": "node --test scripts/arena-engine.test.mjs",
     "arena:video:prepare": "node scripts/arena-video-prepare.mjs",
@@ -17,6 +22,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@wohex/domain-data": "file:../packages/domain-data",
     "@emotion/react": "11.11.4",
     "@emotion/styled": "11.11.5",
     "@mui/material": "5.16.7",

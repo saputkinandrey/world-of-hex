@@ -1,0 +1,122 @@
+{
+    "id": "fighter-12",
+    "name": "Nadir",
+    "race": "human",
+    "baseAttributes": {
+        "ST": 10,
+        "DX": 10,
+        "IQ": 10,
+        "HT": 10
+    },
+    "mutation": {
+        "increases": {
+            "ST": 2,
+            "DX": 2,
+            "IQ": 0,
+            "HT": 0
+        },
+        "decreases": {
+            "ST": 1,
+            "DX": 0,
+            "IQ": 0,
+            "HT": 2
+        },
+        "increaseCost": 60,
+        "decreaseCost": 30
+    },
+    "attributes": {
+        "ST": 11,
+        "DX": 12,
+        "IQ": 10,
+        "HT": 8
+    },
+    "lens": {
+        "id": "roman_triarii",
+        "name": "Roman Triarii",
+        "requirements": {
+            "ST": 11
+        },
+        "skills": [
+            {
+                "id": "spear",
+                "label": "Hasta",
+                "attribute": "DX",
+                "relativeLevel": 5,
+                "points": 16,
+                "difficulty": "A"
+            },
+            {
+                "id": "shortsword",
+                "label": "Gladius",
+                "attribute": "DX",
+                "relativeLevel": 1,
+                "points": 1,
+                "difficulty": "A"
+            },
+            {
+                "id": "shield",
+                "label": "Shield",
+                "attribute": "DX",
+                "relativeLevel": 4,
+                "points": 12,
+                "difficulty": "E"
+            },
+            {
+                "id": "soldier",
+                "label": "Soldier (Roman)",
+                "attribute": "IQ",
+                "relativeLevel": 1,
+                "points": 1,
+                "specialization": "roman",
+                "difficulty": "A"
+            },
+            {
+                "id": "fighter",
+                "label": "Боец",
+                "attribute": "HT",
+                "relativeLevel": 0,
+                "points": 1,
+                "difficulty": "A"
+            },
+            {
+                "id": "tactics",
+                "label": "Tactics",
+                "attribute": "IQ",
+                "relativeLevel": 0,
+                "points": 1,
+                "difficulty": "H"
+            }
+        ],
+        "advantages": [],
+        "leveledAdvantages": [
+            {
+                "id": "military_rank",
+                "level": 0
+            }
+        ],
+        "disadvantages": []
+    },
+    "commandLens": null,
+    "equipmentLoadoutId": "roman_triarii",
+    "will": 10,
+    "combatDeck": {
+        "startingCards": [
+            "equipment:hasta_triarii:0",
+            "equipment:republican_scutum:0",
+            "evaluate:0"
+        ],
+        "equipment": {
+            "hasta_triarii": 4,
+            "republican_scutum": 4
+        },
+        "stratagems": {
+            "evaluate": 1,
+            "shield-slam": 4,
+            "feverish-defense": 2,
+            "mighty-blow": 2,
+            "flurry-of-blows": 1,
+            "corner": 1,
+            "withdraw": 1
+        }
+    }
+}
