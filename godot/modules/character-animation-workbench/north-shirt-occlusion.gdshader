@@ -1,4 +1,5 @@
 shader_type canvas_item;
+#include "res://modules/character-animation-workbench/region-composition.gdshaderinc"
 
 uniform bool occlusion_enabled = false;
 uniform sampler2D garment_mask : filter_linear, repeat_disable;
@@ -8,6 +9,7 @@ uniform vec2 garment_texture_size;
 uniform vec2 garment_offset;
 
 void fragment() {
+	COLOR = compose_region(COLOR, UV, TEXTURE_PIXEL_SIZE, SCREEN_UV, SCREEN_PIXEL_SIZE, REGION_SURROUND_ALPHA);
 	if (occlusion_enabled) {
 		vec2 body_pixel = UV / TEXTURE_PIXEL_SIZE - body_atlas_origin;
 		vec2 garment_pixel = body_pixel - garment_offset + garment_atlas_origin;

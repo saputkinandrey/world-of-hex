@@ -1,5 +1,9 @@
 # Pixel deformation masks
 
+Current v1.3 composition, finite UV joints, depth tables and the rejected
+automatic Skin relaxation experiment: [V1.3-WORKFLOW.md](V1.3-WORKFLOW.md).
+The seam-repair sections below retain the earlier implementation history.
+
 The S, N, SW and NW rigs use editable masks in `masks/`. Existing animation
 clips still animate native `Bone2D` nodes through `AnimationPlayer`. Original
 sprite PNGs and the earlier mesh templates are retained.

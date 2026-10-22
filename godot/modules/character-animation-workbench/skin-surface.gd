@@ -1,8 +1,23 @@
 @tool
 extends Polygon2D
 
+const RegionComposition = preload("res://modules/character-animation-workbench/region-compositor.gd")
+
 @export_file("*.png") var rigidity_mask_path: String = ""
 @export_file("*.png") var ownership_mask_path: String = ""
+@export var composition_direction: int = 0
+@export var safe_compression: bool = true
+@export_enum("Normal", "Flesh chunks", "Ligaments", "Skin", "Ownership", "Depth", "UV", "Quality", "All regions") var region_debug: int = 0
+var _composition_direction: int = -1
+var _cell_polygons: Array = []
+var _composition_map: Texture2D
+
+func _ready() -> void:
+	set_notify_transform(true)
+
+func _notification(what: int) -> void:
+	if what == NOTIFICATION_TRANSFORM_CHANGED and is_node_ready() and _composition_map != null:
+		_update_composition_transform()
 
 # These values travel with native UV edits when the scene is saved. They let a
 # new atlas frame reuse edited UVs instead of recreating them from the polygon.
@@ -32,9 +47,45 @@ func rebind_atlas(state: Dictionary, mirrored: bool) -> void:
 	bound_flip_h = next_flip_h
 	bound_flip_v = state.flip_v
 	_bind_elastic_seams()
+	_bind_composition()
 	offset = state.offset * Vector2(-1.0 if mirrored else 1.0, 1.0)
 	if not state.centered:
 		offset += size * 0.5
+
+func configure_composition(direction: int, safe: bool, debug: int) -> void:
+	composition_direction = direction
+	safe_compression = safe
+	region_debug = debug
+	if texture != null:
+		_bind_composition()
+
+func _bind_composition() -> void:
+	if not has_meta("cell_regions"):
+		return
+	if _cell_polygons.is_empty():
+		for index: int in get_meta("cell_triangle_indices"):
+			_cell_polygons.append(polygons[index])
+	if _composition_direction != composition_direction:
+		var composition: Dictionary = RegionComposition.compose(self, composition_direction, _cell_polygons)
+		polygons = composition.polygons
+		set_meta("cell_triangle_indices", composition.indices)
+		set_meta("directional_depth", composition.table)
+		_composition_map = composition.map
+		_composition_direction = composition_direction
+	var shader_material: ShaderMaterial = material
+	shader_material.set_shader_parameter("compositor_enabled", true)
+	shader_material.set_shader_parameter("region_map", _composition_map)
+	shader_material.set_shader_parameter("region_frame_size", Vector2(get_meta("frame_size")))
+	shader_material.set_shader_parameter("region_atlas_origin", bound_atlas_origin)
+	shader_material.set_shader_parameter("region_flip", Vector2(1 if bound_flip_h else 0, 1 if bound_flip_v else 0))
+	shader_material.set_shader_parameter("safe_compression", safe_compression)
+	shader_material.set_shader_parameter("region_debug", region_debug)
+	_update_composition_transform()
+
+func _update_composition_transform() -> void:
+	var determinant: float = get_global_transform_with_canvas().determinant()
+	material.set_shader_parameter("region_rest_area", absf(determinant))
+	material.set_shader_parameter("region_orientation", signf(determinant) * (-1.0 if bound_flip_h != bound_flip_v else 1.0))
 
 func _bind_elastic_seams() -> void:
 	if not has_meta("elastic_triangles"):

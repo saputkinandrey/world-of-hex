@@ -135,6 +135,19 @@ text = "Mesh / bones overlay"
 layout_mode = 2
 text = "Source diagnostics"
 
+[node name="SafeCompression" type="CheckButton" parent="UI/Panel/Margin/Controls"]
+layout_mode = 2
+text = "Safe ligament compression"
+button_pressed = true
+
+[node name="RegionDebug" type="OptionButton" parent="UI/Panel/Margin/Controls"]
+layout_mode = 2
+
+[node name="RegionLegend" type="Label" parent="UI/Panel/Margin/Controls"]
+layout_mode = 2
+text = "Red flesh / green ligament / blue skin\nEven chunk Z / odd ligament Z (inside module)"
+theme_override_font_sizes/font_size = 11
+
 [node name="DiagnosticsScroll" type="ScrollContainer" parent="UI/Panel/Margin/Controls"]
 layout_mode = 2
 custom_minimum_size = Vector2(300, 180)
@@ -164,6 +177,9 @@ text = "Loading saved composition..."
 [connection signal="toggled" from="UI/Panel/Margin/Controls/Grid" to="." method="_on_grid_toggled"]
 
 [connection signal="toggled" from="UI/Panel/Margin/Controls/MeshOverlay" to="." method="_on_mesh_toggled"]
+
+[connection signal="toggled" from="UI/Panel/Margin/Controls/SafeCompression" to="." method="_on_safe_compression_toggled"]
+[connection signal="item_selected" from="UI/Panel/Margin/Controls/RegionDebug" to="." method="_on_region_debug_selected"]
 
 [editable path="Preview/Mirror/South"]
 

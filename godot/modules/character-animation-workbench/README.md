@@ -174,3 +174,6 @@ south_west-клип, для north_east — north_west; отражение вып
 
 Pixel ownership and rigidity masks for S/N/SW/NW:
 [PIXEL-MASKS-WORKFLOW.md](PIXEL-MASKS-WORKFLOW.md).
+
+Композиция v1.3: шесть таблиц глубины, перекрытие связок, диагностика кожи
+и отклонённый эксперимент сглаживания: [V1.3-WORKFLOW.md](V1.3-WORKFLOW.md).

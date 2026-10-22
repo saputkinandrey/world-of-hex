@@ -73,6 +73,7 @@ func apply_snapshot() -> void:
 			surface.texture = null
 			continue
 		if surface is Polygon2D:
+			surface.composition_direction = direction
 			_bind_mesh(surface, state, body_transform.affine_inverse() * base.transform)
 		else:
 			_bind_weapon(surface, state)

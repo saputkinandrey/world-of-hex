@@ -2,6 +2,18 @@
 extends "res://modules/character-animation-workbench/character-animation-workbench.gd"
 
 const RIG_NAMES: Array[String] = ["South", "North", "SouthWest", "NorthWest"]
+const REGION_VIEWS: Array[String] = ["Normal", "Flesh chunks", "Ligaments", "Skin", "Ownership / bones", "Directional depth", "UV / triangles", "Quality: red inversion, pink skin limit", "All regions / overlap"]
+
+@export var safe_compression: bool = true:
+	set(value):
+		safe_compression = value
+		if is_node_ready():
+			_apply_composition_options()
+@export_enum("Normal", "Flesh chunks", "Ligaments", "Skin", "Ownership", "Depth", "UV", "Quality", "All regions") var region_debug: int = 0:
+	set(value):
+		region_debug = value
+		if is_node_ready():
+			_apply_composition_options()
 
 @export var show_mesh: bool = false:
 	set(value):
@@ -15,6 +27,11 @@ var _unavailable_clip: String = ""
 
 func _ready() -> void:
 	super()
+	var views: OptionButton = $UI/Panel/Margin/Controls/RegionDebug
+	views.clear()
+	for label: String in REGION_VIEWS:
+		views.add_item(label)
+	_apply_composition_options()
 	var clips: OptionButton = $UI/Panel/Margin/Controls/Clip
 	for index: int in clips.item_count:
 		if clips.get_item_text(index) == "rig_lean":
@@ -77,7 +94,29 @@ func apply_source() -> void:
 	if _catalog.get_meta("source_hash") != FileAccess.get_sha256(SOURCE_PATH):
 		messages.append("Saved source scene changed. Reimport the base catalog.")
 	_set_diagnostics(messages)
+	_apply_composition_options()
 	queue_redraw()
+
+func _apply_composition_options() -> void:
+	if _active_rig == null:
+		return
+	for base: Node2D in _active_rig.get_node("Layers").get_children():
+		if base.has_node("Surface") and base.get_node("Surface") is Polygon2D:
+			base.get_node("Surface").configure_composition(source_direction, safe_compression, region_debug)
+	$UI/Panel/Margin/Controls/SafeCompression.set_pressed_no_signal(safe_compression)
+	var views: OptionButton = $UI/Panel/Margin/Controls/RegionDebug
+	if views.item_count > region_debug:
+		views.select(region_debug)
+
+func _on_region_debug_selected(index: int) -> void:
+	region_debug = index
+
+func _on_safe_compression_toggled(value: bool) -> void:
+	safe_compression = value
+
+func _on_zoom_changed(value: float) -> void:
+	super(value)
+	_apply_composition_options()
 
 func reset_motion() -> void:
 	$AnimationPlayer.stop()

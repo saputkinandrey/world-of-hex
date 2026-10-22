@@ -192,6 +192,29 @@ def compile_profile(name, profile, body_profile):
         index = y*width+x
         return owners[index], rigid[index]
 
+    regions, links = [], []
+    region_image = Image.new('RGBA', (width,height))
+    region_colors = [(0,0,0,0),(216,80,80,255),(60,190,100,255),(65,135,240,255)]
+    for y in range(height):
+        for x in range(width):
+            owner, strength = cell(x,y)
+            kind, child = (1 if strength else 0), 255
+            if 0 < strength < 255:
+                candidates = []
+                for dy in range(-2,3):
+                    for dx in range(-2,3):
+                        other, amount = cell(x+dx,y+dy)
+                        if amount and other != owner and connected(owner,other):
+                            candidates.append((dx*dx+dy*dy, other if PARENTS[other] == owner else owner))
+                if candidates:
+                    kind, child = 2, min(candidates)[1]
+            if kind == 1 and any(cell(x+dx,y+dy)[1] == 0 for dx,dy in [(1,0),(-1,0),(0,1),(0,-1)]):
+                kind = 3
+            regions.append(owner*4+kind)
+            links.append(child)
+            region_image.putpixel((x,y), region_colors[kind])
+    region_image.save(MASKS/f'{name}-regions.png')
+
     def joined(a,b):
         return connected(a,b) or (not body_profile and frozenset((a,b)) in GARMENT_SLEEVE_LINKS)
 
@@ -247,6 +270,8 @@ def compile_profile(name, profile, body_profile):
             indices = []
             for px,py in corners:
                 region = chart(px,py,x,y)
+                # Preserve painted rim weights: automatic Skin relaxation made
+                # a visible comb at SW run .5 (see V1.3-WORKFLOW.md).
                 influences = ((owner,1.0),) if strength == 255 else field(px,py,region)
                 indices.append(vertex(px,py,influences,region))
             triangles.extend([(indices[0],indices[1],indices[2]), (indices[0],indices[2],indices[3])])
@@ -260,12 +285,16 @@ def compile_profile(name, profile, body_profile):
     triangles = [triangles[index] for index in order]
     def number(value):
         return str(round(value,8))
-    text = '[gd_scene format=3]\n\n[ext_resource type="Script" path="'+RES+'skin-surface.gd" id="1"]\n\n[node name="Surface" type="Polygon2D"]\nscript = ExtResource("1")\nz_as_relative = false\ntexture_filter = 1\nskeleton = NodePath("../../../Skeleton2D")\n'
+    text = '[gd_scene format=3]\n\n[ext_resource type="Script" path="'+RES+'skin-surface.gd" id="1"]\n'
+    text += '[ext_resource type="Shader" path="'+RES+'region-composition.gdshader" id="composition"]\n\n[sub_resource type="ShaderMaterial" id="CompositionMaterial"]\nresource_local_to_scene = true\nshader = ExtResource("composition")\n\n'
+    text += '[node name="Surface" type="Polygon2D"]\nscript = ExtResource("1")\nmaterial = SubResource("CompositionMaterial")\nz_as_relative = false\ntexture_filter = 1\nskeleton = NodePath("../../../Skeleton2D")\n'
     text += f'rigidity_mask_path = "{RES}masks/{name}-rigidity.png"\nownership_mask_path = "{RES}masks/{name}-owners.png"\n'
     text += 'polygon = PackedVector2Array('+', '.join(number(v) for point in vertices for v in point)+')\n'
     text += 'uv = PackedVector2Array('+', '.join(number(v) for x,y in vertices for v in (x+width/2,y+height/2))+')\n'
     text += f'internal_vertex_count = {len(vertices)-4}\nmetadata/frame_size = Vector2i({width}, {height})\nmetadata/mask_profile = "{name}"\n'
     text += 'metadata/cell_triangle_indices = PackedInt32Array('+', '.join(map(str,cell_triangles))+')\n'
+    text += 'metadata/cell_regions = PackedByteArray('+', '.join(map(str,regions))+')\n'
+    text += 'metadata/cell_ligament_child = PackedByteArray('+', '.join(map(str,links))+')\n'
     text += 'polygons = ['+', '.join('PackedInt32Array('+', '.join(map(str, t))+')' for t in triangles)+']\n'
     bones = []
     for bone,path in enumerate(PATHS):

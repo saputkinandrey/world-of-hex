@@ -219,6 +219,7 @@ func _roundtrip(workbench: Node2D) -> void:
 	var saved: PackedScene = ResourceLoader.load(path, "", ResourceLoader.CACHE_MODE_IGNORE)
 	var reopened: Node = saved.instantiate()
 	root.add_child(reopened)
+	_check(reopened.get_node("UI/Panel/Margin/Controls/RegionDebug").item_count == reopened.REGION_VIEWS.size(), "Region diagnostics do not duplicate after scene reopening")
 	_check(reopened.get_node("AnimationPlayer").get_animation("roundtrip/probe").track_get_key_count(0) == 2, "New bone keys survive scene reopening")
 	_check(reopened.get_node("Preview/Mirror/South/Layers/ShirtsBase/Surface").get_bone_weights(1)[0] == 0.125, "Manual painted weight survives scene reopening")
 	_check(reopened.get_node("Preview/Mirror/South/Layers/ShirtsBase/Surface").uv[0].is_equal_approx(uv[0]), "Native UV edit survives scene reopening")
