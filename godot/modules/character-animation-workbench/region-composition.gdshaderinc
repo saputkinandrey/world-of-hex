@@ -59,7 +59,7 @@ vec4 compose_region(vec4 source, vec2 uv, vec2 texel, vec2 screen_uv, vec2 scree
 	}
 	if (motion_bridge > 0.5) {
 		if (!motion_gap_repairs_enabled) { return vec4(0.0); }
-		if (motion_kind == 1.0 && motion_secondary > 0.5) { return vec4(0.0); }
+		if (motion_secondary > 0.5) { return vec4(0.0); }
 		if (motion_visibility < 0.001) { return vec4(0.0); }
 		if (source.a < 0.9999 || (surround < 0.9999 && motion_rim < 0.5)) { return vec4(0.0); }
 		kind = motion_kind;
