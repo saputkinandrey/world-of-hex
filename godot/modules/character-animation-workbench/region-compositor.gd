@@ -8,6 +8,7 @@ const PARENTS: Array[int] = [-1,0,1,2,2,4,2,6,0,8,0,10]
 const FLESH: int = 1
 const LIGAMENT: int = 2
 const SKIN: int = 3
+const BRIDGE_TRIANGLES: int = 8
 
 static func depth_table(direction: int) -> Dictionary:
 	assert(direction >= 0 and direction < DIRECTIONS.size(), "Unsupported composition direction")
@@ -50,12 +51,41 @@ static func compose(surface: Polygon2D, direction: int, cells: Array) -> Diction
 		if source.get_pixelv(Vector2i(center.floor())).a < 1.0:
 			continue
 		buckets[table.flesh[int(regions[cell]/4)]].append(-index-1)
+	var bridge_polygons: Array = surface.get_meta("motion_bridge_polygons",[])
+	var bridge_owners: PackedByteArray = surface.get_meta("motion_bridge_owners",PackedByteArray())
+	var drivers: PackedInt32Array = surface.get_meta("motion_reveal_hands",PackedInt32Array())
+	var bridge_count: int = int(bridge_owners.size()/2)
+	var bridge_map: Image = Image.create(256,maxi(1,ceili(bridge_count/256.0)),false,Image.FORMAT_RGBA8)
+	for index: int in bridge_count:
+		var a: int = bridge_owners[index*2]
+		var b: int = bridge_owners[index*2+1]
+		var depth: int = table.flesh[a] if a == b else maxi(1,mini(table.flesh[a],table.flesh[b])-1)
+		var limb_joint: bool = BONES[maxi(a,b)] in ["ForearmL","ForearmR","CalfL","CalfR"] and (PARENTS[a] == b or PARENTS[b] == a)
+		bridge_map.set_pixel(index%256,int(index/256),Color.from_rgba8(depth,255 if limb_joint else 0,FLESH if a == b else LIGAMENT,0 if not drivers.is_empty() and drivers[index] >= 0 else 255))
+		var bounds: Rect2 = Rect2(surface.uv[bridge_polygons[index*BRIDGE_TRIANGLES][0]],Vector2.ZERO)
+		for triangle: int in range(index*BRIDGE_TRIANGLES,(index+1)*BRIDGE_TRIANGLES):
+			for vertex: int in bridge_polygons[triangle]:
+				bounds = bounds.expand(surface.uv[vertex])
+		var opaque: bool = true
+		for y: int in range(floori(bounds.position.y),ceili(bounds.end.y)):
+			for x: int in range(floori(bounds.position.x),ceili(bounds.end.x)):
+				if source.get_pixel(x,y).a < 1.0:
+					opaque = false
+		if opaque:
+			buckets[depth].append(-overlap_cells.size()-index-1)
 	var polygons: Array = []
 	var indices: PackedInt32Array = []
 	var overlap_indices: PackedInt32Array = []
+	var bridge_indices: PackedInt32Array = []
 	indices.resize(cells.size())
 	for bucket: Array in buckets:
 		for cell: int in bucket:
+			if cell < -overlap_cells.size():
+				var index: int = -cell-overlap_cells.size()-1
+				for triangle: int in range(index*BRIDGE_TRIANGLES,(index+1)*BRIDGE_TRIANGLES):
+					bridge_indices.append(polygons.size())
+					polygons.append(bridge_polygons[triangle])
+				continue
 			if cell < 0:
 				var index: int = -cell-1
 				for triangle: int in [index*2,index*2+1]:
@@ -66,4 +96,4 @@ static func compose(surface: Polygon2D, direction: int, cells: Array) -> Diction
 			polygons.append(cells[cell * 2])
 			indices[cell * 2 + 1] = polygons.size()
 			polygons.append(cells[cell * 2 + 1])
-	return {"map": ImageTexture.create_from_image(image), "polygons": polygons, "indices": indices, "overlap_indices":overlap_indices, "table": table}
+	return {"map": ImageTexture.create_from_image(image), "polygons": polygons, "indices": indices, "overlap_indices":overlap_indices, "bridge_indices":bridge_indices, "bridge_image":bridge_map, "bridge_depth":ImageTexture.create_from_image(bridge_map), "table": table}

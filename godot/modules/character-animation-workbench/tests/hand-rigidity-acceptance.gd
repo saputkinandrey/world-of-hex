@@ -3,7 +3,11 @@ extends "res://modules/character-animation-workbench/tests/walk-acceptance.gd"
 const POINTS: Array[Vector2] = [Vector2(-27.5, 23.5), Vector2(-25.5, 23.5), Vector2(-26.5, 25.5)]
 
 func _weights_at(surface: Polygon2D, point: Vector2) -> PackedFloat32Array:
-	for triangle: PackedInt32Array in surface.polygons:
+	var size: Vector2i = surface.get_meta("frame_size")
+	var cell: Vector2i = Vector2i((point+Vector2(size)*.5).floor())
+	var indices: PackedInt32Array = surface.get_meta("cell_triangle_indices")
+	for index: int in [indices[(cell.y*size.x+cell.x)*2],indices[(cell.y*size.x+cell.x)*2+1]]:
+		var triangle: PackedInt32Array = surface.polygons[index]
 		var a: Vector2 = surface.polygon[triangle[0]]
 		var b: Vector2 = surface.polygon[triangle[1]]
 		var c: Vector2 = surface.polygon[triangle[2]]

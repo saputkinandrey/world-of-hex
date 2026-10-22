@@ -1,7 +1,7 @@
 extends "res://modules/character-animation-workbench/tests/render-walk.gd"
 
 const COMPARISON = preload("res://modules/character-animation-workbench/tests/comparison-preview.tscn")
-const DIRECTORY: String = "res://../tmp/animation-workbench/composition-ligaments-audit/"
+const DIRECTORY: String = "res://../tmp/animation-workbench/composition-motion-audit/"
 const NAMES: Array[String] = ["South", "North", "SouthWest", "NorthWest"]
 
 func _red_pixels(image: Image, column: int) -> int:

@@ -15,6 +15,7 @@ OUTPUT = ROOT / 'rigs/masked'
 MANIFEST = MASKS / 'profiles.json'
 BONES = ['Pelvis', 'Spine', 'Chest', 'Head', 'ArmL', 'ForearmL', 'ArmR', 'ForearmR', 'ThighL', 'CalfL', 'ThighR', 'CalfR']
 PARENTS = [-1, 0, 1, 2, 2, 4, 2, 6, 0, 8, 0, 10]
+MOTION_BRIDGE_TRIANGLES = [(0,1,2),(0,2,3),(0,1,3),(1,2,3)]
 GARMENT_SLEEVE_LINKS = {frozenset((BONES.index('Spine'), BONES.index(arm))) for arm in ['ArmL','ArmR']}
 PATHS = ['Pelvis', 'Pelvis/Spine', 'Pelvis/Spine/Chest', 'Pelvis/Spine/Chest/Head',
          'Pelvis/Spine/Chest/ArmL', 'Pelvis/Spine/Chest/ArmL/ForearmL',
@@ -296,6 +297,57 @@ def compile_profile(name, profile, body_profile):
         indices = [vertex(px,py,((owner,1.0),),('overlap',cell_index)) for px,py in corners]
         overlap_cells.append(cell_index)
         overlap_polygons.extend([(indices[0],indices[1],indices[2]),(indices[0],indices[2],indices[3])])
+    bridge_start = len(vertices)
+    bridge_polygons, bridge_owners = [], []
+    reveal_hands, reveal_points = [], []
+    bridge_uv = {}
+    motion_path = MASKS/'motion-bridges.json'
+    measured = json.loads(motion_path.read_text())['profiles'].get(name,[]) if motion_path.exists() else []
+    for index, edge in enumerate(measured):
+        envelope = edge.get('type') == 'joint_envelope'
+        calf_fill = edge.get('type') == 'calf_fill'
+        a,b = edge['a'],edge['b']
+        if envelope:
+            corners = [tuple(p) for p in edge['geometry']]
+            left,top = corners[0]
+            right,bottom = corners[2]
+            sx,sy,uw,uh = edge['uv_rect']
+            uv_corners = [(sx,sy),(sx+uw,sy),(sx+uw,sy+uh),(sx,sy+uh)]
+            cells = [(corners[0][0],corners[0][1]),(corners[1][0]-1,corners[1][1]),(corners[2][0]-1,corners[2][1]-1),(corners[3][0],corners[3][1]-1)]
+        elif calf_fill:
+            left,top = edge['x'],edge['y']
+            right,bottom = left+1,top+1
+            corners = [(left,top),(right,top),(right,bottom),(left,bottom)]
+            sx,sy = edge['sample_x'],edge['sample_y']
+            uv_corners = [(sx,sy),(sx+1,sy),(sx+1,sy+1),(sx,sy+1)]
+            cells = [(left,top)]*4
+        else:
+            x,y,dx,dy,depth = (edge[key] for key in ['x','y','dx','dy','depth'])
+            left,top = x-(depth-1)*dx,y-(depth-1)*dy
+            right,bottom = x+1+depth*dx,y+1+depth*dy
+            corners = [(left,top),(right,top),(right,bottom),(left,bottom)]
+            uv_corners = corners
+            cells = [(left,top),(right-1,top),(right-1,bottom-1),(left,bottom-1)]
+        reveal_hands.append(edge.get('driver',b))
+        reveal_points.append(((left+right)/2-width/2,(top+bottom)/2-height/2))
+        influences_at_corner = []
+        for (px,py),(cx,cy) in zip(corners,cells):
+            owner,strength = cell(cx,cy)
+            influences = ((a,1.0),) if calf_fill else (((owner,1.0),) if strength == 255 else field(px,py,chart(px,py,cx,cy)))
+            influences_at_corner.append(influences)
+        # All four triangles cover the moving convex envelope. A paired UV
+        # winding lets the shader reject the folded mapping, never the gap.
+        for triangle_index, triangle in enumerate(MOTION_BRIDGE_TRIANGLES):
+            for reverse_uv in [False,True]:
+                uv_order = (triangle[0],triangle[2],triangle[1]) if reverse_uv else triangle
+                ids = []
+                for corner, uv_corner in zip(triangle,uv_order):
+                    px,py = corners[corner]
+                    vertex_id = vertex(px,py,influences_at_corner[corner],('motion_bridge',index,triangle_index,reverse_uv))
+                    ids.append(vertex_id)
+                    bridge_uv[vertex_id] = uv_corners[uv_corner]
+                bridge_polygons.append(tuple(ids))
+        bridge_owners.extend([a,b])
     def number(value):
         return str(round(value,8))
     text = '[gd_scene format=3]\n\n[ext_resource type="Script" path="'+RES+'skin-surface.gd" id="1"]\n'
@@ -303,7 +355,7 @@ def compile_profile(name, profile, body_profile):
     text += '[node name="Surface" type="Polygon2D"]\nscript = ExtResource("1")\nmaterial = SubResource("CompositionMaterial")\nz_as_relative = false\ntexture_filter = 1\nskeleton = NodePath("../../../Skeleton2D")\n'
     text += f'rigidity_mask_path = "{RES}masks/{name}-rigidity.png"\nownership_mask_path = "{RES}masks/{name}-owners.png"\n'
     text += 'polygon = PackedVector2Array('+', '.join(number(v) for point in vertices for v in point)+')\n'
-    text += 'uv = PackedVector2Array('+', '.join(number(v) for x,y in vertices for v in (x+width/2,y+height/2))+')\n'
+    text += 'uv = PackedVector2Array('+', '.join(number(v) for index,(x,y) in enumerate(vertices) for v in bridge_uv.get(index,(x+width/2,y+height/2)))+')\n'
     text += f'internal_vertex_count = {len(vertices)-4}\nmetadata/frame_size = Vector2i({width}, {height})\nmetadata/mask_profile = "{name}"\n'
     text += 'metadata/cell_triangle_indices = PackedInt32Array('+', '.join(map(str,cell_triangles))+')\n'
     text += 'metadata/cell_regions = PackedByteArray('+', '.join(map(str,regions))+')\n'
@@ -311,12 +363,20 @@ def compile_profile(name, profile, body_profile):
     text += f'metadata/flesh_overlap_vertex_start = {overlap_start}\n'
     text += 'metadata/flesh_overlap_cells = PackedInt32Array('+', '.join(map(str,overlap_cells))+')\n'
     text += 'metadata/flesh_overlap_polygons = ['+', '.join('PackedInt32Array('+', '.join(map(str,t))+')' for t in overlap_polygons)+']\n'
+    text += f'metadata/motion_bridge_vertex_start = {bridge_start}\n'
+    text += 'metadata/motion_bridge_owners = PackedByteArray('+', '.join(map(str,bridge_owners))+')\n'
+    text += 'metadata/motion_bridge_polygons = ['+', '.join('PackedInt32Array('+', '.join(map(str,t))+')' for t in bridge_polygons)+']\n'
+    text += 'metadata/motion_reveal_hands = PackedInt32Array('+', '.join(map(str,reveal_hands))+')\n'
+    text += 'metadata/motion_reveal_points = PackedVector2Array('+', '.join(number(v) for point in reveal_points for v in point)+')\n'
     text += 'polygons = ['+', '.join('PackedInt32Array('+', '.join(map(str, t))+')' for t in triangles)+']\n'
     bones = []
     for bone,path in enumerate(PATHS):
         bones.extend(['"'+path+'"','PackedFloat32Array('+', '.join(number(w.get(bone,0)) for w in weights)+')'])
     text += 'bones = ['+', '.join(bones)+']\n'
-    (OUTPUT / f'{name}.tscn').write_text(text,encoding='utf-8')
+    destination = OUTPUT / f'{name}.tscn'
+    temporary = destination.with_suffix('.tscn.tmp')
+    temporary.write_text(text,encoding='utf-8')
+    temporary.replace(destination)
     print(f'Compiled {name}: {len(vertices)} vertices, {len(triangles)} textured triangles',flush=True)
 
 

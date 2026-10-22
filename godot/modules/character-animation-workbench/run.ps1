@@ -1,5 +1,5 @@
 param(
-    [ValidateSet('import', 'test', 'visual-test', 'parse', 'smoke', 'source', 'deformation', 'skeletal-test', 'skeletal-visual', 'skeletal-smoke', 'skeletal-proof', 'skeletal-editor', 'walk-render', 'walk-test', 'walk-preview', 'run-bake', 'run-test', 'run-render', 'run-preview', 'north-bake', 'comparison-test', 'comparison-render', 'comparison-preview', 'north-layer-test', 'south-west-bake', 'south-west-test', 'north-west-bake', 'north-west-test', 'hand-test', 'surface-test', 'ligament-test', 'composition-test', 'composition-render', 'composition-video', 'anatomy-test', 'seam-visual', 'seam-test', 'mask-test', 'mask-init', 'mask-refine', 'mask-bake')]
+    [ValidateSet('import', 'test', 'visual-test', 'parse', 'smoke', 'source', 'deformation', 'skeletal-test', 'skeletal-visual', 'skeletal-smoke', 'skeletal-proof', 'skeletal-editor', 'walk-render', 'walk-test', 'walk-preview', 'run-bake', 'run-test', 'run-render', 'run-preview', 'north-bake', 'comparison-test', 'comparison-render', 'comparison-preview', 'north-layer-test', 'south-west-bake', 'south-west-test', 'north-west-bake', 'north-west-test', 'hand-test', 'surface-test', 'gap-test', 'gap-preview', 'gap-build', 'gap-audit', 'ligament-test', 'composition-test', 'composition-render', 'composition-video', 'anatomy-test', 'seam-visual', 'seam-test', 'mask-test', 'mask-init', 'mask-refine', 'mask-bake')]
     [string]$Action = 'test'
 )
 $ErrorActionPreference = 'Stop'
@@ -7,6 +7,11 @@ $projectPath = (Resolve-Path (Join-Path $PSScriptRoot '../..')).Path
 $repositoryPath = (Resolve-Path (Join-Path $projectPath '..')).Path
 $outputPath = Join-Path $repositoryPath 'tmp/animation-workbench'
 New-Item -ItemType Directory -Force -Path $outputPath | Out-Null
+if ($Action -eq 'gap-build') {
+    & python (Join-Path $PSScriptRoot 'tools/motion_bridges.py')
+    if ($LASTEXITCODE -ne 0) { throw 'Motion bridge selection failed.' }
+    return
+}
 if ($Action -in @('mask-init', 'mask-refine', 'mask-bake')) {
     $maskAction = if ($Action -eq 'mask-init') { 'init' } elseif ($Action -eq 'mask-refine') { 'refine' } else { 'bake' }
     if ($Action -eq 'mask-refine') { & python (Join-Path $PSScriptRoot 'tools/refine_anatomy.py') }
@@ -25,6 +30,9 @@ $modulePath = 'res://modules/character-animation-workbench'
 $engineLogPath = Join-Path $outputPath "$Action-engine.log"
 $engineArguments = @('--path', '.', '--log-file', ('"' + $engineLogPath + '"'))
 switch ($Action) {
+    'gap-test' { $engineArguments += @('--rendering-method', 'gl_compatibility', '--script', "$modulePath/tests/motion-gap-acceptance.gd") }
+    'gap-preview' { $engineArguments += @('--rendering-method', 'gl_compatibility', '--script', "$modulePath/tests/render-comparison.gd", '--', '--proof') }
+    'gap-audit' { $engineArguments += @('--headless', '--script', "$modulePath/tests/audit-motion-gaps.gd") }
     'ligament-test' { $engineArguments += @('--headless', '--script', "$modulePath/tests/ligament-overlap-acceptance.gd") }
     'composition-test' { $engineArguments += @('--headless', '--script', "$modulePath/tests/composition-acceptance.gd") }
     'composition-video' { $engineArguments += @('--rendering-method', 'gl_compatibility', '--script', "$modulePath/tests/render-comparison.gd") }

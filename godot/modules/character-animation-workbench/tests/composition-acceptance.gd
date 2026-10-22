@@ -27,7 +27,8 @@ func _run() -> void:
 		for index: int in indices:
 			visited[index] = true
 		var overlap_indices: PackedInt32Array = surface.get_meta("flesh_overlap_indices",PackedInt32Array())
-		_check(visited.size() == cells.size() * 2 and surface.polygons.size() == cells.size() * 2 + overlap_indices.size(), "Every source cell has two base triangles plus explicitly tracked flesh margins")
+		var bridge_indices: PackedInt32Array = surface.get_meta("motion_bridge_indices",PackedInt32Array())
+		_check(visited.size() == cells.size() * 2 and surface.polygons.size() == cells.size() * 2 + overlap_indices.size()+bridge_indices.size(), "Every source cell has two base triangles plus explicitly tracked margins and bridges")
 		var kinds: Dictionary = {}
 		for region: int in cells:
 			kinds[region % 4] = true

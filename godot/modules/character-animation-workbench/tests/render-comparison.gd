@@ -1,7 +1,8 @@
 extends "res://modules/character-animation-workbench/tests/render-walk.gd"
 
 const COMPARISON = preload("res://modules/character-animation-workbench/tests/comparison-preview.tscn")
-const COMPARISON_OUTPUT = "res://../tmp/animation-workbench/comparison-ligaments"
+const COMPARISON_OUTPUT = "res://../tmp/animation-workbench/comparison-motion-bridges"
+const PROOF_FRAMES: Array[int] = [30,37,67,84,90,94,98,99,112,162,179,223,257]
 
 func _run() -> void:
 	var scene: Node = COMPARISON.instantiate()
@@ -25,7 +26,8 @@ func _run() -> void:
 		quit(1)
 		return
 	var sequence: Animation = scene.get_node("SequencePlayer").get_animation("comparison")
-	var directory: String = COMPARISON_OUTPUT + "/sequence"
+	var proof: bool = "--proof" in OS.get_cmdline_user_args()
+	var directory: String = COMPARISON_OUTPUT + ("/proof" if proof else "/sequence")
 	var error: Error = DirAccess.make_dir_recursive_absolute(ProjectSettings.globalize_path(directory))
 	if error != OK:
 		push_error("Cannot create comparison frame directory: " + error_string(error))
@@ -34,6 +36,8 @@ func _run() -> void:
 		return
 	var frames: int = roundi(sequence.length * FPS)
 	for index: int in frames:
+		if proof and not index in PROOF_FRAMES:
+			continue
 		var absolute: float = float(index) / FPS
 		var key: int = 0
 		for candidate: int in sequence.track_get_key_count(0):
@@ -58,6 +62,11 @@ func _run() -> void:
 					_failed = true
 			for name: String in scene.VIEWS:
 				scene.get_node("Viewport/"+name).region_debug = 0
+	if proof:
+		print("Rendered %s targeted motion-gap frames." % PROOF_FRAMES.size())
+		scene.free()
+		quit(1 if _failed else 0)
+		return
 	var file: FileAccess = FileAccess.open(COMPARISON_OUTPUT + "/manifest.json", FileAccess.WRITE)
 	if file == null:
 		push_error("Cannot save comparison manifest: " + error_string(FileAccess.get_open_error()))

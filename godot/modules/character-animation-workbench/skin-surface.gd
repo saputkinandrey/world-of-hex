@@ -11,9 +11,51 @@ const RegionComposition = preload("res://modules/character-animation-workbench/r
 var _composition_direction: int = -1
 var _cell_polygons: Array = []
 var _composition_map: Texture2D
+var _bridge_depth: ImageTexture
+var _bridge_image: Image
 
 func _ready() -> void:
 	set_notify_transform(true)
+	RenderingServer.frame_pre_draw.connect(_update_motion_reveals)
+
+func _exit_tree() -> void:
+	if RenderingServer.frame_pre_draw.is_connected(_update_motion_reveals):
+		RenderingServer.frame_pre_draw.disconnect(_update_motion_reveals)
+
+func _update_motion_reveals() -> void:
+	if _bridge_image == null or not is_visible_in_tree():
+		return
+	var drivers: PackedInt32Array = get_meta("motion_reveal_hands",PackedInt32Array())
+	var active: bool = false
+	for driver: int in drivers:
+		if driver >= 0:
+			active = true
+			break
+	if not active:
+		return
+	var source_points: PackedVector2Array = get_meta("motion_reveal_points")
+	var owners: PackedByteArray = get_meta("motion_bridge_owners")
+	var skeleton_node: Skeleton2D = get_node(skeleton)
+	var transforms: Dictionary = {}
+	var changed: bool = false
+	for index: int in drivers.size():
+		if drivers[index] < 0:
+			continue
+		var owner: int = owners[index*2]
+		for bone_index: int in [owner,drivers[index]]:
+			if not transforms.has(bone_index):
+				var bone: Bone2D = skeleton_node.get_node(get_bone_path(bone_index))
+				transforms[bone_index] = global_transform.affine_inverse()*bone.global_transform*bone.get_skeleton_rest().affine_inverse()*skeleton_node.global_transform.affine_inverse()*global_transform
+		var point: Vector2 = source_points[index]+offset
+		var distance: float = (transforms[owner]*point).distance_to(transforms[drivers[index]]*point)
+		var alpha: float = roundf(smoothstep(.05,.5,distance)*255.0)/255.0
+		var color: Color = _bridge_image.get_pixel(index%256,int(index/256))
+		if not is_equal_approx(color.a,alpha):
+			color.a = alpha
+			_bridge_image.set_pixel(index%256,int(index/256),color)
+			changed = true
+	if changed:
+		_bridge_depth.update(_bridge_image)
 
 func _notification(what: int) -> void:
 	if what == NOTIFICATION_TRANSFORM_CHANGED and is_node_ready() and _composition_map != null:
@@ -71,12 +113,17 @@ func _bind_composition() -> void:
 		polygons = composition.polygons
 		set_meta("cell_triangle_indices", composition.indices)
 		set_meta("flesh_overlap_indices", composition.overlap_indices)
+		set_meta("motion_bridge_indices", composition.bridge_indices)
 		set_meta("directional_depth", composition.table)
 		_composition_map = composition.map
+		_bridge_depth = composition.bridge_depth
+		_bridge_image = composition.bridge_image
 		_composition_direction = composition_direction
 	var shader_material: ShaderMaterial = material
 	shader_material.set_shader_parameter("compositor_enabled", true)
 	shader_material.set_shader_parameter("flesh_overlap_vertex_start",get_meta("flesh_overlap_vertex_start",2147483647))
+	shader_material.set_shader_parameter("motion_bridge_vertex_start",get_meta("motion_bridge_vertex_start",2147483647))
+	shader_material.set_shader_parameter("motion_bridge_depth",_bridge_depth)
 	shader_material.set_shader_parameter("region_map", _composition_map)
 	shader_material.set_shader_parameter("region_frame_size", Vector2(get_meta("frame_size")))
 	shader_material.set_shader_parameter("region_atlas_origin", bound_atlas_origin)
