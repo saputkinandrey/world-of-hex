@@ -167,6 +167,38 @@ def initialize():
         print('Initialized', name, profile['frame'], flush=True)
 
 
+def seam_triangles(cells, width, height):
+    """Join duplicate edge vertices without changing either rigid texel's weights.
+
+    These strips have zero area at rest and sample the shared source texel edge.
+    Native skinning opens them only when the two owners move apart.
+    """
+    triangles = []
+    for y in range(height):
+        for x in range(width):
+            quad = cells[y*width+x]
+            edges = []
+            if x+1 < width:
+                neighbor = cells[y*width+x+1]
+                edges.append((quad[1], quad[2], neighbor[0], neighbor[3]))
+            if y+1 < height:
+                neighbor = cells[(y+1)*width+x]
+                edges.append((quad[3], quad[2], neighbor[0], neighbor[1]))
+            for a,b,c,d in edges:
+                if a != c or b != d:
+                    triangles.extend([(a,b,c), (b,d,c)])
+    # Edge strips leave a small polygon where three or four owners meet. Fill
+    # that junction using the same source corner and its native bone weights.
+    for y in range(1, height):
+        for x in range(1, width):
+            corners = [cells[(y-1)*width+x-1][2], cells[(y-1)*width+x][3],
+                       cells[y*width+x][0], cells[y*width+x-1][1]]
+            unique = list(dict.fromkeys(corners))
+            for index in range(1, len(unique)-1):
+                triangles.append((unique[0], unique[index], unique[index+1]))
+    return triangles
+
+
 def compile_profile(name, profile):
     width, height = profile['frame']
     owner_image = Image.open(MASKS / f'{name}-owners.png').convert('RGB')
@@ -206,7 +238,7 @@ def compile_profile(name, profile):
         total = sum(value for bone,value in selected)
         return tuple(sorted((bone,round(value/total,8)) for bone,value in selected if value > .00000001))
 
-    vertices, weights, lookup, triangles = [], [], {}, []
+    vertices, weights, lookup, triangles, cells = [], [], {}, [], []
     def vertex(x,y,influences):
         key = (x,y,influences)
         if key not in lookup:
@@ -221,7 +253,9 @@ def compile_profile(name, profile):
             owner, strength = cell(x,y)
             corners = [(x,y),(x+1,y),(x+1,y+1),(x,y+1)]
             indices = [vertex(px,py,((owner,1.0),) if strength == 255 else field(px,py)) for px,py in corners]
+            cells.append(indices)
             triangles.extend([(indices[0],indices[1],indices[2]), (indices[0],indices[2],indices[3])])
+    seams = seam_triangles(cells, width, height)
     def number(value):
         return str(round(value,8))
     text = '[gd_scene format=3]\n\n[ext_resource type="Script" path="'+RES+'skin-surface.gd" id="1"]\n\n[node name="Surface" type="Polygon2D"]\nscript = ExtResource("1")\nz_as_relative = false\ntexture_filter = 1\nskeleton = NodePath("../../../Skeleton2D")\n'
@@ -229,13 +263,16 @@ def compile_profile(name, profile):
     text += 'polygon = PackedVector2Array('+', '.join(number(v) for point in vertices for v in point)+')\n'
     text += 'uv = PackedVector2Array('+', '.join(number(v) for x,y in vertices for v in (x+width/2,y+height/2))+')\n'
     text += f'internal_vertex_count = {len(vertices)-4}\nmetadata/frame_size = Vector2i({width}, {height})\nmetadata/mask_profile = "{name}"\n'
+    if seams:
+        text += f'metadata/base_triangle_count = {len(triangles)}\n'
+        text += 'metadata/elastic_triangles = ['+', '.join('PackedInt32Array('+', '.join(map(str, t))+')' for t in seams)+']\n'
     text += 'polygons = ['+', '.join('PackedInt32Array('+', '.join(map(str, t))+')' for t in triangles)+']\n'
     bones = []
     for bone,path in enumerate(PATHS):
         bones.extend(['"'+path+'"','PackedFloat32Array('+', '.join(number(w.get(bone,0)) for w in weights)+')'])
     text += 'bones = ['+', '.join(bones)+']\n'
     (OUTPUT / f'{name}.tscn').write_text(text,encoding='utf-8')
-    print(f'Compiled {name}: {len(vertices)} vertices, {len(triangles)} triangles',flush=True)
+    print(f'Compiled {name}: {len(vertices)} vertices, {len(triangles)} triangles (+{len(seams)} seam candidates)',flush=True)
 
 
 def bind_rigs(manifest):

@@ -1,7 +1,7 @@
 extends "res://modules/character-animation-workbench/tests/render-walk.gd"
 
 const COMPARISON = preload("res://modules/character-animation-workbench/tests/comparison-preview.tscn")
-const COMPARISON_OUTPUT = "res://../tmp/animation-workbench/comparison-masks"
+const COMPARISON_OUTPUT = "res://../tmp/animation-workbench/comparison-seams"
 
 func _run() -> void:
 	var scene: Node = COMPARISON.instantiate()

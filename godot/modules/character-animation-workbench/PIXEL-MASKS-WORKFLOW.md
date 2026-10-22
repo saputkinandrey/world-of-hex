@@ -55,3 +55,32 @@ and 0.000% with these masks. `skeletal-visual` compares all neutral directions
 with their source sprites; `north-layer-test` checks the shirt occlusion during
 motion. `comparison-render` exports the synchronized four-direction sequence to
 `tmp/animation-workbench/comparison-masks/`.
+
+## Elastic seam repair
+
+The compiler now adds thin elastic connections between duplicated edge vertices
+and small caps where several owners meet. These use the existing source edge
+colors and native bone weights. The original rigid cells retain their weights;
+only the connecting strips stretch when neighboring cells move apart. At rest
+the strips and caps have zero area, preserving the neutral source image.
+
+This repairs cracks between touching source pixels. It does not connect separate
+limbs across an intentionally transparent gap or generate hidden anatomy.
+Transparent source edges remain transparent. The same Surface material and
+occlusion rules apply to the added triangles, including the North shirt mask.
+
+Run `./godot/modules/character-animation-workbench/run.ps1 seam-test` to check
+opaque split edges and junctions in all four views and measure their movement
+through walking and running. Before repair, these edges opened by up to 11.574
+source pixels. All detected boundaries now have connecting triangles, while
+`hand-test` still measures 0.000% palm strain. The current comparison render goes
+to `tmp/animation-workbench/comparison-seams/`; earlier renders remain available.
+
+Candidate connections are stored as `metadata/elastic_triangles` in the baked
+Surface. On atlas binding, `skin-surface.gd` admits only connections whose source
+texels are nontransparent on both sides (all four sides for a corner cap). This
+uses each current texture, frame and reflected UVs, so shared body/clothing
+profiles do not fill intentional gaps in another layer. Animation playback does
+not rebuild the mesh. `seam-visual` isolates the actual bound patches on the GPU:
+it checks that covered strips render and that silhouette-only strips add zero
+colored pixels (the unfiltered regression control added 145 pixels).
