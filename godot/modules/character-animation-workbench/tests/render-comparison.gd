@@ -1,7 +1,7 @@
 extends "res://modules/character-animation-workbench/tests/render-walk.gd"
 
 const COMPARISON = preload("res://modules/character-animation-workbench/tests/comparison-preview.tscn")
-const COMPARISON_OUTPUT = "res://../tmp/animation-workbench/comparison-no-calf-fill"
+const COMPARISON_OUTPUT = "res://../tmp/animation-workbench/comparison-no-joint-envelope"
 const PROOF_FRAMES: Array[int] = [30,37,67,84,90,94,98,99,112,162,179,223,257]
 
 func _run() -> void:

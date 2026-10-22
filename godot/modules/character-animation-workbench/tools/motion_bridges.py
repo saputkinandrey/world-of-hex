@@ -1,9 +1,9 @@
-"""Build textured gap corridors and whole joint envelopes from frame audit."""
+"""Build measured gap corridors; retain disabled volume helpers for reference."""
 from collections import defaultdict
 import json
 import math
 from PIL import Image
-from deformation_masks import ROOT, PROJECT, MASKS, MANIFEST, PALETTE, ASSETS, PARENTS, BONES, connected
+from deformation_masks import ROOT, PROJECT, MASKS, PALETTE, ASSETS, PARENTS, BONES, connected
 
 
 CALVES = [BONES.index(name) for name in ("CalfL", "CalfR")]
@@ -82,7 +82,6 @@ def joint_envelopes(view, owners, palette, groups):
 
 def build():
     audit = json.loads((ROOT.parents[2]/'tmp/animation-workbench/motion-gaps-before.json').read_text())
-    manifest = json.loads(MANIFEST.read_text())
     palette = {color:index for index,color in enumerate(PALETTE)}
     attachments = SHOULDER_ATTACHMENTS | NECK_ATTACHMENTS
     result = {'sample_count':audit['samples'],'profiles':{}}
@@ -110,13 +109,8 @@ def build():
                     if all(rigidity.getpixel((px,py)) and palette[owners.getpixel((px,py))] in pair for py in range(top,bottom) for px in range(left,right)):
                         selected.append(dict(edge,depth=depth))
                         break
-        view = manifest['profiles'][profile]['view']
-        if profile == manifest['bindings'][view]['Layers/BodyBase'] and view in ['south-west','north-west']:
-            envelopes = joint_envelopes(view,owners,palette,groups)
-            selected.extend(envelopes)
-            print(f'{profile}: {len(envelopes)} full-width joint repairs')
-            # Convex-hull transparency is not evidence of a motion gap.
-            # Keep calf_fills for reference, but do not generate these patches.
+        # Keep joint_envelopes and calf_fills for reference. Only measured
+        # corridors are generated while evaluating the borrowed UV patches.
         result['profiles'][profile] = selected
         print(f'{profile}: {len(selected)} measured patches')
     (MASKS/'motion-bridges.json').write_text(json.dumps(result,indent=2)+'\n',encoding='utf-8')
