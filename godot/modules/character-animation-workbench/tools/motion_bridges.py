@@ -114,10 +114,9 @@ def build():
         if profile == manifest['bindings'][view]['Layers/BodyBase'] and view in ['south-west','north-west']:
             envelopes = joint_envelopes(view,owners,palette,groups)
             selected.extend(envelopes)
-            fills = calf_fills(view,owners,palette)
-            selected.extend(fills)
             print(f'{profile}: {len(envelopes)} full-width joint repairs')
-            print(f'{profile}: {len(fills)} pose-activated calf gap texels')
+            # Convex-hull transparency is not evidence of a motion gap.
+            # Keep calf_fills for reference, but do not generate these patches.
         result['profiles'][profile] = selected
         print(f'{profile}: {len(selected)} measured patches')
     (MASKS/'motion-bridges.json').write_text(json.dumps(result,indent=2)+'\n',encoding='utf-8')
