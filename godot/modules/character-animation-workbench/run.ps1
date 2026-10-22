@@ -1,5 +1,5 @@
 param(
-    [ValidateSet('import', 'test', 'visual-test', 'parse', 'smoke', 'source', 'deformation', 'skeletal-test', 'skeletal-visual', 'skeletal-smoke', 'skeletal-proof', 'skeletal-editor', 'walk-render', 'walk-test', 'walk-preview', 'run-bake', 'run-test', 'run-render', 'run-preview', 'north-bake', 'comparison-test', 'comparison-render', 'comparison-preview', 'north-layer-test', 'south-west-bake', 'south-west-test', 'north-west-bake', 'north-west-test')]
+    [ValidateSet('import', 'test', 'visual-test', 'parse', 'smoke', 'source', 'deformation', 'skeletal-test', 'skeletal-visual', 'skeletal-smoke', 'skeletal-proof', 'skeletal-editor', 'walk-render', 'walk-test', 'walk-preview', 'run-bake', 'run-test', 'run-render', 'run-preview', 'north-bake', 'comparison-test', 'comparison-render', 'comparison-preview', 'north-layer-test', 'south-west-bake', 'south-west-test', 'north-west-bake', 'north-west-test', 'hand-test', 'mask-test', 'mask-init', 'mask-bake')]
     [string]$Action = 'test'
 )
 $ErrorActionPreference = 'Stop'
@@ -7,6 +7,12 @@ $projectPath = (Resolve-Path (Join-Path $PSScriptRoot '../..')).Path
 $repositoryPath = (Resolve-Path (Join-Path $projectPath '..')).Path
 $outputPath = Join-Path $repositoryPath 'tmp/animation-workbench'
 New-Item -ItemType Directory -Force -Path $outputPath | Out-Null
+if ($Action -in @('mask-init', 'mask-bake')) {
+    $maskAction = if ($Action -eq 'mask-init') { 'init' } else { 'bake' }
+    & python (Join-Path $PSScriptRoot 'tools/deformation_masks.py') $maskAction
+    if ($LASTEXITCODE -ne 0) { throw "Pixel mask $maskAction failed with exit code $LASTEXITCODE." }
+    return
+}
 $enginePath = $env:GODOT_BIN
 if (-not $enginePath) {
     $engineCommand = Get-Command godot -ErrorAction SilentlyContinue
@@ -18,6 +24,8 @@ $modulePath = 'res://modules/character-animation-workbench'
 $engineLogPath = Join-Path $outputPath "$Action-engine.log"
 $engineArguments = @('--path', '.', '--log-file', ('"' + $engineLogPath + '"'))
 switch ($Action) {
+    'mask-test' { $engineArguments += @('--headless', '--script', "$modulePath/tests/mask-acceptance.gd") }
+    'hand-test' { $engineArguments += @('--headless', '--script', "$modulePath/tests/hand-rigidity-acceptance.gd") }
     'north-west-bake' { $engineArguments += @('--headless', '--script', "$modulePath/tests/author-north-west.gd") }
     'north-west-test' { $engineArguments += @('--headless', '--script', "$modulePath/tests/north-west-acceptance.gd") }
     'south-west-bake' { $engineArguments += @('--headless', '--script', "$modulePath/tests/author-south-west.gd") }

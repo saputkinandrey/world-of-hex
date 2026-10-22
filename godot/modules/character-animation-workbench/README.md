@@ -171,3 +171,6 @@ south_west-клип, для north_east — north_west; отражение вып
 
 Диагональ NW и полное сравнение S/N/SW/NW в четырёх колонках:
 [NORTH-WEST-WORKFLOW.md](NORTH-WEST-WORKFLOW.md).
+
+Pixel ownership and rigidity masks for S/N/SW/NW:
+[PIXEL-MASKS-WORKFLOW.md](PIXEL-MASKS-WORKFLOW.md).

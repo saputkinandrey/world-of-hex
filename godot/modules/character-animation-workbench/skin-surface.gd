@@ -1,6 +1,9 @@
 @tool
 extends Polygon2D
 
+@export_file("*.png") var rigidity_mask_path: String = ""
+@export_file("*.png") var ownership_mask_path: String = ""
+
 # These values travel with native UV edits when the scene is saved. They let a
 # new atlas frame reuse edited UVs instead of recreating them from the polygon.
 @export_storage var bound_atlas_origin: Vector2 = Vector2.ZERO

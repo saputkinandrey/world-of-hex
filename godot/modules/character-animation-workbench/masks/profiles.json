@@ -1,0 +1,319 @@
+{
+  "profiles": {
+    "south-0": {
+      "view": "south",
+      "source": "res://modules/character-animation-workbench/rigs/south-surface-0.tscn",
+      "frame": [
+        110,
+        110
+      ],
+      "transform": [
+        1.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0
+      ],
+      "head": false
+    },
+    "south-1": {
+      "view": "south",
+      "source": "res://modules/character-animation-workbench/rigs/south-surface-0.tscn",
+      "frame": [
+        110,
+        110
+      ],
+      "transform": [
+        1.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0
+      ],
+      "head": true
+    },
+    "north-0": {
+      "view": "north",
+      "source": "res://modules/character-animation-workbench/rigs/north-surface-0.tscn",
+      "frame": [
+        110,
+        110
+      ],
+      "transform": [
+        1.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0
+      ],
+      "head": false
+    },
+    "north-1": {
+      "view": "north",
+      "source": "res://modules/character-animation-workbench/rigs/north-surface-1.tscn",
+      "frame": [
+        110,
+        110
+      ],
+      "transform": [
+        1.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        6.666666
+      ],
+      "head": false
+    },
+    "north-2": {
+      "view": "north",
+      "source": "res://modules/character-animation-workbench/rigs/north-surface-1.tscn",
+      "frame": [
+        110,
+        110
+      ],
+      "transform": [
+        1.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        5.999999300000001
+      ],
+      "head": false
+    },
+    "north-3": {
+      "view": "north",
+      "source": "res://modules/character-animation-workbench/rigs/north-surface-0.tscn",
+      "frame": [
+        110,
+        110
+      ],
+      "transform": [
+        1.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0
+      ],
+      "head": true
+    },
+    "north-4": {
+      "view": "north",
+      "source": "res://modules/character-animation-workbench/rigs/north-surface-2.tscn",
+      "frame": [
+        152,
+        135
+      ],
+      "transform": [
+        1.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        -13.333334
+      ],
+      "head": true
+    },
+    "south-west-0": {
+      "view": "south-west",
+      "source": "res://modules/character-animation-workbench/rigs/south-west-surface-0.tscn",
+      "frame": [
+        150,
+        150
+      ],
+      "transform": [
+        1.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0
+      ],
+      "head": false
+    },
+    "south-west-1": {
+      "view": "south-west",
+      "source": "res://modules/character-animation-workbench/rigs/south-west-surface-0.tscn",
+      "frame": [
+        150,
+        150
+      ],
+      "transform": [
+        1.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0
+      ],
+      "head": true
+    },
+    "north-west-0": {
+      "view": "north-west",
+      "source": "res://modules/character-animation-workbench/rigs/north-west-surface-0.tscn",
+      "frame": [
+        150,
+        150
+      ],
+      "transform": [
+        1.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0
+      ],
+      "head": false
+    },
+    "north-west-1": {
+      "view": "north-west",
+      "source": "res://modules/character-animation-workbench/rigs/north-west-surface-0.tscn",
+      "frame": [
+        150,
+        150
+      ],
+      "transform": [
+        1.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0
+      ],
+      "head": true
+    }
+  },
+  "bindings": {
+    "south": {
+      "Layers/BodyBase": "south-0",
+      "Layers/BootsBase": "south-0",
+      "Layers/PantsBase": "south-0",
+      "Layers/ShirtsBase": "south-0",
+      "Layers/ArmorBase": "south-0",
+      "Layers/BeardBase": "south-1",
+      "Layers/MustacheBase": "south-1",
+      "Layers/SideburnsBase": "south-1",
+      "Layers/EyesBase": "south-1",
+      "Layers/EyebrowsBase": "south-1",
+      "Layers/EyeBandageBase": "south-1",
+      "Layers/HairBase": "south-1",
+      "Layers/HeadwearBase": "south-1",
+      "Layers/HeadBandageBase": "south-1"
+    },
+    "north": {
+      "Layers/BodyBase": "north-0",
+      "Layers/BootsBase": "north-1",
+      "Layers/PantsBase": "north-1",
+      "Layers/ShirtsBase": "north-2",
+      "Layers/ArmorBase": "north-0",
+      "Layers/BeardBase": "north-3",
+      "Layers/MustacheBase": "north-3",
+      "Layers/SideburnsBase": "north-3",
+      "Layers/EyesBase": "north-3",
+      "Layers/EyebrowsBase": "north-3",
+      "Layers/EyeBandageBase": "north-3",
+      "Layers/HairBase": "north-4",
+      "Layers/HeadwearBase": "north-3",
+      "Layers/HeadBandageBase": "north-3"
+    },
+    "south-west": {
+      "Layers/BodyBase": "south-west-0",
+      "Layers/BootsBase": "south-west-0",
+      "Layers/PantsBase": "south-west-0",
+      "Layers/ShirtsBase": "south-west-0",
+      "Layers/ArmorBase": "south-west-0",
+      "Layers/BeardBase": "south-west-1",
+      "Layers/MustacheBase": "south-west-1",
+      "Layers/SideburnsBase": "south-west-1",
+      "Layers/EyesBase": "south-west-1",
+      "Layers/EyebrowsBase": "south-west-1",
+      "Layers/EyeBandageBase": "south-west-1",
+      "Layers/HairBase": "south-west-1",
+      "Layers/HeadwearBase": "south-west-1",
+      "Layers/HeadBandageBase": "south-west-1"
+    },
+    "north-west": {
+      "Layers/BodyBase": "north-west-0",
+      "Layers/BootsBase": "north-west-0",
+      "Layers/PantsBase": "north-west-0",
+      "Layers/ShirtsBase": "north-west-0",
+      "Layers/ArmorBase": "north-west-0",
+      "Layers/BeardBase": "north-west-1",
+      "Layers/MustacheBase": "north-west-1",
+      "Layers/SideburnsBase": "north-west-1",
+      "Layers/EyesBase": "north-west-1",
+      "Layers/EyebrowsBase": "north-west-1",
+      "Layers/EyeBandageBase": "north-west-1",
+      "Layers/HairBase": "north-west-1",
+      "Layers/HeadwearBase": "north-west-1",
+      "Layers/HeadBandageBase": "north-west-1"
+    }
+  },
+  "bones": {
+    "Pelvis": [
+      216,
+      80,
+      80
+    ],
+    "Spine": [
+      230,
+      150,
+      60
+    ],
+    "Chest": [
+      235,
+      215,
+      70
+    ],
+    "Head": [
+      110,
+      210,
+      100
+    ],
+    "ArmL": [
+      50,
+      190,
+      180
+    ],
+    "ForearmL": [
+      60,
+      130,
+      240
+    ],
+    "ArmR": [
+      130,
+      80,
+      230
+    ],
+    "ForearmR": [
+      210,
+      80,
+      210
+    ],
+    "ThighL": [
+      160,
+      110,
+      70
+    ],
+    "CalfL": [
+      110,
+      150,
+      60
+    ],
+    "ThighR": [
+      70,
+      150,
+      170
+    ],
+    "CalfR": [
+      160,
+      160,
+      210
+    ]
+  }
+}

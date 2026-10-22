@@ -4,7 +4,9 @@
 [ext_resource type="Script" path="res://modules/character-animation-workbench/skin-overlay.gd" id="2"]
 [ext_resource type="AnimationLibrary" path="res://modules/character-animation-workbench/animations/skeletal-library.tres" id="3"]
 [ext_resource type="Script" path="res://modules/character-animation-workbench/module-pivot.gd" id="4"]
-[ext_resource type="PackedScene" path="res://modules/character-animation-workbench/rigs/south-surface-0.tscn" id="south-surface-0"]
+
+[ext_resource type="PackedScene" path="res://modules/character-animation-workbench/rigs/masked/south-0.tscn" id="mask_south-0"]
+[ext_resource type="PackedScene" path="res://modules/character-animation-workbench/rigs/masked/south-1.tscn" id="mask_south-1"]
 
 [node name="Rig" type="Node2D"]
 script = ExtResource("1")
@@ -103,85 +105,85 @@ bone_angle = 90.0
 metadata/slot = "body"
 metadata/registration = Transform2D(1.0, 0.0, 0.0, 1.0, 0.0, 0.0)
 
-[node name="Surface" parent="Layers/BodyBase" instance=ExtResource("south-surface-0")]
+[node name="Surface" parent="Layers/BodyBase" instance=ExtResource("mask_south-0")]
 
 [node name="BootsBase" type="Node2D" parent="Layers"]
 metadata/slot = "boots"
 metadata/registration = Transform2D(1.0, 0.0, 0.0, 1.0, 0.0, 0.0)
 
-[node name="Surface" parent="Layers/BootsBase" instance=ExtResource("south-surface-0")]
+[node name="Surface" parent="Layers/BootsBase" instance=ExtResource("mask_south-0")]
 
 [node name="PantsBase" type="Node2D" parent="Layers"]
 metadata/slot = "pants"
 metadata/registration = Transform2D(1.0, 0.0, 0.0, 1.0, 0.0, 0.0)
 
-[node name="Surface" parent="Layers/PantsBase" instance=ExtResource("south-surface-0")]
+[node name="Surface" parent="Layers/PantsBase" instance=ExtResource("mask_south-0")]
 
 [node name="ShirtsBase" type="Node2D" parent="Layers"]
 metadata/slot = "shirts"
 metadata/registration = Transform2D(1.0, 0.0, 0.0, 1.0, 0.0, 0.0)
 
-[node name="Surface" parent="Layers/ShirtsBase" instance=ExtResource("south-surface-0")]
+[node name="Surface" parent="Layers/ShirtsBase" instance=ExtResource("mask_south-0")]
 
 [node name="ArmorBase" type="Node2D" parent="Layers"]
 metadata/slot = "armor"
 metadata/registration = Transform2D(1.0, 0.0, 0.0, 1.0, 0.0, 0.0)
 
-[node name="Surface" parent="Layers/ArmorBase" instance=ExtResource("south-surface-0")]
+[node name="Surface" parent="Layers/ArmorBase" instance=ExtResource("mask_south-0")]
 
 [node name="BeardBase" type="Node2D" parent="Layers"]
 metadata/slot = "beard"
 metadata/registration = Transform2D(1.0, 0.0, 0.0, 1.0, 0.0, 0.0)
 
-[node name="Surface" parent="Layers/BeardBase" instance=ExtResource("south-surface-0")]
+[node name="Surface" parent="Layers/BeardBase" instance=ExtResource("mask_south-1")]
 
 [node name="MustacheBase" type="Node2D" parent="Layers"]
 metadata/slot = "mustache"
 metadata/registration = Transform2D(1.0, 0.0, 0.0, 1.0, 0.0, 0.0)
 
-[node name="Surface" parent="Layers/MustacheBase" instance=ExtResource("south-surface-0")]
+[node name="Surface" parent="Layers/MustacheBase" instance=ExtResource("mask_south-1")]
 
 [node name="SideburnsBase" type="Node2D" parent="Layers"]
 metadata/slot = "sideburns"
 metadata/registration = Transform2D(1.0, 0.0, 0.0, 1.0, 0.0, 0.0)
 
-[node name="Surface" parent="Layers/SideburnsBase" instance=ExtResource("south-surface-0")]
+[node name="Surface" parent="Layers/SideburnsBase" instance=ExtResource("mask_south-1")]
 
 [node name="EyesBase" type="Node2D" parent="Layers"]
 metadata/slot = "eyes"
 metadata/registration = Transform2D(1.0, 0.0, 0.0, 1.0, 0.0, 0.0)
 
-[node name="Surface" parent="Layers/EyesBase" instance=ExtResource("south-surface-0")]
+[node name="Surface" parent="Layers/EyesBase" instance=ExtResource("mask_south-1")]
 
 [node name="EyebrowsBase" type="Node2D" parent="Layers"]
 metadata/slot = "eyebrows"
 metadata/registration = Transform2D(1.0, 0.0, 0.0, 1.0, 0.0, 0.0)
 
-[node name="Surface" parent="Layers/EyebrowsBase" instance=ExtResource("south-surface-0")]
+[node name="Surface" parent="Layers/EyebrowsBase" instance=ExtResource("mask_south-1")]
 
 [node name="EyeBandageBase" type="Node2D" parent="Layers"]
 metadata/slot = "eye_bandage"
 metadata/registration = Transform2D(1.0, 0.0, 0.0, 1.0, 0.0, 0.0)
 
-[node name="Surface" parent="Layers/EyeBandageBase" instance=ExtResource("south-surface-0")]
+[node name="Surface" parent="Layers/EyeBandageBase" instance=ExtResource("mask_south-1")]
 
 [node name="HairBase" type="Node2D" parent="Layers"]
 metadata/slot = "hair"
 metadata/registration = Transform2D(1.0, 0.0, 0.0, 1.0, 0.0, 0.0)
 
-[node name="Surface" parent="Layers/HairBase" instance=ExtResource("south-surface-0")]
+[node name="Surface" parent="Layers/HairBase" instance=ExtResource("mask_south-1")]
 
 [node name="HeadwearBase" type="Node2D" parent="Layers"]
 metadata/slot = "headwear"
 metadata/registration = Transform2D(1.0, 0.0, 0.0, 1.0, 0.0, 0.0)
 
-[node name="Surface" parent="Layers/HeadwearBase" instance=ExtResource("south-surface-0")]
+[node name="Surface" parent="Layers/HeadwearBase" instance=ExtResource("mask_south-1")]
 
 [node name="HeadBandageBase" type="Node2D" parent="Layers"]
 metadata/slot = "head_bandage"
 metadata/registration = Transform2D(1.0, 0.0, 0.0, 1.0, 0.0, 0.0)
 
-[node name="Surface" parent="Layers/HeadBandageBase" instance=ExtResource("south-surface-0")]
+[node name="Surface" parent="Layers/HeadBandageBase" instance=ExtResource("mask_south-1")]
 
 [node name="WeaponBase" type="Node2D" parent="Layers"]
 metadata/slot = "weapon"

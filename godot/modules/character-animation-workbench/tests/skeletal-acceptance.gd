@@ -3,6 +3,9 @@ extends SceneTree
 const FIXTURE = preload("res://modules/character-animation-workbench/tests/skeletal-acceptance.tscn")
 const Adapter = preload("res://modules/character-animation-workbench/source-adapter.gd")
 const Overlay = preload("res://modules/character-animation-workbench/skin-overlay.gd")
+# Avoid nearest-sampling ties at exact texel boundaries when comparing the
+# registered North clothing's Sprite2D and triangulated Polygon2D surfaces.
+const REFERENCE_ORIGIN = Vector2(256.123, 320.137)
 var _failures: int = 0
 
 func _initialize() -> void:
@@ -24,12 +27,13 @@ func _run() -> void:
 	var original: Node = fixture.get_node("SourceViewport/Source")
 	var source: CharacterSpriteEntity = Adapter.source_entity(original)
 	source.reparent(fixture.get_node("SourceViewport/Origin"), false)
+	fixture.get_node("SourceViewport/Origin").position = REFERENCE_ORIGIN
 	source.position = Vector2.ZERO
 	source.show_formation_reference = false
 	original.visible = false
 	var workbench: Node2D = fixture.get_node("RigViewport/Workbench")
 	workbench.preview_zoom = 1.0
-	workbench.get_node("Preview").position = Vector2(256, 320)
+	workbench.get_node("Preview").position = REFERENCE_ORIGIN
 	workbench.get_node("UI").visible = false
 	var player: AnimationPlayer = workbench.get_node("AnimationPlayer")
 	_check(player.has_animation("rig_lean"), "Saved native skeletal clip is available")
@@ -48,6 +52,8 @@ func _run() -> void:
 		for base: Node2D in rig.get_node("Layers").get_children():
 			var slot: String = base.get_meta("slot")
 			var sprite: Sprite2D = source.get_node(source.LAYER_NODE_PATH[slot])
+			if base.has_node("Surface") and base.get_node("Surface") is Polygon2D:
+				sprite.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
 			_check(base.visible == sprite.visible, "%s/%s source visibility" % [direction, slot])
 			if base.has_node("Surface") and base.visible:
 				var surface: Polygon2D = base.get_node("Surface")
