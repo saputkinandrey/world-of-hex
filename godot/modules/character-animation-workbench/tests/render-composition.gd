@@ -1,7 +1,7 @@
 extends "res://modules/character-animation-workbench/tests/render-walk.gd"
 
 const COMPARISON = preload("res://modules/character-animation-workbench/tests/comparison-preview.tscn")
-const DIRECTORY: String = "res://../tmp/animation-workbench/composition-v1.3/"
+const DIRECTORY: String = "res://../tmp/animation-workbench/composition-ligaments-audit/"
 const NAMES: Array[String] = ["South", "North", "SouthWest", "NorthWest"]
 
 func _red_pixels(image: Image, column: int) -> int:
@@ -55,11 +55,6 @@ func _run() -> void:
 		for slot: String in ["WeaponBase", "WeaponSecondaryBase"]:
 			workbench._active_rig.get_node("Layers/%s/PivotOrigin/MotionPivot/CounterPivot/Surface" % slot).hide()
 	var viewport: SubViewport = scene.get_node("Viewport")
-	if "--video" in OS.get_cmdline_user_args():
-		await _render_sequence(scene, workbenches, viewport)
-		scene.free()
-		quit(1 if _failed else 0)
-		return
 	var cases: Dictionary = {"rest": ["RESET",0.0], "stretch": ["walk_loop",.25], "compression": ["run_loop",.25], "hand": ["run_loop",.5]}
 	for name: String in cases:
 		for workbench: Node2D in workbenches:
@@ -118,9 +113,36 @@ func _run() -> void:
 	if standalone <= visible:
 		push_error("SW compression must demonstrate ligament occlusion by flesh chunks")
 		_failed = true
+	await _render_joint_detail(scene,workbenches,viewport)
 	scene.free()
 	await _render_controls()
 	quit(1 if _failed else 0)
+
+func _render_joint_detail(scene: Node, workbenches: Array[Node2D], viewport: SubViewport) -> void:
+	var captions: Array[String] = ["SW | before overlap", "SW | textured overlap", "SW | ligament alone", "SW | flesh + ligament"]
+	for index: int in workbenches.size():
+		var workbench: Node2D = workbenches[index]
+		workbench.source_direction = 2
+		workbench.apply_source()
+		workbench.safe_compression = true
+		workbench.region_debug = 0 if index < 2 else (2 if index == 2 else 8)
+		workbench.preview_zoom = 9.0
+		scene.get_node("Viewport/Caption" + NAMES[index]).text = captions[index]
+	await process_frame
+	for index: int in workbenches.size():
+		var workbench: Node2D = workbenches[index]
+		for slot: String in ["WeaponBase","WeaponSecondaryBase"]:
+			workbench._active_rig.get_node("Layers/%s/PivotOrigin/MotionPivot/CounterPivot/Surface" % slot).hide()
+		if index == 0:
+			workbench._active_rig.get_node("Layers/BodyBase/Surface").material.set_shader_parameter("flesh_overlap_enabled",false)
+	for time: float in [-1.0,0.0,.25,.5]:
+		for index: int in workbenches.size():
+			var workbench: Node2D = workbenches[index]
+			_sample(workbench.get_node("AnimationPlayer"),"RESET" if time < 0 else "run_loop",maxf(time,0.0))
+			var elbow: Bone2D = workbench._active_rig.get_node("Skeleton2D/Pelvis/Spine/Chest/ArmR/ForearmR")
+			workbench.get_node("Preview").global_position += Vector2(index*512+256,270)-elbow.global_position
+		await process_frame
+		_capture(viewport,"elbow-rest" if time < 0 else "elbow-"+str(roundi(time*100)))
 
 func _render_controls() -> void:
 	var workbench: Node2D = load("res://modules/character-animation-workbench/skeletal-animation-workbench.tscn").instantiate()
@@ -138,33 +160,3 @@ func _render_controls() -> void:
 		push_error("Cannot save controls preview: " + error_string(error))
 		_failed = true
 	workbench.free()
-
-func _render_sequence(scene: Node, workbenches: Array[Node2D], viewport: SubViewport) -> void:
-	var directory: String = DIRECTORY + "sequence"
-	var error: Error = DirAccess.make_dir_recursive_absolute(ProjectSettings.globalize_path(directory))
-	if error != OK:
-		push_error("Cannot create composition sequence: " + error_string(error))
-		_failed = true
-		return
-	var sequence: Animation = scene.get_node("SequencePlayer").get_animation("comparison")
-	var frames: int = roundi(sequence.length * FPS)
-	for index: int in frames:
-		var absolute: float = float(index) / FPS
-		var key: int = 0
-		for candidate: int in sequence.track_get_key_count(0):
-			if sequence.track_get_key_time(0,candidate) <= absolute:
-				key = candidate
-		var clip: String = sequence.animation_track_get_key_animation(0,key)
-		var time: float = absolute - sequence.track_get_key_time(0,key)
-		for column: int in workbenches.size():
-			_sample(workbenches[column].get_node("AnimationPlayer"),clip,time)
-			scene.get_node("Viewport/Caption" + NAMES[column]).text = "%s | %s | %s" % ["S" if column < 2 else "SW", "raw" if column % 2 == 0 else "protected", "idle" if clip == "RESET" else clip]
-		await process_frame
-		_save(viewport,directory,index)
-	var file: FileAccess = FileAccess.open(DIRECTORY + "manifest.json",FileAccess.WRITE)
-	if file == null:
-		push_error("Cannot save composition manifest: " + error_string(FileAccess.get_open_error()))
-		_failed = true
-	else:
-		file.store_string(JSON.stringify({"fps":FPS,"size":[viewport.size.x,viewport.size.y],"clips":{"sequence":frames}},"  "))
-	print("Rendered composition comparison: %s frames." % frames)

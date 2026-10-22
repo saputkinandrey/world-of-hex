@@ -177,3 +177,6 @@ Pixel ownership and rigidity masks for S/N/SW/NW:
 
 Композиция v1.3: шесть таблиц глубины, перекрытие связок, диагностика кожи
 и отклонённый эксперимент сглаживания: [V1.3-WORKFLOW.md](V1.3-WORKFLOW.md).
+
+Исправление реального нахлёста связок, кисти SW и возврат видео S/N/SW/NW:
+[LIGAMENT-CORRECTION.md](LIGAMENT-CORRECTION.md).

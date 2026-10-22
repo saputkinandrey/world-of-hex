@@ -1,7 +1,7 @@
 extends "res://modules/character-animation-workbench/tests/render-walk.gd"
 
 const COMPARISON = preload("res://modules/character-animation-workbench/tests/comparison-preview.tscn")
-const COMPARISON_OUTPUT = "res://../tmp/animation-workbench/comparison-finite-bands"
+const COMPARISON_OUTPUT = "res://../tmp/animation-workbench/comparison-ligaments"
 
 func _run() -> void:
 	var scene: Node = COMPARISON.instantiate()
@@ -9,6 +9,21 @@ func _run() -> void:
 	root.add_child(scene)
 	await scene.preview_ready
 	await process_frame
+	var sources: Dictionary = {}
+	for index: int in scene.VIEWS.size():
+		var workbench: Node2D = scene.get_node("Viewport/" + scene.VIEWS[index])
+		var surface: Polygon2D = workbench._active_rig.get_node("Layers/BodyBase/Surface")
+		sources[surface.texture.resource_path] = true
+		if workbench.source_direction != index:
+			push_error("Comparison must contain S/N/SW/NW, without duplicated directions")
+			scene.free()
+			quit(1)
+			return
+	if sources.size() != scene.VIEWS.size():
+		push_error("Four-direction video must use four distinct authored body textures")
+		scene.free()
+		quit(1)
+		return
 	var sequence: Animation = scene.get_node("SequencePlayer").get_animation("comparison")
 	var directory: String = COMPARISON_OUTPUT + "/sequence"
 	var error: Error = DirAccess.make_dir_recursive_absolute(ProjectSettings.globalize_path(directory))
@@ -31,13 +46,25 @@ func _run() -> void:
 			scene.get_node("Viewport/Caption" + name).text = "%s | %s" % [scene.LABELS[name], "idle" if clip == "RESET" else clip]
 		await process_frame
 		_save(scene.get_node("Viewport"), directory, index)
+		if index == 99:
+			for mode: int in [2,8]:
+				for name: String in scene.VIEWS:
+					scene.get_node("Viewport/"+name).region_debug = mode
+				await process_frame
+				RenderingServer.force_draw(false)
+				var result: Error = scene.get_node("Viewport").get_texture().get_image().save_png(COMPARISON_OUTPUT + ("/ligaments.png" if mode == 2 else "/regions.png"))
+				if result != OK:
+					push_error("Cannot save ligament diagnostic: " + error_string(result))
+					_failed = true
+			for name: String in scene.VIEWS:
+				scene.get_node("Viewport/"+name).region_debug = 0
 	var file: FileAccess = FileAccess.open(COMPARISON_OUTPUT + "/manifest.json", FileAccess.WRITE)
 	if file == null:
 		push_error("Cannot save comparison manifest: " + error_string(FileAccess.get_open_error()))
 		_failed = true
 	else:
 		var size: Vector2i = scene.get_node("Viewport").size
-		file.store_string(JSON.stringify({"fps": FPS, "size": [size.x, size.y], "clips": {"sequence": frames}}, "  "))
+		file.store_string(JSON.stringify({"fps": FPS, "size": [size.x, size.y], "directions":["S","N","SW","NW"], "sources":sources.keys(), "clips": {"sequence": frames}}, "  "))
 	print("Rendered S/N/SW/NW comparison: %s frames, 2048x512, 30 FPS." % frames)
 	scene.free()
 	quit(1 if _failed else 0)

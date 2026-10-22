@@ -283,6 +283,19 @@ def compile_profile(name, profile, body_profile):
     for destination,source in enumerate(order):
         cell_triangles[source] = destination
     triangles = [triangles[index] for index in order]
+    # Rigid margins overlap the finite elastic band. The band is revealed
+    # between these margins when chunks separate, and covered on compression.
+    overlap_start = len(vertices)
+    overlap_cells, overlap_polygons = [], []
+    for cell_index, region_kind in enumerate(regions):
+        if region_kind % 4 != 2:
+            continue
+        x,y = cell_index % width, cell_index // width
+        owner = owners[cell_index]
+        corners = [(x,y),(x+1,y),(x+1,y+1),(x,y+1)]
+        indices = [vertex(px,py,((owner,1.0),),('overlap',cell_index)) for px,py in corners]
+        overlap_cells.append(cell_index)
+        overlap_polygons.extend([(indices[0],indices[1],indices[2]),(indices[0],indices[2],indices[3])])
     def number(value):
         return str(round(value,8))
     text = '[gd_scene format=3]\n\n[ext_resource type="Script" path="'+RES+'skin-surface.gd" id="1"]\n'
@@ -295,6 +308,9 @@ def compile_profile(name, profile, body_profile):
     text += 'metadata/cell_triangle_indices = PackedInt32Array('+', '.join(map(str,cell_triangles))+')\n'
     text += 'metadata/cell_regions = PackedByteArray('+', '.join(map(str,regions))+')\n'
     text += 'metadata/cell_ligament_child = PackedByteArray('+', '.join(map(str,links))+')\n'
+    text += f'metadata/flesh_overlap_vertex_start = {overlap_start}\n'
+    text += 'metadata/flesh_overlap_cells = PackedInt32Array('+', '.join(map(str,overlap_cells))+')\n'
+    text += 'metadata/flesh_overlap_polygons = ['+', '.join('PackedInt32Array('+', '.join(map(str,t))+')' for t in overlap_polygons)+']\n'
     text += 'polygons = ['+', '.join('PackedInt32Array('+', '.join(map(str, t))+')' for t in triangles)+']\n'
     bones = []
     for bone,path in enumerate(PATHS):

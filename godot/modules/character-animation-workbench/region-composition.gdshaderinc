@@ -9,16 +9,29 @@ uniform float region_orientation = 1.0;
 uniform float compression_floor = 0.12;
 uniform float skin_stretch_limit = 8.0;
 uniform int region_debug = 0;
+uniform int flesh_overlap_vertex_start = 2147483647;
+uniform bool flesh_overlap_enabled = true;
+varying flat float flesh_overlap;
+
+void vertex() {
+	flesh_overlap = VERTEX_ID >= flesh_overlap_vertex_start ? 1.0 : 0.0;
+}
 
 #define REGION_SURROUND_ALPHA min(min(texture(TEXTURE, UV + vec2(TEXTURE_PIXEL_SIZE.x, 0)).a, texture(TEXTURE, UV - vec2(TEXTURE_PIXEL_SIZE.x, 0)).a), min(texture(TEXTURE, UV + vec2(0, TEXTURE_PIXEL_SIZE.y)).a, texture(TEXTURE, UV - vec2(0, TEXTURE_PIXEL_SIZE.y)).a))
 
 vec4 compose_region(vec4 source, vec2 uv, vec2 texel, vec2 screen_uv, vec2 screen_texel, float surround) {
 	if (!compositor_enabled) { return source; }
+	// Overdraw must never accumulate opacity in a translucent module/fringe.
+	if (flesh_overlap > 0.5 && (!flesh_overlap_enabled || source.a < 0.9999)) { return vec4(0.0); }
 	vec2 pixel = uv / texel;
 	vec2 local = pixel - region_atlas_origin;
 	local = mix(local, region_frame_size - local, region_flip);
-	vec3 region = floor(texture(region_map, local / region_frame_size).rgb * 255.0 + 0.5);
+	vec4 region = floor(texture(region_map, local / region_frame_size) * 255.0 + 0.5);
 	float kind = region.r;
+	if (flesh_overlap > 0.5) {
+		kind = 1.0;
+		region.b = region.a;
+	}
 	// Skin uses the actual module alpha, even if the shared mask union is wider.
 	if (kind == 1.0) {
 		if (surround < 0.001 || local.x < 1.0 || local.y < 1.0 || local.x > region_frame_size.x - 1.0 || local.y > region_frame_size.y - 1.0) { kind = 3.0; }

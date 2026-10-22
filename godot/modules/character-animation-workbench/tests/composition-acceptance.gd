@@ -26,7 +26,8 @@ func _run() -> void:
 		var visited: Dictionary = {}
 		for index: int in indices:
 			visited[index] = true
-		_check(visited.size() == cells.size() * 2 and surface.polygons.size() == cells.size() * 2, "Every source cell has exactly two triangles; no uncontrolled texture duplication")
+		var overlap_indices: PackedInt32Array = surface.get_meta("flesh_overlap_indices",PackedInt32Array())
+		_check(visited.size() == cells.size() * 2 and surface.polygons.size() == cells.size() * 2 + overlap_indices.size(), "Every source cell has two base triangles plus explicitly tracked flesh margins")
 		var kinds: Dictionary = {}
 		for region: int in cells:
 			kinds[region % 4] = true

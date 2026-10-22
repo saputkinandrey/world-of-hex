@@ -47,6 +47,7 @@ func rebind_atlas(state: Dictionary, mirrored: bool) -> void:
 	bound_flip_h = next_flip_h
 	bound_flip_v = state.flip_v
 	_bind_elastic_seams()
+	_composition_direction = -1
 	_bind_composition()
 	offset = state.offset * Vector2(-1.0 if mirrored else 1.0, 1.0)
 	if not state.centered:
@@ -69,11 +70,13 @@ func _bind_composition() -> void:
 		var composition: Dictionary = RegionComposition.compose(self, composition_direction, _cell_polygons)
 		polygons = composition.polygons
 		set_meta("cell_triangle_indices", composition.indices)
+		set_meta("flesh_overlap_indices", composition.overlap_indices)
 		set_meta("directional_depth", composition.table)
 		_composition_map = composition.map
 		_composition_direction = composition_direction
 	var shader_material: ShaderMaterial = material
 	shader_material.set_shader_parameter("compositor_enabled", true)
+	shader_material.set_shader_parameter("flesh_overlap_vertex_start",get_meta("flesh_overlap_vertex_start",2147483647))
 	shader_material.set_shader_parameter("region_map", _composition_map)
 	shader_material.set_shader_parameter("region_frame_size", Vector2(get_meta("frame_size")))
 	shader_material.set_shader_parameter("region_atlas_origin", bound_atlas_origin)

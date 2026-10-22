@@ -11,6 +11,7 @@ const LANDMARKS: Dictionary = {
 	"SouthWest": {
 		"Head": [Vector2(66,40), Vector2(80,40), Vector2(69,58)],
 		"ArmR": [Vector2(86,64), Vector2(90,65), Vector2(88,68)],
+		"ForearmR": [Vector2(84,89), Vector2(87,94), Vector2(90,96)],
 		"CalfL": [Vector2(66,102), Vector2(65,104), Vector2(61,105)],
 		"CalfR": [Vector2(80,114), Vector2(83,116), Vector2(79,117)]},
 	"NorthWest": {

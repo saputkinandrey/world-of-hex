@@ -1,5 +1,5 @@
 param(
-    [ValidateSet('import', 'test', 'visual-test', 'parse', 'smoke', 'source', 'deformation', 'skeletal-test', 'skeletal-visual', 'skeletal-smoke', 'skeletal-proof', 'skeletal-editor', 'walk-render', 'walk-test', 'walk-preview', 'run-bake', 'run-test', 'run-render', 'run-preview', 'north-bake', 'comparison-test', 'comparison-render', 'comparison-preview', 'north-layer-test', 'south-west-bake', 'south-west-test', 'north-west-bake', 'north-west-test', 'hand-test', 'surface-test', 'composition-test', 'composition-render', 'composition-video', 'anatomy-test', 'seam-visual', 'seam-test', 'mask-test', 'mask-init', 'mask-refine', 'mask-bake')]
+    [ValidateSet('import', 'test', 'visual-test', 'parse', 'smoke', 'source', 'deformation', 'skeletal-test', 'skeletal-visual', 'skeletal-smoke', 'skeletal-proof', 'skeletal-editor', 'walk-render', 'walk-test', 'walk-preview', 'run-bake', 'run-test', 'run-render', 'run-preview', 'north-bake', 'comparison-test', 'comparison-render', 'comparison-preview', 'north-layer-test', 'south-west-bake', 'south-west-test', 'north-west-bake', 'north-west-test', 'hand-test', 'surface-test', 'ligament-test', 'composition-test', 'composition-render', 'composition-video', 'anatomy-test', 'seam-visual', 'seam-test', 'mask-test', 'mask-init', 'mask-refine', 'mask-bake')]
     [string]$Action = 'test'
 )
 $ErrorActionPreference = 'Stop'
@@ -25,8 +25,9 @@ $modulePath = 'res://modules/character-animation-workbench'
 $engineLogPath = Join-Path $outputPath "$Action-engine.log"
 $engineArguments = @('--path', '.', '--log-file', ('"' + $engineLogPath + '"'))
 switch ($Action) {
+    'ligament-test' { $engineArguments += @('--headless', '--script', "$modulePath/tests/ligament-overlap-acceptance.gd") }
     'composition-test' { $engineArguments += @('--headless', '--script', "$modulePath/tests/composition-acceptance.gd") }
-    'composition-video' { $engineArguments += @('--rendering-method', 'gl_compatibility', '--script', "$modulePath/tests/render-composition.gd", '--', '--video') }
+    'composition-video' { $engineArguments += @('--rendering-method', 'gl_compatibility', '--script', "$modulePath/tests/render-comparison.gd") }
     'composition-render' { $engineArguments += @('--rendering-method', 'gl_compatibility', '--script', "$modulePath/tests/render-composition.gd") }
     'surface-test' { $engineArguments += @('--headless', '--script', "$modulePath/tests/surface-quality-acceptance.gd") }
     'anatomy-test' { $engineArguments += @('--headless', '--script', "$modulePath/tests/anatomy-acceptance.gd") }

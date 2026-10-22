@@ -37,15 +37,33 @@ static func compose(surface: Polygon2D, direction: int, cells: Array) -> Diction
 		var kind: int = regions[cell] % 4
 		var depth: int = table.ligament[links[cell]] if kind == LIGAMENT else table.flesh[owner]
 		assert(depth >= 0, "A ligament must link two chunks")
-		image.set_pixel(cell % size.x, int(cell / size.x), Color.from_rgba8(kind, owner, depth))
+		image.set_pixel(cell % size.x, int(cell / size.x), Color.from_rgba8(kind, owner, depth,table.flesh[owner]))
 		buckets[depth].append(cell)
+	var overlap_cells: PackedInt32Array = surface.get_meta("flesh_overlap_cells",PackedInt32Array())
+	var overlap_polygons: Array = surface.get_meta("flesh_overlap_polygons",[])
+	var source: Image = surface.texture.get_image()
+	for index: int in overlap_cells.size():
+		var cell: int = overlap_cells[index]
+		var triangle: PackedInt32Array = overlap_polygons[index*2]
+		var center: Vector2 = (surface.uv[triangle[0]]+surface.uv[triangle[1]]+surface.uv[triangle[2]])/3.0
+		# Never double the antialiased source fringe or invent hidden texels.
+		if source.get_pixelv(Vector2i(center.floor())).a < 1.0:
+			continue
+		buckets[table.flesh[int(regions[cell]/4)]].append(-index-1)
 	var polygons: Array = []
 	var indices: PackedInt32Array = []
+	var overlap_indices: PackedInt32Array = []
 	indices.resize(cells.size())
 	for bucket: Array in buckets:
 		for cell: int in bucket:
+			if cell < 0:
+				var index: int = -cell-1
+				for triangle: int in [index*2,index*2+1]:
+					overlap_indices.append(polygons.size())
+					polygons.append(overlap_polygons[triangle])
+				continue
 			indices[cell * 2] = polygons.size()
 			polygons.append(cells[cell * 2])
 			indices[cell * 2 + 1] = polygons.size()
 			polygons.append(cells[cell * 2 + 1])
-	return {"map": ImageTexture.create_from_image(image), "polygons": polygons, "indices": indices, "table": table}
+	return {"map": ImageTexture.create_from_image(image), "polygons": polygons, "indices": indices, "overlap_indices":overlap_indices, "table": table}
