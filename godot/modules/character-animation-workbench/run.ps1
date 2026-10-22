@@ -1,5 +1,5 @@
 param(
-    [ValidateSet('import', 'test', 'visual-test', 'parse', 'smoke', 'source', 'deformation', 'skeletal-test', 'skeletal-visual', 'skeletal-smoke', 'skeletal-proof', 'skeletal-editor', 'walk-render', 'walk-test', 'walk-preview', 'run-bake', 'run-test', 'run-render', 'run-preview', 'north-bake', 'comparison-test', 'comparison-render', 'comparison-preview', 'north-layer-test', 'south-west-bake', 'south-west-test', 'north-west-bake', 'north-west-test', 'hand-test', 'seam-visual', 'seam-test', 'mask-test', 'mask-init', 'mask-bake')]
+    [ValidateSet('import', 'test', 'visual-test', 'parse', 'smoke', 'source', 'deformation', 'skeletal-test', 'skeletal-visual', 'skeletal-smoke', 'skeletal-proof', 'skeletal-editor', 'walk-render', 'walk-test', 'walk-preview', 'run-bake', 'run-test', 'run-render', 'run-preview', 'north-bake', 'comparison-test', 'comparison-render', 'comparison-preview', 'north-layer-test', 'south-west-bake', 'south-west-test', 'north-west-bake', 'north-west-test', 'hand-test', 'anatomy-test', 'seam-visual', 'seam-test', 'mask-test', 'mask-init', 'mask-refine', 'mask-bake')]
     [string]$Action = 'test'
 )
 $ErrorActionPreference = 'Stop'
@@ -7,9 +7,10 @@ $projectPath = (Resolve-Path (Join-Path $PSScriptRoot '../..')).Path
 $repositoryPath = (Resolve-Path (Join-Path $projectPath '..')).Path
 $outputPath = Join-Path $repositoryPath 'tmp/animation-workbench'
 New-Item -ItemType Directory -Force -Path $outputPath | Out-Null
-if ($Action -in @('mask-init', 'mask-bake')) {
-    $maskAction = if ($Action -eq 'mask-init') { 'init' } else { 'bake' }
-    & python (Join-Path $PSScriptRoot 'tools/deformation_masks.py') $maskAction
+if ($Action -in @('mask-init', 'mask-refine', 'mask-bake')) {
+    $maskAction = if ($Action -eq 'mask-init') { 'init' } elseif ($Action -eq 'mask-refine') { 'refine' } else { 'bake' }
+    if ($Action -eq 'mask-refine') { & python (Join-Path $PSScriptRoot 'tools/refine_anatomy.py') }
+    else { & python (Join-Path $PSScriptRoot 'tools/deformation_masks.py') $maskAction }
     if ($LASTEXITCODE -ne 0) { throw "Pixel mask $maskAction failed with exit code $LASTEXITCODE." }
     return
 }
@@ -24,6 +25,7 @@ $modulePath = 'res://modules/character-animation-workbench'
 $engineLogPath = Join-Path $outputPath "$Action-engine.log"
 $engineArguments = @('--path', '.', '--log-file', ('"' + $engineLogPath + '"'))
 switch ($Action) {
+    'anatomy-test' { $engineArguments += @('--headless', '--script', "$modulePath/tests/anatomy-acceptance.gd") }
     'seam-visual' { $engineArguments += @('--rendering-method', 'gl_compatibility', '--script', "$modulePath/tests/seam-visual-acceptance.gd") }
     'seam-test' { $engineArguments += @('--headless', '--script', "$modulePath/tests/seam-acceptance.gd") }
     'mask-test' { $engineArguments += @('--headless', '--script', "$modulePath/tests/mask-acceptance.gd") }

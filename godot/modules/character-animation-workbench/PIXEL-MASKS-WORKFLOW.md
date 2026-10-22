@@ -84,3 +84,30 @@ profiles do not fill intentional gaps in another layer. Animation playback does
 not rebuild the mesh. `seam-visual` isolates the actual bound patches on the GPU:
 it checks that covered strips render and that silhouette-only strips add zero
 colored pixels (the unfiltered regression control added 145 pixels).
+
+## Anatomical ownership correction
+
+`masks/anatomy-regions.json` records manually authored source-pixel polygons for
+the head, shoulder caps, torso, pelvis and diagonal limbs. The initial geodesic
+partition had assigned lower faces to Chest and some feet/hips to unrelated
+limb bones. These regions correct ownership and protect rigid shapes; narrow
+joint lines retain flexibility. Existing elastic seam connections are preserved.
+
+`mask-refine` reapplies these regions to existing nontransparent mask areas and
+maps clothing coordinates through their recorded registration. It overwrites
+manual mask edits **inside the authored regions and joint lines**; unmarked
+areas and separate head-accessory profiles are preserved. It is an explicit
+authoring command, never an automatic runtime operation. Rebuild afterward:
+
+```powershell
+./godot/modules/character-animation-workbench/run.ps1 mask-refine
+./godot/modules/character-animation-workbench/run.ps1 mask-bake
+./godot/modules/character-animation-workbench/run.ps1 anatomy-test
+```
+
+`anatomy-test` measures named opaque landmarks through native walking/running
+clips in all four views. Eleven head/shoulder/pelvis/foot groups now have the
+intended bone ownership and 0.000% measured shape strain. This checks local
+shape preservation, not the artistic quality of the full gait. Native bone
+anchors and animation keyframes are unchanged. The latest four-column video
+frames are exported to `tmp/animation-workbench/comparison-anatomy/`.
