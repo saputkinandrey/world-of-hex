@@ -15,5 +15,6 @@ From the repository root run `python godot/modules/character-animation-workbench
 - `diagnostics`: generate source/ownership atlases and component reports.
 - `render`: render and validate/encode both existing four-direction comparison sequences.
 - `verify`: check all immutable reference bytes.
+- `equivalence`: verify both MP4s and all 586 PNG frames against original reference checksums; preserve available original artifact files in `tmp/animation-workbench/frozen-legacy/reference/` without overwriting them.
 
 Frozen output is under `tmp/animation-workbench/frozen-legacy/repo/tmp/animation-workbench/segmentation/`. Neural results never overwrite it. The baseline inventories all tracked module resources and tracked character art, preserving original Git-blob checksums. Binary artifacts must reproduce exactly. Windows-generated text may differ only by CRLF versus LF; verification normalizes that difference when the raw checksum differs. Any other mismatch is an error, not a baseline update.

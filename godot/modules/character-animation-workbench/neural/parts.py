@@ -81,6 +81,9 @@ def main(action):
             if record['exit_code']:
                 continue
             key = record['key']
+            if metadata.parent.name != key:
+                print('Preserving raw alternative; not selected by primary pipeline: '+str(metadata.parent),flush=True)
+                continue
             inspect(key,records[key]['input'],OUTPUT/'runs'/key/(key+'.psd'))
 
 

@@ -24,10 +24,13 @@ def isolate_project():
 
 
 def scene_signature(data):
-    lines = data.decode('utf-8').splitlines()
-    resources = sorted(line for line in lines if line.startswith('[ext_resource '))
-    body = [line for line in lines if line.strip() and not line.startswith('[ext_resource ')]
-    return hashlib.sha256('\n'.join(resources+body).encode()).hexdigest()
+    text = data.decode('utf-8').replace('\r\n','\n')
+    starts = [text.find(marker) for marker in ('[sub_resource ','[node ') if marker in text]
+    boundary = min(starts) if starts else len(text)
+    prefix,body = text[:boundary].splitlines(),text[boundary:]
+    resources = sorted(line for line in prefix if line.startswith('[ext_resource '))
+    header = [line for line in prefix if line.strip() and not line.startswith('[ext_resource ')]
+    return hashlib.sha256(('\n'.join(header+resources)+'\n'+body).encode()).hexdigest()
 
 
 def verify(root, manifest):
@@ -63,6 +66,10 @@ def main(action):
     if action == 'verify':
         print('All frozen reference checksums match.')
         return
+    if action == 'equivalence':
+        from references import verify_references
+        verify_references(REPO,TARGET)
+        return
     actions = {
         'rebuild':['segmentation-author','mask-bake','segmentation-build'],
         'validate':['segmentation-check','segmentation-test','mask-test'],
@@ -77,9 +84,12 @@ def main(action):
         subprocess.run([shell,'-NoProfile','-ExecutionPolicy','Bypass','-File',
                         str(TARGET/MODULE/'run.ps1'),command],cwd=TARGET,check=True)
     verify(TARGET, manifest)
+    if action == 'render':
+        from references import verify_references
+        verify_references(REPO,TARGET)
 
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument('action',choices=['prepare','verify','rebuild','validate','diagnostics','render','import'])
+    parser.add_argument('action',choices=['prepare','verify','rebuild','validate','diagnostics','render','import','equivalence'])
     main(parser.parse_args().action)

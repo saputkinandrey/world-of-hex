@@ -74,3 +74,12 @@ No actionable documented-standard or complexity-smell findings. The final bounde
 ## Spec review
 
 No source-coordinate, provenance or scope defect found. Technical completion and the failed anatomical visual gate are recorded separately. A valid PSD and passing CUDA test are not reported as visual success.
+
+## Subsequent independent experiment
+
+The bounded probe above remains historical evidence. The subsequent task reuses
+both controls, freezes operational Legacy, evaluates content crops on all four
+authored directions, runs SemanticSam and actual rig-parts assembly, and produces
+independent candidate masks and comparable videos. See [neural/RESULTS.md](neural/RESULTS.md)
+for actual outcomes and limitations; these experiments do not retroactively
+change the probe's observations or promote generated art into production.

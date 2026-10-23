@@ -6,6 +6,10 @@ import cv2
 import numpy as np
 
 
+class MissingNeuralHead(ValueError):
+    """The neural prediction provides no confident head component."""
+
+
 def head_support(alpha, report=None):
     candidates = []
     for threshold in (64,128,192):
@@ -18,7 +22,7 @@ def head_support(alpha, report=None):
             candidates.append({'threshold':threshold,'component':index,
                                'bbox':[x,y,width,height],'area':area,'mass':mass})
     if not candidates:
-        raise ValueError('Neural head prediction has no confident connected component')
+        raise MissingNeuralHead('Neural head prediction has no confident connected component')
     # The strongest confidence-128 component rejects low-alpha full-canvas residue.
     preferred = [item for item in candidates if item['threshold'] == 128]
     selected = max(preferred or candidates,key=lambda item:item['mass'])

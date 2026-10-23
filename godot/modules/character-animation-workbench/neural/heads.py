@@ -1,4 +1,5 @@
 """Additional full-resolution head passes using neural-only crop evidence."""
+import argparse
 import json
 import math
 import os
@@ -13,6 +14,7 @@ from PIL import Image
 from head_localization import head_support
 from infer import settings
 from preprocess import OUTPUT, SOURCES, sha
+from recipe import attempt_folder, fingerprint, require_same, require_input
 
 TAGS = ['headwear','face','irides','eyebrow','eyewhite','eyelash','eyewear','ears','earwear','nose','mouth']
 
@@ -27,7 +29,7 @@ def crop_box(alpha):
     return [left,top,left+side,top+side]
 
 
-def main():
+def main(attempt=None):
     tooling,upstream,_ = settings()
     os.environ.update(HF_HUB_OFFLINE='1',HF_HOME=str(tooling/'cache/huggingface'),
                       TORCH_HOME=str(tooling/'cache/torch'))
@@ -36,17 +38,25 @@ def main():
     from inference_psd_quantized import build_layerdiff_pipeline
     pipeline = None
     records = json.loads((OUTPUT/'inputs.json').read_text())
+    recipe = fingerprint('independent-head-detail',[
+        Path(__file__),Path(__file__).with_name('head_localization.py')],
+        {'seed':42,'steps':20,'resolution':512,'nf4':True,'cpu_offload':True,
+         'model_revision':(tooling/'cache/huggingface/hub/models--24yearsold--seethroughv0.0.2_layerdiff3d_nf4/refs/main').read_text().strip()},upstream)
     requested = json.loads(Path(__file__).with_name('experiments.json').read_text())['head_views']
     if any(view not in SOURCES for view in requested):
         raise ValueError('Head experiment requested an unsupported original projection')
     for view in requested:
         key = view+'-crop-nearest-512'
-        folder = OUTPUT/'heads'/view
+        folder = attempt_folder(OUTPUT/'heads',attempt)/view
         folder.mkdir(parents=True,exist_ok=True)
         body_head = OUTPUT/'runs'/key/key/'head.png'
+        body_experiment = json.loads((OUTPUT/'runs'/key/'experiment.json').read_text())
+        require_input(body_experiment,records[key])
         previous_path = folder/'experiment.json'
         if previous_path.exists():
             previous = json.loads(previous_path.read_text())
+            require_same(previous,recipe)
+            require_input(previous['full_input'],records[key])
             if previous['source_body_head_sha256'] != sha(body_head):
                 raise ValueError('Body head prediction changed for existing head experiment: '+view)
             if not all(sha(folder/(tag+'.png')) == digest for tag,digest in previous['raw_layers'].items()):
@@ -58,7 +68,12 @@ def main():
         source = Image.open(records[key]['input']).convert('RGBA')
         image = source.crop(box).resize((512,512),Image.Resampling.NEAREST)
         image.save(folder/'input.png')
+        (folder/'pending-recipe.json').write_text(json.dumps({'recipe':recipe,
+            'head_box':box,'head_input_sha256':sha(folder/'input.png'),
+            'source_body_head_sha256':sha(body_head)},indent=2)+'\n')
         if pipeline is None:
+            # Match the genuine PSD entrypoint's CUDA initialization order.
+            torch.cuda.reset_peak_memory_stats()
             pipeline = build_layerdiff_pipeline(SimpleNamespace(quant_mode='nf4',cpu_offload=True,
                 group_offload=False,repo_id_layerdiff='24yearsold/seethroughv0.0.2_layerdiff3d_nf4'))
         started = time.time()
@@ -76,6 +91,7 @@ def main():
                            'right':512,'bottom':512,'depth_median':None})
         (folder/'layers.json').write_text(json.dumps({'width':512,'height':512,'layers':layers},indent=2)+'\n')
         info = {'source_body_head':str(body_head),'source_body_head_sha256':sha(body_head),
+            'recipe':recipe,
             'full_input':records[key],'head_box':box,'head_input_sha256':sha(folder/'input.png'),
             'coordinate_contract':'full model edge = head edge * (head_box side / 512) + head_box origin; compose with full_input.transform for native projection',
             'model':'24yearsold/seethroughv0.0.2_layerdiff3d_nf4','quantization':'nf4',
@@ -88,4 +104,6 @@ def main():
 
 
 if __name__ == '__main__':
-    main()
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--attempt')
+    main(parser.parse_args().attempt)

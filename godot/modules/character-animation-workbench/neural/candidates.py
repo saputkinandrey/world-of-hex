@@ -2,9 +2,10 @@
 import json
 from pathlib import Path
 
+import cv2
 import numpy as np
 from PIL import Image
-from head_localization import head_support
+from head_localization import MissingNeuralHead, head_support
 from preprocess import OUTPUT, SOURCES, frame, project, sha
 
 BONES = ['Pelvis','Spine','Chest','Head','ArmL','ForearmL','ArmR','ForearmR',
@@ -13,6 +14,22 @@ PALETTE = [(216,80,80),(230,150,60),(235,215,70),(110,210,100),
            (50,190,180),(60,130,240),(130,80,230),(210,80,210),
            (160,110,70),(110,150,60),(70,150,170),(160,160,210),
            (245,180,60),(100,210,245)]
+# Output-channel namespace, not an anatomical inference: upstream -r is the
+# smaller-image-X arm; this prototype's Hex L channel binds that rest-image side.
+PART_CHANNELS = {'handwear_r':'ArmL','forearm_r':'ForearmL',
+                 'handwear_l':'ArmR','forearm_l':'ForearmR'}
+
+
+def separate_feet(alpha):
+    count,labels,stats,centers = cv2.connectedComponentsWithStats((alpha>128).astype(np.uint8),8)
+    components = [index for index in range(1,count) if stats[index,cv2.CC_STAT_AREA]>=16]
+    if len(components) != 2:
+        return [],{'components':len(components),'decision':'unknown: not exactly two confident semantic foot components'}
+    components.sort(key=lambda index:centers[index,0])
+    return [(labels==index).astype(np.uint8)*255 for index in components],{
+        'components':[{'bbox':stats[index,:4].tolist(),'area':int(stats[index,cv2.CC_STAT_AREA]),
+                       'center':centers[index].tolist()} for index in components],
+        'decision':'smaller/larger image X to Hex rest-image FootL/FootR; no ankle coordinate inference'}
 
 
 def part_canvas(folder, part, size=512):
@@ -40,24 +57,34 @@ def build(view, key):
         provenance.append({'bone':bone,'origin':origin,'pixels_proposed':int(support.sum())})
 
     head = np.array(Image.open(run/'head.png').convert('RGBA'))
-    head[...,3] = head_support(head[...,3])*255
-    add('Head',head,{'kind':'neural-derived segmentation refinement',
+    try:
+        head[...,3] = head_support(head[...,3])*255
+    except MissingNeuralHead as error:
+        provenance.append({'bone':'Head','origin':'neural prediction absent',
+                           'reason':str(error),'pixels_proposed':0})
+    else:
+        add('Head',head,{'kind':'neural-derived segmentation refinement',
                     'source':str(run/'head.png'),'sha256':sha(run/'head.png'),
                     'rule':'strongest alpha-128 connected neural head component'})
     assembly = OUTPUT/'parts'/key/'cuts/rig'
     if (assembly/'parts.json').exists():
         parts = json.loads((assembly/'parts.json').read_text())['parts']
-        for name,bone in [('handwear_r','ArmR'),('forearm_r','ForearmR'),
-                          ('handwear_l','ArmL'),('forearm_l','ForearmL')]:
+        for name,bone in PART_CHANNELS.items():
             part = next((item for item in parts if item['name'] == name),None)
             if part:
                 add(bone,part_canvas(assembly,part),{
                     'kind':'upstream assembly operation + geometric postprocessing',
                     'source':str(assembly/'parts.json'),'part':name,
-                    'rule':'upstream sleeve proposal cut; tags r/l map to anatomical R/L as predicted, not Legacy side labels',
-                    'quality':'elbow and lateral identity are unverified; this is an experimental candidate'})
-    # Footwear is retained as evidence, but a semantic shoe tag by itself does
-    # not establish anatomical left/right. Do not fabricate the two bone IDs.
+                    'rule':'upstream sleeve proposal cut; image-X tag namespace converted to Hex rest-image-side channel names; no joint coordinates used',
+                    'quality':'elbow location and anatomical lateral identity are unverified; image-side channels only'})
+    footwear = np.array(Image.open(run/'footwear.png').convert('RGBA'))
+    feet,foot_evidence = separate_feet(footwear[...,3])
+    for bone,alpha in zip(('FootL','FootR'),feet):
+        pixels = footwear.copy()
+        pixels[...,3] = alpha
+        add(bone,pixels,{'kind':'direct neural semantic prediction + connected-component refinement',
+                        'source':str(run/'footwear.png'),'sha256':sha(run/'footwear.png'),
+                        'rule':foot_evidence,'quality':'semantic foot boundary, not a measured ankle or reconstructed joint'})
     owners = np.zeros(source.shape[:2],dtype=np.uint8)
     count = np.zeros(source.shape[:2],dtype=np.uint8)
     for bone,support in votes:
@@ -93,13 +120,15 @@ def build(view, key):
                           'raw_sha256':sha(path),'provenance':'generated neural RGB; nearest native sampling outside original alpha only; not accepted hidden anatomy'})
     info = {'schema':'hex-independent-neural-candidate/1','view':view,'input':record,
             'bones':BONES,'unknown_label':0,'labels':dict(enumerate(BONES,1)),
+            'output_channel_contract':PART_CHANNELS,
+            'foot_component_evidence':foot_evidence,
             'source_pixels':int(visible.sum()),'known_pixels':int((owners>0).sum()),
             'unknown_pixels':int((visible&(owners==0)).sum()),
             'ambiguous_vote_pixels':int((visible&(count>1)).sum()),
             'bone_pixels':{bone:int((owners==index).sum()) for index,bone in enumerate(BONES,1)},
             'decisions':provenance,'generated_art':generated,
             'limitations':['No independently inferred pelvis/spine/chest/thigh/calf joints.',
-                'Footwear preserved but not forced into left/right bones.',
+                'Feet assigned only when exactly two confident neural components exist; no inferred ankle joints.',
                 'Overlapping votes remain unknown; no Legacy fallback.',
                 'Generated in-silhouette hidden ownership is unresolved.'],
             'source_rgba_sha256':sha(folder/'source.png'),'owners_sha256':sha(folder/'owners-index.png')}

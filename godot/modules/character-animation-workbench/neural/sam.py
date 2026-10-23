@@ -8,6 +8,7 @@ import time
 
 from infer import settings
 from preprocess import OUTPUT, SOURCES, sha
+from recipe import attempt_folder, fingerprint, require_same
 
 MODEL = '24yearsold/l2d_sam_iter2'
 REVISION = '0b06083'
@@ -16,14 +17,14 @@ CLASSES = ['hair','headwear','face','eyes','eyewear','ears','earwear','nose','mo
            'tail','wings','objects']
 
 
-def main(action):
+def main(action,attempt=None):
     tooling,upstream,_ = settings()
     os.environ['HF_HOME'] = str(tooling/'cache/huggingface')
     os.environ['HF_HUB_DOWNLOAD_TIMEOUT'] = '120'
     sys.path[:0] = [str(upstream),str(upstream/'common')]
     from huggingface_hub import hf_hub_download
     checkpoint = hf_hub_download(MODEL,'checkpoint-18000.pt',revision=REVISION)
-    folder = OUTPUT/'sam'
+    folder = attempt_folder(OUTPUT/'sam',attempt)
     folder.mkdir(parents=True,exist_ok=True)
     provenance = {'model':MODEL,'revision':Path(checkpoint).parent.name,'checkpoint_sha256':sha(checkpoint),
                   'classes':CLASSES,'implementation':'upstream modules.semanticsam.SemanticSam',
@@ -32,12 +33,18 @@ def main(action):
     if action == 'download':
         print('SemanticSam checkpoint cached: '+checkpoint,flush=True)
         return
+    recipe = fingerprint('semantic-sam',[
+        Path(__file__),upstream/'common/modules/semanticsam.py',
+        upstream/'common/modules/extend_sam.py'],
+        {'model':MODEL,'revision':provenance['revision'],'checkpoint_sha256':provenance['checkpoint_sha256'],
+         'dtype':'bfloat16','class_num':19,'model_type':'h_hq'})
     pending = []
     records = json.loads((OUTPUT/'inputs.json').read_text())
     for view in SOURCES:
         saved = folder/view/'experiment.json'
         if saved.exists():
             previous = json.loads(saved.read_text())
+            require_same(previous,recipe)
             if previous['input_sha256'] != records[view+'-crop-nearest-512']['input_sha256']:
                 raise ValueError('Input changed for existing SemanticSam experiment: '+view)
             if sha(folder/view/'logits.npz') != previous['logits_sha256']:
@@ -75,7 +82,7 @@ def main(action):
         for index,name in enumerate(CLASSES):
             alpha = (255/(1+np.exp(-np.clip(logits[index],-50,50)))).astype(np.uint8)
             Image.fromarray(alpha).save(target/(name+'.png'))
-        info = {**provenance,**records[key],'elapsed_seconds':time.time()-started,
+        info = {**provenance,**records[key],'recipe':recipe,'elapsed_seconds':time.time()-started,
                 'peak_allocated_gib':torch.cuda.max_memory_allocated()/1024**3,
                 'logits_shape':list(logits.shape),'dtype':'bfloat16',
                 'logits_sha256':sha(target/'logits.npz'),
@@ -87,4 +94,6 @@ def main(action):
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('action',choices=['download','infer'])
-    main(parser.parse_args().action)
+    parser.add_argument('--attempt')
+    args = parser.parse_args()
+    main(args.action,args.attempt)
