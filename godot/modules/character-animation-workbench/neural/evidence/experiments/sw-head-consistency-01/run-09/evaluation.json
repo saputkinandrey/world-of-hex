@@ -1,0 +1,62 @@
+{
+  "layerdiff": {
+    "model": "layerdiff",
+    "outcome": "not_attempted_user_stop",
+    "executed": false,
+    "reason": "User requested pause after evaluation08; this administrative barrier prevents the already-running controller from spawning evaluations09/10.",
+    "parameters": {
+      "seed": 404,
+      "steps": 20,
+      "resolution": 512,
+      "depth_resolution": 512
+    },
+    "contract": {
+      "models": {
+        "24yearsold/seethroughv0.0.2_layerdiff3d_nf4": "96f9311ff449dc86cfaba101ce4dfb4fd4958b80",
+        "24yearsold/seethroughv0.0.1_marigold_nf4": "e53b344b5aa5beec7c141bd5601decaaff0898c9"
+      },
+      "seed": 42,
+      "steps": 20,
+      "resolution": 512,
+      "depth_resolution": 512,
+      "local_worker_sha256": "af41993111327553710713d41aa3b28dc3f1704c05678da728629e62dee18c4c",
+      "parameters_sha256": "f4e7f4e0418099622f5af4a0e692277af2ccb96535f8f8b8fd9f5b60fec9d5d9",
+      "head_support_sha256": "80024bd75112e0fe3526d7d2c515c36db01769e3d096f80393220dcbca39446a",
+      "quant_mode": "nf4",
+      "cpu_offload": true,
+      "group_offload": false,
+      "tblr_split": true,
+      "head_policy": "strongest-alpha128-component-with-explicit-64-192-fallback",
+      "implementation": {
+        "common/modules/layerdiffuse/diffusers_kdiffusion_sdxl.py": "dfd5408669be2a48baaddc516deb87abefd05e24799ca47ea57337b492c7b57f",
+        "inference/scripts/inference_psd_quantized.py": "7d73091de39f0a26cc495056c9c863c65cf98453fe1a34bd466b7d3a24165be7"
+      }
+    }
+  },
+  "semantic-sam": {
+    "model": "semantic-sam",
+    "outcome": "not_attempted_user_stop",
+    "executed": false,
+    "reason": "User requested pause after evaluation08; this administrative barrier prevents the already-running controller from spawning evaluations09/10.",
+    "parameters": {
+      "seed": 404,
+      "steps": 20,
+      "resolution": 512,
+      "depth_resolution": 512
+    },
+    "contract": {
+      "model": "24yearsold/l2d_sam_iter2",
+      "revision": "0b0608310fb7a89e32ecd7397147a249540cf1e7",
+      "checkpoint_sha256": "dda82b916f6c340bc5a6c3a077ff1214f9906906abe3707b1076d55b508f253f",
+      "local_worker_sha256": "910e0dda2b6fa52c2c6fa15d71efc9b12cb223d005b2806284ed83a455bb1a80",
+      "parameters_sha256": "f4e7f4e0418099622f5af4a0e692277af2ccb96535f8f8b8fd9f5b60fec9d5d9",
+      "dtype": "bfloat16",
+      "class_num": 19,
+      "model_type": "h_hq",
+      "implementation": {
+        "common/modules/semanticsam.py": "747a1f1d84d10e93747ba24ec7e79a2791ef2c469cdb69c7d2acf00bd827f5eb",
+        "common/modules/extend_sam.py": "04345c62d4021a303f0e857654d35ce123369ee5b94c996cb96f69a3bd392d12"
+      }
+    }
+  }
+}
