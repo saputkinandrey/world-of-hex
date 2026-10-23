@@ -1,0 +1,190 @@
+{
+  "schema": "hex-seethrough-results/1",
+  "upstream_commit": "df019de5129d6c4b406587a14c3501669441a783",
+  "wrapper_commit": "917bebbb31336bde2b86d12293f8975b1c4615f4",
+  "compat_patch_sha256": "e990577b03d9f78654f9c34c34a38ce6e52be0cfce8d2d59725541f938d69cf2",
+  "parameters": {
+    "view": "south-west",
+    "resolution": 512,
+    "depth_resolution": 512,
+    "steps": 20,
+    "seed": 42,
+    "quantization": "nf4",
+    "cpu_offload": true,
+    "group_offload": false
+  },
+  "cuda": {
+    "python": "3.12.9 (main, Feb  5 2025, 19:15:20) [MSC v.1942 64 bit (AMD64)]",
+    "torch": "2.8.0+cu128",
+    "cuda": "12.8",
+    "gpu": "NVIDIA GeForce RTX 3060 Laptop GPU",
+    "vram_bytes": 6441926656,
+    "bf16_matmul": true,
+    "upstream_imports": true
+  },
+  "model_revisions": {
+    "24yearsold/seethroughv0.0.2_layerdiff3d_nf4": "96f9311ff449dc86cfaba101ce4dfb4fd4958b80",
+    "24yearsold/seethroughv0.0.1_marigold_nf4": "e53b344b5aa5beec7c141bd5601decaaff0898c9"
+  },
+  "runs": {
+    "bicubic": {
+      "stats": {
+        "quant_mode": "nf4",
+        "peak_vram_gb": 4.421796798706055,
+        "layerdiff_time_s": 274.5653374195099,
+        "marigold_time_s": 15.053767442703247,
+        "psd_time_s": 1.9291627407073975,
+        "total_time_s": 512.9952652454376
+      },
+      "psds": [
+        {
+          "file": "results/bicubic/south-west-bicubic-512.psd",
+          "bytes": 5295458,
+          "sha256": "b7eb629c457b2b03bd2c0b516d35318d269aa429ea8957f857921177aae71f93"
+        },
+        {
+          "file": "results/bicubic/south-west-bicubic-512_depth.psd",
+          "bytes": 1023146,
+          "sha256": "26cecc2790bd524900c0315506d0e9518ea9ebf95a70c018f41a5adabb3de57c"
+        }
+      ],
+      "body_layer_coverage": [
+        {
+          "layer": "head",
+          "alpha_gt_15": 10046,
+          "alpha_gt_128": 9309,
+          "alpha_range": [
+            0,
+            255
+          ]
+        },
+        {
+          "layer": "handwear",
+          "alpha_gt_15": 10082,
+          "alpha_gt_128": 8640,
+          "alpha_range": [
+            0,
+            255
+          ]
+        },
+        {
+          "layer": "topwear",
+          "alpha_gt_15": 32476,
+          "alpha_gt_128": 30844,
+          "alpha_range": [
+            0,
+            255
+          ]
+        },
+        {
+          "layer": "bottomwear",
+          "alpha_gt_15": 19193,
+          "alpha_gt_128": 11511,
+          "alpha_range": [
+            0,
+            255
+          ]
+        },
+        {
+          "layer": "legwear",
+          "alpha_gt_15": 34,
+          "alpha_gt_128": 0,
+          "alpha_range": [
+            0,
+            36
+          ]
+        },
+        {
+          "layer": "footwear",
+          "alpha_gt_15": 33,
+          "alpha_gt_128": 0,
+          "alpha_range": [
+            0,
+            34
+          ]
+        }
+      ]
+    },
+    "nearest": {
+      "stats": {
+        "quant_mode": "nf4",
+        "peak_vram_gb": 4.421796798706055,
+        "layerdiff_time_s": 303.86498284339905,
+        "marigold_time_s": 48.18129229545593,
+        "psd_time_s": 1.4884352684020996,
+        "total_time_s": 384.12067461013794
+      },
+      "psds": [
+        {
+          "file": "results/nearest/south-west-nearest-512.psd",
+          "bytes": 4599694,
+          "sha256": "45b490f52172adee5da3f858636f6f59f1142687b9a3a26c1efd5bf4e3c2d3eb"
+        },
+        {
+          "file": "results/nearest/south-west-nearest-512_depth.psd",
+          "bytes": 919234,
+          "sha256": "0786969ac2aab577e50578261813f8a83ed9eec0949f77c96150d0c91ffafd1d"
+        }
+      ],
+      "body_layer_coverage": [
+        {
+          "layer": "head",
+          "alpha_gt_15": 9119,
+          "alpha_gt_128": 8596,
+          "alpha_range": [
+            0,
+            255
+          ]
+        },
+        {
+          "layer": "handwear",
+          "alpha_gt_15": 8949,
+          "alpha_gt_128": 8100,
+          "alpha_range": [
+            0,
+            255
+          ]
+        },
+        {
+          "layer": "topwear",
+          "alpha_gt_15": 31984,
+          "alpha_gt_128": 30897,
+          "alpha_range": [
+            0,
+            255
+          ]
+        },
+        {
+          "layer": "bottomwear",
+          "alpha_gt_15": 35,
+          "alpha_gt_128": 0,
+          "alpha_range": [
+            0,
+            36
+          ]
+        },
+        {
+          "layer": "legwear",
+          "alpha_gt_15": 33,
+          "alpha_gt_128": 0,
+          "alpha_range": [
+            0,
+            35
+          ]
+        },
+        {
+          "layer": "footwear",
+          "alpha_gt_15": 34,
+          "alpha_gt_128": 0,
+          "alpha_range": [
+            0,
+            36
+          ]
+        }
+      ]
+    }
+  },
+  "visual_gate": "not sufficient for anatomical owner integration",
+  "production_changes": false,
+  "next_stage": "No 768 inference or rig-parts integration: both 512 variants lack separate lower-leg/foot semantics."
+}

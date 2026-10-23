@@ -1,0 +1,304 @@
+{
+  "schema": "hex-seethrough-probe/1",
+  "purpose": "Read-only comparison of See-through / rig-c against reviewed source ownership",
+  "sources": "first idle frame per independently authored Hex direction",
+  "not_production": true,
+  "records": [
+    {
+      "view": "south-west",
+      "input_file": "model-inputs/south-west-nearest-512.png",
+      "input_sha256": "42d4cb1a2f06cd7f4f35e0ff8660fa2741a57fd2dfe70751012815d81ec6be0c",
+      "native_rgba_file": "sources/south-west.png",
+      "native_rgba_sha256": "360f063eafb49373170a61a041841e5d66078b67ed9b00659769b0414ba774fe",
+      "source_atlas": "godot/assets/Character/Character1/idle/Char1_south_west_idle/Idle_body_SW1.png",
+      "source_atlas_sha256": "12048d52ee5492292a65c1167143cfc021a0d368cb69d3b198f60a698d44c0a7",
+      "reviewed_owner_mask": "godot/modules/character-animation-workbench/masks/south-west-0-owners.png",
+      "reviewed_owner_mask_sha256": "1e32b66960bf4a355668f79d4c6cd14db16ab5784b8bc5da1d5652cd4714cb9e",
+      "baseline_file": "baseline/south-west-owners.png",
+      "baseline_sha256": "aab6d89b2fea21b5749310dc7a4dac7298c1fd6cc8c36685b78d904285920383",
+      "native_dimensions": [
+        150,
+        150
+      ],
+      "input_dimensions": [
+        512,
+        512
+      ],
+      "native_to_input_scale": [
+        3.4133333333333336,
+        3.4133333333333336
+      ],
+      "native_to_input_offset": [
+        0,
+        0
+      ],
+      "resampling": "nearest",
+      "background": "white (255,255,255)",
+      "coordinate_contract": "Edge coordinates: input = native * scale + offset. Pixel-center indices: input = (native + 0.5) * scale + offset - 0.5.",
+      "native_center_to_input_offset": [
+        1.2066666666666668,
+        1.2066666666666668
+      ],
+      "inverse_center_contract": "native index = (input index + 0.5 - offset) / scale - 0.5; sample labels with nearest neighbor, never interpolate palette colors"
+    },
+    {
+      "view": "south-west",
+      "input_file": "model-inputs/south-west-bicubic-512.png",
+      "input_sha256": "33b77c8b7f94d229b84916df914195bdfaeade28f3090bb99d357c290dfdd3c5",
+      "native_rgba_file": "sources/south-west.png",
+      "native_rgba_sha256": "360f063eafb49373170a61a041841e5d66078b67ed9b00659769b0414ba774fe",
+      "source_atlas": "godot/assets/Character/Character1/idle/Char1_south_west_idle/Idle_body_SW1.png",
+      "source_atlas_sha256": "12048d52ee5492292a65c1167143cfc021a0d368cb69d3b198f60a698d44c0a7",
+      "reviewed_owner_mask": "godot/modules/character-animation-workbench/masks/south-west-0-owners.png",
+      "reviewed_owner_mask_sha256": "1e32b66960bf4a355668f79d4c6cd14db16ab5784b8bc5da1d5652cd4714cb9e",
+      "baseline_file": "baseline/south-west-owners.png",
+      "baseline_sha256": "aab6d89b2fea21b5749310dc7a4dac7298c1fd6cc8c36685b78d904285920383",
+      "native_dimensions": [
+        150,
+        150
+      ],
+      "input_dimensions": [
+        512,
+        512
+      ],
+      "native_to_input_scale": [
+        3.4133333333333336,
+        3.4133333333333336
+      ],
+      "native_to_input_offset": [
+        0,
+        0
+      ],
+      "resampling": "bicubic",
+      "background": "white (255,255,255)",
+      "coordinate_contract": "Edge coordinates: input = native * scale + offset. Pixel-center indices: input = (native + 0.5) * scale + offset - 0.5.",
+      "native_center_to_input_offset": [
+        1.2066666666666668,
+        1.2066666666666668
+      ],
+      "inverse_center_contract": "native index = (input index + 0.5 - offset) / scale - 0.5; sample labels with nearest neighbor, never interpolate palette colors"
+    },
+    {
+      "view": "south-west",
+      "input_file": "model-inputs/south-west-nearest-768.png",
+      "input_sha256": "a47e29d33f3e6244f7207cf5cf8ecc65864236934664845ea235ee342935a1ed",
+      "native_rgba_file": "sources/south-west.png",
+      "native_rgba_sha256": "360f063eafb49373170a61a041841e5d66078b67ed9b00659769b0414ba774fe",
+      "source_atlas": "godot/assets/Character/Character1/idle/Char1_south_west_idle/Idle_body_SW1.png",
+      "source_atlas_sha256": "12048d52ee5492292a65c1167143cfc021a0d368cb69d3b198f60a698d44c0a7",
+      "reviewed_owner_mask": "godot/modules/character-animation-workbench/masks/south-west-0-owners.png",
+      "reviewed_owner_mask_sha256": "1e32b66960bf4a355668f79d4c6cd14db16ab5784b8bc5da1d5652cd4714cb9e",
+      "baseline_file": "baseline/south-west-owners.png",
+      "baseline_sha256": "aab6d89b2fea21b5749310dc7a4dac7298c1fd6cc8c36685b78d904285920383",
+      "native_dimensions": [
+        150,
+        150
+      ],
+      "input_dimensions": [
+        768,
+        768
+      ],
+      "native_to_input_scale": [
+        5.12,
+        5.12
+      ],
+      "native_to_input_offset": [
+        0,
+        0
+      ],
+      "resampling": "nearest",
+      "background": "white (255,255,255)",
+      "coordinate_contract": "Edge coordinates: input = native * scale + offset. Pixel-center indices: input = (native + 0.5) * scale + offset - 0.5.",
+      "native_center_to_input_offset": [
+        2.06,
+        2.06
+      ],
+      "inverse_center_contract": "native index = (input index + 0.5 - offset) / scale - 0.5; sample labels with nearest neighbor, never interpolate palette colors"
+    },
+    {
+      "view": "south-west",
+      "input_file": "model-inputs/south-west-bicubic-768.png",
+      "input_sha256": "4ba74d2342a6d67923871771bce234752918370caee76b716e4f7214ab308cb8",
+      "native_rgba_file": "sources/south-west.png",
+      "native_rgba_sha256": "360f063eafb49373170a61a041841e5d66078b67ed9b00659769b0414ba774fe",
+      "source_atlas": "godot/assets/Character/Character1/idle/Char1_south_west_idle/Idle_body_SW1.png",
+      "source_atlas_sha256": "12048d52ee5492292a65c1167143cfc021a0d368cb69d3b198f60a698d44c0a7",
+      "reviewed_owner_mask": "godot/modules/character-animation-workbench/masks/south-west-0-owners.png",
+      "reviewed_owner_mask_sha256": "1e32b66960bf4a355668f79d4c6cd14db16ab5784b8bc5da1d5652cd4714cb9e",
+      "baseline_file": "baseline/south-west-owners.png",
+      "baseline_sha256": "aab6d89b2fea21b5749310dc7a4dac7298c1fd6cc8c36685b78d904285920383",
+      "native_dimensions": [
+        150,
+        150
+      ],
+      "input_dimensions": [
+        768,
+        768
+      ],
+      "native_to_input_scale": [
+        5.12,
+        5.12
+      ],
+      "native_to_input_offset": [
+        0,
+        0
+      ],
+      "resampling": "bicubic",
+      "background": "white (255,255,255)",
+      "coordinate_contract": "Edge coordinates: input = native * scale + offset. Pixel-center indices: input = (native + 0.5) * scale + offset - 0.5.",
+      "native_center_to_input_offset": [
+        2.06,
+        2.06
+      ],
+      "inverse_center_contract": "native index = (input index + 0.5 - offset) / scale - 0.5; sample labels with nearest neighbor, never interpolate palette colors"
+    },
+    {
+      "view": "south",
+      "input_file": "model-inputs/south-nearest-512.png",
+      "input_sha256": "95eed9cdebf827fe5d440658f260e4a28a4db52de9c61981fa9b7dbff2097154",
+      "native_rgba_file": "sources/south.png",
+      "native_rgba_sha256": "6f71b9caf961d3b2384e3bedbc988650b090bc6b0b2b73ddfc17100b4d24721e",
+      "source_atlas": "godot/assets/Character/Character1/idle/Char1_south_idle/Char1_body.png",
+      "source_atlas_sha256": "b935ebfa9fb3b24e24f30d04909d50369f8b25b53f7c60da9ee387db20b9869c",
+      "reviewed_owner_mask": "godot/modules/character-animation-workbench/masks/south-body-owners.png",
+      "reviewed_owner_mask_sha256": "32836e7ac4ea22d5c02011e87aaa00236b9086589fe9ec89fa3067278c83d3c7",
+      "baseline_file": "baseline/south-owners.png",
+      "baseline_sha256": "745ed8284ba4dfa789a53251b2b6fad9778aa3035309a209a257ab707845a09c",
+      "native_dimensions": [
+        110,
+        110
+      ],
+      "input_dimensions": [
+        512,
+        512
+      ],
+      "native_to_input_scale": [
+        4.654545454545454,
+        4.654545454545454
+      ],
+      "native_to_input_offset": [
+        0,
+        0
+      ],
+      "resampling": "nearest",
+      "background": "white (255,255,255)",
+      "coordinate_contract": "Edge coordinates: input = native * scale + offset. Pixel-center indices: input = (native + 0.5) * scale + offset - 0.5.",
+      "native_center_to_input_offset": [
+        1.8272727272727272,
+        1.8272727272727272
+      ],
+      "inverse_center_contract": "native index = (input index + 0.5 - offset) / scale - 0.5; sample labels with nearest neighbor, never interpolate palette colors"
+    },
+    {
+      "view": "south",
+      "input_file": "model-inputs/south-bicubic-512.png",
+      "input_sha256": "7ca44864c5b117620de4ec63d97f933a109d59fc21efac3886cd614b802063d5",
+      "native_rgba_file": "sources/south.png",
+      "native_rgba_sha256": "6f71b9caf961d3b2384e3bedbc988650b090bc6b0b2b73ddfc17100b4d24721e",
+      "source_atlas": "godot/assets/Character/Character1/idle/Char1_south_idle/Char1_body.png",
+      "source_atlas_sha256": "b935ebfa9fb3b24e24f30d04909d50369f8b25b53f7c60da9ee387db20b9869c",
+      "reviewed_owner_mask": "godot/modules/character-animation-workbench/masks/south-body-owners.png",
+      "reviewed_owner_mask_sha256": "32836e7ac4ea22d5c02011e87aaa00236b9086589fe9ec89fa3067278c83d3c7",
+      "baseline_file": "baseline/south-owners.png",
+      "baseline_sha256": "745ed8284ba4dfa789a53251b2b6fad9778aa3035309a209a257ab707845a09c",
+      "native_dimensions": [
+        110,
+        110
+      ],
+      "input_dimensions": [
+        512,
+        512
+      ],
+      "native_to_input_scale": [
+        4.654545454545454,
+        4.654545454545454
+      ],
+      "native_to_input_offset": [
+        0,
+        0
+      ],
+      "resampling": "bicubic",
+      "background": "white (255,255,255)",
+      "coordinate_contract": "Edge coordinates: input = native * scale + offset. Pixel-center indices: input = (native + 0.5) * scale + offset - 0.5.",
+      "native_center_to_input_offset": [
+        1.8272727272727272,
+        1.8272727272727272
+      ],
+      "inverse_center_contract": "native index = (input index + 0.5 - offset) / scale - 0.5; sample labels with nearest neighbor, never interpolate palette colors"
+    },
+    {
+      "view": "south",
+      "input_file": "model-inputs/south-nearest-768.png",
+      "input_sha256": "ad261fe872a300a0d0734bdb0b1c59250cadb21a72ac3ea02b675bd47ad4f9a6",
+      "native_rgba_file": "sources/south.png",
+      "native_rgba_sha256": "6f71b9caf961d3b2384e3bedbc988650b090bc6b0b2b73ddfc17100b4d24721e",
+      "source_atlas": "godot/assets/Character/Character1/idle/Char1_south_idle/Char1_body.png",
+      "source_atlas_sha256": "b935ebfa9fb3b24e24f30d04909d50369f8b25b53f7c60da9ee387db20b9869c",
+      "reviewed_owner_mask": "godot/modules/character-animation-workbench/masks/south-body-owners.png",
+      "reviewed_owner_mask_sha256": "32836e7ac4ea22d5c02011e87aaa00236b9086589fe9ec89fa3067278c83d3c7",
+      "baseline_file": "baseline/south-owners.png",
+      "baseline_sha256": "745ed8284ba4dfa789a53251b2b6fad9778aa3035309a209a257ab707845a09c",
+      "native_dimensions": [
+        110,
+        110
+      ],
+      "input_dimensions": [
+        768,
+        768
+      ],
+      "native_to_input_scale": [
+        6.9818181818181815,
+        6.9818181818181815
+      ],
+      "native_to_input_offset": [
+        0,
+        0
+      ],
+      "resampling": "nearest",
+      "background": "white (255,255,255)",
+      "coordinate_contract": "Edge coordinates: input = native * scale + offset. Pixel-center indices: input = (native + 0.5) * scale + offset - 0.5.",
+      "native_center_to_input_offset": [
+        2.9909090909090907,
+        2.9909090909090907
+      ],
+      "inverse_center_contract": "native index = (input index + 0.5 - offset) / scale - 0.5; sample labels with nearest neighbor, never interpolate palette colors"
+    },
+    {
+      "view": "south",
+      "input_file": "model-inputs/south-bicubic-768.png",
+      "input_sha256": "4bbc3d4877337adbf6fbe6f39b01a13af28da3d994c48791607a3a5d0b62e02b",
+      "native_rgba_file": "sources/south.png",
+      "native_rgba_sha256": "6f71b9caf961d3b2384e3bedbc988650b090bc6b0b2b73ddfc17100b4d24721e",
+      "source_atlas": "godot/assets/Character/Character1/idle/Char1_south_idle/Char1_body.png",
+      "source_atlas_sha256": "b935ebfa9fb3b24e24f30d04909d50369f8b25b53f7c60da9ee387db20b9869c",
+      "reviewed_owner_mask": "godot/modules/character-animation-workbench/masks/south-body-owners.png",
+      "reviewed_owner_mask_sha256": "32836e7ac4ea22d5c02011e87aaa00236b9086589fe9ec89fa3067278c83d3c7",
+      "baseline_file": "baseline/south-owners.png",
+      "baseline_sha256": "745ed8284ba4dfa789a53251b2b6fad9778aa3035309a209a257ab707845a09c",
+      "native_dimensions": [
+        110,
+        110
+      ],
+      "input_dimensions": [
+        768,
+        768
+      ],
+      "native_to_input_scale": [
+        6.9818181818181815,
+        6.9818181818181815
+      ],
+      "native_to_input_offset": [
+        0,
+        0
+      ],
+      "resampling": "bicubic",
+      "background": "white (255,255,255)",
+      "coordinate_contract": "Edge coordinates: input = native * scale + offset. Pixel-center indices: input = (native + 0.5) * scale + offset - 0.5.",
+      "native_center_to_input_offset": [
+        2.9909090909090907,
+        2.9909090909090907
+      ],
+      "inverse_center_contract": "native index = (input index + 0.5 - offset) / scale - 0.5; sample labels with nearest neighbor, never interpolate palette colors"
+    }
+  ]
+}
