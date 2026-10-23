@@ -6,6 +6,7 @@ import json
 import re
 import sys
 from PIL import Image, ImageChops
+from ligament_topology import interfaces
 
 ROOT = Path(__file__).resolve().parents[1]
 PROJECT = ROOT.parents[1]
@@ -17,6 +18,9 @@ BONES = ['Pelvis', 'Spine', 'Chest', 'Head', 'ArmL', 'ForearmL', 'ArmR', 'Forear
 PARENTS = [-1, 0, 1, 2, 2, 4, 2, 6, 0, 8, 0, 10, 9, 11]
 MOTION_BRIDGE_TRIANGLES = [(0,1,2),(0,2,3),(0,1,3),(1,2,3)]
 GARMENT_SLEEVE_LINKS = {frozenset((BONES.index('Spine'), BONES.index(arm))) for arm in ['ArmL','ArmR']}
+# The source masks omit the chest between these chunks. This is the static
+# attachment graph; unrelated hand/torso contacts are deliberately absent.
+CHUNK_ATTACHMENTS = GARMENT_SLEEVE_LINKS | {frozenset((BONES.index('Spine'),BONES.index('Head')))}
 PATHS = ['Pelvis', 'Pelvis/Spine', 'Pelvis/Spine/Chest', 'Pelvis/Spine/Chest/Head',
          'Pelvis/Spine/Chest/ArmL', 'Pelvis/Spine/Chest/ArmL/ForearmL',
          'Pelvis/Spine/Chest/ArmR', 'Pelvis/Spine/Chest/ArmR/ForearmR',
@@ -304,55 +308,22 @@ def compile_profile(name, profile, body_profile):
         overlap_polygons.extend([(indices[0],indices[1],indices[2]),(indices[0],indices[2],indices[3])])
     bridge_start = len(vertices)
     bridge_polygons, bridge_owners = [], []
-    reveal_hands, reveal_points = [], []
     bridge_uv = {}
-    motion_path = MASKS/'motion-bridges.json'
-    measured = json.loads(motion_path.read_text())['profiles'].get(name,[]) if motion_path.exists() else []
-    for index, edge in enumerate(measured):
-        envelope = edge.get('type') == 'joint_envelope'
-        calf_fill = edge.get('type') == 'calf_fill'
-        a,b = edge['a'],edge['b']
-        if envelope:
-            corners = [tuple(p) for p in edge['geometry']]
-            left,top = corners[0]
-            right,bottom = corners[2]
-            sx,sy,uw,uh = edge['uv_rect']
-            uv_corners = [(sx,sy),(sx+uw,sy),(sx+uw,sy+uh),(sx,sy+uh)]
-            cells = [(corners[0][0],corners[0][1]),(corners[1][0]-1,corners[1][1]),(corners[2][0]-1,corners[2][1]-1),(corners[3][0],corners[3][1]-1)]
-        elif calf_fill:
-            left,top = edge['x'],edge['y']
-            right,bottom = left+1,top+1
-            corners = [(left,top),(right,top),(right,bottom),(left,bottom)]
-            sx,sy = edge['sample_x'],edge['sample_y']
-            uv_corners = [(sx,sy),(sx+1,sy),(sx+1,sy+1),(sx,sy+1)]
-            cells = [(left,top)]*4
-        else:
-            x,y,dx,dy,depth = (edge[key] for key in ['x','y','dx','dy','depth'])
-            left,top = x-(depth-1)*dx,y-(depth-1)*dy
-            right,bottom = x+1+depth*dx,y+1+depth*dy
-            corners = [(left,top),(right,top),(right,bottom),(left,bottom)]
-            uv_corners = corners
-            cells = [(left,top),(right-1,top),(right-1,bottom-1),(left,bottom-1)]
-        reveal_hands.append(edge.get('driver',b))
-        reveal_points.append(((left+right)/2-width/2,(top+bottom)/2-height/2))
-        influences_at_corner = []
-        for (px,py),(cx,cy) in zip(corners,cells):
-            owner,strength = cell(cx,cy)
-            influences = ((a,1.0),) if calf_fill else (((owner,1.0),) if strength == 255 else field(px,py,chart(px,py,cx,cy)))
-            influences_at_corner.append(influences)
-        # All four triangles cover the moving convex envelope. A paired UV
-        # winding lets the shader reject the folded mapping, never the gap.
+    corner_vertices, corner_owners = [], []
+    for index,(corners,anchors) in enumerate(interfaces(owners,rigid,width,height,lambda a,b: connected(a,b) or frozenset((a,b)) in CHUNK_ATTACHMENTS)):
+        ids_at_corner = {}
         for triangle_index, triangle in enumerate(MOTION_BRIDGE_TRIANGLES):
-            for reverse_uv in [False,True]:
-                uv_order = (triangle[0],triangle[2],triangle[1]) if reverse_uv else triangle
-                ids = []
-                for corner, uv_corner in zip(triangle,uv_order):
-                    px,py = corners[corner]
-                    vertex_id = vertex(px,py,influences_at_corner[corner],('motion_bridge',index,triangle_index,reverse_uv))
-                    ids.append(vertex_id)
-                    bridge_uv[vertex_id] = uv_corners[uv_corner]
-                bridge_polygons.append(tuple(ids))
-        bridge_owners.extend([a,b])
+            ids = []
+            for corner in triangle:
+                px,py = corners[corner]
+                vertex_id = vertex(px,py,((anchors[corner],1.0),),('ligament',index,triangle_index))
+                ids.append(vertex_id)
+                ids_at_corner[corner] = vertex_id
+                bridge_uv[vertex_id] = corners[corner]
+            bridge_polygons.append(tuple(ids))
+        corner_vertices.extend(ids_at_corner[corner] for corner in range(4))
+        corner_owners.extend(anchors)
+        bridge_owners.extend([min(anchors),max(anchors)])
     def number(value):
         return str(round(value,8))
     text = '[gd_scene format=3]\n\n[ext_resource type="Script" path="'+RES+'skin-surface.gd" id="1"]\n'
@@ -371,8 +342,9 @@ def compile_profile(name, profile, body_profile):
     text += f'metadata/motion_bridge_vertex_start = {bridge_start}\n'
     text += 'metadata/motion_bridge_owners = PackedByteArray('+', '.join(map(str,bridge_owners))+')\n'
     text += 'metadata/motion_bridge_polygons = ['+', '.join('PackedInt32Array('+', '.join(map(str,t))+')' for t in bridge_polygons)+']\n'
-    text += 'metadata/motion_reveal_hands = PackedInt32Array('+', '.join(map(str,reveal_hands))+')\n'
-    text += 'metadata/motion_reveal_points = PackedVector2Array('+', '.join(number(v) for point in reveal_points for v in point)+')\n'
+    text += 'metadata/ligament_source = "ownership+rigidity"\n'
+    text += 'metadata/ligament_corner_vertices = PackedInt32Array('+', '.join(map(str,corner_vertices))+')\n'
+    text += 'metadata/ligament_corner_owners = PackedByteArray('+', '.join(map(str,corner_owners))+')\n'
     text += 'polygons = ['+', '.join('PackedInt32Array('+', '.join(map(str, t))+')' for t in triangles)+']\n'
     bones = []
     for bone,path in enumerate(PATHS):

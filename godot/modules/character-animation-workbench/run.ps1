@@ -1,5 +1,5 @@
 param(
-    [ValidateSet('import', 'test', 'visual-test', 'parse', 'smoke', 'source', 'deformation', 'skeletal-test', 'skeletal-visual', 'skeletal-smoke', 'skeletal-proof', 'skeletal-editor', 'walk-render', 'walk-test', 'walk-preview', 'run-bake', 'run-test', 'run-render', 'run-preview', 'north-bake', 'comparison-test', 'comparison-render', 'comparison-preview', 'north-layer-test', 'south-west-bake', 'south-west-test', 'north-west-bake', 'north-west-test', 'hand-test', 'surface-test', 'gap-test', 'gap-preview', 'gap-build', 'gap-audit', 'ligament-test', 'composition-test', 'composition-render', 'composition-video', 'anatomy-test', 'seam-visual', 'seam-test', 'mask-test', 'motion-bake', 'motion-encode', 'motion-bind-test', 'amplitude-video', 'motion-bones-video', 'rig-calibrate', 'calibration-test', 'mask-init', 'mask-refine', 'mask-bake')]
+    [ValidateSet('import', 'test', 'visual-test', 'parse', 'smoke', 'source', 'deformation', 'skeletal-test', 'skeletal-visual', 'skeletal-smoke', 'skeletal-proof', 'skeletal-editor', 'walk-render', 'walk-test', 'walk-preview', 'run-bake', 'run-test', 'run-render', 'run-preview', 'north-bake', 'comparison-test', 'comparison-render', 'comparison-preview', 'north-layer-test', 'south-west-bake', 'south-west-test', 'north-west-bake', 'north-west-test', 'hand-test', 'surface-test', 'gap-test', 'gap-preview', 'gap-build', 'ligament-build', 'topology-test', 'gap-audit', 'ligament-test', 'composition-test', 'composition-render', 'composition-video', 'anatomy-test', 'seam-visual', 'seam-test', 'mask-test', 'motion-bake', 'motion-encode', 'motion-bind-test', 'amplitude-video', 'motion-bones-video', 'rig-calibrate', 'calibration-test', 'mask-init', 'mask-refine', 'mask-bake')]
     [string]$Action = 'test'
 )
 $ErrorActionPreference = 'Stop'
@@ -17,9 +17,9 @@ if ($Action -eq 'rig-calibrate') {
     if ($LASTEXITCODE -ne 0) { throw 'Rig calibration failed.' }
     return
 }
-if ($Action -eq 'gap-build') {
-    & python (Join-Path $PSScriptRoot 'tools/motion_bridges.py')
-    if ($LASTEXITCODE -ne 0) { throw 'Motion bridge selection failed.' }
+if ($Action -in @('gap-build','ligament-build')) {
+    & python (Join-Path $PSScriptRoot 'tools/deformation_masks.py') bake
+    if ($LASTEXITCODE -ne 0) { throw 'Source topology compilation failed.' }
     return
 }
 if ($Action -in @('mask-init', 'mask-refine', 'mask-bake')) {
@@ -43,6 +43,7 @@ switch ($Action) {
     'motion-bake' { $engineArguments += @('--headless', '--script', "$modulePath/tools/sample-motion-design.gd") }
     'motion-bind-test' { $engineArguments += @('--headless', '--script', "$modulePath/tests/motion-binding-acceptance.gd") }
     'amplitude-video' { $engineArguments += @('--rendering-method', 'gl_compatibility', '--script', "$modulePath/tests/render-amplitudes.gd") }
+    'topology-test' { $engineArguments += @('--headless', '--script', "$modulePath/tests/topology-acceptance.gd") }
     'calibration-test' { $engineArguments += @('--headless', '--script', "$modulePath/tests/calibration-acceptance.gd") }
     'gap-test' { $engineArguments += @('--rendering-method', 'gl_compatibility', '--script', "$modulePath/tests/motion-gap-acceptance.gd") }
     'gap-preview' { $engineArguments += @('--rendering-method', 'gl_compatibility', '--script', "$modulePath/tests/render-comparison.gd", '--', '--proof', '--bones') }

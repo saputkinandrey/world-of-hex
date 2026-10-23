@@ -99,3 +99,7 @@ joint_envelope и альтернативная триангуляция оста
 сохранены для истории, но рассчитывают прежний риг: для текущей калибровки
 применяется rig-calibrate. Старый gap-test относится к отключённому calf_fill,
 а не к новой анатомической схеме.
+
+
+Current ligament generation: see [LIGAMENT-TOPOLOGY.md](LIGAMENT-TOPOLOGY.md).
+The measured-gap workflow above is historical; audit reports no longer feed geometry.

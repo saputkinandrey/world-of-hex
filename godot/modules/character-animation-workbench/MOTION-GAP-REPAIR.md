@@ -94,3 +94,7 @@
 Это изолированный эксперимент; специальная текстура соединения пока не создаётся.
 Прежние ролики сохранены для сравнения. Проверка gap-test, рассчитанная на
 отключённое объёмное заполнение, не используется как приёмка этого варианта.
+
+
+Current ligament generation: see [LIGAMENT-TOPOLOGY.md](LIGAMENT-TOPOLOGY.md).
+The measured-gap workflow above is historical; audit reports no longer feed geometry.

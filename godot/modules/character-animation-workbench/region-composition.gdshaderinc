@@ -16,30 +16,27 @@ varying flat float flesh_overlap;
 uniform int motion_bridge_vertex_start = 2147483647;
 uniform bool motion_gap_repairs_enabled = true;
 uniform sampler2D motion_bridge_depth : filter_nearest, repeat_disable;
-const int MOTION_BRIDGE_VERTEX_STRIDE = 24;
+const int MOTION_BRIDGE_VERTEX_STRIDE = 12;
 varying flat float motion_bridge;
 varying flat float motion_depth;
-varying flat float motion_rim;
 varying flat float motion_kind;
-varying flat float motion_visibility;
-varying flat float motion_secondary;
+varying flat float motion_selected;
+
 
 void vertex() {
 	motion_bridge = VERTEX_ID >= motion_bridge_vertex_start ? 1.0 : 0.0;
 	flesh_overlap = VERTEX_ID >= flesh_overlap_vertex_start && motion_bridge < 0.5 ? 1.0 : 0.0;
 	motion_depth = 0.0;
-	motion_rim = 0.0;
 	motion_kind = 2.0;
-	motion_visibility = 1.0;
-	motion_secondary = 0.0;
+	motion_selected = 1.0;
 	if (motion_bridge > 0.5) {
 		int index = (VERTEX_ID - motion_bridge_vertex_start) / MOTION_BRIDGE_VERTEX_STRIDE;
 		vec4 bridge_data = texelFetch(motion_bridge_depth,ivec2(index % 256,index / 256),0);
 		motion_depth = floor(bridge_data.r * 255.0 + 0.5);
-		motion_rim = bridge_data.g;
 		motion_kind = floor(bridge_data.b * 255.0 + 0.5);
-		motion_visibility = bridge_data.a;
-		motion_secondary = (VERTEX_ID - motion_bridge_vertex_start) % MOTION_BRIDGE_VERTEX_STRIDE >= 12 ? 1.0 : 0.0;
+		float triangle = float(((VERTEX_ID - motion_bridge_vertex_start) % MOTION_BRIDGE_VERTEX_STRIDE) / 3);
+		float selected = floor(bridge_data.a * 255.0 + 0.5);
+		motion_selected = mod(floor(selected / pow(2.0,triangle)),2.0);
 	}
 }
 
@@ -60,12 +57,10 @@ vec4 compose_region(vec4 source, vec2 uv, vec2 texel, vec2 screen_uv, vec2 scree
 	}
 	if (motion_bridge > 0.5) {
 		if (!motion_gap_repairs_enabled) { return vec4(0.0); }
-		if (motion_secondary > 0.5) { return vec4(0.0); }
-		if (motion_visibility < 0.001) { return vec4(0.0); }
-		if (source.a < 0.9999 || (surround < 0.9999 && motion_rim < 0.5)) { return vec4(0.0); }
+		if (motion_selected < 0.5) { return vec4(0.0); }
+		if (source.a < 0.9999) { return vec4(0.0); }
 		kind = motion_kind;
 		region.b = motion_depth;
-		source.a *= motion_visibility;
 	}
 	// Skin uses the actual module alpha, even if the shared mask union is wider.
 	if (kind == 1.0) {
@@ -79,9 +74,8 @@ vec4 compose_region(vec4 source, vec2 uv, vec2 texel, vec2 screen_uv, vec2 scree
 	float screen_det = sx.x * sy.y - sx.y * sy.x;
 	float area = abs(screen_det) / max(abs(determinant) * region_rest_area, 0.000001);
 	bool inverted = determinant * screen_det * region_orientation < 0.0;
-	if (motion_bridge > 0.5 && inverted) { return vec4(0.0); }
 	bool unsafe_ligament = kind == 2.0 && (inverted || area < compression_floor);
-	if (safe_compression && unsafe_ligament) { return vec4(0.0); }
+	if (safe_compression && unsafe_ligament && motion_bridge < 0.5) { return vec4(0.0); }
 	float trace = dot(dx, dx) + dot(dy, dy);
 	float minimum = 0.5 * (trace - sqrt(max(trace * trace - 4.0 * determinant * determinant, 0.0)));
 	float stretch = 1.0 / sqrt(max(minimum * region_rest_area, 0.000001));

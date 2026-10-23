@@ -1,6 +1,7 @@
 @tool
 extends Polygon2D
 
+const LigamentGeometry = preload("res://modules/character-animation-workbench/ligament-geometry.gd")
 const RegionComposition = preload("res://modules/character-animation-workbench/region-compositor.gd")
 
 @export_file("*.png") var rigidity_mask_path: String = ""
@@ -16,42 +17,33 @@ var _bridge_image: Image
 
 func _ready() -> void:
 	set_notify_transform(true)
-	RenderingServer.frame_pre_draw.connect(_update_motion_reveals)
+	RenderingServer.frame_pre_draw.connect(_update_ligaments)
 
 func _exit_tree() -> void:
-	if RenderingServer.frame_pre_draw.is_connected(_update_motion_reveals):
-		RenderingServer.frame_pre_draw.disconnect(_update_motion_reveals)
+	if RenderingServer.frame_pre_draw.is_connected(_update_ligaments):
+		RenderingServer.frame_pre_draw.disconnect(_update_ligaments)
 
-func _update_motion_reveals() -> void:
+func _update_ligaments() -> void:
 	if _bridge_image == null or not is_visible_in_tree():
 		return
-	var drivers: PackedInt32Array = get_meta("motion_reveal_hands",PackedInt32Array())
-	var active: bool = false
-	for driver: int in drivers:
-		if driver >= 0:
-			active = true
-			break
-	if not active:
-		return
-	var source_points: PackedVector2Array = get_meta("motion_reveal_points")
-	var owners: PackedByteArray = get_meta("motion_bridge_owners")
+	var vertices: PackedInt32Array = get_meta("ligament_corner_vertices")
+	var owners: PackedByteArray = get_meta("ligament_corner_owners")
 	var skeleton_node: Skeleton2D = get_node(skeleton)
 	var transforms: Dictionary = {}
+	for owner: int in owners:
+		if not transforms.has(owner):
+			var bone: Bone2D = skeleton_node.get_node(get_bone_path(owner))
+			transforms[owner] = global_transform.affine_inverse()*bone.global_transform*bone.get_skeleton_rest().affine_inverse()*skeleton_node.global_transform.affine_inverse()*global_transform
 	var changed: bool = false
-	for index: int in drivers.size():
-		if drivers[index] < 0:
-			continue
-		var owner: int = owners[index*2]
-		for bone_index: int in [owner,drivers[index]]:
-			if not transforms.has(bone_index):
-				var bone: Bone2D = skeleton_node.get_node(get_bone_path(bone_index))
-				transforms[bone_index] = global_transform.affine_inverse()*bone.global_transform*bone.get_skeleton_rest().affine_inverse()*skeleton_node.global_transform.affine_inverse()*global_transform
-		var point: Vector2 = source_points[index]+offset
-		var distance: float = (transforms[owner]*point).distance_to(transforms[drivers[index]]*point)
-		var alpha: float = roundf(smoothstep(.05,.5,distance)*255.0)/255.0
+	for index: int in int(vertices.size()/4):
+		var points: PackedVector2Array = []
+		for corner: int in 4:
+			var anchor: int = index*4+corner
+			points.append(transforms[owners[anchor]]*(polygon[vertices[anchor]]+offset))
+		var selected: int = LigamentGeometry.selected_triangles(points)
 		var color: Color = _bridge_image.get_pixel(index%256,int(index/256))
-		if not is_equal_approx(color.a,alpha):
-			color.a = alpha
+		if roundi(color.a*255.0) != selected:
+			color.a = selected/255.0
 			_bridge_image.set_pixel(index%256,int(index/256),color)
 			changed = true
 	if changed:
