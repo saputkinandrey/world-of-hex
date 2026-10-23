@@ -1,0 +1,228 @@
+{
+  "layerdiff": {
+    "model": "layerdiff",
+    "input": {
+      "source": "C:\\Users\\\u0410\u043d\u0434\u0440\u0435\u0439\\Desktop\\world-of-hex\\godot\\assets\\Character\\Character1\\idle\\Char1_south_west_idle\\Idle_body_SW1.png",
+      "source_sha256": "12048d52ee5492292a65c1167143cfc021a0d368cb69d3b198f60a698d44c0a7",
+      "source_frame_sha256": "360f063eafb49373170a61a041841e5d66078b67ed9b00659769b0414ba774fe",
+      "frame_size": 150,
+      "input": "C:\\Users\\\u0410\u043d\u0434\u0440\u0435\u0439\\Desktop\\world-of-hex\\godot\\modules\\character-animation-workbench\\neural\\evidence\\experiments\\sw-head-consistency-01\\reference\\input.png",
+      "input_sha256": "4a3a57206b4afce8b8f96b1815dbbd2c0c53272b6d3f88c88e22c96ce019ea31",
+      "transform": {
+        "crop": [
+          47,
+          23,
+          105,
+          127
+        ],
+        "scale": [
+          4.931034482758621,
+          4.923076923076923
+        ],
+        "offset": [
+          -118.75862068965517,
+          -113.23076923076924
+        ],
+        "native_size": [
+          150,
+          150
+        ],
+        "input_size": [
+          512,
+          512
+        ],
+        "resampling": "bicubic",
+        "margin_fraction": 0.08,
+        "mode": "crop",
+        "coordinates": "edge: model = native * scale + offset; center index: model = (native + .5) * scale + offset - .5"
+      }
+    },
+    "parameters": {
+      "seed": 101,
+      "steps": 20,
+      "resolution": 512,
+      "depth_resolution": 512
+    },
+    "contract": {
+      "models": {
+        "24yearsold/seethroughv0.0.2_layerdiff3d_nf4": "96f9311ff449dc86cfaba101ce4dfb4fd4958b80",
+        "24yearsold/seethroughv0.0.1_marigold_nf4": "e53b344b5aa5beec7c141bd5601decaaff0898c9"
+      },
+      "seed": 42,
+      "steps": 20,
+      "resolution": 512,
+      "depth_resolution": 512,
+      "local_worker_sha256": "af41993111327553710713d41aa3b28dc3f1704c05678da728629e62dee18c4c",
+      "parameters_sha256": "f4e7f4e0418099622f5af4a0e692277af2ccb96535f8f8b8fd9f5b60fec9d5d9",
+      "head_support_sha256": "80024bd75112e0fe3526d7d2c515c36db01769e3d096f80393220dcbca39446a",
+      "quant_mode": "nf4",
+      "cpu_offload": true,
+      "group_offload": false,
+      "tblr_split": true,
+      "head_policy": "strongest-alpha128-component-with-explicit-64-192-fallback",
+      "implementation": {
+        "common/modules/layerdiffuse/diffusers_kdiffusion_sdxl.py": "dfd5408669be2a48baaddc516deb87abefd05e24799ca47ea57337b492c7b57f",
+        "inference/scripts/inference_psd_quantized.py": "7d73091de39f0a26cc495056c9c863c65cf98453fe1a34bd466b7d3a24165be7"
+      }
+    },
+    "started_utc": "2026-10-23T21:25:39.717122+00:00",
+    "cache_used": false,
+    "exit_code": 0,
+    "stages": {
+      "layerdiff": "success",
+      "body": "success",
+      "head": "success",
+      "depth": "success",
+      "export": "success"
+    },
+    "provenance": {
+      "stages": {
+        "layerdiff": {
+          "outcome": "success"
+        },
+        "body": {
+          "outcome": "success"
+        },
+        "head": {
+          "outcome": "success"
+        },
+        "depth": {
+          "outcome": "success"
+        },
+        "export": {
+          "outcome": "success"
+        }
+      },
+      "body_complete": true,
+      "parameters": {
+        "seed": 101,
+        "steps": 20,
+        "resolution": 512,
+        "depth_resolution": 512
+      },
+      "runtime": {
+        "torch": "2.8.0+cu128",
+        "cuda": "12.8",
+        "device": "NVIDIA GeForce RTX 3060 Laptop GPU",
+        "cudnn": 91002,
+        "deterministic_algorithms": false,
+        "cudnn_benchmark": false,
+        "cudnn_deterministic": false
+      },
+      "elapsed_seconds": 590.0715503692627,
+      "peak_allocated_gib": 4.421796798706055
+    },
+    "outcome": "completed",
+    "original_head_coordinates_available": true,
+    "classes": null
+  },
+  "semantic-sam": {
+    "model": "semantic-sam",
+    "input": {
+      "source": "C:\\Users\\\u0410\u043d\u0434\u0440\u0435\u0439\\Desktop\\world-of-hex\\godot\\assets\\Character\\Character1\\idle\\Char1_south_west_idle\\Idle_body_SW1.png",
+      "source_sha256": "12048d52ee5492292a65c1167143cfc021a0d368cb69d3b198f60a698d44c0a7",
+      "source_frame_sha256": "360f063eafb49373170a61a041841e5d66078b67ed9b00659769b0414ba774fe",
+      "frame_size": 150,
+      "input": "C:\\Users\\\u0410\u043d\u0434\u0440\u0435\u0439\\Desktop\\world-of-hex\\godot\\modules\\character-animation-workbench\\neural\\evidence\\experiments\\sw-head-consistency-01\\reference\\input.png",
+      "input_sha256": "4a3a57206b4afce8b8f96b1815dbbd2c0c53272b6d3f88c88e22c96ce019ea31",
+      "transform": {
+        "crop": [
+          47,
+          23,
+          105,
+          127
+        ],
+        "scale": [
+          4.931034482758621,
+          4.923076923076923
+        ],
+        "offset": [
+          -118.75862068965517,
+          -113.23076923076924
+        ],
+        "native_size": [
+          150,
+          150
+        ],
+        "input_size": [
+          512,
+          512
+        ],
+        "resampling": "bicubic",
+        "margin_fraction": 0.08,
+        "mode": "crop",
+        "coordinates": "edge: model = native * scale + offset; center index: model = (native + .5) * scale + offset - .5"
+      }
+    },
+    "parameters": {
+      "seed": 101,
+      "steps": 20,
+      "resolution": 512,
+      "depth_resolution": 512
+    },
+    "contract": {
+      "model": "24yearsold/l2d_sam_iter2",
+      "revision": "0b0608310fb7a89e32ecd7397147a249540cf1e7",
+      "checkpoint_sha256": "dda82b916f6c340bc5a6c3a077ff1214f9906906abe3707b1076d55b508f253f",
+      "local_worker_sha256": "910e0dda2b6fa52c2c6fa15d71efc9b12cb223d005b2806284ed83a455bb1a80",
+      "parameters_sha256": "f4e7f4e0418099622f5af4a0e692277af2ccb96535f8f8b8fd9f5b60fec9d5d9",
+      "dtype": "bfloat16",
+      "class_num": 19,
+      "model_type": "h_hq",
+      "implementation": {
+        "common/modules/semanticsam.py": "747a1f1d84d10e93747ba24ec7e79a2791ef2c469cdb69c7d2acf00bd827f5eb",
+        "common/modules/extend_sam.py": "04345c62d4021a303f0e857654d35ce123369ee5b94c996cb96f69a3bd392d12"
+      }
+    },
+    "started_utc": "2026-10-23T21:35:54.398326+00:00",
+    "cache_used": false,
+    "exit_code": 0,
+    "stages": {
+      "semantic-sam": "success"
+    },
+    "provenance": {
+      "stages": {
+        "semantic-sam": {
+          "outcome": "success"
+        }
+      },
+      "parameters": {
+        "seed": 101,
+        "steps": 20,
+        "resolution": 512,
+        "depth_resolution": 512
+      },
+      "runtime": {
+        "torch": "2.8.0+cu128",
+        "cuda": "12.8",
+        "device": "NVIDIA GeForce RTX 3060 Laptop GPU",
+        "deterministic_algorithms": false
+      },
+      "elapsed_seconds": 3.540954828262329,
+      "peak_allocated_gib": 2.3042449951171875
+    },
+    "outcome": "completed",
+    "original_head_coordinates_available": false,
+    "classes": [
+      "hair",
+      "headwear",
+      "face",
+      "eyes",
+      "eyewear",
+      "ears",
+      "earwear",
+      "nose",
+      "mouth",
+      "neck",
+      "neckwear",
+      "topwear",
+      "handwear",
+      "bottomwear",
+      "legwear",
+      "footwear",
+      "tail",
+      "wings",
+      "objects"
+    ]
+  }
+}

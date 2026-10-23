@@ -1,0 +1,39 @@
+{
+  "stages": {
+    "layerdiff": {
+      "outcome": "success"
+    },
+    "body": {
+      "outcome": "success"
+    },
+    "head": {
+      "outcome": "poor_recognition",
+      "reason": "Neural head prediction has no confident connected component"
+    },
+    "depth": {
+      "outcome": "success"
+    },
+    "export": {
+      "outcome": "assembly_failure",
+      "traceback": "Traceback (most recent call last):\n  File \"C:\\Users\\\u0410\u043d\u0434\u0440\u0435\u0439\\Desktop\\world-of-hex\\godot\\modules\\character-animation-workbench\\neural\\layerdiff_worker.py\", line 98, in main\n    namespace['further_extr'](str(layers),rotate=False,save_to_psd=True,tblr_split=True)\n  File \"C:\\Users\\\u0410\u043d\u0434\u0440\u0435\u0439\\Desktop\\hex-animation-tooling\\see-through-windows\\see-through\\common\\utils\\inference_utils.py\", line 443, in further_extr\n    fullpage, infos, part_dict_list = load_parts(srcd, rotate=rotate)\n                                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\\u0410\u043d\u0434\u0440\u0435\u0439\\Desktop\\hex-animation-tooling\\see-through-windows\\see-through\\common\\utils\\io_utils.py\", line 710, in load_parts\n    p = load_part(osp.join(srcp, tag + '.png'), rotate=rotate, pad=pad, min_width=min_width, min_sz=min_sz)\n        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\\u0410\u043d\u0434\u0440\u0435\u0439\\Desktop\\hex-animation-tooling\\see-through-windows\\see-through\\common\\utils\\io_utils.py\", line 522, in load_part\n    img = Image.open(srcp).convert('RGBA')\n          ^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\\u0410\u043d\u0434\u0440\u0435\u0439\\Desktop\\hex-animation-tooling\\see-through-windows\\see-through\\.venv\\Lib\\site-packages\\PIL\\Image.py\", line 3512, in open\n    fp = builtins.open(filename, \"rb\")\n         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nFileNotFoundError: [Errno 2] No such file or directory: 'C:\\\\Users\\\\\u0410\u043d\u0434\u0440\u0435\u0439\\\\Desktop\\\\world-of-hex\\\\godot\\\\modules\\\\character-animation-workbench\\\\neural\\\\evidence\\\\experiments\\\\sw-head-consistency-01\\\\run-04\\\\layerdiff\\\\raw\\\\layers\\\\headwear.png'\n"
+    }
+  },
+  "body_complete": true,
+  "parameters": {
+    "seed": 17,
+    "steps": 20,
+    "resolution": 512,
+    "depth_resolution": 512
+  },
+  "runtime": {
+    "torch": "2.8.0+cu128",
+    "cuda": "12.8",
+    "device": "NVIDIA GeForce RTX 3060 Laptop GPU",
+    "cudnn": 91002,
+    "deterministic_algorithms": false,
+    "cudnn_benchmark": false,
+    "cudnn_deterministic": false
+  },
+  "elapsed_seconds": 234.21074151992798,
+  "peak_allocated_gib": 4.421794414520264
+}

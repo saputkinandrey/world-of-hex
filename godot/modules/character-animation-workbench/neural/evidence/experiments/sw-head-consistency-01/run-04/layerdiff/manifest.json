@@ -1,0 +1,285 @@
+{
+  "model": "layerdiff",
+  "input": {
+    "source": "C:\\Users\\\u0410\u043d\u0434\u0440\u0435\u0439\\Desktop\\world-of-hex\\godot\\assets\\Character\\Character1\\idle\\Char1_south_west_idle\\Idle_body_SW1.png",
+    "source_sha256": "12048d52ee5492292a65c1167143cfc021a0d368cb69d3b198f60a698d44c0a7",
+    "source_frame_sha256": "360f063eafb49373170a61a041841e5d66078b67ed9b00659769b0414ba774fe",
+    "frame_size": 150,
+    "input": "C:\\Users\\\u0410\u043d\u0434\u0440\u0435\u0439\\Desktop\\world-of-hex\\godot\\modules\\character-animation-workbench\\neural\\evidence\\experiments\\sw-head-consistency-01\\reference\\input.png",
+    "input_sha256": "4a3a57206b4afce8b8f96b1815dbbd2c0c53272b6d3f88c88e22c96ce019ea31",
+    "transform": {
+      "crop": [
+        47,
+        23,
+        105,
+        127
+      ],
+      "scale": [
+        4.931034482758621,
+        4.923076923076923
+      ],
+      "offset": [
+        -118.75862068965517,
+        -113.23076923076924
+      ],
+      "native_size": [
+        150,
+        150
+      ],
+      "input_size": [
+        512,
+        512
+      ],
+      "resampling": "bicubic",
+      "margin_fraction": 0.08,
+      "mode": "crop",
+      "coordinates": "edge: model = native * scale + offset; center index: model = (native + .5) * scale + offset - .5"
+    }
+  },
+  "parameters": {
+    "seed": 17,
+    "steps": 20,
+    "resolution": 512,
+    "depth_resolution": 512
+  },
+  "contract": {
+    "models": {
+      "24yearsold/seethroughv0.0.2_layerdiff3d_nf4": "96f9311ff449dc86cfaba101ce4dfb4fd4958b80",
+      "24yearsold/seethroughv0.0.1_marigold_nf4": "e53b344b5aa5beec7c141bd5601decaaff0898c9"
+    },
+    "seed": 42,
+    "steps": 20,
+    "resolution": 512,
+    "depth_resolution": 512,
+    "local_worker_sha256": "af41993111327553710713d41aa3b28dc3f1704c05678da728629e62dee18c4c",
+    "parameters_sha256": "f4e7f4e0418099622f5af4a0e692277af2ccb96535f8f8b8fd9f5b60fec9d5d9",
+    "head_support_sha256": "80024bd75112e0fe3526d7d2c515c36db01769e3d096f80393220dcbca39446a",
+    "quant_mode": "nf4",
+    "cpu_offload": true,
+    "group_offload": false,
+    "tblr_split": true,
+    "head_policy": "strongest-alpha128-component-with-explicit-64-192-fallback",
+    "implementation": {
+      "common/modules/layerdiffuse/diffusers_kdiffusion_sdxl.py": "dfd5408669be2a48baaddc516deb87abefd05e24799ca47ea57337b492c7b57f",
+      "inference/scripts/inference_psd_quantized.py": "7d73091de39f0a26cc495056c9c863c65cf98453fe1a34bd466b7d3a24165be7"
+    }
+  },
+  "started_utc": "2026-10-23T21:10:40.979733+00:00",
+  "cache_used": false,
+  "exit_code": 0,
+  "stages": {
+    "layerdiff": "success",
+    "body": "success",
+    "head": "poor_recognition",
+    "depth": "success",
+    "export": "assembly_failure"
+  },
+  "provenance": {
+    "stages": {
+      "layerdiff": {
+        "outcome": "success"
+      },
+      "body": {
+        "outcome": "success"
+      },
+      "head": {
+        "outcome": "poor_recognition",
+        "reason": "Neural head prediction has no confident connected component"
+      },
+      "depth": {
+        "outcome": "success"
+      },
+      "export": {
+        "outcome": "assembly_failure",
+        "traceback": "Traceback (most recent call last):\n  File \"C:\\Users\\\u0410\u043d\u0434\u0440\u0435\u0439\\Desktop\\world-of-hex\\godot\\modules\\character-animation-workbench\\neural\\layerdiff_worker.py\", line 98, in main\n    namespace['further_extr'](str(layers),rotate=False,save_to_psd=True,tblr_split=True)\n  File \"C:\\Users\\\u0410\u043d\u0434\u0440\u0435\u0439\\Desktop\\hex-animation-tooling\\see-through-windows\\see-through\\common\\utils\\inference_utils.py\", line 443, in further_extr\n    fullpage, infos, part_dict_list = load_parts(srcd, rotate=rotate)\n                                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\\u0410\u043d\u0434\u0440\u0435\u0439\\Desktop\\hex-animation-tooling\\see-through-windows\\see-through\\common\\utils\\io_utils.py\", line 710, in load_parts\n    p = load_part(osp.join(srcp, tag + '.png'), rotate=rotate, pad=pad, min_width=min_width, min_sz=min_sz)\n        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\\u0410\u043d\u0434\u0440\u0435\u0439\\Desktop\\hex-animation-tooling\\see-through-windows\\see-through\\common\\utils\\io_utils.py\", line 522, in load_part\n    img = Image.open(srcp).convert('RGBA')\n          ^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\\u0410\u043d\u0434\u0440\u0435\u0439\\Desktop\\hex-animation-tooling\\see-through-windows\\see-through\\.venv\\Lib\\site-packages\\PIL\\Image.py\", line 3512, in open\n    fp = builtins.open(filename, \"rb\")\n         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nFileNotFoundError: [Errno 2] No such file or directory: 'C:\\\\Users\\\\\u0410\u043d\u0434\u0440\u0435\u0439\\\\Desktop\\\\world-of-hex\\\\godot\\\\modules\\\\character-animation-workbench\\\\neural\\\\evidence\\\\experiments\\\\sw-head-consistency-01\\\\run-04\\\\layerdiff\\\\raw\\\\layers\\\\headwear.png'\n"
+      }
+    },
+    "body_complete": true,
+    "parameters": {
+      "seed": 17,
+      "steps": 20,
+      "resolution": 512,
+      "depth_resolution": 512
+    },
+    "runtime": {
+      "torch": "2.8.0+cu128",
+      "cuda": "12.8",
+      "device": "NVIDIA GeForce RTX 3060 Laptop GPU",
+      "cudnn": 91002,
+      "deterministic_algorithms": false,
+      "cudnn_benchmark": false,
+      "cudnn_deterministic": false
+    },
+    "elapsed_seconds": 234.21074151992798,
+    "peak_allocated_gib": 4.421794414520264
+  },
+  "outcome": "completed",
+  "original_head_coordinates_available": false,
+  "classes": null,
+  "files": {
+    "inference.log": {
+      "sha256": "75c6fa2c49ee0ac110ba7d92bdd11fd51cd8d5a25162dfa16a6031ae4d418ad5",
+      "bytes": 342200
+    },
+    "input.png": {
+      "sha256": "4a3a57206b4afce8b8f96b1815dbbd2c0c53272b6d3f88c88e22c96ce019ea31",
+      "bytes": 81225
+    },
+    "raw/layers/back hair.png": {
+      "sha256": "ce554ebd6217015a98ea2010c406530d8ee390ae70f986667436286af8a50454",
+      "bytes": 145363
+    },
+    "raw/layers/back hair_depth.png": {
+      "sha256": "d6740066b52ed33595a88d3236f7b03c8f322f61a2ed32d69bd1547b8c5c5535",
+      "bytes": 1779
+    },
+    "raw/layers/bottomwear.png": {
+      "sha256": "7013185bb4e3fa441a57994e655b97094cb939347e7c1a6bcce6df0a59137e29",
+      "bytes": 128525
+    },
+    "raw/layers/bottomwear_depth.png": {
+      "sha256": "d45538339f1345d6d59e6d46d1fde235cc832af895f909c1f7ee9b106ca512c6",
+      "bytes": 8510
+    },
+    "raw/layers/ears_depth.png": {
+      "sha256": "1b4e5ad0f6042f5b8dbae793192a867ee9c0a5c8646b61fcb32c63432724a749",
+      "bytes": 11269
+    },
+    "raw/layers/earwear_depth.png": {
+      "sha256": "5dffc777cd804cc86b8fb9839f51201a20a371f9dd19dc2a0c38542afc02e1e1",
+      "bytes": 9365
+    },
+    "raw/layers/eyes_depth.png": {
+      "sha256": "8d15c902115b5c83de517181b2e01b87dfb8bb8ceaed3d97a906a02da3c3ce4f",
+      "bytes": 6098
+    },
+    "raw/layers/eyewear_depth.png": {
+      "sha256": "16ec89057ea0935f16167363ba7fd6be6f8b9dcb47f80082085ddde769be2a54",
+      "bytes": 11278
+    },
+    "raw/layers/face_depth.png": {
+      "sha256": "52ca1e75a9a2f5d93eab803fe150ddd6a8f4a550b1f17f062aed2fa62f0a8ed0",
+      "bytes": 5785
+    },
+    "raw/layers/footwear.png": {
+      "sha256": "637f5cf3a32605790f377d3a1f8bce1920ffc2088d44e65df664cdf19e584412",
+      "bytes": 131434
+    },
+    "raw/layers/footwear_depth.png": {
+      "sha256": "5e272a88d43b12ab05dce165c5e8a70dc243a5c1bfd9e0dfe039e426b04a7219",
+      "bytes": 20860
+    },
+    "raw/layers/front hair.png": {
+      "sha256": "1056e230b7397ffa3d9418b6aef6fded7000214bf83c6bff0b3a1d82df648836",
+      "bytes": 224968
+    },
+    "raw/layers/front hair_depth.png": {
+      "sha256": "96be29702dd1ce1aa147ef983374b2a83f9b549beb90c7390215395f8c6e85e9",
+      "bytes": 21409
+    },
+    "raw/layers/handwear.png": {
+      "sha256": "7357a29bd82cf9ddea9aada244e71c713eb84d9416907a3c9588dc2dfe627fa2",
+      "bytes": 142385
+    },
+    "raw/layers/handwear_depth.png": {
+      "sha256": "a102ec6203ec2381dd9a13edd7e176a004c518e9670ef0a425ac71811522d43b",
+      "bytes": 20624
+    },
+    "raw/layers/head-stage.json": {
+      "sha256": "f9b8c93b69a3bdbd404094d3084277da938359d69b5726bf91f0ed2bcca59ec6",
+      "bytes": 111
+    },
+    "raw/layers/head.png": {
+      "sha256": "2e0436ca2434ae2ee575d6950256b906052a67ed17127997a3d9a5bf08b718f1",
+      "bytes": 130178
+    },
+    "raw/layers/headwear_depth.png": {
+      "sha256": "a2aca074a2e0c4c63c9a2271da150657112b4cd74acb0d5da3e5718b4478accf",
+      "bytes": 9392
+    },
+    "raw/layers/info.json": {
+      "sha256": "094644d9eafd68c7bfeabe871f73116915743649a1a639d8b20ff1e41f4ba0ea",
+      "bytes": 301
+    },
+    "raw/layers/legwear.png": {
+      "sha256": "65b2a252c5c2dd6ee02a93e2d616d5591bb8afed493a905748f5088c86fdd01d",
+      "bytes": 129827
+    },
+    "raw/layers/legwear_depth.png": {
+      "sha256": "771431fdef4c0d27fc53dde37a130670ac6c8466e3be3300b47540d15138f55a",
+      "bytes": 9253
+    },
+    "raw/layers/mouth_depth.png": {
+      "sha256": "50ee1b3348f1c5584e7202b7ab787239d61d7caa66cde9c9bc16ffabc8e9712b",
+      "bytes": 5311
+    },
+    "raw/layers/neck.png": {
+      "sha256": "c17f6aa52fe681616f8d922ef783388f74a03c5516562eee3d9aaa4866066802",
+      "bytes": 132238
+    },
+    "raw/layers/neck_depth.png": {
+      "sha256": "0917d672d089c341f475fd087d0b27b77bd70a7b8e18e6026414eec2914ebb86",
+      "bytes": 10304
+    },
+    "raw/layers/neckwear.png": {
+      "sha256": "7edc463c42bf9b7ddf4849237b3aea3b416db96132ac691a952fc3eedd452c30",
+      "bytes": 138538
+    },
+    "raw/layers/neckwear_depth.png": {
+      "sha256": "e6472c7c68f59d58e61561c4ad84810ad5131468b6f525d797f2d3ab58d6f692",
+      "bytes": 26980
+    },
+    "raw/layers/nose_depth.png": {
+      "sha256": "571aab48e762ebcba0099578998b00edfcfcfef2d74ac2db4e082757b25aa34a",
+      "bytes": 14063
+    },
+    "raw/layers/objects.png": {
+      "sha256": "7bb685cb986a2f6308cee6d39cb05360b0cf049259f2abea044c10fb17935638",
+      "bytes": 130599
+    },
+    "raw/layers/objects_depth.png": {
+      "sha256": "6e265cd7f1bcf7d9bac17580187d52bd9cbe9fb205301a3fc13c5a33faca7a63",
+      "bytes": 12477
+    },
+    "raw/layers/reconstruction.png": {
+      "sha256": "390c55ff6c78e30efb50ea455c8bf5170d62101eda93cda04144aec79ca433ba",
+      "bytes": 116989
+    },
+    "raw/layers/src_img.png": {
+      "sha256": "d4f27f80b7393e34524861d266b991e4d2b9c845a115e8cc286e31150c61f871",
+      "bytes": 92047
+    },
+    "raw/layers/tail.png": {
+      "sha256": "c3b874be38e77ccd6da4c1239a7b69593a994856ab94334323a830d3b5131b9d",
+      "bytes": 129192
+    },
+    "raw/layers/tail_depth.png": {
+      "sha256": "8b0bd2422974323583c73e54942c95b5b84f43171055f189b0c4c125d0edd4f4",
+      "bytes": 20083
+    },
+    "raw/layers/topwear.png": {
+      "sha256": "c007bc329723e3507abbd2de031dfa509aab2d7cf570d4bdf3b81f62e50fd19e",
+      "bytes": 184145
+    },
+    "raw/layers/topwear_depth.png": {
+      "sha256": "ebe8664f6fd8b1ee795b0b16375b72296cb5cafdd615bad21f5877af7843296e",
+      "bytes": 38342
+    },
+    "raw/layers/wings.png": {
+      "sha256": "dd47b5eaaf487fd44936e76816f909f7ed6b5253a77524e67a377652a6ec1365",
+      "bytes": 127055
+    },
+    "raw/layers/wings_depth.png": {
+      "sha256": "fc9e7ef0d698c61509207a1ca643a4bc8004807f5244d58ee9b8b18f19f329bf",
+      "bytes": 11347
+    },
+    "request.json": {
+      "sha256": "1e8d96822a86e9bc3faf52be110427705cee5675d58eac468b27c1fb573adf65",
+      "bytes": 2557
+    },
+    "result.json": {
+      "sha256": "cb74da1c23615748d3cbdfdd4987de31af8873b0e9b97c74706c2e32b8f51aab",
+      "bytes": 2707
+    }
+  }
+}

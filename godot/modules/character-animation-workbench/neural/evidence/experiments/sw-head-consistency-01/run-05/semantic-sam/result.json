@@ -1,0 +1,21 @@
+{
+  "stages": {
+    "semantic-sam": {
+      "outcome": "success"
+    }
+  },
+  "parameters": {
+    "seed": 23,
+    "steps": 20,
+    "resolution": 512,
+    "depth_resolution": 512
+  },
+  "runtime": {
+    "torch": "2.8.0+cu128",
+    "cuda": "12.8",
+    "device": "NVIDIA GeForce RTX 3060 Laptop GPU",
+    "deterministic_algorithms": false
+  },
+  "elapsed_seconds": 3.288724422454834,
+  "peak_allocated_gib": 2.3042449951171875
+}

@@ -8,13 +8,17 @@ from PIL import Image
 from evidence_store import CLASSES, write_json
 from infer import settings
 from inference_recipe import SAM_MODEL, SAM_REVISION
+from inference_parameters import parameters
 
 
 def main(work):
     work = Path(work)
+    options = parameters(json.loads((work/'request.json').read_text()))
     tooling,upstream,_ = settings()
     sys.path[:0] = [str(upstream),str(upstream/'common')]
     import torch
+    from utils.torch_utils import seed_everything
+    seed_everything(options['seed'])
     from accelerate import init_empty_weights
     from modules.semanticsam import SemanticSam
     checkpoint = tooling/'cache/huggingface/hub'/('models--'+SAM_MODEL.replace('/','--'))/'snapshots'/SAM_REVISION/'checkpoint-18000.pt'
@@ -38,6 +42,8 @@ def main(work):
         alpha = (255/(1+np.exp(-np.clip(logits[index],-50,50)))).astype(np.uint8)
         Image.fromarray(alpha).save(raw/(name+'.png'))
     write_json(work/'result.json',{'stages':{'semantic-sam':{'outcome':'success'}},
+        'parameters':options,'runtime':{'torch':torch.__version__,'cuda':torch.version.cuda,
+            'device':torch.cuda.get_device_name(),'deterministic_algorithms':torch.are_deterministic_algorithms_enabled()},
         'elapsed_seconds':time.time()-started,'peak_allocated_gib':torch.cuda.max_memory_allocated()/1024**3})
 
 

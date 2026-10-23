@@ -1,0 +1,49 @@
+{
+  "schema": "hex-head-visual-review/1",
+  "status": "in_progress",
+  "basis": "Original RGBA, raw neural head, native overlays and threshold details; no Legacy masks or hand-authored anatomy guides.",
+  "classifications": [
+    {
+      "run": 1,
+      "seed": 42,
+      "classification": "no_meaningful_detection",
+      "anatomy_assessable": false,
+      "note": "Native Windows access violation while enabling model CPU offload, before any body/head prediction. Technical failure, not poor recognition."
+    },
+    {
+      "run": 2,
+      "seed": 42,
+      "classification": "partial_head",
+      "anatomy_assessable": true,
+      "note": "Face, forehead, chin and most of the visible ear are covered; posterior skull and upper dark contour are missing at all tested thresholds. Higher thresholds also lose the jaw outline. Shoulder is excluded. Independent visual review agrees."
+    },
+    {
+      "run": 3,
+      "seed": 7,
+      "classification": "hallucinated_region",
+      "anatomy_assessable": true,
+      "note": "Selected component covers extensive transparent background and lower body/right arm, almost none of the actual head. Independent visual review agrees."
+    },
+    {
+      "run": 4,
+      "seed": 17,
+      "classification": "no_meaningful_detection",
+      "anatomy_assessable": true,
+      "note": "No meaningful head component. Current control is empty; the alpha15 components are tiny canvas-edge residue, not a head."
+    },
+    {
+      "run": 5,
+      "seed": 23,
+      "classification": "hallucinated_region",
+      "anatomy_assessable": true,
+      "note": "Large background ring includes the head and extends down around the whole character and feet. Most selected pixels lie outside the source silhouette at every tested threshold."
+    },
+    {
+      "run": 6,
+      "seed": 101,
+      "classification": "partial_head",
+      "anatomy_assessable": true,
+      "note": "Face-centered mask omits a substantial posterior/upper skull region, portions of the ear and dark jaw contour. Lower thresholds expand it but do not recover a complete skull. No shoulder spill."
+    }
+  ]
+}

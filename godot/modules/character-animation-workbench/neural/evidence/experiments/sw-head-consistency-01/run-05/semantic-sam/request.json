@@ -1,0 +1,61 @@
+{
+  "model": "semantic-sam",
+  "input": {
+    "source": "C:\\Users\\\u0410\u043d\u0434\u0440\u0435\u0439\\Desktop\\world-of-hex\\godot\\assets\\Character\\Character1\\idle\\Char1_south_west_idle\\Idle_body_SW1.png",
+    "source_sha256": "12048d52ee5492292a65c1167143cfc021a0d368cb69d3b198f60a698d44c0a7",
+    "source_frame_sha256": "360f063eafb49373170a61a041841e5d66078b67ed9b00659769b0414ba774fe",
+    "frame_size": 150,
+    "input": "C:\\Users\\\u0410\u043d\u0434\u0440\u0435\u0439\\Desktop\\world-of-hex\\godot\\modules\\character-animation-workbench\\neural\\evidence\\experiments\\sw-head-consistency-01\\reference\\input.png",
+    "input_sha256": "4a3a57206b4afce8b8f96b1815dbbd2c0c53272b6d3f88c88e22c96ce019ea31",
+    "transform": {
+      "crop": [
+        47,
+        23,
+        105,
+        127
+      ],
+      "scale": [
+        4.931034482758621,
+        4.923076923076923
+      ],
+      "offset": [
+        -118.75862068965517,
+        -113.23076923076924
+      ],
+      "native_size": [
+        150,
+        150
+      ],
+      "input_size": [
+        512,
+        512
+      ],
+      "resampling": "bicubic",
+      "margin_fraction": 0.08,
+      "mode": "crop",
+      "coordinates": "edge: model = native * scale + offset; center index: model = (native + .5) * scale + offset - .5"
+    }
+  },
+  "parameters": {
+    "seed": 23,
+    "steps": 20,
+    "resolution": 512,
+    "depth_resolution": 512
+  },
+  "contract": {
+    "model": "24yearsold/l2d_sam_iter2",
+    "revision": "0b0608310fb7a89e32ecd7397147a249540cf1e7",
+    "checkpoint_sha256": "dda82b916f6c340bc5a6c3a077ff1214f9906906abe3707b1076d55b508f253f",
+    "local_worker_sha256": "910e0dda2b6fa52c2c6fa15d71efc9b12cb223d005b2806284ed83a455bb1a80",
+    "parameters_sha256": "f4e7f4e0418099622f5af4a0e692277af2ccb96535f8f8b8fd9f5b60fec9d5d9",
+    "dtype": "bfloat16",
+    "class_num": 19,
+    "model_type": "h_hq",
+    "implementation": {
+      "common/modules/semanticsam.py": "747a1f1d84d10e93747ba24ec7e79a2791ef2c469cdb69c7d2acf00bd827f5eb",
+      "common/modules/extend_sam.py": "04345c62d4021a303f0e857654d35ce123369ee5b94c996cb96f69a3bd392d12"
+    }
+  },
+  "started_utc": "2026-10-23T21:25:21.842631+00:00",
+  "cache_used": false
+}

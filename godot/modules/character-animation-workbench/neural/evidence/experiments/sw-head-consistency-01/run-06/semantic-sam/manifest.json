@@ -1,0 +1,207 @@
+{
+  "model": "semantic-sam",
+  "input": {
+    "source": "C:\\Users\\\u0410\u043d\u0434\u0440\u0435\u0439\\Desktop\\world-of-hex\\godot\\assets\\Character\\Character1\\idle\\Char1_south_west_idle\\Idle_body_SW1.png",
+    "source_sha256": "12048d52ee5492292a65c1167143cfc021a0d368cb69d3b198f60a698d44c0a7",
+    "source_frame_sha256": "360f063eafb49373170a61a041841e5d66078b67ed9b00659769b0414ba774fe",
+    "frame_size": 150,
+    "input": "C:\\Users\\\u0410\u043d\u0434\u0440\u0435\u0439\\Desktop\\world-of-hex\\godot\\modules\\character-animation-workbench\\neural\\evidence\\experiments\\sw-head-consistency-01\\reference\\input.png",
+    "input_sha256": "4a3a57206b4afce8b8f96b1815dbbd2c0c53272b6d3f88c88e22c96ce019ea31",
+    "transform": {
+      "crop": [
+        47,
+        23,
+        105,
+        127
+      ],
+      "scale": [
+        4.931034482758621,
+        4.923076923076923
+      ],
+      "offset": [
+        -118.75862068965517,
+        -113.23076923076924
+      ],
+      "native_size": [
+        150,
+        150
+      ],
+      "input_size": [
+        512,
+        512
+      ],
+      "resampling": "bicubic",
+      "margin_fraction": 0.08,
+      "mode": "crop",
+      "coordinates": "edge: model = native * scale + offset; center index: model = (native + .5) * scale + offset - .5"
+    }
+  },
+  "parameters": {
+    "seed": 101,
+    "steps": 20,
+    "resolution": 512,
+    "depth_resolution": 512
+  },
+  "contract": {
+    "model": "24yearsold/l2d_sam_iter2",
+    "revision": "0b0608310fb7a89e32ecd7397147a249540cf1e7",
+    "checkpoint_sha256": "dda82b916f6c340bc5a6c3a077ff1214f9906906abe3707b1076d55b508f253f",
+    "local_worker_sha256": "910e0dda2b6fa52c2c6fa15d71efc9b12cb223d005b2806284ed83a455bb1a80",
+    "parameters_sha256": "f4e7f4e0418099622f5af4a0e692277af2ccb96535f8f8b8fd9f5b60fec9d5d9",
+    "dtype": "bfloat16",
+    "class_num": 19,
+    "model_type": "h_hq",
+    "implementation": {
+      "common/modules/semanticsam.py": "747a1f1d84d10e93747ba24ec7e79a2791ef2c469cdb69c7d2acf00bd827f5eb",
+      "common/modules/extend_sam.py": "04345c62d4021a303f0e857654d35ce123369ee5b94c996cb96f69a3bd392d12"
+    }
+  },
+  "started_utc": "2026-10-23T21:35:54.398326+00:00",
+  "cache_used": false,
+  "exit_code": 0,
+  "stages": {
+    "semantic-sam": "success"
+  },
+  "provenance": {
+    "stages": {
+      "semantic-sam": {
+        "outcome": "success"
+      }
+    },
+    "parameters": {
+      "seed": 101,
+      "steps": 20,
+      "resolution": 512,
+      "depth_resolution": 512
+    },
+    "runtime": {
+      "torch": "2.8.0+cu128",
+      "cuda": "12.8",
+      "device": "NVIDIA GeForce RTX 3060 Laptop GPU",
+      "deterministic_algorithms": false
+    },
+    "elapsed_seconds": 3.540954828262329,
+    "peak_allocated_gib": 2.3042449951171875
+  },
+  "outcome": "completed",
+  "original_head_coordinates_available": false,
+  "classes": [
+    "hair",
+    "headwear",
+    "face",
+    "eyes",
+    "eyewear",
+    "ears",
+    "earwear",
+    "nose",
+    "mouth",
+    "neck",
+    "neckwear",
+    "topwear",
+    "handwear",
+    "bottomwear",
+    "legwear",
+    "footwear",
+    "tail",
+    "wings",
+    "objects"
+  ],
+  "files": {
+    "inference.log": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "input.png": {
+      "sha256": "4a3a57206b4afce8b8f96b1815dbbd2c0c53272b6d3f88c88e22c96ce019ea31",
+      "bytes": 81225
+    },
+    "raw/bottomwear.png": {
+      "sha256": "65795a5b91030a2a433dae510d1edf494082a9cfa1153cd94f3797759f68f257",
+      "bytes": 334
+    },
+    "raw/ears.png": {
+      "sha256": "65795a5b91030a2a433dae510d1edf494082a9cfa1153cd94f3797759f68f257",
+      "bytes": 334
+    },
+    "raw/earwear.png": {
+      "sha256": "65795a5b91030a2a433dae510d1edf494082a9cfa1153cd94f3797759f68f257",
+      "bytes": 334
+    },
+    "raw/eyes.png": {
+      "sha256": "65795a5b91030a2a433dae510d1edf494082a9cfa1153cd94f3797759f68f257",
+      "bytes": 334
+    },
+    "raw/eyewear.png": {
+      "sha256": "65795a5b91030a2a433dae510d1edf494082a9cfa1153cd94f3797759f68f257",
+      "bytes": 334
+    },
+    "raw/face.png": {
+      "sha256": "65795a5b91030a2a433dae510d1edf494082a9cfa1153cd94f3797759f68f257",
+      "bytes": 334
+    },
+    "raw/footwear.png": {
+      "sha256": "65795a5b91030a2a433dae510d1edf494082a9cfa1153cd94f3797759f68f257",
+      "bytes": 334
+    },
+    "raw/hair.png": {
+      "sha256": "65795a5b91030a2a433dae510d1edf494082a9cfa1153cd94f3797759f68f257",
+      "bytes": 334
+    },
+    "raw/handwear.png": {
+      "sha256": "ef26126ccd1d4d5124e98429c4314f7729b0ece6d04f85b3eff455d3fadb1bc1",
+      "bytes": 13646
+    },
+    "raw/headwear.png": {
+      "sha256": "65795a5b91030a2a433dae510d1edf494082a9cfa1153cd94f3797759f68f257",
+      "bytes": 334
+    },
+    "raw/legwear.png": {
+      "sha256": "6b8cd4a13abe575561b39a5847c461eb0feceba3b4260a6b789c1db52e2bec9c",
+      "bytes": 41970
+    },
+    "raw/logits.npz": {
+      "sha256": "47d33df78f27cd64d1c4a08a96983d596a22fd2df75d02507ac4fabf36b1b86d",
+      "bytes": 4845364
+    },
+    "raw/mouth.png": {
+      "sha256": "65795a5b91030a2a433dae510d1edf494082a9cfa1153cd94f3797759f68f257",
+      "bytes": 334
+    },
+    "raw/neck.png": {
+      "sha256": "65795a5b91030a2a433dae510d1edf494082a9cfa1153cd94f3797759f68f257",
+      "bytes": 334
+    },
+    "raw/neckwear.png": {
+      "sha256": "65795a5b91030a2a433dae510d1edf494082a9cfa1153cd94f3797759f68f257",
+      "bytes": 334
+    },
+    "raw/nose.png": {
+      "sha256": "65795a5b91030a2a433dae510d1edf494082a9cfa1153cd94f3797759f68f257",
+      "bytes": 334
+    },
+    "raw/objects.png": {
+      "sha256": "65795a5b91030a2a433dae510d1edf494082a9cfa1153cd94f3797759f68f257",
+      "bytes": 334
+    },
+    "raw/tail.png": {
+      "sha256": "65795a5b91030a2a433dae510d1edf494082a9cfa1153cd94f3797759f68f257",
+      "bytes": 334
+    },
+    "raw/topwear.png": {
+      "sha256": "92244b7d967388ae45eff7106878ccc828d655b59eff1a666bdacc76c1287da8",
+      "bytes": 43786
+    },
+    "raw/wings.png": {
+      "sha256": "65795a5b91030a2a433dae510d1edf494082a9cfa1153cd94f3797759f68f257",
+      "bytes": 334
+    },
+    "request.json": {
+      "sha256": "831cebb4b00a023ef127a5c0280bf066d04de6b7cc7b841cfd026d4a6d42b247",
+      "bytes": 2208
+    },
+    "result.json": {
+      "sha256": "b7b931d366525e56269a770574a3a8fa024a4b83a3e8056b6f0950bb9808617e",
+      "bytes": 427
+    }
+  }
+}

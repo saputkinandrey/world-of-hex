@@ -1,0 +1,399 @@
+{
+  "threshold": 128,
+  "selected_component": null,
+  "threshold_comparisons": {
+    "15": {
+      "selected_component": {
+        "component": 2,
+        "bbox": [
+          500,
+          499,
+          7,
+          11
+        ],
+        "area": 30,
+        "alpha_mass": 615,
+        "eligible": true
+      },
+      "all_components": [
+        {
+          "component": 1,
+          "bbox": [
+            0,
+            0,
+            1,
+            1
+          ],
+          "area": 1,
+          "alpha_mass": 23,
+          "eligible": false
+        },
+        {
+          "component": 2,
+          "bbox": [
+            500,
+            499,
+            7,
+            11
+          ],
+          "area": 30,
+          "alpha_mass": 615,
+          "eligible": true
+        },
+        {
+          "component": 3,
+          "bbox": [
+            511,
+            511,
+            1,
+            1
+          ],
+          "area": 1,
+          "alpha_mass": 35,
+          "eligible": false
+        }
+      ],
+      "area_source_px": 3,
+      "bbox_xywh": [
+        125,
+        124,
+        2,
+        3
+      ],
+      "centroid_xy": [
+        125.33333333333333,
+        125.0
+      ],
+      "components": 1,
+      "outside_silhouette_px": 3,
+      "silhouette_overlap_fraction": 0.0
+    },
+    "32": {
+      "selected_component": null,
+      "all_components": [
+        {
+          "component": 1,
+          "bbox": [
+            511,
+            511,
+            1,
+            1
+          ],
+          "area": 1,
+          "alpha_mass": 35,
+          "eligible": false
+        }
+      ],
+      "area_source_px": 0,
+      "bbox_xywh": null,
+      "centroid_xy": null,
+      "components": 0,
+      "outside_silhouette_px": 0,
+      "silhouette_overlap_fraction": 0.0
+    },
+    "64": {
+      "selected_component": null,
+      "all_components": [],
+      "area_source_px": 0,
+      "bbox_xywh": null,
+      "centroid_xy": null,
+      "components": 0,
+      "outside_silhouette_px": 0,
+      "silhouette_overlap_fraction": 0.0
+    },
+    "96": {
+      "selected_component": null,
+      "all_components": [],
+      "area_source_px": 0,
+      "bbox_xywh": null,
+      "centroid_xy": null,
+      "components": 0,
+      "outside_silhouette_px": 0,
+      "silhouette_overlap_fraction": 0.0
+    },
+    "128": {
+      "selected_component": null,
+      "all_components": [],
+      "area_source_px": 0,
+      "bbox_xywh": null,
+      "centroid_xy": null,
+      "components": 0,
+      "outside_silhouette_px": 0,
+      "silhouette_overlap_fraction": 0.0
+    },
+    "160": {
+      "selected_component": null,
+      "all_components": [],
+      "area_source_px": 0,
+      "bbox_xywh": null,
+      "centroid_xy": null,
+      "components": 0,
+      "outside_silhouette_px": 0,
+      "silhouette_overlap_fraction": 0.0
+    },
+    "192": {
+      "selected_component": null,
+      "all_components": [],
+      "area_source_px": 0,
+      "bbox_xywh": null,
+      "centroid_xy": null,
+      "components": 0,
+      "outside_silhouette_px": 0,
+      "silhouette_overlap_fraction": 0.0
+    },
+    "224": {
+      "selected_component": null,
+      "all_components": [],
+      "area_source_px": 0,
+      "bbox_xywh": null,
+      "centroid_xy": null,
+      "components": 0,
+      "outside_silhouette_px": 0,
+      "silhouette_overlap_fraction": 0.0
+    }
+  },
+  "prediction_available": true,
+  "control": "existing strongest alpha128 component with explicit64/192 fallback",
+  "metrics": {
+    "area_source_px": 0,
+    "bbox_xywh": null,
+    "centroid_xy": null,
+    "components": 0,
+    "outside_silhouette_px": 0,
+    "silhouette_overlap_fraction": 0.0
+  },
+  "raw_head_sha256": "2e0436ca2434ae2ee575d6950256b906052a67ed17127997a3d9a5bf08b718f1",
+  "mean_selected_alpha": null,
+  "confidence_meaning": "neural alpha support, not calibrated anatomical correctness",
+  "mask_coordinates": "native first-frame pixels; untrimmed by source silhouette",
+  "semantic_sam_independent": {
+    "hair": {
+      "positive_source_px": 0,
+      "positive_in_head_px": 0,
+      "head_support_fraction": 0.0,
+      "positive_outside_character_px": 0,
+      "head_logit_max": null,
+      "head_logit_mean": null,
+      "logit_range": [
+        -28.75,
+        -6.4375
+      ]
+    },
+    "headwear": {
+      "positive_source_px": 0,
+      "positive_in_head_px": 0,
+      "head_support_fraction": 0.0,
+      "positive_outside_character_px": 0,
+      "head_logit_max": null,
+      "head_logit_mean": null,
+      "logit_range": [
+        -90.0,
+        -25.25
+      ]
+    },
+    "face": {
+      "positive_source_px": 0,
+      "positive_in_head_px": 0,
+      "head_support_fraction": 0.0,
+      "positive_outside_character_px": 0,
+      "head_logit_max": null,
+      "head_logit_mean": null,
+      "logit_range": [
+        -41.75,
+        -9.125
+      ]
+    },
+    "eyes": {
+      "positive_source_px": 0,
+      "positive_in_head_px": 0,
+      "head_support_fraction": 0.0,
+      "positive_outside_character_px": 0,
+      "head_logit_max": null,
+      "head_logit_mean": null,
+      "logit_range": [
+        -66.0,
+        -7.9375
+      ]
+    },
+    "eyewear": {
+      "positive_source_px": 0,
+      "positive_in_head_px": 0,
+      "head_support_fraction": 0.0,
+      "positive_outside_character_px": 0,
+      "head_logit_max": null,
+      "head_logit_mean": null,
+      "logit_range": [
+        -62.75,
+        -17.25
+      ]
+    },
+    "ears": {
+      "positive_source_px": 0,
+      "positive_in_head_px": 0,
+      "head_support_fraction": 0.0,
+      "positive_outside_character_px": 0,
+      "head_logit_max": null,
+      "head_logit_mean": null,
+      "logit_range": [
+        -56.25,
+        -22.75
+      ]
+    },
+    "earwear": {
+      "positive_source_px": 0,
+      "positive_in_head_px": 0,
+      "head_support_fraction": 0.0,
+      "positive_outside_character_px": 0,
+      "head_logit_max": null,
+      "head_logit_mean": null,
+      "logit_range": [
+        -76.0,
+        -23.25
+      ]
+    },
+    "nose": {
+      "positive_source_px": 0,
+      "positive_in_head_px": 0,
+      "head_support_fraction": 0.0,
+      "positive_outside_character_px": 0,
+      "head_logit_max": null,
+      "head_logit_mean": null,
+      "logit_range": [
+        -55.0,
+        -17.0
+      ]
+    },
+    "mouth": {
+      "positive_source_px": 0,
+      "positive_in_head_px": 0,
+      "head_support_fraction": 0.0,
+      "positive_outside_character_px": 0,
+      "head_logit_max": null,
+      "head_logit_mean": null,
+      "logit_range": [
+        -106.5,
+        -26.125
+      ]
+    },
+    "neck": {
+      "positive_source_px": 0,
+      "positive_in_head_px": 0,
+      "head_support_fraction": 0.0,
+      "positive_outside_character_px": 0,
+      "head_logit_max": null,
+      "head_logit_mean": null,
+      "logit_range": [
+        -60.25,
+        -11.1875
+      ]
+    },
+    "neckwear": {
+      "positive_source_px": 0,
+      "positive_in_head_px": 0,
+      "head_support_fraction": 0.0,
+      "positive_outside_character_px": 0,
+      "head_logit_max": null,
+      "head_logit_mean": null,
+      "logit_range": [
+        -57.5,
+        -12.0
+      ]
+    },
+    "topwear": {
+      "positive_source_px": 380,
+      "positive_in_head_px": 0,
+      "head_support_fraction": 0.0,
+      "positive_outside_character_px": 6,
+      "head_logit_max": null,
+      "head_logit_mean": null,
+      "logit_range": [
+        -15.25,
+        2.375
+      ]
+    },
+    "handwear": {
+      "positive_source_px": 233,
+      "positive_in_head_px": 0,
+      "head_support_fraction": 0.0,
+      "positive_outside_character_px": 0,
+      "head_logit_max": null,
+      "head_logit_mean": null,
+      "logit_range": [
+        -22.625,
+        5.0
+      ]
+    },
+    "bottomwear": {
+      "positive_source_px": 0,
+      "positive_in_head_px": 0,
+      "head_support_fraction": 0.0,
+      "positive_outside_character_px": 0,
+      "head_logit_max": null,
+      "head_logit_mean": null,
+      "logit_range": [
+        -40.25,
+        -13.125
+      ]
+    },
+    "legwear": {
+      "positive_source_px": 2256,
+      "positive_in_head_px": 0,
+      "head_support_fraction": 0.0,
+      "positive_outside_character_px": 15,
+      "head_logit_max": null,
+      "head_logit_mean": null,
+      "logit_range": [
+        -14.75,
+        5.625
+      ]
+    },
+    "footwear": {
+      "positive_source_px": 0,
+      "positive_in_head_px": 0,
+      "head_support_fraction": 0.0,
+      "positive_outside_character_px": 0,
+      "head_logit_max": null,
+      "head_logit_mean": null,
+      "logit_range": [
+        -33.0,
+        -6.25
+      ]
+    },
+    "tail": {
+      "positive_source_px": 0,
+      "positive_in_head_px": 0,
+      "head_support_fraction": 0.0,
+      "positive_outside_character_px": 0,
+      "head_logit_max": null,
+      "head_logit_mean": null,
+      "logit_range": [
+        -41.5,
+        -10.0
+      ]
+    },
+    "wings": {
+      "positive_source_px": 0,
+      "positive_in_head_px": 0,
+      "head_support_fraction": 0.0,
+      "positive_outside_character_px": 0,
+      "head_logit_max": null,
+      "head_logit_mean": null,
+      "logit_range": [
+        -58.0,
+        -26.375
+      ]
+    },
+    "objects": {
+      "positive_source_px": 0,
+      "positive_in_head_px": 0,
+      "head_support_fraction": 0.0,
+      "positive_outside_character_px": 0,
+      "head_logit_max": null,
+      "head_logit_mean": null,
+      "logit_range": [
+        -32.0,
+        -12.1875
+      ]
+    }
+  }
+}

@@ -11,6 +11,7 @@ from evidence_store import BODY_TAGS, write_json
 from head_localization import MissingNeuralHead, head_support
 from infer import settings
 from inference_recipe import LAYER_MODEL, DEPTH_MODEL
+from inference_parameters import parameters
 
 
 def patched_source(source):
@@ -34,6 +35,7 @@ def patched_source(source):
 def main(work):
     work = Path(work)
     record = json.loads((work/'request.json').read_text())
+    options = parameters(record)
     _,upstream,_ = settings()
     entry = upstream/'inference/scripts/inference_psd_quantized.py'
     sys.path.insert(0,str(entry.parent))
@@ -51,10 +53,10 @@ def main(work):
     stages = {}
     started = time.time()
     torch.cuda.reset_peak_memory_stats()
-    namespace['seed_everything'](42)
+    namespace['seed_everything'](options['seed'])
     pipeline = namespace['build_layerdiff_pipeline'](args)
     try:
-        namespace['run_layerdiff'](pipeline,str(source),str(raw),42,20,512)
+        namespace['run_layerdiff'](pipeline,str(source),str(raw),options['seed'],options['steps'],options['resolution'])
         stages['layerdiff'] = {'outcome':'success'}
     except Exception:
         stages['layerdiff'] = {'outcome':'inference_failure','traceback':traceback.format_exc()}
@@ -82,7 +84,7 @@ def main(work):
             depth_source = work/'layers.png'
             shutil.copy2(source,depth_source)
             try:
-                namespace['run_marigold'](depth,str(depth_source),str(raw),42,512)
+                namespace['run_marigold'](depth,str(depth_source),str(raw),options['seed'],options['depth_resolution'])
             finally:
                 depth_source.unlink()
             stages['depth'] = {'outcome':'success'}
@@ -99,6 +101,11 @@ def main(work):
             stages['export'] = {'outcome':'assembly_failure','traceback':traceback.format_exc()}
             traceback.print_exc()
     write_json(work/'result.json',{'stages':stages,'body_complete':complete,
+        'parameters':options,'runtime':{'torch':torch.__version__,'cuda':torch.version.cuda,
+            'device':torch.cuda.get_device_name(),'cudnn':torch.backends.cudnn.version(),
+            'deterministic_algorithms':torch.are_deterministic_algorithms_enabled(),
+            'cudnn_benchmark':torch.backends.cudnn.benchmark,
+            'cudnn_deterministic':torch.backends.cudnn.deterministic},
         'elapsed_seconds':time.time()-started,
         'peak_allocated_gib':torch.cuda.max_memory_allocated()/1024**3})
     if not complete:

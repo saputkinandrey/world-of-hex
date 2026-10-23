@@ -1,0 +1,50 @@
+{
+  "reference_commit": "1586906d6ddd5048343fca374859938664a9ac0d",
+  "parameter_precedence": "request.parameters is the effective numerical configuration; contract fingerprints the implementation/default recipe. Every completed worker records the effective parameters again in result.json.",
+  "layerdiff": {
+    "body_steps": 20,
+    "detailed_head_steps": 20,
+    "guidance_scale": 1.0,
+    "strength": 1.0,
+    "quantization": "nf4",
+    "cpu_offload": true,
+    "depth_resolution": 512,
+    "depth_steps": "upstream Marigold default: four, unchanged",
+    "component_policy_during_inference": "unchanged alpha128-first with64/192 fallback"
+  },
+  "semantic_sam": {
+    "model_type": "h_hq",
+    "classes": 19,
+    "dtype": "bfloat16",
+    "stored_logits_dtype": "float32",
+    "input_resolution": 512,
+    "internal_encoder_resolution": 1024,
+    "steps": "not applicable: non-diffusion model",
+    "seed": "set through upstream seed_everything; eval-mode forward has no stochastic sampling"
+  },
+  "runtime": {
+    "torch": "2.8.0+cu128",
+    "cuda": "12.8",
+    "device": "NVIDIA GeForce RTX 3060 Laptop GPU",
+    "cudnn": 91002,
+    "deterministic_algorithms": false,
+    "cudnn_benchmark": false,
+    "cudnn_deterministic": false
+  },
+  "thresholds_are_postprocessing_only": [
+    15,
+    32,
+    64,
+    96,
+    128,
+    160,
+    192,
+    224
+  ],
+  "source_guidance": "original RGBA and neural predictions; no Legacy masks, anatomical boxes or manual pixel edits",
+  "references": [
+    "https://docs.pytorch.org/docs/2.8/notes/randomness.html",
+    "https://pillow.readthedocs.io/en/stable/reference/Image.html#PIL.Image.Image.resize"
+  ],
+  "determinism_note": "Existing nondeterministic-algorithm settings are retained. Same-seed reproducibility requires two actual outputs; a native process crash does not establish numerical nondeterminism."
+}

@@ -14,6 +14,7 @@ def contract(model, tooling, upstream):
         checkpoint = cache/('models--'+SAM_MODEL.replace('/','--'))/'snapshots'/SAM_REVISION/'checkpoint-18000.pt'
         return {'model':SAM_MODEL,'revision':SAM_REVISION,'checkpoint_sha256':sha(checkpoint),
                 'local_worker_sha256':sha(Path(__file__).with_name('sam_worker.py')),
+                'parameters_sha256':sha(Path(__file__).with_name('inference_parameters.py')),
                 'dtype':'bfloat16','class_num':19,'model_type':'h_hq',
                 'implementation':{name:sha(upstream/name) for name in (
                     'common/modules/semanticsam.py','common/modules/extend_sam.py')}}
@@ -21,6 +22,7 @@ def contract(model, tooling, upstream):
               for name in (LAYER_MODEL,DEPTH_MODEL)}
     return {'models':models,'seed':42,'steps':20,'resolution':512,'depth_resolution':512,
             'local_worker_sha256':sha(Path(__file__).with_name('layerdiff_worker.py')),
+            'parameters_sha256':sha(Path(__file__).with_name('inference_parameters.py')),
             'head_support_sha256':sha(Path(__file__).with_name('head_localization.py')),
             'quant_mode':'nf4','cpu_offload':True,'group_offload':False,'tblr_split':True,
             'head_policy':'strongest-alpha128-component-with-explicit-64-192-fallback',
