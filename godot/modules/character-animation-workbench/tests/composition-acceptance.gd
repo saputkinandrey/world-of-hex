@@ -18,7 +18,7 @@ func _run() -> void:
 		var table: Dictionary = surface.get_meta("directional_depth")
 		_check(table.name == Composition.DIRECTIONS[direction], "Each actual direction selects its own explicit depth table")
 		for depth: int in table.flesh:
-			_check(depth % 2 == 0 and depth >= 0 and depth < 24, "Compact even Flesh Chunk Z")
+			_check(depth % 2 == 0 and depth >= 0 and depth < Composition.BONES.size()*2, "Compact even Flesh Chunk Z")
 		for depth: int in table.ligament:
 			_check(depth == -1 or depth % 2 == 1, "Odd Ligament Z")
 		var cells: PackedByteArray = surface.get_meta("cell_regions")

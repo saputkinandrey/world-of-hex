@@ -13,17 +13,19 @@ RES = 'res://modules/character-animation-workbench/'
 MASKS = ROOT / 'masks'
 OUTPUT = ROOT / 'rigs/masked'
 MANIFEST = MASKS / 'profiles.json'
-BONES = ['Pelvis', 'Spine', 'Chest', 'Head', 'ArmL', 'ForearmL', 'ArmR', 'ForearmR', 'ThighL', 'CalfL', 'ThighR', 'CalfR']
-PARENTS = [-1, 0, 1, 2, 2, 4, 2, 6, 0, 8, 0, 10]
+BONES = ['Pelvis', 'Spine', 'Chest', 'Head', 'ArmL', 'ForearmL', 'ArmR', 'ForearmR', 'ThighL', 'CalfL', 'ThighR', 'CalfR', 'FootL', 'FootR']
+PARENTS = [-1, 0, 1, 2, 2, 4, 2, 6, 0, 8, 0, 10, 9, 11]
 MOTION_BRIDGE_TRIANGLES = [(0,1,2),(0,2,3),(0,1,3),(1,2,3)]
 GARMENT_SLEEVE_LINKS = {frozenset((BONES.index('Spine'), BONES.index(arm))) for arm in ['ArmL','ArmR']}
 PATHS = ['Pelvis', 'Pelvis/Spine', 'Pelvis/Spine/Chest', 'Pelvis/Spine/Chest/Head',
          'Pelvis/Spine/Chest/ArmL', 'Pelvis/Spine/Chest/ArmL/ForearmL',
          'Pelvis/Spine/Chest/ArmR', 'Pelvis/Spine/Chest/ArmR/ForearmR',
-         'Pelvis/ThighL', 'Pelvis/ThighL/CalfL', 'Pelvis/ThighR', 'Pelvis/ThighR/CalfR']
+         'Pelvis/ThighL', 'Pelvis/ThighL/CalfL', 'Pelvis/ThighR', 'Pelvis/ThighR/CalfR',
+         'Pelvis/ThighL/CalfL/FootL', 'Pelvis/ThighR/CalfR/FootR']
 PALETTE = [(216, 80, 80), (230, 150, 60), (235, 215, 70), (110, 210, 100),
            (50, 190, 180), (60, 130, 240), (130, 80, 230), (210, 80, 210),
-           (160, 110, 70), (110, 150, 60), (70, 150, 170), (160, 160, 210)]
+           (160, 110, 70), (110, 150, 60), (70, 150, 170), (160, 160, 210),
+           (245, 180, 60), (100, 210, 245)]
 HEAD = {'BeardBase', 'MustacheBase', 'SideburnsBase', 'EyesBase', 'EyebrowsBase',
         'EyeBandageBase', 'HairBase', 'HeadwearBase', 'HeadBandageBase'}
 ASSETS = {
@@ -40,6 +42,9 @@ DRAW_ORDER = {
     'south-west': ['ArmL','ForearmL','ThighL','CalfL','ThighR','CalfR','Pelvis','Spine','Chest','Head','ArmR','ForearmR'],
     'north-west': ['ArmR','ForearmR','ThighR','CalfR','ThighL','CalfL','Pelvis','Spine','Chest','Head','ArmL','ForearmL'],
 }
+for _order in DRAW_ORDER.values():
+    for _side in ('L', 'R'):
+        _order.insert(_order.index('Calf'+_side)+1, 'Foot'+_side)
 
 
 def resource(path):

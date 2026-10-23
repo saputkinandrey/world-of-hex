@@ -1,7 +1,7 @@
 extends "res://modules/character-animation-workbench/tests/render-walk.gd"
 
 const COMPARISON = preload("res://modules/character-animation-workbench/tests/comparison-preview.tscn")
-const COMPARISON_OUTPUT = "res://../tmp/animation-workbench/comparison-red-bones"
+const COMPARISON_OUTPUT = "res://../tmp/animation-workbench/comparison-calibrated-feet"
 const PROOF_FRAMES: Array[int] = [30,37,67,84,90,94,98,99,112,162,179,223,257]
 
 func _run() -> void:
@@ -20,6 +20,9 @@ func _run() -> void:
 		overlay.z_as_relative = false
 		overlay.z_index = RenderingServer.CANVAS_ITEM_Z_MAX
 		overlay.show()
+		for base: Node2D in workbench._active_rig.get_node("Layers").get_children():
+			if base.has_node("Surface") and base.get_node("Surface") is Polygon2D:
+				base.get_node("Surface").material.set_shader_parameter("ownership_tint", 0.20)
 		var surface: Polygon2D = workbench._active_rig.get_node("Layers/BodyBase/Surface")
 		sources[surface.texture.resource_path] = true
 		if workbench.source_direction != index:

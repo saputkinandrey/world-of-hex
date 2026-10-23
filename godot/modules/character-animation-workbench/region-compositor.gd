@@ -3,8 +3,8 @@ extends RefCounted
 
 const DEPTH_PATH: String = "res://modules/character-animation-workbench/directional-depth.json"
 const DIRECTIONS: Array[String] = ["SOUTH", "NORTH", "SOUTH_WEST", "NORTH_WEST", "SOUTH_EAST", "NORTH_EAST"]
-const BONES: Array[String] = ["Pelvis", "Spine", "Chest", "Head", "ArmL", "ForearmL", "ArmR", "ForearmR", "ThighL", "CalfL", "ThighR", "CalfR"]
-const PARENTS: Array[int] = [-1,0,1,2,2,4,2,6,0,8,0,10]
+const BONES: Array[String] = ["Pelvis", "Spine", "Chest", "Head", "ArmL", "ForearmL", "ArmR", "ForearmR", "ThighL", "CalfL", "ThighR", "CalfR", "FootL", "FootR"]
+const PARENTS: Array[int] = [-1,0,1,2,2,4,2,6,0,8,0,10,9,11]
 const FLESH: int = 1
 const LIGAMENT: int = 2
 const SKIN: int = 3
@@ -60,7 +60,7 @@ static func compose(surface: Polygon2D, direction: int, cells: Array) -> Diction
 		var a: int = bridge_owners[index*2]
 		var b: int = bridge_owners[index*2+1]
 		var depth: int = table.flesh[a] if a == b else maxi(1,mini(table.flesh[a],table.flesh[b])-1)
-		var limb_joint: bool = BONES[maxi(a,b)] in ["ForearmL","ForearmR","CalfL","CalfR"] and (PARENTS[a] == b or PARENTS[b] == a)
+		var limb_joint: bool = BONES[maxi(a,b)] in ["ForearmL","ForearmR","CalfL","CalfR","FootL","FootR"] and (PARENTS[a] == b or PARENTS[b] == a)
 		bridge_map.set_pixel(index%256,int(index/256),Color.from_rgba8(depth,255 if limb_joint else 0,FLESH if a == b else LIGAMENT,0 if not drivers.is_empty() and drivers[index] >= 0 else 255))
 		var bounds: Rect2 = Rect2(surface.uv[bridge_polygons[index*BRIDGE_TRIANGLES][0]],Vector2.ZERO)
 		for triangle: int in range(index*BRIDGE_TRIANGLES,(index+1)*BRIDGE_TRIANGLES):

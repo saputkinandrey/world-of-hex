@@ -39,32 +39,8 @@ func _run() -> void:
 		_compare(first, _pose(skeleton), clip + " begins at source pose")
 		_sample(player, clip, player.get_animation(clip).length)
 		_compare(last, _pose(skeleton), clip + " ends at target pose")
-	var maximum_ground_error: float = 0
-	var maximum_clearance: float = 0
-	var flight_samples: int = 0
-	for frame: int in 160:
-		var phase: float = float(frame) / 160
-		_sample(player, "run_loop", phase * player.get_animation("run_loop").length)
-		var airborne: int = 0
-		for side: String in ["L", "R"]:
-			var step: float = fposmod(phase + (0.0 if side == "L" else .5), 1)
-			var calf: Bone2D = skeleton.get_node("Pelvis/Thigh%s/Calf%s" % [side, side])
-			var toe: Vector2 = skeleton.to_local(calf.to_global(Vector2(-3 if side == "L" else 3, 5)))
-			if step > .025 and step < .35:
-				maximum_ground_error = maxf(maximum_ground_error, absf(toe.y - (50 - 10 * step / .38)))
-			elif step > .40:
-				var ground: float = 40 + 10 * (step - .38) / .62
-				var clearance: float = ground - toe.y
-				maximum_clearance = maxf(maximum_clearance, clearance)
-				if clearance > 1:
-					airborne += 1
-		if airborne == 2:
-			flight_samples += 1
-		for path: String in POSE_PATHS:
-			_check(skeleton.get_node(path).scale.is_equal_approx(Vector2.ONE), "Run preserves proportions")
-		_check(body.polygon == vertices and body.get_parent().transform == base_transform and body.get_bone_weights(1) == weights, "Running preserves source mesh and weights")
-	_check(maximum_ground_error < .25, "Run support follows projected ground")
-	_check(maximum_clearance > 7.5 and flight_samples >= 16, "Run has swing clearance and both-feet flight")
+	var contact_stats: Dictionary = _check_calibrated_contacts(workbench)
+	_check(body.polygon == vertices and body.get_bone_weights(1) == weights and body.get_parent().transform == base_transform, "Calibrated motion preserves source mesh, weights and registration")
 	_check(player.get_animation("run_loop").length < player.get_animation("walk_loop").length, "Run cadence is faster than walk")
 	for view: String in ["north-west"]:
 		var other: AnimationLibrary = load("res://modules/character-animation-workbench/animations/skeletal-library-%s.tres" % view)
@@ -83,6 +59,6 @@ func _run() -> void:
 		_check(visited.has(clip), "Native sequence plays " + clip)
 	_compare(idle, _pose(skeleton), "Native sequence ends at idle")
 	outer.stop()
-	print("South run acceptance: %s failure(s); ground error %.6f px; clearance %.3f px; flight %s/160 samples." % [_failures, maximum_ground_error, maximum_clearance, flight_samples])
+	print("South run acceptance: %s failure(s); ground error %.6f px; clearance %.3f px; flight %s/160 samples." % [_failures, contact_stats.error, contact_stats.clearance, contact_stats.flight])
 	scene.free()
 	quit(1 if _failures else 0)

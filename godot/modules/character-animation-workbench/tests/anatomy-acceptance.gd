@@ -1,7 +1,7 @@
 extends "res://modules/character-animation-workbench/tests/hand-rigidity-acceptance.gd"
 
 const COMPARISON = preload("res://modules/character-animation-workbench/tests/comparison-preview.tscn")
-const BONE_INDICES: Dictionary = {"Pelvis": 0, "Head": 3, "ArmL": 4, "ForearmL": 5, "ArmR": 6, "ForearmR": 7, "CalfL": 9, "CalfR": 11}
+const BONE_INDICES: Dictionary = {"Pelvis": 0, "Head": 3, "ArmL": 4, "ForearmL": 5, "ArmR": 6, "ForearmR": 7, "CalfL": 9, "CalfR": 11, "FootL": 12, "FootR": 13}
 const LANDMARKS: Dictionary = {
 	"South": {
 		"Head": [Vector2(45,28), Vector2(64,28), Vector2(55,43)],
@@ -12,14 +12,14 @@ const LANDMARKS: Dictionary = {
 		"Head": [Vector2(66,40), Vector2(80,40), Vector2(69,58)],
 		"ArmR": [Vector2(86,64), Vector2(90,65), Vector2(88,68)],
 		"ForearmR": [Vector2(84,89), Vector2(87,94), Vector2(90,96)],
-		"CalfL": [Vector2(66,102), Vector2(65,104), Vector2(61,105)],
-		"CalfR": [Vector2(80,114), Vector2(83,116), Vector2(79,117)]},
+		"CalfL": [Vector2(66,101), Vector2(67,102), Vector2(68,102)],
+		"FootR": [Vector2(80,114), Vector2(83,116), Vector2(79,117)]},
 	"NorthWest": {
 		"Head": [Vector2(62,39), Vector2(76,39), Vector2(62,52)],
 		"ArmL": [Vector2(61,67), Vector2(60,71), Vector2(64,68)],
 		"Pelvis": [Vector2(79,88), Vector2(78,91), Vector2(74,91)],
-		"CalfL": [Vector2(65,113), Vector2(61,116), Vector2(66,115)],
-		"CalfR": [Vector2(81,104), Vector2(84,106), Vector2(80,107)]},
+		"FootL": [Vector2(65,114), Vector2(61,116), Vector2(66,115)],
+		"FootR": [Vector2(81,106), Vector2(84,107), Vector2(80,108)]},
 }
 
 func _run() -> void:

@@ -29,8 +29,11 @@ func _draw() -> void:
 				has_child = true
 				draw_line(start, to_local(child.global_position), bone_color, 0.8)
 		if not has_child:
-			var end: Vector2 = to_local(bone.to_global(Vector2.from_angle(bone.get_bone_angle()) * bone.get_length()))
-			draw_line(start, end, bone_color, 0.8)
+			for child: Node in bone.get_children():
+				if child is Marker2D:
+					var end: Vector2 = to_local(child.global_position)
+					draw_line(start, end, bone_color, 0.8)
+					draw_circle(end, 0.8, joint_color)
 		draw_circle(start, 1.2, joint_color)
 
 static func deformed_vertices(surface: Polygon2D, skeleton: Skeleton2D) -> PackedVector2Array:

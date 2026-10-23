@@ -16,88 +16,117 @@ snapshot_key = "Saved source:0:2"
 [node name="Skeleton2D" type="Skeleton2D" parent="."]
 
 [node name="Pelvis" type="Bone2D" parent="Skeleton2D"]
-position = Vector2(0.0, 25)
-rest = Transform2D(1, 0, 0, 1, 0.0, 25)
+position = Vector2(-3.0, 13.0)
+rest = Transform2D(1, 0, 0, 1, -3.0, 13.0)
 auto_calculate_length_and_angle = false
-length = 15
-bone_angle = -90.0
+length = 8.062257748
+bone_angle = -82.874983651
 
 [node name="Spine" type="Bone2D" parent="Skeleton2D/Pelvis"]
-position = Vector2(0.0, -20)
-rest = Transform2D(1, 0, 0, 1, 0.0, -20)
+position = Vector2(1.0, -8.0)
+rest = Transform2D(1, 0, 0, 1, 1.0, -8.0)
 auto_calculate_length_and_angle = false
-length = 20
-bone_angle = -90.0
+length = 8.246211251
+bone_angle = -75.963756532
 
 [node name="Chest" type="Bone2D" parent="Skeleton2D/Pelvis/Spine"]
-position = Vector2(0.0, -20)
-rest = Transform2D(1, 0, 0, 1, 0.0, -20)
+position = Vector2(2.0, -8.0)
+rest = Transform2D(1, 0, 0, 1, 2.0, -8.0)
 auto_calculate_length_and_angle = false
-length = 12
-bone_angle = -90.0
+length = 9.219544457
+bone_angle = -102.528807709
 
 [node name="Head" type="Bone2D" parent="Skeleton2D/Pelvis/Spine/Chest"]
-position = Vector2(0.0, -12)
-rest = Transform2D(1, 0, 0, 1, 0.0, -12)
+position = Vector2(-2.0, -9.0)
+rest = Transform2D(1, 0, 0, 1, -2.0, -9.0)
 auto_calculate_length_and_angle = false
-length = 15
+length = 22.0
 bone_angle = -90.0
 
 [node name="ArmL" type="Bone2D" parent="Skeleton2D/Pelvis/Spine/Chest"]
-position = Vector2(-14.95, 2)
-rest = Transform2D(1, 0, 0, 1, -14.95, 2)
+position = Vector2(-17.0, -7.0)
+rest = Transform2D(1, 0, 0, 1, -17.0, -7.0)
 auto_calculate_length_and_angle = false
-length = 20
+length = 14.0
 bone_angle = 90.0
 
 [node name="ForearmL" type="Bone2D" parent="Skeleton2D/Pelvis/Spine/Chest/ArmL"]
-position = Vector2(-2.6, 20)
-rest = Transform2D(1, 0, 0, 1, -2.6, 20)
+position = Vector2(0.0, 14.0)
+rest = Transform2D(1, 0, 0, 1, 0.0, 14.0)
 auto_calculate_length_and_angle = false
-length = 17
+length = 7.0
 bone_angle = 90.0
 
 [node name="ArmR" type="Bone2D" parent="Skeleton2D/Pelvis/Spine/Chest"]
-position = Vector2(14.95, 2)
-rest = Transform2D(1, 0, 0, 1, 14.95, 2)
+position = Vector2(13.0, -6.0)
+rest = Transform2D(1, 0, 0, 1, 13.0, -6.0)
 auto_calculate_length_and_angle = false
-length = 20
-bone_angle = 90.0
+length = 15.524174696
+bone_angle = 75.068582822
 
 [node name="ForearmR" type="Bone2D" parent="Skeleton2D/Pelvis/Spine/Chest/ArmR"]
-position = Vector2(2.6, 20)
-rest = Transform2D(1, 0, 0, 1, 2.6, 20)
+position = Vector2(4.0, 15.0)
+rest = Transform2D(1, 0, 0, 1, 4.0, 15.0)
 auto_calculate_length_and_angle = false
-length = 17
-bone_angle = 90.0
+length = 13.601470509
+bone_angle = 107.102728969
 
 [node name="ThighL" type="Bone2D" parent="Skeleton2D/Pelvis"]
-position = Vector2(-6.5, 4)
-rest = Transform2D(1, 0, 0, 1, -6.5, 4)
+position = Vector2(-6.0, 2.0)
+rest = Transform2D(1, 0, 0, 1, -6.0, 2.0)
 auto_calculate_length_and_angle = false
-length = 13
-bone_angle = 90.0
+length = 9.219544457
+bone_angle = 77.471192291
 
 [node name="CalfL" type="Bone2D" parent="Skeleton2D/Pelvis/ThighL"]
-position = Vector2(0.0, 13)
-rest = Transform2D(1, 0, 0, 1, 0.0, 13)
+position = Vector2(2.0, 9.0)
+rest = Transform2D(1, 0, 0, 1, 2.0, 9.0)
 auto_calculate_length_and_angle = false
-length = 12
-bone_angle = 90.0
+length = 7.071067812
+bone_angle = 98.130102354
 
 [node name="ThighR" type="Bone2D" parent="Skeleton2D/Pelvis"]
-position = Vector2(6.5, 4)
-rest = Transform2D(1, 0, 0, 1, 6.5, 4)
+position = Vector2(7.0, 5.0)
+rest = Transform2D(1, 0, 0, 1, 7.0, 5.0)
 auto_calculate_length_and_angle = false
-length = 13
-bone_angle = 90.0
+length = 10.198039027
+bone_angle = 78.690067526
 
 [node name="CalfR" type="Bone2D" parent="Skeleton2D/Pelvis/ThighR"]
-position = Vector2(0.0, 13)
-rest = Transform2D(1, 0, 0, 1, 0.0, 13)
+position = Vector2(2.0, 10.0)
+rest = Transform2D(1, 0, 0, 1, 2.0, 10.0)
 auto_calculate_length_and_angle = false
-length = 12
+length = 9.0
 bone_angle = 90.0
+
+[node name="HeadTip" type="Marker2D" parent="Skeleton2D/Pelvis/Spine/Chest/Head"]
+position = Vector2(0.0, -22.0)
+
+[node name="HandL" type="Marker2D" parent="Skeleton2D/Pelvis/Spine/Chest/ArmL/ForearmL"]
+position = Vector2(0.0, 7.0)
+
+[node name="HandR" type="Marker2D" parent="Skeleton2D/Pelvis/Spine/Chest/ArmR/ForearmR"]
+position = Vector2(-4.0, 13.0)
+
+[node name="FootL" type="Bone2D" parent="Skeleton2D/Pelvis/ThighL/CalfL"]
+position = Vector2(-1.0, 7.0)
+rest = Transform2D(1, 0, 0, 1, -1.0, 7.0)
+auto_calculate_length_and_angle = false
+length = 5.830951895
+bone_angle = 149.036243468
+
+[node name="ToeL" type="Marker2D" parent="Skeleton2D/Pelvis/ThighL/CalfL/FootL"]
+position = Vector2(-5.0, 3.0)
+
+[node name="FootR" type="Bone2D" parent="Skeleton2D/Pelvis/ThighR/CalfR"]
+position = Vector2(0.0, 9.0)
+rest = Transform2D(1, 0, 0, 1, 0.0, 9.0)
+auto_calculate_length_and_angle = false
+length = 5.830951895
+bone_angle = 120.963756532
+
+[node name="ToeR" type="Marker2D" parent="Skeleton2D/Pelvis/ThighR/CalfR/FootR"]
+position = Vector2(-3.0, 5.0)
 
 [node name="Layers" type="Node2D" parent="."]
 

@@ -1,5 +1,5 @@
 param(
-    [ValidateSet('import', 'test', 'visual-test', 'parse', 'smoke', 'source', 'deformation', 'skeletal-test', 'skeletal-visual', 'skeletal-smoke', 'skeletal-proof', 'skeletal-editor', 'walk-render', 'walk-test', 'walk-preview', 'run-bake', 'run-test', 'run-render', 'run-preview', 'north-bake', 'comparison-test', 'comparison-render', 'comparison-preview', 'north-layer-test', 'south-west-bake', 'south-west-test', 'north-west-bake', 'north-west-test', 'hand-test', 'surface-test', 'gap-test', 'gap-preview', 'gap-build', 'gap-audit', 'ligament-test', 'composition-test', 'composition-render', 'composition-video', 'anatomy-test', 'seam-visual', 'seam-test', 'mask-test', 'mask-init', 'mask-refine', 'mask-bake')]
+    [ValidateSet('import', 'test', 'visual-test', 'parse', 'smoke', 'source', 'deformation', 'skeletal-test', 'skeletal-visual', 'skeletal-smoke', 'skeletal-proof', 'skeletal-editor', 'walk-render', 'walk-test', 'walk-preview', 'run-bake', 'run-test', 'run-render', 'run-preview', 'north-bake', 'comparison-test', 'comparison-render', 'comparison-preview', 'north-layer-test', 'south-west-bake', 'south-west-test', 'north-west-bake', 'north-west-test', 'hand-test', 'surface-test', 'gap-test', 'gap-preview', 'gap-build', 'gap-audit', 'ligament-test', 'composition-test', 'composition-render', 'composition-video', 'anatomy-test', 'seam-visual', 'seam-test', 'mask-test', 'rig-calibrate', 'calibration-test', 'mask-init', 'mask-refine', 'mask-bake')]
     [string]$Action = 'test'
 )
 $ErrorActionPreference = 'Stop'
@@ -7,6 +7,11 @@ $projectPath = (Resolve-Path (Join-Path $PSScriptRoot '../..')).Path
 $repositoryPath = (Resolve-Path (Join-Path $projectPath '..')).Path
 $outputPath = Join-Path $repositoryPath 'tmp/animation-workbench'
 New-Item -ItemType Directory -Force -Path $outputPath | Out-Null
+if ($Action -eq 'rig-calibrate') {
+    & python (Join-Path $PSScriptRoot 'tools/calibrate_rig.py')
+    if ($LASTEXITCODE -ne 0) { throw 'Rig calibration failed.' }
+    return
+}
 if ($Action -eq 'gap-build') {
     & python (Join-Path $PSScriptRoot 'tools/motion_bridges.py')
     if ($LASTEXITCODE -ne 0) { throw 'Motion bridge selection failed.' }
@@ -30,6 +35,7 @@ $modulePath = 'res://modules/character-animation-workbench'
 $engineLogPath = Join-Path $outputPath "$Action-engine.log"
 $engineArguments = @('--path', '.', '--log-file', ('"' + $engineLogPath + '"'))
 switch ($Action) {
+    'calibration-test' { $engineArguments += @('--headless', '--script', "$modulePath/tests/calibration-acceptance.gd") }
     'gap-test' { $engineArguments += @('--rendering-method', 'gl_compatibility', '--script', "$modulePath/tests/motion-gap-acceptance.gd") }
     'gap-preview' { $engineArguments += @('--rendering-method', 'gl_compatibility', '--script', "$modulePath/tests/render-comparison.gd", '--', '--proof') }
     'gap-audit' { $engineArguments += @('--headless', '--script', "$modulePath/tests/audit-motion-gaps.gd") }

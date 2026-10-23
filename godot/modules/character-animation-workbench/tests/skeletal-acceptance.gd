@@ -48,7 +48,7 @@ func _run() -> void:
 		_check(clips.selected >= 0 and clips.get_item_text(clips.selected) == "rig_lean", "Direction switch preserves compatible selected clip")
 		var rig: Node2D = workbench._active_rig
 		var skeleton: Skeleton2D = rig.get_node("Skeleton2D")
-		_check(skeleton.get_bone_count() == 12, "Twelve explicit bones in direction %s" % direction)
+		_check(skeleton.get_bone_count() == 14, "Fourteen explicit bones including feet in direction %s" % direction)
 		for base: Node2D in rig.get_node("Layers").get_children():
 			var slot: String = base.get_meta("slot")
 			var sprite: Sprite2D = source.get_node(source.LAYER_NODE_PATH[slot])

@@ -9,6 +9,7 @@ uniform float region_orientation = 1.0;
 uniform float compression_floor = 0.12;
 uniform float skin_stretch_limit = 8.0;
 uniform int region_debug = 0;
+uniform float ownership_tint = 0.0;
 uniform int flesh_overlap_vertex_start = 2147483647;
 uniform bool flesh_overlap_enabled = true;
 varying flat float flesh_overlap;
@@ -99,6 +100,10 @@ vec4 compose_region(vec4 source, vec2 uv, vec2 texel, vec2 screen_uv, vec2 scree
 		source.rgb = unsafe_ligament ? vec3(1,0,0) : (kind == 3.0 && stretch > skin_stretch_limit ? vec3(1,0,1) : vec3(0.1,0.5,0.25));
 	} else if (region_debug == 8) {
 		source.rgb = kind == 1.0 ? vec3(0.85,0.32,0.32) : (kind == 2.0 ? vec3(0.24,0.75,0.4) : vec3(0.25,0.53,0.94));
+	}
+	if (region_debug == 0 && ownership_tint > 0.0) {
+		vec3 owner_color = 0.5 + 0.5 * cos(vec3(0.0, 2.1, 4.2) + region.g * 2.4);
+		source.rgb = mix(source.rgb, owner_color, ownership_tint);
 	}
 	return source;
 }

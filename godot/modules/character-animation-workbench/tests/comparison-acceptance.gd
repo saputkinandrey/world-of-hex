@@ -48,38 +48,8 @@ func _run() -> void:
 		_compare(anchors[names[0]], _pose(north_skeleton), "North transition entry: " + clip)
 		_sample(north_player, clip, north_player.get_animation(clip).length)
 		_compare(anchors[names[1]], _pose(north_skeleton), "North transition exit: " + clip)
-	var maximum_error: float = 0
-	var flight_samples: int = 0
-	for clip: String in ["walk_loop", "run_loop"]:
-		var support: float = .6 if clip == "walk_loop" else .38
-		for frame: int in 160:
-			var phase: float = float(frame) / 160
-			var time: float = phase * north_player.get_animation(clip).length
-			_sample(south_player, clip, time)
-			_sample(north_player, clip, time)
-			var airborne: int = 0
-			for side: String in ["L", "R"]:
-				var sign_x: float = -1 if side == "L" else 1
-				var other: String = "R" if side == "L" else "L"
-				var step: float = fposmod(phase + (0.0 if side == "L" else .5), 1)
-				var s_calf: Bone2D = south_skeleton.get_node("Pelvis/Thigh%s/Calf%s" % [side, side])
-				var n_calf: Bone2D = north_skeleton.get_node("Pelvis/Thigh%s/Calf%s" % [other, other])
-				var s_toe: Vector2 = south_skeleton.to_local(s_calf.to_global(Vector2(sign_x * 3, 5)))
-				var n_toe: Vector2 = north_skeleton.to_local(n_calf.to_global(Vector2(-sign_x * 3, 5)))
-				_check(absf(s_toe.x + n_toe.x) < .2, "Anatomical leg phases match across views")
-				if step > .03 and step < support - .03:
-					maximum_error = maxf(maximum_error, absf(n_toe.y - (44 + 10 * step / support)))
-				elif step > support + .03:
-					var ground: float = 54 - 10 * (step - support) / (1 - support)
-					if ground - n_toe.y > 1:
-						airborne += 1
-			if clip == "run_loop" and airborne == 2:
-				flight_samples += 1
-			for path: String in POSE_PATHS:
-				_check(north_skeleton.get_node(path).scale.is_equal_approx(Vector2.ONE), "North keeps unit bone scales")
-			_check(body.polygon == vertices and body.get_bone_weights(1) == weights and body.get_parent().transform == registration, "North preserves mesh, weights and registration")
-	_check(maximum_error < .3, "North support travels toward the viewer as the character walks away")
-	_check(flight_samples >= 16, "North run includes both-feet flight")
+	var contact_stats: Dictionary = _check_calibrated_contacts(north)
+	_check(body.polygon == vertices and body.get_bone_weights(1) == weights and body.get_parent().transform == registration, "Calibrated motion preserves source mesh, weights and registration")
 	var outer: AnimationPlayer = scene.get_node("SequencePlayer")
 	var sequence: Animation = outer.get_animation("comparison")
 	for key: int in sequence.track_get_key_count(0):
@@ -100,6 +70,6 @@ func _run() -> void:
 		_check(visited.has(clip), "Comparison plays " + clip)
 	_compare(anchors["idle"], _pose(north_skeleton), "Comparison finishes at North idle")
 	outer.stop()
-	print("S/N acceptance: %s failure(s); North ground error %.6f px; run flight %s/160 samples." % [_failures, maximum_error, flight_samples])
+	print("S/N acceptance: %s failure(s); North ground error %.6f px; run flight %s/160 samples." % [_failures, contact_stats.error, contact_stats.flight])
 	scene.free()
 	quit(1 if _failures else 0)

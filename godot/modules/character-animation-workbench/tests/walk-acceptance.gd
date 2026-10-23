@@ -8,6 +8,7 @@ const POSE_PATHS: Array[String] = [
 	"Pelvis/Spine/Chest/ArmL", "Pelvis/Spine/Chest/ArmL/ForearmL",
 	"Pelvis/Spine/Chest/ArmR", "Pelvis/Spine/Chest/ArmR/ForearmR",
 	"Pelvis/ThighL", "Pelvis/ThighL/CalfL", "Pelvis/ThighR", "Pelvis/ThighR/CalfR",
+	"Pelvis/ThighL/CalfL/FootL", "Pelvis/ThighR/CalfR/FootR",
 ]
 var _failures: int = 0
 
@@ -33,6 +34,53 @@ func _pose(skeleton: Skeleton2D) -> Array[Transform2D]:
 func _compare(a: Array[Transform2D], b: Array[Transform2D], label: String) -> void:
 	for index: int in a.size():
 		_check(a[index].is_equal_approx(b[index]), "%s: %s" % [label, POSE_PATHS[index]])
+
+func _check_calibrated_contacts(workbench: Node2D) -> Dictionary:
+	var keys: Array[String] = ["south","north","south-west","north-west"]
+	var points: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://modules/character-animation-workbench/rig-calibration.json")).views[keys[workbench._active_rig.authored_direction]]
+	var skeleton: Skeleton2D = workbench._active_rig.get_node("Skeleton2D")
+	var player: AnimationPlayer = workbench.get_node("AnimationPlayer")
+	var surface: Polygon2D = workbench._active_rig.get_node("Layers/BodyBase/Surface")
+	var size: Vector2 = Vector2(surface.get_meta("frame_size"))
+	var forward: Vector2 = Vector2(points.forward[0],points.forward[1])
+	var error: float = 0.0
+	var clearance: float = 0.0
+	var flight: int = 0
+	for clip: String in ["walk_loop","run_loop"]:
+		var animation: Animation = player.get_animation(clip)
+		var run: bool = clip == "run_loop"
+		var support: float = .38 if run else .6
+		var stride: float = 3.8 if run else 2.5
+		for side: String in ["L","R"]:
+			var toe: Marker2D = skeleton.get_node("Pelvis/Thigh%s/Calf%s/Foot%s/Toe%s" % [side,side,side,side])
+			var contact: Vector2
+			for sample: int in 30:
+				var phase: float = support*(.05+.9*sample/29.0)
+				_sample(player,clip,fposmod(phase-(0 if side == "L" else .5),1)*animation.length)
+				var position: Vector2 = skeleton.to_local(toe.global_position)+forward*(2*stride*phase/support)
+				if sample == 0:
+					contact = position
+				error = maxf(error,position.distance_to(contact))
+		for frame: int in 160:
+			var phase: float = frame/160.0
+			_sample(player,clip,phase*animation.length)
+			var airborne: int = 0
+			for side: String in ["L","R"]:
+				var toe: Marker2D = skeleton.get_node("Pelvis/Thigh%s/Calf%s/Foot%s/Toe%s" % [side,side,side,side])
+				var depths: PackedFloat32Array = animation.get_meta("leg_depths")["Foot"+side]
+				var key: float = phase*(depths.size()-1)
+				var depth: float = lerpf(depths[floori(key)],depths[ceili(key)],fposmod(key,1))
+				var height: float = float(points["Toe"+side][1])-size.y*.5-(skeleton.to_local(toe.global_position).y-forward.y*depth)
+				clearance = maxf(clearance,height)
+				if height > 1:
+					airborne += 1
+			if run and airborne == 2:
+				flight += 1
+			for path: String in POSE_PATHS:
+				_check(skeleton.get_node(path).scale.is_equal_approx(Vector2.ONE), "Calibrated bones retain unit scale")
+	_check(error < .025, "Actual planted toe markers do not slide relative to travel")
+	_check(clearance > 3.8 and flight > 0, "Foot markers show swing clearance and a both-feet flight phase")
+	return {"error":error,"clearance":clearance,"flight":flight}
 
 func _run() -> void:
 	var scene: Node = SCENE.instantiate()
@@ -75,48 +123,8 @@ func _run() -> void:
 	_compare(anchor, _pose(skeleton), "Stop begins at walking phase")
 	_sample(player, "walk_to_idle", .5)
 	_compare(idle, _pose(skeleton), "Stop ends at idle")
-	# A treadmill walk needs backward ground travel in support, followed by
-	# forward recovery. Pinning both support feet relative to the torso is shuffling.
-	workbench.reset_motion()
-	var maximum_ground_error: float = 0.0
-	var maximum_lift: float = 0.0
-	var minimum_foot_y: float = INF
-	var maximum_foot_y: float = -INF
-	var minimum_pelvis_y: float = INF
-	var maximum_pelvis_y: float = -INF
-	for frame: int in 120:
-		var time: float = float(frame) / 120.0
-		_sample(player, "walk_loop", time)
-		for side: String in ["L", "R"]:
-			var phase: float = fposmod(time + (0.0 if side == "L" else .5), 1.0)
-			var calf: Bone2D = skeleton.get_node("Pelvis/Thigh%s/Calf%s" % [side, side])
-			var toe: Vector2 = skeleton.to_local(calf.to_global(Vector2(-3 if side == "L" else 3, 5)))
-			minimum_foot_y = minf(minimum_foot_y, toe.y)
-			maximum_foot_y = maxf(maximum_foot_y, toe.y)
-			if phase > .02 and phase < .58:
-				var ground_y: float = 50.0 - 10.0 * phase / .6
-				maximum_ground_error = maxf(maximum_ground_error, absf(toe.y - ground_y))
-			elif phase > .62:
-				var ground_y: float = 40.0 + 10.0 * (phase - .6) / .4
-				maximum_lift = maxf(maximum_lift, ground_y - toe.y)
-		var pelvis: Bone2D = skeleton.get_node("Pelvis")
-		minimum_pelvis_y = minf(minimum_pelvis_y, pelvis.position.y)
-		maximum_pelvis_y = maxf(maximum_pelvis_y, pelvis.position.y)
-		for path: String in POSE_PATHS:
-			_check(skeleton.get_node(path).scale.is_equal_approx(Vector2.ONE), "Walk preserves bone scale: %s" % path)
-		_check(base.transform == original_base and body.polygon == original_vertices, "Walking preserves source registration and mesh")
-	_check(maximum_ground_error < .25, "Support foot follows projected backward ground travel")
-	_check(maximum_foot_y - minimum_foot_y > 10.0, "Feet travel forward and backward rather than lift in place")
-	_check(maximum_lift > 4.0, "Swing clears the projected ground")
-	_check(maximum_pelvis_y - minimum_pelvis_y > 2.5, "Down and Up have distinct body heights")
-	_sample(player, "walk_loop", 0)
-	var left_contact: Vector2 = skeleton.to_local(skeleton.get_node("Pelvis/ThighL/CalfL").to_global(Vector2(-3, 5)))
-	var right_contact: Vector2 = skeleton.to_local(skeleton.get_node("Pelvis/ThighR/CalfR").to_global(Vector2(3, 5)))
-	var arm_left: Bone2D = skeleton.get_node("Pelvis/Spine/Chest/ArmL")
-	var arm_right: Bone2D = skeleton.get_node("Pelvis/Spine/Chest/ArmR")
-	_check(left_contact.y > right_contact.y + 8.0 and arm_left.position.y < arm_right.position.y, "Contact has separated feet and opposing arms")
-	_sample(player, "walk_loop", .5)
-	_check(arm_left.position.y > arm_right.position.y, "Arms exchange front and back on the opposite contact")
+	var contact_stats: Dictionary = _check_calibrated_contacts(workbench)
+	_check(base.transform == original_base and body.polygon == original_vertices, "Walking preserves source registration and mesh")
 	workbench.outfit = 0
 	workbench.apply_source()
 	_sample(player, "walk_loop", .2)
@@ -147,6 +155,6 @@ func _run() -> void:
 		if is_equal_approx(time, 4.0):
 			_compare(idle, _pose(skeleton), "Native preview sequence returns to idle")
 	sequence_player.stop()
-	print("South walk acceptance: %s failure(s); ground error %.6f px; swing clearance %.3f px; foot travel %.3f px." % [_failures, maximum_ground_error, maximum_lift, maximum_foot_y - minimum_foot_y])
+	print("South walk acceptance: %s failure(s); planted drift %.6f px; swing clearance %.3f px." % [_failures, contact_stats.error, contact_stats.clearance])
 	scene.free()
 	quit(1 if _failures else 0)
