@@ -1,0 +1,7 @@
+[gd_resource type="Resource" format=3]
+[ext_resource type="Script" path="res://modules/character-animation-workbench/bone-animation-set.gd" id="1"]
+[ext_resource type="AnimationLibrary" path="res://modules/character-animation-workbench/animations/skeletal-library.tres" id="2"]
+[resource]
+script = ExtResource("1")
+library = ExtResource("2")
+reference_rest = Dictionary[StringName, Transform2D]({&"Pelvis": Transform2D(1,0,0,1,0.0,23.0), &"Spine": Transform2D(1,0,0,1,0.0,-11.0), &"Chest": Transform2D(1,0,0,1,0.0,-10.0), &"Head": Transform2D(1,0,0,1,0.0,-8.0), &"ArmL": Transform2D(1,0,0,1,-24.0,-14.0), &"ForearmL": Transform2D(1,0,0,1,-4.0,18.0), &"ArmR": Transform2D(1,0,0,1,24.0,-14.0), &"ForearmR": Transform2D(1,0,0,1,4.0,18.0), &"ThighL": Transform2D(1,0,0,1,-11.0,3.0), &"CalfL": Transform2D(1,0,0,1,-2.0,10.0), &"ThighR": Transform2D(1,0,0,1,11.0,3.0), &"CalfR": Transform2D(1,0,0,1,2.0,10.0), &"FootL": Transform2D(1,0,0,1,-1.0,8.0), &"FootR": Transform2D(1,0,0,1,1.0,8.0)})

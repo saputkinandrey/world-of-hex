@@ -12,12 +12,15 @@
 [ext_resource type="PackedScene" path="res://modules/character-animation-workbench/rigs/masked/north-3.tscn" id="mask_north-3"]
 [ext_resource type="PackedScene" path="res://modules/character-animation-workbench/rigs/masked/north-4.tscn" id="mask_north-4"]
 
+[ext_resource type="Resource" path="res://modules/character-animation-workbench/animations/bone-set-north.tres" id="motion_set"]
+
 [sub_resource type="ShaderMaterial" id="BodyMaterial"]
 resource_local_to_scene = true
 shader = ExtResource("shirt-occlusion")
 
 [node name="Rig" type="Node2D"]
 script = ExtResource("1")
+animation_set = ExtResource("motion_set")
 authored_direction = 1
 snapshot_key = "Saved source:0:1"
 

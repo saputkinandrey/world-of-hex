@@ -1,5 +1,5 @@
 param(
-    [ValidateSet('import', 'test', 'visual-test', 'parse', 'smoke', 'source', 'deformation', 'skeletal-test', 'skeletal-visual', 'skeletal-smoke', 'skeletal-proof', 'skeletal-editor', 'walk-render', 'walk-test', 'walk-preview', 'run-bake', 'run-test', 'run-render', 'run-preview', 'north-bake', 'comparison-test', 'comparison-render', 'comparison-preview', 'north-layer-test', 'south-west-bake', 'south-west-test', 'north-west-bake', 'north-west-test', 'hand-test', 'surface-test', 'gap-test', 'gap-preview', 'gap-build', 'gap-audit', 'ligament-test', 'composition-test', 'composition-render', 'composition-video', 'anatomy-test', 'seam-visual', 'seam-test', 'mask-test', 'rig-calibrate', 'calibration-test', 'mask-init', 'mask-refine', 'mask-bake')]
+    [ValidateSet('import', 'test', 'visual-test', 'parse', 'smoke', 'source', 'deformation', 'skeletal-test', 'skeletal-visual', 'skeletal-smoke', 'skeletal-proof', 'skeletal-editor', 'walk-render', 'walk-test', 'walk-preview', 'run-bake', 'run-test', 'run-render', 'run-preview', 'north-bake', 'comparison-test', 'comparison-render', 'comparison-preview', 'north-layer-test', 'south-west-bake', 'south-west-test', 'north-west-bake', 'north-west-test', 'hand-test', 'surface-test', 'gap-test', 'gap-preview', 'gap-build', 'gap-audit', 'ligament-test', 'composition-test', 'composition-render', 'composition-video', 'anatomy-test', 'seam-visual', 'seam-test', 'mask-test', 'motion-bake', 'motion-encode', 'motion-bind-test', 'amplitude-video', 'motion-bones-video', 'rig-calibrate', 'calibration-test', 'mask-init', 'mask-refine', 'mask-bake')]
     [string]$Action = 'test'
 )
 $ErrorActionPreference = 'Stop'
@@ -7,6 +7,11 @@ $projectPath = (Resolve-Path (Join-Path $PSScriptRoot '../..')).Path
 $repositoryPath = (Resolve-Path (Join-Path $projectPath '..')).Path
 $outputPath = Join-Path $repositoryPath 'tmp/animation-workbench'
 New-Item -ItemType Directory -Force -Path $outputPath | Out-Null
+if ($Action -eq 'motion-encode') {
+    & python (Join-Path $PSScriptRoot 'tools/encode_motion_videos.py')
+    if ($LASTEXITCODE -ne 0) { throw 'Motion video validation or encoding failed.' }
+    return
+}
 if ($Action -eq 'rig-calibrate') {
     & python (Join-Path $PSScriptRoot 'tools/calibrate_rig.py')
     if ($LASTEXITCODE -ne 0) { throw 'Rig calibration failed.' }
@@ -35,12 +40,16 @@ $modulePath = 'res://modules/character-animation-workbench'
 $engineLogPath = Join-Path $outputPath "$Action-engine.log"
 $engineArguments = @('--path', '.', '--log-file', ('"' + $engineLogPath + '"'))
 switch ($Action) {
+    'motion-bake' { $engineArguments += @('--headless', '--script', "$modulePath/tools/sample-motion-design.gd") }
+    'motion-bind-test' { $engineArguments += @('--headless', '--script', "$modulePath/tests/motion-binding-acceptance.gd") }
+    'amplitude-video' { $engineArguments += @('--rendering-method', 'gl_compatibility', '--script', "$modulePath/tests/render-amplitudes.gd") }
     'calibration-test' { $engineArguments += @('--headless', '--script', "$modulePath/tests/calibration-acceptance.gd") }
     'gap-test' { $engineArguments += @('--rendering-method', 'gl_compatibility', '--script', "$modulePath/tests/motion-gap-acceptance.gd") }
-    'gap-preview' { $engineArguments += @('--rendering-method', 'gl_compatibility', '--script', "$modulePath/tests/render-comparison.gd", '--', '--proof') }
+    'gap-preview' { $engineArguments += @('--rendering-method', 'gl_compatibility', '--script', "$modulePath/tests/render-comparison.gd", '--', '--proof', '--bones') }
     'gap-audit' { $engineArguments += @('--headless', '--script', "$modulePath/tests/audit-motion-gaps.gd") }
     'ligament-test' { $engineArguments += @('--headless', '--script', "$modulePath/tests/ligament-overlap-acceptance.gd") }
     'composition-test' { $engineArguments += @('--headless', '--script', "$modulePath/tests/composition-acceptance.gd") }
+    'motion-bones-video' { $engineArguments += @('--rendering-method', 'gl_compatibility', '--script', "$modulePath/tests/render-comparison.gd", '--', '--bones') }
     'composition-video' { $engineArguments += @('--rendering-method', 'gl_compatibility', '--script', "$modulePath/tests/render-comparison.gd") }
     'composition-render' { $engineArguments += @('--rendering-method', 'gl_compatibility', '--script', "$modulePath/tests/render-composition.gd") }
     'surface-test' { $engineArguments += @('--headless', '--script', "$modulePath/tests/surface-quality-acceptance.gd") }
@@ -81,12 +90,18 @@ switch ($Action) {
 $stdoutPath = Join-Path $outputPath "$Action-stdout.log"
 $stderrPath = Join-Path $outputPath "$Action-stderr.log"
 $engineProcess = Start-Process -FilePath $enginePath -ArgumentList $engineArguments -WorkingDirectory $projectPath -WindowStyle Hidden -PassThru -RedirectStandardOutput $stdoutPath -RedirectStandardError $stderrPath
-if (-not $engineProcess.WaitForExit(60000)) {
+$timeout = if ($Action -in @('amplitude-video', 'composition-video', 'motion-bones-video', 'comparison-render')) { 180000 } else { 60000 }
+if (-not $engineProcess.WaitForExit($timeout)) {
     Stop-Process -Id $engineProcess.Id
     Get-Content -LiteralPath $stdoutPath, $stderrPath
-    throw "Godot $Action timed out after 60 seconds."
+    throw "Godot $Action timed out after $($timeout / 1000) seconds."
 }
 $engineProcess.WaitForExit()
 Get-Content -LiteralPath $stdoutPath, $stderrPath
 if ($engineProcess.ExitCode -ne 0) { throw "Godot $Action exited with code $($engineProcess.ExitCode)." }
 if (Select-String -LiteralPath $stderrPath -Pattern 'SCRIPT ERROR:|ERROR:' -Quiet) { throw "Godot $Action reported errors; inspect $stderrPath." }
+
+if ($Action -eq 'motion-bake') {
+    & python (Join-Path $PSScriptRoot 'tools/compile_motion.py')
+    if ($LASTEXITCODE -ne 0) { throw 'Authored motion resolution failed.' }
+}

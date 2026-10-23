@@ -1,7 +1,7 @@
 extends "res://modules/character-animation-workbench/tests/render-walk.gd"
 
 const COMPARISON = preload("res://modules/character-animation-workbench/tests/comparison-preview.tscn")
-const COMPARISON_OUTPUT = "res://../tmp/animation-workbench/comparison-calibrated-feet"
+const COMPARISON_OUTPUT = "res://../tmp/animation-workbench/comparison-expressive-resources"
 const PROOF_FRAMES: Array[int] = [30,37,67,84,90,94,98,99,112,162,179,223,257]
 
 func _run() -> void:
@@ -10,6 +10,8 @@ func _run() -> void:
 	root.add_child(scene)
 	await scene.preview_ready
 	await process_frame
+	var bones: bool = "--bones" in OS.get_cmdline_user_args()
+	var output: String = COMPARISON_OUTPUT + ("-bones" if bones else "")
 	var sources: Dictionary = {}
 	for index: int in scene.VIEWS.size():
 		var workbench: Node2D = scene.get_node("Viewport/" + scene.VIEWS[index])
@@ -19,10 +21,10 @@ func _run() -> void:
 		overlay.joint_color = Color.RED
 		overlay.z_as_relative = false
 		overlay.z_index = RenderingServer.CANVAS_ITEM_Z_MAX
-		overlay.show()
+		overlay.visible = bones
 		for base: Node2D in workbench._active_rig.get_node("Layers").get_children():
 			if base.has_node("Surface") and base.get_node("Surface") is Polygon2D:
-				base.get_node("Surface").material.set_shader_parameter("ownership_tint", 0.20)
+				base.get_node("Surface").material.set_shader_parameter("ownership_tint", 0.0)
 		var surface: Polygon2D = workbench._active_rig.get_node("Layers/BodyBase/Surface")
 		sources[surface.texture.resource_path] = true
 		if workbench.source_direction != index:
@@ -37,7 +39,7 @@ func _run() -> void:
 		return
 	var sequence: Animation = scene.get_node("SequencePlayer").get_animation("comparison")
 	var proof: bool = "--proof" in OS.get_cmdline_user_args()
-	var directory: String = COMPARISON_OUTPUT + ("/proof" if proof else "/sequence")
+	var directory: String = output + ("/proof" if proof else "/sequence")
 	var error: Error = DirAccess.make_dir_recursive_absolute(ProjectSettings.globalize_path(directory))
 	if error != OK:
 		push_error("Cannot create comparison frame directory: " + error_string(error))
@@ -66,7 +68,7 @@ func _run() -> void:
 					scene.get_node("Viewport/"+name).region_debug = mode
 				await process_frame
 				RenderingServer.force_draw(false)
-				var result: Error = scene.get_node("Viewport").get_texture().get_image().save_png(COMPARISON_OUTPUT + ("/ligaments.png" if mode == 2 else "/regions.png"))
+				var result: Error = scene.get_node("Viewport").get_texture().get_image().save_png(output + ("/ligaments.png" if mode == 2 else "/regions.png"))
 				if result != OK:
 					push_error("Cannot save ligament diagnostic: " + error_string(result))
 					_failed = true
@@ -77,7 +79,7 @@ func _run() -> void:
 		scene.free()
 		quit(1 if _failed else 0)
 		return
-	var file: FileAccess = FileAccess.open(COMPARISON_OUTPUT + "/manifest.json", FileAccess.WRITE)
+	var file: FileAccess = FileAccess.open(output + "/manifest.json", FileAccess.WRITE)
 	if file == null:
 		push_error("Cannot save comparison manifest: " + error_string(FileAccess.get_open_error()))
 		_failed = true

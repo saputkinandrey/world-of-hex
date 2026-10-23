@@ -2,12 +2,14 @@
 extends Node2D
 
 const CATALOG_PATH = "res://modules/character-animation-workbench/base-catalog.tres"
+const BoneAnimationSet = preload("res://modules/character-animation-workbench/bone-animation-set.gd")
 
 @export var snapshot_key: String = "Saved source:0:0":
 	set(value):
 		snapshot_key = value
 		if is_node_ready():
 			apply_snapshot()
+@export var animation_set: BoneAnimationSet
 @export var authored_direction: int = 0
 @export var supported_pose: int = 0
 @export var body_only: bool = false:
@@ -31,6 +33,13 @@ var mirrored: bool = false
 var _catalog: Resource
 
 func _ready() -> void:
+	if animation_set != null:
+		var bound: AnimationLibrary = animation_set.bind_to($Skeleton2D,self)
+		if bound == null:
+			return
+		if $AnimationPlayer.get_animation_library("") != bound:
+			$AnimationPlayer.remove_animation_library("")
+			$AnimationPlayer.add_animation_library("",bound)
 	_catalog = load(CATALOG_PATH)
 	$Overlay.visible = show_mesh
 	apply_snapshot()

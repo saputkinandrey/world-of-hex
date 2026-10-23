@@ -1,4 +1,4 @@
-"""Author calibrated native rigs, foot masks and fixed-length leg keyframes."""
+"""Calibrate native rig anatomy and foot masks without changing animation curves."""
 import json
 import math
 import re
@@ -9,10 +9,6 @@ from deformation_masks import ROOT, MASKS, MANIFEST, BONES, PALETTE, PATHS, PARE
 CALIBRATION = ROOT / 'rig-calibration.json'
 PARENT_NAMES = {name: BONES[parent] if parent >= 0 else None for name, parent in zip(BONES, PARENTS)}
 TERMINALS = {'Head': 'HeadTip', 'ForearmL': 'HandL', 'ForearmR': 'HandR', 'FootL': 'ToeL', 'FootR': 'ToeR'}
-CLIPS = {'walk_loop': (1., True), 'run_loop': (2/3, True),
-         'idle_to_walk': (.5, False), 'walk_to_idle': (.5, False),
-         'walk_to_run': (.8, False), 'run_to_walk': (.8, False),
-         'idle_to_run': (.5, False), 'run_to_idle': (.5, False)}
 KEY_RATE = 120
 
 
@@ -156,74 +152,6 @@ def solve_knee(hip, ankle, rest_hip, rest_knee, rest_ankle, amount, side):
     return add(add(hip,mul(direction,along)),mul(bend,across))
 
 
-def gait(clip, time, duration):
-    u = time/duration
-    smooth = u*u*(3-2*u)
-    if clip == 'walk_loop':
-        return time, 1., 0.
-    if clip == 'run_loop':
-        return time*1.5, 1., 1.
-    if clip == 'idle_to_walk':
-        return time-.5, smooth, 0.
-    if clip == 'walk_to_idle':
-        return time, 1-smooth, 0.
-    if clip == 'walk_to_run':
-        return time+.25*time*time/duration, 1., smooth
-    if clip == 'run_to_walk':
-        return time*1.5-.25*time*time/duration, 1., 1-smooth
-    if clip == 'idle_to_run':
-        return -.375+1.5*time*time, smooth, 1.
-    if clip == 'run_to_idle':
-        return 1.5*time-1.5*time*time, 1-smooth, 1.
-    raise ValueError(clip)
-
-
-def pose(points, size, phase, amount, run):
-    local = local_rest(points, size)
-    result = {f'Skeleton2D/{path}:position': local[name] for name,path in zip(BONES,PATHS)}
-    result.update({f'Skeleton2D/{path}:rotation': 0. for path in PATHS})
-    stride = 2.5+1.3*run
-    stance = .6-.22*run
-    bob = (.10+.05*run)*math.cos(phase*math.tau*2)
-    pelvis_shift = (0., amount*(.65+.25*run+bob))
-    result['Skeleton2D/Pelvis:position'] = add(local['Pelvis'], pelvis_shift)
-    for side in ('L','R'):
-        step = (phase+(0 if side == 'L' else .5)) % 1.
-        if step <= stance:
-            travel = 1-2*step/stance
-            lift, foot_rotation = 0., 0.
-        else:
-            swing = (step-stance)/(1-stance)
-            eased = swing*swing*(3-2*swing)
-            travel = -1+2*eased
-            lift = (2.+2.*run)*math.sin(math.pi*swing)
-            foot_rotation = -.20*math.sin(math.pi*swing)
-        foot_rotation *= amount
-        toe_offset = sub(points['Toe'+side], points['Foot'+side])
-        toe_rest = points['Toe'+side]
-        toe = (toe_rest[0],toe_rest[1]-lift*amount,stride*travel*amount)
-        rotated_offset = rotate(toe_offset,foot_rotation)
-        ankle = sub(toe,(*rotated_offset,0.))
-        hip = (*add(points['Thigh'+side],pelvis_shift),0.)
-        rest_hip,rest_knee,rest_ankle = [(*points[n+side],0.) for n in ('Thigh','Calf','Foot')]
-        knee = solve_knee(hip,ankle,rest_hip,rest_knee,rest_ankle,amount,side)
-        for name,point in [('Thigh',hip),('Calf',knee),('Foot',ankle)]:
-            result['depth/'+name+side] = point[2]
-        hip,knee,ankle = [project(point,points['forward']) for point in (hip,knee,ankle)]
-        thigh_rotation = angle(sub(knee,hip))-angle(sub(points['Calf'+side],points['Thigh'+side]))
-        calf_rotation = angle(sub(ankle,knee))-angle(sub(points['Foot'+side],points['Calf'+side]))
-        leg = 'Skeleton2D/'+PATHS[BONES.index('Thigh'+side)]
-        calf = leg+'/Calf'+side
-        result[leg+':rotation'] = thigh_rotation
-        result[calf+':position'] = rotate(sub(knee,hip),-thigh_rotation)
-        result[calf+':rotation'] = calf_rotation-thigh_rotation
-        result[calf+'/Foot'+side+':position'] = rotate(sub(ankle,knee),-calf_rotation)
-        result[calf+'/Foot'+side+':rotation'] = foot_rotation-calf_rotation
-        arm = 'Skeleton2D/'+PATHS[BONES.index('Arm'+side)]
-        result[arm+':rotation'] = amount*(.045+.025*run)*math.sin(math.tau*step)
-    return result
-
-
 def write_animation(path, name, duration, loop, poses):
     text = '[gd_resource type="Animation" format=3]\n\n[resource]\n'
     text += f'resource_name = "{name}"\nlength = {number(duration)}\nloop_mode = {1 if loop else 0}\nstep = {number(1/KEY_RATE)}\n'
@@ -238,31 +166,6 @@ def write_animation(path, name, duration, loop, poses):
     path.write_text(text,encoding='utf-8')
 
 
-def author_animations(view, points, size):
-    library = ROOT/'animations'/('skeletal-library.tres' if view == 'south' else f'skeletal-library-{view}.tres')
-    resources = dict(re.findall(r'path="res://([^\"]+)" id="([^\"]+)"',library.read_text()))
-    by_id = {resource_id: ROOT.parents[1]/path for path,resource_id in resources.items()}
-    bindings = dict(re.findall(r'&"([^\"]+)": ExtResource\("([^\"]+)"\)',library.read_text()))
-    rest = local_rest(points,size)
-    idle = {f'Skeleton2D/{p}:position':rest[n] for n,p in zip(BONES,PATHS)}
-    idle.update({f'Skeleton2D/{p}:rotation':0. for p in PATHS})
-    write_animation(by_id[bindings['RESET']], 'RESET', .001, False, [(0.,idle)])
-    for clip,(duration,loop) in CLIPS.items():
-        poses = []
-        count = round(duration*KEY_RATE)
-        for frame in range(count+1):
-            time = duration*frame/count
-            sample = pose(points,size,*gait(clip,time,duration))
-            if poses:
-                for key in sample:
-                    if key.endswith(':rotation'):
-                        previous = poses[-1][1][key]
-                        sample[key] = previous+(sample[key]-previous+math.pi)%math.tau-math.pi
-            poses.append((time,sample))
-        write_animation(by_id[bindings[clip]], clip, duration, loop, poses)
-    print(f'Calibrated rest and 8 leg clips: {view}',flush=True)
-
-
 def build():
     calibration = json.loads(CALIBRATION.read_text())['views']
     manifest = json.loads(MANIFEST.read_text())
@@ -274,7 +177,6 @@ def build():
         size = manifest['profiles'][profile]['frame'][0]
         calibrate_scene(view,points,size)
         paint_feet(manifest,view,points)
-        author_animations(view,points,size)
 
 
 if __name__ == '__main__':

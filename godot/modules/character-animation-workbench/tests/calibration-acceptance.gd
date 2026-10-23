@@ -79,10 +79,10 @@ func _run() -> void:
 						max_length_error = error
 						worst_length_sample = "%s %s %s %.6f upper %.5f/%.5f lower %.5f/%.5f" % [VIEW_KEYS[view_index],side,clip,time,hip_world.distance_to(knee_world),upper,knee_world.distance_to(ankle_world),lower]
 			for clip: String in ["walk_loop","run_loop"]:
-				var run: bool = clip == "run_loop"
-				var duration: float = player.get_animation(clip).length
-				var stance: float = .38 if run else .6
-				var stride: float = 3.8 if run else 2.5
+				var animation: Animation = player.get_animation(clip)
+				var duration: float = animation.length
+				var stance: float = animation.get_meta("stance_fraction")
+				var stride: float = animation.get_meta("stride")
 				var planted: Vector2
 				for frame: int in 30:
 					var phase: float = stance*(.05+.9*frame/29.0)

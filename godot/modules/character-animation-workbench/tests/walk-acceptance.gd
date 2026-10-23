@@ -49,8 +49,8 @@ func _check_calibrated_contacts(workbench: Node2D) -> Dictionary:
 	for clip: String in ["walk_loop","run_loop"]:
 		var animation: Animation = player.get_animation(clip)
 		var run: bool = clip == "run_loop"
-		var support: float = .38 if run else .6
-		var stride: float = 3.8 if run else 2.5
+		var support: float = animation.get_meta("stance_fraction")
+		var stride: float = animation.get_meta("stride")
 		for side: String in ["L","R"]:
 			var toe: Marker2D = skeleton.get_node("Pelvis/Thigh%s/Calf%s/Foot%s/Toe%s" % [side,side,side,side])
 			var contact: Vector2

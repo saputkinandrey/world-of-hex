@@ -1,0 +1,22 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" path="res://modules/character-animation-workbench/tests/comparison-preview.tscn" id="1"]
+
+[node name="AmplitudePreview" type="SubViewportContainer"]
+
+[node name="Viewport" type="SubViewport" parent="."]
+size = Vector2i(2048,1536)
+render_target_update_mode = 4
+
+[node name="Bounce2" parent="Viewport" instance=ExtResource("1")]
+position = Vector2(0,0)
+autoplay = false
+
+[node name="Bounce3" parent="Viewport" instance=ExtResource("1")]
+position = Vector2(0,512)
+autoplay = false
+
+[node name="Bounce4" parent="Viewport" instance=ExtResource("1")]
+position = Vector2(0,1024)
+autoplay = false
+

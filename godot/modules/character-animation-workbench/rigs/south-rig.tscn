@@ -9,8 +9,11 @@
 [ext_resource type="PackedScene" path="res://modules/character-animation-workbench/rigs/masked/south-1.tscn" id="mask_south-1"]
 [ext_resource type="PackedScene" path="res://modules/character-animation-workbench/rigs/masked/south-body.tscn" id="mask_south-body"]
 
+[ext_resource type="Resource" path="res://modules/character-animation-workbench/animations/bone-set-south.tres" id="motion_set"]
+
 [node name="Rig" type="Node2D"]
 script = ExtResource("1")
+animation_set = ExtResource("motion_set")
 authored_direction = 0
 snapshot_key = "Saved source:0:0"
 
