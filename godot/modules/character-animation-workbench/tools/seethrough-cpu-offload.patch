@@ -1,0 +1,43 @@
+--- a/common/modules/layerdiffuse/diffusers_kdiffusion_sdxl.py
++++ b/common/modules/layerdiffuse/diffusers_kdiffusion_sdxl.py
+@@ -181,7 +181,7 @@
+ 
+     @torch.inference_mode()
+     def encode_cropped_prompt_77tokens(self, prompt: str):
+-        device = self.text_encoder.device
++        device = self._execution_device
+         tokenizers = [self.tokenizer, self.tokenizer_2]
+         text_encoders = [self.text_encoder, self.text_encoder_2]
+ 
+@@ -346,7 +346,7 @@
+             group_index=None
+     ):
+ 
+-        device = self.unet.device
++        device = getattr(self, "_offload_device", self.unet.device)
+         dtype = self.unet.dtype
+ 
+         if fullpage is not None:
+--- a/inference/scripts/inference_psd_quantized.py
++++ b/inference/scripts/inference_psd_quantized.py
+@@ -82,10 +82,19 @@
+             repo, trans_vae=trans_vae, unet=unet, scheduler=None)
+ 
+         if args.cpu_offload:
+-            # VAE + TransparentVAE to bf16; quantized components handled by bnb
++            # Direct encode/decode methods do not move their input tensors via hooks.
+             pipeline.vae.to(dtype=torch.bfloat16)
+             pipeline.trans_vae.to(dtype=torch.bfloat16)
++            pipeline._exclude_from_cpu_offload = [
++                *pipeline._exclude_from_cpu_offload, "vae"
++            ]
++            pipeline.model_cpu_offload_seq = "->".join(
++                name for name in pipeline.model_cpu_offload_seq.split("->")
++                if name != "vae"
++            )
+             pipeline.enable_model_cpu_offload()
++            # trans_vae is optional in __init__ and absent from Diffusers components.
++            pipeline.trans_vae.to(device=pipeline._offload_device)
+         else:
+             pipeline.vae.to(dtype=torch.bfloat16, device='cuda')
+             pipeline.trans_vae.to(dtype=torch.bfloat16, device='cuda')
