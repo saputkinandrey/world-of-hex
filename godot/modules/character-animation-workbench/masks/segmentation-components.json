@@ -1,0 +1,2374 @@
+{
+  "south": {
+    "four_neighbors": {
+      "Pelvis": [
+        {
+          "pixels": 300,
+          "seed": [
+            39,
+            75
+          ],
+          "bbox": [
+            37,
+            75,
+            74,
+            86
+          ],
+          "neighbors": [
+            "ForearmL",
+            "ForearmR",
+            "Spine",
+            "ThighL",
+            "ThighR"
+          ],
+          "opaque_pixels": 300
+        }
+      ],
+      "Spine": [
+        {
+          "pixels": 314,
+          "seed": [
+            36,
+            60
+          ],
+          "bbox": [
+            36,
+            60,
+            74,
+            75
+          ],
+          "neighbors": [
+            "ArmL",
+            "Chest",
+            "Pelvis"
+          ],
+          "opaque_pixels": 314
+        }
+      ],
+      "Chest": [
+        {
+          "pixels": 585,
+          "seed": [
+            41,
+            43
+          ],
+          "bbox": [
+            37,
+            43,
+            74,
+            66
+          ],
+          "neighbors": [
+            "ArmL",
+            "ArmR",
+            "Head",
+            "Spine"
+          ],
+          "opaque_pixels": 585
+        }
+      ],
+      "Head": [
+        {
+          "pixels": 978,
+          "seed": [
+            47,
+            16
+          ],
+          "bbox": [
+            38,
+            16,
+            72,
+            53
+          ],
+          "neighbors": [
+            "ArmL",
+            "ArmR",
+            "Chest"
+          ],
+          "opaque_pixels": 978
+        }
+      ],
+      "ArmL": [
+        {
+          "pixels": 335,
+          "seed": [
+            33,
+            34
+          ],
+          "bbox": [
+            22,
+            34,
+            41,
+            62
+          ],
+          "neighbors": [
+            "Chest",
+            "ForearmL",
+            "Head",
+            "Spine"
+          ],
+          "opaque_pixels": 335
+        }
+      ],
+      "ForearmL": [
+        {
+          "pixels": 235,
+          "seed": [
+            22,
+            60
+          ],
+          "bbox": [
+            22,
+            60,
+            38,
+            84
+          ],
+          "neighbors": [
+            "ArmL",
+            "Pelvis",
+            "ThighL"
+          ],
+          "opaque_pixels": 235
+        }
+      ],
+      "ArmR": [
+        {
+          "pixels": 319,
+          "seed": [
+            72,
+            34
+          ],
+          "bbox": [
+            70,
+            34,
+            88,
+            62
+          ],
+          "neighbors": [
+            "Chest",
+            "ForearmR",
+            "Head"
+          ],
+          "opaque_pixels": 319
+        }
+      ],
+      "ForearmR": [
+        {
+          "pixels": 231,
+          "seed": [
+            79,
+            60
+          ],
+          "bbox": [
+            72,
+            60,
+            88,
+            84
+          ],
+          "neighbors": [
+            "ArmR",
+            "Pelvis",
+            "ThighR"
+          ],
+          "opaque_pixels": 231
+        }
+      ],
+      "ThighL": [
+        {
+          "pixels": 71,
+          "seed": [
+            37,
+            82
+          ],
+          "bbox": [
+            37,
+            82,
+            51,
+            90
+          ],
+          "neighbors": [
+            "CalfL",
+            "ForearmL",
+            "Pelvis"
+          ],
+          "opaque_pixels": 71
+        }
+      ],
+      "CalfL": [
+        {
+          "pixels": 73,
+          "seed": [
+            38,
+            90
+          ],
+          "bbox": [
+            36,
+            90,
+            48,
+            98
+          ],
+          "neighbors": [
+            "FootL",
+            "ThighL"
+          ],
+          "opaque_pixels": 73
+        }
+      ],
+      "ThighR": [
+        {
+          "pixels": 69,
+          "seed": [
+            71,
+            82
+          ],
+          "bbox": [
+            59,
+            82,
+            74,
+            90
+          ],
+          "neighbors": [
+            "CalfR",
+            "ForearmR",
+            "Pelvis"
+          ],
+          "opaque_pixels": 69
+        }
+      ],
+      "CalfR": [
+        {
+          "pixels": 73,
+          "seed": [
+            62,
+            90
+          ],
+          "bbox": [
+            62,
+            90,
+            74,
+            98
+          ],
+          "neighbors": [
+            "FootR",
+            "ThighR"
+          ],
+          "opaque_pixels": 73
+        }
+      ],
+      "FootL": [
+        {
+          "pixels": 65,
+          "seed": [
+            36,
+            98
+          ],
+          "bbox": [
+            35,
+            98,
+            47,
+            104
+          ],
+          "neighbors": [
+            "CalfL"
+          ],
+          "opaque_pixels": 65
+        }
+      ],
+      "FootR": [
+        {
+          "pixels": 65,
+          "seed": [
+            64,
+            98
+          ],
+          "bbox": [
+            63,
+            98,
+            75,
+            104
+          ],
+          "neighbors": [
+            "CalfR"
+          ],
+          "opaque_pixels": 65
+        }
+      ]
+    },
+    "eight_neighbors": {
+      "Pelvis": [
+        {
+          "pixels": 300,
+          "seed": [
+            39,
+            75
+          ],
+          "bbox": [
+            37,
+            75,
+            74,
+            86
+          ],
+          "neighbors": [
+            "ForearmL",
+            "ForearmR",
+            "Spine",
+            "ThighL",
+            "ThighR"
+          ],
+          "opaque_pixels": 300
+        }
+      ],
+      "Spine": [
+        {
+          "pixels": 314,
+          "seed": [
+            36,
+            60
+          ],
+          "bbox": [
+            36,
+            60,
+            74,
+            75
+          ],
+          "neighbors": [
+            "ArmL",
+            "ArmR",
+            "Chest",
+            "Pelvis"
+          ],
+          "opaque_pixels": 314
+        }
+      ],
+      "Chest": [
+        {
+          "pixels": 585,
+          "seed": [
+            41,
+            43
+          ],
+          "bbox": [
+            37,
+            43,
+            74,
+            66
+          ],
+          "neighbors": [
+            "ArmL",
+            "ArmR",
+            "Head",
+            "Spine"
+          ],
+          "opaque_pixels": 585
+        }
+      ],
+      "Head": [
+        {
+          "pixels": 978,
+          "seed": [
+            47,
+            16
+          ],
+          "bbox": [
+            38,
+            16,
+            72,
+            53
+          ],
+          "neighbors": [
+            "ArmL",
+            "ArmR",
+            "Chest"
+          ],
+          "opaque_pixels": 978
+        }
+      ],
+      "ArmL": [
+        {
+          "pixels": 335,
+          "seed": [
+            33,
+            34
+          ],
+          "bbox": [
+            22,
+            34,
+            41,
+            62
+          ],
+          "neighbors": [
+            "Chest",
+            "ForearmL",
+            "Head",
+            "Spine"
+          ],
+          "opaque_pixels": 335
+        }
+      ],
+      "ForearmL": [
+        {
+          "pixels": 235,
+          "seed": [
+            22,
+            60
+          ],
+          "bbox": [
+            22,
+            60,
+            38,
+            84
+          ],
+          "neighbors": [
+            "ArmL",
+            "Pelvis",
+            "ThighL"
+          ],
+          "opaque_pixels": 235
+        }
+      ],
+      "ArmR": [
+        {
+          "pixels": 319,
+          "seed": [
+            72,
+            34
+          ],
+          "bbox": [
+            70,
+            34,
+            88,
+            62
+          ],
+          "neighbors": [
+            "Chest",
+            "ForearmR",
+            "Head",
+            "Spine"
+          ],
+          "opaque_pixels": 319
+        }
+      ],
+      "ForearmR": [
+        {
+          "pixels": 231,
+          "seed": [
+            79,
+            60
+          ],
+          "bbox": [
+            72,
+            60,
+            88,
+            84
+          ],
+          "neighbors": [
+            "ArmR",
+            "Pelvis",
+            "ThighR"
+          ],
+          "opaque_pixels": 231
+        }
+      ],
+      "ThighL": [
+        {
+          "pixels": 71,
+          "seed": [
+            37,
+            82
+          ],
+          "bbox": [
+            37,
+            82,
+            51,
+            90
+          ],
+          "neighbors": [
+            "CalfL",
+            "ForearmL",
+            "Pelvis"
+          ],
+          "opaque_pixels": 71
+        }
+      ],
+      "CalfL": [
+        {
+          "pixels": 73,
+          "seed": [
+            38,
+            90
+          ],
+          "bbox": [
+            36,
+            90,
+            48,
+            98
+          ],
+          "neighbors": [
+            "FootL",
+            "ThighL"
+          ],
+          "opaque_pixels": 73
+        }
+      ],
+      "ThighR": [
+        {
+          "pixels": 69,
+          "seed": [
+            71,
+            82
+          ],
+          "bbox": [
+            59,
+            82,
+            74,
+            90
+          ],
+          "neighbors": [
+            "CalfR",
+            "ForearmR",
+            "Pelvis"
+          ],
+          "opaque_pixels": 69
+        }
+      ],
+      "CalfR": [
+        {
+          "pixels": 73,
+          "seed": [
+            62,
+            90
+          ],
+          "bbox": [
+            62,
+            90,
+            74,
+            98
+          ],
+          "neighbors": [
+            "FootR",
+            "ThighR"
+          ],
+          "opaque_pixels": 73
+        }
+      ],
+      "FootL": [
+        {
+          "pixels": 65,
+          "seed": [
+            36,
+            98
+          ],
+          "bbox": [
+            35,
+            98,
+            47,
+            104
+          ],
+          "neighbors": [
+            "CalfL"
+          ],
+          "opaque_pixels": 65
+        }
+      ],
+      "FootR": [
+        {
+          "pixels": 65,
+          "seed": [
+            64,
+            98
+          ],
+          "bbox": [
+            63,
+            98,
+            75,
+            104
+          ],
+          "neighbors": [
+            "CalfR"
+          ],
+          "opaque_pixels": 65
+        }
+      ]
+    }
+  },
+  "north": {
+    "four_neighbors": {
+      "Pelvis": [
+        {
+          "pixels": 522,
+          "seed": [
+            40,
+            68
+          ],
+          "bbox": [
+            38,
+            68,
+            74,
+            86
+          ],
+          "neighbors": [
+            "ForearmL",
+            "ForearmR",
+            "Spine",
+            "ThighL",
+            "ThighR"
+          ],
+          "opaque_pixels": 522
+        }
+      ],
+      "Spine": [
+        {
+          "pixels": 476,
+          "seed": [
+            38,
+            55
+          ],
+          "bbox": [
+            36,
+            55,
+            75,
+            68
+          ],
+          "neighbors": [
+            "ArmL",
+            "ArmR",
+            "Chest",
+            "Pelvis"
+          ],
+          "opaque_pixels": 476
+        }
+      ],
+      "Chest": [
+        {
+          "pixels": 647,
+          "seed": [
+            37,
+            35
+          ],
+          "bbox": [
+            37,
+            35,
+            74,
+            55
+          ],
+          "neighbors": [
+            "ArmL",
+            "ArmR",
+            "Head",
+            "Spine"
+          ],
+          "opaque_pixels": 647
+        }
+      ],
+      "Head": [
+        {
+          "pixels": 557,
+          "seed": [
+            48,
+            16
+          ],
+          "bbox": [
+            36,
+            16,
+            74,
+            37
+          ],
+          "neighbors": [
+            "ArmL",
+            "Chest"
+          ],
+          "opaque_pixels": 557
+        }
+      ],
+      "ArmL": [
+        {
+          "pixels": 336,
+          "seed": [
+            33,
+            35
+          ],
+          "bbox": [
+            22,
+            35,
+            41,
+            63
+          ],
+          "neighbors": [
+            "Chest",
+            "ForearmL",
+            "Head",
+            "Spine"
+          ],
+          "opaque_pixels": 336
+        }
+      ],
+      "ForearmL": [
+        {
+          "pixels": 231,
+          "seed": [
+            22,
+            60
+          ],
+          "bbox": [
+            22,
+            60,
+            39,
+            84
+          ],
+          "neighbors": [
+            "ArmL",
+            "Pelvis"
+          ],
+          "opaque_pixels": 231
+        }
+      ],
+      "ArmR": [
+        {
+          "pixels": 311,
+          "seed": [
+            74,
+            35
+          ],
+          "bbox": [
+            70,
+            35,
+            88,
+            63
+          ],
+          "neighbors": [
+            "Chest",
+            "ForearmR",
+            "Spine"
+          ],
+          "opaque_pixels": 311
+        }
+      ],
+      "ForearmR": [
+        {
+          "pixels": 218,
+          "seed": [
+            79,
+            60
+          ],
+          "bbox": [
+            72,
+            60,
+            88,
+            84
+          ],
+          "neighbors": [
+            "ArmR",
+            "Pelvis"
+          ],
+          "opaque_pixels": 218
+        }
+      ],
+      "ThighL": [
+        {
+          "pixels": 59,
+          "seed": [
+            39,
+            82
+          ],
+          "bbox": [
+            39,
+            82,
+            50,
+            90
+          ],
+          "neighbors": [
+            "CalfL",
+            "Pelvis"
+          ],
+          "opaque_pixels": 59
+        }
+      ],
+      "CalfL": [
+        {
+          "pixels": 69,
+          "seed": [
+            39,
+            90
+          ],
+          "bbox": [
+            36,
+            90,
+            47,
+            98
+          ],
+          "neighbors": [
+            "FootL",
+            "ThighL"
+          ],
+          "opaque_pixels": 69
+        }
+      ],
+      "ThighR": [
+        {
+          "pixels": 56,
+          "seed": [
+            69,
+            83
+          ],
+          "bbox": [
+            60,
+            83,
+            71,
+            90
+          ],
+          "neighbors": [
+            "CalfR",
+            "Pelvis"
+          ],
+          "opaque_pixels": 56
+        }
+      ],
+      "CalfR": [
+        {
+          "pixels": 69,
+          "seed": [
+            63,
+            90
+          ],
+          "bbox": [
+            63,
+            90,
+            74,
+            98
+          ],
+          "neighbors": [
+            "FootR",
+            "ThighR"
+          ],
+          "opaque_pixels": 69
+        }
+      ],
+      "FootL": [
+        {
+          "pixels": 56,
+          "seed": [
+            36,
+            98
+          ],
+          "bbox": [
+            36,
+            98,
+            46,
+            105
+          ],
+          "neighbors": [
+            "CalfL"
+          ],
+          "opaque_pixels": 56
+        }
+      ],
+      "FootR": [
+        {
+          "pixels": 56,
+          "seed": [
+            64,
+            98
+          ],
+          "bbox": [
+            64,
+            98,
+            74,
+            105
+          ],
+          "neighbors": [
+            "CalfR"
+          ],
+          "opaque_pixels": 56
+        }
+      ]
+    },
+    "eight_neighbors": {
+      "Pelvis": [
+        {
+          "pixels": 522,
+          "seed": [
+            40,
+            68
+          ],
+          "bbox": [
+            38,
+            68,
+            74,
+            86
+          ],
+          "neighbors": [
+            "ForearmL",
+            "ForearmR",
+            "Spine",
+            "ThighL",
+            "ThighR"
+          ],
+          "opaque_pixels": 522
+        }
+      ],
+      "Spine": [
+        {
+          "pixels": 476,
+          "seed": [
+            38,
+            55
+          ],
+          "bbox": [
+            36,
+            55,
+            75,
+            68
+          ],
+          "neighbors": [
+            "ArmL",
+            "ArmR",
+            "Chest",
+            "Pelvis"
+          ],
+          "opaque_pixels": 476
+        }
+      ],
+      "Chest": [
+        {
+          "pixels": 647,
+          "seed": [
+            37,
+            35
+          ],
+          "bbox": [
+            37,
+            35,
+            74,
+            55
+          ],
+          "neighbors": [
+            "ArmL",
+            "ArmR",
+            "Head",
+            "Spine"
+          ],
+          "opaque_pixels": 647
+        }
+      ],
+      "Head": [
+        {
+          "pixels": 557,
+          "seed": [
+            48,
+            16
+          ],
+          "bbox": [
+            36,
+            16,
+            74,
+            37
+          ],
+          "neighbors": [
+            "ArmL",
+            "ArmR",
+            "Chest"
+          ],
+          "opaque_pixels": 557
+        }
+      ],
+      "ArmL": [
+        {
+          "pixels": 336,
+          "seed": [
+            33,
+            35
+          ],
+          "bbox": [
+            22,
+            35,
+            41,
+            63
+          ],
+          "neighbors": [
+            "Chest",
+            "ForearmL",
+            "Head",
+            "Spine"
+          ],
+          "opaque_pixels": 336
+        }
+      ],
+      "ForearmL": [
+        {
+          "pixels": 231,
+          "seed": [
+            22,
+            60
+          ],
+          "bbox": [
+            22,
+            60,
+            39,
+            84
+          ],
+          "neighbors": [
+            "ArmL",
+            "Pelvis"
+          ],
+          "opaque_pixels": 231
+        }
+      ],
+      "ArmR": [
+        {
+          "pixels": 311,
+          "seed": [
+            74,
+            35
+          ],
+          "bbox": [
+            70,
+            35,
+            88,
+            63
+          ],
+          "neighbors": [
+            "Chest",
+            "ForearmR",
+            "Head",
+            "Spine"
+          ],
+          "opaque_pixels": 311
+        }
+      ],
+      "ForearmR": [
+        {
+          "pixels": 218,
+          "seed": [
+            79,
+            60
+          ],
+          "bbox": [
+            72,
+            60,
+            88,
+            84
+          ],
+          "neighbors": [
+            "ArmR",
+            "Pelvis"
+          ],
+          "opaque_pixels": 218
+        }
+      ],
+      "ThighL": [
+        {
+          "pixels": 59,
+          "seed": [
+            39,
+            82
+          ],
+          "bbox": [
+            39,
+            82,
+            50,
+            90
+          ],
+          "neighbors": [
+            "CalfL",
+            "Pelvis"
+          ],
+          "opaque_pixels": 59
+        }
+      ],
+      "CalfL": [
+        {
+          "pixels": 69,
+          "seed": [
+            39,
+            90
+          ],
+          "bbox": [
+            36,
+            90,
+            47,
+            98
+          ],
+          "neighbors": [
+            "FootL",
+            "ThighL"
+          ],
+          "opaque_pixels": 69
+        }
+      ],
+      "ThighR": [
+        {
+          "pixels": 56,
+          "seed": [
+            69,
+            83
+          ],
+          "bbox": [
+            60,
+            83,
+            71,
+            90
+          ],
+          "neighbors": [
+            "CalfR",
+            "Pelvis"
+          ],
+          "opaque_pixels": 56
+        }
+      ],
+      "CalfR": [
+        {
+          "pixels": 69,
+          "seed": [
+            63,
+            90
+          ],
+          "bbox": [
+            63,
+            90,
+            74,
+            98
+          ],
+          "neighbors": [
+            "FootR",
+            "ThighR"
+          ],
+          "opaque_pixels": 69
+        }
+      ],
+      "FootL": [
+        {
+          "pixels": 56,
+          "seed": [
+            36,
+            98
+          ],
+          "bbox": [
+            36,
+            98,
+            46,
+            105
+          ],
+          "neighbors": [
+            "CalfL"
+          ],
+          "opaque_pixels": 56
+        }
+      ],
+      "FootR": [
+        {
+          "pixels": 56,
+          "seed": [
+            64,
+            98
+          ],
+          "bbox": [
+            64,
+            98,
+            74,
+            105
+          ],
+          "neighbors": [
+            "CalfR"
+          ],
+          "opaque_pixels": 56
+        }
+      ]
+    }
+  },
+  "south-west": {
+    "four_neighbors": {
+      "Pelvis": [
+        {
+          "pixels": 188,
+          "seed": [
+            79,
+            84
+          ],
+          "bbox": [
+            62,
+            84,
+            85,
+            95
+          ],
+          "neighbors": [
+            "ForearmL",
+            "ForearmR",
+            "Spine",
+            "ThighL",
+            "ThighR"
+          ],
+          "opaque_pixels": 188
+        }
+      ],
+      "Spine": [
+        {
+          "pixels": 195,
+          "seed": [
+            62,
+            76
+          ],
+          "bbox": [
+            62,
+            76,
+            88,
+            87
+          ],
+          "neighbors": [
+            "ArmL",
+            "ArmR",
+            "Chest",
+            "ForearmL",
+            "Pelvis"
+          ],
+          "opaque_pixels": 195
+        }
+      ],
+      "Chest": [
+        {
+          "pixels": 271,
+          "seed": [
+            81,
+            59
+          ],
+          "bbox": [
+            63,
+            59,
+            85,
+            79
+          ],
+          "neighbors": [
+            "ArmL",
+            "ArmR",
+            "Head",
+            "Spine"
+          ],
+          "opaque_pixels": 271
+        }
+      ],
+      "Head": [
+        {
+          "pixels": 831,
+          "seed": [
+            68,
+            30
+          ],
+          "bbox": [
+            59,
+            30,
+            88,
+            66
+          ],
+          "neighbors": [
+            "ArmL",
+            "ArmR",
+            "Chest"
+          ],
+          "opaque_pixels": 831
+        }
+      ],
+      "ArmL": [
+        {
+          "pixels": 158,
+          "seed": [
+            58,
+            50
+          ],
+          "bbox": [
+            55,
+            50,
+            65,
+            76
+          ],
+          "neighbors": [
+            "Chest",
+            "ForearmL",
+            "Head",
+            "Spine"
+          ],
+          "opaque_pixels": 158
+        }
+      ],
+      "ForearmL": [
+        {
+          "pixels": 98,
+          "seed": [
+            56,
+            76
+          ],
+          "bbox": [
+            54,
+            76,
+            62,
+            90
+          ],
+          "neighbors": [
+            "ArmL",
+            "Pelvis",
+            "Spine"
+          ],
+          "opaque_pixels": 98
+        }
+      ],
+      "ArmR": [
+        {
+          "pixels": 285,
+          "seed": [
+            86,
+            53
+          ],
+          "bbox": [
+            82,
+            53,
+            98,
+            81
+          ],
+          "neighbors": [
+            "Chest",
+            "ForearmR",
+            "Head",
+            "Spine"
+          ],
+          "opaque_pixels": 285
+        }
+      ],
+      "ForearmR": [
+        {
+          "pixels": 205,
+          "seed": [
+            91,
+            77
+          ],
+          "bbox": [
+            82,
+            77,
+            98,
+            99
+          ],
+          "neighbors": [
+            "ArmR",
+            "Pelvis",
+            "ThighR"
+          ],
+          "opaque_pixels": 205
+        }
+      ],
+      "ThighL": [
+        {
+          "pixels": 43,
+          "seed": [
+            62,
+            93
+          ],
+          "bbox": [
+            62,
+            93,
+            73,
+            98
+          ],
+          "neighbors": [
+            "CalfL",
+            "Pelvis",
+            "ThighR"
+          ],
+          "opaque_pixels": 43
+        }
+      ],
+      "CalfL": [
+        {
+          "pixels": 52,
+          "seed": [
+            64,
+            98
+          ],
+          "bbox": [
+            63,
+            98,
+            74,
+            104
+          ],
+          "neighbors": [
+            "FootL",
+            "ThighL",
+            "ThighR"
+          ],
+          "opaque_pixels": 52
+        }
+      ],
+      "ThighR": [
+        {
+          "pixels": 99,
+          "seed": [
+            73,
+            94
+          ],
+          "bbox": [
+            73,
+            94,
+            86,
+            103
+          ],
+          "neighbors": [
+            "CalfL",
+            "CalfR",
+            "ForearmR",
+            "Pelvis",
+            "ThighL"
+          ],
+          "opaque_pixels": 99
+        }
+      ],
+      "CalfR": [
+        {
+          "pixels": 62,
+          "seed": [
+            77,
+            103
+          ],
+          "bbox": [
+            77,
+            103,
+            87,
+            110
+          ],
+          "neighbors": [
+            "FootR",
+            "ThighR"
+          ],
+          "opaque_pixels": 62
+        }
+      ],
+      "FootL": [
+        {
+          "pixels": 71,
+          "seed": [
+            61,
+            104
+          ],
+          "bbox": [
+            59,
+            104,
+            72,
+            111
+          ],
+          "neighbors": [
+            "CalfL"
+          ],
+          "opaque_pixels": 71
+        }
+      ],
+      "FootR": [
+        {
+          "pixels": 88,
+          "seed": [
+            79,
+            110
+          ],
+          "bbox": [
+            75,
+            110,
+            87,
+            120
+          ],
+          "neighbors": [
+            "CalfR"
+          ],
+          "opaque_pixels": 88
+        }
+      ]
+    },
+    "eight_neighbors": {
+      "Pelvis": [
+        {
+          "pixels": 188,
+          "seed": [
+            79,
+            84
+          ],
+          "bbox": [
+            62,
+            84,
+            85,
+            95
+          ],
+          "neighbors": [
+            "ForearmL",
+            "ForearmR",
+            "Spine",
+            "ThighL",
+            "ThighR"
+          ],
+          "opaque_pixels": 188
+        }
+      ],
+      "Spine": [
+        {
+          "pixels": 195,
+          "seed": [
+            62,
+            76
+          ],
+          "bbox": [
+            62,
+            76,
+            88,
+            87
+          ],
+          "neighbors": [
+            "ArmL",
+            "ArmR",
+            "Chest",
+            "ForearmL",
+            "Pelvis"
+          ],
+          "opaque_pixels": 195
+        }
+      ],
+      "Chest": [
+        {
+          "pixels": 271,
+          "seed": [
+            81,
+            59
+          ],
+          "bbox": [
+            63,
+            59,
+            85,
+            79
+          ],
+          "neighbors": [
+            "ArmL",
+            "ArmR",
+            "Head",
+            "Spine"
+          ],
+          "opaque_pixels": 271
+        }
+      ],
+      "Head": [
+        {
+          "pixels": 831,
+          "seed": [
+            68,
+            30
+          ],
+          "bbox": [
+            59,
+            30,
+            88,
+            66
+          ],
+          "neighbors": [
+            "ArmL",
+            "ArmR",
+            "Chest"
+          ],
+          "opaque_pixels": 831
+        }
+      ],
+      "ArmL": [
+        {
+          "pixels": 158,
+          "seed": [
+            58,
+            50
+          ],
+          "bbox": [
+            55,
+            50,
+            65,
+            76
+          ],
+          "neighbors": [
+            "Chest",
+            "ForearmL",
+            "Head",
+            "Spine"
+          ],
+          "opaque_pixels": 158
+        }
+      ],
+      "ForearmL": [
+        {
+          "pixels": 98,
+          "seed": [
+            56,
+            76
+          ],
+          "bbox": [
+            54,
+            76,
+            62,
+            90
+          ],
+          "neighbors": [
+            "ArmL",
+            "Pelvis",
+            "Spine"
+          ],
+          "opaque_pixels": 98
+        }
+      ],
+      "ArmR": [
+        {
+          "pixels": 285,
+          "seed": [
+            86,
+            53
+          ],
+          "bbox": [
+            82,
+            53,
+            98,
+            81
+          ],
+          "neighbors": [
+            "Chest",
+            "ForearmR",
+            "Head",
+            "Spine"
+          ],
+          "opaque_pixels": 285
+        }
+      ],
+      "ForearmR": [
+        {
+          "pixels": 205,
+          "seed": [
+            91,
+            77
+          ],
+          "bbox": [
+            82,
+            77,
+            98,
+            99
+          ],
+          "neighbors": [
+            "ArmR",
+            "Pelvis",
+            "ThighR"
+          ],
+          "opaque_pixels": 205
+        }
+      ],
+      "ThighL": [
+        {
+          "pixels": 43,
+          "seed": [
+            62,
+            93
+          ],
+          "bbox": [
+            62,
+            93,
+            73,
+            98
+          ],
+          "neighbors": [
+            "CalfL",
+            "Pelvis",
+            "ThighR"
+          ],
+          "opaque_pixels": 43
+        }
+      ],
+      "CalfL": [
+        {
+          "pixels": 52,
+          "seed": [
+            64,
+            98
+          ],
+          "bbox": [
+            63,
+            98,
+            74,
+            104
+          ],
+          "neighbors": [
+            "FootL",
+            "ThighL",
+            "ThighR"
+          ],
+          "opaque_pixels": 52
+        }
+      ],
+      "ThighR": [
+        {
+          "pixels": 99,
+          "seed": [
+            73,
+            94
+          ],
+          "bbox": [
+            73,
+            94,
+            86,
+            103
+          ],
+          "neighbors": [
+            "CalfL",
+            "CalfR",
+            "ForearmR",
+            "Pelvis",
+            "ThighL"
+          ],
+          "opaque_pixels": 99
+        }
+      ],
+      "CalfR": [
+        {
+          "pixels": 62,
+          "seed": [
+            77,
+            103
+          ],
+          "bbox": [
+            77,
+            103,
+            87,
+            110
+          ],
+          "neighbors": [
+            "FootR",
+            "ThighR"
+          ],
+          "opaque_pixels": 62
+        }
+      ],
+      "FootL": [
+        {
+          "pixels": 71,
+          "seed": [
+            61,
+            104
+          ],
+          "bbox": [
+            59,
+            104,
+            72,
+            111
+          ],
+          "neighbors": [
+            "CalfL"
+          ],
+          "opaque_pixels": 71
+        }
+      ],
+      "FootR": [
+        {
+          "pixels": 88,
+          "seed": [
+            79,
+            110
+          ],
+          "bbox": [
+            75,
+            110,
+            87,
+            120
+          ],
+          "neighbors": [
+            "CalfR"
+          ],
+          "opaque_pixels": 88
+        }
+      ]
+    }
+  },
+  "north-west": {
+    "four_neighbors": {
+      "Pelvis": [
+        {
+          "pixels": 290,
+          "seed": [
+            78,
+            81
+          ],
+          "bbox": [
+            63,
+            81,
+            86,
+            99
+          ],
+          "neighbors": [
+            "ForearmL",
+            "ForearmR",
+            "Spine",
+            "ThighL",
+            "ThighR"
+          ],
+          "opaque_pixels": 290
+        }
+      ],
+      "Spine": [
+        {
+          "pixels": 125,
+          "seed": [
+            85,
+            75
+          ],
+          "bbox": [
+            68,
+            75,
+            88,
+            84
+          ],
+          "neighbors": [
+            "ArmR",
+            "Chest",
+            "ForearmL",
+            "ForearmR",
+            "Pelvis"
+          ],
+          "opaque_pixels": 125
+        }
+      ],
+      "Chest": [
+        {
+          "pixels": 406,
+          "seed": [
+            83,
+            51
+          ],
+          "bbox": [
+            61,
+            51,
+            87,
+            77
+          ],
+          "neighbors": [
+            "ArmL",
+            "ArmR",
+            "Head",
+            "Spine"
+          ],
+          "opaque_pixels": 406
+        }
+      ],
+      "Head": [
+        {
+          "pixels": 630,
+          "seed": [
+            65,
+            31
+          ],
+          "bbox": [
+            57,
+            31,
+            85,
+            62
+          ],
+          "neighbors": [
+            "Chest"
+          ],
+          "opaque_pixels": 630
+        }
+      ],
+      "ArmL": [
+        {
+          "pixels": 162,
+          "seed": [
+            59,
+            63
+          ],
+          "bbox": [
+            55,
+            63,
+            70,
+            76
+          ],
+          "neighbors": [
+            "Chest",
+            "ForearmL"
+          ],
+          "opaque_pixels": 162
+        }
+      ],
+      "ForearmL": [
+        {
+          "pixels": 316,
+          "seed": [
+            56,
+            76
+          ],
+          "bbox": [
+            50,
+            76,
+            69,
+            104
+          ],
+          "neighbors": [
+            "ArmL",
+            "Pelvis",
+            "Spine",
+            "ThighL"
+          ],
+          "opaque_pixels": 316
+        }
+      ],
+      "ArmR": [
+        {
+          "pixels": 209,
+          "seed": [
+            87,
+            52
+          ],
+          "bbox": [
+            85,
+            52,
+            98,
+            76
+          ],
+          "neighbors": [
+            "Chest",
+            "ForearmR",
+            "Spine"
+          ],
+          "opaque_pixels": 209
+        }
+      ],
+      "ForearmR": [
+        {
+          "pixels": 151,
+          "seed": [
+            96,
+            73
+          ],
+          "bbox": [
+            84,
+            73,
+            98,
+            92
+          ],
+          "neighbors": [
+            "ArmR",
+            "Pelvis",
+            "Spine"
+          ],
+          "opaque_pixels": 151
+        }
+      ],
+      "ThighL": [
+        {
+          "pixels": 53,
+          "seed": [
+            62,
+            97
+          ],
+          "bbox": [
+            61,
+            97,
+            74,
+            103
+          ],
+          "neighbors": [
+            "CalfL",
+            "ForearmL",
+            "Pelvis",
+            "ThighR"
+          ],
+          "opaque_pixels": 53
+        }
+      ],
+      "CalfL": [
+        {
+          "pixels": 77,
+          "seed": [
+            61,
+            103
+          ],
+          "bbox": [
+            61,
+            103,
+            72,
+            111
+          ],
+          "neighbors": [
+            "FootL",
+            "ThighL"
+          ],
+          "opaque_pixels": 77
+        }
+      ],
+      "ThighR": [
+        {
+          "pixels": 58,
+          "seed": [
+            85,
+            93
+          ],
+          "bbox": [
+            72,
+            93,
+            87,
+            100
+          ],
+          "neighbors": [
+            "CalfR",
+            "Pelvis",
+            "ThighL"
+          ],
+          "opaque_pixels": 58
+        }
+      ],
+      "CalfR": [
+        {
+          "pixels": 49,
+          "seed": [
+            77,
+            100
+          ],
+          "bbox": [
+            76,
+            100,
+            87,
+            105
+          ],
+          "neighbors": [
+            "FootR",
+            "ThighR"
+          ],
+          "opaque_pixels": 49
+        }
+      ],
+      "FootL": [
+        {
+          "pixels": 107,
+          "seed": [
+            58,
+            111
+          ],
+          "bbox": [
+            55,
+            111,
+            70,
+            120
+          ],
+          "neighbors": [
+            "CalfL"
+          ],
+          "opaque_pixels": 107
+        }
+      ],
+      "FootR": [
+        {
+          "pixels": 71,
+          "seed": [
+            75,
+            105
+          ],
+          "bbox": [
+            75,
+            105,
+            87,
+            113
+          ],
+          "neighbors": [
+            "CalfR"
+          ],
+          "opaque_pixels": 71
+        }
+      ]
+    },
+    "eight_neighbors": {
+      "Pelvis": [
+        {
+          "pixels": 290,
+          "seed": [
+            78,
+            81
+          ],
+          "bbox": [
+            63,
+            81,
+            86,
+            99
+          ],
+          "neighbors": [
+            "ForearmL",
+            "ForearmR",
+            "Spine",
+            "ThighL",
+            "ThighR"
+          ],
+          "opaque_pixels": 290
+        }
+      ],
+      "Spine": [
+        {
+          "pixels": 125,
+          "seed": [
+            85,
+            75
+          ],
+          "bbox": [
+            68,
+            75,
+            88,
+            84
+          ],
+          "neighbors": [
+            "ArmL",
+            "ArmR",
+            "Chest",
+            "ForearmL",
+            "ForearmR",
+            "Pelvis"
+          ],
+          "opaque_pixels": 125
+        }
+      ],
+      "Chest": [
+        {
+          "pixels": 406,
+          "seed": [
+            83,
+            51
+          ],
+          "bbox": [
+            61,
+            51,
+            87,
+            77
+          ],
+          "neighbors": [
+            "ArmL",
+            "ArmR",
+            "ForearmL",
+            "Head",
+            "Spine"
+          ],
+          "opaque_pixels": 406
+        }
+      ],
+      "Head": [
+        {
+          "pixels": 630,
+          "seed": [
+            65,
+            31
+          ],
+          "bbox": [
+            57,
+            31,
+            85,
+            62
+          ],
+          "neighbors": [
+            "Chest"
+          ],
+          "opaque_pixels": 630
+        }
+      ],
+      "ArmL": [
+        {
+          "pixels": 162,
+          "seed": [
+            59,
+            63
+          ],
+          "bbox": [
+            55,
+            63,
+            70,
+            76
+          ],
+          "neighbors": [
+            "Chest",
+            "ForearmL",
+            "Spine"
+          ],
+          "opaque_pixels": 162
+        }
+      ],
+      "ForearmL": [
+        {
+          "pixels": 316,
+          "seed": [
+            56,
+            76
+          ],
+          "bbox": [
+            50,
+            76,
+            69,
+            104
+          ],
+          "neighbors": [
+            "ArmL",
+            "Chest",
+            "Pelvis",
+            "Spine",
+            "ThighL"
+          ],
+          "opaque_pixels": 316
+        }
+      ],
+      "ArmR": [
+        {
+          "pixels": 209,
+          "seed": [
+            87,
+            52
+          ],
+          "bbox": [
+            85,
+            52,
+            98,
+            76
+          ],
+          "neighbors": [
+            "Chest",
+            "ForearmR",
+            "Spine"
+          ],
+          "opaque_pixels": 209
+        }
+      ],
+      "ForearmR": [
+        {
+          "pixels": 151,
+          "seed": [
+            96,
+            73
+          ],
+          "bbox": [
+            84,
+            73,
+            98,
+            92
+          ],
+          "neighbors": [
+            "ArmR",
+            "Pelvis",
+            "Spine"
+          ],
+          "opaque_pixels": 151
+        }
+      ],
+      "ThighL": [
+        {
+          "pixels": 53,
+          "seed": [
+            62,
+            97
+          ],
+          "bbox": [
+            61,
+            97,
+            74,
+            103
+          ],
+          "neighbors": [
+            "CalfL",
+            "ForearmL",
+            "Pelvis",
+            "ThighR"
+          ],
+          "opaque_pixels": 53
+        }
+      ],
+      "CalfL": [
+        {
+          "pixels": 77,
+          "seed": [
+            61,
+            103
+          ],
+          "bbox": [
+            61,
+            103,
+            72,
+            111
+          ],
+          "neighbors": [
+            "FootL",
+            "ThighL"
+          ],
+          "opaque_pixels": 77
+        }
+      ],
+      "ThighR": [
+        {
+          "pixels": 58,
+          "seed": [
+            85,
+            93
+          ],
+          "bbox": [
+            72,
+            93,
+            87,
+            100
+          ],
+          "neighbors": [
+            "CalfR",
+            "Pelvis",
+            "ThighL"
+          ],
+          "opaque_pixels": 58
+        }
+      ],
+      "CalfR": [
+        {
+          "pixels": 49,
+          "seed": [
+            77,
+            100
+          ],
+          "bbox": [
+            76,
+            100,
+            87,
+            105
+          ],
+          "neighbors": [
+            "FootR",
+            "ThighR"
+          ],
+          "opaque_pixels": 49
+        }
+      ],
+      "FootL": [
+        {
+          "pixels": 107,
+          "seed": [
+            58,
+            111
+          ],
+          "bbox": [
+            55,
+            111,
+            70,
+            120
+          ],
+          "neighbors": [
+            "CalfL"
+          ],
+          "opaque_pixels": 107
+        }
+      ],
+      "FootR": [
+        {
+          "pixels": 71,
+          "seed": [
+            75,
+            105
+          ],
+          "bbox": [
+            75,
+            105,
+            87,
+            113
+          ],
+          "neighbors": [
+            "CalfR"
+          ],
+          "opaque_pixels": 71
+        }
+      ]
+    }
+  }
+}

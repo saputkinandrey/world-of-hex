@@ -1,0 +1,12 @@
+[gd_scene format=3]
+[ext_resource type="PackedScene" path="res://modules/character-animation-workbench/tests/comparison-preview.tscn" id="1"]
+[ext_resource type="PackedScene" path="res://modules/character-animation-workbench/tests/segmentation-south.tscn" id="2"]
+[ext_resource type="PackedScene" path="res://modules/character-animation-workbench/tests/segmentation-north.tscn" id="3"]
+[ext_resource type="PackedScene" path="res://modules/character-animation-workbench/tests/segmentation-south-west.tscn" id="4"]
+[ext_resource type="PackedScene" path="res://modules/character-animation-workbench/tests/segmentation-north-west.tscn" id="5"]
+[node name="SegmentationPreview" instance=ExtResource("1")]
+autoplay = false
+[node name="SegmentationSurface" parent="Viewport/South/Preview/Mirror/South" instance=ExtResource("2")]
+[node name="SegmentationSurface" parent="Viewport/North/Preview/Mirror/North" instance=ExtResource("3")]
+[node name="SegmentationSurface" parent="Viewport/SouthWest/Preview/Mirror/SouthWest" instance=ExtResource("4")]
+[node name="SegmentationSurface" parent="Viewport/NorthWest/Preview/Mirror/NorthWest" instance=ExtResource("5")]

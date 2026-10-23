@@ -2,6 +2,7 @@
 import json
 from collections import deque
 from PIL import Image, ImageDraw
+from protected_masks import protect
 from deformation_masks import MASKS, MANIFEST, BONES, PALETTE, PARENTS, GARMENT_SLEEVE_LINKS
 
 
@@ -55,6 +56,7 @@ def soften_joint_bands(owners, rigid, garment):
 
 def refine():
     manifest = json.loads(MANIFEST.read_text(encoding='utf-8'))
+    protect(manifest["profiles"],"Legacy anatomical refinement")
     separate_body_profile(manifest)
     anatomy = json.loads((MASKS/'anatomy-regions.json').read_text(encoding='utf-8'))
     for name, profile in manifest['profiles'].items():

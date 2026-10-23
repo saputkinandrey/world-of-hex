@@ -4,6 +4,7 @@ import math
 import re
 from pathlib import Path
 from PIL import Image, ImageDraw
+from protected_masks import protect
 from deformation_masks import ROOT, MASKS, MANIFEST, BONES, PALETTE, PATHS, PARENTS
 
 CALIBRATION = ROOT / 'rig-calibration.json'
@@ -88,6 +89,7 @@ def calibrate_scene(view, points, size):
 
 
 def paint_feet(manifest, view, points):
+    protect([name for name,spec in manifest["profiles"].items() if spec["view"] == view],"Foot mask regeneration")
     body_name = manifest['bindings'][view]['Layers/BodyBase']
     body_size = manifest['profiles'][body_name]['frame'][0]
     labels = Image.new('L', (body_size, body_size))
@@ -176,7 +178,6 @@ def build():
         profile = manifest['bindings'][view]['Layers/BodyBase']
         size = manifest['profiles'][profile]['frame'][0]
         calibrate_scene(view,points,size)
-        paint_feet(manifest,view,points)
 
 
 if __name__ == '__main__':

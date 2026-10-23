@@ -7,6 +7,7 @@ import re
 import sys
 from PIL import Image, ImageChops
 from ligament_topology import interfaces
+from protected_masks import protect
 
 ROOT = Path(__file__).resolve().parents[1]
 PROJECT = ROOT.parents[1]
@@ -176,6 +177,7 @@ def initialize():
     for name, profile in manifest['profiles'].items():
         if (MASKS / f'{name}-owners.png').exists() and (MASKS / f'{name}-rigidity.png').exists():
             continue
+        protect([name],"Automatic mask initialization")
         owners, rigidity = initial_masks(profile)
         for image, suffix in [(owners, 'owners'), (rigidity, 'rigidity')]:
             path = MASKS / f'{name}-{suffix}.png'

@@ -2,6 +2,22 @@ extends "res://modules/character-animation-workbench/tests/walk-acceptance.gd"
 
 const COMPARISON = preload("res://modules/character-animation-workbench/tests/comparison-preview.tscn")
 
+func _attachment_patterns(surface: Polygon2D) -> Dictionary:
+	var result: Dictionary = {}
+	var vertices: PackedInt32Array = surface.get_meta("ligament_corner_vertices")
+	var owners: PackedByteArray = surface.get_meta("ligament_corner_owners")
+	for index: int in range(0,vertices.size(),4):
+		var bounds: Rect2 = Rect2(surface.uv[vertices[index]],Vector2.ZERO)
+		var pattern: Array[String] = []
+		for corner: int in 4:
+			var vertex: int = vertices[index+corner]
+			var owner: int = owners[index+corner]
+			bounds = bounds.expand(surface.uv[vertex])
+			pattern.append(str(surface.get_bone_path(owner)).get_file())
+			_check(is_equal_approx(surface.get_bone_weights(owner)[vertex],1.0),"Attachment follows its own chunk")
+		result[bounds] = pattern
+	return result
+
 func _run() -> void:
 	var scene: Node = COMPARISON.instantiate()
 	scene.autoplay = false
@@ -27,7 +43,9 @@ func _run() -> void:
 		var joints: int = 0
 		var contacts: int = 0
 		var disconnected: int = 0
+		var bridged: int = 0
 		var glued_contacts: int = 0
+		var attachments: Dictionary = _attachment_patterns(surface)
 		for y: int in size.y:
 			for x: int in size.x:
 				if source.get_pixel(x,y).a < .5:
@@ -56,8 +74,15 @@ func _run() -> void:
 					joints += 1
 					if edge[0] != edge[2] or edge[1] != edge[3]:
 						disconnected += 1
-		_check(disconnected == 0, view + ": anatomical joints share vertices without extruded pixel strips")
+						# Refined chunk boundaries need not coincide with old soft bands.
+						# An unwelded edge must have the exact static two-cell attachment,
+						# with both endpoint pairs following the correct flesh owners.
+						var bounds: Rect2 = Rect2(Vector2(x,y),Vector2(2,1) if offset == Vector2i.RIGHT else Vector2(1,2))
+						var expected: Array = [a,b,b,a] if offset == Vector2i.RIGHT else [a,a,b,b]
+						if attachments.get(bounds,[]) == expected:
+							bridged += 1
+		_check(disconnected == bridged, view + ": every anatomical joint is welded or covered by its exact mask-derived attachment")
 		_check(glued_contacts == 0, view + ": unrelated body contacts cannot weld both edge endpoints")
-		print("Finite joints %s: %s joint edges, %s contacts, %s disconnected joints, %s glued contacts." % [view,joints,contacts,disconnected,glued_contacts])
+		print("Finite joints %s: %s joint edges, %s contacts, %s unwelded, %s exact attachments, %s glued contacts." % [view,joints,contacts,disconnected,bridged,glued_contacts])
 	scene.free()
 	quit(1 if _failures else 0)

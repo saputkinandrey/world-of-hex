@@ -1,5 +1,5 @@
 param(
-    [ValidateSet('import', 'test', 'visual-test', 'parse', 'smoke', 'source', 'deformation', 'skeletal-test', 'skeletal-visual', 'skeletal-smoke', 'skeletal-proof', 'skeletal-editor', 'walk-render', 'walk-test', 'walk-preview', 'run-bake', 'run-test', 'run-render', 'run-preview', 'north-bake', 'comparison-test', 'comparison-render', 'comparison-preview', 'north-layer-test', 'south-west-bake', 'south-west-test', 'north-west-bake', 'north-west-test', 'hand-test', 'surface-test', 'gap-test', 'gap-preview', 'gap-build', 'ligament-build', 'topology-test', 'gap-audit', 'ligament-test', 'composition-test', 'composition-render', 'composition-video', 'anatomy-test', 'seam-visual', 'seam-test', 'mask-test', 'motion-bake', 'motion-encode', 'motion-bind-test', 'amplitude-video', 'motion-bones-video', 'rig-calibrate', 'calibration-test', 'mask-init', 'mask-refine', 'mask-bake')]
+    [ValidateSet('import', 'test', 'visual-test', 'parse', 'smoke', 'source', 'deformation', 'skeletal-test', 'skeletal-visual', 'skeletal-smoke', 'skeletal-proof', 'skeletal-editor', 'walk-render', 'walk-test', 'walk-preview', 'run-bake', 'run-test', 'run-render', 'run-preview', 'north-bake', 'comparison-test', 'comparison-render', 'comparison-preview', 'north-layer-test', 'south-west-bake', 'south-west-test', 'north-west-bake', 'north-west-test', 'hand-test', 'surface-test', 'gap-test', 'gap-preview', 'gap-build', 'ligament-build', 'topology-test', 'gap-audit', 'ligament-test', 'composition-test', 'composition-render', 'composition-video', 'anatomy-test', 'seam-visual', 'seam-test', 'mask-test', 'segmentation-video', 'segmentation-test', 'segmentation-preview', 'segmentation-author', 'segmentation-report', 'segmentation-build', 'segmentation-check', 'segmentation-encode', 'motion-bake', 'motion-encode', 'motion-bind-test', 'amplitude-video', 'motion-bones-video', 'rig-calibrate', 'calibration-test', 'mask-init', 'mask-refine', 'mask-bake')]
     [string]$Action = 'test'
 )
 $ErrorActionPreference = 'Stop'
@@ -7,6 +7,20 @@ $projectPath = (Resolve-Path (Join-Path $PSScriptRoot '../..')).Path
 $repositoryPath = (Resolve-Path (Join-Path $projectPath '..')).Path
 $outputPath = Join-Path $repositoryPath 'tmp/animation-workbench'
 New-Item -ItemType Directory -Force -Path $outputPath | Out-Null
+$segmentationTools = @{
+    'segmentation-author' = @('author_segmentation.py', '--write')
+    'segmentation-report' = @('segmentation_atlas.py', 'after')
+    'segmentation-build' = @('compile_segmentation_preview.py')
+    'segmentation-check' = @('test_segmentation.py')
+    'segmentation-encode' = @('encode_segmentation.py')
+}
+if ($segmentationTools.ContainsKey($Action)) {
+    $tool = $segmentationTools[$Action]
+    $toolArguments = @($tool | Select-Object -Skip 1)
+    & python (Join-Path $PSScriptRoot ('tools/' + $tool[0])) @toolArguments
+    if ($LASTEXITCODE -ne 0) { throw "Segmentation tooling failed: $Action" }
+    return
+}
 if ($Action -eq 'motion-encode') {
     & python (Join-Path $PSScriptRoot 'tools/encode_motion_videos.py')
     if ($LASTEXITCODE -ne 0) { throw 'Motion video validation or encoding failed.' }
@@ -40,6 +54,9 @@ $modulePath = 'res://modules/character-animation-workbench'
 $engineLogPath = Join-Path $outputPath "$Action-engine.log"
 $engineArguments = @('--path', '.', '--log-file', ('"' + $engineLogPath + '"'))
 switch ($Action) {
+    'segmentation-video' { $engineArguments += @('--rendering-method', 'gl_compatibility', '--script', "$modulePath/tests/render-segmentation.gd") }
+    'segmentation-test' { $engineArguments += @('--headless', '--script', "$modulePath/tests/segmentation-acceptance.gd") }
+    'segmentation-preview' { $engineArguments += @('--rendering-method', 'gl_compatibility', "$modulePath/tests/segmentation-preview.tscn", '--quit-after', '300') }
     'motion-bake' { $engineArguments += @('--headless', '--script', "$modulePath/tools/sample-motion-design.gd") }
     'motion-bind-test' { $engineArguments += @('--headless', '--script', "$modulePath/tests/motion-binding-acceptance.gd") }
     'amplitude-video' { $engineArguments += @('--rendering-method', 'gl_compatibility', '--script', "$modulePath/tests/render-amplitudes.gd") }
@@ -91,7 +108,7 @@ switch ($Action) {
 $stdoutPath = Join-Path $outputPath "$Action-stdout.log"
 $stderrPath = Join-Path $outputPath "$Action-stderr.log"
 $engineProcess = Start-Process -FilePath $enginePath -ArgumentList $engineArguments -WorkingDirectory $projectPath -WindowStyle Hidden -PassThru -RedirectStandardOutput $stdoutPath -RedirectStandardError $stderrPath
-$timeout = if ($Action -in @('amplitude-video', 'composition-video', 'motion-bones-video', 'comparison-render')) { 180000 } else { 60000 }
+$timeout = if ($Action -in @('segmentation-video', 'amplitude-video', 'composition-video', 'motion-bones-video', 'comparison-render')) { 180000 } else { 60000 }
 if (-not $engineProcess.WaitForExit($timeout)) {
     Stop-Process -Id $engineProcess.Id
     Get-Content -LiteralPath $stdoutPath, $stderrPath
