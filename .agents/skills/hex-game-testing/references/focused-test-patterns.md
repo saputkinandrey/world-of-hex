@@ -4,7 +4,7 @@ Use only the example appropriate to the explicit request. These snippets are **p
 
 ## Test architecture at a glance
 
-\`\`\`text
+```text
 Supported requirement
   -> fixed input and expected outcome
   -> choose lowest meaningful test layer
@@ -12,17 +12,17 @@ Supported requirement
   -> execute the selected command once if safe
   -> inspect assertions/output
   -> report; stop
-\`\`\`
+```
 
 A "loop test" below means one **bounded simulation action with observable consequences**, **not** an AI-agent cycle that can decide to keep working.
 
 ## 1. Node/TypeScript gameplay rules
 
-Prefer tests against real modules using the runner already configured for that package. The \`card-combat\` package uses Node's built-in \`node --test\` on its own scripts; backend uses Jest.
+Prefer tests against real modules using the runner already configured for that package. The `card-combat` package uses Node's built-in `node --test` on its own scripts; backend uses Jest.
 
 Conceptual Node test pattern:
 
-\`\`\`js
+```js
 import test from "node:test";
 import assert from "node:assert/strict";
 import { resolveAction } from "../src/actual-public-module.js";
@@ -32,24 +32,24 @@ test("accepted scenario: explicit result", () => {
     const result = resolveAction(input);
     assert.equal(result.status, "expected-from-contract");
 });
-\`\`\`
+```
 
-The import and values are placeholders. Do not create \`resolveAction\` or \`makeKnownInput\` merely to fit this sketch. Assert actual data rather than checking the function exists. Keep pseudo-randomness deterministic through the domain's authoritative entropy API.
+The import and values are placeholders. Do not create `resolveAction` or `makeKnownInput` merely to fit this sketch. Assert actual data rather than checking the function exists. Keep pseudo-randomness deterministic through the domain's authoritative entropy API.
 
 ## 2. Backend Jest state/command tests
 
-- Use the project's Jest/ts-jest configuration and an existing directly relevant \`*.spec.ts\`.
+- Use the project's Jest/ts-jest configuration and an existing directly relevant `*.spec.ts`.
 - Use an in-memory aggregate or disposable test doubles to drive one accepted command; check returned events, cutoff and validation failures only when part of the requested flow.
 - If a Mongo projection is involved, verify it independently rather than treating it as command-side truth.
-- For a nested \`test:e2e\`, inspect the required services and database isolation before running. Don't start Docker, reseed, reset, or clean databases under a test-writing task without separate authorization.
+- For a nested `test:e2e`, inspect the required services and database isolation before running. Don't start Docker, reseed, reset, or clean databases under a test-writing task without separate authorization.
 
 ## 3. Godot 4 focused runtime assertions
 
 Godot can report errors to stderr and engine logs even with exit code 0. A focused script should assert at least one piece of **actual requested behavior**, not only boot.
 
-An illustrative \`SceneTree\` entrypoint:
+An illustrative `SceneTree` entrypoint:
 
-\`\`\`gdscript
+```gdscript
 extends SceneTree
 
 func _initialize() -> void:
@@ -74,7 +74,7 @@ func _run_case() -> void:
 
     instance.queue_free()
     quit(0)
-\`\`\`
+```
 
 Replace paths and assertions with real scene contracts. Keep one test-owned scene or runner rather than generating gameplay assets. This example proves structure only; if the requirement involves movement, inspect movement/state and time inside a bounded frame count.
 
@@ -82,14 +82,14 @@ Replace paths and assertions with real scene contracts. Keep one test-owned scen
 
 A test may execute a declared finite series of actions, such as:
 
-\`\`\`text
+```text
 initial encounter
   -> add allowed deployment intent
   -> request turn advancement
   -> assert event + aggregate state
   -> compare authorized projection with event stream
   -> stop
-\`\`\`
+```
 
 Do not infer that this is the required flow for all encounters. Verify against the user-requested rules before writing assertions. A test's internal finite event sequence is not a recursive agent workflow.
 
@@ -97,12 +97,12 @@ Do not infer that this is the required flow for all encounters. Verify against t
 
 For the chosen two existing images or masks with known provenance:
 
-\`\`\`sh
+```sh
 python .agents/skills/hex-visual-analysis/scripts/compare_images.py \
   --reference path/to/accepted-reference.png \
   --candidate path/to/current-candidate.png \
   --out-dir tmp/hex-visual-analysis/a-fresh-output-directory
-\`\`\`
+```
 
 - The comparator works in same-size source coordinates and refuses nonempty output directories.
 - IoU exists only where both images have meaningful alpha or both aligned masks were supplied.
