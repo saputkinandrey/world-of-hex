@@ -10,7 +10,7 @@ from preprocess import OUTPUT, SOURCES, frame, sha
 def main():
     results = {}
     for view in SOURCES:
-        folder = OUTPUT/'candidates'/(view+'-crop-nearest-512')
+        folder = OUTPUT/'candidates'/view
         info = json.loads((folder/'candidate.json').read_text())
         source = np.asarray(frame(view)[0])
         preserved = np.asarray(Image.open(folder/'source.png').convert('RGBA'))

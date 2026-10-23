@@ -1,10 +1,19 @@
-param([ValidateSet('prepare','infer','test','parts-controls','parts-runs','parts-heads','head-underfill','assembly','sam-download','sam','sam-evidence','heads','candidates','validate','compare','render','comparison-video')][string]$Action = 'prepare')
+param([ValidateSet('prepare','infer','test','parts-controls','parts-runs','parts-heads','head-underfill','assembly','sam-download','sam','sam-evidence','heads','candidates','validate','compare','render','comparison-video','full','analyze','migrate','cleanup','raw-analysis','conversion-loss')][string]$Action = 'full')
 $ErrorActionPreference = 'Stop'
 $env:PYTHONUTF8 = '1'
+if ($Action -in @('heads','parts-heads','head-underfill')) {
+    throw 'This historical head-only interface is retained in source for reference. Use full or infer for bounded persistent body/head inference, and raw-analysis for inspection.'
+}
 $commands = @{
     'prepare' = @('preprocess.py')
+    'full' = @('full.py')
+    'analyze' = @('full.py','--analysis-only')
+    'migrate' = @('migrate_evidence.py')
+    'cleanup' = @('cleanup_migrated.py')
+    'raw-analysis' = @('raw_analysis.py')
+    'conversion-loss' = @('conversion_analysis.py')
     'infer' = @('infer.py')
-    'test' = @('test_preprocess.py')
+    'test' = @('-m','unittest','discover','-s',$PSScriptRoot,'-p','test_*.py')
     'parts-controls' = @('parts.py','controls')
     'parts-runs' = @('parts.py','runs')
     'parts-heads' = @('parts.py','heads')
@@ -36,5 +45,6 @@ if ($Action -eq 'heads') {
     Get-Content -LiteralPath $logPath -Tail 20
     Write-Output "Full head inference log: $logPath"
 }
+elseif ($Action -eq 'test') { & $pythonCommand @command }
 else { & $pythonCommand -X faulthandler "$PSScriptRoot/$($command[0])" @commandArguments }
 if ($LASTEXITCODE -ne 0) { throw "Neural $Action failed with exit code $LASTEXITCODE" }

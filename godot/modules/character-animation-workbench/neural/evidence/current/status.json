@@ -1,0 +1,87 @@
+{
+  "schema": "hex-neural-status/1",
+  "views": {
+    "south": {
+      "layerdiff": {
+        "stage": "inference",
+        "outcome": "reused_valid_raw",
+        "time_utc": "2026-10-23T20:30:36.578791+00:00",
+        "snapshot": "snapshot-2b9f81c3a6f73d27a998",
+        "export": {
+          "outcome": "success"
+        }
+      },
+      "semantic-sam": {
+        "stage": "inference",
+        "outcome": "reused_valid_raw",
+        "time_utc": "2026-10-23T20:30:38.327243+00:00",
+        "snapshot": "snapshot-e2c28d2b84286d5b0516",
+        "export": {
+          "outcome": "not_applicable"
+        }
+      }
+    },
+    "north": {
+      "layerdiff": {
+        "stage": "inference",
+        "outcome": "reused_valid_raw",
+        "time_utc": "2026-10-23T20:30:38.642850+00:00",
+        "snapshot": "snapshot-d15513398c48b28a0db2",
+        "export": {
+          "outcome": "assembly_failure",
+          "traceback": "Traceback (most recent call last):\n  File \"C:\\Users\\\u0410\u043d\u0434\u0440\u0435\u0439\\Desktop\\world-of-hex\\godot\\modules\\character-animation-workbench\\neural\\layerdiff_worker.py\", line 96, in main\n    namespace['further_extr'](str(layers),rotate=False,save_to_psd=True,tblr_split=True)\n  File \"C:\\Users\\\u0410\u043d\u0434\u0440\u0435\u0439\\Desktop\\hex-animation-tooling\\see-through-windows\\see-through\\common\\utils\\inference_utils.py\", line 443, in further_extr\n    fullpage, infos, part_dict_list = load_parts(srcd, rotate=rotate)\n                                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\\u0410\u043d\u0434\u0440\u0435\u0439\\Desktop\\hex-animation-tooling\\see-through-windows\\see-through\\common\\utils\\io_utils.py\", line 710, in load_parts\n    p = load_part(osp.join(srcp, tag + '.png'), rotate=rotate, pad=pad, min_width=min_width, min_sz=min_sz)\n        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\\u0410\u043d\u0434\u0440\u0435\u0439\\Desktop\\hex-animation-tooling\\see-through-windows\\see-through\\common\\utils\\io_utils.py\", line 522, in load_part\n    img = Image.open(srcp).convert('RGBA')\n          ^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\\u0410\u043d\u0434\u0440\u0435\u0439\\Desktop\\hex-animation-tooling\\see-through-windows\\see-through\\.venv\\Lib\\site-packages\\PIL\\Image.py\", line 3512, in open\n    fp = builtins.open(filename, \"rb\")\n         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nFileNotFoundError: [Errno 2] No such file or directory: 'C:\\\\Users\\\\\u0410\u043d\u0434\u0440\u0435\u0439\\\\Desktop\\\\world-of-hex\\\\tmp\\\\animation-workbench\\\\neural\\\\work\\\\north\\\\layerdiff\\\\raw\\\\layers\\\\headwear.png'\n"
+        }
+      },
+      "semantic-sam": {
+        "stage": "inference",
+        "outcome": "reused_valid_raw",
+        "time_utc": "2026-10-23T20:30:40.177761+00:00",
+        "snapshot": "snapshot-16dfd3020c858daa0b4f",
+        "export": {
+          "outcome": "not_applicable"
+        }
+      }
+    },
+    "south-west": {
+      "layerdiff": {
+        "stage": "inference",
+        "outcome": "reused_valid_raw",
+        "time_utc": "2026-10-23T20:30:40.699073+00:00",
+        "snapshot": "snapshot-0cd6f7feb62698d6006c",
+        "export": {
+          "outcome": "success"
+        }
+      },
+      "semantic-sam": {
+        "stage": "inference",
+        "outcome": "reused_valid_raw",
+        "time_utc": "2026-10-23T20:30:42.389235+00:00",
+        "snapshot": "snapshot-0eab648d95ab50921e9b",
+        "export": {
+          "outcome": "not_applicable"
+        }
+      }
+    },
+    "north-west": {
+      "layerdiff": {
+        "stage": "inference",
+        "outcome": "reused_valid_raw",
+        "time_utc": "2026-10-23T20:30:42.748079+00:00",
+        "snapshot": "snapshot-fecc77a735da2b4a0d12",
+        "export": {
+          "outcome": "success"
+        }
+      },
+      "semantic-sam": {
+        "stage": "inference",
+        "outcome": "reused_valid_raw",
+        "time_utc": "2026-10-23T20:30:44.377414+00:00",
+        "snapshot": "snapshot-5a7f17e64b7b93bb90ae",
+        "export": {
+          "outcome": "not_applicable"
+        }
+      }
+    }
+  },
+  "persistent_bytes": 49842556
+}

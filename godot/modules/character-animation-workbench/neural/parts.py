@@ -4,9 +4,11 @@ import json
 from pathlib import Path
 import subprocess
 import re
+import traceback
 
 from infer import settings
 from preprocess import OUTPUT, REPO, SOURCES, sha
+from evidence_store import locked, verify, write_json
 
 
 def command(arguments, log):
@@ -54,12 +56,31 @@ def inspect(key, source, psd, head=None):
         head_arguments = ['--head',head]
     result = command(['assemble','--propose-plan','--source',source,'--full',wrapper,
                      *head_arguments,'--config',config,'--write-config',config],folder/'plan.log')
-    if result.returncode == 0:
-        result = command(['assemble','--source',source,'--full',wrapper,'--config',config,
-                          *head_arguments,'--out',folder/'assembly','--project','visible','--seam','silhouette'],folder/'assemble.log')
-        if result.returncode == 0:
-            command(['propose','--parts',folder/'assembly/rig','--source',source,
+    if result.returncode:
+        return {'outcome':'assembly_failure','stage':'plan','exit_code':result.returncode}
+    result = command(['assemble','--source',source,'--full',wrapper,'--config',config,
+                      *head_arguments,'--out',folder/'assembly','--project','visible','--seam','silhouette'],folder/'assemble.log')
+    if result.returncode:
+        return {'outcome':'assembly_failure','stage':'assemble','exit_code':result.returncode}
+    result = command(['propose','--parts',folder/'assembly/rig','--source',source,
                      '--out',folder/'proposal'],folder/'propose.log')
+    return {'outcome':'success' if result.returncode==0 else 'assembly_failure',
+            'stage':'propose','exit_code':result.returncode}
+
+
+def inspect_persisted(view):
+    evidence,metadata = verify(view,'layerdiff')
+    psds = [path for path in (evidence/'raw').glob('*.psd') if not path.stem.endswith('_depth')]
+    if not psds:
+        return {'outcome':'assembly_unavailable','reason':'successful raw body predictions exist; PSD export incomplete'}
+    folder = OUTPUT/'parts'/view
+    # Invalidate old success links before any fallible downstream work.
+    for name in ('evidence.json','cuts/evidence.json'):
+        (folder/name).unlink(missing_ok=True)
+    outcome = inspect(view,evidence/'input.png',psds[0])
+    if outcome['outcome']=='success' and (folder/'proposal/proposal.json').exists():
+        write_json(folder/'evidence.json',{'manifest_sha256':sha(evidence/'manifest.json')})
+    return {**outcome,'logs':str(folder)}
 
 
 def main(action):
@@ -75,16 +96,15 @@ def main(action):
             key = view+'-crop-nearest-512'
             inspect(key,records[key]['input'],OUTPUT/'runs'/key/(key+'.psd'),OUTPUT/'heads'/view)
     else:
-        records = json.loads((OUTPUT/'inputs.json').read_text())
-        for metadata in sorted((OUTPUT/'runs').glob('*/experiment.json')):
-            record = json.loads(metadata.read_text())
-            if record['exit_code']:
-                continue
-            key = record['key']
-            if metadata.parent.name != key:
-                print('Preserving raw alternative; not selected by primary pipeline: '+str(metadata.parent),flush=True)
-                continue
-            inspect(key,records[key]['input'],OUTPUT/'runs'/key/(key+'.psd'))
+        results = {}
+        with locked():
+            for view in SOURCES:
+                try:
+                    results[view] = inspect_persisted(view)
+                except Exception:
+                    results[view] = {'outcome':'assembly_failure','error':traceback.format_exc()}
+                    traceback.print_exc()
+        write_json(OUTPUT/'parts/status.json',results)
 
 
 if __name__ == '__main__':

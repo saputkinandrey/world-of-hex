@@ -1,0 +1,265 @@
+{
+  "view": "north",
+  "model": "layerdiff",
+  "input": {
+    "source": "godot/assets/Character/Character1/idle/Char1_north_idle/Char1_body_back.png",
+    "source_sha256": "a7358288a1cddd6616bcd14f4d99972b0845936d3dba1af8d8ea83aa8ad27371",
+    "input": "C:\\Users\\\u0410\u043d\u0434\u0440\u0435\u0439\\Desktop\\world-of-hex\\tmp\\animation-workbench\\neural\\inputs\\north-crop-nearest-512.png",
+    "input_sha256": "42da0837560b596e31c8ec2394125c4912d5bcd33c145b0081f34771ce0535e9",
+    "transform": {
+      "crop": [
+        15,
+        9,
+        95,
+        110
+      ],
+      "scale": [
+        5.075,
+        5.069306930693069
+      ],
+      "offset": [
+        -23.125,
+        -45.62376237623762
+      ],
+      "native_size": [
+        110,
+        110
+      ],
+      "input_size": [
+        512,
+        512
+      ],
+      "resampling": "nearest",
+      "margin_fraction": 0.08,
+      "mode": "crop",
+      "coordinates": "edge: model = native * scale + offset; center index: model = (native + .5) * scale + offset - .5"
+    }
+  },
+  "contract": {
+    "models": {
+      "24yearsold/seethroughv0.0.2_layerdiff3d_nf4": "96f9311ff449dc86cfaba101ce4dfb4fd4958b80",
+      "24yearsold/seethroughv0.0.1_marigold_nf4": "e53b344b5aa5beec7c141bd5601decaaff0898c9"
+    },
+    "seed": 42,
+    "steps": 20,
+    "resolution": 512,
+    "depth_resolution": 512,
+    "local_worker_sha256": "8e84f0baad21596275c64c92995ed6e359b56fb19783249d2c6961fd55c426c8",
+    "head_support_sha256": "80024bd75112e0fe3526d7d2c515c36db01769e3d096f80393220dcbca39446a",
+    "quant_mode": "nf4",
+    "cpu_offload": true,
+    "group_offload": false,
+    "tblr_split": true,
+    "head_policy": "strongest-alpha128-component-with-explicit-64-192-fallback",
+    "implementation": {
+      "common/modules/layerdiffuse/diffusers_kdiffusion_sdxl.py": "dfd5408669be2a48baaddc516deb87abefd05e24799ca47ea57337b492c7b57f",
+      "inference/scripts/inference_psd_quantized.py": "7d73091de39f0a26cc495056c9c863c65cf98453fe1a34bd466b7d3a24165be7"
+    }
+  },
+  "inference": "success",
+  "provenance": {
+    "stages": {
+      "layerdiff": {
+        "outcome": "success"
+      },
+      "body": {
+        "outcome": "success"
+      },
+      "head": {
+        "outcome": "poor_recognition",
+        "reason": "Neural head prediction has no confident connected component"
+      },
+      "depth": {
+        "outcome": "success"
+      },
+      "export": {
+        "outcome": "assembly_failure",
+        "traceback": "Traceback (most recent call last):\n  File \"C:\\Users\\\u0410\u043d\u0434\u0440\u0435\u0439\\Desktop\\world-of-hex\\godot\\modules\\character-animation-workbench\\neural\\layerdiff_worker.py\", line 96, in main\n    namespace['further_extr'](str(layers),rotate=False,save_to_psd=True,tblr_split=True)\n  File \"C:\\Users\\\u0410\u043d\u0434\u0440\u0435\u0439\\Desktop\\hex-animation-tooling\\see-through-windows\\see-through\\common\\utils\\inference_utils.py\", line 443, in further_extr\n    fullpage, infos, part_dict_list = load_parts(srcd, rotate=rotate)\n                                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\\u0410\u043d\u0434\u0440\u0435\u0439\\Desktop\\hex-animation-tooling\\see-through-windows\\see-through\\common\\utils\\io_utils.py\", line 710, in load_parts\n    p = load_part(osp.join(srcp, tag + '.png'), rotate=rotate, pad=pad, min_width=min_width, min_sz=min_sz)\n        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\\u0410\u043d\u0434\u0440\u0435\u0439\\Desktop\\hex-animation-tooling\\see-through-windows\\see-through\\common\\utils\\io_utils.py\", line 522, in load_part\n    img = Image.open(srcp).convert('RGBA')\n          ^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\\u0410\u043d\u0434\u0440\u0435\u0439\\Desktop\\hex-animation-tooling\\see-through-windows\\see-through\\.venv\\Lib\\site-packages\\PIL\\Image.py\", line 3512, in open\n    fp = builtins.open(filename, \"rb\")\n         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nFileNotFoundError: [Errno 2] No such file or directory: 'C:\\\\Users\\\\\u0410\u043d\u0434\u0440\u0435\u0439\\\\Desktop\\\\world-of-hex\\\\tmp\\\\animation-workbench\\\\neural\\\\work\\\\north\\\\layerdiff\\\\raw\\\\layers\\\\headwear.png'\n"
+      }
+    },
+    "body_complete": true,
+    "elapsed_seconds": 251.85184931755066,
+    "peak_allocated_gib": 4.421794414520264
+  },
+  "stages": {
+    "layerdiff": "success",
+    "body": "success",
+    "head": "poor_recognition",
+    "depth": "success",
+    "export": "assembly_failure"
+  },
+  "original_head_coordinates_available": false,
+  "export": {
+    "outcome": "assembly_failure",
+    "traceback": "Traceback (most recent call last):\n  File \"C:\\Users\\\u0410\u043d\u0434\u0440\u0435\u0439\\Desktop\\world-of-hex\\godot\\modules\\character-animation-workbench\\neural\\layerdiff_worker.py\", line 96, in main\n    namespace['further_extr'](str(layers),rotate=False,save_to_psd=True,tblr_split=True)\n  File \"C:\\Users\\\u0410\u043d\u0434\u0440\u0435\u0439\\Desktop\\hex-animation-tooling\\see-through-windows\\see-through\\common\\utils\\inference_utils.py\", line 443, in further_extr\n    fullpage, infos, part_dict_list = load_parts(srcd, rotate=rotate)\n                                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\\u0410\u043d\u0434\u0440\u0435\u0439\\Desktop\\hex-animation-tooling\\see-through-windows\\see-through\\common\\utils\\io_utils.py\", line 710, in load_parts\n    p = load_part(osp.join(srcp, tag + '.png'), rotate=rotate, pad=pad, min_width=min_width, min_sz=min_sz)\n        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\\u0410\u043d\u0434\u0440\u0435\u0439\\Desktop\\hex-animation-tooling\\see-through-windows\\see-through\\common\\utils\\io_utils.py\", line 522, in load_part\n    img = Image.open(srcp).convert('RGBA')\n          ^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\\u0410\u043d\u0434\u0440\u0435\u0439\\Desktop\\hex-animation-tooling\\see-through-windows\\see-through\\.venv\\Lib\\site-packages\\PIL\\Image.py\", line 3512, in open\n    fp = builtins.open(filename, \"rb\")\n         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nFileNotFoundError: [Errno 2] No such file or directory: 'C:\\\\Users\\\\\u0410\u043d\u0434\u0440\u0435\u0439\\\\Desktop\\\\world-of-hex\\\\tmp\\\\animation-workbench\\\\neural\\\\work\\\\north\\\\layerdiff\\\\raw\\\\layers\\\\headwear.png'\n"
+  },
+  "classes": null,
+  "metadata_correction": "Head stage produced no confident component; no original head coordinates are available. Raw outputs unchanged.",
+  "schema": "hex-neural-evidence/1",
+  "files": {
+    "input.png": {
+      "sha256": "42da0837560b596e31c8ec2394125c4912d5bcd33c145b0081f34771ce0535e9",
+      "bytes": 12788
+    },
+    "raw/inference.log": {
+      "sha256": "c3d86381fa46261f3d64a878fd83b945dbb7a01e023e551c5f8b07bfc7505333",
+      "bytes": 342852
+    },
+    "raw/layers/back hair.png": {
+      "sha256": "32c8afe67b39db504bd1c2c897235da13ebed7ef626c9a5e7256509373214a31",
+      "bytes": 131625
+    },
+    "raw/layers/back hair_depth.png": {
+      "sha256": "63b7849a2a8f2313028f2caaf32851a406b50bef282b3b19ee23ea4ef0a32780",
+      "bytes": 1336
+    },
+    "raw/layers/bottomwear.png": {
+      "sha256": "cb4f60fe7fd91bcd85da7717e26c4894a72acf89be3e3a126fa2fffc449f9fd1",
+      "bytes": 134618
+    },
+    "raw/layers/bottomwear_depth.png": {
+      "sha256": "9b3a17dbc0b3434cf01012e803a9f4347ee608cf0614de4d27cd0fb6217a6446",
+      "bytes": 17965
+    },
+    "raw/layers/ears_depth.png": {
+      "sha256": "c4fafd45a0c5c178c851428492f1c2e72bd2c3e3d7ce460dd10f9850c28bc0b2",
+      "bytes": 8869
+    },
+    "raw/layers/earwear_depth.png": {
+      "sha256": "3685e15c57f0029b2c110b6e9b2d07138cce219da1a94ce796fd240d56f61adc",
+      "bytes": 10398
+    },
+    "raw/layers/eyes_depth.png": {
+      "sha256": "56b94a1337f24ecaa2c4e13a1969c56b9fac3ea43e08ae41547407fa83123496",
+      "bytes": 13036
+    },
+    "raw/layers/eyewear_depth.png": {
+      "sha256": "2308d00ed31b3d3ac5d0f23a63dbf0f08430d898d6647d2bac6c9fa121969cea",
+      "bytes": 11117
+    },
+    "raw/layers/face_depth.png": {
+      "sha256": "0bf0fc3f008a53480fdc64f01ace50e57e0a25ae157a00ff2aace8d0ee4d63a9",
+      "bytes": 13239
+    },
+    "raw/layers/footwear.png": {
+      "sha256": "9c089bc2a09bfd95c148e45053098bb9248ced0b147bb07894636813911a779a",
+      "bytes": 130047
+    },
+    "raw/layers/footwear_depth.png": {
+      "sha256": "c8a6f226a007350d52a34f047652bebc275584af06c79fda6d7051ea7c90610f",
+      "bytes": 27643
+    },
+    "raw/layers/front hair.png": {
+      "sha256": "b4f8d3d35df5da4cbd855e77344e11161170e3f07cfa2b01e7fdad71ab9c3c34",
+      "bytes": 129405
+    },
+    "raw/layers/front hair_depth.png": {
+      "sha256": "d8acccafa1fdcf03f3bb9112f5f2f30ad1558e446d5c12ec5644fc0d53c1e58b",
+      "bytes": 1301
+    },
+    "raw/layers/handwear.png": {
+      "sha256": "e3309b6c2ffa8bef5e4f1531f8b581e656c32587899beef610ba52ec8100f254",
+      "bytes": 129673
+    },
+    "raw/layers/handwear_depth.png": {
+      "sha256": "a5f58bc6c001769595c3402024cb0ed68f0f2b19d3799502d0a4ae446a4a85e2",
+      "bytes": 15965
+    },
+    "raw/layers/head-stage.json": {
+      "sha256": "f9b8c93b69a3bdbd404094d3084277da938359d69b5726bf91f0ed2bcca59ec6",
+      "bytes": 111
+    },
+    "raw/layers/head.png": {
+      "sha256": "c0c4ca92a249ea4fc2a7e72686c06b68c67bb44826286bee65f32e3942df91c4",
+      "bytes": 125841
+    },
+    "raw/layers/headwear_depth.png": {
+      "sha256": "edbc367340c39762c379bc09c321fd6664822ca1fa46ca223d0aba1bc48a4e07",
+      "bytes": 9068
+    },
+    "raw/layers/info.json": {
+      "sha256": "094644d9eafd68c7bfeabe871f73116915743649a1a639d8b20ff1e41f4ba0ea",
+      "bytes": 301
+    },
+    "raw/layers/legwear.png": {
+      "sha256": "ee432df9cac2751754f7f3f8de6caa109acf96d33adacc14b1d642a24868ddbd",
+      "bytes": 130880
+    },
+    "raw/layers/legwear_depth.png": {
+      "sha256": "3d7941f1e5bce98118cd6b4e09aa9a6079620acbb46d726639e4205425b22ba4",
+      "bytes": 14538
+    },
+    "raw/layers/mouth_depth.png": {
+      "sha256": "f7ea39413b559ab77f2942de3b91e2cd12a06ddefe2c2e8d5f553c7bb0ebbeb5",
+      "bytes": 9612
+    },
+    "raw/layers/neck.png": {
+      "sha256": "b918a758378d1fedba7be4da5c5a13d02156f68df0580815a8ba784ef2196bab",
+      "bytes": 126675
+    },
+    "raw/layers/neck_depth.png": {
+      "sha256": "380f65d0bf8d6ac0a4deb8a314c6b3d4d650fe7e073fcd8c74ec92e1675aba09",
+      "bytes": 9888
+    },
+    "raw/layers/neckwear.png": {
+      "sha256": "512c44ff165868b446c5d71a5d195561e98d54b28204e9fc0dec17704953faf6",
+      "bytes": 131584
+    },
+    "raw/layers/neckwear_depth.png": {
+      "sha256": "6e8ba7792e3238d22b54865c70358db35e931cf7b8a5a9ca9052698e09ef5125",
+      "bytes": 16949
+    },
+    "raw/layers/nose_depth.png": {
+      "sha256": "072771035c3b0f0137b88983542ec5f41d208515d1b2150a2c0bd44ebfdee88b",
+      "bytes": 28475
+    },
+    "raw/layers/objects.png": {
+      "sha256": "bd263975ba9c5cdcf9560797b9fe2e9d7f1a55d16f7c0bd26881dd5bb4a61345",
+      "bytes": 131098
+    },
+    "raw/layers/objects_depth.png": {
+      "sha256": "befb76f8dce0d9fa77d3c47ce73d54aa06f2e98f8093cd7ce8bb91400f50747f",
+      "bytes": 13312
+    },
+    "raw/layers/reconstruction.png": {
+      "sha256": "5de3519814599be8a28097ddee0031dbb18fcd420add856c2d73f0eba81c60cf",
+      "bytes": 337540
+    },
+    "raw/layers/src_img.png": {
+      "sha256": "a18d6f6b353c706cbbe7045910d40851721185d8f091831d27ffa2e464344b5a",
+      "bytes": 13522
+    },
+    "raw/layers/tail.png": {
+      "sha256": "b50c9ee0f6175f4a507ecd830d16f2cff39edebee6ba8c10efce4dd896fe3557",
+      "bytes": 130803
+    },
+    "raw/layers/tail_depth.png": {
+      "sha256": "653230a449f5245096521ee7007c111a2615a630dc9fd7685e52e1561140f693",
+      "bytes": 25982
+    },
+    "raw/layers/topwear.png": {
+      "sha256": "3bcf5205aa04ec4790e356479e0df84cd1ac62babb86528722bcaefaf020e8c0",
+      "bytes": 131502
+    },
+    "raw/layers/topwear_depth.png": {
+      "sha256": "3a1a6cab77c98266d6c2a1424d9985a3253a44254ebb372ae74f93a1b4c06c49",
+      "bytes": 15912
+    },
+    "raw/layers/wings.png": {
+      "sha256": "374a95a77b42b17d80b272f0e5552606884de3b8791b0a7ff0396939fec55dcf",
+      "bytes": 130350
+    },
+    "raw/layers/wings_depth.png": {
+      "sha256": "a03d1e6bced9fa27748a0d3b906846eccb97a4728884a9795f9bddfc8aea0e7c",
+      "bytes": 23528
+    },
+    "raw/request.json": {
+      "sha256": "b516cd6099050380d3b7f573d0041bca96de2edd15fcd626e1b71a44e5493f5a",
+      "bytes": 2020
+    },
+    "raw/result.json": {
+      "sha256": "9f1dfa8238abb895772942fd46f8aa88879379778b0eb2226b9ccee18a517832",
+      "bytes": 2289
+    }
+  }
+}

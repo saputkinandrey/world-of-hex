@@ -24,7 +24,7 @@ def main(prepare_only=False):
     baseline = json.loads((MODULE/'legacy/baseline.json').read_text())['commit']
     records = {}
     for view in SOURCES:
-        folder = OUTPUT/'candidates'/(view+'-crop-nearest-512')
+        folder = OUTPUT/'candidates'/view
         records[view] = {'candidate':str(folder/'candidate.json'),
                          'owners_sha256':sha(folder/'owners-index.png')}
     if not destination.exists():
@@ -47,7 +47,7 @@ def main(prepare_only=False):
 
     def known_source(view):
         source,_ = frame(view)
-        indices = Image.open(OUTPUT/'candidates'/(view+'-crop-nearest-512')/'owners-index.png')
+        indices = Image.open(OUTPUT/'candidates'/view/'owners-index.png')
         source.putalpha(Image.fromarray(np.where(
             np.array(indices)>0,np.array(source.getchannel('A')),0).astype('uint8')))
         return source
@@ -59,10 +59,10 @@ def main(prepare_only=False):
     resources,nodes = [],[]
     names = ['South','North','SouthWest','NorthWest']
     for view,direction,name in zip(SOURCES,['SOUTH','NORTH','SOUTH_WEST','NORTH_WEST'],names):
-        owners = Image.open(OUTPUT/'candidates'/(view+'-crop-nearest-512')/'owners.png').convert('RGB')
+        owners = Image.open(OUTPUT/'candidates'/view/'owners.png').convert('RGB')
         owners.save(compiler.MASKS/(view+'-owners.png'))
         compiler.compile_view(view,view,orders[direction])
-        indices = np.asarray(Image.open(OUTPUT/'candidates'/(view+'-crop-nearest-512')/'owners-index.png'))
+        indices = np.asarray(Image.open(OUTPUT/'candidates'/view/'owners-index.png'))
         source = np.asarray(frame(view)[0]).copy()
         source[indices>0] = 0
         flat = source.copy()
@@ -91,7 +91,7 @@ def main(prepare_only=False):
     if not prepare_only:
         encode(destination/'tmp/animation-workbench/segmentation')
     for view,record in records.items():
-        if sha(OUTPUT/'candidates'/(view+'-crop-nearest-512')/'owners-index.png') != record['owners_sha256']:
+        if sha(OUTPUT/'candidates'/view/'owners-index.png') != record['owners_sha256']:
             raise ValueError('Diagnostic integration modified candidate '+view)
 
 

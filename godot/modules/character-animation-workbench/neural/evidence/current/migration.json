@@ -1,0 +1,82 @@
+{
+  "version": 2,
+  "completed_utc": "2026-10-23T19:56:44.993038+00:00",
+  "sources": [
+    {
+      "kind": "layerdiff",
+      "path": "C:\\Users\\\u0410\u043d\u0434\u0440\u0435\u0439\\Desktop\\world-of-hex\\tmp\\animation-workbench\\neural\\runs\\north-crop-nearest-512\\experiment.json",
+      "input_sha256": "42da0837560b596e31c8ec2394125c4912d5bcd33c145b0081f34771ce0535e9",
+      "process_exit": 1,
+      "complete_body_predictions": true
+    },
+    {
+      "kind": "layerdiff",
+      "path": "C:\\Users\\\u0410\u043d\u0434\u0440\u0435\u0439\\Desktop\\world-of-hex\\tmp\\animation-workbench\\neural\\runs\\north-west-crop-nearest-512\\experiment.json",
+      "input_sha256": "7f7d7dcce1580346410580222949cb1edc71b489b431c723c86872309656639f",
+      "process_exit": 0,
+      "complete_body_predictions": true
+    },
+    {
+      "kind": "layerdiff",
+      "path": "C:\\Users\\\u0410\u043d\u0434\u0440\u0435\u0439\\Desktop\\world-of-hex\\tmp\\animation-workbench\\neural\\runs\\south-crop-nearest-512\\experiment.json",
+      "input_sha256": "c04520fe6440f4a1347973ae2c27be2688dd86ec7161d8cceb47e481d7b639c2",
+      "process_exit": 0,
+      "complete_body_predictions": true
+    },
+    {
+      "kind": "layerdiff",
+      "path": "C:\\Users\\\u0410\u043d\u0434\u0440\u0435\u0439\\Desktop\\world-of-hex\\tmp\\animation-workbench\\neural\\runs\\south-west-crop-bicubic-512\\experiment.json",
+      "input_sha256": "4a3a57206b4afce8b8f96b1815dbbd2c0c53272b6d3f88c88e22c96ce019ea31",
+      "process_exit": 0,
+      "complete_body_predictions": true
+    },
+    {
+      "kind": "layerdiff",
+      "path": "C:\\Users\\\u0410\u043d\u0434\u0440\u0435\u0439\\Desktop\\world-of-hex\\tmp\\animation-workbench\\neural\\runs\\south-west-crop-nearest-512\\experiment.json",
+      "input_sha256": "d52f189e684f1278558ed4d6e87b7c080fa4d445ed172af2e195ce6dcdd8b95f",
+      "process_exit": 0,
+      "complete_body_predictions": true
+    },
+    {
+      "kind": "layerdiff-control",
+      "variant": "bicubic",
+      "record": "C:\\Users\\\u0410\u043d\u0434\u0440\u0435\u0439\\Desktop\\world-of-hex\\tmp\\animation-workbench\\seethrough-probe\\result-manifest.json",
+      "verified_psds": 2,
+      "selection": "older whole-canvas control retained in place"
+    },
+    {
+      "kind": "layerdiff-control",
+      "variant": "nearest",
+      "record": "C:\\Users\\\u0410\u043d\u0434\u0440\u0435\u0439\\Desktop\\world-of-hex\\tmp\\animation-workbench\\seethrough-probe\\result-manifest.json",
+      "verified_psds": 2,
+      "selection": "older whole-canvas control retained in place"
+    },
+    {
+      "kind": "semantic-sam",
+      "path": "C:\\Users\\\u0410\u043d\u0434\u0440\u0435\u0439\\Desktop\\world-of-hex\\tmp\\animation-workbench\\neural\\sam\\south",
+      "input_sha256": "c04520fe6440f4a1347973ae2c27be2688dd86ec7161d8cceb47e481d7b639c2",
+      "logits_sha256": "c47447933e16c6a9db5b09ab695cb44074db9fe23930508bef05c8f1a72c84c1"
+    },
+    {
+      "kind": "semantic-sam",
+      "path": "C:\\Users\\\u0410\u043d\u0434\u0440\u0435\u0439\\Desktop\\world-of-hex\\tmp\\animation-workbench\\neural\\sam\\north",
+      "input_sha256": "42da0837560b596e31c8ec2394125c4912d5bcd33c145b0081f34771ce0535e9",
+      "logits_sha256": "1dc77dd156545fbc6da24736af7f046a83f1f7d0ddebf859c6962a0e379bb45a"
+    },
+    {
+      "kind": "semantic-sam",
+      "path": "C:\\Users\\\u0410\u043d\u0434\u0440\u0435\u0439\\Desktop\\world-of-hex\\tmp\\animation-workbench\\neural\\sam\\south-west",
+      "input_sha256": "d52f189e684f1278558ed4d6e87b7c080fa4d445ed172af2e195ce6dcdd8b95f",
+      "logits_sha256": "55b1bc2f37589ea3a6e6f4ba6fb597bacd3263b005591662fabc85901965d94d"
+    },
+    {
+      "kind": "semantic-sam",
+      "path": "C:\\Users\\\u0410\u043d\u0434\u0440\u0435\u0439\\Desktop\\world-of-hex\\tmp\\animation-workbench\\neural\\sam\\north-west",
+      "input_sha256": "7f7d7dcce1580346410580222949cb1edc71b489b431c723c86872309656639f",
+      "logits_sha256": "5b75c2f29a252a07e9a44d2539e1f3dd9ec91297cfe97a30b81a5e0664197c54"
+    }
+  ],
+  "new_inference": false,
+  "originals_deleted": false,
+  "selection": "latest complete body prediction set by experiment timestamp; historical N body success retained with incomplete export"
+}

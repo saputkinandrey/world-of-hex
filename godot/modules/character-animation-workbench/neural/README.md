@@ -1,5 +1,11 @@
 # Independent Neural experiment
 
+Current persistent-evidence interface: [EVIDENCE.md](EVIDENCE.md). The commands,
+cache policy and artifact locations below record the preceding experiment at
+`d8a3adb`; the newer interface supersedes them where explicitly described.
+Use `run.ps1 full` for a complete evaluation, `run.ps1 analyze` for GPU-free
+reanalysis, and `evidence/current/` for Git-visible direct model outputs.
+
 This pipeline consumes the four original body sprites and alpha, neural layers and upstream assembly outputs. It does not import the Legacy owner masks, contours, landmarks, source-pixel corrections or calibrated joints. The fourteen bone names/palette define only the output contract. Unknown is index 0; ambiguous votes are not forced into a bone.
 
 The current prototype's arm binding channels use rest-image sides: upstream `handwear-r` means smaller image X, so its upper/lower cuts map to Hex `ArmL`/`ForearmL`; upstream `-l` maps to `ArmR`/`ForearmR`. This is a declared output-namespace conversion, not a boundary adjustment or a claim about anatomical left/right. No masks, joint coordinates or disagreement minimization select this mapping.

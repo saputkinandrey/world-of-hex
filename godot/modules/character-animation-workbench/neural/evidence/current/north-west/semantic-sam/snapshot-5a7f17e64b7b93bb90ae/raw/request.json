@@ -1,0 +1,51 @@
+{
+  "view": "north-west",
+  "model": "semantic-sam",
+  "input": {
+    "source": "godot/assets/Character/Character1/idle/Char1_north_west_idle/Idle_body_NW1.png",
+    "source_sha256": "e6f02ad9ec5cf5e475ab19cc0205e22cea436971fb6c93686e9e5cce59b42cbe",
+    "input": "C:\\Users\\\u0410\u043d\u0434\u0440\u0435\u0439\\Desktop\\world-of-hex\\tmp\\animation-workbench\\neural\\inputs\\north-west-crop-nearest-512.png",
+    "input_sha256": "7f7d7dcce1580346410580222949cb1edc71b489b431c723c86872309656639f",
+    "transform": {
+      "crop": [
+        43,
+        24,
+        105,
+        127
+      ],
+      "scale": [
+        4.967741935483871,
+        4.970873786407767
+      ],
+      "offset": [
+        -111.61290322580646,
+        -119.3009708737864
+      ],
+      "native_size": [
+        150,
+        150
+      ],
+      "input_size": [
+        512,
+        512
+      ],
+      "resampling": "nearest",
+      "margin_fraction": 0.08,
+      "mode": "crop",
+      "coordinates": "edge: model = native * scale + offset; center index: model = (native + .5) * scale + offset - .5"
+    }
+  },
+  "contract": {
+    "model": "24yearsold/l2d_sam_iter2",
+    "revision": "0b0608310fb7a89e32ecd7397147a249540cf1e7",
+    "checkpoint_sha256": "dda82b916f6c340bc5a6c3a077ff1214f9906906abe3707b1076d55b508f253f",
+    "local_worker_sha256": "a41b68b7e36f61e7ce6b6746f32bed933ac108ef7a7dbd4abcfba5c065d16bdb",
+    "dtype": "bfloat16",
+    "class_num": 19,
+    "model_type": "h_hq",
+    "implementation": {
+      "common/modules/semanticsam.py": "747a1f1d84d10e93747ba24ec7e79a2791ef2c469cdb69c7d2acf00bd827f5eb",
+      "common/modules/extend_sam.py": "04345c62d4021a303f0e857654d35ce123369ee5b94c996cb96f69a3bd392d12"
+    }
+  }
+}

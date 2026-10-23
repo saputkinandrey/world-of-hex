@@ -1,0 +1,188 @@
+{
+  "view": "south-west",
+  "model": "semantic-sam",
+  "input": {
+    "source": "godot/assets/Character/Character1/idle/Char1_south_west_idle/Idle_body_SW1.png",
+    "source_sha256": "12048d52ee5492292a65c1167143cfc021a0d368cb69d3b198f60a698d44c0a7",
+    "input": "C:\\Users\\\u0410\u043d\u0434\u0440\u0435\u0439\\Desktop\\world-of-hex\\tmp\\animation-workbench\\neural\\inputs\\south-west-crop-nearest-512.png",
+    "input_sha256": "d52f189e684f1278558ed4d6e87b7c080fa4d445ed172af2e195ce6dcdd8b95f",
+    "transform": {
+      "crop": [
+        47,
+        23,
+        105,
+        127
+      ],
+      "scale": [
+        4.931034482758621,
+        4.923076923076923
+      ],
+      "offset": [
+        -118.75862068965517,
+        -113.23076923076924
+      ],
+      "native_size": [
+        150,
+        150
+      ],
+      "input_size": [
+        512,
+        512
+      ],
+      "resampling": "nearest",
+      "margin_fraction": 0.08,
+      "mode": "crop",
+      "coordinates": "edge: model = native * scale + offset; center index: model = (native + .5) * scale + offset - .5"
+    }
+  },
+  "contract": {
+    "model": "24yearsold/l2d_sam_iter2",
+    "revision": "0b0608310fb7a89e32ecd7397147a249540cf1e7",
+    "checkpoint_sha256": "dda82b916f6c340bc5a6c3a077ff1214f9906906abe3707b1076d55b508f253f",
+    "local_worker_sha256": "a41b68b7e36f61e7ce6b6746f32bed933ac108ef7a7dbd4abcfba5c065d16bdb",
+    "dtype": "bfloat16",
+    "class_num": 19,
+    "model_type": "h_hq",
+    "implementation": {
+      "common/modules/semanticsam.py": "747a1f1d84d10e93747ba24ec7e79a2791ef2c469cdb69c7d2acf00bd827f5eb",
+      "common/modules/extend_sam.py": "04345c62d4021a303f0e857654d35ce123369ee5b94c996cb96f69a3bd392d12"
+    }
+  },
+  "inference": "success",
+  "provenance": {
+    "stages": {
+      "semantic-sam": {
+        "outcome": "success"
+      }
+    },
+    "elapsed_seconds": 3.2838778495788574,
+    "peak_allocated_gib": 2.3042449951171875
+  },
+  "stages": {
+    "semantic-sam": "success"
+  },
+  "original_head_coordinates_available": false,
+  "export": {
+    "outcome": "not_applicable"
+  },
+  "classes": [
+    "hair",
+    "headwear",
+    "face",
+    "eyes",
+    "eyewear",
+    "ears",
+    "earwear",
+    "nose",
+    "mouth",
+    "neck",
+    "neckwear",
+    "topwear",
+    "handwear",
+    "bottomwear",
+    "legwear",
+    "footwear",
+    "tail",
+    "wings",
+    "objects"
+  ],
+  "schema": "hex-neural-evidence/1",
+  "files": {
+    "input.png": {
+      "sha256": "d52f189e684f1278558ed4d6e87b7c080fa4d445ed172af2e195ce6dcdd8b95f",
+      "bytes": 11283
+    },
+    "raw/bottomwear.png": {
+      "sha256": "65795a5b91030a2a433dae510d1edf494082a9cfa1153cd94f3797759f68f257",
+      "bytes": 334
+    },
+    "raw/ears.png": {
+      "sha256": "65795a5b91030a2a433dae510d1edf494082a9cfa1153cd94f3797759f68f257",
+      "bytes": 334
+    },
+    "raw/earwear.png": {
+      "sha256": "65795a5b91030a2a433dae510d1edf494082a9cfa1153cd94f3797759f68f257",
+      "bytes": 334
+    },
+    "raw/eyes.png": {
+      "sha256": "65795a5b91030a2a433dae510d1edf494082a9cfa1153cd94f3797759f68f257",
+      "bytes": 334
+    },
+    "raw/eyewear.png": {
+      "sha256": "65795a5b91030a2a433dae510d1edf494082a9cfa1153cd94f3797759f68f257",
+      "bytes": 334
+    },
+    "raw/face.png": {
+      "sha256": "65795a5b91030a2a433dae510d1edf494082a9cfa1153cd94f3797759f68f257",
+      "bytes": 334
+    },
+    "raw/footwear.png": {
+      "sha256": "65795a5b91030a2a433dae510d1edf494082a9cfa1153cd94f3797759f68f257",
+      "bytes": 334
+    },
+    "raw/hair.png": {
+      "sha256": "40232d1b3120ee5a97227802f05e1c8ad6eab33224ed47678d87fcd4276b2a96",
+      "bytes": 340
+    },
+    "raw/handwear.png": {
+      "sha256": "87f6b5877ab1254747335c07f76278e2fab144898da787034c649e855bf43848",
+      "bytes": 11648
+    },
+    "raw/headwear.png": {
+      "sha256": "65795a5b91030a2a433dae510d1edf494082a9cfa1153cd94f3797759f68f257",
+      "bytes": 334
+    },
+    "raw/inference.log": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "raw/legwear.png": {
+      "sha256": "a7c4f13f9f52e7c70bdab09de27ff917f93a70919754be99227440d2f984f056",
+      "bytes": 12188
+    },
+    "raw/logits.npz": {
+      "sha256": "55b1bc2f37589ea3a6e6f4ba6fb597bacd3263b005591662fabc85901965d94d",
+      "bytes": 4872832
+    },
+    "raw/mouth.png": {
+      "sha256": "65795a5b91030a2a433dae510d1edf494082a9cfa1153cd94f3797759f68f257",
+      "bytes": 334
+    },
+    "raw/neck.png": {
+      "sha256": "65795a5b91030a2a433dae510d1edf494082a9cfa1153cd94f3797759f68f257",
+      "bytes": 334
+    },
+    "raw/neckwear.png": {
+      "sha256": "65795a5b91030a2a433dae510d1edf494082a9cfa1153cd94f3797759f68f257",
+      "bytes": 334
+    },
+    "raw/nose.png": {
+      "sha256": "65795a5b91030a2a433dae510d1edf494082a9cfa1153cd94f3797759f68f257",
+      "bytes": 334
+    },
+    "raw/objects.png": {
+      "sha256": "65795a5b91030a2a433dae510d1edf494082a9cfa1153cd94f3797759f68f257",
+      "bytes": 334
+    },
+    "raw/request.json": {
+      "sha256": "518a67cd61d24405d52a2de650661dc1951f488077c89d2b35436776cd31d31c",
+      "bytes": 1710
+    },
+    "raw/result.json": {
+      "sha256": "449c0f9f17e310a37121a34b849a7de52a074d1e8339d91f984aa50d58eb7b38",
+      "bytes": 162
+    },
+    "raw/tail.png": {
+      "sha256": "65795a5b91030a2a433dae510d1edf494082a9cfa1153cd94f3797759f68f257",
+      "bytes": 334
+    },
+    "raw/topwear.png": {
+      "sha256": "3de7311ada39df11056ef20164166f82a5b6bcd200d1c3a3e98dbd129ef3208b",
+      "bytes": 32432
+    },
+    "raw/wings.png": {
+      "sha256": "65795a5b91030a2a433dae510d1edf494082a9cfa1153cd94f3797759f68f257",
+      "bytes": 334
+    }
+  }
+}

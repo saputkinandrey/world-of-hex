@@ -17,7 +17,7 @@ def main():
               'visual_evaluation':'Subjective; inspect enlarged atlases and clips separately from structural checks.',
               'views':{}}
     for view in SOURCES:
-        folder = OUTPUT/'candidates'/(view+'-crop-nearest-512')
+        folder = OUTPUT/'candidates'/view
         info = json.loads((folder/'candidate.json').read_text())
         if sha(folder/'owners-index.png') != info['owners_sha256']:
             raise ValueError('Candidate changed before comparison: '+view)

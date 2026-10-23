@@ -73,25 +73,32 @@ def project(labels, transform):
     return result
 
 
-def main():
+def prepare_view(view):
     folder = OUTPUT/'inputs'
     folder.mkdir(parents=True,exist_ok=True)
     records = {}
     config = json.loads(Path(__file__).with_name('experiments.json').read_text())
-    for view in SOURCES:
-        image,source = frame(view)
-        image.save(folder/(view+'-source.png'))
-        for mode in ('canvas','crop'):
-            for method in METHODS:
-                key = f'{view}-{mode}-{method}-512'
-                result,transform = prepare(image,mode,method,margin=config['content_margin_fraction'])
-                path = folder/(key+'.png')
+    image,source = frame(view)
+    image.save(folder/(view+'-source.png'))
+    for mode in ('canvas','crop'):
+        for method in METHODS:
+            key = f'{view}-{mode}-{method}-512'
+            result,transform = prepare(image,mode,method,margin=config['content_margin_fraction'])
+            path = folder/(key+'.png')
+            if not path.exists() or not np.array_equal(np.asarray(Image.open(path).convert('RGB')),np.asarray(result)):
                 result.save(path)
-                records[key] = {'source':source.relative_to(REPO).as_posix(),
-                                'source_sha256':sha(source),'input':str(path),
-                                'input_sha256':sha(path),'transform':transform}
+            records[key] = {'source':source.relative_to(REPO).as_posix(),
+                            'source_sha256':sha(source),'input':str(path),
+                            'input_sha256':sha(path),'transform':transform}
+    return records
+
+
+def main():
+    records = {}
+    for view in SOURCES:
+        records.update(prepare_view(view))
     (OUTPUT/'inputs.json').write_text(json.dumps(records,indent=2)+'\n')
-    print('Prepared 16 independent source-only inputs: '+str(folder))
+    print('Prepared 16 independent source-only inputs: '+str(OUTPUT/'inputs'))
 
 
 if __name__ == '__main__':

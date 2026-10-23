@@ -7,6 +7,7 @@ import numpy as np
 from PIL import Image
 from head_localization import MissingNeuralHead, head_support
 from preprocess import OUTPUT, SOURCES, frame, project, sha
+from evidence_store import locked, verify
 
 BONES = ['Pelvis','Spine','Chest','Head','ArmL','ForearmL','ArmR','ForearmR',
          'ThighL','CalfL','ThighR','CalfR','FootL','FootR']
@@ -39,14 +40,16 @@ def part_canvas(folder, part, size=512):
     return np.asarray(result)
 
 
-def build(view, key):
-    records = json.loads((OUTPUT/'inputs.json').read_text())
-    record = records[key]
-    original,_ = frame(view)
+def build(view):
+    evidence,manifest = verify(view,'layerdiff')
+    record = manifest['input']
+    original,source_path = frame(view)
+    if sha(source_path) != record['source_sha256']:
+        raise ValueError('Source artwork changed since persisted inference: '+view)
     source = np.asarray(original)
-    folder = OUTPUT/'candidates'/key
+    folder = OUTPUT/'candidates'/view
     folder.mkdir(parents=True,exist_ok=True)
-    run = OUTPUT/'runs'/key/key
+    run = evidence/'raw/layers'
     votes,provenance = [],[]
 
     def add(bone, values, origin):
@@ -66,8 +69,10 @@ def build(view, key):
         add('Head',head,{'kind':'neural-derived segmentation refinement',
                     'source':str(run/'head.png'),'sha256':sha(run/'head.png'),
                     'rule':'strongest alpha-128 connected neural head component'})
-    assembly = OUTPUT/'parts'/key/'cuts/rig'
-    if (assembly/'parts.json').exists():
+    assembly = OUTPUT/'parts'/view/'cuts/rig'
+    link = assembly.parent/'evidence.json'
+    assembly_current = link.exists() and json.loads(link.read_text())['manifest_sha256'] == sha(evidence/'manifest.json')
+    if assembly_current and (assembly/'parts.json').exists():
         parts = json.loads((assembly/'parts.json').read_text())['parts']
         for name,bone in PART_CHANNELS.items():
             part = next((item for item in parts if item['name'] == name),None)
@@ -119,6 +124,8 @@ def build(view, key):
         generated.append({'file':str(target),'raw_model_layer':str(path),
                           'raw_sha256':sha(path),'provenance':'generated neural RGB; nearest native sampling outside original alpha only; not accepted hidden anatomy'})
     info = {'schema':'hex-independent-neural-candidate/1','view':view,'input':record,
+            'raw_evidence_manifest_sha256':sha(evidence/'manifest.json'),
+            'semantic_sam_contribution':'not mapped into skeletal owners: semantic topwear/legwear do not establish fourteen bone boundaries; see conversion-loss.json',
             'bones':BONES,'unknown_label':0,'labels':dict(enumerate(BONES,1)),
             'output_channel_contract':PART_CHANNELS,
             'foot_component_evidence':foot_evidence,
@@ -136,9 +143,11 @@ def build(view, key):
     print(view+': '+str(info['known_pixels'])+'/'+str(info['source_pixels'])+' candidate pixels',flush=True)
 
 
+def main():
+    with locked():
+        for view in SOURCES:
+            build(view)
+
+
 if __name__ == '__main__':
-    for view in SOURCES:
-        key = view+'-crop-nearest-512'
-        if not (OUTPUT/'runs'/key/'experiment.json').exists():
-            raise FileNotFoundError('Run all four independent projections first: '+key)
-        build(view,key)
+    main()

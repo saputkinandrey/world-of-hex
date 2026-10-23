@@ -5,17 +5,17 @@ import numpy as np
 from PIL import Image, ImageDraw
 from preprocess import OUTPUT, SOURCES, frame, project
 from sam import CLASSES
-from recipe import require_input
+from evidence_store import locked, verify
 
 
 def main():
-    records = json.loads((OUTPUT/'inputs.json').read_text())
     report = {}
     for view in SOURCES:
-        folder = OUTPUT/'sam'/view
-        experiment = json.loads((folder/'experiment.json').read_text())
-        require_input(experiment,records[view+'-crop-nearest-512'])
-        logits = np.load(folder/'logits.npz')['logits']
+        evidence,manifest = verify(view,'semantic-sam')
+        experiment = manifest['input']
+        folder = OUTPUT/'analysis/sam'/view
+        folder.mkdir(parents=True,exist_ok=True)
+        logits = np.load(evidence/'raw/logits.npz')['logits']
         positive = logits>0
         unique = positive.sum(axis=0)==1
         labels = np.where(unique,logits.argmax(axis=0)+1,0).astype(np.uint8)
@@ -54,8 +54,9 @@ def main():
                         'unique_semantic_pixels':int((native>0).sum()),
                         'source_semantic_support':counts,
                         'skeletal_mapping':'not inferred; no elbows/knees/ankles or lateral bone identity are invented'}
-    (OUTPUT/'sam/native-summary.json').write_text(json.dumps(report,indent=2)+'\n')
+    (OUTPUT/'analysis/sam/native-summary.json').write_text(json.dumps(report,indent=2)+'\n')
 
 
 if __name__ == '__main__':
-    main()
+    with locked():
+        main()
