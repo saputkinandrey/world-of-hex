@@ -11,11 +11,11 @@ import traceback
 import numpy as np
 from PIL import Image
 
-from evidence_store import CLASSES, CURRENT, MODELS, inventory, locked, validate_payload, verify, write_json
+from evidence_store import BODY_TAGS, CLASSES, CURRENT, MODELS, inventory, locked, validate_payload, verify, write_json
 from infer import settings
 from inference_parameters import parameters
 from inference_recipe import contract
-from preprocess import MODULE, OUTPUT, REPO, prepare, sha
+from preprocess import MODULE, OUTPUT, REPO, prepare, project, sha
 
 SEEDS = [42,42,7,17,23,101,202,303,404,505]
 BATCH = MODULE/'neural/evidence/experiments/sw-head-consistency-01'
@@ -43,15 +43,15 @@ def prepare_source(source, destination, resolution=512, method='bicubic', frame_
     prepared.save(destination/'input.png')
     return {'source':str(source),'source_sha256':sha(source),
             'source_frame_sha256':sha(destination/'source.png'),'frame_size':frame_size,
-            'input':str((destination/'input.png').resolve()),'input_sha256':sha(destination/'input.png'),
+            'input':str((destination/'input.png').resolve()),'input_sha256':sha(destination/'input.png'),'input_mode':prepared.mode,
             'transform':transform}
 
 
-def execute_model(model, record, output, options, recipe):
+def execute_model(model, record, output, options, recipe, mode='full'):
     """Exactly one actual process attempt; failed raw outputs remain inspectable."""
     output.mkdir(parents=True,exist_ok=False)
     shutil.copy2(record['input'],output/'input.png')
-    request = {'model':model,'input':record,'parameters':options,'contract':recipe,
+    request = {'model':model,'input':record,'parameters':options,'contract':recipe,'mode':mode,
                'started_utc':datetime.now(timezone.utc).isoformat(),'cache_used':False}
     write_json(output/'request.json',request)
     tooling,upstream,python = settings()
@@ -172,8 +172,77 @@ def status():
         print(f'{number:02d} seed={seed}: '+ ' | '.join(states))
 
 
+def body_diagnostics(folder, record, source_alpha, threshold):
+    layers = {}
+    for tag in BODY_TAGS:
+        path = folder/'raw/layers'/(tag+'.png')
+        row = {'present':path.exists()}
+        if path.exists():
+            with Image.open(path) as image:
+                row.update({'mode':image.mode,'size':list(image.size),'sha256':sha(path)})
+                if tag == 'head':
+                    alpha = np.asarray(image.getchannel('A'))
+                    native = project((alpha>threshold).astype(np.uint8),record['transform'])>0
+                    row.update({'alpha_threshold_exclusive':threshold,
+                        'area_model_px':int((alpha>threshold).sum()),'area_native_px':int(native.sum()),
+                        'outside_source_silhouette_native_px':int((native & (source_alpha==0)).sum())})
+        layers[tag] = row
+    return {'layers':layers,'meaning':'Objective output measurements only; no anatomical correctness classification.'}
+
+
+def body_batch(plan):
+    config = json.loads(Path(plan).read_text(encoding='utf-8'))
+    seeds = config['seeds']
+    if not isinstance(seeds,list) or not seeds:
+        raise ValueError('Expected a nonempty, fixed seed list')
+    options = [parameters({'parameters':{'seed':seed,'steps':config['steps'],
+        'resolution':config['resolution'],'depth_resolution':config['resolution']}}) for seed in seeds]
+    threshold = config['diagnostic_alpha_threshold']
+    if type(threshold) is not int or not 0 <= threshold <= 255:
+        raise ValueError('Expected an explicit diagnostic alpha threshold in0..255')
+    output = (REPO/config['output']).resolve()
+    protected = [CURRENT.resolve(),BATCH.resolve()]
+    if any(output==root or output.is_relative_to(root) or root.is_relative_to(output) for root in protected):
+        raise ValueError('Body-only output overlaps protected historical evidence')
+    tooling,upstream,_ = settings()
+    recipe = {**contract('layerdiff',tooling,upstream),'mode':'body-only',
+              'preprocessing_sha256':sha(Path(__file__).with_name('preprocess.py')),
+              'guidance_scale':1.0,'strength':1.0,'body_tags':BODY_TAGS}
+    recipe.pop('head_support_sha256',None)
+    recipe['head_policy'] = 'not requested: body-only'
+    with locked(OUTPUT/'work/session'):
+        # No cache, automatic retries, alternate seeds or overwrite of an old batch.
+        output.mkdir(parents=True,exist_ok=False)
+        record = prepare_source(REPO/config['input'],output/'input',config['resolution'],
+                                config['preprocessing'],config.get('frame_size'))
+        write_json(output/'plan.json',{'requested':config,'input':record,'contract':recipe})
+        with Image.open(output/'input/source.png') as source:
+            source_alpha = np.asarray(source.getchannel('A'))
+        results = []
+        for number,parameters_for_seed in enumerate(options,1):
+            folder = output/f'run-{number:02d}'
+            target = folder/'layerdiff'
+            try:
+                result = execute_model('layerdiff',record,target,parameters_for_seed,recipe,mode='body-only')
+                write_json(folder/'diagnostics.json',body_diagnostics(target,record,source_alpha,threshold))
+                results.append({'run':number,'seed':parameters_for_seed['seed'],'outcome':result['outcome']})
+            except Exception:
+                detail = traceback.format_exc()
+                traceback.print_exc()
+                write_json(folder/'failure.json',{'error':detail,'seed':parameters_for_seed['seed']})
+                results.append({'run':number,'seed':parameters_for_seed['seed'],'outcome':'execution_setup_or_diagnostics_failure','error':detail})
+            write_json(output/'status.json',{'mode':'body-only','results':results,
+                'semantic_sam':'not requested','automatic_retries':False})
+
+
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument('action',choices=['benchmark','status'])
+    parser.add_argument('action',choices=['benchmark','status','body-only'])
+    parser.add_argument('--plan',type=Path,default=Path(__file__).with_name('body-only-plan.json'))
     args = parser.parse_args()
-    benchmark() if args.action=='benchmark' else status()
+    if args.action=='body-only':
+        body_batch(args.plan)
+    elif args.action=='benchmark':
+        benchmark()
+    else:
+        status()

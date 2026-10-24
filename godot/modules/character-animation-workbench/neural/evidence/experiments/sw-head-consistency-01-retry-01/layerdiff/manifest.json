@@ -1,0 +1,399 @@
+{
+  "model": "layerdiff",
+  "input": {
+    "source": "C:\\Users\\\u0410\u043d\u0434\u0440\u0435\u0439\\Desktop\\world-of-hex\\godot\\assets\\Character\\Character1\\idle\\Char1_south_west_idle\\Idle_body_SW1.png",
+    "source_sha256": "12048d52ee5492292a65c1167143cfc021a0d368cb69d3b198f60a698d44c0a7",
+    "source_frame_sha256": "360f063eafb49373170a61a041841e5d66078b67ed9b00659769b0414ba774fe",
+    "frame_size": 150,
+    "input": "C:\\Users\\\u0410\u043d\u0434\u0440\u0435\u0439\\Desktop\\world-of-hex\\godot\\modules\\character-animation-workbench\\neural\\evidence\\experiments\\sw-head-consistency-01\\reference\\input.png",
+    "input_sha256": "4a3a57206b4afce8b8f96b1815dbbd2c0c53272b6d3f88c88e22c96ce019ea31",
+    "transform": {
+      "crop": [
+        47,
+        23,
+        105,
+        127
+      ],
+      "scale": [
+        4.931034482758621,
+        4.923076923076923
+      ],
+      "offset": [
+        -118.75862068965517,
+        -113.23076923076924
+      ],
+      "native_size": [
+        150,
+        150
+      ],
+      "input_size": [
+        512,
+        512
+      ],
+      "resampling": "bicubic",
+      "margin_fraction": 0.08,
+      "mode": "crop",
+      "coordinates": "edge: model = native * scale + offset; center index: model = (native + .5) * scale + offset - .5"
+    }
+  },
+  "parameters": {
+    "seed": 42,
+    "steps": 20,
+    "resolution": 512,
+    "depth_resolution": 512
+  },
+  "contract": {
+    "models": {
+      "24yearsold/seethroughv0.0.2_layerdiff3d_nf4": "96f9311ff449dc86cfaba101ce4dfb4fd4958b80",
+      "24yearsold/seethroughv0.0.1_marigold_nf4": "e53b344b5aa5beec7c141bd5601decaaff0898c9"
+    },
+    "seed": 42,
+    "steps": 20,
+    "resolution": 512,
+    "depth_resolution": 512,
+    "local_worker_sha256": "af41993111327553710713d41aa3b28dc3f1704c05678da728629e62dee18c4c",
+    "parameters_sha256": "f4e7f4e0418099622f5af4a0e692277af2ccb96535f8f8b8fd9f5b60fec9d5d9",
+    "head_support_sha256": "80024bd75112e0fe3526d7d2c515c36db01769e3d096f80393220dcbca39446a",
+    "quant_mode": "nf4",
+    "cpu_offload": true,
+    "group_offload": false,
+    "tblr_split": true,
+    "head_policy": "strongest-alpha128-component-with-explicit-64-192-fallback",
+    "implementation": {
+      "common/modules/layerdiffuse/diffusers_kdiffusion_sdxl.py": "dfd5408669be2a48baaddc516deb87abefd05e24799ca47ea57337b492c7b57f",
+      "inference/scripts/inference_psd_quantized.py": "7d73091de39f0a26cc495056c9c863c65cf98453fe1a34bd466b7d3a24165be7"
+    }
+  },
+  "started_utc": "2026-10-24T10:33:24.838391+00:00",
+  "cache_used": false,
+  "exit_code": 0,
+  "stages": {
+    "layerdiff": "success",
+    "body": "success",
+    "head": "success",
+    "depth": "success",
+    "export": "success"
+  },
+  "provenance": {
+    "stages": {
+      "layerdiff": {
+        "outcome": "success"
+      },
+      "body": {
+        "outcome": "success"
+      },
+      "head": {
+        "outcome": "success"
+      },
+      "depth": {
+        "outcome": "success"
+      },
+      "export": {
+        "outcome": "success"
+      }
+    },
+    "body_complete": true,
+    "parameters": {
+      "seed": 42,
+      "steps": 20,
+      "resolution": 512,
+      "depth_resolution": 512
+    },
+    "runtime": {
+      "torch": "2.8.0+cu128",
+      "cuda": "12.8",
+      "device": "NVIDIA GeForce RTX 3060 Laptop GPU",
+      "cudnn": 91002,
+      "deterministic_algorithms": false,
+      "cudnn_benchmark": false,
+      "cudnn_deterministic": false
+    },
+    "elapsed_seconds": 254.7870180606842,
+    "peak_allocated_gib": 4.421796798706055
+  },
+  "outcome": "completed",
+  "original_head_coordinates_available": true,
+  "classes": null,
+  "files": {
+    "inference.log": {
+      "sha256": "efefd97269cabd58745d680b2ea07e6c68772661d517532cd1a4f04c2d52d01f",
+      "bytes": 342174
+    },
+    "input.png": {
+      "sha256": "4a3a57206b4afce8b8f96b1815dbbd2c0c53272b6d3f88c88e22c96ce019ea31",
+      "bytes": 81225
+    },
+    "raw/layers/back hair.png": {
+      "sha256": "f33c5f3811e934f46dfa8c1fd27b1f6138cb8153016269e3cbd90f8e43b5a418",
+      "bytes": 328068
+    },
+    "raw/layers/back hair_depth.png": {
+      "sha256": "c4e98cdfc209eee46c565ce3674f7ca396a2d69b7c0089d3c11baccb1318a478",
+      "bytes": 38848
+    },
+    "raw/layers/bottomwear.png": {
+      "sha256": "8411c6d36718c3cea7b85ff64ec05eab4e4d68654240e026c81fea02982aa37f",
+      "bytes": 130541
+    },
+    "raw/layers/bottomwear_depth.png": {
+      "sha256": "db7ca824b3093e299045a07a2d171238cdbefa3f472e9aa797ae06a2620f9575",
+      "bytes": 16484
+    },
+    "raw/layers/ears.png": {
+      "sha256": "3bd1a9e8d9d79ad31e1e87eb9955c14f72a0ff0124a71157c8c5dfd09a87cb25",
+      "bytes": 30741
+    },
+    "raw/layers/ears_depth.png": {
+      "sha256": "31a3f17175b9a5f48e8cee98f2e07833b3f70d1d07624989eda6c150ff7dc402",
+      "bytes": 32682
+    },
+    "raw/layers/earwear.png": {
+      "sha256": "641b39d33d4e5831e8e10c6251a1edab45796af6ea13e97d46f76649dd506845",
+      "bytes": 49491
+    },
+    "raw/layers/earwear_depth.png": {
+      "sha256": "3a7d1440ebe32b57a76dc92582272463f096f7761f2e13474cd9e454a49a79ad",
+      "bytes": 16976
+    },
+    "raw/layers/eyebrow.png": {
+      "sha256": "aa0175af481a9a03f6319e94cd8603a0ce801a97f28f1fca5f25092d156b4d9a",
+      "bytes": 27168
+    },
+    "raw/layers/eyebrow_depth.png": {
+      "sha256": "d8acccafa1fdcf03f3bb9112f5f2f30ad1558e446d5c12ec5644fc0d53c1e58b",
+      "bytes": 1301
+    },
+    "raw/layers/eyelash.png": {
+      "sha256": "faec649aaf657734687276be0c4f2b84a3e3eee28c9cdc704ac94d81564f7ec0",
+      "bytes": 27489
+    },
+    "raw/layers/eyelash_depth.png": {
+      "sha256": "d8acccafa1fdcf03f3bb9112f5f2f30ad1558e446d5c12ec5644fc0d53c1e58b",
+      "bytes": 1301
+    },
+    "raw/layers/eyewear.png": {
+      "sha256": "31f4d19118d553d48d6475834470b23ec7ad13e6c2942641be9cbb7ebbe6c04c",
+      "bytes": 28314
+    },
+    "raw/layers/eyewear_depth.png": {
+      "sha256": "fdc2504e4ff0a5dc2c6fa7285c890dfbddf2fe1abed437325b5c5cfa87969d3c",
+      "bytes": 19295
+    },
+    "raw/layers/eyewhite.png": {
+      "sha256": "c38a4ec7c6768c03e7955b49dccd9d1fa135aea604e9b206033c93d947f9cb2a",
+      "bytes": 33059
+    },
+    "raw/layers/eyewhite_depth.png": {
+      "sha256": "0d099054cff61a8274d8572215e115b9d91734bf0ccf00dffcd59c5d904c8e4e",
+      "bytes": 2075
+    },
+    "raw/layers/face.png": {
+      "sha256": "4c8a586faa2933ef3d870f82c691c800978da0ab897d38471d839b1b5aff560c",
+      "bytes": 56683
+    },
+    "raw/layers/face_depth.png": {
+      "sha256": "a9cc9394dcbca36eee65fe87222430e6ccbee9904b657e7e62927fb6b8a244ef",
+      "bytes": 49164
+    },
+    "raw/layers/footwear.png": {
+      "sha256": "0b52fc21c2068035c7cdec3c74e4f8502629ab28d0ea5f1577217b206f13980f",
+      "bytes": 125538
+    },
+    "raw/layers/footwear_depth.png": {
+      "sha256": "a32cdaa32cf2a741f6d24ea4c1d23d8d9398d9a747b38b39bd739c234d289fcd",
+      "bytes": 23862
+    },
+    "raw/layers/front hair.png": {
+      "sha256": "6d488fd6ae0ef50ed4d2c9ff15605c031b9606b4ef17413c742c8a8e8af608a5",
+      "bytes": 131606
+    },
+    "raw/layers/front hair_depth.png": {
+      "sha256": "0c48a335ad850e7de276a01acef7af10eeddf1017af3a4516b7fb3f33b9e7af5",
+      "bytes": 1343
+    },
+    "raw/layers/handwear.png": {
+      "sha256": "1ed2f0ccceb8ea93a61cfe164eb9fc0c074df12b96d680a9912b79758a91ec7b",
+      "bytes": 159762
+    },
+    "raw/layers/handwear_depth.png": {
+      "sha256": "1da97d600873403f36575c026d4643b0289dbb9a5c9c1757904177aba26263c7",
+      "bytes": 22140
+    },
+    "raw/layers/head-localization.json": {
+      "sha256": "aea798fd495d0155a1aa1b35e08c6444ec8801b1c66b468d5cb30ac96e6b55c2",
+      "bytes": 916
+    },
+    "raw/layers/head.png": {
+      "sha256": "332d07233898e488582935359ff4d85e78b5d36bdab6cba20e3206fddadf7f79",
+      "bytes": 166664
+    },
+    "raw/layers/headwear.png": {
+      "sha256": "ff5e3fcf8cd3730a8ea766491220fa0075b6a552111ca3b94b5490a25281a1ec",
+      "bytes": 62341
+    },
+    "raw/layers/headwear_depth.png": {
+      "sha256": "e8978da14d11f72c9977a017362ff7164bf8fb6d11dac5087dddee9f3eadd125",
+      "bytes": 40662
+    },
+    "raw/layers/info.json": {
+      "sha256": "f694b3a703036fe900d2a41ae1899c3f5fac3cf020704029d023c850ea415b32",
+      "bytes": 349
+    },
+    "raw/layers/irides.png": {
+      "sha256": "a9a1f6e266598f90675b7031f548c63f4c32d337f4312ca7a753f3ef34ec7225",
+      "bytes": 28587
+    },
+    "raw/layers/irides_depth.png": {
+      "sha256": "d8acccafa1fdcf03f3bb9112f5f2f30ad1558e446d5c12ec5644fc0d53c1e58b",
+      "bytes": 1301
+    },
+    "raw/layers/legwear.png": {
+      "sha256": "8db01cafd65ab276b99d4fa543cfc89a3088fd7aa884f56ec0c02633e7a2c467",
+      "bytes": 126454
+    },
+    "raw/layers/legwear_depth.png": {
+      "sha256": "ee4b1a5f070bafca70ad31755e0c902b723585900b8dd8b24633a037e2545935",
+      "bytes": 23810
+    },
+    "raw/layers/mouth.png": {
+      "sha256": "8fb49c3ee165f2bbf9793bc791debfe200e818219b7492c5c1adc45411f837c4",
+      "bytes": 28107
+    },
+    "raw/layers/mouth_depth.png": {
+      "sha256": "b04dec17aaa4d3730768d9b11e1ec8e76067589ed151c29f9880011bb706c63a",
+      "bytes": 10025
+    },
+    "raw/layers/neck.png": {
+      "sha256": "ca35c48e622c5ecc15cbd9deff78162baa8c45321d3715fd0b40a16349603b28",
+      "bytes": 130413
+    },
+    "raw/layers/neck_depth.png": {
+      "sha256": "cc6d38aff1650164802da5a2c9175063585b0277db48aae9ed7db4a54451ce7e",
+      "bytes": 21004
+    },
+    "raw/layers/neckwear.png": {
+      "sha256": "fff12a191f0de3cffc84ace01d760bee4e6d988acab4886af3738f9d6d8d0596",
+      "bytes": 254118
+    },
+    "raw/layers/neckwear_depth.png": {
+      "sha256": "a23b57b054d952325e532ebc60961ece9cd1fd0b2e0ad105d5bbf51a0bb4790f",
+      "bytes": 35365
+    },
+    "raw/layers/nose.png": {
+      "sha256": "e94fac235a1fa02c84c86128202888c2275e2d980582548aded79f0844aa56d7",
+      "bytes": 27428
+    },
+    "raw/layers/nose_depth.png": {
+      "sha256": "bfac29adb5b514aa7b26d683e64f18fd95baf24fb3f401b30b63daff73f0a815",
+      "bytes": 28545
+    },
+    "raw/layers/objects.png": {
+      "sha256": "9d8de841d1b8ff5cd15b493ba67aba053b882fca1221af1b4dab82f93d289694",
+      "bytes": 234610
+    },
+    "raw/layers/objects_depth.png": {
+      "sha256": "b8ef31311a34981f18bb52e53a9bd0e4c0e1482b7de6c6addd6fda06f3e0f0cf",
+      "bytes": 23061
+    },
+    "raw/layers/raw-head/ears.png": {
+      "sha256": "6c829c7928c599f9a4946d227ef5492c53bda23d8027d568f688fc2577f40a41",
+      "bytes": 138388
+    },
+    "raw/layers/raw-head/earwear.png": {
+      "sha256": "296470aa24b68c3ab697d733c5b4be539e8314088cbbbe458804114a6c00d13c",
+      "bytes": 198803
+    },
+    "raw/layers/raw-head/eyebrow.png": {
+      "sha256": "9f62cf164f95849cf8ca5105fe8947837b9453052c7c421e735e926fb7ac7121",
+      "bytes": 124984
+    },
+    "raw/layers/raw-head/eyelash.png": {
+      "sha256": "d52973c9ee8d2ac95bc53419591f49166e919ada054f14f8502442e97f1cf32e",
+      "bytes": 125860
+    },
+    "raw/layers/raw-head/eyewear.png": {
+      "sha256": "9544b379cd905df502fe20e0af4732f7411c3f925f23828449d2c71a6bf7512e",
+      "bytes": 129773
+    },
+    "raw/layers/raw-head/eyewhite.png": {
+      "sha256": "67e0d87e8751b6ffb042c3082f4256dcdd76f9428614958fa240bab295d157f5",
+      "bytes": 151396
+    },
+    "raw/layers/raw-head/face.png": {
+      "sha256": "3e8810ac20c631d21d5ed5eb590cdb2971c42795e980f1c19a4bbfda25ac7f47",
+      "bytes": 215457
+    },
+    "raw/layers/raw-head/headwear.png": {
+      "sha256": "6282a6af9c3befa792ae731784880999471802f5292283ed4272f52f0f6b746c",
+      "bytes": 236972
+    },
+    "raw/layers/raw-head/irides.png": {
+      "sha256": "84c1073e53c73a03096c75c86e0f3d1d94c31b7b65d8abcfdd8032cfdd6e25de",
+      "bytes": 129313
+    },
+    "raw/layers/raw-head/mouth.png": {
+      "sha256": "0a51c83d9bc00c4d5b2dd2f655ab808e7c512aaf2ea3c1a77ebe4d1cef96ed65",
+      "bytes": 126937
+    },
+    "raw/layers/raw-head/nose.png": {
+      "sha256": "8fd4c1e6d59001b805951cd1c319eae6e90f007e06ff29e6b1a338595984c5b9",
+      "bytes": 124629
+    },
+    "raw/layers/reconstruction.png": {
+      "sha256": "08ce993400cbcb161c1e18ac10778cebac667673c8af3a29607709db02a1e989",
+      "bytes": 301415
+    },
+    "raw/layers/src_head.png": {
+      "sha256": "75617dee3a545b9093327d635e8094b623568fb59d9d5e9d77d04d6f88dc9179",
+      "bytes": 123914
+    },
+    "raw/layers/src_img.png": {
+      "sha256": "d4f27f80b7393e34524861d266b991e4d2b9c845a115e8cc286e31150c61f871",
+      "bytes": 92047
+    },
+    "raw/layers/tail.png": {
+      "sha256": "3ef97063a307d8ca2cd63dff96585b9d771969725f41b1663e41665b3f67e3b9",
+      "bytes": 234889
+    },
+    "raw/layers/tail_depth.png": {
+      "sha256": "3def202756b5813861173a37f207ae7d7d38a940880489361fdb121150aefadc",
+      "bytes": 26928
+    },
+    "raw/layers/topwear.png": {
+      "sha256": "c7bbe634816627dfb91de302da5195907e018f44dfbdc180ad93f469a7f6b614",
+      "bytes": 201165
+    },
+    "raw/layers/topwear_depth.png": {
+      "sha256": "8c67895d7b034af347332fefa3b9a37c1b294241db06c86fefe70d2efd142841",
+      "bytes": 44620
+    },
+    "raw/layers/wings.png": {
+      "sha256": "efb35ac21d6e46c5bacc12dae52831c36adf0b62b78de72f0861ebf43563e473",
+      "bytes": 298507
+    },
+    "raw/layers/wings_depth.png": {
+      "sha256": "59bf093012baab85f50c3b1f417eb90f6d41cdf242575ce445b16c859f79f06c",
+      "bytes": 36836
+    },
+    "raw/layers.psd": {
+      "sha256": "36b3025cdb5079a3bef15435386d6565ea330c25da4b0119310be92513587fbc",
+      "bytes": 5496386
+    },
+    "raw/layers.psd.json": {
+      "sha256": "5e1eb4ab2d8538bca1665d24ec0348c8f7c49e9eb3db9c2789dd6d6c25bbaaf7",
+      "bytes": 1535
+    },
+    "raw/layers_depth.psd": {
+      "sha256": "a68fea656e7b33955b03e9c6f3665a308f448d28e2522bd8ea3ca8a34e9b538d",
+      "bytes": 763246
+    },
+    "request.json": {
+      "sha256": "e2548fff29cae7be731f2aca126faa7845c50e73eb4fc7d46f755f9f0b8ff688",
+      "bytes": 2557
+    },
+    "result.json": {
+      "sha256": "3cd0052d7cd5ec5307862586c030b1b9d09d7a0e3c8db907ee8cd490bf5193c8",
+      "bytes": 726
+    }
+  }
+}

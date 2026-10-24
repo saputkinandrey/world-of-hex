@@ -1,0 +1,41 @@
+{
+  "check": "preprocessing only; no new RGBA/body-only neural inference",
+  "source_sha256": "12048d52ee5492292a65c1167143cfc021a0d368cb69d3b198f60a698d44c0a7",
+  "transform": {
+    "crop": [
+      47,
+      23,
+      105,
+      127
+    ],
+    "scale": [
+      4.931034482758621,
+      4.923076923076923
+    ],
+    "offset": [
+      -118.75862068965517,
+      -113.23076923076924
+    ],
+    "native_size": [
+      150,
+      150
+    ],
+    "input_size": [
+      512,
+      512
+    ],
+    "resampling": "bicubic",
+    "margin_fraction": 0.08,
+    "mode": "crop",
+    "coordinates": "edge: model = native * scale + offset; center index: model = (native + .5) * scale + offset - .5"
+  },
+  "input_mode": "RGBA",
+  "rgb_maximum_absolute_difference": 0,
+  "alpha_grid_exactly_matches": true,
+  "transparent_pixels": 193956,
+  "partially_transparent_pixels": 7884,
+  "opaque_pixels": 60304,
+  "input_sha256": "ef93e052248cd28b5f64f994b66e225ba8f90c6ec3a714ff55cf6f6661aa3b33",
+  "current_unchanged": true,
+  "historical_experiment_unchanged": true
+}

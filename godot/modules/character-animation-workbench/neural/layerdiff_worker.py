@@ -6,6 +6,7 @@ import time
 import traceback
 import shutil
 from types import SimpleNamespace
+from PIL import Image
 
 from evidence_store import BODY_TAGS, write_json
 from head_localization import MissingNeuralHead, head_support
@@ -14,7 +15,14 @@ from inference_recipe import LAYER_MODEL, DEPTH_MODEL
 from inference_parameters import parameters
 
 
-def patched_source(source):
+def patched_source(source, mode='full'):
+    if mode not in ('full','body-only'):
+        raise ValueError('Unsupported LayerDiff mode: '+mode)
+    if mode == 'body-only':
+        seam = '    head_img = images[2]'
+        if source.count(seam) != 1:
+            raise ValueError('Pinned upstream body-only seam changed')
+        return source.replace(seam,'    return\n'+seam).split("if __name__ == '__main__':")[0]
     old = '    hx0, hy0, hw, hh = cv2.boundingRect(cv2.findNonZero((head_img[..., -1] > 15).astype(np.uint8)))'
     new = '''    try:
         support = _hex_head_support(head_img[..., -1], osp.join(saved, 'head-localization.json'))
@@ -32,27 +40,9 @@ def patched_source(source):
     return source.replace(old,new).replace(seam,raw+seam).split("if __name__ == '__main__':")[0]
 
 
-def main(work):
-    work = Path(work)
-    record = json.loads((work/'request.json').read_text())
-    options = parameters(record)
-    _,upstream,_ = settings()
-    entry = upstream/'inference/scripts/inference_psd_quantized.py'
-    sys.path.insert(0,str(entry.parent))
-    namespace = {'__name__':'hex_upstream','__file__':str(entry),
-                 '_hex_head_support':head_support,'_hex_missing_head':MissingNeuralHead,
-                 '_hex_write_json':write_json,'_hex_path':Path}
-    exec(compile(patched_source(entry.read_text()),str(entry),'exec'),namespace)
-    import torch
-    args = SimpleNamespace(quant_mode='nf4',cpu_offload=True,group_offload=False,
-        repo_id_layerdiff=LAYER_MODEL,repo_id_depth=DEPTH_MODEL)
-    raw = work/'raw'
-    raw.mkdir()
-    source = work/'input.png'
-    # Upstream names its layer directory from the input stem.
+def run_pipeline(namespace, args, source, raw, options, mode, torch):
+    """Run one requested mode; coarse predictions survive optional-stage failures."""
     stages = {}
-    started = time.time()
-    torch.cuda.reset_peak_memory_stats()
     namespace['seed_everything'](options['seed'])
     pipeline = namespace['build_layerdiff_pipeline'](args)
     try:
@@ -73,15 +63,18 @@ def main(work):
     complete = all((layers/(tag+'.png')).exists() for tag in BODY_TAGS)
     stages['body'] = {'outcome':'success' if complete else 'inference_failure'}
     head_note = layers/'head-stage.json'
-    stages['head'] = json.loads(head_note.read_text()) if head_note.exists() else {
-        'outcome':'success' if (layers/'raw-head').is_dir() else 'inference_failure'}
-    if complete:
+    if mode == 'body-only':
+        stages.update({name:{'outcome':'not_requested'} for name in ('head','depth','export')})
+    else:
+        stages['head'] = json.loads(head_note.read_text()) if head_note.exists() else {
+            'outcome':'success' if (layers/'raw-head').is_dir() else 'inference_failure'}
+    if complete and mode == 'full':
         # Head failure/absence must not prevent independent depth/export attempts.
         depth = None
         try:
             depth = namespace['build_marigold_pipeline'](args)
             # The upstream depth helper derives its directory from the input stem.
-            depth_source = work/'layers.png'
+            depth_source = source.with_name('layers.png')
             shutil.copy2(source,depth_source)
             try:
                 namespace['run_marigold'](depth,str(depth_source),str(raw),options['seed'],options['depth_resolution'])
@@ -100,7 +93,35 @@ def main(work):
         except Exception:
             stages['export'] = {'outcome':'assembly_failure','traceback':traceback.format_exc()}
             traceback.print_exc()
-    write_json(work/'result.json',{'stages':stages,'body_complete':complete,
+    return stages,complete
+
+
+def main(work):
+    work = Path(work)
+    record = json.loads((work/'request.json').read_text())
+    options = parameters(record)
+    mode = record.get('mode','full')
+    with Image.open(work/'input.png') as image:
+        input_mode = image.mode
+    if mode == 'body-only' and input_mode != 'RGBA':
+        raise ValueError('LayerDiff body-only requires an RGBA input with source coverage')
+    _,upstream,_ = settings()
+    entry = upstream/'inference/scripts/inference_psd_quantized.py'
+    sys.path.insert(0,str(entry.parent))
+    namespace = {'__name__':'hex_upstream','__file__':str(entry),
+                 '_hex_head_support':head_support,'_hex_missing_head':MissingNeuralHead,
+                 '_hex_write_json':write_json,'_hex_path':Path}
+    exec(compile(patched_source(entry.read_text(),mode),str(entry),'exec'),namespace)
+    import torch
+    args = SimpleNamespace(quant_mode='nf4',cpu_offload=True,group_offload=False,
+        repo_id_layerdiff=LAYER_MODEL,repo_id_depth=DEPTH_MODEL)
+    raw = work/'raw'
+    raw.mkdir()
+    source = work/'input.png'
+    started = time.time()
+    torch.cuda.reset_peak_memory_stats()
+    stages,complete = run_pipeline(namespace,args,source,raw,options,mode,torch)
+    write_json(work/'result.json',{'stages':stages,'body_complete':complete,'mode':mode,'input_mode':input_mode,
         'parameters':options,'runtime':{'torch':torch.__version__,'cuda':torch.version.cuda,
             'device':torch.cuda.get_device_name(),'cudnn':torch.backends.cudnn.version(),
             'deterministic_algorithms':torch.are_deterministic_algorithms_enabled(),

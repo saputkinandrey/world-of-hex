@@ -50,14 +50,20 @@ def prepare(image, mode, method, size=512, margin=0.08):
     dimensions = tuple(round(value*scale) for value in cropped.size)
     offset = [(size-dimensions[0])//2,(size-dimensions[1])//2]
     result = Image.new('RGBA',(size,size),'white')
-    result.alpha_composite(cropped.resize(dimensions,METHODS[method]),tuple(offset))
+    scaled = cropped.resize(dimensions,METHODS[method])
+    result.alpha_composite(scaled,tuple(offset))
+    # Keep the historical white-composited RGB bytes; restore source coverage
+    # independently on the exact same resized grid and placement.
+    alpha = Image.new('L',(size,size),0)
+    alpha.paste(scaled.getchannel('A'),tuple(offset))
+    result.putalpha(alpha)
     scales = [dimensions[0]/cropped.width,dimensions[1]/cropped.height]
     transform = {'crop':list(box),'scale':scales,
                  'offset':[offset[i]-box[i]*scales[i] for i in range(2)],
                  'native_size':list(image.size),'input_size':[size,size],
                  'resampling':method,'margin_fraction':margin,'mode':mode,
                  'coordinates':'edge: model = native * scale + offset; center index: model = (native + .5) * scale + offset - .5'}
-    return result.convert('RGB'), transform
+    return result, transform
 
 
 def project(labels, transform):
@@ -85,7 +91,11 @@ def prepare_view(view):
             key = f'{view}-{mode}-{method}-512'
             result,transform = prepare(image,mode,method,margin=config['content_margin_fraction'])
             path = folder/(key+'.png')
-            if not path.exists() or not np.array_equal(np.asarray(Image.open(path).convert('RGB')),np.asarray(result)):
+            matches = False
+            if path.exists():
+                with Image.open(path) as saved:
+                    matches = saved.mode == result.mode and np.array_equal(np.asarray(saved),np.asarray(result))
+            if not matches:
                 result.save(path)
             records[key] = {'source':source.relative_to(REPO).as_posix(),
                             'source_sha256':sha(source),'input':str(path),

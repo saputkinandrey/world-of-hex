@@ -1,0 +1,213 @@
+{
+  "model": "layerdiff",
+  "input": {
+    "source": "C:\\Users\\\u0410\u043d\u0434\u0440\u0435\u0439\\Desktop\\world-of-hex\\godot\\assets\\Character\\Character1\\idle\\Char1_south_west_idle\\Idle_body_SW1.png",
+    "source_sha256": "12048d52ee5492292a65c1167143cfc021a0d368cb69d3b198f60a698d44c0a7",
+    "source_frame_sha256": "360f063eafb49373170a61a041841e5d66078b67ed9b00659769b0414ba774fe",
+    "frame_size": 150,
+    "input": "C:\\Users\\\u0410\u043d\u0434\u0440\u0435\u0439\\Desktop\\world-of-hex\\godot\\modules\\character-animation-workbench\\neural\\evidence\\experiments\\sw-head-consistency-02\\input\\input.png",
+    "input_sha256": "ef93e052248cd28b5f64f994b66e225ba8f90c6ec3a714ff55cf6f6661aa3b33",
+    "input_mode": "RGBA",
+    "transform": {
+      "crop": [
+        47,
+        23,
+        105,
+        127
+      ],
+      "scale": [
+        4.931034482758621,
+        4.923076923076923
+      ],
+      "offset": [
+        -118.75862068965517,
+        -113.23076923076924
+      ],
+      "native_size": [
+        150,
+        150
+      ],
+      "input_size": [
+        512,
+        512
+      ],
+      "resampling": "bicubic",
+      "margin_fraction": 0.08,
+      "mode": "crop",
+      "coordinates": "edge: model = native * scale + offset; center index: model = (native + .5) * scale + offset - .5"
+    }
+  },
+  "parameters": {
+    "seed": 404,
+    "steps": 20,
+    "resolution": 512,
+    "depth_resolution": 512
+  },
+  "contract": {
+    "models": {
+      "24yearsold/seethroughv0.0.2_layerdiff3d_nf4": "96f9311ff449dc86cfaba101ce4dfb4fd4958b80",
+      "24yearsold/seethroughv0.0.1_marigold_nf4": "e53b344b5aa5beec7c141bd5601decaaff0898c9"
+    },
+    "seed": 42,
+    "steps": 20,
+    "resolution": 512,
+    "depth_resolution": 512,
+    "local_worker_sha256": "f9cad597f9fe06fda14c79e718f2eb495dda794956277e322b10de1463579f2b",
+    "parameters_sha256": "f4e7f4e0418099622f5af4a0e692277af2ccb96535f8f8b8fd9f5b60fec9d5d9",
+    "quant_mode": "nf4",
+    "cpu_offload": true,
+    "group_offload": false,
+    "tblr_split": true,
+    "head_policy": "not requested: body-only",
+    "implementation": {
+      "common/modules/layerdiffuse/diffusers_kdiffusion_sdxl.py": "dfd5408669be2a48baaddc516deb87abefd05e24799ca47ea57337b492c7b57f",
+      "inference/scripts/inference_psd_quantized.py": "7d73091de39f0a26cc495056c9c863c65cf98453fe1a34bd466b7d3a24165be7"
+    },
+    "mode": "body-only",
+    "preprocessing_sha256": "02af8056edc88a92eb88a24c73ab841f87de8142af3081efc2d65d620a529358",
+    "guidance_scale": 1.0,
+    "strength": 1.0,
+    "body_tags": [
+      "front hair",
+      "back hair",
+      "head",
+      "neck",
+      "neckwear",
+      "topwear",
+      "handwear",
+      "bottomwear",
+      "legwear",
+      "footwear",
+      "tail",
+      "wings",
+      "objects"
+    ]
+  },
+  "mode": "body-only",
+  "started_utc": "2026-10-24T11:42:54.286425+00:00",
+  "cache_used": false,
+  "exit_code": 0,
+  "stages": {
+    "layerdiff": "success",
+    "body": "success",
+    "head": "not_requested",
+    "depth": "not_requested",
+    "export": "not_requested"
+  },
+  "provenance": {
+    "stages": {
+      "layerdiff": {
+        "outcome": "success"
+      },
+      "body": {
+        "outcome": "success"
+      },
+      "head": {
+        "outcome": "not_requested"
+      },
+      "depth": {
+        "outcome": "not_requested"
+      },
+      "export": {
+        "outcome": "not_requested"
+      }
+    },
+    "body_complete": true,
+    "mode": "body-only",
+    "input_mode": "RGBA",
+    "parameters": {
+      "seed": 404,
+      "steps": 20,
+      "resolution": 512,
+      "depth_resolution": 512
+    },
+    "runtime": {
+      "torch": "2.8.0+cu128",
+      "cuda": "12.8",
+      "device": "NVIDIA GeForce RTX 3060 Laptop GPU",
+      "cudnn": 91002,
+      "deterministic_algorithms": false,
+      "cudnn_benchmark": false,
+      "cudnn_deterministic": false
+    },
+    "elapsed_seconds": 184.96262764930725,
+    "peak_allocated_gib": 3.577329635620117
+  },
+  "outcome": "completed",
+  "original_head_coordinates_available": false,
+  "classes": null,
+  "files": {
+    "inference.log": {
+      "sha256": "e18fc6417160f6ec5419586cdd6e7d14248dcc3446979a83c8660abdf28b92f6",
+      "bytes": 222876
+    },
+    "input.png": {
+      "sha256": "ef93e052248cd28b5f64f994b66e225ba8f90c6ec3a714ff55cf6f6661aa3b33",
+      "bytes": 96269
+    },
+    "raw/layers/back hair.png": {
+      "sha256": "fdac83b1ae819f9679e969db53233b07f329b69fdc325dc8fa42abf93e02ce79",
+      "bytes": 338192
+    },
+    "raw/layers/bottomwear.png": {
+      "sha256": "bcbaac9dd69c716cc7dbdca8766515b31ab5aa988c0cdc13f1ed90762173fb81",
+      "bytes": 128180
+    },
+    "raw/layers/footwear.png": {
+      "sha256": "e8b87ca2a1b9748b2acd1d1d053c78eadc5b2d760c9fa79a2635af12dc93eb13",
+      "bytes": 132043
+    },
+    "raw/layers/front hair.png": {
+      "sha256": "2f47f2e3562de6f9ab7c056ec8dbea13b03eaaf5ded6b5717a53fd296f343a8d",
+      "bytes": 321770
+    },
+    "raw/layers/handwear.png": {
+      "sha256": "f6a0d44b435f36c3e9829c5eb98895c021c3ed17f76ec5727ebd4b207a8b7ead",
+      "bytes": 173494
+    },
+    "raw/layers/head.png": {
+      "sha256": "6cb49a683ff8a210dcafe0e4747503c18180aab9c5397b0591b303394961f124",
+      "bytes": 133716
+    },
+    "raw/layers/legwear.png": {
+      "sha256": "98f09a2a0c1d6ab0893227f225cee942778d779595848ccade83324acdce24a5",
+      "bytes": 128760
+    },
+    "raw/layers/neck.png": {
+      "sha256": "fd86c02243ef5a6524d8611c116d43e762f58122dfe09fbca4fae1f135b1d70e",
+      "bytes": 279027
+    },
+    "raw/layers/neckwear.png": {
+      "sha256": "dbf38d28bcd4e1bf770afe246964a80fa9981a12b7b187e9a803b42e9ad44c37",
+      "bytes": 292421
+    },
+    "raw/layers/objects.png": {
+      "sha256": "79ce73447d457ffefb8b4b4bb451da158758520201c9f4d831ec29c1a54922c5",
+      "bytes": 321378
+    },
+    "raw/layers/src_img.png": {
+      "sha256": "ef93e052248cd28b5f64f994b66e225ba8f90c6ec3a714ff55cf6f6661aa3b33",
+      "bytes": 96269
+    },
+    "raw/layers/tail.png": {
+      "sha256": "56a881fe4fe4df6b07c80b3bc5b7549f640790df316d128d9e001b16ab354546",
+      "bytes": 284253
+    },
+    "raw/layers/topwear.png": {
+      "sha256": "afdddd72135f24a09d2dc8aa2060cf31b2f9e05ef1943783210712f55a134e7e",
+      "bytes": 176362
+    },
+    "raw/layers/wings.png": {
+      "sha256": "6f00fdee0e3d8be4b8fa5d425124a22626de426b5a140592d8eb6cbefc172170",
+      "bytes": 372740
+    },
+    "request.json": {
+      "sha256": "bf7fb2d7256c76cbb476e26ceb0b11021c2e3497e8ab281397ae72ac26d8d94e",
+      "bytes": 2889
+    },
+    "result.json": {
+      "sha256": "dc1b9618d60d889b76315d5fb70e9453c0ee0ea74437ca6fd9d964feabf696b4",
+      "bytes": 793
+    }
+  }
+}
