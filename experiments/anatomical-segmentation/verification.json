@@ -1,0 +1,44 @@
+{
+  "outcome": "passed",
+  "historical_files_checked": 205,
+  "historical_changed_files": [],
+  "neural_inference_required": false,
+  "runs": {
+    "sw-head-consistency-02-v1-validated": {
+      "area": 774,
+      "max_s4": "452785773",
+      "max_p4": "91934469411120",
+      "initialization": "two_layer_original",
+      "artifact_checks": "passed"
+    },
+    "three-layer-technical": {
+      "area": 1116,
+      "max_s4": "7289423846",
+      "max_p4": "7590456696950400",
+      "initialization": "experimental_pairwise_products",
+      "artifact_checks": "passed"
+    },
+    "single-layer-baseline": {
+      "area": 754,
+      "max_s4": "5",
+      "max_p4": "0",
+      "initialization": "single_layer_baseline",
+      "artifact_checks": "passed"
+    },
+    "thirteen-layer-technical": {
+      "area": 834,
+      "max_s4": "2022790792898987908",
+      "max_p4": "233145941606410738876551759360",
+      "initialization": "experimental_pairwise_products",
+      "artifact_checks": "passed"
+    }
+  },
+  "checks": [
+    "RGBA source colors preserved outside mask",
+    "nearest-neighbor preview matches exactly",
+    "binary numeric and PNG masks agree",
+    "S4 threshold recalculated from exact decimal values",
+    "all output checksums verified",
+    "real 13-layer P4 exceeds int64 without overflow"
+  ]
+}
