@@ -1,0 +1,785 @@
+{
+  "statuses": {
+    "laya_english": {
+      "model": "laya_english",
+      "device": "cuda",
+      "outcome": "completed",
+      "completed": 3,
+      "total": 3,
+      "case_failures": 0
+    },
+    "laya_multilingual": {
+      "model": "laya_multilingual",
+      "device": "cuda",
+      "outcome": "completed",
+      "completed": 3,
+      "total": 3,
+      "case_failures": 0
+    },
+    "qwen3_1_7b": {
+      "model": "qwen3_1_7b",
+      "device": "cuda",
+      "outcome": "completed",
+      "completed": 3,
+      "total": 3,
+      "case_failures": 0
+    },
+    "verdict_1_4": {
+      "model": "verdict_1_4",
+      "device": "cuda",
+      "outcome": "completed",
+      "completed": 3,
+      "total": 3,
+      "case_failures": 0
+    }
+  },
+  "results": [
+    {
+      "model": "laya_english",
+      "case_id": "guard.wounded.en.c0.original",
+      "repeat": 0,
+      "language": "en",
+      "case_sha256": "43a483190a756e26acab13f0066b538d51e47026434b7e1116587dfb63ec01c5",
+      "state_sha256": "b0c252cef704bec75fb72e6d835485af0c4444ba30767cebbd34c17fb69119db",
+      "character_id": "guard",
+      "scenario_id": "wounded",
+      "context_variant": 0,
+      "order_variant": "original",
+      "action_order": [
+        "help",
+        "bargain",
+        "leave",
+        "seek_help"
+      ],
+      "probability_kind": "native_choice_distribution_rounded_by_official_sdk",
+      "outcome": "completed",
+      "selected_action": "help",
+      "probabilities": {
+        "help": 0.7674,
+        "bargain": 0.0311,
+        "leave": 0.1097,
+        "seek_help": 0.0918
+      },
+      "abstained": false,
+      "raw_response": {
+        "model": "laya-rl-agent",
+        "answers": {
+          "action": {
+            "type": "choice",
+            "choice": "help",
+            "probabilities": {
+              "help": 0.7674,
+              "bargain": 0.0311,
+              "leave": 0.1097,
+              "seek_help": 0.0918
+            },
+            "confidence": 0.4425,
+            "answer_confidence": 0.7674,
+            "action": {
+              "act_probability": 1.0
+            }
+          }
+        },
+        "usage": {
+          "input_tokens": 157,
+          "output_tokens": 0,
+          "state_tokens": 93,
+          "state_tokens_dropped": 0,
+          "truncated": false,
+          "truncated_questions": []
+        }
+      },
+      "token_upper_bound": 172,
+      "wall_seconds": 0.09055909999733558,
+      "rss_baseline_bytes": 1878335488,
+      "rss_sampled_peak_bytes": 1878388736,
+      "rss_sampled_delta_bytes": 53248,
+      "rss_sample_interval_seconds": 0.01,
+      "process_lifetime_peak_rss_bytes": 3266265088,
+      "cuda_peak_allocated_bytes": 2429061632,
+      "cuda_peak_reserved_bytes": 2619342848
+    },
+    {
+      "model": "laya_english",
+      "case_id": "guard.wounded.en.c0.reversed",
+      "repeat": 0,
+      "language": "en",
+      "case_sha256": "48c1529880774236404aba7c8580e43f16a6ed3dc7e22d9179d4a7ae306fc384",
+      "state_sha256": "b0c252cef704bec75fb72e6d835485af0c4444ba30767cebbd34c17fb69119db",
+      "character_id": "guard",
+      "scenario_id": "wounded",
+      "context_variant": 0,
+      "order_variant": "reversed",
+      "action_order": [
+        "seek_help",
+        "leave",
+        "bargain",
+        "help"
+      ],
+      "probability_kind": "native_choice_distribution_rounded_by_official_sdk",
+      "outcome": "completed",
+      "selected_action": "seek_help",
+      "probabilities": {
+        "seek_help": 0.4252,
+        "leave": 0.1625,
+        "bargain": 0.0369,
+        "help": 0.3755
+      },
+      "abstained": false,
+      "raw_response": {
+        "model": "laya-rl-agent",
+        "answers": {
+          "action": {
+            "type": "choice",
+            "choice": "seek_help",
+            "probabilities": {
+              "seek_help": 0.4252,
+              "leave": 0.1625,
+              "bargain": 0.0369,
+              "help": 0.3755
+            },
+            "confidence": 0.1717,
+            "answer_confidence": 0.4252,
+            "action": {
+              "act_probability": 1.0
+            }
+          }
+        },
+        "usage": {
+          "input_tokens": 157,
+          "output_tokens": 0,
+          "state_tokens": 93,
+          "state_tokens_dropped": 0,
+          "truncated": false,
+          "truncated_questions": []
+        }
+      },
+      "token_upper_bound": 172,
+      "wall_seconds": 0.09245420000661397,
+      "rss_baseline_bytes": 1878396928,
+      "rss_sampled_peak_bytes": 1878458368,
+      "rss_sampled_delta_bytes": 61440,
+      "rss_sample_interval_seconds": 0.01,
+      "process_lifetime_peak_rss_bytes": 3266265088,
+      "cuda_peak_allocated_bytes": 2429061632,
+      "cuda_peak_reserved_bytes": 2619342848
+    },
+    {
+      "model": "laya_english",
+      "case_id": "guard.wounded.en.c0.rotated",
+      "repeat": 0,
+      "language": "en",
+      "case_sha256": "a04db653ed5d382b752f7957f4238744434777412a37103ba3a4a5e1c7aef3d3",
+      "state_sha256": "b0c252cef704bec75fb72e6d835485af0c4444ba30767cebbd34c17fb69119db",
+      "character_id": "guard",
+      "scenario_id": "wounded",
+      "context_variant": 0,
+      "order_variant": "rotated",
+      "action_order": [
+        "bargain",
+        "leave",
+        "seek_help",
+        "help"
+      ],
+      "probability_kind": "native_choice_distribution_rounded_by_official_sdk",
+      "outcome": "completed",
+      "selected_action": "help",
+      "probabilities": {
+        "bargain": 0.0431,
+        "leave": 0.1699,
+        "seek_help": 0.2167,
+        "help": 0.5703
+      },
+      "abstained": false,
+      "raw_response": {
+        "model": "laya-rl-agent",
+        "answers": {
+          "action": {
+            "type": "choice",
+            "choice": "help",
+            "probabilities": {
+              "bargain": 0.0431,
+              "leave": 0.1699,
+              "seek_help": 0.2167,
+              "help": 0.5703
+            },
+            "confidence": 0.215,
+            "answer_confidence": 0.5703,
+            "action": {
+              "act_probability": 1.0
+            }
+          }
+        },
+        "usage": {
+          "input_tokens": 157,
+          "output_tokens": 0,
+          "state_tokens": 93,
+          "state_tokens_dropped": 0,
+          "truncated": false,
+          "truncated_questions": []
+        }
+      },
+      "token_upper_bound": 172,
+      "wall_seconds": 0.09248780000052648,
+      "rss_baseline_bytes": 1878458368,
+      "rss_sampled_peak_bytes": 1878638592,
+      "rss_sampled_delta_bytes": 180224,
+      "rss_sample_interval_seconds": 0.01,
+      "process_lifetime_peak_rss_bytes": 3266265088,
+      "cuda_peak_allocated_bytes": 2429061632,
+      "cuda_peak_reserved_bytes": 2619342848
+    },
+    {
+      "model": "laya_multilingual",
+      "case_id": "guard.wounded.en.c0.original",
+      "repeat": 0,
+      "language": "en",
+      "case_sha256": "43a483190a756e26acab13f0066b538d51e47026434b7e1116587dfb63ec01c5",
+      "state_sha256": "b0c252cef704bec75fb72e6d835485af0c4444ba30767cebbd34c17fb69119db",
+      "character_id": "guard",
+      "scenario_id": "wounded",
+      "context_variant": 0,
+      "order_variant": "original",
+      "action_order": [
+        "help",
+        "bargain",
+        "leave",
+        "seek_help"
+      ],
+      "probability_kind": "native_choice_distribution_rounded_by_official_sdk",
+      "outcome": "completed",
+      "selected_action": "help",
+      "probabilities": {
+        "help": 0.3522,
+        "bargain": 0.0132,
+        "leave": 0.3315,
+        "seek_help": 0.303
+      },
+      "abstained": false,
+      "raw_response": {
+        "model": "laya-rl-agent",
+        "answers": {
+          "action": {
+            "type": "choice",
+            "choice": "help",
+            "probabilities": {
+              "help": 0.3522,
+              "bargain": 0.0132,
+              "leave": 0.3315,
+              "seek_help": 0.303
+            },
+            "confidence": 0.1686,
+            "answer_confidence": 0.3522,
+            "action": {
+              "act_probability": 1.0
+            }
+          }
+        },
+        "usage": {
+          "input_tokens": 147,
+          "output_tokens": 0,
+          "state_tokens": 87,
+          "state_tokens_dropped": 0,
+          "truncated": false,
+          "truncated_questions": []
+        }
+      },
+      "token_upper_bound": 162,
+      "wall_seconds": 0.062024500002735294,
+      "rss_baseline_bytes": 2676535296,
+      "rss_sampled_peak_bytes": 2676609024,
+      "rss_sampled_delta_bytes": 73728,
+      "rss_sample_interval_seconds": 0.01,
+      "process_lifetime_peak_rss_bytes": 2741149696,
+      "cuda_peak_allocated_bytes": 1572542464,
+      "cuda_peak_reserved_bytes": 1589641216
+    },
+    {
+      "model": "laya_multilingual",
+      "case_id": "guard.wounded.en.c0.reversed",
+      "repeat": 0,
+      "language": "en",
+      "case_sha256": "48c1529880774236404aba7c8580e43f16a6ed3dc7e22d9179d4a7ae306fc384",
+      "state_sha256": "b0c252cef704bec75fb72e6d835485af0c4444ba30767cebbd34c17fb69119db",
+      "character_id": "guard",
+      "scenario_id": "wounded",
+      "context_variant": 0,
+      "order_variant": "reversed",
+      "action_order": [
+        "seek_help",
+        "leave",
+        "bargain",
+        "help"
+      ],
+      "probability_kind": "native_choice_distribution_rounded_by_official_sdk",
+      "outcome": "completed",
+      "selected_action": "seek_help",
+      "probabilities": {
+        "seek_help": 0.5682,
+        "leave": 0.278,
+        "bargain": 0.0134,
+        "help": 0.1404
+      },
+      "abstained": false,
+      "raw_response": {
+        "model": "laya-rl-agent",
+        "answers": {
+          "action": {
+            "type": "choice",
+            "choice": "seek_help",
+            "probabilities": {
+              "seek_help": 0.5682,
+              "leave": 0.278,
+              "bargain": 0.0134,
+              "help": 0.1404
+            },
+            "confidence": 0.2711,
+            "answer_confidence": 0.5682,
+            "action": {
+              "act_probability": 1.0
+            }
+          }
+        },
+        "usage": {
+          "input_tokens": 147,
+          "output_tokens": 0,
+          "state_tokens": 87,
+          "state_tokens_dropped": 0,
+          "truncated": false,
+          "truncated_questions": []
+        }
+      },
+      "token_upper_bound": 162,
+      "wall_seconds": 0.06163929999456741,
+      "rss_baseline_bytes": 2676596736,
+      "rss_sampled_peak_bytes": 2676637696,
+      "rss_sampled_delta_bytes": 40960,
+      "rss_sample_interval_seconds": 0.01,
+      "process_lifetime_peak_rss_bytes": 2741149696,
+      "cuda_peak_allocated_bytes": 1572542464,
+      "cuda_peak_reserved_bytes": 1589641216
+    },
+    {
+      "model": "laya_multilingual",
+      "case_id": "guard.wounded.en.c0.rotated",
+      "repeat": 0,
+      "language": "en",
+      "case_sha256": "a04db653ed5d382b752f7957f4238744434777412a37103ba3a4a5e1c7aef3d3",
+      "state_sha256": "b0c252cef704bec75fb72e6d835485af0c4444ba30767cebbd34c17fb69119db",
+      "character_id": "guard",
+      "scenario_id": "wounded",
+      "context_variant": 0,
+      "order_variant": "rotated",
+      "action_order": [
+        "bargain",
+        "leave",
+        "seek_help",
+        "help"
+      ],
+      "probability_kind": "native_choice_distribution_rounded_by_official_sdk",
+      "outcome": "completed",
+      "selected_action": "leave",
+      "probabilities": {
+        "bargain": 0.0337,
+        "leave": 0.4998,
+        "seek_help": 0.1919,
+        "help": 0.2745
+      },
+      "abstained": false,
+      "raw_response": {
+        "model": "laya-rl-agent",
+        "answers": {
+          "action": {
+            "type": "choice",
+            "choice": "leave",
+            "probabilities": {
+              "bargain": 0.0337,
+              "leave": 0.4998,
+              "seek_help": 0.1919,
+              "help": 0.2745
+            },
+            "confidence": 0.1829,
+            "answer_confidence": 0.4998,
+            "action": {
+              "act_probability": 1.0
+            }
+          }
+        },
+        "usage": {
+          "input_tokens": 147,
+          "output_tokens": 0,
+          "state_tokens": 87,
+          "state_tokens_dropped": 0,
+          "truncated": false,
+          "truncated_questions": []
+        }
+      },
+      "token_upper_bound": 162,
+      "wall_seconds": 0.07299999999668216,
+      "rss_baseline_bytes": 2676633600,
+      "rss_sampled_peak_bytes": 2676662272,
+      "rss_sampled_delta_bytes": 28672,
+      "rss_sample_interval_seconds": 0.01,
+      "process_lifetime_peak_rss_bytes": 2741149696,
+      "cuda_peak_allocated_bytes": 1572542464,
+      "cuda_peak_reserved_bytes": 1589641216
+    },
+    {
+      "model": "qwen3_1_7b",
+      "case_id": "guard.wounded.en.c0.original",
+      "repeat": 0,
+      "language": "en",
+      "case_sha256": "43a483190a756e26acab13f0066b538d51e47026434b7e1116587dfb63ec01c5",
+      "state_sha256": "b0c252cef704bec75fb72e6d835485af0c4444ba30767cebbd34c17fb69119db",
+      "character_id": "guard",
+      "scenario_id": "wounded",
+      "context_variant": 0,
+      "order_variant": "original",
+      "action_order": [
+        "help",
+        "bargain",
+        "leave",
+        "seek_help"
+      ],
+      "probability_kind": "conditional_next_letter_token_distribution_not_calibrated",
+      "outcome": "completed",
+      "selected_action": "help",
+      "probabilities": {
+        "help": 1.0,
+        "bargain": 2.2159490242756874e-08,
+        "leave": 4.363462480228009e-09,
+        "seek_help": 1.4166087192180044e-09
+      },
+      "abstained": false,
+      "input_tokens": 158,
+      "actual_prompt": "<|im_start|>user\nWhich allowed action best fits this character in this situation?\n{\"character\":{\"name\":\"Mara\",\"biography\":\"A former town guard dismissed for refusing an unlawful arrest.\",\"motivation\":\"Protect civilians; respect fair rules.\",\"traits\":{\"courage\":0.8,\"compassion\":0.7,\"greed\":0.1}},\"situation\":{\"description\":\"A wounded traveler requests help beside a road. You have one medical kit.\",\"context\":\"The traveler is unarmed. The road is safe.\"}}\nA: Use your kit to treat the traveler.\nB: Demand payment before treatment.\nC: Leave quickly and keep the kit.\nD: Seek nearby guards and report the traveler.\nAnswer with only the letter of an allowed action.<|im_end|>\n<|im_start|>assistant\n<think>\n\n</think>\n\n",
+      "raw_response": {
+        "letter": "A",
+        "label_logits": [
+          46.5,
+          28.875,
+          27.25,
+          26.125
+        ],
+        "label_token_ids": [
+          32,
+          33,
+          34,
+          35
+        ],
+        "unconditional_label_probability_mass": 0.9999994039535522,
+        "decision_rule": "argmax restricted to allowed single-letter tokens; not free text generation"
+      },
+      "wall_seconds": 0.10530999999900814,
+      "rss_baseline_bytes": 1431269376,
+      "rss_sampled_peak_bytes": 1431408640,
+      "rss_sampled_delta_bytes": 139264,
+      "rss_sample_interval_seconds": 0.01,
+      "process_lifetime_peak_rss_bytes": 4926992384,
+      "cuda_peak_allocated_bytes": 3499094016,
+      "cuda_peak_reserved_bytes": 3527409664
+    },
+    {
+      "model": "qwen3_1_7b",
+      "case_id": "guard.wounded.en.c0.reversed",
+      "repeat": 0,
+      "language": "en",
+      "case_sha256": "48c1529880774236404aba7c8580e43f16a6ed3dc7e22d9179d4a7ae306fc384",
+      "state_sha256": "b0c252cef704bec75fb72e6d835485af0c4444ba30767cebbd34c17fb69119db",
+      "character_id": "guard",
+      "scenario_id": "wounded",
+      "context_variant": 0,
+      "order_variant": "reversed",
+      "action_order": [
+        "seek_help",
+        "leave",
+        "bargain",
+        "help"
+      ],
+      "probability_kind": "conditional_next_letter_token_distribution_not_calibrated",
+      "outcome": "completed",
+      "selected_action": "help",
+      "probabilities": {
+        "seek_help": 4.8473686869998645e-11,
+        "leave": 1.917171560394948e-10,
+        "bargain": 2.4616969573898473e-10,
+        "help": 1.0
+      },
+      "abstained": false,
+      "input_tokens": 158,
+      "actual_prompt": "<|im_start|>user\nWhich allowed action best fits this character in this situation?\n{\"character\":{\"name\":\"Mara\",\"biography\":\"A former town guard dismissed for refusing an unlawful arrest.\",\"motivation\":\"Protect civilians; respect fair rules.\",\"traits\":{\"courage\":0.8,\"compassion\":0.7,\"greed\":0.1}},\"situation\":{\"description\":\"A wounded traveler requests help beside a road. You have one medical kit.\",\"context\":\"The traveler is unarmed. The road is safe.\"}}\nA: Seek nearby guards and report the traveler.\nB: Leave quickly and keep the kit.\nC: Demand payment before treatment.\nD: Use your kit to treat the traveler.\nAnswer with only the letter of an allowed action.<|im_end|>\n<|im_start|>assistant\n<think>\n\n</think>\n\n",
+      "raw_response": {
+        "letter": "D",
+        "label_logits": [
+          24.0,
+          25.375,
+          25.625,
+          47.75
+        ],
+        "label_token_ids": [
+          32,
+          33,
+          34,
+          35
+        ],
+        "unconditional_label_probability_mass": 1.0,
+        "decision_rule": "argmax restricted to allowed single-letter tokens; not free text generation"
+      },
+      "wall_seconds": 0.13562200000160374,
+      "rss_baseline_bytes": 1431388160,
+      "rss_sampled_peak_bytes": 1431502848,
+      "rss_sampled_delta_bytes": 114688,
+      "rss_sample_interval_seconds": 0.01,
+      "process_lifetime_peak_rss_bytes": 4926992384,
+      "cuda_peak_allocated_bytes": 3499094016,
+      "cuda_peak_reserved_bytes": 3527409664
+    },
+    {
+      "model": "qwen3_1_7b",
+      "case_id": "guard.wounded.en.c0.rotated",
+      "repeat": 0,
+      "language": "en",
+      "case_sha256": "a04db653ed5d382b752f7957f4238744434777412a37103ba3a4a5e1c7aef3d3",
+      "state_sha256": "b0c252cef704bec75fb72e6d835485af0c4444ba30767cebbd34c17fb69119db",
+      "character_id": "guard",
+      "scenario_id": "wounded",
+      "context_variant": 0,
+      "order_variant": "rotated",
+      "action_order": [
+        "bargain",
+        "leave",
+        "seek_help",
+        "help"
+      ],
+      "probability_kind": "conditional_next_letter_token_distribution_not_calibrated",
+      "outcome": "completed",
+      "selected_action": "help",
+      "probabilities": {
+        "bargain": 3.775134718719819e-11,
+        "leave": 1.917171560394948e-10,
+        "seek_help": 2.1724398668876432e-10,
+        "help": 1.0
+      },
+      "abstained": false,
+      "input_tokens": 158,
+      "actual_prompt": "<|im_start|>user\nWhich allowed action best fits this character in this situation?\n{\"character\":{\"name\":\"Mara\",\"biography\":\"A former town guard dismissed for refusing an unlawful arrest.\",\"motivation\":\"Protect civilians; respect fair rules.\",\"traits\":{\"courage\":0.8,\"compassion\":0.7,\"greed\":0.1}},\"situation\":{\"description\":\"A wounded traveler requests help beside a road. You have one medical kit.\",\"context\":\"The traveler is unarmed. The road is safe.\"}}\nA: Demand payment before treatment.\nB: Leave quickly and keep the kit.\nC: Seek nearby guards and report the traveler.\nD: Use your kit to treat the traveler.\nAnswer with only the letter of an allowed action.<|im_end|>\n<|im_start|>assistant\n<think>\n\n</think>\n\n",
+      "raw_response": {
+        "letter": "D",
+        "label_logits": [
+          24.25,
+          25.875,
+          26.0,
+          48.25
+        ],
+        "label_token_ids": [
+          32,
+          33,
+          34,
+          35
+        ],
+        "unconditional_label_probability_mass": 1.0,
+        "decision_rule": "argmax restricted to allowed single-letter tokens; not free text generation"
+      },
+      "wall_seconds": 0.13599739999335725,
+      "rss_baseline_bytes": 1431482368,
+      "rss_sampled_peak_bytes": 1431519232,
+      "rss_sampled_delta_bytes": 36864,
+      "rss_sample_interval_seconds": 0.01,
+      "process_lifetime_peak_rss_bytes": 4926992384,
+      "cuda_peak_allocated_bytes": 3499094016,
+      "cuda_peak_reserved_bytes": 3527409664
+    },
+    {
+      "model": "verdict_1_4",
+      "case_id": "guard.wounded.en.c0.original",
+      "repeat": 0,
+      "language": "en",
+      "case_sha256": "43a483190a756e26acab13f0066b538d51e47026434b7e1116587dfb63ec01c5",
+      "state_sha256": "b0c252cef704bec75fb72e6d835485af0c4444ba30767cebbd34c17fb69119db",
+      "character_id": "guard",
+      "scenario_id": "wounded",
+      "context_variant": 0,
+      "order_variant": "original",
+      "action_order": [
+        "help",
+        "bargain",
+        "leave",
+        "seek_help"
+      ],
+      "probability_kind": "native_distribution_including_abstention",
+      "outcome": "completed",
+      "selected_action": "help",
+      "probabilities": {
+        "help": 0.36767473953841157,
+        "bargain": 0.0380136111304671,
+        "leave": 0.12099490359796175,
+        "seek_help": 0.21679966232478493,
+        "__insufficient_evidence__": 0.25651708340837465
+      },
+      "abstained": false,
+      "raw_response": {
+        "results": [
+          {
+            "kind": "choice",
+            "id": "action",
+            "selected_id": "help",
+            "selected_probability": 0.36767473953841157,
+            "probabilities": {
+              "help": 0.36767473953841157,
+              "bargain": 0.0380136111304671,
+              "leave": 0.12099490359796175,
+              "seek_help": 0.21679966232478493,
+              "__insufficient_evidence__": 0.25651708340837465
+            },
+            "is_abstention": false,
+            "concentration": 0.11263120081532119,
+            "model_id": "D:\\gamedev\\huggingface\\decision-models\\verdict_1_4\\8af2496eb63c7fa66d7d234e1f62629380030eb4",
+            "calibration_status": "calibrated_for_scope",
+            "latency_ms": 100.66950000327779
+          }
+        ],
+        "forward_call_count": 1,
+        "total_latency_ms": 100.66950000327779,
+        "execution_mode": "single_call"
+      },
+      "input_tokens": 163,
+      "actual_prompt": "<<LABEL>>It is Use your kit to treat the traveler.<<LABEL>>It is Demand payment before treatment.<<LABEL>>It is Leave quickly and keep the kit.<<LABEL>>It is Seek nearby guards and report the traveler.<<LABEL>>insufficient evidence<<SEP>>Question: Which allowed action best fits this character in this situation?\n\nContext:\n{\"character\":{\"name\":\"Mara\",\"biography\":\"A former town guard dismissed for refusing an unlawful arrest.\",\"motivation\":\"Protect civilians; respect fair rules.\",\"traits\":{\"courage\":0.8,\"compassion\":0.7,\"greed\":0.1}},\"situation\":{\"description\":\"A wounded traveler requests help beside a road. You have one medical kit.\",\"context\":\"The traveler is unarmed. The road is safe.\"}}",
+      "wall_seconds": 0.10281250000116415,
+      "rss_baseline_bytes": 1184538624,
+      "rss_sampled_peak_bytes": 1184759808,
+      "rss_sampled_delta_bytes": 221184,
+      "rss_sample_interval_seconds": 0.01,
+      "process_lifetime_peak_rss_bytes": 1403281408,
+      "cuda_peak_allocated_bytes": 639795200,
+      "cuda_peak_reserved_bytes": 643825664
+    },
+    {
+      "model": "verdict_1_4",
+      "case_id": "guard.wounded.en.c0.reversed",
+      "repeat": 0,
+      "language": "en",
+      "case_sha256": "48c1529880774236404aba7c8580e43f16a6ed3dc7e22d9179d4a7ae306fc384",
+      "state_sha256": "b0c252cef704bec75fb72e6d835485af0c4444ba30767cebbd34c17fb69119db",
+      "character_id": "guard",
+      "scenario_id": "wounded",
+      "context_variant": 0,
+      "order_variant": "reversed",
+      "action_order": [
+        "seek_help",
+        "leave",
+        "bargain",
+        "help"
+      ],
+      "probability_kind": "native_distribution_including_abstention",
+      "outcome": "completed",
+      "selected_action": "help",
+      "probabilities": {
+        "seek_help": 0.23907085451618698,
+        "leave": 0.10723757384293466,
+        "bargain": 0.032850327731471694,
+        "help": 0.36954717589197833,
+        "__insufficient_evidence__": 0.2512940680174283
+      },
+      "abstained": false,
+      "raw_response": {
+        "results": [
+          {
+            "kind": "choice",
+            "id": "action",
+            "selected_id": "help",
+            "selected_probability": 0.36954717589197833,
+            "probabilities": {
+              "seek_help": 0.23907085451618698,
+              "leave": 0.10723757384293466,
+              "bargain": 0.032850327731471694,
+              "help": 0.36954717589197833,
+              "__insufficient_evidence__": 0.2512940680174283
+            },
+            "is_abstention": false,
+            "concentration": 0.12472841912953603,
+            "model_id": "D:\\gamedev\\huggingface\\decision-models\\verdict_1_4\\8af2496eb63c7fa66d7d234e1f62629380030eb4",
+            "calibration_status": "calibrated_for_scope",
+            "latency_ms": 63.86029999703169
+          }
+        ],
+        "forward_call_count": 1,
+        "total_latency_ms": 63.86029999703169,
+        "execution_mode": "single_call"
+      },
+      "input_tokens": 163,
+      "actual_prompt": "<<LABEL>>It is Seek nearby guards and report the traveler.<<LABEL>>It is Leave quickly and keep the kit.<<LABEL>>It is Demand payment before treatment.<<LABEL>>It is Use your kit to treat the traveler.<<LABEL>>insufficient evidence<<SEP>>Question: Which allowed action best fits this character in this situation?\n\nContext:\n{\"character\":{\"name\":\"Mara\",\"biography\":\"A former town guard dismissed for refusing an unlawful arrest.\",\"motivation\":\"Protect civilians; respect fair rules.\",\"traits\":{\"courage\":0.8,\"compassion\":0.7,\"greed\":0.1}},\"situation\":{\"description\":\"A wounded traveler requests help beside a road. You have one medical kit.\",\"context\":\"The traveler is unarmed. The road is safe.\"}}",
+      "wall_seconds": 0.06576949999725912,
+      "rss_baseline_bytes": 1184739328,
+      "rss_sampled_peak_bytes": 1184759808,
+      "rss_sampled_delta_bytes": 20480,
+      "rss_sample_interval_seconds": 0.01,
+      "process_lifetime_peak_rss_bytes": 1403281408,
+      "cuda_peak_allocated_bytes": 639795200,
+      "cuda_peak_reserved_bytes": 643825664
+    },
+    {
+      "model": "verdict_1_4",
+      "case_id": "guard.wounded.en.c0.rotated",
+      "repeat": 0,
+      "language": "en",
+      "case_sha256": "a04db653ed5d382b752f7957f4238744434777412a37103ba3a4a5e1c7aef3d3",
+      "state_sha256": "b0c252cef704bec75fb72e6d835485af0c4444ba30767cebbd34c17fb69119db",
+      "character_id": "guard",
+      "scenario_id": "wounded",
+      "context_variant": 0,
+      "order_variant": "rotated",
+      "action_order": [
+        "bargain",
+        "leave",
+        "seek_help",
+        "help"
+      ],
+      "probability_kind": "native_distribution_including_abstention",
+      "outcome": "completed",
+      "selected_action": "help",
+      "probabilities": {
+        "bargain": 0.031229644956852712,
+        "leave": 0.1396037254353558,
+        "seek_help": 0.21141813886016872,
+        "help": 0.359579958270977,
+        "__insufficient_evidence__": 0.2581685324766458
+      },
+      "abstained": false,
+      "raw_response": {
+        "results": [
+          {
+            "kind": "choice",
+            "id": "action",
+            "selected_id": "help",
+            "selected_probability": 0.359579958270977,
+            "probabilities": {
+              "bargain": 0.031229644956852712,
+              "leave": 0.1396037254353558,
+              "seek_help": 0.21141813886016872,
+              "help": 0.359579958270977,
+              "__insufficient_evidence__": 0.2581685324766458
+            },
+            "is_abstention": false,
+            "concentration": 0.11209068971217806,
+            "model_id": "D:\\gamedev\\huggingface\\decision-models\\verdict_1_4\\8af2496eb63c7fa66d7d234e1f62629380030eb4",
+            "calibration_status": "calibrated_for_scope",
+            "latency_ms": 59.46620000031544
+          }
+        ],
+        "forward_call_count": 1,
+        "total_latency_ms": 59.46620000031544,
+        "execution_mode": "single_call"
+      },
+      "input_tokens": 163,
+      "actual_prompt": "<<LABEL>>It is Demand payment before treatment.<<LABEL>>It is Leave quickly and keep the kit.<<LABEL>>It is Seek nearby guards and report the traveler.<<LABEL>>It is Use your kit to treat the traveler.<<LABEL>>insufficient evidence<<SEP>>Question: Which allowed action best fits this character in this situation?\n\nContext:\n{\"character\":{\"name\":\"Mara\",\"biography\":\"A former town guard dismissed for refusing an unlawful arrest.\",\"motivation\":\"Protect civilians; respect fair rules.\",\"traits\":{\"courage\":0.8,\"compassion\":0.7,\"greed\":0.1}},\"situation\":{\"description\":\"A wounded traveler requests help beside a road. You have one medical kit.\",\"context\":\"The traveler is unarmed. The road is safe.\"}}",
+      "wall_seconds": 0.06117729999823496,
+      "rss_baseline_bytes": 1184739328,
+      "rss_sampled_peak_bytes": 1184759808,
+      "rss_sampled_delta_bytes": 20480,
+      "rss_sample_interval_seconds": 0.01,
+      "process_lifetime_peak_rss_bytes": 1403281408,
+      "cuda_peak_allocated_bytes": 639795200,
+      "cuda_peak_reserved_bytes": 643825664
+    }
+  ]
+}

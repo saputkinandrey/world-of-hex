@@ -1,0 +1,281 @@
+{
+  "models": {
+    "laya_english": {
+      "outcome": "completed",
+      "successful_decisions": 192,
+      "failed_decisions": 0,
+      "median_seconds": 0.11181864999889513,
+      "p95_seconds": 0.30325730000186013,
+      "abstentions": 0,
+      "sensitivity": {
+        "order": {
+          "comparisons": 128,
+          "choice_change_rate": 0.359375
+        },
+        "context": {
+          "comparisons": 32,
+          "choice_change_rate": 0.125
+        },
+        "character": {
+          "comparisons": 8,
+          "choice_change_rate": 0.5
+        },
+        "repeat": {
+          "comparisons": 32,
+          "choice_change_rate": 0.0
+        }
+      },
+      "memory": {
+        "rss_sampled_peak_bytes": 1813442560,
+        "cuda_peak_allocated_bytes": 2434416640,
+        "cuda_peak_reserved_bytes": 2640314368
+      },
+      "by_language": {
+        "en": {
+          "decisions": 96,
+          "median_seconds": 0.11738444999718922,
+          "sensitivity": {
+            "order": {
+              "comparisons": 64,
+              "choice_change_rate": 0.0625
+            },
+            "context": {
+              "comparisons": 16,
+              "choice_change_rate": 0.0
+            },
+            "repeat": {
+              "comparisons": 16,
+              "choice_change_rate": 0.0
+            }
+          }
+        },
+        "ru": {
+          "decisions": 96,
+          "median_seconds": 0.11012080000364222,
+          "sensitivity": {
+            "order": {
+              "comparisons": 64,
+              "choice_change_rate": 0.65625
+            },
+            "context": {
+              "comparisons": 16,
+              "choice_change_rate": 0.25
+            },
+            "repeat": {
+              "comparisons": 16,
+              "choice_change_rate": 0.0
+            }
+          }
+        }
+      }
+    },
+    "laya_multilingual": {
+      "outcome": "completed",
+      "successful_decisions": 192,
+      "failed_decisions": 0,
+      "median_seconds": 0.13411099999939324,
+      "p95_seconds": 0.26284680000389926,
+      "abstentions": 0,
+      "sensitivity": {
+        "order": {
+          "comparisons": 128,
+          "choice_change_rate": 0.265625
+        },
+        "context": {
+          "comparisons": 32,
+          "choice_change_rate": 0.4375
+        },
+        "character": {
+          "comparisons": 8,
+          "choice_change_rate": 0.25
+        },
+        "repeat": {
+          "comparisons": 32,
+          "choice_change_rate": 0.0
+        }
+      },
+      "memory": {
+        "rss_sampled_peak_bytes": 2696318976,
+        "cuda_peak_allocated_bytes": 1574759424,
+        "cuda_peak_reserved_bytes": 1591738368
+      },
+      "by_language": {
+        "en": {
+          "decisions": 96,
+          "median_seconds": 0.1361253499999293,
+          "sensitivity": {
+            "order": {
+              "comparisons": 64,
+              "choice_change_rate": 0.375
+            },
+            "context": {
+              "comparisons": 16,
+              "choice_change_rate": 0.375
+            },
+            "repeat": {
+              "comparisons": 16,
+              "choice_change_rate": 0.0
+            }
+          }
+        },
+        "ru": {
+          "decisions": 96,
+          "median_seconds": 0.13222010000026785,
+          "sensitivity": {
+            "order": {
+              "comparisons": 64,
+              "choice_change_rate": 0.15625
+            },
+            "context": {
+              "comparisons": 16,
+              "choice_change_rate": 0.5
+            },
+            "repeat": {
+              "comparisons": 16,
+              "choice_change_rate": 0.0
+            }
+          }
+        }
+      }
+    },
+    "qwen3_1_7b": {
+      "outcome": "completed",
+      "successful_decisions": 192,
+      "failed_decisions": 0,
+      "median_seconds": 0.11392619999605813,
+      "p95_seconds": 0.14998629999900004,
+      "abstentions": 0,
+      "sensitivity": {
+        "order": {
+          "comparisons": 128,
+          "choice_change_rate": 0.859375
+        },
+        "context": {
+          "comparisons": 32,
+          "choice_change_rate": 0.1875
+        },
+        "character": {
+          "comparisons": 8,
+          "choice_change_rate": 0.5
+        },
+        "repeat": {
+          "comparisons": 32,
+          "choice_change_rate": 0.0
+        }
+      },
+      "memory": {
+        "rss_sampled_peak_bytes": 1378308096,
+        "cuda_peak_allocated_bytes": 3527513600,
+        "cuda_peak_reserved_bytes": 3802136576
+      },
+      "by_language": {
+        "en": {
+          "decisions": 96,
+          "median_seconds": 0.11475325000355951,
+          "sensitivity": {
+            "order": {
+              "comparisons": 64,
+              "choice_change_rate": 0.71875
+            },
+            "context": {
+              "comparisons": 16,
+              "choice_change_rate": 0.375
+            },
+            "repeat": {
+              "comparisons": 16,
+              "choice_change_rate": 0.0
+            }
+          }
+        },
+        "ru": {
+          "decisions": 96,
+          "median_seconds": 0.11251065000033122,
+          "sensitivity": {
+            "order": {
+              "comparisons": 64,
+              "choice_change_rate": 1.0
+            },
+            "context": {
+              "comparisons": 16,
+              "choice_change_rate": 0.0
+            },
+            "repeat": {
+              "comparisons": 16,
+              "choice_change_rate": 0.0
+            }
+          }
+        }
+      }
+    },
+    "verdict_1_4": {
+      "outcome": "completed",
+      "successful_decisions": 192,
+      "failed_decisions": 0,
+      "median_seconds": 0.0642313499993179,
+      "p95_seconds": 0.19622260000323877,
+      "abstentions": 14,
+      "sensitivity": {
+        "order": {
+          "comparisons": 128,
+          "choice_change_rate": 0.34375
+        },
+        "context": {
+          "comparisons": 32,
+          "choice_change_rate": 0.125
+        },
+        "character": {
+          "comparisons": 8,
+          "choice_change_rate": 0.5
+        },
+        "repeat": {
+          "comparisons": 32,
+          "choice_change_rate": 0.0
+        }
+      },
+      "memory": {
+        "rss_sampled_peak_bytes": 1207398400,
+        "cuda_peak_allocated_bytes": 646201344,
+        "cuda_peak_reserved_bytes": 668991488
+      },
+      "by_language": {
+        "en": {
+          "decisions": 96,
+          "median_seconds": 0.08621675000540563,
+          "sensitivity": {
+            "order": {
+              "comparisons": 64,
+              "choice_change_rate": 0.34375
+            },
+            "context": {
+              "comparisons": 16,
+              "choice_change_rate": 0.25
+            },
+            "repeat": {
+              "comparisons": 16,
+              "choice_change_rate": 0.0
+            }
+          }
+        },
+        "ru": {
+          "decisions": 96,
+          "median_seconds": 0.05464320000100997,
+          "sensitivity": {
+            "order": {
+              "comparisons": 64,
+              "choice_change_rate": 0.34375
+            },
+            "context": {
+              "comparisons": 16,
+              "choice_change_rate": 0.0
+            },
+            "repeat": {
+              "comparisons": 16,
+              "choice_change_rate": 0.0
+            }
+          }
+        }
+      }
+    }
+  },
+  "interpretation": "Sensitivity statistics are not accuracy or proof of believable roleplay; language slices must be inspected separately."
+}

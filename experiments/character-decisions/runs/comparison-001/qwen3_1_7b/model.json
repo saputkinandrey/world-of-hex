@@ -1,0 +1,43 @@
+{
+  "model": {
+    "repo": "Qwen/Qwen3-1.7B",
+    "revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+    "path": "D:\\gamedev\\huggingface\\decision-models\\qwen3_1_7b\\70d244cc86ccca08cf5af4e1e306ecf908b1ad5e"
+  },
+  "adapter": {
+    "sdk": "transformers.AutoModelForCausalLM",
+    "dtype": "torch.bfloat16",
+    "enable_thinking": false,
+    "generation": false,
+    "probability_kind": "conditional_next_letter_token_distribution_not_calibrated"
+  },
+  "load": {
+    "wall_seconds": 68.14648889999808,
+    "rss_baseline_bytes": 443912192,
+    "rss_sampled_peak_bytes": 4797120512,
+    "rss_sampled_delta_bytes": 4353208320,
+    "rss_sample_interval_seconds": 0.01,
+    "process_lifetime_peak_rss_bytes": 4832108544,
+    "cuda_peak_allocated_bytes": 3441689600,
+    "cuda_peak_reserved_bytes": 3451912192
+  },
+  "warmup": {
+    "wall_seconds": 1.0599780999982613,
+    "rss_baseline_bytes": 735166464,
+    "rss_sampled_peak_bytes": 1358372864,
+    "rss_sampled_delta_bytes": 623206400,
+    "rss_sample_interval_seconds": 0.01,
+    "process_lifetime_peak_rss_bytes": 4832108544,
+    "cuda_peak_allocated_bytes": 3499094016,
+    "cuda_peak_reserved_bytes": 3527409664
+  },
+  "versions": {
+    "torch": "2.8.0+cu128",
+    "transformers": "5.20.1",
+    "numpy": "2.5.4",
+    "psutil": "7.2.2"
+  },
+  "platform": "Windows-11-10.0.26200-SP0",
+  "gpu": "NVIDIA GeForce RTX 3060 Laptop GPU",
+  "timing": "one unmeasured-for-aggregate warmup; CUDA synchronized; model loading separate"
+}

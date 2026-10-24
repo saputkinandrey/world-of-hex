@@ -1,0 +1,82 @@
+{
+  "model": {
+    "repo": "heman10x/rlcd-modernbert-151m",
+    "revision": "8af2496eb63c7fa66d7d234e1f62629380030eb4",
+    "path": "D:\\gamedev\\huggingface\\decision-models\\verdict_1_4\\8af2496eb63c7fa66d7d234e1f62629380030eb4"
+  },
+  "adapter": {
+    "sdk": "Verdict official DecisionEngine",
+    "engine_release": "1.4",
+    "probability_kind": "native_distribution_including_abstention",
+    "calibrator": {
+      "model_id": "openjev-modernbert-151.4m",
+      "temperature": 2.8039,
+      "log_temperature": 1.0309995577626943,
+      "scope": "open_domain_calibrated_v1",
+      "per_k": {
+        "2": 5.0069,
+        "3": 5.0069,
+        "4": 4.0314,
+        "5": 3.056,
+        "6": 2.3898,
+        "7": 2.3898,
+        "9": 1.6668,
+        "11": 3.3919,
+        "17": 1.72,
+        "25": 1.5144
+      },
+      "artifact_hash": "b4742a033bce3fb4707e78d910dc89d53c30656d028b1836a992ba87e0766324",
+      "format_version": "rlcd-calibrator-v1",
+      "provenance": {
+        "fitted_on": [
+          "data/real_banking_cal.jsonl",
+          "data/synthetic_calibration.jsonl",
+          "data/slice_cardinality_k3.jsonl",
+          "data/slice_cardinality_k5.jsonl",
+          "data/slice_cardinality_k9.jsonl",
+          "data/slice_cardinality_k17.jsonl",
+          "data/slice_cardinality_k25.jsonl",
+          "data/slice_distant_oos.jsonl",
+          "data/slice_missing_option.jsonl",
+          "data/gen/T01.jsonl",
+          "data/gen/T02.jsonl",
+          "data/gen/T03.jsonl",
+          "data/gen/T07.jsonl",
+          "data/gen/T12.jsonl"
+        ],
+        "total_calibration_items": 1753,
+        "date": "2026-09-20T14:00:00Z",
+        "notes": "Honest stratified temperature scaling fitted strictly via NLL minimization on held-out calibration data. Zero fitting on JevBench evaluation tasks."
+      }
+    }
+  },
+  "load": {
+    "wall_seconds": 17.864074099998106,
+    "rss_baseline_bytes": 443031552,
+    "rss_sampled_peak_bytes": 1377792000,
+    "rss_sampled_delta_bytes": 934760448,
+    "rss_sample_interval_seconds": 0.01,
+    "process_lifetime_peak_rss_bytes": 1401274368,
+    "cuda_peak_allocated_bytes": 625235456,
+    "cuda_peak_reserved_bytes": 639631360
+  },
+  "warmup": {
+    "wall_seconds": 0.4953752999936114,
+    "rss_baseline_bytes": 752246784,
+    "rss_sampled_peak_bytes": 1205985280,
+    "rss_sampled_delta_bytes": 453738496,
+    "rss_sample_interval_seconds": 0.01,
+    "process_lifetime_peak_rss_bytes": 1401274368,
+    "cuda_peak_allocated_bytes": 639795200,
+    "cuda_peak_reserved_bytes": 643825664
+  },
+  "versions": {
+    "torch": "2.8.0+cu128",
+    "transformers": "5.20.1",
+    "numpy": "2.5.4",
+    "psutil": "7.2.2"
+  },
+  "platform": "Windows-11-10.0.26200-SP0",
+  "gpu": "NVIDIA GeForce RTX 3060 Laptop GPU",
+  "timing": "one unmeasured-for-aggregate warmup; CUDA synchronized; model loading separate"
+}

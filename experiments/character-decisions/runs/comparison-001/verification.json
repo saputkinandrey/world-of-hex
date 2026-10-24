@@ -1,0 +1,16 @@
+{
+  "outcome": "passed",
+  "cases_per_model": 96,
+  "repeats": 2,
+  "models": 4,
+  "completed_decisions": 768,
+  "failed_decisions": 0,
+  "checks": [
+    "identical case and state hashes across models",
+    "all case/repeat pairs present exactly once",
+    "stable action IDs and order",
+    "probability distributions valid including abstention",
+    "finite timings and populated RAM/CUDA measurements",
+    "CSV contains same 768 decisions"
+  ]
+}

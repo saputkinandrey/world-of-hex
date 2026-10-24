@@ -1,0 +1,125 @@
+{
+  "schema": "character-decisions/1",
+  "cases": [
+    {
+      "id": "guard.wounded.en.c0.original",
+      "language": "en",
+      "character_id": "guard",
+      "scenario_id": "wounded",
+      "context_variant": 0,
+      "order_variant": "original",
+      "character": {
+        "name": "Mara",
+        "biography": "A former town guard dismissed for refusing an unlawful arrest.",
+        "motivation": "Protect civilians; respect fair rules.",
+        "traits": {
+          "courage": 0.8,
+          "compassion": 0.7,
+          "greed": 0.1
+        }
+      },
+      "situation": {
+        "description": "A wounded traveler requests help beside a road. You have one medical kit.",
+        "context": "The traveler is unarmed. The road is safe."
+      },
+      "actions": [
+        {
+          "id": "help",
+          "description": "Use your kit to treat the traveler."
+        },
+        {
+          "id": "bargain",
+          "description": "Demand payment before treatment."
+        },
+        {
+          "id": "leave",
+          "description": "Leave quickly and keep the kit."
+        },
+        {
+          "id": "seek_help",
+          "description": "Seek nearby guards and report the traveler."
+        }
+      ]
+    },
+    {
+      "id": "guard.wounded.en.c0.reversed",
+      "language": "en",
+      "character_id": "guard",
+      "scenario_id": "wounded",
+      "context_variant": 0,
+      "order_variant": "reversed",
+      "character": {
+        "name": "Mara",
+        "biography": "A former town guard dismissed for refusing an unlawful arrest.",
+        "motivation": "Protect civilians; respect fair rules.",
+        "traits": {
+          "courage": 0.8,
+          "compassion": 0.7,
+          "greed": 0.1
+        }
+      },
+      "situation": {
+        "description": "A wounded traveler requests help beside a road. You have one medical kit.",
+        "context": "The traveler is unarmed. The road is safe."
+      },
+      "actions": [
+        {
+          "id": "seek_help",
+          "description": "Seek nearby guards and report the traveler."
+        },
+        {
+          "id": "leave",
+          "description": "Leave quickly and keep the kit."
+        },
+        {
+          "id": "bargain",
+          "description": "Demand payment before treatment."
+        },
+        {
+          "id": "help",
+          "description": "Use your kit to treat the traveler."
+        }
+      ]
+    },
+    {
+      "id": "guard.wounded.en.c0.rotated",
+      "language": "en",
+      "character_id": "guard",
+      "scenario_id": "wounded",
+      "context_variant": 0,
+      "order_variant": "rotated",
+      "character": {
+        "name": "Mara",
+        "biography": "A former town guard dismissed for refusing an unlawful arrest.",
+        "motivation": "Protect civilians; respect fair rules.",
+        "traits": {
+          "courage": 0.8,
+          "compassion": 0.7,
+          "greed": 0.1
+        }
+      },
+      "situation": {
+        "description": "A wounded traveler requests help beside a road. You have one medical kit.",
+        "context": "The traveler is unarmed. The road is safe."
+      },
+      "actions": [
+        {
+          "id": "bargain",
+          "description": "Demand payment before treatment."
+        },
+        {
+          "id": "leave",
+          "description": "Leave quickly and keep the kit."
+        },
+        {
+          "id": "seek_help",
+          "description": "Seek nearby guards and report the traveler."
+        },
+        {
+          "id": "help",
+          "description": "Use your kit to treat the traveler."
+        }
+      ]
+    }
+  ]
+}

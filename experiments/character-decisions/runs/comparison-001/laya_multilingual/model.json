@@ -1,0 +1,67 @@
+{
+  "model": {
+    "repo": "convaiinnovations/laya-multilingual",
+    "revision": "1720e3e3357cfe1e281542e223f8273b0890ca34",
+    "path": "D:\\gamedev\\huggingface\\decision-models\\laya_multilingual\\1720e3e3357cfe1e281542e223f8273b0890ca34"
+  },
+  "adapter": {
+    "sdk": "laya",
+    "version": "0.4.15",
+    "configuration": {
+      "encoder": "jhu-clsp/mmBERT-base",
+      "head_layers": 2,
+      "max_len": 1024,
+      "head_max_len": 256,
+      "max_prefixes": 6,
+      "act_costs": {
+        "escalate": 0.5
+      },
+      "cost_wrong_act": 3.0,
+      "amp_dtype": "bf16",
+      "model_name": "rl-agent",
+      "temperature": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "temperature_by_options": {},
+      "training": {
+        "updates": 15987,
+        "epochs_completed": 4,
+        "hours": 4.97,
+        "world_size": 1,
+        "fine_tuned_from_checkpoint": false
+      }
+    },
+    "probability_kind": "native_choice_distribution_rounded_by_official_sdk"
+  },
+  "load": {
+    "wall_seconds": 60.71452500000305,
+    "rss_baseline_bytes": 444420096,
+    "rss_sampled_peak_bytes": 2729676800,
+    "rss_sampled_delta_bytes": 2285256704,
+    "rss_sample_interval_seconds": 0.01,
+    "process_lifetime_peak_rss_bytes": 2729676800,
+    "cuda_peak_allocated_bytes": 1307824640,
+    "cuda_peak_reserved_bytes": 1333788672
+  },
+  "warmup": {
+    "wall_seconds": 0.7446879999988596,
+    "rss_baseline_bytes": 1994178560,
+    "rss_sampled_peak_bytes": 2694385664,
+    "rss_sampled_delta_bytes": 700207104,
+    "rss_sample_interval_seconds": 0.01,
+    "process_lifetime_peak_rss_bytes": 2729676800,
+    "cuda_peak_allocated_bytes": 1572542464,
+    "cuda_peak_reserved_bytes": 1589641216
+  },
+  "versions": {
+    "torch": "2.8.0+cu128",
+    "transformers": "5.20.1",
+    "numpy": "2.5.4",
+    "psutil": "7.2.2"
+  },
+  "platform": "Windows-11-10.0.26200-SP0",
+  "gpu": "NVIDIA GeForce RTX 3060 Laptop GPU",
+  "timing": "one unmeasured-for-aggregate warmup; CUDA synchronized; model loading separate"
+}

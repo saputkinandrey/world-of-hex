@@ -1,0 +1,74 @@
+{
+  "model": {
+    "repo": "convaiinnovations/laya",
+    "revision": "7b928d828b7b0e022f929d9bd2e44165aa270148",
+    "path": "D:\\gamedev\\huggingface\\decision-models\\laya_english\\7b928d828b7b0e022f929d9bd2e44165aa270148"
+  },
+  "adapter": {
+    "sdk": "laya",
+    "version": "0.4.15",
+    "configuration": {
+      "encoder": "answerdotai/ModernBERT-large",
+      "head_layers": 2,
+      "max_len": 512,
+      "head_max_len": 192,
+      "max_prefixes": 6,
+      "act_costs": {
+        "escalate": 0.5
+      },
+      "cost_wrong_act": 3.0,
+      "amp_dtype": "bf16",
+      "model_name": "rl-agent",
+      "temperature": [
+        1.6369030475616455,
+        1.2514300346374512,
+        1.983399510383606
+      ],
+      "temperature_by_options": {
+        "choice:3-5": 1.7601518630981445,
+        "choice:6-10": 1.0000158548355103,
+        "score:3-5": 1.2514300346374512,
+        "noul:2": 1.983399510383606,
+        "choice:11+": 0.10058280825614929,
+        "choice:2": 1.9063563346862793
+      },
+      "training": {
+        "updates": 7313,
+        "epochs_completed": 1,
+        "hours": 1.96,
+        "world_size": 1,
+        "fine_tuned_from_checkpoint": true
+      }
+    },
+    "probability_kind": "native_choice_distribution_rounded_by_official_sdk"
+  },
+  "load": {
+    "wall_seconds": 47.739694300005795,
+    "rss_baseline_bytes": 443662336,
+    "rss_sampled_peak_bytes": 3266265088,
+    "rss_sampled_delta_bytes": 2822602752,
+    "rss_sample_interval_seconds": 0.01,
+    "process_lifetime_peak_rss_bytes": 3266265088,
+    "cuda_peak_allocated_bytes": 1685436928,
+    "cuda_peak_reserved_bytes": 1799356416
+  },
+  "warmup": {
+    "wall_seconds": 0.9898192999971798,
+    "rss_baseline_bytes": 1189806080,
+    "rss_sampled_peak_bytes": 1877729280,
+    "rss_sampled_delta_bytes": 687923200,
+    "rss_sample_interval_seconds": 0.01,
+    "process_lifetime_peak_rss_bytes": 3266265088,
+    "cuda_peak_allocated_bytes": 2423556608,
+    "cuda_peak_reserved_bytes": 2619342848
+  },
+  "versions": {
+    "torch": "2.8.0+cu128",
+    "transformers": "5.20.1",
+    "numpy": "2.5.4",
+    "psutil": "7.2.2"
+  },
+  "platform": "Windows-11-10.0.26200-SP0",
+  "gpu": "NVIDIA GeForce RTX 3060 Laptop GPU",
+  "timing": "one unmeasured-for-aggregate warmup; CUDA synchronized; model loading separate"
+}

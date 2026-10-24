@@ -1,0 +1,31 @@
+{
+  "hf_home": "D:/gamedev/huggingface",
+  "upstream_root": "D:/gamedev/decision-tooling/upstream",
+  "device": "cuda",
+  "seed": 42,
+  "max_length": 512,
+  "repeats": 1,
+  "rss_sample_interval_seconds": 0.01,
+  "models": {
+    "laya_multilingual": {
+      "repo": "convaiinnovations/laya-multilingual",
+      "revision": "1720e3e3357cfe1e281542e223f8273b0890ca34"
+    },
+    "laya_english": {
+      "repo": "convaiinnovations/laya",
+      "revision": "7b928d828b7b0e022f929d9bd2e44165aa270148"
+    },
+    "verdict_1_4": {
+      "repo": "heman10x/rlcd-modernbert-151m",
+      "revision": "8af2496eb63c7fa66d7d234e1f62629380030eb4"
+    },
+    "qwen3_1_7b": {
+      "repo": "Qwen/Qwen3-1.7B",
+      "revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e"
+    }
+  },
+  "upstream_revisions": {
+    "laya": "7a77439b0923d6efe00052d50a7f787840bfce98",
+    "verdict": "30f15564821626ca5c1ad5b2638c4eb7078787dd"
+  }
+}

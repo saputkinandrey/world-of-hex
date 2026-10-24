@@ -1,0 +1,23 @@
+verdict_1_4: loading official checkpoint
+Traceback (most recent call last):
+  File "C:\Users\Андрей\Desktop\world-of-hex\experiments\character-decisions\bench.py", line 58, in worker
+    adapter,load_metrics = measured(lambda:load_adapter(model_name,Path(receipt['path']),device,config['max_length']),
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Андрей\Desktop\world-of-hex\experiments\character-decisions\measure.py", line 23, in measured
+    result = call()
+             ^^^^^^
+  File "C:\Users\Андрей\Desktop\world-of-hex\experiments\character-decisions\bench.py", line 58, in <lambda>
+    adapter,load_metrics = measured(lambda:load_adapter(model_name,Path(receipt['path']),device,config['max_length']),
+                                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Андрей\Desktop\world-of-hex\experiments\character-decisions\adapters.py", line 107, in load_adapter
+    return VerdictAdapter(path,device,max_length)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Андрей\Desktop\world-of-hex\experiments\character-decisions\adapters.py", line 35, in __init__
+    self.engine = DecisionEngine(model_name_or_path=str(path),device=device,max_length=max_length)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\gamedev\decision-tooling\upstream\verdict\core\engine_encoder.py", line 83, in __init__
+    self.tokenizer = AutoTokenizer.from_pretrained(model_name_or_path)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Андрей\Desktop\world-of-hex\experiments\character-decisions\.venv\Lib\site-packages\transformers\models\auto\tokenization_auto.py", line 1153, in from_pretrained
+    raise ValueError(
+ValueError: Tokenizer class TokenizersBackend does not exist or is not currently imported.
