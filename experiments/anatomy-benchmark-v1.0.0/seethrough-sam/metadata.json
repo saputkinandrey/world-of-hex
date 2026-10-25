@@ -1,0 +1,145 @@
+{
+  "model": "seethrough-sam",
+  "status": "SUCCESS",
+  "install_status": "SUCCESS",
+  "runs": [
+    {
+      "view": "south-west",
+      "resampling": "nearest",
+      "path": "south-west-nearest",
+      "metrics": {
+        "seconds": 0.6171412000003329,
+        "ram_sampled_peak_bytes": 1378103296,
+        "ram_lifetime_peak_bytes": 1956024320,
+        "ram_sampling_seconds": 0.01,
+        "cuda_peak_allocated_bytes": 2474164224,
+        "cuda_peak_reserved_bytes": 2789212160
+      }
+    },
+    {
+      "view": "south-west",
+      "resampling": "bicubic",
+      "path": "south-west-bicubic",
+      "metrics": {
+        "seconds": 0.815106600002764,
+        "ram_sampled_peak_bytes": 1411149824,
+        "ram_lifetime_peak_bytes": 1956024320,
+        "ram_sampling_seconds": 0.01,
+        "cuda_peak_allocated_bytes": 2474164224,
+        "cuda_peak_reserved_bytes": 2789212160
+      }
+    },
+    {
+      "view": "south",
+      "resampling": "nearest",
+      "path": "south-nearest",
+      "metrics": {
+        "seconds": 0.7723932999979297,
+        "ram_sampled_peak_bytes": 1418551296,
+        "ram_lifetime_peak_bytes": 1956024320,
+        "ram_sampling_seconds": 0.01,
+        "cuda_peak_allocated_bytes": 2474164224,
+        "cuda_peak_reserved_bytes": 2789212160
+      }
+    },
+    {
+      "view": "south",
+      "resampling": "bicubic",
+      "path": "south-bicubic",
+      "metrics": {
+        "seconds": 0.8243320000001404,
+        "ram_sampled_peak_bytes": 1418592256,
+        "ram_lifetime_peak_bytes": 1956024320,
+        "ram_sampling_seconds": 0.01,
+        "cuda_peak_allocated_bytes": 2474164224,
+        "cuda_peak_reserved_bytes": 2789212160
+      }
+    },
+    {
+      "view": "north",
+      "resampling": "nearest",
+      "path": "north-nearest",
+      "metrics": {
+        "seconds": 1.175944200000231,
+        "ram_sampled_peak_bytes": 1418592256,
+        "ram_lifetime_peak_bytes": 1956024320,
+        "ram_sampling_seconds": 0.01,
+        "cuda_peak_allocated_bytes": 2474164224,
+        "cuda_peak_reserved_bytes": 2789212160
+      }
+    },
+    {
+      "view": "north",
+      "resampling": "bicubic",
+      "path": "north-bicubic",
+      "metrics": {
+        "seconds": 0.8523080999984813,
+        "ram_sampled_peak_bytes": 1418600448,
+        "ram_lifetime_peak_bytes": 1956024320,
+        "ram_sampling_seconds": 0.01,
+        "cuda_peak_allocated_bytes": 2474164224,
+        "cuda_peak_reserved_bytes": 2789212160
+      }
+    },
+    {
+      "view": "north-west",
+      "resampling": "nearest",
+      "path": "north-west-nearest",
+      "metrics": {
+        "seconds": 0.7633318000007421,
+        "ram_sampled_peak_bytes": 1418604544,
+        "ram_lifetime_peak_bytes": 1956024320,
+        "ram_sampling_seconds": 0.01,
+        "cuda_peak_allocated_bytes": 2474164224,
+        "cuda_peak_reserved_bytes": 2789212160
+      }
+    },
+    {
+      "view": "north-west",
+      "resampling": "bicubic",
+      "path": "north-west-bicubic",
+      "metrics": {
+        "seconds": 0.692370499997196,
+        "ram_sampled_peak_bytes": 1418620928,
+        "ram_lifetime_peak_bytes": 1956024320,
+        "ram_sampling_seconds": 0.01,
+        "cuda_peak_allocated_bytes": 2474164224,
+        "cuda_peak_reserved_bytes": 2789212160
+      }
+    }
+  ],
+  "python": "3.12.9 (main, Feb  5 2025, 19:15:20) [MSC v.1942 64 bit (AMD64)]",
+  "batch_size": 1,
+  "checkpoint": {
+    "repo": "24yearsold/l2d_sam_iter2",
+    "revision": "0b0608310fb7a89e32ecd7397147a249540cf1e7",
+    "file": "checkpoint-18000.pt",
+    "path": "C:\\Users\\Андрей\\Desktop\\hex-animation-tooling\\cache\\huggingface\\hub\\models--24yearsold--l2d_sam_iter2\\snapshots\\0b0608310fb7a89e32ecd7397147a249540cf1e7\\checkpoint-18000.pt",
+    "sha256": "dda82b916f6c340bc5a6c3a077ff1214f9906906abe3707b1076d55b508f253f"
+  },
+  "backend": "PyTorch CUDA",
+  "torch": "2.8.0+cu128",
+  "cuda": "12.8",
+  "dtype": "bfloat16",
+  "number_of_classes": 19,
+  "gpu": "NVIDIA GeForce RTX 3060 Laptop GPU",
+  "load_metrics": {
+    "seconds": 15.714832900001056,
+    "ram_sampled_peak_bytes": 1956012032,
+    "ram_lifetime_peak_bytes": 1956024320,
+    "ram_sampling_seconds": 0.01,
+    "cuda_peak_allocated_bytes": 1295433728,
+    "cuda_peak_reserved_bytes": 1411383296
+  },
+  "groups": {},
+  "preprocessing": "Official internal bilinear resize 512->1024, RGB 0..255 normalization, logits returned in 512 input coordinates.",
+  "semantics": "Independent class logits thresholded at 0 per official notebook. No anatomical arm/leg subdivisions.",
+  "warmup": {
+    "seconds": 2.9155704000004334,
+    "ram_sampled_peak_bytes": 1358761984,
+    "ram_lifetime_peak_bytes": 1956024320,
+    "ram_sampling_seconds": 0.01,
+    "cuda_peak_allocated_bytes": 2474164224,
+    "cuda_peak_reserved_bytes": 2789212160
+  }
+}

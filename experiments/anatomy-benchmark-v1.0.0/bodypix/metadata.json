@@ -1,0 +1,592 @@
+{
+  "model": "bodypix",
+  "status": "SUCCESS",
+  "install_status": "SUCCESS",
+  "runs": [
+    {
+      "view": "south-west",
+      "resampling": "nearest",
+      "path": "south-west-nearest",
+      "metrics": {
+        "seconds": 6.232774900000001,
+        "ram_sampled_peak_bytes": null,
+        "ram_lifetime_peak_bytes": 203927552,
+        "ram_sampling_seconds": 0.01,
+        "cuda_peak_allocated_bytes": null,
+        "cuda_peak_reserved_bytes": null,
+        "worker_process_wall_seconds": 16.03332859999864,
+        "ram_rss_after_request_bytes": 157085696,
+        "node_worker": {
+          "width": 512,
+          "height": 512,
+          "labels": {
+            "0": "left_face",
+            "1": "right_face",
+            "2": "left_upper_arm_front",
+            "3": "left_upper_arm_back",
+            "4": "right_upper_arm_front",
+            "5": "right_upper_arm_back",
+            "6": "left_lower_arm_front",
+            "7": "left_lower_arm_back",
+            "8": "right_lower_arm_front",
+            "9": "right_lower_arm_back",
+            "10": "left_hand",
+            "11": "right_hand",
+            "12": "torso_front",
+            "13": "torso_back",
+            "14": "left_upper_leg_front",
+            "15": "left_upper_leg_back",
+            "16": "right_upper_leg_front",
+            "17": "right_upper_leg_back",
+            "18": "left_lower_leg_front",
+            "19": "left_lower_leg_back",
+            "20": "right_lower_leg_front",
+            "21": "right_lower_leg_back",
+            "22": "left_feet",
+            "23": "right_feet"
+          },
+          "node": "v24.12.0",
+          "tfjs": "4.22.0",
+          "body_segmentation": "1.0.2",
+          "backend": "cpu",
+          "options": {
+            "segmentBodyParts": true,
+            "multiSegmentation": false,
+            "flipHorizontal": false,
+            "internalResolution": "full",
+            "segmentationThreshold": 0.7
+          },
+          "load_seconds": 0.024606800000000022,
+          "warmup_seconds": 9.007557199999999,
+          "inference_seconds": 6.232774900000001,
+          "internal_model_resolution": [
+            513,
+            513
+          ],
+          "ram_rss_bytes": 157085696,
+          "ram_lifetime_peak_bytes": 203927552,
+          "probabilities": "Not exposed by the public segmentPeople part-mask API. Raw native IDs preserved."
+        }
+      }
+    },
+    {
+      "view": "south-west",
+      "resampling": "bicubic",
+      "path": "south-west-bicubic",
+      "metrics": {
+        "seconds": 5.4675424999999995,
+        "ram_sampled_peak_bytes": null,
+        "ram_lifetime_peak_bytes": 203472896,
+        "ram_sampling_seconds": 0.01,
+        "cuda_peak_allocated_bytes": null,
+        "cuda_peak_reserved_bytes": null,
+        "worker_process_wall_seconds": 11.057734699999855,
+        "ram_rss_after_request_bytes": 157405184,
+        "node_worker": {
+          "width": 512,
+          "height": 512,
+          "labels": {
+            "0": "left_face",
+            "1": "right_face",
+            "2": "left_upper_arm_front",
+            "3": "left_upper_arm_back",
+            "4": "right_upper_arm_front",
+            "5": "right_upper_arm_back",
+            "6": "left_lower_arm_front",
+            "7": "left_lower_arm_back",
+            "8": "right_lower_arm_front",
+            "9": "right_lower_arm_back",
+            "10": "left_hand",
+            "11": "right_hand",
+            "12": "torso_front",
+            "13": "torso_back",
+            "14": "left_upper_leg_front",
+            "15": "left_upper_leg_back",
+            "16": "right_upper_leg_front",
+            "17": "right_upper_leg_back",
+            "18": "left_lower_leg_front",
+            "19": "left_lower_leg_back",
+            "20": "right_lower_leg_front",
+            "21": "right_lower_leg_back",
+            "22": "left_feet",
+            "23": "right_feet"
+          },
+          "node": "v24.12.0",
+          "tfjs": "4.22.0",
+          "body_segmentation": "1.0.2",
+          "backend": "cpu",
+          "options": {
+            "segmentBodyParts": true,
+            "multiSegmentation": false,
+            "flipHorizontal": false,
+            "internalResolution": "full",
+            "segmentationThreshold": 0.7
+          },
+          "load_seconds": 0.015760699999999985,
+          "warmup_seconds": 5.1573614,
+          "inference_seconds": 5.4675424999999995,
+          "internal_model_resolution": [
+            513,
+            513
+          ],
+          "ram_rss_bytes": 157405184,
+          "ram_lifetime_peak_bytes": 203472896,
+          "probabilities": "Not exposed by the public segmentPeople part-mask API. Raw native IDs preserved."
+        }
+      }
+    },
+    {
+      "view": "south",
+      "resampling": "nearest",
+      "path": "south-nearest",
+      "metrics": {
+        "seconds": 5.522278300000001,
+        "ram_sampled_peak_bytes": null,
+        "ram_lifetime_peak_bytes": 204668928,
+        "ram_sampling_seconds": 0.01,
+        "cuda_peak_allocated_bytes": null,
+        "cuda_peak_reserved_bytes": null,
+        "worker_process_wall_seconds": 11.18160700000226,
+        "ram_rss_after_request_bytes": 158040064,
+        "node_worker": {
+          "width": 512,
+          "height": 512,
+          "labels": {
+            "0": "left_face",
+            "1": "right_face",
+            "2": "left_upper_arm_front",
+            "3": "left_upper_arm_back",
+            "4": "right_upper_arm_front",
+            "5": "right_upper_arm_back",
+            "6": "left_lower_arm_front",
+            "7": "left_lower_arm_back",
+            "8": "right_lower_arm_front",
+            "9": "right_lower_arm_back",
+            "10": "left_hand",
+            "11": "right_hand",
+            "12": "torso_front",
+            "13": "torso_back",
+            "14": "left_upper_leg_front",
+            "15": "left_upper_leg_back",
+            "16": "right_upper_leg_front",
+            "17": "right_upper_leg_back",
+            "18": "left_lower_leg_front",
+            "19": "left_lower_leg_back",
+            "20": "right_lower_leg_front",
+            "21": "right_lower_leg_back",
+            "22": "left_feet",
+            "23": "right_feet"
+          },
+          "node": "v24.12.0",
+          "tfjs": "4.22.0",
+          "body_segmentation": "1.0.2",
+          "backend": "cpu",
+          "options": {
+            "segmentBodyParts": true,
+            "multiSegmentation": false,
+            "flipHorizontal": false,
+            "internalResolution": "full",
+            "segmentationThreshold": 0.7
+          },
+          "load_seconds": 0.013569399999999973,
+          "warmup_seconds": 5.2507266,
+          "inference_seconds": 5.522278300000001,
+          "internal_model_resolution": [
+            513,
+            513
+          ],
+          "ram_rss_bytes": 158040064,
+          "ram_lifetime_peak_bytes": 204668928,
+          "probabilities": "Not exposed by the public segmentPeople part-mask API. Raw native IDs preserved."
+        }
+      }
+    },
+    {
+      "view": "south",
+      "resampling": "bicubic",
+      "path": "south-bicubic",
+      "metrics": {
+        "seconds": 5.4701883,
+        "ram_sampled_peak_bytes": null,
+        "ram_lifetime_peak_bytes": 205070336,
+        "ram_sampling_seconds": 0.01,
+        "cuda_peak_allocated_bytes": null,
+        "cuda_peak_reserved_bytes": null,
+        "worker_process_wall_seconds": 12.165561800000432,
+        "ram_rss_after_request_bytes": 158101504,
+        "node_worker": {
+          "width": 512,
+          "height": 512,
+          "labels": {
+            "0": "left_face",
+            "1": "right_face",
+            "2": "left_upper_arm_front",
+            "3": "left_upper_arm_back",
+            "4": "right_upper_arm_front",
+            "5": "right_upper_arm_back",
+            "6": "left_lower_arm_front",
+            "7": "left_lower_arm_back",
+            "8": "right_lower_arm_front",
+            "9": "right_lower_arm_back",
+            "10": "left_hand",
+            "11": "right_hand",
+            "12": "torso_front",
+            "13": "torso_back",
+            "14": "left_upper_leg_front",
+            "15": "left_upper_leg_back",
+            "16": "right_upper_leg_front",
+            "17": "right_upper_leg_back",
+            "18": "left_lower_leg_front",
+            "19": "left_lower_leg_back",
+            "20": "right_lower_leg_front",
+            "21": "right_lower_leg_back",
+            "22": "left_feet",
+            "23": "right_feet"
+          },
+          "node": "v24.12.0",
+          "tfjs": "4.22.0",
+          "body_segmentation": "1.0.2",
+          "backend": "cpu",
+          "options": {
+            "segmentBodyParts": true,
+            "multiSegmentation": false,
+            "flipHorizontal": false,
+            "internalResolution": "full",
+            "segmentationThreshold": 0.7
+          },
+          "load_seconds": 0.01606110000000001,
+          "warmup_seconds": 6.2177187,
+          "inference_seconds": 5.4701883,
+          "internal_model_resolution": [
+            513,
+            513
+          ],
+          "ram_rss_bytes": 158101504,
+          "ram_lifetime_peak_bytes": 205070336,
+          "probabilities": "Not exposed by the public segmentPeople part-mask API. Raw native IDs preserved."
+        }
+      }
+    },
+    {
+      "view": "north",
+      "resampling": "nearest",
+      "path": "north-nearest",
+      "metrics": {
+        "seconds": 5.2421333,
+        "ram_sampled_peak_bytes": null,
+        "ram_lifetime_peak_bytes": 206151680,
+        "ram_sampling_seconds": 0.01,
+        "cuda_peak_allocated_bytes": null,
+        "cuda_peak_reserved_bytes": null,
+        "worker_process_wall_seconds": 12.058907700000418,
+        "ram_rss_after_request_bytes": 159326208,
+        "node_worker": {
+          "width": 512,
+          "height": 512,
+          "labels": {
+            "0": "left_face",
+            "1": "right_face",
+            "2": "left_upper_arm_front",
+            "3": "left_upper_arm_back",
+            "4": "right_upper_arm_front",
+            "5": "right_upper_arm_back",
+            "6": "left_lower_arm_front",
+            "7": "left_lower_arm_back",
+            "8": "right_lower_arm_front",
+            "9": "right_lower_arm_back",
+            "10": "left_hand",
+            "11": "right_hand",
+            "12": "torso_front",
+            "13": "torso_back",
+            "14": "left_upper_leg_front",
+            "15": "left_upper_leg_back",
+            "16": "right_upper_leg_front",
+            "17": "right_upper_leg_back",
+            "18": "left_lower_leg_front",
+            "19": "left_lower_leg_back",
+            "20": "right_lower_leg_front",
+            "21": "right_lower_leg_back",
+            "22": "left_feet",
+            "23": "right_feet"
+          },
+          "node": "v24.12.0",
+          "tfjs": "4.22.0",
+          "body_segmentation": "1.0.2",
+          "backend": "cpu",
+          "options": {
+            "segmentBodyParts": true,
+            "multiSegmentation": false,
+            "flipHorizontal": false,
+            "internalResolution": "full",
+            "segmentationThreshold": 0.7
+          },
+          "load_seconds": 0.013960000000000037,
+          "warmup_seconds": 6.3671074,
+          "inference_seconds": 5.2421333,
+          "internal_model_resolution": [
+            513,
+            513
+          ],
+          "ram_rss_bytes": 159326208,
+          "ram_lifetime_peak_bytes": 206151680,
+          "probabilities": "Not exposed by the public segmentPeople part-mask API. Raw native IDs preserved."
+        }
+      }
+    },
+    {
+      "view": "north",
+      "resampling": "bicubic",
+      "path": "north-bicubic",
+      "metrics": {
+        "seconds": 5.299290600000001,
+        "ram_sampled_peak_bytes": null,
+        "ram_lifetime_peak_bytes": 207056896,
+        "ram_sampling_seconds": 0.01,
+        "cuda_peak_allocated_bytes": null,
+        "cuda_peak_reserved_bytes": null,
+        "worker_process_wall_seconds": 10.901415199998155,
+        "ram_rss_after_request_bytes": 160350208,
+        "node_worker": {
+          "width": 512,
+          "height": 512,
+          "labels": {
+            "0": "left_face",
+            "1": "right_face",
+            "2": "left_upper_arm_front",
+            "3": "left_upper_arm_back",
+            "4": "right_upper_arm_front",
+            "5": "right_upper_arm_back",
+            "6": "left_lower_arm_front",
+            "7": "left_lower_arm_back",
+            "8": "right_lower_arm_front",
+            "9": "right_lower_arm_back",
+            "10": "left_hand",
+            "11": "right_hand",
+            "12": "torso_front",
+            "13": "torso_back",
+            "14": "left_upper_leg_front",
+            "15": "left_upper_leg_back",
+            "16": "right_upper_leg_front",
+            "17": "right_upper_leg_back",
+            "18": "left_lower_leg_front",
+            "19": "left_lower_leg_back",
+            "20": "right_lower_leg_front",
+            "21": "right_lower_leg_back",
+            "22": "left_feet",
+            "23": "right_feet"
+          },
+          "node": "v24.12.0",
+          "tfjs": "4.22.0",
+          "body_segmentation": "1.0.2",
+          "backend": "cpu",
+          "options": {
+            "segmentBodyParts": true,
+            "multiSegmentation": false,
+            "flipHorizontal": false,
+            "internalResolution": "full",
+            "segmentationThreshold": 0.7
+          },
+          "load_seconds": 0.013078599999999994,
+          "warmup_seconds": 5.2009598,
+          "inference_seconds": 5.299290600000001,
+          "internal_model_resolution": [
+            513,
+            513
+          ],
+          "ram_rss_bytes": 160350208,
+          "ram_lifetime_peak_bytes": 207056896,
+          "probabilities": "Not exposed by the public segmentPeople part-mask API. Raw native IDs preserved."
+        }
+      }
+    },
+    {
+      "view": "north-west",
+      "resampling": "nearest",
+      "path": "north-west-nearest",
+      "metrics": {
+        "seconds": 5.427072999999999,
+        "ram_sampled_peak_bytes": null,
+        "ram_lifetime_peak_bytes": 203395072,
+        "ram_sampling_seconds": 0.01,
+        "cuda_peak_allocated_bytes": null,
+        "cuda_peak_reserved_bytes": null,
+        "worker_process_wall_seconds": 10.950242300001264,
+        "ram_rss_after_request_bytes": 157057024,
+        "node_worker": {
+          "width": 512,
+          "height": 512,
+          "labels": {
+            "0": "left_face",
+            "1": "right_face",
+            "2": "left_upper_arm_front",
+            "3": "left_upper_arm_back",
+            "4": "right_upper_arm_front",
+            "5": "right_upper_arm_back",
+            "6": "left_lower_arm_front",
+            "7": "left_lower_arm_back",
+            "8": "right_lower_arm_front",
+            "9": "right_lower_arm_back",
+            "10": "left_hand",
+            "11": "right_hand",
+            "12": "torso_front",
+            "13": "torso_back",
+            "14": "left_upper_leg_front",
+            "15": "left_upper_leg_back",
+            "16": "right_upper_leg_front",
+            "17": "right_upper_leg_back",
+            "18": "left_lower_leg_front",
+            "19": "left_lower_leg_back",
+            "20": "right_lower_leg_front",
+            "21": "right_lower_leg_back",
+            "22": "left_feet",
+            "23": "right_feet"
+          },
+          "node": "v24.12.0",
+          "tfjs": "4.22.0",
+          "body_segmentation": "1.0.2",
+          "backend": "cpu",
+          "options": {
+            "segmentBodyParts": true,
+            "multiSegmentation": false,
+            "flipHorizontal": false,
+            "internalResolution": "full",
+            "segmentationThreshold": 0.7
+          },
+          "load_seconds": 0.013728199999999958,
+          "warmup_seconds": 5.1245153,
+          "inference_seconds": 5.427072999999999,
+          "internal_model_resolution": [
+            513,
+            513
+          ],
+          "ram_rss_bytes": 157057024,
+          "ram_lifetime_peak_bytes": 203395072,
+          "probabilities": "Not exposed by the public segmentPeople part-mask API. Raw native IDs preserved."
+        }
+      }
+    },
+    {
+      "view": "north-west",
+      "resampling": "bicubic",
+      "path": "north-west-bicubic",
+      "metrics": {
+        "seconds": 5.657157,
+        "ram_sampled_peak_bytes": null,
+        "ram_lifetime_peak_bytes": 204898304,
+        "ram_sampling_seconds": 0.01,
+        "cuda_peak_allocated_bytes": null,
+        "cuda_peak_reserved_bytes": null,
+        "worker_process_wall_seconds": 11.26659540000037,
+        "ram_rss_after_request_bytes": 158306304,
+        "node_worker": {
+          "width": 512,
+          "height": 512,
+          "labels": {
+            "0": "left_face",
+            "1": "right_face",
+            "2": "left_upper_arm_front",
+            "3": "left_upper_arm_back",
+            "4": "right_upper_arm_front",
+            "5": "right_upper_arm_back",
+            "6": "left_lower_arm_front",
+            "7": "left_lower_arm_back",
+            "8": "right_lower_arm_front",
+            "9": "right_lower_arm_back",
+            "10": "left_hand",
+            "11": "right_hand",
+            "12": "torso_front",
+            "13": "torso_back",
+            "14": "left_upper_leg_front",
+            "15": "left_upper_leg_back",
+            "16": "right_upper_leg_front",
+            "17": "right_upper_leg_back",
+            "18": "left_lower_leg_front",
+            "19": "left_lower_leg_back",
+            "20": "right_lower_leg_front",
+            "21": "right_lower_leg_back",
+            "22": "left_feet",
+            "23": "right_feet"
+          },
+          "node": "v24.12.0",
+          "tfjs": "4.22.0",
+          "body_segmentation": "1.0.2",
+          "backend": "cpu",
+          "options": {
+            "segmentBodyParts": true,
+            "multiSegmentation": false,
+            "flipHorizontal": false,
+            "internalResolution": "full",
+            "segmentationThreshold": 0.7
+          },
+          "load_seconds": 0.012740700000000004,
+          "warmup_seconds": 5.1841808,
+          "inference_seconds": 5.657157,
+          "internal_model_resolution": [
+            513,
+            513
+          ],
+          "ram_rss_bytes": 158306304,
+          "ram_lifetime_peak_bytes": 204898304,
+          "probabilities": "Not exposed by the public segmentPeople part-mask API. Raw native IDs preserved."
+        }
+      }
+    }
+  ],
+  "python": "3.12.9 (main, Feb  5 2025, 19:15:20) [MSC v.1942 64 bit (AMD64)]",
+  "batch_size": 1,
+  "backend": "TensorFlow.js CPU",
+  "dtype": "float32",
+  "number_of_classes": 24,
+  "checkpoint": "MobileNetV1 multiplier=0.75 outputStride=16 quantBytes=4",
+  "groups": {
+    "upper_arm": {
+      "left": [
+        2,
+        3
+      ],
+      "right": [
+        4,
+        5
+      ]
+    },
+    "lower_arm": {
+      "left": [
+        6,
+        7
+      ],
+      "right": [
+        8,
+        9
+      ]
+    },
+    "upper_leg": {
+      "left": [
+        14,
+        15
+      ],
+      "right": [
+        16,
+        17
+      ]
+    },
+    "lower_leg": {
+      "left": [
+        18,
+        19
+      ],
+      "right": [
+        20,
+        21
+      ]
+    }
+  },
+  "preprocessing": "Official BodyPix, internalResolution=full, segmentationThreshold=0.7, no horizontal flip; 512 square input, internal valid stride size is logged.",
+  "warmup": {
+    "seconds": 15.417502399999648,
+    "ram_sampled_peak_bytes": 40574976,
+    "ram_lifetime_peak_bytes": 40574976,
+    "ram_sampling_seconds": 0.01,
+    "cuda_peak_allocated_bytes": null,
+    "cuda_peak_reserved_bytes": null
+  }
+}

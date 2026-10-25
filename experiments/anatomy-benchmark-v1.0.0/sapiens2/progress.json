@@ -1,0 +1,193 @@
+{
+  "model": "sapiens2",
+  "status": "INFERENCE_FAILED",
+  "install_status": "SUCCESS",
+  "runs": [
+    {
+      "view": "south-west",
+      "resampling": "nearest",
+      "path": "south-west-nearest",
+      "metrics": {
+        "seconds": 1.8272553000024345,
+        "ram_sampled_peak_bytes": 2501562368,
+        "ram_lifetime_peak_bytes": 2502610944,
+        "ram_sampling_seconds": 0.01,
+        "cuda_peak_allocated_bytes": 2290725376,
+        "cuda_peak_reserved_bytes": 2367684608
+      }
+    },
+    {
+      "view": "south-west",
+      "resampling": "bicubic",
+      "path": "south-west-bicubic",
+      "metrics": {
+        "seconds": 1.6583188999975391,
+        "ram_sampled_peak_bytes": 2595405824,
+        "ram_lifetime_peak_bytes": 2595835904,
+        "ram_sampling_seconds": 0.01,
+        "cuda_peak_allocated_bytes": 2290725376,
+        "cuda_peak_reserved_bytes": 2367684608
+      }
+    },
+    {
+      "view": "south",
+      "resampling": "nearest",
+      "path": "south-nearest",
+      "metrics": {
+        "seconds": 1.925410899999406,
+        "ram_sampled_peak_bytes": 2595385344,
+        "ram_lifetime_peak_bytes": 2595983360,
+        "ram_sampling_seconds": 0.01,
+        "cuda_peak_allocated_bytes": 2290725376,
+        "cuda_peak_reserved_bytes": 2367684608
+      }
+    },
+    {
+      "view": "south",
+      "resampling": "bicubic",
+      "path": "south-bicubic",
+      "metrics": {
+        "seconds": 1.6852159000009124,
+        "ram_sampled_peak_bytes": 2595893248,
+        "ram_lifetime_peak_bytes": 2596061184,
+        "ram_sampling_seconds": 0.01,
+        "cuda_peak_allocated_bytes": 2290725376,
+        "cuda_peak_reserved_bytes": 2367684608
+      }
+    },
+    {
+      "view": "north",
+      "resampling": "nearest",
+      "path": "north-nearest",
+      "metrics": {
+        "seconds": 1.9318481999980577,
+        "ram_sampled_peak_bytes": 2595864576,
+        "ram_lifetime_peak_bytes": 2596089856,
+        "ram_sampling_seconds": 0.01,
+        "cuda_peak_allocated_bytes": 2290725376,
+        "cuda_peak_reserved_bytes": 2367684608
+      }
+    },
+    {
+      "view": "north",
+      "resampling": "bicubic",
+      "path": "north-bicubic",
+      "metrics": {
+        "seconds": 1.749894000000495,
+        "ram_sampled_peak_bytes": 2595504128,
+        "ram_lifetime_peak_bytes": 2596089856,
+        "ram_sampling_seconds": 0.01,
+        "cuda_peak_allocated_bytes": 2290725376,
+        "cuda_peak_reserved_bytes": 2367684608
+      }
+    },
+    {
+      "view": "north-west",
+      "resampling": "nearest",
+      "path": "north-west-nearest",
+      "metrics": {
+        "seconds": 1.8466081000005943,
+        "ram_sampled_peak_bytes": 2595356672,
+        "ram_lifetime_peak_bytes": 2596093952,
+        "ram_sampling_seconds": 0.01,
+        "cuda_peak_allocated_bytes": 2290725376,
+        "cuda_peak_reserved_bytes": 2367684608
+      }
+    },
+    {
+      "view": "north-west",
+      "resampling": "bicubic",
+      "path": "north-west-bicubic",
+      "metrics": {
+        "seconds": 1.8012851999992563,
+        "ram_sampled_peak_bytes": 2595667968,
+        "ram_lifetime_peak_bytes": 2596114432,
+        "ram_sampling_seconds": 0.01,
+        "cuda_peak_allocated_bytes": 2290725376,
+        "cuda_peak_reserved_bytes": 2367684608
+      }
+    }
+  ],
+  "python": "3.12.9 (main, Feb  5 2025, 19:15:20) [MSC v.1942 64 bit (AMD64)]",
+  "batch_size": 1,
+  "checkpoint": {
+    "repo": "facebook/sapiens2-seg-0.4b",
+    "revision": "449b3c5335e6722bb94990abdd1aa6e612432f22",
+    "path": "D:\\gamedev\\huggingface\\anatomy-benchmark\\sapiens2\\449b3c5335e6722bb94990abdd1aa6e612432f22",
+    "files": {
+      "config.json": {
+        "sha256": "b7db51e87e88e28551037adce77223a54a207c0a1c3a8f309ef920b4aeb2f703",
+        "bytes": 3917
+      },
+      "model.safetensors": {
+        "sha256": "b85fdb50b7d6123a967d5ee4a505e222baff8d2f7ad6bbf353578c1a61dfbac9",
+        "bytes": 1626451404
+      },
+      "preprocessor_config.json": {
+        "sha256": "c63123e8d940368bb27f2011cfb45e23f5add5d0a73c10b717f114b2ec1dc858",
+        "bytes": 476
+      },
+      "README.md": {
+        "sha256": "d3758f229d24396c107c77aa8a415db69f52154ae645740627af351982443c0d",
+        "bytes": 3344
+      }
+    }
+  },
+  "backend": "PyTorch CUDA",
+  "dtype": "float16",
+  "torch": "2.8.0+cu128",
+  "cuda": "12.8",
+  "number_of_classes": 29,
+  "gpu": "NVIDIA GeForce RTX 3060 Laptop GPU",
+  "load_metrics": {
+    "seconds": 21.285839300002408,
+    "ram_sampled_peak_bytes": 1568358400,
+    "ram_lifetime_peak_bytes": 1568358400,
+    "ram_sampling_seconds": 0.01,
+    "cuda_peak_allocated_bytes": 813748224,
+    "cuda_peak_reserved_bytes": 834666496
+  },
+  "groups": {
+    "upper_arm": {
+      "left": [
+        11
+      ],
+      "right": [
+        20
+      ]
+    },
+    "lower_arm": {
+      "left": [
+        7
+      ],
+      "right": [
+        16
+      ]
+    },
+    "upper_leg": {
+      "left": [
+        12
+      ],
+      "right": [
+        21
+      ]
+    },
+    "lower_leg": {
+      "left": [
+        8
+      ],
+      "right": [
+        17
+      ]
+    }
+  },
+  "preprocessing": "Official Sapiens2ImageProcessor normalization, target 1024x768. External NN/Bicubic resize; no second resize. SDPA; no architecture changes.",
+  "warmup": {
+    "seconds": 2.4903290000002016,
+    "ram_sampled_peak_bytes": 2406879232,
+    "ram_lifetime_peak_bytes": 2407366656,
+    "ram_sampling_seconds": 0.01,
+    "cuda_peak_allocated_bytes": 2290725376,
+    "cuda_peak_reserved_bytes": 2367684608
+  }
+}

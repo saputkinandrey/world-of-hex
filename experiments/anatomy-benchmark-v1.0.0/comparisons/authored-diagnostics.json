@@ -1,0 +1,4682 @@
+{
+  "schp/south-west/nearest": {
+    "authored_reference_is_not_ground_truth": true,
+    "parts": {
+      "upper_arm-both": {
+        "native_ids": [
+          3
+        ],
+        "reference_bones": [
+          "ArmL",
+          "ArmR"
+        ],
+        "iou_unclipped": 0.0,
+        "iou_alpha_diagnostic": 0.0,
+        "predicted_pixels": 0,
+        "predicted_alpha_pixels": 0,
+        "authored_pixels": 444
+      },
+      "lower_arm-both": {
+        "native_ids": [
+          4
+        ],
+        "reference_bones": [
+          "ForearmL",
+          "ForearmR"
+        ],
+        "iou_unclipped": 0.0,
+        "iou_alpha_diagnostic": 0.0,
+        "predicted_pixels": 0,
+        "predicted_alpha_pixels": 0,
+        "authored_pixels": 294
+      },
+      "upper_leg-both": {
+        "native_ids": [
+          5
+        ],
+        "reference_bones": [
+          "ThighL",
+          "ThighR"
+        ],
+        "iou_unclipped": 0.0,
+        "iou_alpha_diagnostic": 0.0,
+        "predicted_pixels": 0,
+        "predicted_alpha_pixels": 0,
+        "authored_pixels": 142
+      },
+      "lower_leg-both": {
+        "native_ids": [
+          6
+        ],
+        "reference_bones": [
+          "CalfL",
+          "CalfR"
+        ],
+        "iou_unclipped": 0.2645739910313901,
+        "iou_alpha_diagnostic": 0.2645739910313901,
+        "predicted_pixels": 168,
+        "predicted_alpha_pixels": 168,
+        "authored_pixels": 114
+      }
+    },
+    "joint_boundary_f1_tolerance_1px": {
+      "upper_arm-both": 0.0,
+      "upper_leg-both": 0.0
+    },
+    "side_reference_iou_matrix": {
+      "upper_arm": {
+        "both": {
+          "both": 0.0
+        }
+      },
+      "lower_arm": {
+        "both": {
+          "both": 0.0
+        }
+      },
+      "upper_leg": {
+        "both": {
+          "both": 0.0
+        }
+      },
+      "lower_leg": {
+        "both": {
+          "both": 0.2645739910313901
+        }
+      }
+    },
+    "side_caveat": "Native model left/right and authored bone suffixes are retained. Cross-side matrix diagnoses naming conventions; no automatic swap or merge."
+  },
+  "bodypix/south-west/nearest": {
+    "authored_reference_is_not_ground_truth": true,
+    "parts": {
+      "upper_arm-left": {
+        "native_ids": [
+          2,
+          3
+        ],
+        "reference_bones": [
+          "ArmL"
+        ],
+        "iou_unclipped": 0.0,
+        "iou_alpha_diagnostic": 0.0,
+        "predicted_pixels": 87,
+        "predicted_alpha_pixels": 87,
+        "authored_pixels": 158
+      },
+      "upper_arm-right": {
+        "native_ids": [
+          4,
+          5
+        ],
+        "reference_bones": [
+          "ArmR"
+        ],
+        "iou_unclipped": 0.0,
+        "iou_alpha_diagnostic": 0.0,
+        "predicted_pixels": 0,
+        "predicted_alpha_pixels": 0,
+        "authored_pixels": 286
+      },
+      "lower_arm-left": {
+        "native_ids": [
+          6,
+          7
+        ],
+        "reference_bones": [
+          "ForearmL"
+        ],
+        "iou_unclipped": 0.0,
+        "iou_alpha_diagnostic": 0.0,
+        "predicted_pixels": 7,
+        "predicted_alpha_pixels": 7,
+        "authored_pixels": 98
+      },
+      "lower_arm-right": {
+        "native_ids": [
+          8,
+          9
+        ],
+        "reference_bones": [
+          "ForearmR"
+        ],
+        "iou_unclipped": 0.0,
+        "iou_alpha_diagnostic": 0.0,
+        "predicted_pixels": 0,
+        "predicted_alpha_pixels": 0,
+        "authored_pixels": 196
+      },
+      "upper_leg-left": {
+        "native_ids": [
+          14,
+          15
+        ],
+        "reference_bones": [
+          "ThighL"
+        ],
+        "iou_unclipped": 0.0,
+        "iou_alpha_diagnostic": 0.0,
+        "predicted_pixels": 164,
+        "predicted_alpha_pixels": 159,
+        "authored_pixels": 43
+      },
+      "upper_leg-right": {
+        "native_ids": [
+          16,
+          17
+        ],
+        "reference_bones": [
+          "ThighR"
+        ],
+        "iou_unclipped": 0.0,
+        "iou_alpha_diagnostic": 0.0,
+        "predicted_pixels": 122,
+        "predicted_alpha_pixels": 122,
+        "authored_pixels": 99
+      },
+      "lower_leg-left": {
+        "native_ids": [
+          18,
+          19
+        ],
+        "reference_bones": [
+          "CalfL"
+        ],
+        "iou_unclipped": 0.0,
+        "iou_alpha_diagnostic": 0.0,
+        "predicted_pixels": 117,
+        "predicted_alpha_pixels": 117,
+        "authored_pixels": 52
+      },
+      "lower_leg-right": {
+        "native_ids": [
+          20,
+          21
+        ],
+        "reference_bones": [
+          "CalfR"
+        ],
+        "iou_unclipped": 0.0,
+        "iou_alpha_diagnostic": 0.0,
+        "predicted_pixels": 55,
+        "predicted_alpha_pixels": 55,
+        "authored_pixels": 62
+      }
+    },
+    "joint_boundary_f1_tolerance_1px": {
+      "upper_arm-left": 0.0,
+      "upper_arm-right": 0.0,
+      "upper_leg-left": 0.04081632653061224,
+      "upper_leg-right": 0.0
+    },
+    "side_reference_iou_matrix": {
+      "upper_arm": {
+        "left": {
+          "left": 0.0,
+          "right": 0.3041958041958042
+        },
+        "right": {
+          "left": 0.0,
+          "right": 0.0
+        }
+      },
+      "lower_arm": {
+        "left": {
+          "left": 0.0,
+          "right": 0.030456852791878174
+        },
+        "right": {
+          "left": 0.0,
+          "right": 0.0
+        }
+      },
+      "upper_leg": {
+        "left": {
+          "left": 0.0,
+          "right": 0.075
+        },
+        "right": {
+          "left": 0.06451612903225806,
+          "right": 0.0
+        }
+      },
+      "lower_leg": {
+        "left": {
+          "left": 0.0,
+          "right": 0.3161764705882353
+        },
+        "right": {
+          "left": 0.3717948717948718,
+          "right": 0.0
+        }
+      }
+    },
+    "side_caveat": "Native model left/right and authored bone suffixes are retained. Cross-side matrix diagnoses naming conventions; no automatic swap or merge."
+  },
+  "sapiens2/south-west/nearest": {
+    "authored_reference_is_not_ground_truth": true,
+    "parts": {
+      "upper_arm-left": {
+        "native_ids": [
+          11
+        ],
+        "reference_bones": [
+          "ArmL"
+        ],
+        "iou_unclipped": 0.0,
+        "iou_alpha_diagnostic": 0.0,
+        "predicted_pixels": 0,
+        "predicted_alpha_pixels": 0,
+        "authored_pixels": 158
+      },
+      "upper_arm-right": {
+        "native_ids": [
+          20
+        ],
+        "reference_bones": [
+          "ArmR"
+        ],
+        "iou_unclipped": 0.0,
+        "iou_alpha_diagnostic": 0.0,
+        "predicted_pixels": 0,
+        "predicted_alpha_pixels": 0,
+        "authored_pixels": 286
+      },
+      "lower_arm-left": {
+        "native_ids": [
+          7
+        ],
+        "reference_bones": [
+          "ForearmL"
+        ],
+        "iou_unclipped": 0.0,
+        "iou_alpha_diagnostic": 0.0,
+        "predicted_pixels": 66,
+        "predicted_alpha_pixels": 66,
+        "authored_pixels": 98
+      },
+      "lower_arm-right": {
+        "native_ids": [
+          16
+        ],
+        "reference_bones": [
+          "ForearmR"
+        ],
+        "iou_unclipped": 0.0,
+        "iou_alpha_diagnostic": 0.0,
+        "predicted_pixels": 0,
+        "predicted_alpha_pixels": 0,
+        "authored_pixels": 196
+      },
+      "upper_leg-left": {
+        "native_ids": [
+          12
+        ],
+        "reference_bones": [
+          "ThighL"
+        ],
+        "iou_unclipped": 0.0,
+        "iou_alpha_diagnostic": 0.0,
+        "predicted_pixels": 0,
+        "predicted_alpha_pixels": 0,
+        "authored_pixels": 43
+      },
+      "upper_leg-right": {
+        "native_ids": [
+          21
+        ],
+        "reference_bones": [
+          "ThighR"
+        ],
+        "iou_unclipped": 0.0,
+        "iou_alpha_diagnostic": 0.0,
+        "predicted_pixels": 0,
+        "predicted_alpha_pixels": 0,
+        "authored_pixels": 99
+      },
+      "lower_leg-left": {
+        "native_ids": [
+          8
+        ],
+        "reference_bones": [
+          "CalfL"
+        ],
+        "iou_unclipped": 0.0,
+        "iou_alpha_diagnostic": 0.0,
+        "predicted_pixels": 0,
+        "predicted_alpha_pixels": 0,
+        "authored_pixels": 52
+      },
+      "lower_leg-right": {
+        "native_ids": [
+          17
+        ],
+        "reference_bones": [
+          "CalfR"
+        ],
+        "iou_unclipped": 0.0,
+        "iou_alpha_diagnostic": 0.0,
+        "predicted_pixels": 0,
+        "predicted_alpha_pixels": 0,
+        "authored_pixels": 62
+      }
+    },
+    "joint_boundary_f1_tolerance_1px": {
+      "upper_arm-left": 0.0,
+      "upper_arm-right": 0.0,
+      "upper_leg-left": 0.0,
+      "upper_leg-right": 0.0
+    },
+    "side_reference_iou_matrix": {
+      "upper_arm": {
+        "left": {
+          "left": 0.0,
+          "right": 0.0
+        },
+        "right": {
+          "left": 0.0,
+          "right": 0.0
+        }
+      },
+      "lower_arm": {
+        "left": {
+          "left": 0.0,
+          "right": 0.24761904761904763
+        },
+        "right": {
+          "left": 0.0,
+          "right": 0.0
+        }
+      },
+      "upper_leg": {
+        "left": {
+          "left": 0.0,
+          "right": 0.0
+        },
+        "right": {
+          "left": 0.0,
+          "right": 0.0
+        }
+      },
+      "lower_leg": {
+        "left": {
+          "left": 0.0,
+          "right": 0.0
+        },
+        "right": {
+          "left": 0.0,
+          "right": 0.0
+        }
+      }
+    },
+    "side_caveat": "Native model left/right and authored bone suffixes are retained. Cross-side matrix diagnoses naming conventions; no automatic swap or merge."
+  },
+  "seethrough-sam/south-west/nearest": {
+    "authored_reference_is_not_ground_truth": true,
+    "parts": {},
+    "joint_boundary_f1_tolerance_1px": {},
+    "side_reference_iou_matrix": {},
+    "side_caveat": "Native model left/right and authored bone suffixes are retained. Cross-side matrix diagnoses naming conventions; no automatic swap or merge."
+  },
+  "densepose/south-west/nearest": {
+    "authored_reference_is_not_ground_truth": true,
+    "parts": {
+      "upper_arm-left": {
+        "native_ids": [
+          15,
+          17
+        ],
+        "reference_bones": [
+          "ArmL"
+        ],
+        "iou_unclipped": 0.0,
+        "iou_alpha_diagnostic": 0.0,
+        "predicted_pixels": 168,
+        "predicted_alpha_pixels": 168,
+        "authored_pixels": 158
+      },
+      "upper_arm-right": {
+        "native_ids": [
+          16,
+          18
+        ],
+        "reference_bones": [
+          "ArmR"
+        ],
+        "iou_unclipped": 0.0,
+        "iou_alpha_diagnostic": 0.0,
+        "predicted_pixels": 0,
+        "predicted_alpha_pixels": 0,
+        "authored_pixels": 286
+      },
+      "lower_arm-left": {
+        "native_ids": [
+          19,
+          21
+        ],
+        "reference_bones": [
+          "ForearmL"
+        ],
+        "iou_unclipped": 0.0,
+        "iou_alpha_diagnostic": 0.0,
+        "predicted_pixels": 61,
+        "predicted_alpha_pixels": 61,
+        "authored_pixels": 98
+      },
+      "lower_arm-right": {
+        "native_ids": [
+          20,
+          22
+        ],
+        "reference_bones": [
+          "ForearmR"
+        ],
+        "iou_unclipped": 0.0,
+        "iou_alpha_diagnostic": 0.0,
+        "predicted_pixels": 0,
+        "predicted_alpha_pixels": 0,
+        "authored_pixels": 196
+      },
+      "upper_leg-left": {
+        "native_ids": [
+          8,
+          10
+        ],
+        "reference_bones": [
+          "ThighL"
+        ],
+        "iou_unclipped": 0.0,
+        "iou_alpha_diagnostic": 0.0,
+        "predicted_pixels": 18,
+        "predicted_alpha_pixels": 18,
+        "authored_pixels": 43
+      },
+      "upper_leg-right": {
+        "native_ids": [
+          7,
+          9
+        ],
+        "reference_bones": [
+          "ThighR"
+        ],
+        "iou_unclipped": 0.0,
+        "iou_alpha_diagnostic": 0.0,
+        "predicted_pixels": 37,
+        "predicted_alpha_pixels": 37,
+        "authored_pixels": 99
+      },
+      "lower_leg-left": {
+        "native_ids": [
+          12,
+          14
+        ],
+        "reference_bones": [
+          "CalfL"
+        ],
+        "iou_unclipped": 0.0,
+        "iou_alpha_diagnostic": 0.0,
+        "predicted_pixels": 33,
+        "predicted_alpha_pixels": 33,
+        "authored_pixels": 52
+      },
+      "lower_leg-right": {
+        "native_ids": [
+          11,
+          13
+        ],
+        "reference_bones": [
+          "CalfR"
+        ],
+        "iou_unclipped": 0.0,
+        "iou_alpha_diagnostic": 0.0,
+        "predicted_pixels": 0,
+        "predicted_alpha_pixels": 0,
+        "authored_pixels": 62
+      }
+    },
+    "joint_boundary_f1_tolerance_1px": {
+      "upper_arm-left": 0.0,
+      "upper_arm-right": 0.0,
+      "upper_leg-left": 0.0,
+      "upper_leg-right": 0.0
+    },
+    "side_reference_iou_matrix": {
+      "upper_arm": {
+        "left": {
+          "left": 0.0,
+          "right": 0.1100244498777506
+        },
+        "right": {
+          "left": 0.0,
+          "right": 0.0
+        }
+      },
+      "lower_arm": {
+        "left": {
+          "left": 0.0,
+          "right": 0.0
+        },
+        "right": {
+          "left": 0.0,
+          "right": 0.0
+        }
+      },
+      "upper_leg": {
+        "left": {
+          "left": 0.0,
+          "right": 0.10377358490566038
+        },
+        "right": {
+          "left": 0.3559322033898305,
+          "right": 0.0
+        }
+      },
+      "lower_leg": {
+        "left": {
+          "left": 0.0,
+          "right": 0.10465116279069768
+        },
+        "right": {
+          "left": 0.0,
+          "right": 0.0
+        }
+      }
+    },
+    "side_caveat": "Native model left/right and authored bone suffixes are retained. Cross-side matrix diagnoses naming conventions; no automatic swap or merge."
+  },
+  "schp/south-west/bicubic": {
+    "authored_reference_is_not_ground_truth": true,
+    "parts": {
+      "upper_arm-both": {
+        "native_ids": [
+          3
+        ],
+        "reference_bones": [
+          "ArmL",
+          "ArmR"
+        ],
+        "iou_unclipped": 0.4946004319654428,
+        "iou_alpha_diagnostic": 0.4989106753812636,
+        "predicted_pixels": 248,
+        "predicted_alpha_pixels": 244,
+        "authored_pixels": 444
+      },
+      "lower_arm-both": {
+        "native_ids": [
+          4
+        ],
+        "reference_bones": [
+          "ForearmL",
+          "ForearmR"
+        ],
+        "iou_unclipped": 0.6718346253229974,
+        "iou_alpha_diagnostic": 0.6788511749347258,
+        "predicted_pixels": 353,
+        "predicted_alpha_pixels": 349,
+        "authored_pixels": 294
+      },
+      "upper_leg-both": {
+        "native_ids": [
+          5
+        ],
+        "reference_bones": [
+          "ThighL",
+          "ThighR"
+        ],
+        "iou_unclipped": 0.0,
+        "iou_alpha_diagnostic": 0.0,
+        "predicted_pixels": 0,
+        "predicted_alpha_pixels": 0,
+        "authored_pixels": 142
+      },
+      "lower_leg-both": {
+        "native_ids": [
+          6
+        ],
+        "reference_bones": [
+          "CalfL",
+          "CalfR"
+        ],
+        "iou_unclipped": 0.27970297029702973,
+        "iou_alpha_diagnostic": 0.2810945273631841,
+        "predicted_pixels": 403,
+        "predicted_alpha_pixels": 401,
+        "authored_pixels": 114
+      }
+    },
+    "joint_boundary_f1_tolerance_1px": {
+      "upper_arm-both": 0.5042016806722689,
+      "upper_leg-both": 0.0
+    },
+    "side_reference_iou_matrix": {
+      "upper_arm": {
+        "both": {
+          "both": 0.4989106753812636
+        }
+      },
+      "lower_arm": {
+        "both": {
+          "both": 0.6788511749347258
+        }
+      },
+      "upper_leg": {
+        "both": {
+          "both": 0.0
+        }
+      },
+      "lower_leg": {
+        "both": {
+          "both": 0.2810945273631841
+        }
+      }
+    },
+    "side_caveat": "Native model left/right and authored bone suffixes are retained. Cross-side matrix diagnoses naming conventions; no automatic swap or merge."
+  },
+  "bodypix/south-west/bicubic": {
+    "authored_reference_is_not_ground_truth": true,
+    "parts": {
+      "upper_arm-left": {
+        "native_ids": [
+          2,
+          3
+        ],
+        "reference_bones": [
+          "ArmL"
+        ],
+        "iou_unclipped": 0.0,
+        "iou_alpha_diagnostic": 0.0,
+        "predicted_pixels": 69,
+        "predicted_alpha_pixels": 69,
+        "authored_pixels": 158
+      },
+      "upper_arm-right": {
+        "native_ids": [
+          4,
+          5
+        ],
+        "reference_bones": [
+          "ArmR"
+        ],
+        "iou_unclipped": 0.0,
+        "iou_alpha_diagnostic": 0.0,
+        "predicted_pixels": 0,
+        "predicted_alpha_pixels": 0,
+        "authored_pixels": 286
+      },
+      "lower_arm-left": {
+        "native_ids": [
+          6,
+          7
+        ],
+        "reference_bones": [
+          "ForearmL"
+        ],
+        "iou_unclipped": 0.0,
+        "iou_alpha_diagnostic": 0.0,
+        "predicted_pixels": 4,
+        "predicted_alpha_pixels": 4,
+        "authored_pixels": 98
+      },
+      "lower_arm-right": {
+        "native_ids": [
+          8,
+          9
+        ],
+        "reference_bones": [
+          "ForearmR"
+        ],
+        "iou_unclipped": 0.0,
+        "iou_alpha_diagnostic": 0.0,
+        "predicted_pixels": 29,
+        "predicted_alpha_pixels": 29,
+        "authored_pixels": 196
+      },
+      "upper_leg-left": {
+        "native_ids": [
+          14,
+          15
+        ],
+        "reference_bones": [
+          "ThighL"
+        ],
+        "iou_unclipped": 0.0,
+        "iou_alpha_diagnostic": 0.0,
+        "predicted_pixels": 56,
+        "predicted_alpha_pixels": 56,
+        "authored_pixels": 43
+      },
+      "upper_leg-right": {
+        "native_ids": [
+          16,
+          17
+        ],
+        "reference_bones": [
+          "ThighR"
+        ],
+        "iou_unclipped": 0.0136986301369863,
+        "iou_alpha_diagnostic": 0.013745704467353952,
+        "predicted_pixels": 197,
+        "predicted_alpha_pixels": 196,
+        "authored_pixels": 99
+      },
+      "lower_leg-left": {
+        "native_ids": [
+          18,
+          19
+        ],
+        "reference_bones": [
+          "CalfL"
+        ],
+        "iou_unclipped": 0.0,
+        "iou_alpha_diagnostic": 0.0,
+        "predicted_pixels": 80,
+        "predicted_alpha_pixels": 80,
+        "authored_pixels": 52
+      },
+      "lower_leg-right": {
+        "native_ids": [
+          20,
+          21
+        ],
+        "reference_bones": [
+          "CalfR"
+        ],
+        "iou_unclipped": 0.0,
+        "iou_alpha_diagnostic": 0.0,
+        "predicted_pixels": 19,
+        "predicted_alpha_pixels": 19,
+        "authored_pixels": 62
+      }
+    },
+    "joint_boundary_f1_tolerance_1px": {
+      "upper_arm-left": 0.0,
+      "upper_arm-right": 0.0,
+      "upper_leg-left": 0.0,
+      "upper_leg-right": 0.0
+    },
+    "side_reference_iou_matrix": {
+      "upper_arm": {
+        "left": {
+          "left": 0.0,
+          "right": 0.24125874125874125
+        },
+        "right": {
+          "left": 0.0,
+          "right": 0.0
+        }
+      },
+      "lower_arm": {
+        "left": {
+          "left": 0.0,
+          "right": 0.0
+        },
+        "right": {
+          "left": 0.040983606557377046,
+          "right": 0.0
+        }
+      },
+      "upper_leg": {
+        "left": {
+          "left": 0.0,
+          "right": 0.13970588235294118
+        },
+        "right": {
+          "left": 0.17733990147783252,
+          "right": 0.013745704467353952
+        }
+      },
+      "lower_leg": {
+        "left": {
+          "left": 0.0,
+          "right": 0.4791666666666667
+        },
+        "right": {
+          "left": 0.3148148148148148,
+          "right": 0.0
+        }
+      }
+    },
+    "side_caveat": "Native model left/right and authored bone suffixes are retained. Cross-side matrix diagnoses naming conventions; no automatic swap or merge."
+  },
+  "sapiens2/south-west/bicubic": {
+    "authored_reference_is_not_ground_truth": true,
+    "parts": {
+      "upper_arm-left": {
+        "native_ids": [
+          11
+        ],
+        "reference_bones": [
+          "ArmL"
+        ],
+        "iou_unclipped": 0.0,
+        "iou_alpha_diagnostic": 0.0,
+        "predicted_pixels": 0,
+        "predicted_alpha_pixels": 0,
+        "authored_pixels": 158
+      },
+      "upper_arm-right": {
+        "native_ids": [
+          20
+        ],
+        "reference_bones": [
+          "ArmR"
+        ],
+        "iou_unclipped": 0.0,
+        "iou_alpha_diagnostic": 0.0,
+        "predicted_pixels": 0,
+        "predicted_alpha_pixels": 0,
+        "authored_pixels": 286
+      },
+      "lower_arm-left": {
+        "native_ids": [
+          7
+        ],
+        "reference_bones": [
+          "ForearmL"
+        ],
+        "iou_unclipped": 0.0,
+        "iou_alpha_diagnostic": 0.0,
+        "predicted_pixels": 67,
+        "predicted_alpha_pixels": 67,
+        "authored_pixels": 98
+      },
+      "lower_arm-right": {
+        "native_ids": [
+          16
+        ],
+        "reference_bones": [
+          "ForearmR"
+        ],
+        "iou_unclipped": 0.0,
+        "iou_alpha_diagnostic": 0.0,
+        "predicted_pixels": 7,
+        "predicted_alpha_pixels": 7,
+        "authored_pixels": 196
+      },
+      "upper_leg-left": {
+        "native_ids": [
+          12
+        ],
+        "reference_bones": [
+          "ThighL"
+        ],
+        "iou_unclipped": 0.0,
+        "iou_alpha_diagnostic": 0.0,
+        "predicted_pixels": 0,
+        "predicted_alpha_pixels": 0,
+        "authored_pixels": 43
+      },
+      "upper_leg-right": {
+        "native_ids": [
+          21
+        ],
+        "reference_bones": [
+          "ThighR"
+        ],
+        "iou_unclipped": 0.0,
+        "iou_alpha_diagnostic": 0.0,
+        "predicted_pixels": 0,
+        "predicted_alpha_pixels": 0,
+        "authored_pixels": 99
+      },
+      "lower_leg-left": {
+        "native_ids": [
+          8
+        ],
+        "reference_bones": [
+          "CalfL"
+        ],
+        "iou_unclipped": 0.0,
+        "iou_alpha_diagnostic": 0.0,
+        "predicted_pixels": 14,
+        "predicted_alpha_pixels": 14,
+        "authored_pixels": 52
+      },
+      "lower_leg-right": {
+        "native_ids": [
+          17
+        ],
+        "reference_bones": [
+          "CalfR"
+        ],
+        "iou_unclipped": 0.0,
+        "iou_alpha_diagnostic": 0.0,
+        "predicted_pixels": 0,
+        "predicted_alpha_pixels": 0,
+        "authored_pixels": 62
+      }
+    },
+    "joint_boundary_f1_tolerance_1px": {
+      "upper_arm-left": 0.0,
+      "upper_arm-right": 0.0,
+      "upper_leg-left": 0.0,
+      "upper_leg-right": 0.0
+    },
+    "side_reference_iou_matrix": {
+      "upper_arm": {
+        "left": {
+          "left": 0.0,
+          "right": 0.0
+        },
+        "right": {
+          "left": 0.0,
+          "right": 0.0
+        }
+      },
+      "lower_arm": {
+        "left": {
+          "left": 0.0,
+          "right": 0.19545454545454546
+        },
+        "right": {
+          "left": 0.0,
+          "right": 0.0
+        }
+      },
+      "upper_leg": {
+        "left": {
+          "left": 0.0,
+          "right": 0.0
+        },
+        "right": {
+          "left": 0.0,
+          "right": 0.0
+        }
+      },
+      "lower_leg": {
+        "left": {
+          "left": 0.0,
+          "right": 0.22580645161290322
+        },
+        "right": {
+          "left": 0.0,
+          "right": 0.0
+        }
+      }
+    },
+    "side_caveat": "Native model left/right and authored bone suffixes are retained. Cross-side matrix diagnoses naming conventions; no automatic swap or merge."
+  },
+  "seethrough-sam/south-west/bicubic": {
+    "authored_reference_is_not_ground_truth": true,
+    "parts": {},
+    "joint_boundary_f1_tolerance_1px": {},
+    "side_reference_iou_matrix": {},
+    "side_caveat": "Native model left/right and authored bone suffixes are retained. Cross-side matrix diagnoses naming conventions; no automatic swap or merge."
+  },
+  "densepose/south-west/bicubic": {
+    "authored_reference_is_not_ground_truth": true,
+    "parts": {
+      "upper_arm-left": {
+        "native_ids": [
+          15,
+          17
+        ],
+        "reference_bones": [
+          "ArmL"
+        ],
+        "iou_unclipped": 0.0,
+        "iou_alpha_diagnostic": 0.0,
+        "predicted_pixels": 208,
+        "predicted_alpha_pixels": 208,
+        "authored_pixels": 158
+      },
+      "upper_arm-right": {
+        "native_ids": [
+          16,
+          18
+        ],
+        "reference_bones": [
+          "ArmR"
+        ],
+        "iou_unclipped": 0.0,
+        "iou_alpha_diagnostic": 0.0,
+        "predicted_pixels": 70,
+        "predicted_alpha_pixels": 70,
+        "authored_pixels": 286
+      },
+      "lower_arm-left": {
+        "native_ids": [
+          19,
+          21
+        ],
+        "reference_bones": [
+          "ForearmL"
+        ],
+        "iou_unclipped": 0.0,
+        "iou_alpha_diagnostic": 0.0,
+        "predicted_pixels": 82,
+        "predicted_alpha_pixels": 82,
+        "authored_pixels": 98
+      },
+      "lower_arm-right": {
+        "native_ids": [
+          20,
+          22
+        ],
+        "reference_bones": [
+          "ForearmR"
+        ],
+        "iou_unclipped": 0.0,
+        "iou_alpha_diagnostic": 0.0,
+        "predicted_pixels": 74,
+        "predicted_alpha_pixels": 74,
+        "authored_pixels": 196
+      },
+      "upper_leg-left": {
+        "native_ids": [
+          8,
+          10
+        ],
+        "reference_bones": [
+          "ThighL"
+        ],
+        "iou_unclipped": 0.0,
+        "iou_alpha_diagnostic": 0.0,
+        "predicted_pixels": 183,
+        "predicted_alpha_pixels": 183,
+        "authored_pixels": 43
+      },
+      "upper_leg-right": {
+        "native_ids": [
+          7,
+          9
+        ],
+        "reference_bones": [
+          "ThighR"
+        ],
+        "iou_unclipped": 0.009389671361502348,
+        "iou_alpha_diagnostic": 0.009389671361502348,
+        "predicted_pixels": 116,
+        "predicted_alpha_pixels": 116,
+        "authored_pixels": 99
+      },
+      "lower_leg-left": {
+        "native_ids": [
+          12,
+          14
+        ],
+        "reference_bones": [
+          "CalfL"
+        ],
+        "iou_unclipped": 0.0,
+        "iou_alpha_diagnostic": 0.0,
+        "predicted_pixels": 96,
+        "predicted_alpha_pixels": 96,
+        "authored_pixels": 52
+      },
+      "lower_leg-right": {
+        "native_ids": [
+          11,
+          13
+        ],
+        "reference_bones": [
+          "CalfR"
+        ],
+        "iou_unclipped": 0.0,
+        "iou_alpha_diagnostic": 0.0,
+        "predicted_pixels": 59,
+        "predicted_alpha_pixels": 59,
+        "authored_pixels": 62
+      }
+    },
+    "joint_boundary_f1_tolerance_1px": {
+      "upper_arm-left": 0.0,
+      "upper_arm-right": 0.0,
+      "upper_leg-left": 0.0,
+      "upper_leg-right": 0.0
+    },
+    "side_reference_iou_matrix": {
+      "upper_arm": {
+        "left": {
+          "left": 0.0,
+          "right": 0.7212543554006968
+        },
+        "right": {
+          "left": 0.37349397590361444,
+          "right": 0.0
+        }
+      },
+      "lower_arm": {
+        "left": {
+          "left": 0.0,
+          "right": 0.3238095238095238
+        },
+        "right": {
+          "left": 0.13157894736842105,
+          "right": 0.0
+        }
+      },
+      "upper_leg": {
+        "left": {
+          "left": 0.0,
+          "right": 0.1510204081632653
+        },
+        "right": {
+          "left": 0.06711409395973154,
+          "right": 0.009389671361502348
+        }
+      },
+      "lower_leg": {
+        "left": {
+          "left": 0.0,
+          "right": 0.4107142857142857
+        },
+        "right": {
+          "left": 0.37037037037037035,
+          "right": 0.0
+        }
+      }
+    },
+    "side_caveat": "Native model left/right and authored bone suffixes are retained. Cross-side matrix diagnoses naming conventions; no automatic swap or merge."
+  },
+  "schp/south/nearest": {
+    "authored_reference_is_not_ground_truth": true,
+    "parts": {
+      "upper_arm-both": {
+        "native_ids": [
+          3
+        ],
+        "reference_bones": [
+          "ArmL",
+          "ArmR"
+        ],
+        "iou_unclipped": 0.0,
+        "iou_alpha_diagnostic": 0.0,
+        "predicted_pixels": 0,
+        "predicted_alpha_pixels": 0,
+        "authored_pixels": 637
+      },
+      "lower_arm-both": {
+        "native_ids": [
+          4
+        ],
+        "reference_bones": [
+          "ForearmL",
+          "ForearmR"
+        ],
+        "iou_unclipped": 0.0,
+        "iou_alpha_diagnostic": 0.0,
+        "predicted_pixels": 0,
+        "predicted_alpha_pixels": 0,
+        "authored_pixels": 463
+      },
+      "upper_leg-both": {
+        "native_ids": [
+          5
+        ],
+        "reference_bones": [
+          "ThighL",
+          "ThighR"
+        ],
+        "iou_unclipped": 0.0,
+        "iou_alpha_diagnostic": 0.0,
+        "predicted_pixels": 0,
+        "predicted_alpha_pixels": 0,
+        "authored_pixels": 140
+      },
+      "lower_leg-both": {
+        "native_ids": [
+          6
+        ],
+        "reference_bones": [
+          "CalfL",
+          "CalfR"
+        ],
+        "iou_unclipped": 0.0,
+        "iou_alpha_diagnostic": 0.0,
+        "predicted_pixels": 0,
+        "predicted_alpha_pixels": 0,
+        "authored_pixels": 146
+      }
+    },
+    "joint_boundary_f1_tolerance_1px": {
+      "upper_arm-both": 0.0,
+      "upper_leg-both": 0.0
+    },
+    "side_reference_iou_matrix": {
+      "upper_arm": {
+        "both": {
+          "both": 0.0
+        }
+      },
+      "lower_arm": {
+        "both": {
+          "both": 0.0
+        }
+      },
+      "upper_leg": {
+        "both": {
+          "both": 0.0
+        }
+      },
+      "lower_leg": {
+        "both": {
+          "both": 0.0
+        }
+      }
+    },
+    "side_caveat": "Native model left/right and authored bone suffixes are retained. Cross-side matrix diagnoses naming conventions; no automatic swap or merge."
+  },
+  "bodypix/south/nearest": {
+    "authored_reference_is_not_ground_truth": true,
+    "parts": {
+      "upper_arm-left": {
+        "native_ids": [
+          2,
+          3
+        ],
+        "reference_bones": [
+          "ArmL"
+        ],
+        "iou_unclipped": 0.0,
+        "iou_alpha_diagnostic": 0.0,
+        "predicted_pixels": 32,
+        "predicted_alpha_pixels": 32,
+        "authored_pixels": 331
+      },
+      "upper_arm-right": {
+        "native_ids": [
+          4,
+          5
+        ],
+        "reference_bones": [
+          "ArmR"
+        ],
+        "iou_unclipped": 0.0,
+        "iou_alpha_diagnostic": 0.0,
+        "predicted_pixels": 35,
+        "predicted_alpha_pixels": 35,
+        "authored_pixels": 306
+      },
+      "lower_arm-left": {
+        "native_ids": [
+          6,
+          7
+        ],
+        "reference_bones": [
+          "ForearmL"
+        ],
+        "iou_unclipped": 0.0,
+        "iou_alpha_diagnostic": 0.0,
+        "predicted_pixels": 80,
+        "predicted_alpha_pixels": 74,
+        "authored_pixels": 235
+      },
+      "lower_arm-right": {
+        "native_ids": [
+          8,
+          9
+        ],
+        "reference_bones": [
+          "ForearmR"
+        ],
+        "iou_unclipped": 0.0,
+        "iou_alpha_diagnostic": 0.0,
+        "predicted_pixels": 77,
+        "predicted_alpha_pixels": 77,
+        "authored_pixels": 228
+      },
+      "upper_leg-left": {
+        "native_ids": [
+          14,
+          15
+        ],
+        "reference_bones": [
+          "ThighL"
+        ],
+        "iou_unclipped": 0.0,
+        "iou_alpha_diagnostic": 0.0,
+        "predicted_pixels": 0,
+        "predicted_alpha_pixels": 0,
+        "authored_pixels": 71
+      },
+      "upper_leg-right": {
+        "native_ids": [
+          16,
+          17
+        ],
+        "reference_bones": [
+          "ThighR"
+        ],
+        "iou_unclipped": 0.0,
+        "iou_alpha_diagnostic": 0.0,
+        "predicted_pixels": 0,
+        "predicted_alpha_pixels": 0,
+        "authored_pixels": 69
+      },
+      "lower_leg-left": {
+        "native_ids": [
+          18,
+          19
+        ],
+        "reference_bones": [
+          "CalfL"
+        ],
+        "iou_unclipped": 0.0,
+        "iou_alpha_diagnostic": 0.0,
+        "predicted_pixels": 0,
+        "predicted_alpha_pixels": 0,
+        "authored_pixels": 73
+      },
+      "lower_leg-right": {
+        "native_ids": [
+          20,
+          21
+        ],
+        "reference_bones": [
+          "CalfR"
+        ],
+        "iou_unclipped": 0.0,
+        "iou_alpha_diagnostic": 0.0,
+        "predicted_pixels": 0,
+        "predicted_alpha_pixels": 0,
+        "authored_pixels": 73
+      }
+    },
+    "joint_boundary_f1_tolerance_1px": {
+      "upper_arm-left": 0.0,
+      "upper_arm-right": 0.0,
+      "upper_leg-left": 0.0,
+      "upper_leg-right": 0.0
+    },
+    "side_reference_iou_matrix": {
+      "upper_arm": {
+        "left": {
+          "left": 0.0,
+          "right": 0.10457516339869281
+        },
+        "right": {
+          "left": 0.10574018126888217,
+          "right": 0.0
+        }
+      },
+      "lower_arm": {
+        "left": {
+          "left": 0.0,
+          "right": 0.1984126984126984
+        },
+        "right": {
+          "left": 0.25806451612903225,
+          "right": 0.0
+        }
+      },
+      "upper_leg": {
+        "left": {
+          "left": 0.0,
+          "right": 0.0
+        },
+        "right": {
+          "left": 0.0,
+          "right": 0.0
+        }
+      },
+      "lower_leg": {
+        "left": {
+          "left": 0.0,
+          "right": 0.0
+        },
+        "right": {
+          "left": 0.0,
+          "right": 0.0
+        }
+      }
+    },
+    "side_caveat": "Native model left/right and authored bone suffixes are retained. Cross-side matrix diagnoses naming conventions; no automatic swap or merge."
+  },
+  "sapiens2/south/nearest": {
+    "authored_reference_is_not_ground_truth": true,
+    "parts": {
+      "upper_arm-left": {
+        "native_ids": [
+          11
+        ],
+        "reference_bones": [
+          "ArmL"
+        ],
+        "iou_unclipped": 0.19395017793594305,
+        "iou_alpha_diagnostic": 0.19395017793594305,
+        "predicted_pixels": 340,
+        "predicted_alpha_pixels": 340,
+        "authored_pixels": 331
+      },
+      "upper_arm-right": {
+        "native_ids": [
+          20
+        ],
+        "reference_bones": [
+          "ArmR"
+        ],
+        "iou_unclipped": 0.0,
+        "iou_alpha_diagnostic": 0.0,
+        "predicted_pixels": 1,
+        "predicted_alpha_pixels": 1,
+        "authored_pixels": 306
+      },
+      "lower_arm-left": {
+        "native_ids": [
+          7
+        ],
+        "reference_bones": [
+          "ForearmL"
+        ],
+        "iou_unclipped": 0.020338983050847456,
+        "iou_alpha_diagnostic": 0.020338983050847456,
+        "predicted_pixels": 66,
+        "predicted_alpha_pixels": 66,
+        "authored_pixels": 235
+      },
+      "lower_arm-right": {
+        "native_ids": [
+          16
+        ],
+        "reference_bones": [
+          "ForearmR"
+        ],
+        "iou_unclipped": 0.0,
+        "iou_alpha_diagnostic": 0.0,
+        "predicted_pixels": 65,
+        "predicted_alpha_pixels": 65,
+        "authored_pixels": 228
+      },
+      "upper_leg-left": {
+        "native_ids": [
+          12
+        ],
+        "reference_bones": [
+          "ThighL"
+        ],
+        "iou_unclipped": 0.0,
+        "iou_alpha_diagnostic": 0.0,
+        "predicted_pixels": 0,
+        "predicted_alpha_pixels": 0,
+        "authored_pixels": 71
+      },
+      "upper_leg-right": {
+        "native_ids": [
+          21
+        ],
+        "reference_bones": [
+          "ThighR"
+        ],
+        "iou_unclipped": 0.0,
+        "iou_alpha_diagnostic": 0.0,
+        "predicted_pixels": 1,
+        "predicted_alpha_pixels": 1,
+        "authored_pixels": 69
+      },
+      "lower_leg-left": {
+        "native_ids": [
+          8
+        ],
+        "reference_bones": [
+          "CalfL"
+        ],
+        "iou_unclipped": 0.0,
+        "iou_alpha_diagnostic": 0.0,
+        "predicted_pixels": 81,
+        "predicted_alpha_pixels": 81,
+        "authored_pixels": 73
+      },
+      "lower_leg-right": {
+        "native_ids": [
+          17
+        ],
+        "reference_bones": [
+          "CalfR"
+        ],
+        "iou_unclipped": 0.0,
+        "iou_alpha_diagnostic": 0.0,
+        "predicted_pixels": 96,
+        "predicted_alpha_pixels": 96,
+        "authored_pixels": 73
+      }
+    },
+    "joint_boundary_f1_tolerance_1px": {
+      "upper_arm-left": 0.0,
+      "upper_arm-right": 0.0,
+      "upper_leg-left": 0.0,
+      "upper_leg-right": 0.0
+    },
+    "side_reference_iou_matrix": {
+      "upper_arm": {
+        "left": {
+          "left": 0.19395017793594305,
+          "right": 0.5344418052256532
+        },
+        "right": {
+          "left": 0.0030211480362537764,
+          "right": 0.0
+        }
+      },
+      "lower_arm": {
+        "left": {
+          "left": 0.020338983050847456,
+          "right": 0.072992700729927
+        },
+        "right": {
+          "left": 0.2396694214876033,
+          "right": 0.0
+        }
+      },
+      "upper_leg": {
+        "left": {
+          "left": 0.0,
+          "right": 0.0
+        },
+        "right": {
+          "left": 0.014084507042253521,
+          "right": 0.0
+        }
+      },
+      "lower_leg": {
+        "left": {
+          "left": 0.0,
+          "right": 0.38738738738738737
+        },
+        "right": {
+          "left": 0.49557522123893805,
+          "right": 0.0
+        }
+      }
+    },
+    "side_caveat": "Native model left/right and authored bone suffixes are retained. Cross-side matrix diagnoses naming conventions; no automatic swap or merge."
+  },
+  "seethrough-sam/south/nearest": {
+    "authored_reference_is_not_ground_truth": true,
+    "parts": {},
+    "joint_boundary_f1_tolerance_1px": {},
+    "side_reference_iou_matrix": {},
+    "side_caveat": "Native model left/right and authored bone suffixes are retained. Cross-side matrix diagnoses naming conventions; no automatic swap or merge."
+  },
+  "densepose/south/nearest": {
+    "authored_reference_is_not_ground_truth": true,
+    "parts": {
+      "upper_arm-left": {
+        "native_ids": [
+          15,
+          17
+        ],
+        "reference_bones": [
+          "ArmL"
+        ],
+        "iou_unclipped": 0.0,
+        "iou_alpha_diagnostic": 0.0,
+        "predicted_pixels": 0,
+        "predicted_alpha_pixels": 0,
+        "authored_pixels": 331
+      },
+      "upper_arm-right": {
+        "native_ids": [
+          16,
+          18
+        ],
+        "reference_bones": [
+          "ArmR"
+        ],
+        "iou_unclipped": 0.0,
+        "iou_alpha_diagnostic": 0.0,
+        "predicted_pixels": 0,
+        "predicted_alpha_pixels": 0,
+        "authored_pixels": 306
+      },
+      "lower_arm-left": {
+        "native_ids": [
+          19,
+          21
+        ],
+        "reference_bones": [
+          "ForearmL"
+        ],
+        "iou_unclipped": 0.0,
+        "iou_alpha_diagnostic": 0.0,
+        "predicted_pixels": 0,
+        "predicted_alpha_pixels": 0,
+        "authored_pixels": 235
+      },
+      "lower_arm-right": {
+        "native_ids": [
+          20,
+          22
+        ],
+        "reference_bones": [
+          "ForearmR"
+        ],
+        "iou_unclipped": 0.0,
+        "iou_alpha_diagnostic": 0.0,
+        "predicted_pixels": 0,
+        "predicted_alpha_pixels": 0,
+        "authored_pixels": 228
+      },
+      "upper_leg-left": {
+        "native_ids": [
+          8,
+          10
+        ],
+        "reference_bones": [
+          "ThighL"
+        ],
+        "iou_unclipped": 0.0,
+        "iou_alpha_diagnostic": 0.0,
+        "predicted_pixels": 0,
+        "predicted_alpha_pixels": 0,
+        "authored_pixels": 71
+      },
+      "upper_leg-right": {
+        "native_ids": [
+          7,
+          9
+        ],
+        "reference_bones": [
+          "ThighR"
+        ],
+        "iou_unclipped": 0.0,
+        "iou_alpha_diagnostic": 0.0,
+        "predicted_pixels": 0,
+        "predicted_alpha_pixels": 0,
+        "authored_pixels": 69
+      },
+      "lower_leg-left": {
+        "native_ids": [
+          12,
+          14
+        ],
+        "reference_bones": [
+          "CalfL"
+        ],
+        "iou_unclipped": 0.0,
+        "iou_alpha_diagnostic": 0.0,
+        "predicted_pixels": 0,
+        "predicted_alpha_pixels": 0,
+        "authored_pixels": 73
+      },
+      "lower_leg-right": {
+        "native_ids": [
+          11,
+          13
+        ],
+        "reference_bones": [
+          "CalfR"
+        ],
+        "iou_unclipped": 0.0,
+        "iou_alpha_diagnostic": 0.0,
+        "predicted_pixels": 0,
+        "predicted_alpha_pixels": 0,
+        "authored_pixels": 73
+      }
+    },
+    "joint_boundary_f1_tolerance_1px": {
+      "upper_arm-left": 0.0,
+      "upper_arm-right": 0.0,
+      "upper_leg-left": 0.0,
+      "upper_leg-right": 0.0
+    },
+    "side_reference_iou_matrix": {
+      "upper_arm": {
+        "left": {
+          "left": 0.0,
+          "right": 0.0
+        },
+        "right": {
+          "left": 0.0,
+          "right": 0.0
+        }
+      },
+      "lower_arm": {
+        "left": {
+          "left": 0.0,
+          "right": 0.0
+        },
+        "right": {
+          "left": 0.0,
+          "right": 0.0
+        }
+      },
+      "upper_leg": {
+        "left": {
+          "left": 0.0,
+          "right": 0.0
+        },
+        "right": {
+          "left": 0.0,
+          "right": 0.0
+        }
+      },
+      "lower_leg": {
+        "left": {
+          "left": 0.0,
+          "right": 0.0
+        },
+        "right": {
+          "left": 0.0,
+          "right": 0.0
+        }
+      }
+    },
+    "side_caveat": "Native model left/right and authored bone suffixes are retained. Cross-side matrix diagnoses naming conventions; no automatic swap or merge."
+  },
+  "schp/south/bicubic": {
+    "authored_reference_is_not_ground_truth": true,
+    "parts": {
+      "upper_arm-both": {
+        "native_ids": [
+          3
+        ],
+        "reference_bones": [
+          "ArmL",
+          "ArmR"
+        ],
+        "iou_unclipped": 0.558041958041958,
+        "iou_alpha_diagnostic": 0.5716332378223495,
+        "predicted_pixels": 477,
+        "predicted_alpha_pixels": 460,
+        "authored_pixels": 637
+      },
+      "lower_arm-both": {
+        "native_ids": [
+          4
+        ],
+        "reference_bones": [
+          "ForearmL",
+          "ForearmR"
+        ],
+        "iou_unclipped": 0.35560344827586204,
+        "iou_alpha_diagnostic": 0.3563714902807775,
+        "predicted_pixels": 166,
+        "predicted_alpha_pixels": 165,
+        "authored_pixels": 463
+      },
+      "upper_leg-both": {
+        "native_ids": [
+          5
+        ],
+        "reference_bones": [
+          "ThighL",
+          "ThighR"
+        ],
+        "iou_unclipped": 0.0,
+        "iou_alpha_diagnostic": 0.0,
+        "predicted_pixels": 0,
+        "predicted_alpha_pixels": 0,
+        "authored_pixels": 140
+      },
+      "lower_leg-both": {
+        "native_ids": [
+          6
+        ],
+        "reference_bones": [
+          "CalfL",
+          "CalfR"
+        ],
+        "iou_unclipped": 0.25510204081632654,
+        "iou_alpha_diagnostic": 0.25510204081632654,
+        "predicted_pixels": 100,
+        "predicted_alpha_pixels": 100,
+        "authored_pixels": 146
+      }
+    },
+    "joint_boundary_f1_tolerance_1px": {
+      "upper_arm-both": 0.07142857142857141,
+      "upper_leg-both": 0.0
+    },
+    "side_reference_iou_matrix": {
+      "upper_arm": {
+        "both": {
+          "both": 0.5716332378223495
+        }
+      },
+      "lower_arm": {
+        "both": {
+          "both": 0.3563714902807775
+        }
+      },
+      "upper_leg": {
+        "both": {
+          "both": 0.0
+        }
+      },
+      "lower_leg": {
+        "both": {
+          "both": 0.25510204081632654
+        }
+      }
+    },
+    "side_caveat": "Native model left/right and authored bone suffixes are retained. Cross-side matrix diagnoses naming conventions; no automatic swap or merge."
+  },
+  "bodypix/south/bicubic": {
+    "authored_reference_is_not_ground_truth": true,
+    "parts": {
+      "upper_arm-left": {
+        "native_ids": [
+          2,
+          3
+        ],
+        "reference_bones": [
+          "ArmL"
+        ],
+        "iou_unclipped": 0.0,
+        "iou_alpha_diagnostic": 0.0,
+        "predicted_pixels": 138,
+        "predicted_alpha_pixels": 138,
+        "authored_pixels": 331
+      },
+      "upper_arm-right": {
+        "native_ids": [
+          4,
+          5
+        ],
+        "reference_bones": [
+          "ArmR"
+        ],
+        "iou_unclipped": 0.0,
+        "iou_alpha_diagnostic": 0.0,
+        "predicted_pixels": 147,
+        "predicted_alpha_pixels": 145,
+        "authored_pixels": 306
+      },
+      "lower_arm-left": {
+        "native_ids": [
+          6,
+          7
+        ],
+        "reference_bones": [
+          "ForearmL"
+        ],
+        "iou_unclipped": 0.0,
+        "iou_alpha_diagnostic": 0.0,
+        "predicted_pixels": 89,
+        "predicted_alpha_pixels": 83,
+        "authored_pixels": 235
+      },
+      "lower_arm-right": {
+        "native_ids": [
+          8,
+          9
+        ],
+        "reference_bones": [
+          "ForearmR"
+        ],
+        "iou_unclipped": 0.0,
+        "iou_alpha_diagnostic": 0.0,
+        "predicted_pixels": 84,
+        "predicted_alpha_pixels": 82,
+        "authored_pixels": 228
+      },
+      "upper_leg-left": {
+        "native_ids": [
+          14,
+          15
+        ],
+        "reference_bones": [
+          "ThighL"
+        ],
+        "iou_unclipped": 0.0,
+        "iou_alpha_diagnostic": 0.0,
+        "predicted_pixels": 109,
+        "predicted_alpha_pixels": 107,
+        "authored_pixels": 71
+      },
+      "upper_leg-right": {
+        "native_ids": [
+          16,
+          17
+        ],
+        "reference_bones": [
+          "ThighR"
+        ],
+        "iou_unclipped": 0.0,
+        "iou_alpha_diagnostic": 0.0,
+        "predicted_pixels": 82,
+        "predicted_alpha_pixels": 81,
+        "authored_pixels": 69
+      },
+      "lower_leg-left": {
+        "native_ids": [
+          18,
+          19
+        ],
+        "reference_bones": [
+          "CalfL"
+        ],
+        "iou_unclipped": 0.0,
+        "iou_alpha_diagnostic": 0.0,
+        "predicted_pixels": 35,
+        "predicted_alpha_pixels": 35,
+        "authored_pixels": 73
+      },
+      "lower_leg-right": {
+        "native_ids": [
+          20,
+          21
+        ],
+        "reference_bones": [
+          "CalfR"
+        ],
+        "iou_unclipped": 0.0,
+        "iou_alpha_diagnostic": 0.0,
+        "predicted_pixels": 79,
+        "predicted_alpha_pixels": 78,
+        "authored_pixels": 73
+      }
+    },
+    "joint_boundary_f1_tolerance_1px": {
+      "upper_arm-left": 0.0,
+      "upper_arm-right": 0.0,
+      "upper_leg-left": 0.0,
+      "upper_leg-right": 0.0
+    },
+    "side_reference_iou_matrix": {
+      "upper_arm": {
+        "left": {
+          "left": 0.0,
+          "right": 0.45098039215686275
+        },
+        "right": {
+          "left": 0.4208955223880597,
+          "right": 0.0
+        }
+      },
+      "lower_arm": {
+        "left": {
+          "left": 0.0,
+          "right": 0.2693877551020408
+        },
+        "right": {
+          "left": 0.32083333333333336,
+          "right": 0.0
+        }
+      },
+      "upper_leg": {
+        "left": {
+          "left": 0.0,
+          "right": 0.18120805369127516
+        },
+        "right": {
+          "left": 0.10948905109489052,
+          "right": 0.0
+        }
+      },
+      "lower_leg": {
+        "left": {
+          "left": 0.0,
+          "right": 0.18681318681318682
+        },
+        "right": {
+          "left": 0.32456140350877194,
+          "right": 0.0
+        }
+      }
+    },
+    "side_caveat": "Native model left/right and authored bone suffixes are retained. Cross-side matrix diagnoses naming conventions; no automatic swap or merge."
+  },
+  "sapiens2/south/bicubic": {
+    "authored_reference_is_not_ground_truth": true,
+    "parts": {
+      "upper_arm-left": {
+        "native_ids": [
+          11
+        ],
+        "reference_bones": [
+          "ArmL"
+        ],
+        "iou_unclipped": 0.08676789587852494,
+        "iou_alpha_diagnostic": 0.08676789587852494,
+        "predicted_pixels": 170,
+        "predicted_alpha_pixels": 170,
+        "authored_pixels": 331
+      },
+      "upper_arm-right": {
+        "native_ids": [
+          20
+        ],
+        "reference_bones": [
+          "ArmR"
+        ],
+        "iou_unclipped": 0.0,
+        "iou_alpha_diagnostic": 0.0,
+        "predicted_pixels": 18,
+        "predicted_alpha_pixels": 18,
+        "authored_pixels": 306
+      },
+      "lower_arm-left": {
+        "native_ids": [
+          7
+        ],
+        "reference_bones": [
+          "ForearmL"
+        ],
+        "iou_unclipped": 0.0,
+        "iou_alpha_diagnostic": 0.0,
+        "predicted_pixels": 103,
+        "predicted_alpha_pixels": 103,
+        "authored_pixels": 235
+      },
+      "lower_arm-right": {
+        "native_ids": [
+          16
+        ],
+        "reference_bones": [
+          "ForearmR"
+        ],
+        "iou_unclipped": 0.0,
+        "iou_alpha_diagnostic": 0.0,
+        "predicted_pixels": 87,
+        "predicted_alpha_pixels": 87,
+        "authored_pixels": 228
+      },
+      "upper_leg-left": {
+        "native_ids": [
+          12
+        ],
+        "reference_bones": [
+          "ThighL"
+        ],
+        "iou_unclipped": 0.0,
+        "iou_alpha_diagnostic": 0.0,
+        "predicted_pixels": 103,
+        "predicted_alpha_pixels": 103,
+        "authored_pixels": 71
+      },
+      "upper_leg-right": {
+        "native_ids": [
+          21
+        ],
+        "reference_bones": [
+          "ThighR"
+        ],
+        "iou_unclipped": 0.0,
+        "iou_alpha_diagnostic": 0.0,
+        "predicted_pixels": 107,
+        "predicted_alpha_pixels": 107,
+        "authored_pixels": 69
+      },
+      "lower_leg-left": {
+        "native_ids": [
+          8
+        ],
+        "reference_bones": [
+          "CalfL"
+        ],
+        "iou_unclipped": 0.0,
+        "iou_alpha_diagnostic": 0.0,
+        "predicted_pixels": 48,
+        "predicted_alpha_pixels": 48,
+        "authored_pixels": 73
+      },
+      "lower_leg-right": {
+        "native_ids": [
+          17
+        ],
+        "reference_bones": [
+          "CalfR"
+        ],
+        "iou_unclipped": 0.0,
+        "iou_alpha_diagnostic": 0.0,
+        "predicted_pixels": 73,
+        "predicted_alpha_pixels": 73,
+        "authored_pixels": 73
+      }
+    },
+    "joint_boundary_f1_tolerance_1px": {
+      "upper_arm-left": 0.0,
+      "upper_arm-right": 0.0,
+      "upper_leg-left": 0.0,
+      "upper_leg-right": 0.0
+    },
+    "side_reference_iou_matrix": {
+      "upper_arm": {
+        "left": {
+          "left": 0.08676789587852494,
+          "right": 0.37572254335260113
+        },
+        "right": {
+          "left": 0.054380664652567974,
+          "right": 0.0
+        }
+      },
+      "lower_arm": {
+        "left": {
+          "left": 0.0,
+          "right": 0.3510204081632653
+        },
+        "right": {
+          "left": 0.319672131147541,
+          "right": 0.0
+        }
+      },
+      "upper_leg": {
+        "left": {
+          "left": 0.0,
+          "right": 0.43333333333333335
+        },
+        "right": {
+          "left": 0.45901639344262296,
+          "right": 0.0
+        }
+      },
+      "lower_leg": {
+        "left": {
+          "left": 0.0,
+          "right": 0.5921052631578947
+        },
+        "right": {
+          "left": 0.5208333333333334,
+          "right": 0.0
+        }
+      }
+    },
+    "side_caveat": "Native model left/right and authored bone suffixes are retained. Cross-side matrix diagnoses naming conventions; no automatic swap or merge."
+  },
+  "seethrough-sam/south/bicubic": {
+    "authored_reference_is_not_ground_truth": true,
+    "parts": {},
+    "joint_boundary_f1_tolerance_1px": {},
+    "side_reference_iou_matrix": {},
+    "side_caveat": "Native model left/right and authored bone suffixes are retained. Cross-side matrix diagnoses naming conventions; no automatic swap or merge."
+  },
+  "densepose/south/bicubic": {
+    "authored_reference_is_not_ground_truth": true,
+    "parts": {
+      "upper_arm-left": {
+        "native_ids": [
+          15,
+          17
+        ],
+        "reference_bones": [
+          "ArmL"
+        ],
+        "iou_unclipped": 0.0,
+        "iou_alpha_diagnostic": 0.0,
+        "predicted_pixels": 242,
+        "predicted_alpha_pixels": 242,
+        "authored_pixels": 331
+      },
+      "upper_arm-right": {
+        "native_ids": [
+          16,
+          18
+        ],
+        "reference_bones": [
+          "ArmR"
+        ],
+        "iou_unclipped": 0.0,
+        "iou_alpha_diagnostic": 0.0,
+        "predicted_pixels": 249,
+        "predicted_alpha_pixels": 249,
+        "authored_pixels": 306
+      },
+      "lower_arm-left": {
+        "native_ids": [
+          19,
+          21
+        ],
+        "reference_bones": [
+          "ForearmL"
+        ],
+        "iou_unclipped": 0.0,
+        "iou_alpha_diagnostic": 0.0,
+        "predicted_pixels": 58,
+        "predicted_alpha_pixels": 58,
+        "authored_pixels": 235
+      },
+      "lower_arm-right": {
+        "native_ids": [
+          20,
+          22
+        ],
+        "reference_bones": [
+          "ForearmR"
+        ],
+        "iou_unclipped": 0.0,
+        "iou_alpha_diagnostic": 0.0,
+        "predicted_pixels": 81,
+        "predicted_alpha_pixels": 81,
+        "authored_pixels": 228
+      },
+      "upper_leg-left": {
+        "native_ids": [
+          8,
+          10
+        ],
+        "reference_bones": [
+          "ThighL"
+        ],
+        "iou_unclipped": 0.0,
+        "iou_alpha_diagnostic": 0.0,
+        "predicted_pixels": 176,
+        "predicted_alpha_pixels": 176,
+        "authored_pixels": 71
+      },
+      "upper_leg-right": {
+        "native_ids": [
+          7,
+          9
+        ],
+        "reference_bones": [
+          "ThighR"
+        ],
+        "iou_unclipped": 0.0,
+        "iou_alpha_diagnostic": 0.0,
+        "predicted_pixels": 128,
+        "predicted_alpha_pixels": 128,
+        "authored_pixels": 69
+      },
+      "lower_leg-left": {
+        "native_ids": [
+          12,
+          14
+        ],
+        "reference_bones": [
+          "CalfL"
+        ],
+        "iou_unclipped": 0.0,
+        "iou_alpha_diagnostic": 0.0,
+        "predicted_pixels": 58,
+        "predicted_alpha_pixels": 58,
+        "authored_pixels": 73
+      },
+      "lower_leg-right": {
+        "native_ids": [
+          11,
+          13
+        ],
+        "reference_bones": [
+          "CalfR"
+        ],
+        "iou_unclipped": 0.0,
+        "iou_alpha_diagnostic": 0.0,
+        "predicted_pixels": 30,
+        "predicted_alpha_pixels": 30,
+        "authored_pixels": 73
+      }
+    },
+    "joint_boundary_f1_tolerance_1px": {
+      "upper_arm-left": 0.0,
+      "upper_arm-right": 0.0,
+      "upper_leg-left": 0.0,
+      "upper_leg-right": 0.0
+    },
+    "side_reference_iou_matrix": {
+      "upper_arm": {
+        "left": {
+          "left": 0.0,
+          "right": 0.7564102564102564
+        },
+        "right": {
+          "left": 0.7417417417417418,
+          "right": 0.0
+        }
+      },
+      "lower_arm": {
+        "left": {
+          "left": 0.0,
+          "right": 0.2543859649122807
+        },
+        "right": {
+          "left": 0.3446808510638298,
+          "right": 0.0
+        }
+      },
+      "upper_leg": {
+        "left": {
+          "left": 0.0,
+          "right": 0.2760416666666667
+        },
+        "right": {
+          "left": 0.34459459459459457,
+          "right": 0.0
+        }
+      },
+      "lower_leg": {
+        "left": {
+          "left": 0.0,
+          "right": 0.09166666666666666
+        },
+        "right": {
+          "left": 0.33766233766233766,
+          "right": 0.0
+        }
+      }
+    },
+    "side_caveat": "Native model left/right and authored bone suffixes are retained. Cross-side matrix diagnoses naming conventions; no automatic swap or merge."
+  },
+  "schp/north/nearest": {
+    "authored_reference_is_not_ground_truth": true,
+    "parts": {
+      "upper_arm-both": {
+        "native_ids": [
+          3
+        ],
+        "reference_bones": [
+          "ArmL",
+          "ArmR"
+        ],
+        "iou_unclipped": 0.0,
+        "iou_alpha_diagnostic": 0.0,
+        "predicted_pixels": 0,
+        "predicted_alpha_pixels": 0,
+        "authored_pixels": 645
+      },
+      "lower_arm-both": {
+        "native_ids": [
+          4
+        ],
+        "reference_bones": [
+          "ForearmL",
+          "ForearmR"
+        ],
+        "iou_unclipped": 0.0,
+        "iou_alpha_diagnostic": 0.0,
+        "predicted_pixels": 0,
+        "predicted_alpha_pixels": 0,
+        "authored_pixels": 444
+      },
+      "upper_leg-both": {
+        "native_ids": [
+          5
+        ],
+        "reference_bones": [
+          "ThighL",
+          "ThighR"
+        ],
+        "iou_unclipped": 0.0,
+        "iou_alpha_diagnostic": 0.0,
+        "predicted_pixels": 0,
+        "predicted_alpha_pixels": 0,
+        "authored_pixels": 116
+      },
+      "lower_leg-both": {
+        "native_ids": [
+          6
+        ],
+        "reference_bones": [
+          "CalfL",
+          "CalfR"
+        ],
+        "iou_unclipped": 0.0,
+        "iou_alpha_diagnostic": 0.0,
+        "predicted_pixels": 0,
+        "predicted_alpha_pixels": 0,
+        "authored_pixels": 138
+      }
+    },
+    "joint_boundary_f1_tolerance_1px": {
+      "upper_arm-both": 0.0,
+      "upper_leg-both": 0.0
+    },
+    "side_reference_iou_matrix": {
+      "upper_arm": {
+        "both": {
+          "both": 0.0
+        }
+      },
+      "lower_arm": {
+        "both": {
+          "both": 0.0
+        }
+      },
+      "upper_leg": {
+        "both": {
+          "both": 0.0
+        }
+      },
+      "lower_leg": {
+        "both": {
+          "both": 0.0
+        }
+      }
+    },
+    "side_caveat": "Native model left/right and authored bone suffixes are retained. Cross-side matrix diagnoses naming conventions; no automatic swap or merge."
+  },
+  "bodypix/north/nearest": {
+    "authored_reference_is_not_ground_truth": true,
+    "parts": {
+      "upper_arm-left": {
+        "native_ids": [
+          2,
+          3
+        ],
+        "reference_bones": [
+          "ArmL"
+        ],
+        "iou_unclipped": 0.0,
+        "iou_alpha_diagnostic": 0.0,
+        "predicted_pixels": 0,
+        "predicted_alpha_pixels": 0,
+        "authored_pixels": 335
+      },
+      "upper_arm-right": {
+        "native_ids": [
+          4,
+          5
+        ],
+        "reference_bones": [
+          "ArmR"
+        ],
+        "iou_unclipped": 0.0,
+        "iou_alpha_diagnostic": 0.0,
+        "predicted_pixels": 0,
+        "predicted_alpha_pixels": 0,
+        "authored_pixels": 310
+      },
+      "lower_arm-left": {
+        "native_ids": [
+          6,
+          7
+        ],
+        "reference_bones": [
+          "ForearmL"
+        ],
+        "iou_unclipped": 0.0,
+        "iou_alpha_diagnostic": 0.0,
+        "predicted_pixels": 0,
+        "predicted_alpha_pixels": 0,
+        "authored_pixels": 230
+      },
+      "lower_arm-right": {
+        "native_ids": [
+          8,
+          9
+        ],
+        "reference_bones": [
+          "ForearmR"
+        ],
+        "iou_unclipped": 0.0,
+        "iou_alpha_diagnostic": 0.0,
+        "predicted_pixels": 0,
+        "predicted_alpha_pixels": 0,
+        "authored_pixels": 214
+      },
+      "upper_leg-left": {
+        "native_ids": [
+          14,
+          15
+        ],
+        "reference_bones": [
+          "ThighL"
+        ],
+        "iou_unclipped": 0.0,
+        "iou_alpha_diagnostic": 0.0,
+        "predicted_pixels": 0,
+        "predicted_alpha_pixels": 0,
+        "authored_pixels": 59
+      },
+      "upper_leg-right": {
+        "native_ids": [
+          16,
+          17
+        ],
+        "reference_bones": [
+          "ThighR"
+        ],
+        "iou_unclipped": 0.0,
+        "iou_alpha_diagnostic": 0.0,
+        "predicted_pixels": 0,
+        "predicted_alpha_pixels": 0,
+        "authored_pixels": 57
+      },
+      "lower_leg-left": {
+        "native_ids": [
+          18,
+          19
+        ],
+        "reference_bones": [
+          "CalfL"
+        ],
+        "iou_unclipped": 0.0,
+        "iou_alpha_diagnostic": 0.0,
+        "predicted_pixels": 0,
+        "predicted_alpha_pixels": 0,
+        "authored_pixels": 69
+      },
+      "lower_leg-right": {
+        "native_ids": [
+          20,
+          21
+        ],
+        "reference_bones": [
+          "CalfR"
+        ],
+        "iou_unclipped": 0.0,
+        "iou_alpha_diagnostic": 0.0,
+        "predicted_pixels": 0,
+        "predicted_alpha_pixels": 0,
+        "authored_pixels": 69
+      }
+    },
+    "joint_boundary_f1_tolerance_1px": {
+      "upper_arm-left": 0.0,
+      "upper_arm-right": 0.0,
+      "upper_leg-left": 0.0,
+      "upper_leg-right": 0.0
+    },
+    "side_reference_iou_matrix": {
+      "upper_arm": {
+        "left": {
+          "left": 0.0,
+          "right": 0.0
+        },
+        "right": {
+          "left": 0.0,
+          "right": 0.0
+        }
+      },
+      "lower_arm": {
+        "left": {
+          "left": 0.0,
+          "right": 0.0
+        },
+        "right": {
+          "left": 0.0,
+          "right": 0.0
+        }
+      },
+      "upper_leg": {
+        "left": {
+          "left": 0.0,
+          "right": 0.0
+        },
+        "right": {
+          "left": 0.0,
+          "right": 0.0
+        }
+      },
+      "lower_leg": {
+        "left": {
+          "left": 0.0,
+          "right": 0.0
+        },
+        "right": {
+          "left": 0.0,
+          "right": 0.0
+        }
+      }
+    },
+    "side_caveat": "Native model left/right and authored bone suffixes are retained. Cross-side matrix diagnoses naming conventions; no automatic swap or merge."
+  },
+  "sapiens2/north/nearest": {
+    "authored_reference_is_not_ground_truth": true,
+    "parts": {
+      "upper_arm-left": {
+        "native_ids": [
+          11
+        ],
+        "reference_bones": [
+          "ArmL"
+        ],
+        "iou_unclipped": 0.0,
+        "iou_alpha_diagnostic": 0.0,
+        "predicted_pixels": 0,
+        "predicted_alpha_pixels": 0,
+        "authored_pixels": 335
+      },
+      "upper_arm-right": {
+        "native_ids": [
+          20
+        ],
+        "reference_bones": [
+          "ArmR"
+        ],
+        "iou_unclipped": 0.0,
+        "iou_alpha_diagnostic": 0.0,
+        "predicted_pixels": 0,
+        "predicted_alpha_pixels": 0,
+        "authored_pixels": 310
+      },
+      "lower_arm-left": {
+        "native_ids": [
+          7
+        ],
+        "reference_bones": [
+          "ForearmL"
+        ],
+        "iou_unclipped": 0.0,
+        "iou_alpha_diagnostic": 0.0,
+        "predicted_pixels": 0,
+        "predicted_alpha_pixels": 0,
+        "authored_pixels": 230
+      },
+      "lower_arm-right": {
+        "native_ids": [
+          16
+        ],
+        "reference_bones": [
+          "ForearmR"
+        ],
+        "iou_unclipped": 0.0,
+        "iou_alpha_diagnostic": 0.0,
+        "predicted_pixels": 0,
+        "predicted_alpha_pixels": 0,
+        "authored_pixels": 214
+      },
+      "upper_leg-left": {
+        "native_ids": [
+          12
+        ],
+        "reference_bones": [
+          "ThighL"
+        ],
+        "iou_unclipped": 0.0,
+        "iou_alpha_diagnostic": 0.0,
+        "predicted_pixels": 0,
+        "predicted_alpha_pixels": 0,
+        "authored_pixels": 59
+      },
+      "upper_leg-right": {
+        "native_ids": [
+          21
+        ],
+        "reference_bones": [
+          "ThighR"
+        ],
+        "iou_unclipped": 0.0,
+        "iou_alpha_diagnostic": 0.0,
+        "predicted_pixels": 0,
+        "predicted_alpha_pixels": 0,
+        "authored_pixels": 57
+      },
+      "lower_leg-left": {
+        "native_ids": [
+          8
+        ],
+        "reference_bones": [
+          "CalfL"
+        ],
+        "iou_unclipped": 0.0,
+        "iou_alpha_diagnostic": 0.0,
+        "predicted_pixels": 0,
+        "predicted_alpha_pixels": 0,
+        "authored_pixels": 69
+      },
+      "lower_leg-right": {
+        "native_ids": [
+          17
+        ],
+        "reference_bones": [
+          "CalfR"
+        ],
+        "iou_unclipped": 0.0,
+        "iou_alpha_diagnostic": 0.0,
+        "predicted_pixels": 0,
+        "predicted_alpha_pixels": 0,
+        "authored_pixels": 69
+      }
+    },
+    "joint_boundary_f1_tolerance_1px": {
+      "upper_arm-left": 0.0,
+      "upper_arm-right": 0.0,
+      "upper_leg-left": 0.0,
+      "upper_leg-right": 0.0
+    },
+    "side_reference_iou_matrix": {
+      "upper_arm": {
+        "left": {
+          "left": 0.0,
+          "right": 0.0
+        },
+        "right": {
+          "left": 0.0,
+          "right": 0.0
+        }
+      },
+      "lower_arm": {
+        "left": {
+          "left": 0.0,
+          "right": 0.0
+        },
+        "right": {
+          "left": 0.0,
+          "right": 0.0
+        }
+      },
+      "upper_leg": {
+        "left": {
+          "left": 0.0,
+          "right": 0.0
+        },
+        "right": {
+          "left": 0.0,
+          "right": 0.0
+        }
+      },
+      "lower_leg": {
+        "left": {
+          "left": 0.0,
+          "right": 0.0
+        },
+        "right": {
+          "left": 0.0,
+          "right": 0.0
+        }
+      }
+    },
+    "side_caveat": "Native model left/right and authored bone suffixes are retained. Cross-side matrix diagnoses naming conventions; no automatic swap or merge."
+  },
+  "seethrough-sam/north/nearest": {
+    "authored_reference_is_not_ground_truth": true,
+    "parts": {},
+    "joint_boundary_f1_tolerance_1px": {},
+    "side_reference_iou_matrix": {},
+    "side_caveat": "Native model left/right and authored bone suffixes are retained. Cross-side matrix diagnoses naming conventions; no automatic swap or merge."
+  },
+  "densepose/north/nearest": {
+    "authored_reference_is_not_ground_truth": true,
+    "parts": {
+      "upper_arm-left": {
+        "native_ids": [
+          15,
+          17
+        ],
+        "reference_bones": [
+          "ArmL"
+        ],
+        "iou_unclipped": 0.0,
+        "iou_alpha_diagnostic": 0.0,
+        "predicted_pixels": 0,
+        "predicted_alpha_pixels": 0,
+        "authored_pixels": 335
+      },
+      "upper_arm-right": {
+        "native_ids": [
+          16,
+          18
+        ],
+        "reference_bones": [
+          "ArmR"
+        ],
+        "iou_unclipped": 0.0,
+        "iou_alpha_diagnostic": 0.0,
+        "predicted_pixels": 0,
+        "predicted_alpha_pixels": 0,
+        "authored_pixels": 310
+      },
+      "lower_arm-left": {
+        "native_ids": [
+          19,
+          21
+        ],
+        "reference_bones": [
+          "ForearmL"
+        ],
+        "iou_unclipped": 0.0,
+        "iou_alpha_diagnostic": 0.0,
+        "predicted_pixels": 0,
+        "predicted_alpha_pixels": 0,
+        "authored_pixels": 230
+      },
+      "lower_arm-right": {
+        "native_ids": [
+          20,
+          22
+        ],
+        "reference_bones": [
+          "ForearmR"
+        ],
+        "iou_unclipped": 0.0,
+        "iou_alpha_diagnostic": 0.0,
+        "predicted_pixels": 0,
+        "predicted_alpha_pixels": 0,
+        "authored_pixels": 214
+      },
+      "upper_leg-left": {
+        "native_ids": [
+          8,
+          10
+        ],
+        "reference_bones": [
+          "ThighL"
+        ],
+        "iou_unclipped": 0.0,
+        "iou_alpha_diagnostic": 0.0,
+        "predicted_pixels": 0,
+        "predicted_alpha_pixels": 0,
+        "authored_pixels": 59
+      },
+      "upper_leg-right": {
+        "native_ids": [
+          7,
+          9
+        ],
+        "reference_bones": [
+          "ThighR"
+        ],
+        "iou_unclipped": 0.0,
+        "iou_alpha_diagnostic": 0.0,
+        "predicted_pixels": 0,
+        "predicted_alpha_pixels": 0,
+        "authored_pixels": 57
+      },
+      "lower_leg-left": {
+        "native_ids": [
+          12,
+          14
+        ],
+        "reference_bones": [
+          "CalfL"
+        ],
+        "iou_unclipped": 0.0,
+        "iou_alpha_diagnostic": 0.0,
+        "predicted_pixels": 0,
+        "predicted_alpha_pixels": 0,
+        "authored_pixels": 69
+      },
+      "lower_leg-right": {
+        "native_ids": [
+          11,
+          13
+        ],
+        "reference_bones": [
+          "CalfR"
+        ],
+        "iou_unclipped": 0.0,
+        "iou_alpha_diagnostic": 0.0,
+        "predicted_pixels": 0,
+        "predicted_alpha_pixels": 0,
+        "authored_pixels": 69
+      }
+    },
+    "joint_boundary_f1_tolerance_1px": {
+      "upper_arm-left": 0.0,
+      "upper_arm-right": 0.0,
+      "upper_leg-left": 0.0,
+      "upper_leg-right": 0.0
+    },
+    "side_reference_iou_matrix": {
+      "upper_arm": {
+        "left": {
+          "left": 0.0,
+          "right": 0.0
+        },
+        "right": {
+          "left": 0.0,
+          "right": 0.0
+        }
+      },
+      "lower_arm": {
+        "left": {
+          "left": 0.0,
+          "right": 0.0
+        },
+        "right": {
+          "left": 0.0,
+          "right": 0.0
+        }
+      },
+      "upper_leg": {
+        "left": {
+          "left": 0.0,
+          "right": 0.0
+        },
+        "right": {
+          "left": 0.0,
+          "right": 0.0
+        }
+      },
+      "lower_leg": {
+        "left": {
+          "left": 0.0,
+          "right": 0.0
+        },
+        "right": {
+          "left": 0.0,
+          "right": 0.0
+        }
+      }
+    },
+    "side_caveat": "Native model left/right and authored bone suffixes are retained. Cross-side matrix diagnoses naming conventions; no automatic swap or merge."
+  },
+  "schp/north/bicubic": {
+    "authored_reference_is_not_ground_truth": true,
+    "parts": {
+      "upper_arm-both": {
+        "native_ids": [
+          3
+        ],
+        "reference_bones": [
+          "ArmL",
+          "ArmR"
+        ],
+        "iou_unclipped": 0.3127413127413127,
+        "iou_alpha_diagnostic": 0.314359637774903,
+        "predicted_pixels": 375,
+        "predicted_alpha_pixels": 371,
+        "authored_pixels": 645
+      },
+      "lower_arm-both": {
+        "native_ids": [
+          4
+        ],
+        "reference_bones": [
+          "ForearmL",
+          "ForearmR"
+        ],
+        "iou_unclipped": 0.6579520697167756,
+        "iou_alpha_diagnostic": 0.6593886462882096,
+        "predicted_pixels": 317,
+        "predicted_alpha_pixels": 316,
+        "authored_pixels": 444
+      },
+      "upper_leg-both": {
+        "native_ids": [
+          5
+        ],
+        "reference_bones": [
+          "ThighL",
+          "ThighR"
+        ],
+        "iou_unclipped": 0.0,
+        "iou_alpha_diagnostic": 0.0,
+        "predicted_pixels": 0,
+        "predicted_alpha_pixels": 0,
+        "authored_pixels": 116
+      },
+      "lower_leg-both": {
+        "native_ids": [
+          6
+        ],
+        "reference_bones": [
+          "CalfL",
+          "CalfR"
+        ],
+        "iou_unclipped": 0.0,
+        "iou_alpha_diagnostic": 0.0,
+        "predicted_pixels": 0,
+        "predicted_alpha_pixels": 0,
+        "authored_pixels": 138
+      }
+    },
+    "joint_boundary_f1_tolerance_1px": {
+      "upper_arm-both": 0.0,
+      "upper_leg-both": 0.0
+    },
+    "side_reference_iou_matrix": {
+      "upper_arm": {
+        "both": {
+          "both": 0.314359637774903
+        }
+      },
+      "lower_arm": {
+        "both": {
+          "both": 0.6593886462882096
+        }
+      },
+      "upper_leg": {
+        "both": {
+          "both": 0.0
+        }
+      },
+      "lower_leg": {
+        "both": {
+          "both": 0.0
+        }
+      }
+    },
+    "side_caveat": "Native model left/right and authored bone suffixes are retained. Cross-side matrix diagnoses naming conventions; no automatic swap or merge."
+  },
+  "bodypix/north/bicubic": {
+    "authored_reference_is_not_ground_truth": true,
+    "parts": {
+      "upper_arm-left": {
+        "native_ids": [
+          2,
+          3
+        ],
+        "reference_bones": [
+          "ArmL"
+        ],
+        "iou_unclipped": 0.0,
+        "iou_alpha_diagnostic": 0.0,
+        "predicted_pixels": 0,
+        "predicted_alpha_pixels": 0,
+        "authored_pixels": 335
+      },
+      "upper_arm-right": {
+        "native_ids": [
+          4,
+          5
+        ],
+        "reference_bones": [
+          "ArmR"
+        ],
+        "iou_unclipped": 0.0,
+        "iou_alpha_diagnostic": 0.0,
+        "predicted_pixels": 0,
+        "predicted_alpha_pixels": 0,
+        "authored_pixels": 310
+      },
+      "lower_arm-left": {
+        "native_ids": [
+          6,
+          7
+        ],
+        "reference_bones": [
+          "ForearmL"
+        ],
+        "iou_unclipped": 0.04669260700389105,
+        "iou_alpha_diagnostic": 0.047244094488188976,
+        "predicted_pixels": 39,
+        "predicted_alpha_pixels": 36,
+        "authored_pixels": 230
+      },
+      "lower_arm-right": {
+        "native_ids": [
+          8,
+          9
+        ],
+        "reference_bones": [
+          "ForearmR"
+        ],
+        "iou_unclipped": 0.0,
+        "iou_alpha_diagnostic": 0.0,
+        "predicted_pixels": 32,
+        "predicted_alpha_pixels": 32,
+        "authored_pixels": 214
+      },
+      "upper_leg-left": {
+        "native_ids": [
+          14,
+          15
+        ],
+        "reference_bones": [
+          "ThighL"
+        ],
+        "iou_unclipped": 0.0,
+        "iou_alpha_diagnostic": 0.0,
+        "predicted_pixels": 109,
+        "predicted_alpha_pixels": 109,
+        "authored_pixels": 59
+      },
+      "upper_leg-right": {
+        "native_ids": [
+          16,
+          17
+        ],
+        "reference_bones": [
+          "ThighR"
+        ],
+        "iou_unclipped": 0.0,
+        "iou_alpha_diagnostic": 0.0,
+        "predicted_pixels": 6,
+        "predicted_alpha_pixels": 6,
+        "authored_pixels": 57
+      },
+      "lower_leg-left": {
+        "native_ids": [
+          18,
+          19
+        ],
+        "reference_bones": [
+          "CalfL"
+        ],
+        "iou_unclipped": 0.0,
+        "iou_alpha_diagnostic": 0.0,
+        "predicted_pixels": 15,
+        "predicted_alpha_pixels": 15,
+        "authored_pixels": 69
+      },
+      "lower_leg-right": {
+        "native_ids": [
+          20,
+          21
+        ],
+        "reference_bones": [
+          "CalfR"
+        ],
+        "iou_unclipped": 0.0,
+        "iou_alpha_diagnostic": 0.0,
+        "predicted_pixels": 58,
+        "predicted_alpha_pixels": 58,
+        "authored_pixels": 69
+      }
+    },
+    "joint_boundary_f1_tolerance_1px": {
+      "upper_arm-left": 0.0,
+      "upper_arm-right": 0.0,
+      "upper_leg-left": 0.0,
+      "upper_leg-right": 0.0
+    },
+    "side_reference_iou_matrix": {
+      "upper_arm": {
+        "left": {
+          "left": 0.0,
+          "right": 0.0
+        },
+        "right": {
+          "left": 0.0,
+          "right": 0.0
+        }
+      },
+      "lower_arm": {
+        "left": {
+          "left": 0.047244094488188976,
+          "right": 0.10619469026548672
+        },
+        "right": {
+          "left": 0.1391304347826087,
+          "right": 0.0
+        }
+      },
+      "upper_leg": {
+        "left": {
+          "left": 0.0,
+          "right": 0.09933774834437085
+        },
+        "right": {
+          "left": 0.0,
+          "right": 0.0
+        }
+      },
+      "lower_leg": {
+        "left": {
+          "left": 0.0,
+          "right": 0.07692307692307693
+        },
+        "right": {
+          "left": 0.024193548387096774,
+          "right": 0.0
+        }
+      }
+    },
+    "side_caveat": "Native model left/right and authored bone suffixes are retained. Cross-side matrix diagnoses naming conventions; no automatic swap or merge."
+  },
+  "sapiens2/north/bicubic": {
+    "authored_reference_is_not_ground_truth": true,
+    "parts": {
+      "upper_arm-left": {
+        "native_ids": [
+          11
+        ],
+        "reference_bones": [
+          "ArmL"
+        ],
+        "iou_unclipped": 0.2411467116357504,
+        "iou_alpha_diagnostic": 0.2411467116357504,
+        "predicted_pixels": 401,
+        "predicted_alpha_pixels": 401,
+        "authored_pixels": 335
+      },
+      "upper_arm-right": {
+        "native_ids": [
+          20
+        ],
+        "reference_bones": [
+          "ArmR"
+        ],
+        "iou_unclipped": 0.0,
+        "iou_alpha_diagnostic": 0.0,
+        "predicted_pixels": 0,
+        "predicted_alpha_pixels": 0,
+        "authored_pixels": 310
+      },
+      "lower_arm-left": {
+        "native_ids": [
+          7
+        ],
+        "reference_bones": [
+          "ForearmL"
+        ],
+        "iou_unclipped": 0.11960784313725491,
+        "iou_alpha_diagnostic": 0.12577319587628866,
+        "predicted_pixels": 341,
+        "predicted_alpha_pixels": 316,
+        "authored_pixels": 230
+      },
+      "lower_arm-right": {
+        "native_ids": [
+          16
+        ],
+        "reference_bones": [
+          "ForearmR"
+        ],
+        "iou_unclipped": 0.004651162790697674,
+        "iou_alpha_diagnostic": 0.004672897196261682,
+        "predicted_pixels": 2,
+        "predicted_alpha_pixels": 1,
+        "authored_pixels": 214
+      },
+      "upper_leg-left": {
+        "native_ids": [
+          12
+        ],
+        "reference_bones": [
+          "ThighL"
+        ],
+        "iou_unclipped": 0.0,
+        "iou_alpha_diagnostic": 0.0,
+        "predicted_pixels": 0,
+        "predicted_alpha_pixels": 0,
+        "authored_pixels": 59
+      },
+      "upper_leg-right": {
+        "native_ids": [
+          21
+        ],
+        "reference_bones": [
+          "ThighR"
+        ],
+        "iou_unclipped": 0.0,
+        "iou_alpha_diagnostic": 0.0,
+        "predicted_pixels": 0,
+        "predicted_alpha_pixels": 0,
+        "authored_pixels": 57
+      },
+      "lower_leg-left": {
+        "native_ids": [
+          8
+        ],
+        "reference_bones": [
+          "CalfL"
+        ],
+        "iou_unclipped": 0.0,
+        "iou_alpha_diagnostic": 0.0,
+        "predicted_pixels": 0,
+        "predicted_alpha_pixels": 0,
+        "authored_pixels": 69
+      },
+      "lower_leg-right": {
+        "native_ids": [
+          17
+        ],
+        "reference_bones": [
+          "CalfR"
+        ],
+        "iou_unclipped": 0.0,
+        "iou_alpha_diagnostic": 0.0,
+        "predicted_pixels": 0,
+        "predicted_alpha_pixels": 0,
+        "authored_pixels": 69
+      }
+    },
+    "joint_boundary_f1_tolerance_1px": {
+      "upper_arm-left": 0.0,
+      "upper_arm-right": 0.0,
+      "upper_leg-left": 0.0,
+      "upper_leg-right": 0.0
+    },
+    "side_reference_iou_matrix": {
+      "upper_arm": {
+        "left": {
+          "left": 0.2411467116357504,
+          "right": 0.4135188866799205
+        },
+        "right": {
+          "left": 0.0,
+          "right": 0.0
+        }
+      },
+      "lower_arm": {
+        "left": {
+          "left": 0.12577319587628866,
+          "right": 0.3283208020050125
+        },
+        "right": {
+          "left": 0.0,
+          "right": 0.004672897196261682
+        }
+      },
+      "upper_leg": {
+        "left": {
+          "left": 0.0,
+          "right": 0.0
+        },
+        "right": {
+          "left": 0.0,
+          "right": 0.0
+        }
+      },
+      "lower_leg": {
+        "left": {
+          "left": 0.0,
+          "right": 0.0
+        },
+        "right": {
+          "left": 0.0,
+          "right": 0.0
+        }
+      }
+    },
+    "side_caveat": "Native model left/right and authored bone suffixes are retained. Cross-side matrix diagnoses naming conventions; no automatic swap or merge."
+  },
+  "seethrough-sam/north/bicubic": {
+    "authored_reference_is_not_ground_truth": true,
+    "parts": {},
+    "joint_boundary_f1_tolerance_1px": {},
+    "side_reference_iou_matrix": {},
+    "side_caveat": "Native model left/right and authored bone suffixes are retained. Cross-side matrix diagnoses naming conventions; no automatic swap or merge."
+  },
+  "densepose/north/bicubic": {
+    "authored_reference_is_not_ground_truth": true,
+    "parts": {
+      "upper_arm-left": {
+        "native_ids": [
+          15,
+          17
+        ],
+        "reference_bones": [
+          "ArmL"
+        ],
+        "iou_unclipped": 0.5645161290322581,
+        "iou_alpha_diagnostic": 0.5645161290322581,
+        "predicted_pixels": 247,
+        "predicted_alpha_pixels": 247,
+        "authored_pixels": 335
+      },
+      "upper_arm-right": {
+        "native_ids": [
+          16,
+          18
+        ],
+        "reference_bones": [
+          "ArmR"
+        ],
+        "iou_unclipped": 0.49476439790575916,
+        "iou_alpha_diagnostic": 0.49476439790575916,
+        "predicted_pixels": 261,
+        "predicted_alpha_pixels": 261,
+        "authored_pixels": 310
+      },
+      "lower_arm-left": {
+        "native_ids": [
+          19,
+          21
+        ],
+        "reference_bones": [
+          "ForearmL"
+        ],
+        "iou_unclipped": 0.341991341991342,
+        "iou_alpha_diagnostic": 0.34347826086956523,
+        "predicted_pixels": 80,
+        "predicted_alpha_pixels": 79,
+        "authored_pixels": 230
+      },
+      "lower_arm-right": {
+        "native_ids": [
+          20,
+          22
+        ],
+        "reference_bones": [
+          "ForearmR"
+        ],
+        "iou_unclipped": 0.40825688073394495,
+        "iou_alpha_diagnostic": 0.40825688073394495,
+        "predicted_pixels": 93,
+        "predicted_alpha_pixels": 93,
+        "authored_pixels": 214
+      },
+      "upper_leg-left": {
+        "native_ids": [
+          8,
+          10
+        ],
+        "reference_bones": [
+          "ThighL"
+        ],
+        "iou_unclipped": 0.33532934131736525,
+        "iou_alpha_diagnostic": 0.3373493975903614,
+        "predicted_pixels": 164,
+        "predicted_alpha_pixels": 163,
+        "authored_pixels": 59
+      },
+      "upper_leg-right": {
+        "native_ids": [
+          7,
+          9
+        ],
+        "reference_bones": [
+          "ThighR"
+        ],
+        "iou_unclipped": 0.33548387096774196,
+        "iou_alpha_diagnostic": 0.33766233766233766,
+        "predicted_pixels": 150,
+        "predicted_alpha_pixels": 149,
+        "authored_pixels": 57
+      },
+      "lower_leg-left": {
+        "native_ids": [
+          12,
+          14
+        ],
+        "reference_bones": [
+          "CalfL"
+        ],
+        "iou_unclipped": 0.6582278481012658,
+        "iou_alpha_diagnostic": 0.6582278481012658,
+        "predicted_pixels": 62,
+        "predicted_alpha_pixels": 62,
+        "authored_pixels": 69
+      },
+      "lower_leg-right": {
+        "native_ids": [
+          11,
+          13
+        ],
+        "reference_bones": [
+          "CalfR"
+        ],
+        "iou_unclipped": 0.5405405405405406,
+        "iou_alpha_diagnostic": 0.5405405405405406,
+        "predicted_pixels": 45,
+        "predicted_alpha_pixels": 45,
+        "authored_pixels": 69
+      }
+    },
+    "joint_boundary_f1_tolerance_1px": {
+      "upper_arm-left": 0.04444444444444444,
+      "upper_arm-right": 0.6845637583892616,
+      "upper_leg-left": 0.9523809523809523,
+      "upper_leg-right": 0.897196261682243
+    },
+    "side_reference_iou_matrix": {
+      "upper_arm": {
+        "left": {
+          "left": 0.5645161290322581,
+          "right": 0.0
+        },
+        "right": {
+          "left": 0.0,
+          "right": 0.49476439790575916
+        }
+      },
+      "lower_arm": {
+        "left": {
+          "left": 0.34347826086956523,
+          "right": 0.0
+        },
+        "right": {
+          "left": 0.0,
+          "right": 0.40825688073394495
+        }
+      },
+      "upper_leg": {
+        "left": {
+          "left": 0.3373493975903614,
+          "right": 0.0
+        },
+        "right": {
+          "left": 0.0,
+          "right": 0.33766233766233766
+        }
+      },
+      "lower_leg": {
+        "left": {
+          "left": 0.6582278481012658,
+          "right": 0.0
+        },
+        "right": {
+          "left": 0.0,
+          "right": 0.5405405405405406
+        }
+      }
+    },
+    "side_caveat": "Native model left/right and authored bone suffixes are retained. Cross-side matrix diagnoses naming conventions; no automatic swap or merge."
+  },
+  "schp/north-west/nearest": {
+    "authored_reference_is_not_ground_truth": true,
+    "parts": {
+      "upper_arm-both": {
+        "native_ids": [
+          3
+        ],
+        "reference_bones": [
+          "ArmL",
+          "ArmR"
+        ],
+        "iou_unclipped": 0.0,
+        "iou_alpha_diagnostic": 0.0,
+        "predicted_pixels": 0,
+        "predicted_alpha_pixels": 0,
+        "authored_pixels": 367
+      },
+      "lower_arm-both": {
+        "native_ids": [
+          4
+        ],
+        "reference_bones": [
+          "ForearmL",
+          "ForearmR"
+        ],
+        "iou_unclipped": 0.0,
+        "iou_alpha_diagnostic": 0.0,
+        "predicted_pixels": 0,
+        "predicted_alpha_pixels": 0,
+        "authored_pixels": 467
+      },
+      "upper_leg-both": {
+        "native_ids": [
+          5
+        ],
+        "reference_bones": [
+          "ThighL",
+          "ThighR"
+        ],
+        "iou_unclipped": 0.0,
+        "iou_alpha_diagnostic": 0.0,
+        "predicted_pixels": 0,
+        "predicted_alpha_pixels": 0,
+        "authored_pixels": 107
+      },
+      "lower_leg-both": {
+        "native_ids": [
+          6
+        ],
+        "reference_bones": [
+          "CalfL",
+          "CalfR"
+        ],
+        "iou_unclipped": 0.0,
+        "iou_alpha_diagnostic": 0.0,
+        "predicted_pixels": 0,
+        "predicted_alpha_pixels": 0,
+        "authored_pixels": 130
+      }
+    },
+    "joint_boundary_f1_tolerance_1px": {
+      "upper_arm-both": 0.0,
+      "upper_leg-both": 0.0
+    },
+    "side_reference_iou_matrix": {
+      "upper_arm": {
+        "both": {
+          "both": 0.0
+        }
+      },
+      "lower_arm": {
+        "both": {
+          "both": 0.0
+        }
+      },
+      "upper_leg": {
+        "both": {
+          "both": 0.0
+        }
+      },
+      "lower_leg": {
+        "both": {
+          "both": 0.0
+        }
+      }
+    },
+    "side_caveat": "Native model left/right and authored bone suffixes are retained. Cross-side matrix diagnoses naming conventions; no automatic swap or merge."
+  },
+  "bodypix/north-west/nearest": {
+    "authored_reference_is_not_ground_truth": true,
+    "parts": {
+      "upper_arm-left": {
+        "native_ids": [
+          2,
+          3
+        ],
+        "reference_bones": [
+          "ArmL"
+        ],
+        "iou_unclipped": 0.0,
+        "iou_alpha_diagnostic": 0.0,
+        "predicted_pixels": 26,
+        "predicted_alpha_pixels": 26,
+        "authored_pixels": 162
+      },
+      "upper_arm-right": {
+        "native_ids": [
+          4,
+          5
+        ],
+        "reference_bones": [
+          "ArmR"
+        ],
+        "iou_unclipped": 0.10176991150442478,
+        "iou_alpha_diagnostic": 0.10176991150442478,
+        "predicted_pixels": 44,
+        "predicted_alpha_pixels": 44,
+        "authored_pixels": 205
+      },
+      "lower_arm-left": {
+        "native_ids": [
+          6,
+          7
+        ],
+        "reference_bones": [
+          "ForearmL"
+        ],
+        "iou_unclipped": 0.012658227848101266,
+        "iou_alpha_diagnostic": 0.012658227848101266,
+        "predicted_pixels": 4,
+        "predicted_alpha_pixels": 4,
+        "authored_pixels": 316
+      },
+      "lower_arm-right": {
+        "native_ids": [
+          8,
+          9
+        ],
+        "reference_bones": [
+          "ForearmR"
+        ],
+        "iou_unclipped": 0.0,
+        "iou_alpha_diagnostic": 0.0,
+        "predicted_pixels": 19,
+        "predicted_alpha_pixels": 19,
+        "authored_pixels": 151
+      },
+      "upper_leg-left": {
+        "native_ids": [
+          14,
+          15
+        ],
+        "reference_bones": [
+          "ThighL"
+        ],
+        "iou_unclipped": 0.2677165354330709,
+        "iou_alpha_diagnostic": 0.2677165354330709,
+        "predicted_pixels": 112,
+        "predicted_alpha_pixels": 112,
+        "authored_pixels": 49
+      },
+      "upper_leg-right": {
+        "native_ids": [
+          16,
+          17
+        ],
+        "reference_bones": [
+          "ThighR"
+        ],
+        "iou_unclipped": 0.2112676056338028,
+        "iou_alpha_diagnostic": 0.21739130434782608,
+        "predicted_pixels": 28,
+        "predicted_alpha_pixels": 26,
+        "authored_pixels": 58
+      },
+      "lower_leg-left": {
+        "native_ids": [
+          18,
+          19
+        ],
+        "reference_bones": [
+          "CalfL"
+        ],
+        "iou_unclipped": 0.47959183673469385,
+        "iou_alpha_diagnostic": 0.47959183673469385,
+        "predicted_pixels": 68,
+        "predicted_alpha_pixels": 68,
+        "authored_pixels": 77
+      },
+      "lower_leg-right": {
+        "native_ids": [
+          20,
+          21
+        ],
+        "reference_bones": [
+          "CalfR"
+        ],
+        "iou_unclipped": 0.0,
+        "iou_alpha_diagnostic": 0.0,
+        "predicted_pixels": 4,
+        "predicted_alpha_pixels": 4,
+        "authored_pixels": 53
+      }
+    },
+    "joint_boundary_f1_tolerance_1px": {
+      "upper_arm-left": 0.0,
+      "upper_arm-right": 0.0,
+      "upper_leg-left": 0.9523809523809523,
+      "upper_leg-right": 0.0
+    },
+    "side_reference_iou_matrix": {
+      "upper_arm": {
+        "left": {
+          "left": 0.0,
+          "right": 0.0
+        },
+        "right": {
+          "left": 0.004878048780487805,
+          "right": 0.10176991150442478
+        }
+      },
+      "lower_arm": {
+        "left": {
+          "left": 0.012658227848101266,
+          "right": 0.0
+        },
+        "right": {
+          "left": 0.060126582278481014,
+          "right": 0.0
+        }
+      },
+      "upper_leg": {
+        "left": {
+          "left": 0.2677165354330709,
+          "right": 0.036585365853658534
+        },
+        "right": {
+          "left": 0.08695652173913043,
+          "right": 0.21739130434782608
+        }
+      },
+      "lower_leg": {
+        "left": {
+          "left": 0.47959183673469385,
+          "right": 0.0
+        },
+        "right": {
+          "left": 0.0125,
+          "right": 0.0
+        }
+      }
+    },
+    "side_caveat": "Native model left/right and authored bone suffixes are retained. Cross-side matrix diagnoses naming conventions; no automatic swap or merge."
+  },
+  "sapiens2/north-west/nearest": {
+    "authored_reference_is_not_ground_truth": true,
+    "parts": {
+      "upper_arm-left": {
+        "native_ids": [
+          11
+        ],
+        "reference_bones": [
+          "ArmL"
+        ],
+        "iou_unclipped": 0.0,
+        "iou_alpha_diagnostic": 0.0,
+        "predicted_pixels": 0,
+        "predicted_alpha_pixels": 0,
+        "authored_pixels": 162
+      },
+      "upper_arm-right": {
+        "native_ids": [
+          20
+        ],
+        "reference_bones": [
+          "ArmR"
+        ],
+        "iou_unclipped": 0.0,
+        "iou_alpha_diagnostic": 0.0,
+        "predicted_pixels": 0,
+        "predicted_alpha_pixels": 0,
+        "authored_pixels": 205
+      },
+      "lower_arm-left": {
+        "native_ids": [
+          7
+        ],
+        "reference_bones": [
+          "ForearmL"
+        ],
+        "iou_unclipped": 0.0,
+        "iou_alpha_diagnostic": 0.0,
+        "predicted_pixels": 0,
+        "predicted_alpha_pixels": 0,
+        "authored_pixels": 316
+      },
+      "lower_arm-right": {
+        "native_ids": [
+          16
+        ],
+        "reference_bones": [
+          "ForearmR"
+        ],
+        "iou_unclipped": 0.0,
+        "iou_alpha_diagnostic": 0.0,
+        "predicted_pixels": 0,
+        "predicted_alpha_pixels": 0,
+        "authored_pixels": 151
+      },
+      "upper_leg-left": {
+        "native_ids": [
+          12
+        ],
+        "reference_bones": [
+          "ThighL"
+        ],
+        "iou_unclipped": 0.0,
+        "iou_alpha_diagnostic": 0.0,
+        "predicted_pixels": 0,
+        "predicted_alpha_pixels": 0,
+        "authored_pixels": 49
+      },
+      "upper_leg-right": {
+        "native_ids": [
+          21
+        ],
+        "reference_bones": [
+          "ThighR"
+        ],
+        "iou_unclipped": 0.0,
+        "iou_alpha_diagnostic": 0.0,
+        "predicted_pixels": 0,
+        "predicted_alpha_pixels": 0,
+        "authored_pixels": 58
+      },
+      "lower_leg-left": {
+        "native_ids": [
+          8
+        ],
+        "reference_bones": [
+          "CalfL"
+        ],
+        "iou_unclipped": 0.0,
+        "iou_alpha_diagnostic": 0.0,
+        "predicted_pixels": 0,
+        "predicted_alpha_pixels": 0,
+        "authored_pixels": 77
+      },
+      "lower_leg-right": {
+        "native_ids": [
+          17
+        ],
+        "reference_bones": [
+          "CalfR"
+        ],
+        "iou_unclipped": 0.0,
+        "iou_alpha_diagnostic": 0.0,
+        "predicted_pixels": 0,
+        "predicted_alpha_pixels": 0,
+        "authored_pixels": 53
+      }
+    },
+    "joint_boundary_f1_tolerance_1px": {
+      "upper_arm-left": 0.0,
+      "upper_arm-right": 0.0,
+      "upper_leg-left": 0.0,
+      "upper_leg-right": 0.0
+    },
+    "side_reference_iou_matrix": {
+      "upper_arm": {
+        "left": {
+          "left": 0.0,
+          "right": 0.0
+        },
+        "right": {
+          "left": 0.0,
+          "right": 0.0
+        }
+      },
+      "lower_arm": {
+        "left": {
+          "left": 0.0,
+          "right": 0.0
+        },
+        "right": {
+          "left": 0.0,
+          "right": 0.0
+        }
+      },
+      "upper_leg": {
+        "left": {
+          "left": 0.0,
+          "right": 0.0
+        },
+        "right": {
+          "left": 0.0,
+          "right": 0.0
+        }
+      },
+      "lower_leg": {
+        "left": {
+          "left": 0.0,
+          "right": 0.0
+        },
+        "right": {
+          "left": 0.0,
+          "right": 0.0
+        }
+      }
+    },
+    "side_caveat": "Native model left/right and authored bone suffixes are retained. Cross-side matrix diagnoses naming conventions; no automatic swap or merge."
+  },
+  "seethrough-sam/north-west/nearest": {
+    "authored_reference_is_not_ground_truth": true,
+    "parts": {},
+    "joint_boundary_f1_tolerance_1px": {},
+    "side_reference_iou_matrix": {},
+    "side_caveat": "Native model left/right and authored bone suffixes are retained. Cross-side matrix diagnoses naming conventions; no automatic swap or merge."
+  },
+  "densepose/north-west/nearest": {
+    "authored_reference_is_not_ground_truth": true,
+    "parts": {
+      "upper_arm-left": {
+        "native_ids": [
+          15,
+          17
+        ],
+        "reference_bones": [
+          "ArmL"
+        ],
+        "iou_unclipped": 0.0,
+        "iou_alpha_diagnostic": 0.0,
+        "predicted_pixels": 0,
+        "predicted_alpha_pixels": 0,
+        "authored_pixels": 162
+      },
+      "upper_arm-right": {
+        "native_ids": [
+          16,
+          18
+        ],
+        "reference_bones": [
+          "ArmR"
+        ],
+        "iou_unclipped": 0.0,
+        "iou_alpha_diagnostic": 0.0,
+        "predicted_pixels": 0,
+        "predicted_alpha_pixels": 0,
+        "authored_pixels": 205
+      },
+      "lower_arm-left": {
+        "native_ids": [
+          19,
+          21
+        ],
+        "reference_bones": [
+          "ForearmL"
+        ],
+        "iou_unclipped": 0.0,
+        "iou_alpha_diagnostic": 0.0,
+        "predicted_pixels": 0,
+        "predicted_alpha_pixels": 0,
+        "authored_pixels": 316
+      },
+      "lower_arm-right": {
+        "native_ids": [
+          20,
+          22
+        ],
+        "reference_bones": [
+          "ForearmR"
+        ],
+        "iou_unclipped": 0.0,
+        "iou_alpha_diagnostic": 0.0,
+        "predicted_pixels": 0,
+        "predicted_alpha_pixels": 0,
+        "authored_pixels": 151
+      },
+      "upper_leg-left": {
+        "native_ids": [
+          8,
+          10
+        ],
+        "reference_bones": [
+          "ThighL"
+        ],
+        "iou_unclipped": 0.0,
+        "iou_alpha_diagnostic": 0.0,
+        "predicted_pixels": 0,
+        "predicted_alpha_pixels": 0,
+        "authored_pixels": 49
+      },
+      "upper_leg-right": {
+        "native_ids": [
+          7,
+          9
+        ],
+        "reference_bones": [
+          "ThighR"
+        ],
+        "iou_unclipped": 0.0,
+        "iou_alpha_diagnostic": 0.0,
+        "predicted_pixels": 0,
+        "predicted_alpha_pixels": 0,
+        "authored_pixels": 58
+      },
+      "lower_leg-left": {
+        "native_ids": [
+          12,
+          14
+        ],
+        "reference_bones": [
+          "CalfL"
+        ],
+        "iou_unclipped": 0.0,
+        "iou_alpha_diagnostic": 0.0,
+        "predicted_pixels": 0,
+        "predicted_alpha_pixels": 0,
+        "authored_pixels": 77
+      },
+      "lower_leg-right": {
+        "native_ids": [
+          11,
+          13
+        ],
+        "reference_bones": [
+          "CalfR"
+        ],
+        "iou_unclipped": 0.0,
+        "iou_alpha_diagnostic": 0.0,
+        "predicted_pixels": 0,
+        "predicted_alpha_pixels": 0,
+        "authored_pixels": 53
+      }
+    },
+    "joint_boundary_f1_tolerance_1px": {
+      "upper_arm-left": 0.0,
+      "upper_arm-right": 0.0,
+      "upper_leg-left": 0.0,
+      "upper_leg-right": 0.0
+    },
+    "side_reference_iou_matrix": {
+      "upper_arm": {
+        "left": {
+          "left": 0.0,
+          "right": 0.0
+        },
+        "right": {
+          "left": 0.0,
+          "right": 0.0
+        }
+      },
+      "lower_arm": {
+        "left": {
+          "left": 0.0,
+          "right": 0.0
+        },
+        "right": {
+          "left": 0.0,
+          "right": 0.0
+        }
+      },
+      "upper_leg": {
+        "left": {
+          "left": 0.0,
+          "right": 0.0
+        },
+        "right": {
+          "left": 0.0,
+          "right": 0.0
+        }
+      },
+      "lower_leg": {
+        "left": {
+          "left": 0.0,
+          "right": 0.0
+        },
+        "right": {
+          "left": 0.0,
+          "right": 0.0
+        }
+      }
+    },
+    "side_caveat": "Native model left/right and authored bone suffixes are retained. Cross-side matrix diagnoses naming conventions; no automatic swap or merge."
+  },
+  "schp/north-west/bicubic": {
+    "authored_reference_is_not_ground_truth": true,
+    "parts": {
+      "upper_arm-both": {
+        "native_ids": [
+          3
+        ],
+        "reference_bones": [
+          "ArmL",
+          "ArmR"
+        ],
+        "iou_unclipped": 0.5167037861915368,
+        "iou_alpha_diagnostic": 0.5178571428571429,
+        "predicted_pixels": 314,
+        "predicted_alpha_pixels": 313,
+        "authored_pixels": 367
+      },
+      "lower_arm-both": {
+        "native_ids": [
+          4
+        ],
+        "reference_bones": [
+          "ForearmL",
+          "ForearmR"
+        ],
+        "iou_unclipped": 0.6625258799171843,
+        "iou_alpha_diagnostic": 0.6779661016949152,
+        "predicted_pixels": 336,
+        "predicted_alpha_pixels": 325,
+        "authored_pixels": 467
+      },
+      "upper_leg-both": {
+        "native_ids": [
+          5
+        ],
+        "reference_bones": [
+          "ThighL",
+          "ThighR"
+        ],
+        "iou_unclipped": 0.02491103202846975,
+        "iou_alpha_diagnostic": 0.02491103202846975,
+        "predicted_pixels": 181,
+        "predicted_alpha_pixels": 181,
+        "authored_pixels": 107
+      },
+      "lower_leg-both": {
+        "native_ids": [
+          6
+        ],
+        "reference_bones": [
+          "CalfL",
+          "CalfR"
+        ],
+        "iou_unclipped": 0.296,
+        "iou_alpha_diagnostic": 0.296,
+        "predicted_pixels": 356,
+        "predicted_alpha_pixels": 356,
+        "authored_pixels": 130
+      }
+    },
+    "joint_boundary_f1_tolerance_1px": {
+      "upper_arm-both": 0.2637362637362637,
+      "upper_leg-both": 0.13793103448275862
+    },
+    "side_reference_iou_matrix": {
+      "upper_arm": {
+        "both": {
+          "both": 0.5178571428571429
+        }
+      },
+      "lower_arm": {
+        "both": {
+          "both": 0.6779661016949152
+        }
+      },
+      "upper_leg": {
+        "both": {
+          "both": 0.02491103202846975
+        }
+      },
+      "lower_leg": {
+        "both": {
+          "both": 0.296
+        }
+      }
+    },
+    "side_caveat": "Native model left/right and authored bone suffixes are retained. Cross-side matrix diagnoses naming conventions; no automatic swap or merge."
+  },
+  "bodypix/north-west/bicubic": {
+    "authored_reference_is_not_ground_truth": true,
+    "parts": {
+      "upper_arm-left": {
+        "native_ids": [
+          2,
+          3
+        ],
+        "reference_bones": [
+          "ArmL"
+        ],
+        "iou_unclipped": 0.0,
+        "iou_alpha_diagnostic": 0.0,
+        "predicted_pixels": 2,
+        "predicted_alpha_pixels": 2,
+        "authored_pixels": 162
+      },
+      "upper_arm-right": {
+        "native_ids": [
+          4,
+          5
+        ],
+        "reference_bones": [
+          "ArmR"
+        ],
+        "iou_unclipped": 0.06763285024154589,
+        "iou_alpha_diagnostic": 0.06829268292682927,
+        "predicted_pixels": 16,
+        "predicted_alpha_pixels": 14,
+        "authored_pixels": 205
+      },
+      "lower_arm-left": {
+        "native_ids": [
+          6,
+          7
+        ],
+        "reference_bones": [
+          "ForearmL"
+        ],
+        "iou_unclipped": 0.0,
+        "iou_alpha_diagnostic": 0.0,
+        "predicted_pixels": 0,
+        "predicted_alpha_pixels": 0,
+        "authored_pixels": 316
+      },
+      "lower_arm-right": {
+        "native_ids": [
+          8,
+          9
+        ],
+        "reference_bones": [
+          "ForearmR"
+        ],
+        "iou_unclipped": 0.0,
+        "iou_alpha_diagnostic": 0.0,
+        "predicted_pixels": 1,
+        "predicted_alpha_pixels": 1,
+        "authored_pixels": 151
+      },
+      "upper_leg-left": {
+        "native_ids": [
+          14,
+          15
+        ],
+        "reference_bones": [
+          "ThighL"
+        ],
+        "iou_unclipped": 0.1875,
+        "iou_alpha_diagnostic": 0.1875,
+        "predicted_pixels": 46,
+        "predicted_alpha_pixels": 46,
+        "authored_pixels": 49
+      },
+      "upper_leg-right": {
+        "native_ids": [
+          16,
+          17
+        ],
+        "reference_bones": [
+          "ThighR"
+        ],
+        "iou_unclipped": 0.0,
+        "iou_alpha_diagnostic": 0.0,
+        "predicted_pixels": 20,
+        "predicted_alpha_pixels": 20,
+        "authored_pixels": 58
+      },
+      "lower_leg-left": {
+        "native_ids": [
+          18,
+          19
+        ],
+        "reference_bones": [
+          "CalfL"
+        ],
+        "iou_unclipped": 0.2524271844660194,
+        "iou_alpha_diagnostic": 0.2524271844660194,
+        "predicted_pixels": 52,
+        "predicted_alpha_pixels": 52,
+        "authored_pixels": 77
+      },
+      "lower_leg-right": {
+        "native_ids": [
+          20,
+          21
+        ],
+        "reference_bones": [
+          "CalfR"
+        ],
+        "iou_unclipped": 0.0,
+        "iou_alpha_diagnostic": 0.0,
+        "predicted_pixels": 50,
+        "predicted_alpha_pixels": 50,
+        "authored_pixels": 53
+      }
+    },
+    "joint_boundary_f1_tolerance_1px": {
+      "upper_arm-left": 0.0,
+      "upper_arm-right": 0.0,
+      "upper_leg-left": 0.3428571428571428,
+      "upper_leg-right": 0.0
+    },
+    "side_reference_iou_matrix": {
+      "upper_arm": {
+        "left": {
+          "left": 0.0,
+          "right": 0.0
+        },
+        "right": {
+          "left": 0.0,
+          "right": 0.06829268292682927
+        }
+      },
+      "lower_arm": {
+        "left": {
+          "left": 0.0,
+          "right": 0.0
+        },
+        "right": {
+          "left": 0.0031645569620253164,
+          "right": 0.0
+        }
+      },
+      "upper_leg": {
+        "left": {
+          "left": 0.1875,
+          "right": 0.04
+        },
+        "right": {
+          "left": 0.1896551724137931,
+          "right": 0.0
+        }
+      },
+      "lower_leg": {
+        "left": {
+          "left": 0.2524271844660194,
+          "right": 0.009615384615384616
+        },
+        "right": {
+          "left": 0.3229166666666667,
+          "right": 0.0
+        }
+      }
+    },
+    "side_caveat": "Native model left/right and authored bone suffixes are retained. Cross-side matrix diagnoses naming conventions; no automatic swap or merge."
+  },
+  "sapiens2/north-west/bicubic": {
+    "authored_reference_is_not_ground_truth": true,
+    "parts": {
+      "upper_arm-left": {
+        "native_ids": [
+          11
+        ],
+        "reference_bones": [
+          "ArmL"
+        ],
+        "iou_unclipped": 0.0,
+        "iou_alpha_diagnostic": 0.0,
+        "predicted_pixels": 0,
+        "predicted_alpha_pixels": 0,
+        "authored_pixels": 162
+      },
+      "upper_arm-right": {
+        "native_ids": [
+          20
+        ],
+        "reference_bones": [
+          "ArmR"
+        ],
+        "iou_unclipped": 0.0,
+        "iou_alpha_diagnostic": 0.0,
+        "predicted_pixels": 0,
+        "predicted_alpha_pixels": 0,
+        "authored_pixels": 205
+      },
+      "lower_arm-left": {
+        "native_ids": [
+          7
+        ],
+        "reference_bones": [
+          "ForearmL"
+        ],
+        "iou_unclipped": 0.05063291139240506,
+        "iou_alpha_diagnostic": 0.05063291139240506,
+        "predicted_pixels": 16,
+        "predicted_alpha_pixels": 16,
+        "authored_pixels": 316
+      },
+      "lower_arm-right": {
+        "native_ids": [
+          16
+        ],
+        "reference_bones": [
+          "ForearmR"
+        ],
+        "iou_unclipped": 0.0,
+        "iou_alpha_diagnostic": 0.0,
+        "predicted_pixels": 0,
+        "predicted_alpha_pixels": 0,
+        "authored_pixels": 151
+      },
+      "upper_leg-left": {
+        "native_ids": [
+          12
+        ],
+        "reference_bones": [
+          "ThighL"
+        ],
+        "iou_unclipped": 0.0,
+        "iou_alpha_diagnostic": 0.0,
+        "predicted_pixels": 0,
+        "predicted_alpha_pixels": 0,
+        "authored_pixels": 49
+      },
+      "upper_leg-right": {
+        "native_ids": [
+          21
+        ],
+        "reference_bones": [
+          "ThighR"
+        ],
+        "iou_unclipped": 0.0,
+        "iou_alpha_diagnostic": 0.0,
+        "predicted_pixels": 0,
+        "predicted_alpha_pixels": 0,
+        "authored_pixels": 58
+      },
+      "lower_leg-left": {
+        "native_ids": [
+          8
+        ],
+        "reference_bones": [
+          "CalfL"
+        ],
+        "iou_unclipped": 0.0,
+        "iou_alpha_diagnostic": 0.0,
+        "predicted_pixels": 0,
+        "predicted_alpha_pixels": 0,
+        "authored_pixels": 77
+      },
+      "lower_leg-right": {
+        "native_ids": [
+          17
+        ],
+        "reference_bones": [
+          "CalfR"
+        ],
+        "iou_unclipped": 0.0,
+        "iou_alpha_diagnostic": 0.0,
+        "predicted_pixels": 0,
+        "predicted_alpha_pixels": 0,
+        "authored_pixels": 53
+      }
+    },
+    "joint_boundary_f1_tolerance_1px": {
+      "upper_arm-left": 0.0,
+      "upper_arm-right": 0.0,
+      "upper_leg-left": 0.0,
+      "upper_leg-right": 0.0
+    },
+    "side_reference_iou_matrix": {
+      "upper_arm": {
+        "left": {
+          "left": 0.0,
+          "right": 0.0
+        },
+        "right": {
+          "left": 0.0,
+          "right": 0.0
+        }
+      },
+      "lower_arm": {
+        "left": {
+          "left": 0.05063291139240506,
+          "right": 0.0
+        },
+        "right": {
+          "left": 0.0,
+          "right": 0.0
+        }
+      },
+      "upper_leg": {
+        "left": {
+          "left": 0.0,
+          "right": 0.0
+        },
+        "right": {
+          "left": 0.0,
+          "right": 0.0
+        }
+      },
+      "lower_leg": {
+        "left": {
+          "left": 0.0,
+          "right": 0.0
+        },
+        "right": {
+          "left": 0.0,
+          "right": 0.0
+        }
+      }
+    },
+    "side_caveat": "Native model left/right and authored bone suffixes are retained. Cross-side matrix diagnoses naming conventions; no automatic swap or merge."
+  },
+  "seethrough-sam/north-west/bicubic": {
+    "authored_reference_is_not_ground_truth": true,
+    "parts": {},
+    "joint_boundary_f1_tolerance_1px": {},
+    "side_reference_iou_matrix": {},
+    "side_caveat": "Native model left/right and authored bone suffixes are retained. Cross-side matrix diagnoses naming conventions; no automatic swap or merge."
+  },
+  "densepose/north-west/bicubic": {
+    "authored_reference_is_not_ground_truth": true,
+    "parts": {
+      "upper_arm-left": {
+        "native_ids": [
+          15,
+          17
+        ],
+        "reference_bones": [
+          "ArmL"
+        ],
+        "iou_unclipped": 0.5227272727272727,
+        "iou_alpha_diagnostic": 0.5227272727272727,
+        "predicted_pixels": 240,
+        "predicted_alpha_pixels": 240,
+        "authored_pixels": 162
+      },
+      "upper_arm-right": {
+        "native_ids": [
+          16,
+          18
+        ],
+        "reference_bones": [
+          "ArmR"
+        ],
+        "iou_unclipped": 0.29073482428115016,
+        "iou_alpha_diagnostic": 0.29260450160771706,
+        "predicted_pixels": 199,
+        "predicted_alpha_pixels": 197,
+        "authored_pixels": 205
+      },
+      "lower_arm-left": {
+        "native_ids": [
+          19,
+          21
+        ],
+        "reference_bones": [
+          "ForearmL"
+        ],
+        "iou_unclipped": 0.2959770114942529,
+        "iou_alpha_diagnostic": 0.2959770114942529,
+        "predicted_pixels": 135,
+        "predicted_alpha_pixels": 135,
+        "authored_pixels": 316
+      },
+      "lower_arm-right": {
+        "native_ids": [
+          20,
+          22
+        ],
+        "reference_bones": [
+          "ForearmR"
+        ],
+        "iou_unclipped": 0.11612903225806452,
+        "iou_alpha_diagnostic": 0.11612903225806452,
+        "predicted_pixels": 22,
+        "predicted_alpha_pixels": 22,
+        "authored_pixels": 151
+      },
+      "upper_leg-left": {
+        "native_ids": [
+          8,
+          10
+        ],
+        "reference_bones": [
+          "ThighL"
+        ],
+        "iou_unclipped": 0.1388888888888889,
+        "iou_alpha_diagnostic": 0.1388888888888889,
+        "predicted_pixels": 33,
+        "predicted_alpha_pixels": 33,
+        "authored_pixels": 49
+      },
+      "upper_leg-right": {
+        "native_ids": [
+          7,
+          9
+        ],
+        "reference_bones": [
+          "ThighR"
+        ],
+        "iou_unclipped": 0.0,
+        "iou_alpha_diagnostic": 0.0,
+        "predicted_pixels": 0,
+        "predicted_alpha_pixels": 0,
+        "authored_pixels": 58
+      },
+      "lower_leg-left": {
+        "native_ids": [
+          12,
+          14
+        ],
+        "reference_bones": [
+          "CalfL"
+        ],
+        "iou_unclipped": 0.25,
+        "iou_alpha_diagnostic": 0.25,
+        "predicted_pixels": 53,
+        "predicted_alpha_pixels": 53,
+        "authored_pixels": 77
+      },
+      "lower_leg-right": {
+        "native_ids": [
+          11,
+          13
+        ],
+        "reference_bones": [
+          "CalfR"
+        ],
+        "iou_unclipped": 0.0,
+        "iou_alpha_diagnostic": 0.0,
+        "predicted_pixels": 0,
+        "predicted_alpha_pixels": 0,
+        "authored_pixels": 53
+      }
+    },
+    "joint_boundary_f1_tolerance_1px": {
+      "upper_arm-left": 0.0,
+      "upper_arm-right": 0.0,
+      "upper_leg-left": 0.0,
+      "upper_leg-right": 0.0
+    },
+    "side_reference_iou_matrix": {
+      "upper_arm": {
+        "left": {
+          "left": 0.5227272727272727,
+          "right": 0.01366742596810934
+        },
+        "right": {
+          "left": 0.0,
+          "right": 0.29260450160771706
+        }
+      },
+      "lower_arm": {
+        "left": {
+          "left": 0.2959770114942529,
+          "right": 0.0
+        },
+        "right": {
+          "left": 0.0,
+          "right": 0.11612903225806452
+        }
+      },
+      "upper_leg": {
+        "left": {
+          "left": 0.1388888888888889,
+          "right": 0.0
+        },
+        "right": {
+          "left": 0.0,
+          "right": 0.0
+        }
+      },
+      "lower_leg": {
+        "left": {
+          "left": 0.25,
+          "right": 0.0
+        },
+        "right": {
+          "left": 0.0,
+          "right": 0.0
+        }
+      }
+    },
+    "side_caveat": "Native model left/right and authored bone suffixes are retained. Cross-side matrix diagnoses naming conventions; no automatic swap or merge."
+  }
+}

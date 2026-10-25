@@ -1,0 +1,184 @@
+{
+  "model": "schp",
+  "status": "SUCCESS",
+  "install_status": "SUCCESS",
+  "runs": [
+    {
+      "view": "south-west",
+      "resampling": "nearest",
+      "path": "south-west-nearest",
+      "metrics": {
+        "seconds": 0.8290791999970679,
+        "ram_sampled_peak_bytes": 374951936,
+        "ram_lifetime_peak_bytes": 377069568,
+        "ram_sampling_seconds": 0.01,
+        "cuda_peak_allocated_bytes": null,
+        "cuda_peak_reserved_bytes": null
+      }
+    },
+    {
+      "view": "south-west",
+      "resampling": "bicubic",
+      "path": "south-west-bicubic",
+      "metrics": {
+        "seconds": 1.8183209999988321,
+        "ram_sampled_peak_bytes": 375726080,
+        "ram_lifetime_peak_bytes": 378503168,
+        "ram_sampling_seconds": 0.01,
+        "cuda_peak_allocated_bytes": null,
+        "cuda_peak_reserved_bytes": null
+      }
+    },
+    {
+      "view": "south",
+      "resampling": "nearest",
+      "path": "south-nearest",
+      "metrics": {
+        "seconds": 1.0160969999997178,
+        "ram_sampled_peak_bytes": 378052608,
+        "ram_lifetime_peak_bytes": 379031552,
+        "ram_sampling_seconds": 0.01,
+        "cuda_peak_allocated_bytes": null,
+        "cuda_peak_reserved_bytes": null
+      }
+    },
+    {
+      "view": "south",
+      "resampling": "bicubic",
+      "path": "south-bicubic",
+      "metrics": {
+        "seconds": 1.1361093999985314,
+        "ram_sampled_peak_bytes": 377585664,
+        "ram_lifetime_peak_bytes": 379047936,
+        "ram_sampling_seconds": 0.01,
+        "cuda_peak_allocated_bytes": null,
+        "cuda_peak_reserved_bytes": null
+      }
+    },
+    {
+      "view": "north",
+      "resampling": "nearest",
+      "path": "north-nearest",
+      "metrics": {
+        "seconds": 0.9498229999990144,
+        "ram_sampled_peak_bytes": 372781056,
+        "ram_lifetime_peak_bytes": 379076608,
+        "ram_sampling_seconds": 0.01,
+        "cuda_peak_allocated_bytes": null,
+        "cuda_peak_reserved_bytes": null
+      }
+    },
+    {
+      "view": "north",
+      "resampling": "bicubic",
+      "path": "north-bicubic",
+      "metrics": {
+        "seconds": 1.2061656999976549,
+        "ram_sampled_peak_bytes": 377143296,
+        "ram_lifetime_peak_bytes": 379113472,
+        "ram_sampling_seconds": 0.01,
+        "cuda_peak_allocated_bytes": null,
+        "cuda_peak_reserved_bytes": null
+      }
+    },
+    {
+      "view": "north-west",
+      "resampling": "nearest",
+      "path": "north-west-nearest",
+      "metrics": {
+        "seconds": 0.9178760000031616,
+        "ram_sampled_peak_bytes": 372834304,
+        "ram_lifetime_peak_bytes": 379129856,
+        "ram_sampling_seconds": 0.01,
+        "cuda_peak_allocated_bytes": null,
+        "cuda_peak_reserved_bytes": null
+      }
+    },
+    {
+      "view": "north-west",
+      "resampling": "bicubic",
+      "path": "north-west-bicubic",
+      "metrics": {
+        "seconds": 1.170988000001671,
+        "ram_sampled_peak_bytes": 377896960,
+        "ram_lifetime_peak_bytes": 379359232,
+        "ram_sampling_seconds": 0.01,
+        "cuda_peak_allocated_bytes": null,
+        "cuda_peak_reserved_bytes": null
+      }
+    }
+  ],
+  "python": "3.12.9 (main, Feb  5 2025, 19:15:20) [MSC v.1942 64 bit (AMD64)]",
+  "batch_size": 1,
+  "checkpoint": {
+    "repo": "pirocheto/schp-pascal-7",
+    "revision": "50b9f67426dad72715f2ead54fce0fdf0117a0cd",
+    "file": "onnx/schp-pascal-7-int8-static.onnx",
+    "path": "D:\\gamedev\\huggingface\\anatomy-benchmark\\schp\\50b9f67426dad72715f2ead54fce0fdf0117a0cd",
+    "files": {
+      "config.json": {
+        "sha256": "2ca68c944d438a56f2a9febda30edafb719f3f0601330b1d86c9a2a8c4055aad",
+        "bytes": 687
+      },
+      "image_processing_schp.py": {
+        "sha256": "4b28d67671056aa999267fccfc441a71f183b8114a00cb83073975a9088185d9",
+        "bytes": 3373
+      },
+      "preprocessor_config.json": {
+        "sha256": "e9064450a874c5040138ddbe9ff341987da5e704e2f5ddab2ab81e164e7210c1",
+        "bytes": 302
+      },
+      "README.md": {
+        "sha256": "f6fa44f7562998840ab7f1210d64a31737b22a34b34a4c2ee9a580beb1bac3ec",
+        "bytes": 4322
+      },
+      "onnx\\schp-pascal-7-int8-static.onnx": {
+        "sha256": "66b12766d7f1ddbc3de972e67e8626be727507e7feeeca34e1b23b6f45e756d2",
+        "bytes": 69148800
+      }
+    }
+  },
+  "backend": "ONNX Runtime CPU",
+  "onnxruntime": "1.31.0",
+  "dtype": "INT8 static",
+  "number_of_classes": 7,
+  "load_metrics": {
+    "seconds": 1.3236692000027688,
+    "ram_sampled_peak_bytes": 176443392,
+    "ram_lifetime_peak_bytes": 176443392,
+    "ram_sampling_seconds": 0.01,
+    "cuda_peak_allocated_bytes": null,
+    "cuda_peak_reserved_bytes": null
+  },
+  "groups": {
+    "upper_arm": {
+      "both": [
+        3
+      ]
+    },
+    "lower_arm": {
+      "both": [
+        4
+      ]
+    },
+    "upper_leg": {
+      "both": [
+        5
+      ]
+    },
+    "lower_leg": {
+      "both": [
+        6
+      ]
+    }
+  },
+  "preprocessing": "Official RGB /255 and BGR-indexed RGB mean/std; benchmark NN/Bicubic resize replaces default bilinear.",
+  "warmup": {
+    "seconds": 0.9331856999997399,
+    "ram_sampled_peak_bytes": 323969024,
+    "ram_lifetime_peak_bytes": 326074368,
+    "ram_sampling_seconds": 0.01,
+    "cuda_peak_allocated_bytes": null,
+    "cuda_peak_reserved_bytes": null
+  }
+}

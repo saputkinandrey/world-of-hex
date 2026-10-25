@@ -1,0 +1,91 @@
+{
+  "_id": "69ea5934a018b75faf48cf7c",
+  "id": "facebook/sapiens2-seg-0.4b",
+  "private": false,
+  "pipeline_tag": "image-segmentation",
+  "library_name": "sapiens2",
+  "tags": [
+    "sapiens2",
+    "safetensors",
+    "sapiens",
+    "human-centric",
+    "seg",
+    "transformers",
+    "image-segmentation",
+    "arxiv:2604.21681",
+    "base_model:facebook/sapiens2-pretrain-0.4b",
+    "base_model:finetune:facebook/sapiens2-pretrain-0.4b",
+    "license:other",
+    "region:us"
+  ],
+  "downloads": 11451,
+  "likes": 7,
+  "modelId": "facebook/sapiens2-seg-0.4b",
+  "author": "facebook",
+  "sha": "449b3c5335e6722bb94990abdd1aa6e612432f22",
+  "lastModified": "2026-06-15T14:49:24.000Z",
+  "gated": false,
+  "disabled": false,
+  "model-index": null,
+  "config": {
+    "architectures": [
+      "Sapiens2ForSemanticSegmentation"
+    ],
+    "model_type": "sapiens2"
+  },
+  "cardData": {
+    "license": "other",
+    "license_name": "sapiens2-license",
+    "license_link": "https://github.com/facebookresearch/sapiens2/blob/main/LICENSE.md",
+    "pipeline_tag": "image-segmentation",
+    "library_name": "sapiens2",
+    "base_model": "facebook/sapiens2-pretrain-0.4b",
+    "tags": [
+      "sapiens",
+      "sapiens2",
+      "human-centric",
+      "seg",
+      "transformers"
+    ]
+  },
+  "transformersInfo": {
+    "auto_model": "Sapiens2ForSemanticSegmentation",
+    "processor": "AutoImageProcessor"
+  },
+  "siblings": [
+    {
+      "rfilename": ".gitattributes"
+    },
+    {
+      "rfilename": "README.md"
+    },
+    {
+      "rfilename": "config.json"
+    },
+    {
+      "rfilename": "model.safetensors"
+    },
+    {
+      "rfilename": "preprocessor_config.json"
+    },
+    {
+      "rfilename": "sapiens2_0.4b_seg.safetensors"
+    }
+  ],
+  "spaces": [
+    "facebook/sapiens2-seg",
+    "boka773/boka_sapiens2-seg",
+    "a9/sapiens2-seg",
+    "TatiTamati/sapiens2-seg",
+    "WeReCooking/sapiens2-cpu"
+  ],
+  "createdAt": "2026-04-23T17:39:00.000Z",
+  "safetensors": {
+    "parameters": {
+      "F32": 406601693,
+      "BF16": 16
+    },
+    "total": 406601709
+  },
+  "usedStorage": 1626451404
+}

@@ -1,0 +1,192 @@
+{
+  "model": "densepose",
+  "status": "INFERENCE_FAILED",
+  "install_status": "SUCCESS",
+  "runs": [
+    {
+      "view": "south-west",
+      "resampling": "nearest",
+      "path": "south-west-nearest",
+      "metrics": {
+        "seconds": 2.519537172999975,
+        "ram_sampled_peak_bytes": 1100402688,
+        "ram_lifetime_peak_bytes": null,
+        "ram_sampling_seconds": 0.01,
+        "cuda_peak_allocated_bytes": null,
+        "cuda_peak_reserved_bytes": null
+      }
+    },
+    {
+      "view": "south-west",
+      "resampling": "bicubic",
+      "path": "south-west-bicubic",
+      "metrics": {
+        "seconds": 3.561965350999998,
+        "ram_sampled_peak_bytes": 1106681856,
+        "ram_lifetime_peak_bytes": null,
+        "ram_sampling_seconds": 0.01,
+        "cuda_peak_allocated_bytes": null,
+        "cuda_peak_reserved_bytes": null
+      }
+    },
+    {
+      "view": "south",
+      "resampling": "nearest",
+      "path": "south-nearest",
+      "metrics": {
+        "seconds": 3.1166526149999925,
+        "ram_sampled_peak_bytes": 1075986432,
+        "ram_lifetime_peak_bytes": null,
+        "ram_sampling_seconds": 0.01,
+        "cuda_peak_allocated_bytes": null,
+        "cuda_peak_reserved_bytes": null
+      }
+    },
+    {
+      "view": "south",
+      "resampling": "bicubic",
+      "path": "south-bicubic",
+      "metrics": {
+        "seconds": 3.351339447000015,
+        "ram_sampled_peak_bytes": 1106612224,
+        "ram_lifetime_peak_bytes": null,
+        "ram_sampling_seconds": 0.01,
+        "cuda_peak_allocated_bytes": null,
+        "cuda_peak_reserved_bytes": null
+      }
+    },
+    {
+      "view": "north",
+      "resampling": "nearest",
+      "path": "north-nearest",
+      "metrics": {
+        "seconds": 3.0112053830000036,
+        "ram_sampled_peak_bytes": 1106735104,
+        "ram_lifetime_peak_bytes": null,
+        "ram_sampling_seconds": 0.01,
+        "cuda_peak_allocated_bytes": null,
+        "cuda_peak_reserved_bytes": null
+      }
+    },
+    {
+      "view": "north",
+      "resampling": "bicubic",
+      "path": "north-bicubic",
+      "metrics": {
+        "seconds": 3.1528065149999804,
+        "ram_sampled_peak_bytes": 1065787392,
+        "ram_lifetime_peak_bytes": null,
+        "ram_sampling_seconds": 0.01,
+        "cuda_peak_allocated_bytes": null,
+        "cuda_peak_reserved_bytes": null
+      }
+    },
+    {
+      "view": "north-west",
+      "resampling": "nearest",
+      "path": "north-west-nearest",
+      "metrics": {
+        "seconds": 3.3290897969999946,
+        "ram_sampled_peak_bytes": 1065639936,
+        "ram_lifetime_peak_bytes": null,
+        "ram_sampling_seconds": 0.01,
+        "cuda_peak_allocated_bytes": null,
+        "cuda_peak_reserved_bytes": null
+      }
+    },
+    {
+      "view": "north-west",
+      "resampling": "bicubic",
+      "path": "north-west-bicubic",
+      "metrics": {
+        "seconds": 3.6155640329999983,
+        "ram_sampled_peak_bytes": 1065775104,
+        "ram_lifetime_peak_bytes": null,
+        "ram_sampling_seconds": 0.01,
+        "cuda_peak_allocated_bytes": null,
+        "cuda_peak_reserved_bytes": null
+      }
+    }
+  ],
+  "python": "3.12.9 (main, Feb  5 2025, 19:10:45) [Clang 19.1.6 ]",
+  "batch_size": 1,
+  "backend": "Detectron2 CPU / WSL2",
+  "dtype": "float32",
+  "torch": "2.8.0+cpu",
+  "detectron2": "0.6",
+  "number_of_classes": 25,
+  "anatomical_surfaces": 24,
+  "checkpoint": {
+    "url": "https://dl.fbaipublicfiles.com/densepose/densepose_rcnn_R_50_FPN_s1x/165712039/model_final_162be9.pkl",
+    "path": "/mnt/d/gamedev/huggingface/anatomy-benchmark/densepose/model_final_162be9.pkl",
+    "sha256": "b8a7382001b16e453bad95ca9dbc68ae8f2b839b304cf90eaf5c27fbdb4dae91",
+    "source_revision": "b0fe2f0a5bb6496f65246ef35687a386a9f19202"
+  },
+  "load_metrics": {
+    "seconds": 2.8693069109999954,
+    "ram_sampled_peak_bytes": 889151488,
+    "ram_lifetime_peak_bytes": null,
+    "ram_sampling_seconds": 0.01,
+    "cuda_peak_allocated_bytes": null,
+    "cuda_peak_reserved_bytes": null
+  },
+  "groups": {
+    "upper_arm": {
+      "left": [
+        15,
+        17
+      ],
+      "right": [
+        16,
+        18
+      ]
+    },
+    "lower_arm": {
+      "left": [
+        19,
+        21
+      ],
+      "right": [
+        20,
+        22
+      ]
+    },
+    "upper_leg": {
+      "left": [
+        8,
+        10
+      ],
+      "right": [
+        7,
+        9
+      ]
+    },
+    "lower_leg": {
+      "left": [
+        12,
+        14
+      ],
+      "right": [
+        11,
+        13
+      ]
+    }
+  },
+  "surface_mapping_source": "https://github.com/facebookresearch/detectron2/blob/b0fe2f0a5bb6496f65246ef35687a386a9f19202/projects/DensePose/densepose/data/samplers/densepose_base.py",
+  "preprocessing": {
+    "input_format": "BGR",
+    "min_size_test": 800,
+    "max_size_test": 1333,
+    "score_threshold": 0.05,
+    "flip_horizontal": false
+  },
+  "instance_selection": "Highest-score detection for shared class map; all instance labels/UV, boxes/scores and native predictor tensors retained raw.",
+  "warmup": {
+    "seconds": 3.0020491699999923,
+    "ram_sampled_peak_bytes": 1034407936,
+    "ram_lifetime_peak_bytes": null,
+    "ram_sampling_seconds": 0.01,
+    "cuda_peak_allocated_bytes": null,
+    "cuda_peak_reserved_bytes": null
+  }
+}
