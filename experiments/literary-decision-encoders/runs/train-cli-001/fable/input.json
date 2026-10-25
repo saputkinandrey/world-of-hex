@@ -1,0 +1,65 @@
+{
+  "schema": "labeled-decisions/1",
+  "synthetic": true,
+  "purpose": "Tiny artificial code smoke test. Not literary decisions or quality evidence.",
+  "cases": [
+    {
+      "id": "artificial-open",
+      "language": "en",
+      "character": {
+        "biography": "A guard waits at a gate.",
+        "motivation": "Follow the written order."
+      },
+      "available_information": "The order says open.",
+      "situation": {
+        "description": "A bell rings."
+      },
+      "actions": [
+        {
+          "id": "open",
+          "description": "Open the gate."
+        },
+        {
+          "id": "close",
+          "description": "Close the gate."
+        }
+      ],
+      "chosen_action_id": "open",
+      "source": {
+        "work": "Artificial fixture",
+        "scene_id": "open-1"
+      }
+    },
+    {
+      "id": "artificial-close",
+      "language": "ru",
+      "character": {
+        "biography": "Страж у ворот.",
+        "motivation": "Выполнить приказ."
+      },
+      "available_information": "Приказ: закрыть ворота.",
+      "situation": {
+        "description": "Звонит колокол."
+      },
+      "actions": [
+        {
+          "id": "open",
+          "description": "Открыть ворота."
+        },
+        {
+          "id": "wait",
+          "description": "Ждать."
+        },
+        {
+          "id": "close",
+          "description": "Закрыть ворота."
+        }
+      ],
+      "chosen_action_id": "close",
+      "source": {
+        "work": "Artificial fixture",
+        "scene_id": "close-1"
+      }
+    }
+  ]
+}

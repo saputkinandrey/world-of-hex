@@ -1,0 +1,53 @@
+{
+  "synthetic": true,
+  "quality_evidence": false,
+  "checks": {
+    "encoder_unchanged": true,
+    "first_head_changed": true,
+    "second_head_changed": true,
+    "first_head_unchanged_after_second_training": true,
+    "reload_scores_bitwise_equal": true,
+    "encoder_has_no_gradients": true,
+    "permutation_invariant_by_id": true
+  },
+  "losses_a": [
+    0.6909413933753967,
+    1.0479729175567627,
+    0.6504035592079163,
+    0.8756906986236572,
+    0.6371721029281616,
+    0.7854270339012146,
+    0.6270661950111389,
+    0.7432708740234375,
+    0.6097777485847473,
+    0.7250669598579407,
+    0.5795612335205078,
+    0.7195983529090881
+  ],
+  "losses_b": [
+    0.697721004486084,
+    1.025922179222107,
+    0.6488310098648071,
+    0.8382782936096191,
+    0.6278332471847534,
+    0.7570545673370361,
+    0.6114246845245361,
+    0.7226511836051941,
+    0.5845940113067627,
+    0.7117806077003479,
+    0.541509747505188,
+    0.7090017795562744
+  ],
+  "encoder_sha256": "73753f93168fa0dc05a829ad7946ca74ec462744b3e4a7a5f56c0a1ae89c0e3f",
+  "head_a_sha256": "560e8dfbef87965e2a2e899f43bbb5c3fc3b186835e2ef17a6b07cad8b648bbb",
+  "permutation_max_delta": 0.0,
+  "overflow_rejection": "Input lengths [547, 547] exceed context 512; truncation disabled",
+  "example_scores": {
+    "scores": {
+      "open": -2.1120803356170654,
+      "close": -2.4500818252563477
+    },
+    "selected_action_id": "open"
+  },
+  "example_scores_label": "Artificial smoke data only; no literary validity"
+}

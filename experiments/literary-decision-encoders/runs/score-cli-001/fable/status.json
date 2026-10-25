@@ -1,0 +1,101 @@
+{
+  "model": "fable",
+  "status": "ok",
+  "environment": {
+    "python": "3.12.9 (main, Feb  5 2025, 19:15:20) [MSC v.1942 64 bit (AMD64)]",
+    "platform": "Windows-11-10.0.26200-SP0",
+    "packages": {
+      "torch": "2.8.0+cu128",
+      "transformers": "5.5.4",
+      "sentence-transformers": "5.4.1",
+      "psutil": "7.2.2",
+      "huggingface-hub": "1.33.0"
+    },
+    "cuda_runtime": "12.8",
+    "cuda_available": true,
+    "gpu": "NVIDIA GeForce RTX 3060 Laptop GPU",
+    "gpu_properties": "_CudaDeviceProperties(name='NVIDIA GeForce RTX 3060 Laptop GPU', major=8, minor=6, total_memory=6143MB, multi_processor_count=30, uuid=1a68f674-98d2-6dd9-b937-c27855f375cf, pci_bus_id=1, pci_device_id=0, pci_domain_id=0, L2_cache_size=3MB)"
+  },
+  "encoder": {
+    "repo": "SaladTechnologies/fable-base",
+    "revision": "45aceef3d49fe75bd8240010cbfdc983724ec420",
+    "architecture": "DebertaV2Model",
+    "parameters": 183831552,
+    "max_length": 512,
+    "architectural_context": 512,
+    "hidden_size": 768,
+    "languages_claimed": [
+      "en"
+    ],
+    "loading_info": {
+      "missing_keys": [],
+      "unexpected_keys": [
+        "classifier.bias",
+        "classifier.weight"
+      ],
+      "mismatched_keys": [],
+      "error_msgs": []
+    },
+    "frozen": true
+  },
+  "load": {
+    "wall_seconds": 2.108588300001429,
+    "rss_baseline_bytes": 619450368,
+    "rss_sampled_peak_bytes": 1582829568,
+    "rss_sample_interval_seconds": 0.01,
+    "process_lifetime_peak_rss_bytes": 1585209344,
+    "cuda_allocated_bytes": 736595968,
+    "cuda_peak_allocated_bytes": 736595968,
+    "cuda_peak_reserved_bytes": 773849088,
+    "cuda_free_total_bytes": [
+      4605345792,
+      6441926656
+    ]
+  },
+  "warmup": {
+    "wall_seconds": 0.9764626999985921,
+    "rss_baseline_bytes": 849899520,
+    "rss_sampled_peak_bytes": 1352740864,
+    "rss_sample_interval_seconds": 0.01,
+    "process_lifetime_peak_rss_bytes": 1585209344,
+    "cuda_allocated_bytes": 745121792,
+    "cuda_peak_allocated_bytes": 759720448,
+    "cuda_peak_reserved_bytes": 801112064,
+    "cuda_free_total_bytes": [
+      4548722688,
+      6441926656
+    ]
+  },
+  "head_metadata": {
+    "schema": "literary-head/1",
+    "input_size": 768,
+    "hidden_size": 64,
+    "model": "fable",
+    "revision": "45aceef3d49fe75bd8240010cbfdc983724ec420",
+    "encoder_sha256": "73753f93168fa0dc05a829ad7946ca74ec462744b3e4a7a5f56c0a1ae89c0e3f",
+    "pooling": "masked-mean/1",
+    "serialization": "candidate-text/1",
+    "training_steps": 4,
+    "dataset_sha256": "3247555d6627516daa272bf22634584849ce0d80d942290c0b430b5d17485d8e",
+    "synthetic": true
+  },
+  "predictions": [
+    {
+      "case_id": "artificial-open",
+      "scores": {
+        "open": -1.9549813270568848,
+        "close": -2.07025146484375
+      },
+      "selected_action_id": "open"
+    },
+    {
+      "case_id": "artificial-close",
+      "scores": {
+        "open": 1.242743968963623,
+        "wait": -0.11135554313659668,
+        "close": 1.2489829063415527
+      },
+      "selected_action_id": "close"
+    }
+  ]
+}

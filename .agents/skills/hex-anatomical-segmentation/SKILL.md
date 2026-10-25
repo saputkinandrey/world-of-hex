@@ -1,9 +1,9 @@
 ---
 name: hex-anatomical-segmentation
-description: Experimental deterministic anatomical-mask postprocessing of saved LayerDiff RGBA runs in World of Hex, using an explicitly supplied set of semantic layers.
+description: Experimental anatomical-mask postprocessing of saved LayerDiff RGBA runs and explicit set operations on saved masks in World of Hex.
 ---
 
-Use existing experiment files. Obtain the experiment path and explicit layer list
+For segmentation, use existing experiment files. Obtain the experiment path and explicit layer list
 from the user or an experimental configuration; ask for either if missing.
 Choose a new output directory outside the historical experiment.
 
@@ -20,6 +20,21 @@ reference-check modes. Report the measured result without an expected area,
 shape or vote-count target.
 Use `--help` for the supported categories and output details.
 
+For set operations on existing binary masks, obtain the two saved result
+directories and the explicit operator. Use a new output directory:
+
+```powershell
+python .agents/skills/hex-anatomical-segmentation/scripts/mask_ops.py --operation difference --left <result-A> --right <result-B> --output <new-output-directory>
+```
+
+Operators: `union` (A|B), `intersection` (A&B), `difference` (A&~B), and
+`symmetric-difference` (A^B). Difference subtracts right from left. Operands
+must have `mask.png` and `metadata.json` with matching original source bytes
+and native grids. Set-operation outputs can be operands in later operations.
+The script validates checksums and binary pixels, without resampling or
+recomputing segmentation. Report operand/overlap/output areas, component sizes
+and output links. No anatomical correctness is inferred from the operation.
+
 Algorithm v1.2.0 uses raw hitmaps directly, with equal contribution per layer
 and no multiplicative coefficients or normalization. Intensity ranking is
 diagnostic only. Initialize one layer as the virtual self-pair A=B=H:
@@ -29,7 +44,7 @@ products (`experimental_pairwise_products`). Update S,P simultaneously from
 their previous values three times to obtain S4. Binarize using exactly
 20*S4 >= max(S4), returning an empty mask when the maximum is zero.
 
-Report parameters, unique-seed count, ranked intensities, mask area,
+For segmentation, report parameters, unique-seed count, ranked intensities, mask area,
 component sizes and links to `mask.png`, `overlay-preview.png`, `metadata.json`
 and `numeric.json.gz`. On a duplicate-seed conflict, report `conflicts.json`
 and stop.

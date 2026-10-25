@@ -1,0 +1,43 @@
+{
+  "repo": "SaladTechnologies/fable-base",
+  "sha": "45aceef3d49fe75bd8240010cbfdc983724ec420",
+  "config": {
+    "architectures": [
+      "DebertaV2ForTokenClassification"
+    ],
+    "model_type": "deberta-v2",
+    "tokenizer_config": {
+      "bos_token": "[CLS]",
+      "cls_token": "[CLS]",
+      "eos_token": "[SEP]",
+      "mask_token": "[MASK]",
+      "pad_token": "[PAD]",
+      "sep_token": "[SEP]",
+      "unk_token": "[UNK]"
+    }
+  },
+  "card": {
+    "base_model": [
+      "microsoft/deberta-v3-base"
+    ],
+    "datasets": [
+      "SaladTechnologies/fiction-ner-750m"
+    ],
+    "language": [
+      "en"
+    ],
+    "license": "mit",
+    "pipeline_tag": "token-classification"
+  },
+  "files": [
+    ".gitattributes",
+    "README.md",
+    "added_tokens.json",
+    "config.json",
+    "model.safetensors",
+    "special_tokens_map.json",
+    "tokenizer.json",
+    "tokenizer_config.json",
+    "train.ipynb"
+  ]
+}

@@ -1,0 +1,102 @@
+Loading weights:   0%|          | 0/197 [00:00<?, ?it/s]Loading weights: 100%|██████████| 197/197 [00:00<00:00, 21124.86it/s]
+[1mElectraModel LOAD REPORT[0m from: D:\gamedev\huggingface\literary-encoders\ruelectra\23d6d09ff6d58546701718445aa875633bd1f25d
+Key                                                                | Status     |  | 
+-------------------------------------------------------------------+------------+--+-
+generator.encoder.layer.{0...11}.output.LayerNorm.bias             | UNEXPECTED |  | 
+generator.encoder.layer.{0...11}.attention.self.value.bias         | UNEXPECTED |  | 
+generator.encoder.layer.{0...11}.attention.self.value.weight       | UNEXPECTED |  | 
+generator.encoder.layer.{0...11}.output.dense.weight               | UNEXPECTED |  | 
+generator.encoder.layer.{0...11}.output.LayerNorm.weight           | UNEXPECTED |  | 
+generator_predictions.LayerNorm.weight                             | UNEXPECTED |  | 
+discriminator_predictions.LayerNorm.weight                         | UNEXPECTED |  | 
+generator.encoder.layer.{0...11}.attention.self.query.bias         | UNEXPECTED |  | 
+generator.encoder.layer.{0...11}.intermediate.dense.bias           | UNEXPECTED |  | 
+generator.encoder.layer.{0...11}.intermediate.dense.weight         | UNEXPECTED |  | 
+generator.encoder.layer.{0...11}.attention.output.LayerNorm.weight | UNEXPECTED |  | 
+generator.encoder.layer.{0...11}.attention.output.dense.bias       | UNEXPECTED |  | 
+generator.embeddings_project.weight                                | UNEXPECTED |  | 
+generator.encoder.layer.{0...11}.attention.self.key.bias           | UNEXPECTED |  | 
+generator.embeddings.LayerNorm.bias                                | UNEXPECTED |  | 
+discriminator_predictions.classifier.weight                        | UNEXPECTED |  | 
+generator.encoder.layer.{0...11}.attention.output.LayerNorm.bias   | UNEXPECTED |  | 
+generator.encoder.layer.{0...11}.attention.self.query.weight       | UNEXPECTED |  | 
+generator.encoder.layer.{0...11}.output.dense.bias                 | UNEXPECTED |  | 
+generator.encoder.layer.{0...11}.attention.output.dense.weight     | UNEXPECTED |  | 
+generator.encoder.layer.{0...11}.attention.self.key.weight         | UNEXPECTED |  | 
+generator.embeddings.position_embeddings.weight                    | UNEXPECTED |  | 
+generator_predictions.LayerNorm.bias                               | UNEXPECTED |  | 
+discriminator_predictions.dense.weight                             | UNEXPECTED |  | 
+generator.embeddings_project.bias                                  | UNEXPECTED |  | 
+generator_predictions.dense.bias                                   | UNEXPECTED |  | 
+discriminator_predictions.LayerNorm.bias                           | UNEXPECTED |  | 
+generator_predictions.decoder.bias                                 | UNEXPECTED |  | 
+generator.embeddings.token_type_embeddings.weight                  | UNEXPECTED |  | 
+discriminator_predictions.dense.bias                               | UNEXPECTED |  | 
+generator_predictions.dense.weight                                 | UNEXPECTED |  | 
+generator_predictions.bias                                         | UNEXPECTED |  | 
+generator.embeddings.word_embeddings.weight                        | UNEXPECTED |  | 
+generator_predictions.decoder.weight                               | UNEXPECTED |  | 
+generator.embeddings.LayerNorm.weight                              | UNEXPECTED |  | 
+discriminator_predictions.classifier.bias                          | UNEXPECTED |  | 
+
+Notes:
+- UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+Traceback (most recent call last):
+  File "C:\Users\Андрей\Desktop\world-of-hex\experiments\literary-decision-encoders\cli.py", line 120, in worker
+    write_json(output / 'model.json', status)
+  File "C:\Users\Андрей\Desktop\world-of-hex\experiments\literary-decision-encoders\contracts.py", line 15, in write_json
+    Path(path).write_text(json.dumps(value, ensure_ascii=False, indent=2, allow_nan=False)+'\n', encoding='utf-8')
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Андрей\AppData\Roaming\uv\python\cpython-3.12.9-windows-x86_64-none\Lib\json\__init__.py", line 238, in dumps
+    **kw).encode(obj)
+          ^^^^^^^^^^^
+  File "C:\Users\Андрей\AppData\Roaming\uv\python\cpython-3.12.9-windows-x86_64-none\Lib\json\encoder.py", line 202, in encode
+    chunks = list(chunks)
+             ^^^^^^^^^^^^
+  File "C:\Users\Андрей\AppData\Roaming\uv\python\cpython-3.12.9-windows-x86_64-none\Lib\json\encoder.py", line 432, in _iterencode
+    yield from _iterencode_dict(o, _current_indent_level)
+  File "C:\Users\Андрей\AppData\Roaming\uv\python\cpython-3.12.9-windows-x86_64-none\Lib\json\encoder.py", line 406, in _iterencode_dict
+    yield from chunks
+  File "C:\Users\Андрей\AppData\Roaming\uv\python\cpython-3.12.9-windows-x86_64-none\Lib\json\encoder.py", line 406, in _iterencode_dict
+    yield from chunks
+  File "C:\Users\Андрей\AppData\Roaming\uv\python\cpython-3.12.9-windows-x86_64-none\Lib\json\encoder.py", line 406, in _iterencode_dict
+    yield from chunks
+  File "C:\Users\Андрей\AppData\Roaming\uv\python\cpython-3.12.9-windows-x86_64-none\Lib\json\encoder.py", line 439, in _iterencode
+    o = _default(o)
+        ^^^^^^^^^^^
+  File "C:\Users\Андрей\AppData\Roaming\uv\python\cpython-3.12.9-windows-x86_64-none\Lib\json\encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type set is not JSON serializable
+
+Traceback (most recent call last):
+  File "C:\Users\Андрей\Desktop\world-of-hex\experiments\literary-decision-encoders\cli.py", line 199, in <module>
+    sys.exit(main())
+             ^^^^^^
+  File "C:\Users\Андрей\Desktop\world-of-hex\experiments\literary-decision-encoders\cli.py", line 195, in main
+    return worker(args) if args.worker else run_workers(args, keys)
+           ^^^^^^^^^^^^
+  File "C:\Users\Андрей\Desktop\world-of-hex\experiments\literary-decision-encoders\cli.py", line 148, in worker
+    write_json(output / 'status.json', status)
+  File "C:\Users\Андрей\Desktop\world-of-hex\experiments\literary-decision-encoders\contracts.py", line 15, in write_json
+    Path(path).write_text(json.dumps(value, ensure_ascii=False, indent=2, allow_nan=False)+'\n', encoding='utf-8')
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Андрей\AppData\Roaming\uv\python\cpython-3.12.9-windows-x86_64-none\Lib\json\__init__.py", line 238, in dumps
+    **kw).encode(obj)
+          ^^^^^^^^^^^
+  File "C:\Users\Андрей\AppData\Roaming\uv\python\cpython-3.12.9-windows-x86_64-none\Lib\json\encoder.py", line 202, in encode
+    chunks = list(chunks)
+             ^^^^^^^^^^^^
+  File "C:\Users\Андрей\AppData\Roaming\uv\python\cpython-3.12.9-windows-x86_64-none\Lib\json\encoder.py", line 432, in _iterencode
+    yield from _iterencode_dict(o, _current_indent_level)
+  File "C:\Users\Андрей\AppData\Roaming\uv\python\cpython-3.12.9-windows-x86_64-none\Lib\json\encoder.py", line 406, in _iterencode_dict
+    yield from chunks
+  File "C:\Users\Андрей\AppData\Roaming\uv\python\cpython-3.12.9-windows-x86_64-none\Lib\json\encoder.py", line 406, in _iterencode_dict
+    yield from chunks
+  File "C:\Users\Андрей\AppData\Roaming\uv\python\cpython-3.12.9-windows-x86_64-none\Lib\json\encoder.py", line 406, in _iterencode_dict
+    yield from chunks
+  File "C:\Users\Андрей\AppData\Roaming\uv\python\cpython-3.12.9-windows-x86_64-none\Lib\json\encoder.py", line 439, in _iterencode
+    o = _default(o)
+        ^^^^^^^^^^^
+  File "C:\Users\Андрей\AppData\Roaming\uv\python\cpython-3.12.9-windows-x86_64-none\Lib\json\encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type set is not JSON serializable

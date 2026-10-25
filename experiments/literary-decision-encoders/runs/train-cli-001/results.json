@@ -1,0 +1,92 @@
+{
+  "fable": {
+    "model": "fable",
+    "status": "ok",
+    "environment": {
+      "python": "3.12.9 (main, Feb  5 2025, 19:15:20) [MSC v.1942 64 bit (AMD64)]",
+      "platform": "Windows-11-10.0.26200-SP0",
+      "packages": {
+        "torch": "2.8.0+cu128",
+        "transformers": "5.5.4",
+        "sentence-transformers": "5.4.1",
+        "psutil": "7.2.2",
+        "huggingface-hub": "1.33.0"
+      },
+      "cuda_runtime": "12.8",
+      "cuda_available": true,
+      "gpu": "NVIDIA GeForce RTX 3060 Laptop GPU",
+      "gpu_properties": "_CudaDeviceProperties(name='NVIDIA GeForce RTX 3060 Laptop GPU', major=8, minor=6, total_memory=6143MB, multi_processor_count=30, uuid=1a68f674-98d2-6dd9-b937-c27855f375cf, pci_bus_id=1, pci_device_id=0, pci_domain_id=0, L2_cache_size=3MB)"
+    },
+    "encoder": {
+      "repo": "SaladTechnologies/fable-base",
+      "revision": "45aceef3d49fe75bd8240010cbfdc983724ec420",
+      "architecture": "DebertaV2Model",
+      "parameters": 183831552,
+      "max_length": 512,
+      "architectural_context": 512,
+      "hidden_size": 768,
+      "languages_claimed": [
+        "en"
+      ],
+      "loading_info": {
+        "missing_keys": [],
+        "unexpected_keys": [
+          "classifier.bias",
+          "classifier.weight"
+        ],
+        "mismatched_keys": [],
+        "error_msgs": []
+      },
+      "frozen": true
+    },
+    "load": {
+      "wall_seconds": 1.5852536000002146,
+      "rss_baseline_bytes": 618942464,
+      "rss_sampled_peak_bytes": 1565986816,
+      "rss_sample_interval_seconds": 0.01,
+      "process_lifetime_peak_rss_bytes": 1584349184,
+      "cuda_allocated_bytes": 736595968,
+      "cuda_peak_allocated_bytes": 736595968,
+      "cuda_peak_reserved_bytes": 773849088,
+      "cuda_free_total_bytes": [
+        4605345792,
+        6441926656
+      ]
+    },
+    "warmup": {
+      "wall_seconds": 0.4071471000006568,
+      "rss_baseline_bytes": 849039360,
+      "rss_sampled_peak_bytes": 1353150464,
+      "rss_sample_interval_seconds": 0.01,
+      "process_lifetime_peak_rss_bytes": 1584349184,
+      "cuda_allocated_bytes": 745121792,
+      "cuda_peak_allocated_bytes": 759720448,
+      "cuda_peak_reserved_bytes": 801112064,
+      "cuda_free_total_bytes": [
+        4548722688,
+        6441926656
+      ]
+    },
+    "losses": [
+      0.6909413933753967,
+      1.0479729175567627,
+      0.6504035592079163,
+      0.8756906986236572
+    ],
+    "training_metrics": {
+      "wall_seconds": 0.0793322999998054,
+      "rss_baseline_bytes": 1802903552,
+      "rss_sampled_peak_bytes": 1905246208,
+      "rss_sample_interval_seconds": 0.01,
+      "process_lifetime_peak_rss_bytes": 2140278784,
+      "cuda_allocated_bytes": 754053120,
+      "cuda_peak_allocated_bytes": 755500032,
+      "cuda_peak_reserved_bytes": 826277888,
+      "cuda_free_total_bytes": [
+        4515168256,
+        6441926656
+      ]
+    },
+    "synthetic": true
+  }
+}

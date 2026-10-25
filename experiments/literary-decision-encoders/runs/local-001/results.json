@@ -1,0 +1,34 @@
+{
+  "literary_minilm": {
+    "model": "literary_minilm",
+    "status": "failed",
+    "environment": {
+      "python": "3.12.9 (main, Feb  5 2025, 19:15:20) [MSC v.1942 64 bit (AMD64)]",
+      "platform": "Windows-11-10.0.26200-SP0",
+      "packages": {
+        "torch": "2.8.0+cu128",
+        "transformers": "5.5.4",
+        "sentence-transformers": "5.4.1",
+        "psutil": "7.2.2",
+        "huggingface-hub": "1.33.0"
+      },
+      "cuda_runtime": "12.8",
+      "cuda_available": true,
+      "gpu": "NVIDIA GeForce RTX 3060 Laptop GPU",
+      "gpu_properties": "_CudaDeviceProperties(name='NVIDIA GeForce RTX 3060 Laptop GPU', major=8, minor=6, total_memory=6143MB, multi_processor_count=30, uuid=1a68f674-98d2-6dd9-b937-c27855f375cf, pci_bus_id=1, pci_device_id=0, pci_domain_id=0, L2_cache_size=3MB)"
+    },
+    "error_type": "ValueError",
+    "error": "Unrecognized model in D:\\gamedev\\huggingface\\literary-encoders\\literary_minilm\\92a6516f32321dc4048b49c9e6eb2b9aaa7e8e8f. Should have a `model_type` key in its config.json.",
+    "traceback": "Traceback (most recent call last):\n  File \"C:\\Users\\Андрей\\Desktop\\world-of-hex\\experiments\\literary-decision-encoders\\cli.py\", line 118, in worker\n    encoder, metrics = measured(lambda: Encoder(args.model, args.device), args.device)\n                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\Андрей\\Desktop\\world-of-hex\\experiments\\literary-decision-encoders\\measure.py\", line 27, in measured\n    result = call()\n             ^^^^^^\n  File \"C:\\Users\\Андрей\\Desktop\\world-of-hex\\experiments\\literary-decision-encoders\\cli.py\", line 118, in <lambda>\n    encoder, metrics = measured(lambda: Encoder(args.model, args.device), args.device)\n                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\Андрей\\Desktop\\world-of-hex\\experiments\\literary-decision-encoders\\encoders.py\", line 36, in __init__\n    self.sentence_model = SentenceTransformer(path, device=device, local_files_only=True, trust_remote_code=False)\n                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\Андрей\\Desktop\\world-of-hex\\experiments\\literary-decision-encoders\\.venv\\Lib\\site-packages\\sentence_transformers\\util\\decorators.py\", line 41, in wrapper\n    return func(*args, **kwargs)\n           ^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\Андрей\\Desktop\\world-of-hex\\experiments\\literary-decision-encoders\\.venv\\Lib\\site-packages\\sentence_transformers\\sentence_transformer\\model.py\", line 183, in __init__\n    super().__init__(\n  File \"C:\\Users\\Андрей\\Desktop\\world-of-hex\\experiments\\literary-decision-encoders\\.venv\\Lib\\site-packages\\sentence_transformers\\base\\model.py\", line 198, in __init__\n    modules, self.module_kwargs = self._load_modules(\n                                  ^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\Андрей\\Desktop\\world-of-hex\\experiments\\literary-decision-encoders\\.venv\\Lib\\site-packages\\sentence_transformers\\base\\model.py\", line 963, in _load_modules\n    return self._load_default_modules(model_name_or_path, **load_kwargs)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\Андрей\\Desktop\\world-of-hex\\experiments\\literary-decision-encoders\\.venv\\Lib\\site-packages\\sentence_transformers\\sentence_transformer\\model.py\", line 1056, in _load_default_modules\n    transformer_model = Transformer(\n                        ^^^^^^^^^^^^\n  File \"C:\\Users\\Андрей\\Desktop\\world-of-hex\\experiments\\literary-decision-encoders\\.venv\\Lib\\site-packages\\sentence_transformers\\util\\decorators.py\", line 87, in wrapper\n    return func(*args, **kwargs)\n           ^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\Андрей\\Desktop\\world-of-hex\\experiments\\literary-decision-encoders\\.venv\\Lib\\site-packages\\sentence_transformers\\base\\modules\\transformer.py\", line 628, in __init__\n    config, is_peft_model = self._load_config(model_name_or_path, backend, config_kwargs)\n                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\Андрей\\Desktop\\world-of-hex\\experiments\\literary-decision-encoders\\.venv\\Lib\\site-packages\\sentence_transformers\\base\\modules\\transformer.py\", line 1378, in _load_config\n    return AutoConfig.from_pretrained(model_name_or_path, **config_kwargs), False\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\Андрей\\Desktop\\world-of-hex\\experiments\\literary-decision-encoders\\.venv\\Lib\\site-packages\\transformers\\models\\auto\\configuration_auto.py\", line 1528, in from_pretrained\n    raise ValueError(\nValueError: Unrecognized model in D:\\gamedev\\huggingface\\literary-encoders\\literary_minilm\\92a6516f32321dc4048b49c9e6eb2b9aaa7e8e8f. Should have a `model_type` key in its config.json.\n"
+  },
+  "fable": {
+    "status": "failed",
+    "exit_code": 1,
+    "error": "Worker exited before status; see worker.log"
+  },
+  "ruelectra": {
+    "status": "failed",
+    "exit_code": 1,
+    "error": "Worker exited before status; see worker.log"
+  }
+}

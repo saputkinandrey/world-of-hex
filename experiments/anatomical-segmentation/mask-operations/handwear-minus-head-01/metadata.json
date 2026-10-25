@@ -1,0 +1,74 @@
+{
+  "mask_operation_version": "1.0.0",
+  "operation": "difference",
+  "coordinate_space": "native_source_pixels",
+  "source_image": "C:\\Users\\Андрей\\Desktop\\world-of-hex\\godot\\modules\\character-animation-workbench\\neural\\evidence\\experiments\\sw-head-consistency-02\\input\\source.png",
+  "source_experiments": [
+    "C:\\Users\\Андрей\\Desktop\\world-of-hex\\godot\\modules\\character-animation-workbench\\neural\\evidence\\experiments\\sw-head-consistency-02"
+  ],
+  "transform": {
+    "crop": [
+      47,
+      23,
+      105,
+      127
+    ],
+    "scale": [
+      4.931034482758621,
+      4.923076923076923
+    ],
+    "offset": [
+      -118.75862068965517,
+      -113.23076923076924
+    ],
+    "native_size": [
+      150,
+      150
+    ],
+    "input_size": [
+      512,
+      512
+    ],
+    "resampling": "bicubic",
+    "margin_fraction": 0.08,
+    "mode": "crop",
+    "coordinates": "edge: model = native * scale + offset; center index: model = (native + .5) * scale + offset - .5"
+  },
+  "transform_usage": "native_size identifies the grid; no projection or resampling is applied",
+  "operands": [
+    {
+      "role": "left",
+      "directory": "C:\\Users\\Андрей\\Desktop\\world-of-hex\\experiments\\anatomical-segmentation\\v1.2.0\\handwear",
+      "area_pixels": 854
+    },
+    {
+      "role": "right",
+      "directory": "C:\\Users\\Андрей\\Desktop\\world-of-hex\\experiments\\anatomical-segmentation\\v1.2.0\\head",
+      "area_pixels": 791
+    }
+  ],
+  "overlap_area_pixels": 106,
+  "output_area_pixels": 748,
+  "connected_components": {
+    "connectivity": 4,
+    "count": 2,
+    "areas_pixels": [
+      469,
+      279
+    ]
+  },
+  "input_checksums_sha256": {
+    "C:\\Users\\Андрей\\Desktop\\world-of-hex\\experiments\\anatomical-segmentation\\v1.2.0\\handwear\\metadata.json": "ed2da89cd851f6f441186150fb776278197fe197fb87cd0ce78211f655c45fd9",
+    "C:\\Users\\Андрей\\Desktop\\world-of-hex\\experiments\\anatomical-segmentation\\v1.2.0\\handwear\\mask.png": "65f0a8e589a5520631f64cd4cb031574cf873fde8700de66cf5c4cd867bee8d4",
+    "C:\\Users\\Андрей\\Desktop\\world-of-hex\\godot\\modules\\character-animation-workbench\\neural\\evidence\\experiments\\sw-head-consistency-02\\input\\source.png": "360f063eafb49373170a61a041841e5d66078b67ed9b00659769b0414ba774fe",
+    "C:\\Users\\Андрей\\Desktop\\world-of-hex\\experiments\\anatomical-segmentation\\v1.2.0\\head\\metadata.json": "c433115b5e2dc2752f04f99cd54d8a57cd32d6d017da49e535b0fef2a6a7872a",
+    "C:\\Users\\Андрей\\Desktop\\world-of-hex\\experiments\\anatomical-segmentation\\v1.2.0\\head\\mask.png": "a5e823f9d9e77abc984b95d86663cbab6bd7c8f2f2870ef31732ea789fd01f8d"
+  },
+  "output_checksums_sha256": {
+    "mask-rgba.png": "8ca22c28fd6d266d43834d406b8835819bcf3738989dd64467938c59d25ef056",
+    "mask.png": "0c9f6a011f988ef37469fae9bbeb858ac818eaefc4ed06812967dc051e736a4a",
+    "numeric.json.gz": "2fa6de73bbbd596c2ea000cb06a04da8769a9824036579dfee22e041f2fbda73",
+    "overlay-preview.png": "99e63139ffb668ad0d1a0a593e60e309d0dc52e2f0783c5aeae950ce9cdcf59f",
+    "overlay.png": "4054499b0a5af35c88bdce9d075845ed5bff2e964e5248feb3189d44dd3ffef2"
+  }
+}

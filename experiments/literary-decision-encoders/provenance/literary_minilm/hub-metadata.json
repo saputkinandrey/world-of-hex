@@ -1,0 +1,45 @@
+{
+  "repo": "RafaelUI/literary-minilm",
+  "sha": "92a6516f32321dc4048b49c9e6eb2b9aaa7e8e8f",
+  "config": {},
+  "card": {
+    "base_model": "sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2",
+    "datasets": [
+      "rafaelui/literary-text-pairs"
+    ],
+    "language": [
+      "en",
+      "ru",
+      "fr",
+      "de",
+      "es",
+      "it",
+      "pt"
+    ],
+    "license": "apache-2.0",
+    "pipeline_tag": "sentence-similarity",
+    "tags": [
+      "sentence-transformers",
+      "sentence-similarity",
+      "feature-extraction",
+      "literary",
+      "semantic-search",
+      "multilingual"
+    ]
+  },
+  "files": [
+    ".DS_Store",
+    ".gitattributes",
+    "1_Pooling/config.json",
+    "1_Pooling/config_sentence_transformers.json",
+    "1_Pooling/modules.json",
+    "1_Pooling/sentence_bert_config.json",
+    "1_Pooling/tokenizer_config.json",
+    "README.md",
+    "coreml/LiteraryMiniLM.mlpackage/Data/com.apple.CoreML/model.mlmodel",
+    "coreml/LiteraryMiniLM.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+    "coreml/LiteraryMiniLM.mlpackage/Manifest.json",
+    "model.safetensors",
+    "tokenizer.json"
+  ]
+}

@@ -1,0 +1,58 @@
+{
+  "schema": "literary-diagnostics/1",
+  "quality_ground_truth": false,
+  "cases": [
+    {
+      "id": "guard-en",
+      "language": "en",
+      "character": {
+        "biography": "An exiled guard owes a smuggler his life.",
+        "motivation": "Repay debts but protect villagers."
+      },
+      "available_information": "The bridge is watched.",
+      "situation": {
+        "description": "The smuggler asks him to hide stolen medicine needed by a sick child."
+      },
+      "actions": [
+        {
+          "id": "return",
+          "description": "Return the medicine to the child."
+        },
+        {
+          "id": "hide",
+          "description": "Hide the medicine for the smuggler."
+        },
+        {
+          "id": "negotiate",
+          "description": "Ask the smuggler to help the child."
+        }
+      ]
+    },
+    {
+      "id": "guard-ru",
+      "language": "ru",
+      "character": {
+        "biography": "Изгнанный страж обязан жизнью вору.",
+        "motivation": "Вернуть долг, защитить людей."
+      },
+      "available_information": "Мост охраняют.",
+      "situation": {
+        "description": "Вор просит спрятать лекарство, нужное больному ребёнку."
+      },
+      "actions": [
+        {
+          "id": "return",
+          "description": "Вернуть лекарство ребёнку."
+        },
+        {
+          "id": "hide",
+          "description": "Спрятать лекарство для вора."
+        },
+        {
+          "id": "negotiate",
+          "description": "Просить вора помочь ребёнку."
+        }
+      ]
+    }
+  ]
+}

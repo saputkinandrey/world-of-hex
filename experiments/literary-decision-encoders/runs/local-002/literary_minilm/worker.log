@@ -1,0 +1,40 @@
+Traceback (most recent call last):
+  File "C:\Users\Андрей\Desktop\world-of-hex\experiments\literary-decision-encoders\cli.py", line 118, in worker
+    encoder, metrics = measured(lambda: Encoder(args.model, args.device), args.device)
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Андрей\Desktop\world-of-hex\experiments\literary-decision-encoders\measure.py", line 27, in measured
+    result = call()
+             ^^^^^^
+  File "C:\Users\Андрей\Desktop\world-of-hex\experiments\literary-decision-encoders\cli.py", line 118, in <lambda>
+    encoder, metrics = measured(lambda: Encoder(args.model, args.device), args.device)
+                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Андрей\Desktop\world-of-hex\experiments\literary-decision-encoders\encoders.py", line 36, in __init__
+    self.sentence_model = SentenceTransformer(path, device=device, local_files_only=True, trust_remote_code=False)
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Андрей\Desktop\world-of-hex\experiments\literary-decision-encoders\.venv\Lib\site-packages\sentence_transformers\util\decorators.py", line 41, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Андрей\Desktop\world-of-hex\experiments\literary-decision-encoders\.venv\Lib\site-packages\sentence_transformers\sentence_transformer\model.py", line 183, in __init__
+    super().__init__(
+  File "C:\Users\Андрей\Desktop\world-of-hex\experiments\literary-decision-encoders\.venv\Lib\site-packages\sentence_transformers\base\model.py", line 198, in __init__
+    modules, self.module_kwargs = self._load_modules(
+                                  ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Андрей\Desktop\world-of-hex\experiments\literary-decision-encoders\.venv\Lib\site-packages\sentence_transformers\base\model.py", line 963, in _load_modules
+    return self._load_default_modules(model_name_or_path, **load_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Андрей\Desktop\world-of-hex\experiments\literary-decision-encoders\.venv\Lib\site-packages\sentence_transformers\sentence_transformer\model.py", line 1056, in _load_default_modules
+    transformer_model = Transformer(
+                        ^^^^^^^^^^^^
+  File "C:\Users\Андрей\Desktop\world-of-hex\experiments\literary-decision-encoders\.venv\Lib\site-packages\sentence_transformers\util\decorators.py", line 87, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Андрей\Desktop\world-of-hex\experiments\literary-decision-encoders\.venv\Lib\site-packages\sentence_transformers\base\modules\transformer.py", line 628, in __init__
+    config, is_peft_model = self._load_config(model_name_or_path, backend, config_kwargs)
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Андрей\Desktop\world-of-hex\experiments\literary-decision-encoders\.venv\Lib\site-packages\sentence_transformers\base\modules\transformer.py", line 1378, in _load_config
+    return AutoConfig.from_pretrained(model_name_or_path, **config_kwargs), False
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Андрей\Desktop\world-of-hex\experiments\literary-decision-encoders\.venv\Lib\site-packages\transformers\models\auto\configuration_auto.py", line 1528, in from_pretrained
+    raise ValueError(
+ValueError: Unrecognized model in D:\gamedev\huggingface\literary-encoders\literary_minilm\92a6516f32321dc4048b49c9e6eb2b9aaa7e8e8f. Should have a `model_type` key in its config.json.
+

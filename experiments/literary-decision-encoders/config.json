@@ -1,0 +1,10 @@
+{
+  "model_root": "D:/gamedev/huggingface/literary-encoders",
+  "seed": 42,
+  "head_hidden_size": 64,
+  "models": {
+    "literary_minilm": {"repo": "RafaelUI/literary-minilm", "revision": "92a6516f32321dc4048b49c9e6eb2b9aaa7e8e8f", "languages": ["en", "ru", "fr", "de", "es", "it", "pt"], "context_cap": 128},
+    "fable": {"repo": "SaladTechnologies/fable-base", "revision": "45aceef3d49fe75bd8240010cbfdc983724ec420", "languages": ["en"]},
+    "ruelectra": {"repo": "ai-forever/ruElectra-medium", "revision": "23d6d09ff6d58546701718445aa875633bd1f25d", "languages": ["ru"]}
+  }
+}
