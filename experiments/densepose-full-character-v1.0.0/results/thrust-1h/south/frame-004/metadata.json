@@ -1,0 +1,710 @@
+{
+  "entry": {
+    "pose": "thrust-1h",
+    "direction": "south",
+    "source_file": "godot/assets/Character/Character1/thrust-1h/S/Thrust_1h_Body1.png",
+    "source_direction": "south",
+    "mirrored": false,
+    "atlas_size": [
+      550,
+      110
+    ],
+    "frame_size": [
+      110,
+      110
+    ],
+    "hframes": 5,
+    "vframes": 1,
+    "source_sha256": "51258d54d173c2abe5f3c4f455c11dc27b77cbfe9d5271c72ecf6cfee125c9a4",
+    "character": "Character1",
+    "atlas_frame": 4,
+    "atlas_box": [
+      440,
+      0,
+      550,
+      110
+    ],
+    "frame_role": "skin-tone variant selected by CharacterSpriteEntity.skin_color; not animation time",
+    "frame_rgba_sha256": "2179502229f2dc0a1693ed0ca2ce6e56fb90c963fb2ba202edbf5f596ad33f35",
+    "key": "thrust-1h/south/frame-004",
+    "inference_source_key": "thrust-1h/south/frame-004"
+  },
+  "execution": "inference",
+  "contract_sha256": "6140ca0cac025e5ad52966de547da83639b00c7a15d1c35e9f0eb3fbd3c15347",
+  "checkpoint_sha256": "b8a7382001b16e453bad95ca9dbc68ae8f2b839b304cf90eaf5c27fbdb4dae91",
+  "configuration_sha256": "9ad5be8e042ddb9b42ae55f33bf11a42fe7351b394c6f3b40d0ef42ebf0251bb",
+  "adapter_sha256": "478c96532aefab0ce4c38ffa0299ef60e5d472973541b566bf85681e66ee631a",
+  "metrics": {
+    "seconds": 4.442720453999982,
+    "ram_sampled_peak_bytes": 1085747200,
+    "ram_lifetime_peak_bytes": null,
+    "ram_sampling_seconds": 0.01,
+    "cuda_peak_allocated_bytes": null,
+    "cuda_peak_reserved_bytes": null
+  },
+  "model_grid_shape": [
+    512,
+    512
+  ],
+  "transform": {
+    "method": "bicubic512",
+    "source_size": [
+      110,
+      110
+    ],
+    "canvas_size": [
+      150,
+      150
+    ],
+    "source_offset_xy": [
+      20,
+      20
+    ],
+    "predictor_input_size": [
+      512,
+      512
+    ],
+    "background_rgb": [
+      127,
+      127,
+      127
+    ],
+    "external_interpolation": "Pillow BICUBIC",
+    "coordinates": "Input pixel-center=(source center + source_offset)*input_size/canvas_size; native labels and UV use the same nearest model-grid sample.",
+    "inverse_sample_x": [
+      69,
+      73,
+      76,
+      80,
+      83,
+      87,
+      90,
+      93,
+      97,
+      100,
+      104,
+      107,
+      110,
+      114,
+      117,
+      121,
+      124,
+      127,
+      131,
+      134,
+      138,
+      141,
+      145,
+      148,
+      151,
+      155,
+      158,
+      162,
+      165,
+      168,
+      172,
+      175,
+      179,
+      182,
+      186,
+      189,
+      192,
+      196,
+      199,
+      203,
+      206,
+      209,
+      213,
+      216,
+      220,
+      223,
+      226,
+      230,
+      233,
+      237,
+      240,
+      244,
+      247,
+      250,
+      254,
+      257,
+      261,
+      264,
+      267,
+      271,
+      274,
+      278,
+      281,
+      285,
+      288,
+      291,
+      295,
+      298,
+      302,
+      305,
+      308,
+      312,
+      315,
+      319,
+      322,
+      325,
+      329,
+      332,
+      336,
+      339,
+      343,
+      346,
+      349,
+      353,
+      356,
+      360,
+      363,
+      366,
+      370,
+      373,
+      377,
+      380,
+      384,
+      387,
+      390,
+      394,
+      397,
+      401,
+      404,
+      407,
+      411,
+      414,
+      418,
+      421,
+      424,
+      428,
+      431,
+      435,
+      438,
+      442
+    ],
+    "inverse_sample_y": [
+      69,
+      73,
+      76,
+      80,
+      83,
+      87,
+      90,
+      93,
+      97,
+      100,
+      104,
+      107,
+      110,
+      114,
+      117,
+      121,
+      124,
+      127,
+      131,
+      134,
+      138,
+      141,
+      145,
+      148,
+      151,
+      155,
+      158,
+      162,
+      165,
+      168,
+      172,
+      175,
+      179,
+      182,
+      186,
+      189,
+      192,
+      196,
+      199,
+      203,
+      206,
+      209,
+      213,
+      216,
+      220,
+      223,
+      226,
+      230,
+      233,
+      237,
+      240,
+      244,
+      247,
+      250,
+      254,
+      257,
+      261,
+      264,
+      267,
+      271,
+      274,
+      278,
+      281,
+      285,
+      288,
+      291,
+      295,
+      298,
+      302,
+      305,
+      308,
+      312,
+      315,
+      319,
+      322,
+      325,
+      329,
+      332,
+      336,
+      339,
+      343,
+      346,
+      349,
+      353,
+      356,
+      360,
+      363,
+      366,
+      370,
+      373,
+      377,
+      380,
+      384,
+      387,
+      390,
+      394,
+      397,
+      401,
+      404,
+      407,
+      411,
+      414,
+      418,
+      421,
+      424,
+      428,
+      431,
+      435,
+      438,
+      442
+    ],
+    "nearest_policy": "Pillow NEAREST pixel-center samples; exact indices retained including tie resolution."
+  },
+  "raw_tensors": {
+    "scores": {
+      "file": "scores.npz",
+      "shape": [
+        1
+      ],
+      "dtype": "float32",
+      "sha256": "418a1d166d59c685b6d2baa05716219272a9028eb4d20c12a2f37aa6a4f3c02f"
+    },
+    "boxes_xyxy": {
+      "file": "boxes_xyxy.npz",
+      "shape": [
+        1,
+        4
+      ],
+      "dtype": "float32",
+      "sha256": "34c84aca16335e61603a3d5e5772bac4918f553746985d7ebe33c70dda9b04b6"
+    },
+    "instance_0_labels": {
+      "file": "instance_0_labels.npz",
+      "shape": [
+        308,
+        180
+      ],
+      "dtype": "int64",
+      "sha256": "9818c442a347b806ed21e01c01689dcb35e116b9821b42ac19bd197728fdfdd8"
+    },
+    "instance_0_uv": {
+      "file": "instance_0_uv.npz",
+      "shape": [
+        2,
+        308,
+        180
+      ],
+      "dtype": "float32",
+      "sha256": "27b2ee90e744add7e66368dad9f77b25f9cbb89aa561d111789879a8c46f22dc"
+    },
+    "predictor_coarse_segm": {
+      "file": "predictor_coarse_segm.npz",
+      "shape": [
+        1,
+        2,
+        112,
+        112
+      ],
+      "dtype": "float32",
+      "sha256": "c8087375884432f9f03d8a2d2243a338549fcd612f39f0f2c35ced191c652764"
+    },
+    "predictor_fine_segm": {
+      "file": "predictor_fine_segm.npz",
+      "shape": [
+        1,
+        25,
+        112,
+        112
+      ],
+      "dtype": "float32",
+      "sha256": "360247fd45d5fc98b0428a8a6f58495cd8b9e413814942b1d0ebfb756aca7419"
+    },
+    "predictor_u": {
+      "file": "predictor_u.npz",
+      "shape": [
+        1,
+        25,
+        112,
+        112
+      ],
+      "dtype": "float32",
+      "sha256": "6fd2caa6888d4cce4351502a03763fec43f139f7b9629bd8ca9fd4fe3bfd1a24"
+    },
+    "predictor_v": {
+      "file": "predictor_v.npz",
+      "shape": [
+        1,
+        25,
+        112,
+        112
+      ],
+      "dtype": "float32",
+      "sha256": "b695ac1eff3bc68b777cc1ccaa3f5bfcff05486c2aee7388888aa76941120f49"
+    },
+    "uv-model-grid": {
+      "file": "uv-model-grid.npz",
+      "shape": [
+        2,
+        512,
+        512
+      ],
+      "dtype": "float32",
+      "sha256": "1c3e0595dc3a184580ab44146345030e38a73c6a4be9874f1d52fdfc71b16ac0"
+    },
+    "legacy-uv-150": {
+      "file": "legacy-uv-150.npz",
+      "shape": [
+        2,
+        150,
+        150
+      ],
+      "dtype": "float32",
+      "sha256": "5bd76505c05cd1d1693790aa764609ce45640260a8120d51507c8ac4f35467f2"
+    }
+  },
+  "detections": {
+    "count": 1,
+    "scores": [
+      0.9871194362640381
+    ],
+    "boxes_predictor_xyxy": [
+      [
+        176.9712677001953,
+        123.3019027709961,
+        357.6605529785156,
+        431.8971252441406
+      ]
+    ],
+    "boxes_native_xyxy": [
+      [
+        31.847051084041595,
+        16.123604327440262,
+        84.7833651304245,
+        106.53236091136932
+      ]
+    ],
+    "selected_detection_id": 0,
+    "selected_score": 0.9871194362640381,
+    "other_detection_ids": []
+  },
+  "coarse_segmentation": {
+    "available": true,
+    "channels": 2,
+    "projection": "Official bilinear coarse logits to bbox, argmax; then same nearest native coordinates."
+  },
+  "diagnostics": {
+    "source_alpha_pixels": 2970,
+    "visible_pixels_segmented": 2819,
+    "unassigned_visible_pixels": 151,
+    "predicted_pixels_outside_alpha": 10,
+    "coverage": 0.9491582491582492,
+    "surface_pixel_counts": {
+      "0": 9271,
+      "1": 0,
+      "2": 729,
+      "3": 172,
+      "4": 0,
+      "5": 4,
+      "6": 88,
+      "7": 0,
+      "8": 0,
+      "9": 261,
+      "10": 2,
+      "11": 0,
+      "12": 0,
+      "13": 166,
+      "14": 16,
+      "15": 54,
+      "16": 167,
+      "17": 19,
+      "18": 124,
+      "19": 0,
+      "20": 28,
+      "21": 0,
+      "22": 74,
+      "23": 518,
+      "24": 407
+    },
+    "groups": {
+      "Torso": {
+        "pixels": 729,
+        "visible_pixels": 729,
+        "components_4_connected": 4,
+        "empty": false
+      },
+      "Right_Hand": {
+        "pixels": 172,
+        "visible_pixels": 171,
+        "components_4_connected": 2,
+        "empty": false
+      },
+      "Left_Hand": {
+        "pixels": 0,
+        "visible_pixels": 0,
+        "components_4_connected": 0,
+        "empty": true
+      },
+      "Left_Foot": {
+        "pixels": 4,
+        "visible_pixels": 4,
+        "components_4_connected": 3,
+        "empty": false
+      },
+      "Right_Foot": {
+        "pixels": 88,
+        "visible_pixels": 87,
+        "components_4_connected": 2,
+        "empty": false
+      },
+      "Right_Upper_Leg": {
+        "pixels": 261,
+        "visible_pixels": 261,
+        "components_4_connected": 3,
+        "empty": false
+      },
+      "Left_Upper_Leg": {
+        "pixels": 2,
+        "visible_pixels": 2,
+        "components_4_connected": 2,
+        "empty": false
+      },
+      "Right_Lower_Leg": {
+        "pixels": 166,
+        "visible_pixels": 165,
+        "components_4_connected": 3,
+        "empty": false
+      },
+      "Left_Lower_Leg": {
+        "pixels": 16,
+        "visible_pixels": 16,
+        "components_4_connected": 1,
+        "empty": false
+      },
+      "Left_Upper_Arm": {
+        "pixels": 73,
+        "visible_pixels": 69,
+        "components_4_connected": 2,
+        "empty": false
+      },
+      "Right_Upper_Arm": {
+        "pixels": 291,
+        "visible_pixels": 290,
+        "components_4_connected": 2,
+        "empty": false
+      },
+      "Left_Lower_Arm": {
+        "pixels": 0,
+        "visible_pixels": 0,
+        "components_4_connected": 0,
+        "empty": true
+      },
+      "Right_Lower_Arm": {
+        "pixels": 102,
+        "visible_pixels": 102,
+        "components_4_connected": 1,
+        "empty": false
+      },
+      "Head": {
+        "pixels": 925,
+        "visible_pixels": 923,
+        "components_4_connected": 1,
+        "empty": false
+      }
+    }
+  },
+  "native_size": [
+    110,
+    110
+  ],
+  "uv_projection": "Same nearest sample as I; intrinsic chart coordinates unchanged.",
+  "groups": {
+    "Torso": [
+      1,
+      2
+    ],
+    "Right_Hand": [
+      3
+    ],
+    "Left_Hand": [
+      4
+    ],
+    "Left_Foot": [
+      5
+    ],
+    "Right_Foot": [
+      6
+    ],
+    "Right_Upper_Leg": [
+      7,
+      9
+    ],
+    "Left_Upper_Leg": [
+      8,
+      10
+    ],
+    "Right_Lower_Leg": [
+      11,
+      13
+    ],
+    "Left_Lower_Leg": [
+      12,
+      14
+    ],
+    "Left_Upper_Arm": [
+      15,
+      17
+    ],
+    "Right_Upper_Arm": [
+      16,
+      18
+    ],
+    "Left_Lower_Arm": [
+      19,
+      21
+    ],
+    "Right_Lower_Arm": [
+      20,
+      22
+    ],
+    "Head": [
+      23,
+      24
+    ]
+  },
+  "palette_rgb": {
+    "Torso": [
+      164,
+      106,
+      211
+    ],
+    "Head": [
+      238,
+      136,
+      191
+    ],
+    "Left_Upper_Arm": [
+      235,
+      91,
+      64
+    ],
+    "Right_Upper_Arm": [
+      169,
+      66,
+      46
+    ],
+    "Left_Lower_Arm": [
+      245,
+      186,
+      45
+    ],
+    "Right_Lower_Arm": [
+      176,
+      134,
+      32
+    ],
+    "Left_Upper_Leg": [
+      65,
+      153,
+      229
+    ],
+    "Right_Upper_Leg": [
+      47,
+      110,
+      165
+    ],
+    "Left_Lower_Leg": [
+      59,
+      201,
+      142
+    ],
+    "Right_Lower_Leg": [
+      42,
+      145,
+      102
+    ],
+    "Left_Hand": [
+      40,
+      220,
+      218
+    ],
+    "Right_Hand": [
+      34,
+      158,
+      157
+    ],
+    "Left_Foot": [
+      241,
+      158,
+      62
+    ],
+    "Right_Foot": [
+      174,
+      114,
+      45
+    ]
+  },
+  "artifact_sha256": {
+    "source.png": "14cf20b58ad773028d2283a4669e56387820349546cd218747249471c45053f4",
+    "class-map.npy": "d0d2419d492abd3794f0d23bb5dadd59ac770c160b9ea7ed8d9ad3dbb3b2bfe8",
+    "class-map.png": "9af1766658f3e50ad4a622e88cc883306a0865425479b8598aa5684fc22e4090",
+    "class-map-preview.png": "fd66620a35c9d6b0d852ddd14fac9ea7e7d21182f64ede5a4851e873f9c25bbe",
+    "overlay.png": "85fe676035a92e21016b6c8111999fd514c6c56eb5440a19c01f96216210d16b",
+    "overlay-alpha.png": "73316e0d45e7345c2e36ee0ca386a9ab808fed45c510d8315ac9451c13d4da98",
+    "native/class-map.npy": "d0d2419d492abd3794f0d23bb5dadd59ac770c160b9ea7ed8d9ad3dbb3b2bfe8",
+    "native/class-map-alpha.npy": "09e9be061129cab9df2bc48038d947efe272fae97c287bc4ee65efa03614b468",
+    "native/coarse-map.npy": "0f4abd5eaeefcbe9036e800e416a1051bf72218ca04960123885457b18e6d77a",
+    "native/uv.npz": "88596b76627c72b784551f4456fe0f1e7cd1dc560501906873b69d5411c0f9ed",
+    "masks/Torso.png": "27b8377692ef5369be776efbcf66a87f3992e607ea1daeea2f05e3819c0746da",
+    "masks/Right_Hand.png": "731c6b948467b7ed264a462786755e9725773d08f7d6e8a42f369e8854c4cb80",
+    "masks/Left_Hand.png": "42375a3e84803c5715ea483b8d4542b1e4838e5e14c4272c1878c76ec2a99bbf",
+    "masks/Left_Foot.png": "56d097a5d1824f405ef9ce62602c6b9f03922c1682c6f2d965ded2a4ef4a0371",
+    "masks/Right_Foot.png": "26e72a14ce6e8c276936d0005fb2724df4a757209610ecdd2877df67d0a2e526",
+    "masks/Right_Upper_Leg.png": "8e9f5a899475e5f6d42cfc549b15cca0648f6ac00ba2ce57492185ef241c9727",
+    "masks/Left_Upper_Leg.png": "b445ad103934d3fa709324fc30ca3479666e9c661786c38b0338b4a84df0f077",
+    "masks/Right_Lower_Leg.png": "fd5ffa606555edf4547ba625073eb08989386fe73fd81129a6099fa5e563998f",
+    "masks/Left_Lower_Leg.png": "2475750f3397d13ffae11dbfb62f976451a5e5ce6d43de1974db5718feb04fd6",
+    "masks/Left_Upper_Arm.png": "3e22e5d2a1bea5dbd5144815fc8271e13c4da4ba4218f62d23a0e2dc10084ef4",
+    "masks/Right_Upper_Arm.png": "2e128af361e405db311e21f38c8ce3af673a960161da1198bef0e99448f3b751",
+    "masks/Left_Lower_Arm.png": "42375a3e84803c5715ea483b8d4542b1e4838e5e14c4272c1878c76ec2a99bbf",
+    "masks/Right_Lower_Arm.png": "55230f0d7a05779cdde4c67939b9930e07a8622cef16cab567f9a97bc04268e7",
+    "masks/Head.png": "543553e29111a4107eae04949a89eeeb4e3f1e30ee7a362d672473e126a1e76f"
+  },
+  "status": "SUCCESS"
+}

@@ -1,0 +1,8 @@
+{
+  "selected_method": "bicubic512",
+  "direct_detects_all_controls": true,
+  "baseline_coverage_higher_in_all_four": true,
+  "scores_mixed": true,
+  "reason": "Baseline has higher silhouette coverage in 4/4 controls; direct confidence is higher in only 2/4. Boundary accuracy is not established without independent labels. Under the requested ambiguity rule retain the existing baseline.",
+  "legacy_padding_note": "A preserves the old 150px canvas with (20,20) padding for S/N 110px frames; B directly uses the 110px frame. Thus S/N comparison also includes this declared padding difference. SW/NW isolate external upscaling."
+}

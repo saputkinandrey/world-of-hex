@@ -1,0 +1,91 @@
+{
+  "status": "PASS",
+  "controls": [
+    {
+      "direction": "south",
+      "method": "bicubic512",
+      "metadata": "preprocess-comparison/south/bicubic512/metadata.json"
+    },
+    {
+      "direction": "south",
+      "method": "direct",
+      "metadata": "preprocess-comparison/south/direct/metadata.json"
+    },
+    {
+      "direction": "north",
+      "method": "bicubic512",
+      "metadata": "preprocess-comparison/north/bicubic512/metadata.json"
+    },
+    {
+      "direction": "north",
+      "method": "direct",
+      "metadata": "preprocess-comparison/north/direct/metadata.json"
+    },
+    {
+      "direction": "south-west",
+      "method": "bicubic512",
+      "metadata": "preprocess-comparison/south-west/bicubic512/metadata.json"
+    },
+    {
+      "direction": "south-west",
+      "method": "direct",
+      "metadata": "preprocess-comparison/south-west/direct/metadata.json"
+    },
+    {
+      "direction": "north-west",
+      "method": "bicubic512",
+      "metadata": "preprocess-comparison/north-west/bicubic512/metadata.json"
+    },
+    {
+      "direction": "north-west",
+      "method": "direct",
+      "metadata": "preprocess-comparison/north-west/direct/metadata.json"
+    }
+  ],
+  "checkpoint_sha256": "b8a7382001b16e453bad95ca9dbc68ae8f2b839b304cf90eaf5c27fbdb4dae91",
+  "configuration_sha256": "9ad5be8e042ddb9b42ae55f33bf11a42fe7351b394c6f3b40d0ef42ebf0251bb",
+  "adapter_sha256": "478c96532aefab0ce4c38ffa0299ef60e5d472973541b566bf85681e66ee631a",
+  "sw_preprocessing_pixels_equal": true,
+  "old_sw_reproduction": {
+    "scores": {
+      "bitwise_equal": true,
+      "shape": [
+        1
+      ],
+      "max_absolute_difference": 0.0
+    },
+    "boxes_xyxy": {
+      "bitwise_equal": true,
+      "shape": [
+        1,
+        4
+      ],
+      "max_absolute_difference": 0.0
+    },
+    "uv-model-grid": {
+      "bitwise_equal": true,
+      "shape": [
+        2,
+        512,
+        512
+      ],
+      "max_absolute_difference": 0.0
+    },
+    "class_map": {
+      "bitwise_equal": true,
+      "shape": [
+        512,
+        512
+      ]
+    }
+  },
+  "official_apply_net": {
+    "scores": true,
+    "boxes": true,
+    "instance_0_I": true,
+    "instance_0_UV": true
+  },
+  "selected_method": "bicubic512",
+  "decision": "Keep the existing baseline unless direct input is unambiguously better; no automated parameter search.",
+  "mass_run_authorized_by_controls": true
+}

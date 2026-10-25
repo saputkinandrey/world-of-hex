@@ -1,0 +1,16 @@
+Traceback (most recent call last):
+  File "C:\Users\Андрей\Desktop\world-of-hex\experiments\densepose-full-character-v1.0.0\cli.py", line 19, in <module>
+    if __name__=='__main__': main()
+                             ^^^^^^
+  File "C:\Users\Андрей\Desktop\world-of-hex\experiments\densepose-full-character-v1.0.0\cli.py", line 10, in main
+    inventory()
+  File "C:\Users\Андрей\Desktop\world-of-hex\experiments\densepose-full-character-v1.0.0\inventory.py", line 66, in inventory
+    if not path.is_file() or any(part in ['cache','node_modules','.venv','.venv-sapiens','__pycache__','.git'] for part in path.parts): continue
+           ^^^^^^^^^^^^^^
+  File "C:\Users\Андрей\AppData\Roaming\uv\python\cpython-3.12.9-windows-x86_64-none\Lib\pathlib.py", line 892, in is_file
+    return S_ISREG(self.stat().st_mode)
+                   ^^^^^^^^^^^
+  File "C:\Users\Андрей\AppData\Roaming\uv\python\cpython-3.12.9-windows-x86_64-none\Lib\pathlib.py", line 840, in stat
+    return os.stat(self, follow_symlinks=follow_symlinks)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+OSError: [WinError 1920] Доступ к этому файлу из системы отсутствует: 'C:\\Users\\Андрей\\Desktop\\world-of-hex\\experiments\\anatomy-benchmark-v1.0.0\\cache\\wsl-densepose\\.venv\\lib64'

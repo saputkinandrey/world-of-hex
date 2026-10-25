@@ -1,0 +1,13 @@
+{
+  "execution": "spatial_mirror",
+  "transform": {
+    "source_native_size": [
+      150,
+      150
+    ],
+    "mapping": "x_target = width - 1 - x_source; pixel-center reflection",
+    "surface_id_permutation": "identity",
+    "uv_value_transform": "identity; spatial reflection only"
+  },
+  "source_geometry": "results/aim-2-pistols/north-west/frame-000/native/geometry.json"
+}

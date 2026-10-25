@@ -1,0 +1,99 @@
+{
+  "backend": "Detectron2 CPU / WSL2",
+  "dtype": "float32",
+  "torch": "2.8.0+cpu",
+  "detectron2": "0.6",
+  "number_of_classes": 25,
+  "anatomical_surfaces": 24,
+  "checkpoint": {
+    "url": "https://dl.fbaipublicfiles.com/densepose/densepose_rcnn_R_50_FPN_s1x/165712039/model_final_162be9.pkl",
+    "path": "/mnt/d/gamedev/huggingface/anatomy-benchmark/densepose/model_final_162be9.pkl",
+    "sha256": "b8a7382001b16e453bad95ca9dbc68ae8f2b839b304cf90eaf5c27fbdb4dae91",
+    "source_revision": "b0fe2f0a5bb6496f65246ef35687a386a9f19202"
+  },
+  "load_metrics": {
+    "seconds": 4.395141858999978,
+    "ram_sampled_peak_bytes": 887959552,
+    "ram_lifetime_peak_bytes": null,
+    "ram_sampling_seconds": 0.01,
+    "cuda_peak_allocated_bytes": null,
+    "cuda_peak_reserved_bytes": null
+  },
+  "groups": {
+    "upper_arm": {
+      "left": [
+        15,
+        17
+      ],
+      "right": [
+        16,
+        18
+      ]
+    },
+    "lower_arm": {
+      "left": [
+        19,
+        21
+      ],
+      "right": [
+        20,
+        22
+      ]
+    },
+    "upper_leg": {
+      "left": [
+        8,
+        10
+      ],
+      "right": [
+        7,
+        9
+      ]
+    },
+    "lower_leg": {
+      "left": [
+        12,
+        14
+      ],
+      "right": [
+        11,
+        13
+      ]
+    }
+  },
+  "surface_mapping_source": "https://github.com/facebookresearch/detectron2/blob/b0fe2f0a5bb6496f65246ef35687a386a9f19202/projects/DensePose/densepose/data/samplers/densepose_base.py",
+  "preprocessing": {
+    "input_format": "BGR",
+    "min_size_test": 800,
+    "max_size_test": 1333,
+    "score_threshold": 0.05,
+    "flip_horizontal": false
+  },
+  "instance_selection": "Highest-score detection for shared class map; all instance labels/UV, boxes/scores and native predictor tensors retained raw.",
+  "environment": {
+    "python": "3.12.9 (main, Feb  5 2025, 19:10:45) [Clang 19.1.6 ]",
+    "packages": {
+      "torch": "2.8.0+cpu",
+      "torchvision": "0.23.0+cpu",
+      "detectron2": "0.6",
+      "detectron2-densepose": "0.6",
+      "numpy": "2.2.6",
+      "pillow": "12.3.0",
+      "scipy": "1.18.1",
+      "psutil": "7.2.2"
+    }
+  },
+  "effective_configuration": "BOOTSTRAP_DATASETS: []\nBOOTSTRAP_MODEL:\n  DEVICE: cuda\n  WEIGHTS: ''\nCUDNN_BENCHMARK: false\nDATALOADER:\n  ASPECT_RATIO_GROUPING: true\n  FILTER_EMPTY_ANNOTATIONS: true\n  NUM_WORKERS: 4\n  REPEAT_SQRT: true\n  REPEAT_THRESHOLD: 0.0\n  SAMPLER_TRAIN: TrainingSampler\nDATASETS:\n  CATEGORY_MAPS: {}\n  CLASS_TO_MESH_NAME_MAPPING: {}\n  PRECOMPUTED_PROPOSAL_TOPK_TEST: 1000\n  PRECOMPUTED_PROPOSAL_TOPK_TRAIN: 2000\n  PROPOSAL_FILES_TEST: []\n  PROPOSAL_FILES_TRAIN: []\n  TEST:\n  - densepose_coco_2014_minival\n  TRAIN:\n  - densepose_coco_2014_train\n  - densepose_coco_2014_valminusminival\n  WHITELISTED_CATEGORIES: {}\nDENSEPOSE_EVALUATION:\n  DISTRIBUTED_INFERENCE: true\n  EVALUATE_MESH_ALIGNMENT: false\n  MESH_ALIGNMENT_MESH_NAMES: []\n  MIN_IOU_THRESHOLD: 0.5\n  STORAGE: none\n  TYPE: iou\nFLOAT32_PRECISION: ''\nGLOBAL:\n  HACK: 1.0\nINPUT:\n  CROP:\n    ENABLED: false\n    SIZE:\n    - 0.9\n    - 0.9\n    TYPE: relative_range\n  FORMAT: BGR\n  MASK_FORMAT: polygon\n  MAX_SIZE_TEST: 1333\n  MAX_SIZE_TRAIN: 1333\n  MIN_SIZE_TEST: 800\n  MIN_SIZE_TRAIN:\n  - 640\n  - 672\n  - 704\n  - 736\n  - 768\n  - 800\n  MIN_SIZE_TRAIN_SAMPLING: choice\n  RANDOM_FLIP: horizontal\n  ROTATION_ANGLES:\n  - 0\nMODEL:\n  ANCHOR_GENERATOR:\n    ANGLES:\n    - - -90\n      - 0\n      - 90\n    ASPECT_RATIOS:\n    - - 0.5\n      - 1.0\n      - 2.0\n    NAME: DefaultAnchorGenerator\n    OFFSET: 0.0\n    SIZES:\n    - - 32\n    - - 64\n    - - 128\n    - - 256\n    - - 512\n  BACKBONE:\n    FREEZE_AT: 2\n    NAME: build_resnet_fpn_backbone\n  DENSEPOSE_ON: true\n  DEVICE: cpu\n  FPN:\n    FUSE_TYPE: sum\n    IN_FEATURES:\n    - res2\n    - res3\n    - res4\n    - res5\n    NORM: ''\n    OUT_CHANNELS: 256\n  HRNET:\n    HRFPN:\n      OUT_CHANNELS: 256\n    STAGE2:\n      BLOCK: BASIC\n      FUSE_METHOD: SUM\n      NUM_BLOCKS:\n      - 4\n      - 4\n      NUM_BRANCHES: 2\n      NUM_CHANNELS:\n      - 32\n      - 64\n      NUM_MODULES: 1\n    STAGE3:\n      BLOCK: BASIC\n      FUSE_METHOD: SUM\n      NUM_BLOCKS:\n      - 4\n      - 4\n      - 4\n      NUM_BRANCHES: 3\n      NUM_CHANNELS:\n      - 32\n      - 64\n      - 128\n      NUM_MODULES: 4\n    STAGE4:\n      BLOCK: BASIC\n      FUSE_METHOD: SUM\n      NUM_BLOCKS:\n      - 4\n      - 4\n      - 4\n      - 4\n      NUM_BRANCHES: 4\n      NUM_CHANNELS:\n      - 32\n      - 64\n      - 128\n      - 256\n      NUM_MODULES: 3\n    STEM_INPLANES: 64\n  KEYPOINT_ON: false\n  LOAD_PROPOSALS: false\n  MASK_ON: false\n  META_ARCHITECTURE: GeneralizedRCNN\n  PANOPTIC_FPN:\n    COMBINE:\n      ENABLED: true\n      INSTANCES_CONFIDENCE_THRESH: 0.5\n      OVERLAP_THRESH: 0.5\n      STUFF_AREA_LIMIT: 4096\n    INSTANCE_LOSS_WEIGHT: 1.0\n  PIXEL_MEAN:\n  - 103.53\n  - 116.28\n  - 123.675\n  PIXEL_STD:\n  - 1.0\n  - 1.0\n  - 1.0\n  PROPOSAL_GENERATOR:\n    MIN_SIZE: 0\n    NAME: RPN\n  RESNETS:\n    DEFORM_MODULATED: false\n    DEFORM_NUM_GROUPS: 1\n    DEFORM_ON_PER_STAGE:\n    - false\n    - false\n    - false\n    - false\n    DEPTH: 50\n    NORM: FrozenBN\n    NUM_GROUPS: 1\n    OUT_FEATURES:\n    - res2\n    - res3\n    - res4\n    - res5\n    RES2_OUT_CHANNELS: 256\n    RES5_DILATION: 1\n    STEM_OUT_CHANNELS: 64\n    STRIDE_IN_1X1: true\n    WIDTH_PER_GROUP: 64\n  RETINANET:\n    BBOX_REG_LOSS_TYPE: smooth_l1\n    BBOX_REG_WEIGHTS: &id002\n    - 1.0\n    - 1.0\n    - 1.0\n    - 1.0\n    FOCAL_LOSS_ALPHA: 0.25\n    FOCAL_LOSS_GAMMA: 2.0\n    IN_FEATURES:\n    - p3\n    - p4\n    - p5\n    - p6\n    - p7\n    IOU_LABELS:\n    - 0\n    - -1\n    - 1\n    IOU_THRESHOLDS:\n    - 0.4\n    - 0.5\n    NMS_THRESH_TEST: 0.5\n    NORM: ''\n    NUM_CLASSES: 80\n    NUM_CONVS: 4\n    PRIOR_PROB: 0.01\n    SCORE_THRESH_TEST: 0.05\n    SMOOTH_L1_LOSS_BETA: 0.1\n    TOPK_CANDIDATES_TEST: 1000\n  ROI_BOX_CASCADE_HEAD:\n    BBOX_REG_WEIGHTS:\n    - &id001\n      - 10.0\n      - 10.0\n      - 5.0\n      - 5.0\n    - - 20.0\n      - 20.0\n      - 10.0\n      - 10.0\n    - - 30.0\n      - 30.0\n      - 15.0\n      - 15.0\n    IOUS:\n    - 0.5\n    - 0.6\n    - 0.7\n  ROI_BOX_HEAD:\n    BBOX_REG_LOSS_TYPE: smooth_l1\n    BBOX_REG_LOSS_WEIGHT: 1.0\n    BBOX_REG_WEIGHTS: *id001\n    CLS_AGNOSTIC_BBOX_REG: false\n    CONV_DIM: 256\n    FC_DIM: 1024\n    FED_LOSS_FREQ_WEIGHT_POWER: 0.5\n    FED_LOSS_NUM_CLASSES: 50\n    NAME: FastRCNNConvFCHead\n    NORM: ''\n    NUM_CONV: 0\n    NUM_FC: 2\n    POOLER_RESOLUTION: 7\n    POOLER_SAMPLING_RATIO: 2\n    POOLER_TYPE: ROIAlign\n    SMOOTH_L1_BETA: 0.0\n    TRAIN_ON_PRED_BOXES: false\n    USE_FED_LOSS: false\n    USE_SIGMOID_CE: false\n  ROI_DENSEPOSE_HEAD:\n    COARSE_SEGM_TRAINED_BY_MASKS: false\n    CONV_HEAD_DIM: 512\n    CONV_HEAD_KERNEL: 3\n    CSE:\n      EMBEDDERS: {}\n      EMBEDDING_DIST_GAUSS_SIGMA: 0.01\n      EMBEDDING_LR_FACTOR: 1.0\n      EMBED_LOSS_NAME: EmbeddingLoss\n      EMBED_LOSS_WEIGHT: 0.6\n      EMBED_SIZE: 16\n      FEATURES_LR_FACTOR: 1.0\n      GEODESIC_DIST_GAUSS_SIGMA: 0.01\n      PIX_TO_SHAPE_CYCLE_LOSS:\n        ENABLED: false\n        NORM_P: 2\n        NUM_PIXELS_TO_SAMPLE: 100\n        PIXEL_SIGMA: 5.0\n        TEMPERATURE_PIXEL_TO_VERTEX: 0.05\n        TEMPERATURE_VERTEX_TO_PIXEL: 0.05\n        USE_ALL_MESHES_NOT_GT_ONLY: false\n        WEIGHT: 0.0001\n      SHAPE_TO_SHAPE_CYCLE_LOSS:\n        ENABLED: false\n        MAX_NUM_VERTICES: 4936\n        NORM_P: 2\n        TEMPERATURE: 0.05\n        WEIGHT: 0.025\n    DECODER_COMMON_STRIDE: 4\n    DECODER_CONV_DIMS: 256\n    DECODER_NORM: ''\n    DECODER_NUM_CLASSES: 256\n    DECODER_ON: true\n    DECONV_KERNEL: 4\n    DEEPLAB:\n      NONLOCAL_ON: 0\n      NORM: GN\n    FG_IOU_THRESHOLD: 0.7\n    HEATMAP_SIZE: 112\n    INDEX_WEIGHTS: 5.0\n    LOSS_NAME: DensePoseChartWithConfidenceLoss\n    NAME: DensePoseV1ConvXHead\n    NUM_COARSE_SEGM_CHANNELS: 2\n    NUM_PATCHES: 24\n    NUM_STACKED_CONVS: 8\n    PART_WEIGHTS: 1.0\n    POINT_REGRESSION_WEIGHTS: 0.01\n    POOLER_RESOLUTION: 28\n    POOLER_SAMPLING_RATIO: 2\n    POOLER_TYPE: ROIAlign\n    PREDICTOR_NAME: DensePoseChartWithConfidencePredictor\n    SEGM_CONFIDENCE:\n      ENABLED: false\n      EPSILON: 0.01\n    UP_SCALE: 2\n    UV_CONFIDENCE:\n      ENABLED: false\n      EPSILON: 0.01\n      TYPE: iid_iso\n  ROI_HEADS:\n    BATCH_SIZE_PER_IMAGE: 512\n    IN_FEATURES:\n    - p2\n    - p3\n    - p4\n    - p5\n    IOU_LABELS:\n    - 0\n    - 1\n    IOU_THRESHOLDS:\n    - 0.5\n    NAME: DensePoseROIHeads\n    NMS_THRESH_TEST: 0.5\n    NUM_CLASSES: 1\n    POSITIVE_FRACTION: 0.25\n    PROPOSAL_APPEND_GT: true\n    SCORE_THRESH_TEST: 0.05\n  ROI_KEYPOINT_HEAD:\n    CONV_DIMS:\n    - 512\n    - 512\n    - 512\n    - 512\n    - 512\n    - 512\n    - 512\n    - 512\n    LOSS_WEIGHT: 1.0\n    MIN_KEYPOINTS_PER_IMAGE: 1\n    NAME: KRCNNConvDeconvUpsampleHead\n    NORMALIZE_LOSS_BY_VISIBLE_KEYPOINTS: true\n    NUM_KEYPOINTS: 17\n    POOLER_RESOLUTION: 14\n    POOLER_SAMPLING_RATIO: 0\n    POOLER_TYPE: ROIAlignV2\n  ROI_MASK_HEAD:\n    CLS_AGNOSTIC_MASK: false\n    CONV_DIM: 256\n    NAME: MaskRCNNConvUpsampleHead\n    NORM: ''\n    NUM_CONV: 0\n    POOLER_RESOLUTION: 14\n    POOLER_SAMPLING_RATIO: 0\n    POOLER_TYPE: ROIAlignV2\n  RPN:\n    BATCH_SIZE_PER_IMAGE: 256\n    BBOX_REG_LOSS_TYPE: smooth_l1\n    BBOX_REG_LOSS_WEIGHT: 1.0\n    BBOX_REG_WEIGHTS: *id002\n    BOUNDARY_THRESH: -1\n    CONV_DIMS:\n    - -1\n    HEAD_NAME: StandardRPNHead\n    IN_FEATURES:\n    - p2\n    - p3\n    - p4\n    - p5\n    - p6\n    IOU_LABELS:\n    - 0\n    - -1\n    - 1\n    IOU_THRESHOLDS:\n    - 0.3\n    - 0.7\n    LOSS_WEIGHT: 1.0\n    NMS_THRESH: 0.7\n    POSITIVE_FRACTION: 0.5\n    POST_NMS_TOPK_TEST: 1000\n    POST_NMS_TOPK_TRAIN: 1000\n    PRE_NMS_TOPK_TEST: 1000\n    PRE_NMS_TOPK_TRAIN: 2000\n    SMOOTH_L1_BETA: 0.0\n  SEM_SEG_HEAD:\n    COMMON_STRIDE: 4\n    CONVS_DIM: 128\n    IGNORE_VALUE: 255\n    IN_FEATURES:\n    - p2\n    - p3\n    - p4\n    - p5\n    LOSS_WEIGHT: 1.0\n    NAME: SemSegFPNHead\n    NORM: GN\n    NUM_CLASSES: 54\n  WEIGHTS: /mnt/d/gamedev/huggingface/anatomy-benchmark/densepose/model_final_162be9.pkl\nOUTPUT_DIR: ./output\nSEED: -1\nSOLVER:\n  AMP:\n    ENABLED: false\n  BASE_LR: 0.01\n  BASE_LR_END: 0.0\n  BIAS_LR_FACTOR: 1.0\n  CHECKPOINT_PERIOD: 5000\n  CLIP_GRADIENTS:\n    CLIP_TYPE: value\n    CLIP_VALUE: 1.0\n    ENABLED: false\n    NORM_TYPE: 2.0\n  GAMMA: 0.1\n  IMS_PER_BATCH: 16\n  LR_SCHEDULER_NAME: WarmupMultiStepLR\n  MAX_ITER: 130000\n  MOMENTUM: 0.9\n  NESTEROV: false\n  NUM_DECAYS: 3\n  REFERENCE_WORLD_SIZE: 0\n  RESCALE_INTERVAL: false\n  STEPS:\n  - 100000\n  - 120000\n  WARMUP_FACTOR: 0.1\n  WARMUP_ITERS: 1000\n  WARMUP_METHOD: linear\n  WEIGHT_DECAY: 0.0001\n  WEIGHT_DECAY_BIAS: null\n  WEIGHT_DECAY_NORM: 0.0\nTEST:\n  AUG:\n    ENABLED: false\n    FLIP: true\n    MAX_SIZE: 4000\n    MIN_SIZES:\n    - 400\n    - 500\n    - 600\n    - 700\n    - 800\n    - 900\n    - 1000\n    - 1100\n    - 1200\n    ROTATION_ANGLES: []\n  DETECTIONS_PER_IMAGE: 100\n  EVAL_PERIOD: 0\n  EXPECTED_RESULTS: []\n  KEYPOINT_OKS_SIGMAS: []\n  PRECISE_BN:\n    ENABLED: false\n    NUM_ITER: 200\nVERSION: 2\nVIS_PERIOD: 0\n",
+  "effective_configuration_sha256": "9ad5be8e042ddb9b42ae55f33bf11a42fe7351b394c6f3b40d0ef42ebf0251bb",
+  "adapter_sha256": "478c96532aefab0ce4c38ffa0299ef60e5d472973541b566bf85681e66ee631a",
+  "existing_implementation_sha256": {
+    "densepose_adapter.py": "9116fc534901a68678d1dd09db5a26b5ae377b20f9938920e995c54676b088d8",
+    "common.py": "eb4426be7292d781297b16c69922e4d817f5de413001419d8e02b9b09dbd8498",
+    "config.json": "1b17afdafb0d193c332f5d58f8e5e673b62e59e1f9ed377e8dcb949cc4cca2b1"
+  },
+  "configuration_sources_sha256": {
+    "cache/wsl-densepose/detectron2/projects/DensePose/configs/densepose_rcnn_R_50_FPN_s1x.yaml": "68c83ba2e86f4b857ff5953ac96c7d607fa7bc7b2277b6def7e6c6d21ddb07ef",
+    "cache/wsl-densepose/detectron2/projects/DensePose/configs/Base-DensePose-RCNN-FPN.yaml": "277dd3823c47b330a9dd3e272eba28e1680d36eba163170d7f5b6d727f145033"
+  },
+  "checkpoint_sha256": "b8a7382001b16e453bad95ca9dbc68ae8f2b839b304cf90eaf5c27fbdb4dae91"
+}

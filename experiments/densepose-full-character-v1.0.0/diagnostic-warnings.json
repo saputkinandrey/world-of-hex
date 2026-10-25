@@ -1,0 +1,952 @@
+{
+  "not_automatic_errors": true,
+  "temporal_analysis_applicable": false,
+  "reason": "Compositor body atlas frame selects skin_color; no actual temporal sequence in these body atlases.",
+  "thresholds": {
+    "coverage_change": 0.2,
+    "area_fraction_change": 0.2,
+    "dominant_group_fraction": 0.65
+  },
+  "warnings": [
+    {
+      "key": "longarm/north/frame-001",
+      "type": "group_dominates_source_silhouette",
+      "group": "Torso"
+    },
+    {
+      "key": "longarm/north/frame-002",
+      "type": "group_dominates_source_silhouette",
+      "group": "Torso"
+    },
+    {
+      "key": "flinch/north/frame-004",
+      "type": "no_detection"
+    },
+    {
+      "key": "thrust-1h/north/frame-002",
+      "type": "group_dominates_source_silhouette",
+      "group": "Torso"
+    },
+    {
+      "key": "idle/south/frame-002",
+      "previous": "idle/south/frame-001",
+      "comparison_axis": "adjacent skin-tone variants, NOT animation time",
+      "type": "variant_group_disappeared",
+      "group": "Left_Lower_Leg"
+    },
+    {
+      "key": "idle/north/frame-001",
+      "previous": "idle/north/frame-000",
+      "comparison_axis": "adjacent skin-tone variants, NOT animation time",
+      "type": "variant_group_disappeared",
+      "group": "Right_Lower_Leg"
+    },
+    {
+      "key": "idle/north/frame-002",
+      "previous": "idle/north/frame-001",
+      "comparison_axis": "adjacent skin-tone variants, NOT animation time",
+      "type": "variant_group_disappeared",
+      "group": "Right_Foot"
+    },
+    {
+      "key": "idle/north-west/frame-003",
+      "previous": "idle/north-west/frame-002",
+      "comparison_axis": "adjacent skin-tone variants, NOT animation time",
+      "type": "variant_group_disappeared",
+      "group": "Left_Lower_Leg"
+    },
+    {
+      "key": "idle/north-west/frame-004",
+      "previous": "idle/north-west/frame-003",
+      "comparison_axis": "adjacent skin-tone variants, NOT animation time",
+      "type": "variant_group_disappeared",
+      "group": "Right_Hand"
+    },
+    {
+      "key": "idle/north-west/frame-004",
+      "previous": "idle/north-west/frame-003",
+      "comparison_axis": "adjacent skin-tone variants, NOT animation time",
+      "type": "variant_group_disappeared",
+      "group": "Right_Foot"
+    },
+    {
+      "key": "idle/north-east/frame-003",
+      "previous": "idle/north-east/frame-002",
+      "comparison_axis": "adjacent skin-tone variants, NOT animation time",
+      "type": "variant_group_disappeared",
+      "group": "Left_Lower_Leg"
+    },
+    {
+      "key": "idle/north-east/frame-004",
+      "previous": "idle/north-east/frame-003",
+      "comparison_axis": "adjacent skin-tone variants, NOT animation time",
+      "type": "variant_group_disappeared",
+      "group": "Right_Hand"
+    },
+    {
+      "key": "idle/north-east/frame-004",
+      "previous": "idle/north-east/frame-003",
+      "comparison_axis": "adjacent skin-tone variants, NOT animation time",
+      "type": "variant_group_disappeared",
+      "group": "Right_Foot"
+    },
+    {
+      "key": "walk/south/frame-001",
+      "previous": "walk/south/frame-000",
+      "comparison_axis": "adjacent skin-tone variants, NOT animation time",
+      "type": "variant_group_disappeared",
+      "group": "Left_Foot"
+    },
+    {
+      "key": "walk/south/frame-001",
+      "previous": "walk/south/frame-000",
+      "comparison_axis": "adjacent skin-tone variants, NOT animation time",
+      "type": "variant_group_disappeared",
+      "group": "Right_Foot"
+    },
+    {
+      "key": "walk/north/frame-001",
+      "previous": "walk/north/frame-000",
+      "comparison_axis": "adjacent skin-tone variants, NOT animation time",
+      "type": "variant_group_disappeared",
+      "group": "Left_Lower_Arm"
+    },
+    {
+      "key": "walk/north/frame-002",
+      "previous": "walk/north/frame-001",
+      "comparison_axis": "adjacent skin-tone variants, NOT animation time",
+      "type": "variant_group_disappeared",
+      "group": "Right_Foot"
+    },
+    {
+      "key": "walk/north/frame-002",
+      "previous": "walk/north/frame-001",
+      "comparison_axis": "adjacent skin-tone variants, NOT animation time",
+      "type": "possible_variant_head_to_torso_reassignment"
+    },
+    {
+      "key": "walk/north/frame-003",
+      "previous": "walk/north/frame-002",
+      "comparison_axis": "adjacent skin-tone variants, NOT animation time",
+      "type": "possible_variant_head_to_torso_reassignment"
+    },
+    {
+      "key": "aim-pistol/south/frame-003",
+      "previous": "aim-pistol/south/frame-002",
+      "comparison_axis": "adjacent skin-tone variants, NOT animation time",
+      "type": "variant_group_disappeared",
+      "group": "Left_Hand"
+    },
+    {
+      "key": "aim-pistol/south/frame-003",
+      "previous": "aim-pistol/south/frame-002",
+      "comparison_axis": "adjacent skin-tone variants, NOT animation time",
+      "type": "variant_group_disappeared",
+      "group": "Left_Lower_Arm"
+    },
+    {
+      "key": "aim-pistol/south/frame-003",
+      "previous": "aim-pistol/south/frame-002",
+      "comparison_axis": "adjacent skin-tone variants, NOT animation time",
+      "type": "variant_group_disappeared",
+      "group": "Right_Lower_Arm"
+    },
+    {
+      "key": "aim-pistol/south/frame-004",
+      "previous": "aim-pistol/south/frame-003",
+      "comparison_axis": "adjacent skin-tone variants, NOT animation time",
+      "type": "variant_group_disappeared",
+      "group": "Right_Upper_Arm"
+    },
+    {
+      "key": "aim-pistol/north/frame-001",
+      "previous": "aim-pistol/north/frame-000",
+      "comparison_axis": "adjacent skin-tone variants, NOT animation time",
+      "type": "variant_group_disappeared",
+      "group": "Left_Upper_Arm"
+    },
+    {
+      "key": "aim-pistol/north/frame-002",
+      "previous": "aim-pistol/north/frame-001",
+      "comparison_axis": "adjacent skin-tone variants, NOT animation time",
+      "type": "variant_group_disappeared",
+      "group": "Right_Hand"
+    },
+    {
+      "key": "aim-pistol/north/frame-002",
+      "previous": "aim-pistol/north/frame-001",
+      "comparison_axis": "adjacent skin-tone variants, NOT animation time",
+      "type": "variant_group_disappeared",
+      "group": "Left_Foot"
+    },
+    {
+      "key": "aim-pistol/north/frame-002",
+      "previous": "aim-pistol/north/frame-001",
+      "comparison_axis": "adjacent skin-tone variants, NOT animation time",
+      "type": "variant_group_area_jump",
+      "group": "Head"
+    },
+    {
+      "key": "aim-pistol/north/frame-002",
+      "previous": "aim-pistol/north/frame-001",
+      "comparison_axis": "adjacent skin-tone variants, NOT animation time",
+      "type": "possible_variant_left_right_exchange",
+      "group": "Lower_Leg"
+    },
+    {
+      "key": "aim-pistol/north/frame-002",
+      "previous": "aim-pistol/north/frame-001",
+      "comparison_axis": "adjacent skin-tone variants, NOT animation time",
+      "type": "possible_variant_head_to_torso_reassignment"
+    },
+    {
+      "key": "aim-pistol/north/frame-003",
+      "previous": "aim-pistol/north/frame-002",
+      "comparison_axis": "adjacent skin-tone variants, NOT animation time",
+      "type": "variant_group_disappeared",
+      "group": "Left_Hand"
+    },
+    {
+      "key": "aim-pistol/north/frame-003",
+      "previous": "aim-pistol/north/frame-002",
+      "comparison_axis": "adjacent skin-tone variants, NOT animation time",
+      "type": "variant_group_disappeared",
+      "group": "Right_Foot"
+    },
+    {
+      "key": "aim-pistol/north/frame-003",
+      "previous": "aim-pistol/north/frame-002",
+      "comparison_axis": "adjacent skin-tone variants, NOT animation time",
+      "type": "variant_group_disappeared",
+      "group": "Head"
+    },
+    {
+      "key": "aim-pistol/north/frame-003",
+      "previous": "aim-pistol/north/frame-002",
+      "comparison_axis": "adjacent skin-tone variants, NOT animation time",
+      "type": "possible_variant_head_to_torso_reassignment"
+    },
+    {
+      "key": "aim-pistol/south-west/frame-002",
+      "previous": "aim-pistol/south-west/frame-001",
+      "comparison_axis": "adjacent skin-tone variants, NOT animation time",
+      "type": "variant_group_disappeared",
+      "group": "Left_Foot"
+    },
+    {
+      "key": "aim-pistol/north-west/frame-002",
+      "previous": "aim-pistol/north-west/frame-001",
+      "comparison_axis": "adjacent skin-tone variants, NOT animation time",
+      "type": "variant_group_disappeared",
+      "group": "Right_Hand"
+    },
+    {
+      "key": "aim-pistol/north-west/frame-004",
+      "previous": "aim-pistol/north-west/frame-003",
+      "comparison_axis": "adjacent skin-tone variants, NOT animation time",
+      "type": "variant_group_disappeared",
+      "group": "Right_Foot"
+    },
+    {
+      "key": "aim-pistol/north-west/frame-004",
+      "previous": "aim-pistol/north-west/frame-003",
+      "comparison_axis": "adjacent skin-tone variants, NOT animation time",
+      "type": "variant_group_disappeared",
+      "group": "Right_Lower_Leg"
+    },
+    {
+      "key": "aim-pistol/south-east/frame-002",
+      "previous": "aim-pistol/south-east/frame-001",
+      "comparison_axis": "adjacent skin-tone variants, NOT animation time",
+      "type": "variant_group_disappeared",
+      "group": "Left_Foot"
+    },
+    {
+      "key": "aim-pistol/north-east/frame-002",
+      "previous": "aim-pistol/north-east/frame-001",
+      "comparison_axis": "adjacent skin-tone variants, NOT animation time",
+      "type": "variant_group_disappeared",
+      "group": "Right_Hand"
+    },
+    {
+      "key": "aim-pistol/north-east/frame-004",
+      "previous": "aim-pistol/north-east/frame-003",
+      "comparison_axis": "adjacent skin-tone variants, NOT animation time",
+      "type": "variant_group_disappeared",
+      "group": "Right_Foot"
+    },
+    {
+      "key": "aim-pistol/north-east/frame-004",
+      "previous": "aim-pistol/north-east/frame-003",
+      "comparison_axis": "adjacent skin-tone variants, NOT animation time",
+      "type": "variant_group_disappeared",
+      "group": "Right_Lower_Leg"
+    },
+    {
+      "key": "longarm/south/frame-001",
+      "previous": "longarm/south/frame-000",
+      "comparison_axis": "adjacent skin-tone variants, NOT animation time",
+      "type": "variant_group_disappeared",
+      "group": "Right_Lower_Arm"
+    },
+    {
+      "key": "longarm/south/frame-003",
+      "previous": "longarm/south/frame-002",
+      "comparison_axis": "adjacent skin-tone variants, NOT animation time",
+      "type": "variant_group_disappeared",
+      "group": "Left_Foot"
+    },
+    {
+      "key": "longarm/north/frame-001",
+      "previous": "longarm/north/frame-000",
+      "comparison_axis": "adjacent skin-tone variants, NOT animation time",
+      "type": "variant_group_disappeared",
+      "group": "Right_Foot"
+    },
+    {
+      "key": "longarm/north/frame-001",
+      "previous": "longarm/north/frame-000",
+      "comparison_axis": "adjacent skin-tone variants, NOT animation time",
+      "type": "variant_group_disappeared",
+      "group": "Left_Lower_Arm"
+    },
+    {
+      "key": "longarm/north/frame-001",
+      "previous": "longarm/north/frame-000",
+      "comparison_axis": "adjacent skin-tone variants, NOT animation time",
+      "type": "possible_variant_head_to_torso_reassignment"
+    },
+    {
+      "key": "longarm/north/frame-002",
+      "previous": "longarm/north/frame-001",
+      "comparison_axis": "adjacent skin-tone variants, NOT animation time",
+      "type": "variant_group_disappeared",
+      "group": "Left_Foot"
+    },
+    {
+      "key": "longarm/north/frame-002",
+      "previous": "longarm/north/frame-001",
+      "comparison_axis": "adjacent skin-tone variants, NOT animation time",
+      "type": "variant_group_disappeared",
+      "group": "Right_Lower_Leg"
+    },
+    {
+      "key": "longarm/north/frame-002",
+      "previous": "longarm/north/frame-001",
+      "comparison_axis": "adjacent skin-tone variants, NOT animation time",
+      "type": "variant_group_disappeared",
+      "group": "Right_Lower_Arm"
+    },
+    {
+      "key": "longarm/north/frame-003",
+      "previous": "longarm/north/frame-002",
+      "comparison_axis": "adjacent skin-tone variants, NOT animation time",
+      "type": "variant_group_disappeared",
+      "group": "Right_Hand"
+    },
+    {
+      "key": "longarm/north/frame-003",
+      "previous": "longarm/north/frame-002",
+      "comparison_axis": "adjacent skin-tone variants, NOT animation time",
+      "type": "variant_group_disappeared",
+      "group": "Left_Lower_Arm"
+    },
+    {
+      "key": "longarm/north/frame-003",
+      "previous": "longarm/north/frame-002",
+      "comparison_axis": "adjacent skin-tone variants, NOT animation time",
+      "type": "possible_variant_head_to_torso_reassignment"
+    },
+    {
+      "key": "longarm/north-west/frame-001",
+      "previous": "longarm/north-west/frame-000",
+      "comparison_axis": "adjacent skin-tone variants, NOT animation time",
+      "type": "variant_group_disappeared",
+      "group": "Right_Lower_Leg"
+    },
+    {
+      "key": "longarm/north-west/frame-002",
+      "previous": "longarm/north-west/frame-001",
+      "comparison_axis": "adjacent skin-tone variants, NOT animation time",
+      "type": "variant_group_disappeared",
+      "group": "Right_Hand"
+    },
+    {
+      "key": "longarm/north-east/frame-001",
+      "previous": "longarm/north-east/frame-000",
+      "comparison_axis": "adjacent skin-tone variants, NOT animation time",
+      "type": "variant_group_disappeared",
+      "group": "Right_Lower_Leg"
+    },
+    {
+      "key": "longarm/north-east/frame-002",
+      "previous": "longarm/north-east/frame-001",
+      "comparison_axis": "adjacent skin-tone variants, NOT animation time",
+      "type": "variant_group_disappeared",
+      "group": "Right_Hand"
+    },
+    {
+      "key": "aim-2-pistols/south/frame-002",
+      "previous": "aim-2-pistols/south/frame-001",
+      "comparison_axis": "adjacent skin-tone variants, NOT animation time",
+      "type": "variant_group_disappeared",
+      "group": "Left_Foot"
+    },
+    {
+      "key": "aim-2-pistols/south/frame-002",
+      "previous": "aim-2-pistols/south/frame-001",
+      "comparison_axis": "adjacent skin-tone variants, NOT animation time",
+      "type": "variant_group_disappeared",
+      "group": "Right_Foot"
+    },
+    {
+      "key": "aim-2-pistols/south/frame-002",
+      "previous": "aim-2-pistols/south/frame-001",
+      "comparison_axis": "adjacent skin-tone variants, NOT animation time",
+      "type": "variant_group_disappeared",
+      "group": "Left_Lower_Leg"
+    },
+    {
+      "key": "aim-2-pistols/north/frame-001",
+      "previous": "aim-2-pistols/north/frame-000",
+      "comparison_axis": "adjacent skin-tone variants, NOT animation time",
+      "type": "variant_group_area_jump",
+      "group": "Torso"
+    },
+    {
+      "key": "aim-2-pistols/north/frame-001",
+      "previous": "aim-2-pistols/north/frame-000",
+      "comparison_axis": "adjacent skin-tone variants, NOT animation time",
+      "type": "variant_group_disappeared",
+      "group": "Left_Foot"
+    },
+    {
+      "key": "aim-2-pistols/north/frame-001",
+      "previous": "aim-2-pistols/north/frame-000",
+      "comparison_axis": "adjacent skin-tone variants, NOT animation time",
+      "type": "variant_group_disappeared",
+      "group": "Right_Foot"
+    },
+    {
+      "key": "aim-2-pistols/north/frame-001",
+      "previous": "aim-2-pistols/north/frame-000",
+      "comparison_axis": "adjacent skin-tone variants, NOT animation time",
+      "type": "variant_group_disappeared",
+      "group": "Right_Upper_Leg"
+    },
+    {
+      "key": "aim-2-pistols/north/frame-001",
+      "previous": "aim-2-pistols/north/frame-000",
+      "comparison_axis": "adjacent skin-tone variants, NOT animation time",
+      "type": "variant_group_disappeared",
+      "group": "Left_Upper_Leg"
+    },
+    {
+      "key": "aim-2-pistols/north/frame-001",
+      "previous": "aim-2-pistols/north/frame-000",
+      "comparison_axis": "adjacent skin-tone variants, NOT animation time",
+      "type": "variant_group_disappeared",
+      "group": "Right_Lower_Leg"
+    },
+    {
+      "key": "aim-2-pistols/north/frame-001",
+      "previous": "aim-2-pistols/north/frame-000",
+      "comparison_axis": "adjacent skin-tone variants, NOT animation time",
+      "type": "variant_group_disappeared",
+      "group": "Left_Lower_Leg"
+    },
+    {
+      "key": "aim-2-pistols/north/frame-001",
+      "previous": "aim-2-pistols/north/frame-000",
+      "comparison_axis": "adjacent skin-tone variants, NOT animation time",
+      "type": "variant_group_disappeared",
+      "group": "Right_Upper_Arm"
+    },
+    {
+      "key": "aim-2-pistols/north/frame-001",
+      "previous": "aim-2-pistols/north/frame-000",
+      "comparison_axis": "adjacent skin-tone variants, NOT animation time",
+      "type": "variant_group_area_jump",
+      "group": "Head"
+    },
+    {
+      "key": "aim-2-pistols/north/frame-003",
+      "previous": "aim-2-pistols/north/frame-002",
+      "comparison_axis": "adjacent skin-tone variants, NOT animation time",
+      "type": "variant_group_disappeared",
+      "group": "Left_Foot"
+    },
+    {
+      "key": "aim-2-pistols/north-west/frame-004",
+      "previous": "aim-2-pistols/north-west/frame-003",
+      "comparison_axis": "adjacent skin-tone variants, NOT animation time",
+      "type": "variant_group_disappeared",
+      "group": "Right_Hand"
+    },
+    {
+      "key": "aim-2-pistols/north-east/frame-004",
+      "previous": "aim-2-pistols/north-east/frame-003",
+      "comparison_axis": "adjacent skin-tone variants, NOT animation time",
+      "type": "variant_group_disappeared",
+      "group": "Right_Hand"
+    },
+    {
+      "key": "flinch/south/frame-001",
+      "previous": "flinch/south/frame-000",
+      "comparison_axis": "adjacent skin-tone variants, NOT animation time",
+      "type": "variant_group_disappeared",
+      "group": "Right_Foot"
+    },
+    {
+      "key": "flinch/north/frame-001",
+      "previous": "flinch/north/frame-000",
+      "comparison_axis": "adjacent skin-tone variants, NOT animation time",
+      "type": "variant_group_disappeared",
+      "group": "Left_Upper_Arm"
+    },
+    {
+      "key": "flinch/north/frame-002",
+      "previous": "flinch/north/frame-001",
+      "comparison_axis": "adjacent skin-tone variants, NOT animation time",
+      "type": "variant_group_disappeared",
+      "group": "Right_Lower_Arm"
+    },
+    {
+      "key": "flinch/north/frame-002",
+      "previous": "flinch/north/frame-001",
+      "comparison_axis": "adjacent skin-tone variants, NOT animation time",
+      "type": "variant_group_area_jump",
+      "group": "Head"
+    },
+    {
+      "key": "flinch/north/frame-004",
+      "previous": "flinch/north/frame-003",
+      "comparison_axis": "adjacent skin-tone variants, NOT animation time",
+      "type": "variant_coverage_jump"
+    },
+    {
+      "key": "flinch/north/frame-004",
+      "previous": "flinch/north/frame-003",
+      "comparison_axis": "adjacent skin-tone variants, NOT animation time",
+      "type": "variant_group_disappeared",
+      "group": "Torso"
+    },
+    {
+      "key": "flinch/north/frame-004",
+      "previous": "flinch/north/frame-003",
+      "comparison_axis": "adjacent skin-tone variants, NOT animation time",
+      "type": "variant_group_area_jump",
+      "group": "Torso"
+    },
+    {
+      "key": "flinch/north/frame-004",
+      "previous": "flinch/north/frame-003",
+      "comparison_axis": "adjacent skin-tone variants, NOT animation time",
+      "type": "variant_group_disappeared",
+      "group": "Right_Hand"
+    },
+    {
+      "key": "flinch/north/frame-004",
+      "previous": "flinch/north/frame-003",
+      "comparison_axis": "adjacent skin-tone variants, NOT animation time",
+      "type": "variant_group_disappeared",
+      "group": "Left_Hand"
+    },
+    {
+      "key": "flinch/north/frame-004",
+      "previous": "flinch/north/frame-003",
+      "comparison_axis": "adjacent skin-tone variants, NOT animation time",
+      "type": "variant_group_disappeared",
+      "group": "Right_Upper_Leg"
+    },
+    {
+      "key": "flinch/north/frame-004",
+      "previous": "flinch/north/frame-003",
+      "comparison_axis": "adjacent skin-tone variants, NOT animation time",
+      "type": "variant_group_disappeared",
+      "group": "Left_Upper_Leg"
+    },
+    {
+      "key": "flinch/north/frame-004",
+      "previous": "flinch/north/frame-003",
+      "comparison_axis": "adjacent skin-tone variants, NOT animation time",
+      "type": "variant_group_disappeared",
+      "group": "Left_Lower_Leg"
+    },
+    {
+      "key": "flinch/north/frame-004",
+      "previous": "flinch/north/frame-003",
+      "comparison_axis": "adjacent skin-tone variants, NOT animation time",
+      "type": "variant_group_disappeared",
+      "group": "Left_Upper_Arm"
+    },
+    {
+      "key": "flinch/north/frame-004",
+      "previous": "flinch/north/frame-003",
+      "comparison_axis": "adjacent skin-tone variants, NOT animation time",
+      "type": "variant_group_disappeared",
+      "group": "Right_Upper_Arm"
+    },
+    {
+      "key": "flinch/north/frame-004",
+      "previous": "flinch/north/frame-003",
+      "comparison_axis": "adjacent skin-tone variants, NOT animation time",
+      "type": "variant_group_disappeared",
+      "group": "Left_Lower_Arm"
+    },
+    {
+      "key": "flinch/north/frame-004",
+      "previous": "flinch/north/frame-003",
+      "comparison_axis": "adjacent skin-tone variants, NOT animation time",
+      "type": "variant_group_disappeared",
+      "group": "Right_Lower_Arm"
+    },
+    {
+      "key": "flinch/north/frame-004",
+      "previous": "flinch/north/frame-003",
+      "comparison_axis": "adjacent skin-tone variants, NOT animation time",
+      "type": "variant_group_disappeared",
+      "group": "Head"
+    },
+    {
+      "key": "flinch/north/frame-004",
+      "previous": "flinch/north/frame-003",
+      "comparison_axis": "adjacent skin-tone variants, NOT animation time",
+      "type": "variant_group_area_jump",
+      "group": "Head"
+    },
+    {
+      "key": "flinch/south-west/frame-002",
+      "previous": "flinch/south-west/frame-001",
+      "comparison_axis": "adjacent skin-tone variants, NOT animation time",
+      "type": "variant_group_disappeared",
+      "group": "Right_Lower_Arm"
+    },
+    {
+      "key": "flinch/north-west/frame-002",
+      "previous": "flinch/north-west/frame-001",
+      "comparison_axis": "adjacent skin-tone variants, NOT animation time",
+      "type": "variant_group_disappeared",
+      "group": "Left_Upper_Arm"
+    },
+    {
+      "key": "flinch/north-west/frame-002",
+      "previous": "flinch/north-west/frame-001",
+      "comparison_axis": "adjacent skin-tone variants, NOT animation time",
+      "type": "variant_group_disappeared",
+      "group": "Left_Lower_Arm"
+    },
+    {
+      "key": "flinch/north-west/frame-003",
+      "previous": "flinch/north-west/frame-002",
+      "comparison_axis": "adjacent skin-tone variants, NOT animation time",
+      "type": "variant_group_area_jump",
+      "group": "Torso"
+    },
+    {
+      "key": "flinch/north-west/frame-003",
+      "previous": "flinch/north-west/frame-002",
+      "comparison_axis": "adjacent skin-tone variants, NOT animation time",
+      "type": "variant_group_disappeared",
+      "group": "Right_Upper_Arm"
+    },
+    {
+      "key": "flinch/north-west/frame-003",
+      "previous": "flinch/north-west/frame-002",
+      "comparison_axis": "adjacent skin-tone variants, NOT animation time",
+      "type": "variant_group_disappeared",
+      "group": "Right_Lower_Arm"
+    },
+    {
+      "key": "flinch/north-west/frame-003",
+      "previous": "flinch/north-west/frame-002",
+      "comparison_axis": "adjacent skin-tone variants, NOT animation time",
+      "type": "variant_group_area_jump",
+      "group": "Head"
+    },
+    {
+      "key": "flinch/south-east/frame-002",
+      "previous": "flinch/south-east/frame-001",
+      "comparison_axis": "adjacent skin-tone variants, NOT animation time",
+      "type": "variant_group_disappeared",
+      "group": "Right_Lower_Arm"
+    },
+    {
+      "key": "flinch/north-east/frame-002",
+      "previous": "flinch/north-east/frame-001",
+      "comparison_axis": "adjacent skin-tone variants, NOT animation time",
+      "type": "variant_group_disappeared",
+      "group": "Left_Upper_Arm"
+    },
+    {
+      "key": "flinch/north-east/frame-002",
+      "previous": "flinch/north-east/frame-001",
+      "comparison_axis": "adjacent skin-tone variants, NOT animation time",
+      "type": "variant_group_disappeared",
+      "group": "Left_Lower_Arm"
+    },
+    {
+      "key": "flinch/north-east/frame-003",
+      "previous": "flinch/north-east/frame-002",
+      "comparison_axis": "adjacent skin-tone variants, NOT animation time",
+      "type": "variant_group_area_jump",
+      "group": "Torso"
+    },
+    {
+      "key": "flinch/north-east/frame-003",
+      "previous": "flinch/north-east/frame-002",
+      "comparison_axis": "adjacent skin-tone variants, NOT animation time",
+      "type": "variant_group_disappeared",
+      "group": "Right_Upper_Arm"
+    },
+    {
+      "key": "flinch/north-east/frame-003",
+      "previous": "flinch/north-east/frame-002",
+      "comparison_axis": "adjacent skin-tone variants, NOT animation time",
+      "type": "variant_group_disappeared",
+      "group": "Right_Lower_Arm"
+    },
+    {
+      "key": "flinch/north-east/frame-003",
+      "previous": "flinch/north-east/frame-002",
+      "comparison_axis": "adjacent skin-tone variants, NOT animation time",
+      "type": "variant_group_area_jump",
+      "group": "Head"
+    },
+    {
+      "key": "swing-1h/north/frame-001",
+      "previous": "swing-1h/north/frame-000",
+      "comparison_axis": "adjacent skin-tone variants, NOT animation time",
+      "type": "variant_group_disappeared",
+      "group": "Left_Lower_Arm"
+    },
+    {
+      "key": "swing-1h/north/frame-002",
+      "previous": "swing-1h/north/frame-001",
+      "comparison_axis": "adjacent skin-tone variants, NOT animation time",
+      "type": "variant_group_area_jump",
+      "group": "Head"
+    },
+    {
+      "key": "swing-1h/north/frame-002",
+      "previous": "swing-1h/north/frame-001",
+      "comparison_axis": "adjacent skin-tone variants, NOT animation time",
+      "type": "possible_variant_head_to_torso_reassignment"
+    },
+    {
+      "key": "swing-1h/north/frame-003",
+      "previous": "swing-1h/north/frame-002",
+      "comparison_axis": "adjacent skin-tone variants, NOT animation time",
+      "type": "variant_group_disappeared",
+      "group": "Left_Foot"
+    },
+    {
+      "key": "swing-1h/north/frame-003",
+      "previous": "swing-1h/north/frame-002",
+      "comparison_axis": "adjacent skin-tone variants, NOT animation time",
+      "type": "possible_variant_head_to_torso_reassignment"
+    },
+    {
+      "key": "swing-1h/north/frame-004",
+      "previous": "swing-1h/north/frame-003",
+      "comparison_axis": "adjacent skin-tone variants, NOT animation time",
+      "type": "possible_variant_head_to_torso_reassignment"
+    },
+    {
+      "key": "swing-1h/south-west/frame-003",
+      "previous": "swing-1h/south-west/frame-002",
+      "comparison_axis": "adjacent skin-tone variants, NOT animation time",
+      "type": "variant_group_disappeared",
+      "group": "Right_Hand"
+    },
+    {
+      "key": "swing-1h/north-west/frame-003",
+      "previous": "swing-1h/north-west/frame-002",
+      "comparison_axis": "adjacent skin-tone variants, NOT animation time",
+      "type": "variant_group_disappeared",
+      "group": "Right_Hand"
+    },
+    {
+      "key": "swing-1h/south-east/frame-003",
+      "previous": "swing-1h/south-east/frame-002",
+      "comparison_axis": "adjacent skin-tone variants, NOT animation time",
+      "type": "variant_group_disappeared",
+      "group": "Right_Hand"
+    },
+    {
+      "key": "swing-1h/north-east/frame-003",
+      "previous": "swing-1h/north-east/frame-002",
+      "comparison_axis": "adjacent skin-tone variants, NOT animation time",
+      "type": "variant_group_disappeared",
+      "group": "Right_Hand"
+    },
+    {
+      "key": "thrust-1h/south/frame-001",
+      "previous": "thrust-1h/south/frame-000",
+      "comparison_axis": "adjacent skin-tone variants, NOT animation time",
+      "type": "variant_group_disappeared",
+      "group": "Left_Upper_Arm"
+    },
+    {
+      "key": "thrust-1h/south/frame-003",
+      "previous": "thrust-1h/south/frame-002",
+      "comparison_axis": "adjacent skin-tone variants, NOT animation time",
+      "type": "variant_group_disappeared",
+      "group": "Left_Hand"
+    },
+    {
+      "key": "thrust-1h/south/frame-003",
+      "previous": "thrust-1h/south/frame-002",
+      "comparison_axis": "adjacent skin-tone variants, NOT animation time",
+      "type": "variant_group_disappeared",
+      "group": "Left_Lower_Arm"
+    },
+    {
+      "key": "thrust-1h/north/frame-001",
+      "previous": "thrust-1h/north/frame-000",
+      "comparison_axis": "adjacent skin-tone variants, NOT animation time",
+      "type": "variant_group_disappeared",
+      "group": "Left_Foot"
+    },
+    {
+      "key": "thrust-1h/north/frame-001",
+      "previous": "thrust-1h/north/frame-000",
+      "comparison_axis": "adjacent skin-tone variants, NOT animation time",
+      "type": "variant_group_disappeared",
+      "group": "Right_Upper_Leg"
+    },
+    {
+      "key": "thrust-1h/north/frame-001",
+      "previous": "thrust-1h/north/frame-000",
+      "comparison_axis": "adjacent skin-tone variants, NOT animation time",
+      "type": "variant_group_disappeared",
+      "group": "Right_Lower_Leg"
+    },
+    {
+      "key": "thrust-1h/north/frame-001",
+      "previous": "thrust-1h/north/frame-000",
+      "comparison_axis": "adjacent skin-tone variants, NOT animation time",
+      "type": "variant_group_disappeared",
+      "group": "Left_Lower_Arm"
+    },
+    {
+      "key": "thrust-1h/north/frame-002",
+      "previous": "thrust-1h/north/frame-001",
+      "comparison_axis": "adjacent skin-tone variants, NOT animation time",
+      "type": "possible_variant_left_right_exchange",
+      "group": "Upper_Arm"
+    },
+    {
+      "key": "thrust-1h/north/frame-004",
+      "previous": "thrust-1h/north/frame-003",
+      "comparison_axis": "adjacent skin-tone variants, NOT animation time",
+      "type": "variant_group_disappeared",
+      "group": "Left_Hand"
+    },
+    {
+      "key": "thrust-1h/north/frame-004",
+      "previous": "thrust-1h/north/frame-003",
+      "comparison_axis": "adjacent skin-tone variants, NOT animation time",
+      "type": "variant_group_disappeared",
+      "group": "Right_Lower_Arm"
+    },
+    {
+      "key": "thrust-1h/south-west/frame-002",
+      "previous": "thrust-1h/south-west/frame-001",
+      "comparison_axis": "adjacent skin-tone variants, NOT animation time",
+      "type": "possible_variant_left_right_exchange",
+      "group": "Upper_Leg"
+    },
+    {
+      "key": "thrust-1h/south-west/frame-004",
+      "previous": "thrust-1h/south-west/frame-003",
+      "comparison_axis": "adjacent skin-tone variants, NOT animation time",
+      "type": "variant_group_disappeared",
+      "group": "Right_Hand"
+    },
+    {
+      "key": "thrust-1h/north-west/frame-001",
+      "previous": "thrust-1h/north-west/frame-000",
+      "comparison_axis": "adjacent skin-tone variants, NOT animation time",
+      "type": "variant_group_disappeared",
+      "group": "Left_Foot"
+    },
+    {
+      "key": "thrust-1h/north-west/frame-002",
+      "previous": "thrust-1h/north-west/frame-001",
+      "comparison_axis": "adjacent skin-tone variants, NOT animation time",
+      "type": "variant_group_disappeared",
+      "group": "Right_Hand"
+    },
+    {
+      "key": "thrust-1h/north-west/frame-002",
+      "previous": "thrust-1h/north-west/frame-001",
+      "comparison_axis": "adjacent skin-tone variants, NOT animation time",
+      "type": "possible_variant_left_right_exchange",
+      "group": "Lower_Arm"
+    },
+    {
+      "key": "thrust-1h/north-west/frame-003",
+      "previous": "thrust-1h/north-west/frame-002",
+      "comparison_axis": "adjacent skin-tone variants, NOT animation time",
+      "type": "variant_group_disappeared",
+      "group": "Right_Lower_Arm"
+    },
+    {
+      "key": "thrust-1h/north-west/frame-004",
+      "previous": "thrust-1h/north-west/frame-003",
+      "comparison_axis": "adjacent skin-tone variants, NOT animation time",
+      "type": "variant_group_disappeared",
+      "group": "Left_Foot"
+    },
+    {
+      "key": "thrust-1h/south-east/frame-002",
+      "previous": "thrust-1h/south-east/frame-001",
+      "comparison_axis": "adjacent skin-tone variants, NOT animation time",
+      "type": "possible_variant_left_right_exchange",
+      "group": "Upper_Leg"
+    },
+    {
+      "key": "thrust-1h/south-east/frame-004",
+      "previous": "thrust-1h/south-east/frame-003",
+      "comparison_axis": "adjacent skin-tone variants, NOT animation time",
+      "type": "variant_group_disappeared",
+      "group": "Right_Hand"
+    },
+    {
+      "key": "thrust-1h/north-east/frame-001",
+      "previous": "thrust-1h/north-east/frame-000",
+      "comparison_axis": "adjacent skin-tone variants, NOT animation time",
+      "type": "variant_group_disappeared",
+      "group": "Left_Foot"
+    },
+    {
+      "key": "thrust-1h/north-east/frame-002",
+      "previous": "thrust-1h/north-east/frame-001",
+      "comparison_axis": "adjacent skin-tone variants, NOT animation time",
+      "type": "variant_group_disappeared",
+      "group": "Right_Hand"
+    },
+    {
+      "key": "thrust-1h/north-east/frame-002",
+      "previous": "thrust-1h/north-east/frame-001",
+      "comparison_axis": "adjacent skin-tone variants, NOT animation time",
+      "type": "possible_variant_left_right_exchange",
+      "group": "Lower_Arm"
+    },
+    {
+      "key": "thrust-1h/north-east/frame-003",
+      "previous": "thrust-1h/north-east/frame-002",
+      "comparison_axis": "adjacent skin-tone variants, NOT animation time",
+      "type": "variant_group_disappeared",
+      "group": "Right_Lower_Arm"
+    },
+    {
+      "key": "thrust-1h/north-east/frame-004",
+      "previous": "thrust-1h/north-east/frame-003",
+      "comparison_axis": "adjacent skin-tone variants, NOT animation time",
+      "type": "variant_group_disappeared",
+      "group": "Left_Foot"
+    }
+  ]
+}

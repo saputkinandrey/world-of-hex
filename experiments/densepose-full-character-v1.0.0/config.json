@@ -1,0 +1,16 @@
+{
+  "schema": "densepose-full-character/1",
+  "character": "Character1",
+  "baseline_method": "bicubic512",
+  "background_rgb": [127, 127, 127],
+  "baseline_canvas": 150,
+  "baseline_size": 512,
+  "batch_size": 1,
+  "device": "cpu",
+  "checkpoint": "D:/gamedev/huggingface/anatomy-benchmark/densepose/model_final_162be9.pkl",
+  "checkpoint_sha256": "b8a7382001b16e453bad95ca9dbc68ae8f2b839b304cf90eaf5c27fbdb4dae91",
+  "source_revision": "b0fe2f0a5bb6496f65246ef35687a386a9f19202",
+  "model_config": "projects/DensePose/configs/densepose_rcnn_R_50_FPN_s1x.yaml",
+  "mirror_policy": "Exact spatial x reflection; retain source surface IDs and intrinsic UV values. No anatomical relabeling or U inversion. Not independent model inference.",
+  "diagnostics": {"coverage_change": 0.2, "area_fraction_change": 0.2, "dominant_group_fraction": 0.65}
+}
