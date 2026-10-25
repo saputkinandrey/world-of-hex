@@ -1,0 +1,75 @@
+{
+  "outcome": "passed",
+  "algorithm_version": "1.2.0",
+  "unit_tests_passed": 8,
+  "historical_files_checked": 713,
+  "historical_changed_experiments": [],
+  "neural_inference_performed": false,
+  "runs": {
+    "handwear": {
+      "initialization": "single_layer_self_pair",
+      "unique_seed_count": 9,
+      "max_s4": "43967",
+      "area_pixels": 854,
+      "component_areas": [
+        475,
+        379
+      ],
+      "iteration_statistics": {
+        "s1": {
+          "maximum": "14",
+          "area_at_5_percent": 1779
+        },
+        "s2": {
+          "maximum": "63",
+          "area_at_5_percent": 1294
+        },
+        "s3": {
+          "maximum": "749",
+          "area_at_5_percent": 924
+        },
+        "s4": {
+          "maximum": "43967",
+          "area_at_5_percent": 854
+        }
+      }
+    },
+    "head": {
+      "initialization": "two_layer_product",
+      "unique_seed_count": 9,
+      "max_s4": "56769",
+      "area_pixels": 791,
+      "component_areas": [
+        790,
+        1
+      ],
+      "iteration_statistics": {
+        "s1": {
+          "maximum": "15",
+          "area_at_5_percent": 2646
+        },
+        "s2": {
+          "maximum": "69",
+          "area_at_5_percent": 2646
+        },
+        "s3": {
+          "maximum": "879",
+          "area_at_5_percent": 1604
+        },
+        "s4": {
+          "maximum": "56769",
+          "area_at_5_percent": 791
+        }
+      }
+    }
+  },
+  "checks": [
+    "raw-input initialization formulas",
+    "simultaneous S/P updates",
+    "exact 5-percent S4 binarization",
+    "numeric and PNG mask equality",
+    "source colors retained outside mask",
+    "artifact SHA256 checksums"
+  ],
+  "interpretation": "Mathematical and file-integrity checks only; no experiment-specific target masks or areas."
+}

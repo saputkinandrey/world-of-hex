@@ -14,25 +14,30 @@ and Pillow:
 python .agents/skills/hex-anatomical-segmentation/scripts/segment.py --experiment <experiment-path> --layers "head" "back hair" --output <new-output-directory>
 ```
 
-Replace the example layers with the supplied list. For the specified
-`sw-head-consistency-02` head acceptance check, add `--verify-head-reference`;
-the unweighted reference has 791 pixels and maximum S4 = 56769.
+Replace the example layers with the explicitly supplied list; do not select
+layers automatically. There are no experiment-specific reference values or
+reference-check modes. Report the measured result without an expected area,
+shape or vote-count target.
 Use `--help` for the supported categories and output details.
 
-Algorithm v1.1.0 uses raw hitmaps directly, with equal contribution per layer
+Algorithm v1.2.0 uses raw hitmaps directly, with equal contribution per layer
 and no multiplicative coefficients or normalization. Intensity ranking is
-diagnostic only. S1 is their sum; P1 is the sum of pairwise products (zero for
-one layer). The S/P recurrence and the 5% S4 threshold remain unchanged.
+diagnostic only. Initialize one layer as the virtual self-pair A=B=H:
+S1=2H, P1=H^2 (`single_layer_self_pair`). For two layers use S1=A+B, P1=A*B
+(`two_layer_product`). For three or more retain S1=sum(H), P1=sum of pairwise
+products (`experimental_pairwise_products`). Update S,P simultaneously from
+their previous values three times to obtain S4. Binarize using exactly
+20*S4 >= max(S4), returning an empty mask when the maximum is zero.
 
 Report parameters, unique-seed count, ranked intensities, mask area,
 component sizes and links to `mask.png`, `overlay-preview.png`, `metadata.json`
 and `numeric.json.gz`. On a duplicate-seed conflict, report `conflicts.json`
-and stop; on a failed reference check, report the mismatch without tuning.
+and stop.
 
 All calculation and rendering belong to the script. Preserve its exact S4
 threshold geometry. Use no LLM image assessment, neural inference, automatic
 layer/parameter selection, contour repair or anatomy-specific heuristics.
 Keep source sprites, preprocessing, rigs and historical results unchanged.
-Single-layer runs are baselines; initialization with three or more layers is
+Initialization with three or more layers is
 an unvalidated pairwise-products hypothesis. Successful execution establishes
 technical reproducibility, not anatomical correctness.

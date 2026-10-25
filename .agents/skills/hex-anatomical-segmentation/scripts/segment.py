@@ -13,7 +13,7 @@ import numpy as np
 import PIL
 from PIL import Image, ImageDraw
 
-VERSION = '1.1.0'
+VERSION = '1.2.0'
 ALPHA_THRESHOLD = 128
 ITERATIONS = 4
 THRESHOLD_DENOMINATOR = 20
@@ -142,6 +142,8 @@ def rank_layers(hitmaps):
 
 def recurrence(hitmaps):
     values = [values.astype(object) for values in hitmaps.values()]
+    if len(values) == 1:
+        values = [values[0], values[0]]
     s = np.zeros(values[0].shape, dtype=object)
     p = np.zeros(values[0].shape, dtype=object)
     for index, value in enumerate(values):
@@ -161,7 +163,7 @@ def threshold(s4):
 
 
 def component_areas(mask):
-    """Four-connected components, matching the reference; diagnostics only."""
+    """Four-connected components for diagnostics only."""
     unseen = mask.copy()
     areas = []
     for y, x in zip(*np.where(mask)):
@@ -243,9 +245,10 @@ def save_result(output, source, hitmaps, provenance):
     maps = recurrence(hitmaps)
     mask = threshold(maps['s4'])
     areas = component_areas(mask)
-    initialization = ('single_layer_baseline' if len(hitmaps) == 1 else
-                      'two_layer_original' if len(hitmaps) == 2 else 'experimental_pairwise_products')
+    initialization = ('single_layer_self_pair' if len(hitmaps) == 1 else
+                      'two_layer_product' if len(hitmaps) == 2 else 'experimental_pairwise_products')
     metadata = {**provenance, 'algorithm_version': VERSION, 'status': 'experimental',
+                'unique_seed_count': len(provenance['unique_seeds']),
                 'selected_layers': list(hitmaps), 'alpha_threshold': ALPHA_THRESHOLD,
                 'alpha_comparison': 'alpha > 128', 'iteration_count': ITERATIONS,
                 'multi_layer_initialization': initialization,
@@ -253,6 +256,10 @@ def save_result(output, source, hitmaps, provenance):
                 'input_weighting': 'none',
                 'final_threshold': {'fraction': '1/20', 'comparison': '20 * S4 >= S4.max()', 'zero_map': 'empty'},
                 'max_s4': str(int(maps['s4'].max())), 'output_area_pixels': int(mask.sum()),
+                'iteration_statistics': {f's{index}': {
+                    'maximum': str(int(maps[f's{index}'].max())),
+                    'area_at_5_percent': int(threshold(maps[f's{index}']).sum())}
+                    for index in range(1, ITERATIONS + 1)},
                 'connected_components': {'connectivity': 4, 'count': len(areas), 'areas_pixels': areas},
                 'numeric_arithmetic': 'Python arbitrary-precision integers in NumPy object arrays',
                 'visualization_normalization': 'linear value / each map own maximum; numeric values remain unchanged',
@@ -271,29 +278,11 @@ def save_result(output, source, hitmaps, provenance):
     return metadata
 
 
-def verify_reference(output, hitmaps, provenance, primary):
-    checks = {'unique_seed_count': (len(provenance['unique_seeds']), 9),
-              'head_intensity': (int(hitmaps['head'].sum()), 4912),
-              'back_hair_intensity': (int(hitmaps['back hair'].sum()), 18617),
-              'input_weighting': (primary['input_weighting'], 'none'),
-              'max_s4': (int(primary['max_s4']), 56769),
-              'unweighted_head_area': (primary['output_area_pixels'], 791),
-              'component_areas': (primary['connected_components']['areas_pixels'], [790, 1])}
-    report = {'outcome': 'passed' if all(actual == expected for actual, expected in checks.values()) else 'failed',
-              'purpose': 'unweighted head regression reference',
-              'checks': {name: {'actual': actual, 'expected': expected, 'passed': actual == expected}
-                         for name, (actual, expected) in checks.items()}}
-    write_json(output / 'verification.json', report)
-    if report['outcome'] != 'passed':
-        raise ValueError('Head reference mismatch; inspect verification.json without parameter tuning')
-
-
 def main():
     parser = argparse.ArgumentParser(description=__doc__, epilog='Writes masks, original-color overlay, labeled heatmaps, exact numeric.json.gz and metadata.json. Requires NumPy and Pillow only.')
     parser.add_argument('--experiment', required=True, type=Path)
     parser.add_argument('--layers', required=True, nargs='+', choices=LAYERS)
     parser.add_argument('--output', required=True, type=Path, help='New directory outside the historical experiment')
-    parser.add_argument('--verify-head-reference', action='store_true', help='Check the unweighted sw-head-consistency-02 head reference (791 pixels)')
     args = parser.parse_args()
     experiment, output = args.experiment.resolve(), args.output.resolve()
     if len(args.layers) != len(set(args.layers)):
@@ -302,8 +291,6 @@ def main():
         parser.error('Output must be outside the historical experiment and cannot contain it')
     if output.exists():
         parser.error('Output directory already exists; choose a new one')
-    if args.verify_head_reference and set(args.layers) != {'head', 'back hair'}:
-        parser.error('Head reference requires exactly head and back hair')
     try:
         source, hitmaps, provenance = load_observations(experiment, args.layers)
     except SeedConflict as exc:
@@ -316,8 +303,6 @@ def main():
                                           'checked_files': len(provenance['input_checksums_sha256']), 'changed_files': changed})
     if changed:
         raise ValueError('Inputs changed during execution: ' + repr(changed))
-    if args.verify_head_reference:
-        verify_reference(output, hitmaps, provenance, metadata)
     print(json.dumps({'output': str(output), 'unique_seeds': len(provenance['unique_seeds']),
                       'layers': args.layers, 'input_weighting': metadata['input_weighting'],
                       'layer_intensity_ranking': metadata['layer_intensity_ranking'],

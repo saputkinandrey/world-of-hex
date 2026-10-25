@@ -42,13 +42,24 @@ class ArithmeticTests(unittest.TestCase):
         ranking = segment.rank_layers({'b': np.array([[2, 0]]), 'a': np.array([[1, 1]]), 'c': np.array([[0, 1]])})
         self.assertEqual(ranking, ['a', 'b', 'c'])
 
-    def test_threshold_boundary_zero_and_single_layer(self):
+    def test_threshold_boundary_and_zero(self):
         self.assertEqual(segment.threshold(np.array([[0, 4, 5, 100]], dtype=object)).tolist(), [[False, False, True, True]])
         self.assertFalse(segment.threshold(np.zeros((2, 2), dtype=object)).any())
-        maps = segment.recurrence({'a': np.array([[0, 2]])})
-        self.assertEqual(maps['s4'].tolist(), [[0, 2]])
-        self.assertFalse(maps['p4'].any())
+        maps = segment.recurrence({'a': np.zeros((2, 2), dtype=object)})
+        self.assertFalse(segment.threshold(maps['s4']).any())
         self.assertEqual(segment.component_areas(np.array([[True, False], [False, True]])), [1, 1])
+
+    def test_single_layer_self_pair_for_arbitrary_category(self):
+        maps = segment.recurrence({'arbitrary-category': np.array([[0, 1, 2, 7]])})
+        self.assertEqual(maps['s1'].tolist(), [[0, 2, 4, 14]])
+        self.assertEqual(maps['p1'].tolist(), [[0, 1, 4, 49]])
+        self.assertEqual(maps['s4'].tolist(), [[0, 11, 152, 43967]])
+        self.assertEqual(maps['p4'].tolist(), [[0, 30, 3072, 749 * 43218]])
+
+    def test_three_layer_pairwise_initialization_is_unchanged(self):
+        maps = segment.recurrence({name: np.array([[value]]) for name, value in (('a', 1), ('b', 2), ('c', 3))})
+        self.assertEqual([int(maps[f's{i}'][0, 0]) for i in range(1, 5)], [6, 17, 83, 1205])
+        self.assertEqual([int(maps[f'p{i}'][0, 0]) for i in range(1, 5)], [11, 66, 1122, 93126])
 
 
 class SavedObservationTests(unittest.TestCase):
