@@ -1,0 +1,39 @@
+{
+  "stages": {
+    "layerdiff": {
+      "outcome": "success"
+    },
+    "body": {
+      "outcome": "success"
+    },
+    "head": {
+      "outcome": "not_requested"
+    },
+    "depth": {
+      "outcome": "not_requested"
+    },
+    "export": {
+      "outcome": "not_requested"
+    }
+  },
+  "body_complete": true,
+  "mode": "body-only",
+  "input_mode": "RGBA",
+  "parameters": {
+    "seed": 202,
+    "steps": 20,
+    "resolution": 512,
+    "depth_resolution": 512
+  },
+  "runtime": {
+    "torch": "2.8.0+cu128",
+    "cuda": "12.8",
+    "device": "NVIDIA GeForce RTX 3060 Laptop GPU",
+    "cudnn": 91002,
+    "deterministic_algorithms": false,
+    "cudnn_benchmark": false,
+    "cudnn_deterministic": false
+  },
+  "elapsed_seconds": 348.7681119441986,
+  "peak_allocated_gib": 3.577329635620117
+}
