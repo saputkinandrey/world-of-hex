@@ -1,0 +1,123 @@
+{
+  "version": "1.1.0",
+  "key": "longarm/north-east/frame-000",
+  "baseline_frame": 0,
+  "source_rgba": "C:\\Users\\Андрей\\Desktop\\world-of-hex\\experiments\\densepose-full-character-v1.0.0\\results\\longarm\\north-east\\frame-000\\source.png",
+  "original_surface_map_reference": "C:\\Users\\Андрей\\Desktop\\world-of-hex\\experiments\\densepose-full-character-v1.0.0\\results\\longarm\\north-east\\frame-000\\class-map.npy",
+  "historical_r2_reference": "C:\\Users\\Андрей\\Desktop\\world-of-hex\\experiments\\densepose-postprocessing-v1.0.0\\flood-fill\\longarm\\north-east\\flood-r2\\anatomical-owners.npy",
+  "historical_r2_recomputed": false,
+  "baseline_owner_scope": "selected shared baseline clipped to binary alpha; historical 24-surface maps untouched",
+  "mirrored": true,
+  "source_direction": "north-west",
+  "mirror_method": "reflect finished western maps; exchange E/W direction codes only",
+  "cross_view_transfer": false,
+  "unreachable_regions_reference": "geometry/longarm/north-east/unreachable-regions.json",
+  "metrics": {
+    "alpha_pixels": 2455,
+    "original_pixels": 2348,
+    "historical_r2_pixels": 2448,
+    "filled_pixels": 107,
+    "total_owned": 2455,
+    "tiebreak_pixels": 7,
+    "unknown_pixels": 0,
+    "max_distance": 2,
+    "mean_distance": 1.0093457943925233,
+    "distance_histogram": {
+      "1": 106,
+      "2": 1
+    },
+    "max_bfs_depth": 2,
+    "assignments_per_wave": [
+      106,
+      1
+    ],
+    "terminal_delta": 0,
+    "stop_reason": "all_silhouette_assigned",
+    "groups": {
+      "Torso": {
+        "original": 787,
+        "historical_r2": 805,
+        "filled": 806,
+        "added": 19
+      },
+      "Right_Hand": {
+        "original": 1,
+        "historical_r2": 2,
+        "filled": 2,
+        "added": 1
+      },
+      "Left_Hand": {
+        "original": 92,
+        "historical_r2": 106,
+        "filled": 107,
+        "added": 15
+      },
+      "Left_Foot": {
+        "original": 53,
+        "historical_r2": 61,
+        "filled": 61,
+        "added": 8
+      },
+      "Right_Foot": {
+        "original": 127,
+        "historical_r2": 146,
+        "filled": 146,
+        "added": 19
+      },
+      "Right_Upper_Leg": {
+        "original": 9,
+        "historical_r2": 12,
+        "filled": 12,
+        "added": 3
+      },
+      "Left_Upper_Leg": {
+        "original": 76,
+        "historical_r2": 87,
+        "filled": 87,
+        "added": 11
+      },
+      "Right_Lower_Leg": {
+        "original": 17,
+        "historical_r2": 17,
+        "filled": 17,
+        "added": 0
+      },
+      "Left_Lower_Leg": {
+        "original": 78,
+        "historical_r2": 92,
+        "filled": 92,
+        "added": 14
+      },
+      "Left_Upper_Arm": {
+        "original": 285,
+        "historical_r2": 285,
+        "filled": 285,
+        "added": 0
+      },
+      "Right_Upper_Arm": {
+        "original": 45,
+        "historical_r2": 50,
+        "filled": 52,
+        "added": 7
+      },
+      "Left_Lower_Arm": {
+        "original": 79,
+        "historical_r2": 83,
+        "filled": 83,
+        "added": 4
+      },
+      "Right_Lower_Arm": {
+        "original": 9,
+        "historical_r2": 12,
+        "filled": 14,
+        "added": 5
+      },
+      "Head": {
+        "original": 690,
+        "historical_r2": 690,
+        "filled": 691,
+        "added": 1
+      }
+    }
+  }
+}
