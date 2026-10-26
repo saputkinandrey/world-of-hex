@@ -1,0 +1,17 @@
+{
+  "version": "1.0.0",
+  "source": "../densepose-full-character-v1.0.0",
+  "baseline_frame": 0,
+  "atlas_overrides": {},
+  "flood_radii": [1, 2, 4],
+  "primary_radius": 2,
+  "cross_view": {
+    "diagnostic_shift_range": 2,
+    "transfer_hypotheses": [
+      {"mirror": false, "dx": 0, "dy": 0},
+      {"mirror": true, "dx": 0, "dy": 0}
+    ],
+    "silhouette_neighborhood_radius": 1,
+    "north_anchor_max_distance": 4
+  }
+}
