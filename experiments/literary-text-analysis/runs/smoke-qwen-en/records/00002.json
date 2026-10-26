@@ -1,0 +1,79 @@
+{
+  "schema_version": "0.1.0",
+  "model": "qwen",
+  "checkpoint_revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+  "processing": {
+    "schema_version": "0.1.0",
+    "device": "cuda",
+    "seed": 42,
+    "context_tokens": 3072,
+    "previous_paragraphs": 2,
+    "registry_limit": 24,
+    "fable_overlap_tokens": 64,
+    "generation": {
+      "enable_thinking": false,
+      "do_sample": false,
+      "max_new_tokens": 1152,
+      "num_beams": 1,
+      "use_cache": true
+    },
+    "models": {
+      "fable": {
+        "repo": "SaladTechnologies/fable-base",
+        "revision": "45aceef3d49fe75bd8240010cbfdc983724ec420",
+        "receipt": "../literary-decision-encoders/model-paths.json",
+        "receipt_key": "fable",
+        "dtype": "float32"
+      },
+      "qwen": {
+        "repo": "Qwen/Qwen3-1.7B",
+        "revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+        "receipt": "../character-decisions/model-paths.json",
+        "receipt_key": "qwen3_1_7b",
+        "dtype": "bfloat16"
+      }
+    }
+  },
+  "run_sha256": "16c09f5192ea36dbbe34b80ad478d691535ff03a2610e7760da73c7eb7a88a09",
+  "paragraph_id": "p00002-b6a414ed",
+  "ordinal": 2,
+  "status": "ERROR",
+  "normalized": {},
+  "artifacts": [
+    {
+      "path": "model_outputs\\qwen\\00002.json",
+      "sha256": "1819b0a0d83c4b3c0e1a0a7e40a3d3983569fd84cbf4756c62106b2411dee1ed"
+    }
+  ],
+  "error": {
+    "type": "ValueError",
+    "message": "Expected mentions, observations, links and revisions arrays",
+    "traceback": "Traceback (most recent call last):\n  File \"C:\\Users\\Андрей\\Desktop\\world-of-hex\\experiments\\literary-text-analysis\\analysis.py\", line 109, in analyze\n    record['normalized'] = normalize(payload, paragraph, previous, registry)\n                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\Андрей\\Desktop\\world-of-hex\\experiments\\literary-text-analysis\\grounding.py\", line 45, in normalize\n    raise ValueError('Expected mentions, observations, links and revisions arrays')\nValueError: Expected mentions, observations, links and revisions arrays\n"
+  },
+  "registry_after": [
+    {
+      "id": "c0001",
+      "name": "Mara",
+      "aliases": [
+        "Mara reached the stone bridge and placed a lantern on the wall."
+      ],
+      "mentions": [
+        "p00000-4dc6742d:m000"
+      ],
+      "status": "automatic_unverified"
+    },
+    {
+      "id": "c0002",
+      "name": "Rowan",
+      "aliases": [
+        "Rowan watched her from the gate.",
+        "He kept his sword in its sheath."
+      ],
+      "mentions": [
+        "p00001-7c894f36:m000",
+        "p00001-7c894f36:m001"
+      ],
+      "status": "automatic_unverified"
+    }
+  ]
+}

@@ -1,0 +1,73 @@
+{
+  "schema_version": "0.1.0",
+  "model": "fable",
+  "checkpoint_revision": "45aceef3d49fe75bd8240010cbfdc983724ec420",
+  "processing": {
+    "schema_version": "0.1.0",
+    "device": "cuda",
+    "seed": 42,
+    "context_tokens": 3072,
+    "previous_paragraphs": 2,
+    "registry_limit": 24,
+    "qwen_stages": [
+      "mentions",
+      "behavior"
+    ],
+    "fable_overlap_tokens": 64,
+    "generation": {
+      "enable_thinking": false,
+      "do_sample": false,
+      "max_new_tokens": 1152,
+      "num_beams": 1,
+      "use_cache": true
+    },
+    "models": {
+      "fable": {
+        "repo": "SaladTechnologies/fable-base",
+        "revision": "45aceef3d49fe75bd8240010cbfdc983724ec420",
+        "receipt": "../literary-decision-encoders/model-paths.json",
+        "receipt_key": "fable",
+        "dtype": "float32"
+      },
+      "qwen": {
+        "repo": "Qwen/Qwen3-1.7B",
+        "revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+        "receipt": "../character-decisions/model-paths.json",
+        "receipt_key": "qwen3_1_7b",
+        "dtype": "bfloat16"
+      }
+    }
+  },
+  "run_sha256": "0cf1534a5e069467b25b759fffa3646c36bc89fa76cec17c623fd25fae782b23",
+  "paragraph_id": "p00004-3c2fbe8e",
+  "ordinal": 4,
+  "status": "SUCCESS",
+  "normalized": {
+    "entities": [
+      {
+        "paragraph_id": "p00004-3c2fbe8e",
+        "start": 0,
+        "end": 4,
+        "type": "CHA",
+        "text": "Mara",
+        "score": 0.828594982624054
+      },
+      {
+        "paragraph_id": "p00004-3c2fbe8e",
+        "start": 67,
+        "end": 74,
+        "type": "FAC",
+        "text": " bridge",
+        "score": 0.515612006187439
+      }
+    ]
+  },
+  "artifacts": [
+    {
+      "path": "model_outputs\\fable\\00004.json",
+      "sha256": "6168e9c3097bab7522a66695db37f3d0088d74ce07ef2963064018cd662c5b81"
+    }
+  ],
+  "registry_after": [],
+  "record_sha256": "3120125a7ea09c08d25b99ac90fd23f521494963d4e2d2d09968cd40d4b145f6"
+}

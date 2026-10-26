@@ -1,0 +1,126 @@
+{
+  "schema_version": "0.1.0",
+  "model": "qwen",
+  "checkpoint_revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+  "processing": {
+    "schema_version": "0.1.0",
+    "device": "cuda",
+    "seed": 42,
+    "context_tokens": 3072,
+    "previous_paragraphs": 2,
+    "registry_limit": 24,
+    "qwen_stages": [
+      "mentions",
+      "behavior"
+    ],
+    "fable_overlap_tokens": 64,
+    "generation": {
+      "enable_thinking": false,
+      "do_sample": false,
+      "max_new_tokens": 1152,
+      "num_beams": 1,
+      "use_cache": true
+    },
+    "models": {
+      "fable": {
+        "repo": "SaladTechnologies/fable-base",
+        "revision": "45aceef3d49fe75bd8240010cbfdc983724ec420",
+        "receipt": "../literary-decision-encoders/model-paths.json",
+        "receipt_key": "fable",
+        "dtype": "float32"
+      },
+      "qwen": {
+        "repo": "Qwen/Qwen3-1.7B",
+        "revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+        "receipt": "../character-decisions/model-paths.json",
+        "receipt_key": "qwen3_1_7b",
+        "dtype": "bfloat16"
+      }
+    }
+  },
+  "run_sha256": "76b711fe576fa0ef122fc3631362a7d338cf766d02689779c0c462bd1f5ae8df",
+  "paragraph_id": "p00011-ccdcb864",
+  "ordinal": 11,
+  "status": "SUCCESS",
+  "normalized": {
+    "mentions": [],
+    "observations": [
+      {
+        "id": "p00011-ccdcb864:e000",
+        "character_id": "c0002",
+        "participants": {
+          "actor": "c0002",
+          "speaker": "c0002",
+          "about": "c0002",
+          "target": "c0002"
+        },
+        "categories": [
+          "action"
+        ],
+        "summary": "Ивен вздрогнул и уронил чашку.",
+        "evidence": [
+          {
+            "paragraph_id": "p00011-ccdcb864",
+            "start": 0,
+            "end": 54,
+            "quote": "Когда зазвонил колокол, Ивен вздрогнул и уронил чашку."
+          }
+        ],
+        "assertion_source": "narrator",
+        "assertion_status": "asserted",
+        "certainty": "model_unverified",
+        "status": "automatic_unverified"
+      }
+    ],
+    "links": [],
+    "revision_proposals": [],
+    "rejected": []
+  },
+  "artifacts": [
+    {
+      "path": "model_outputs\\qwen\\00011.json",
+      "sha256": "eca40566b94fef9cc3a6af4244e6821a25ad98fb735557e35c06141e8f12aa6f"
+    }
+  ],
+  "registry_after": [
+    {
+      "id": "c0001",
+      "name": "Мара",
+      "aliases": [
+        "Мара"
+      ],
+      "mentions": [
+        "p00007-50c73b40:m000"
+      ],
+      "status": "automatic_unverified"
+    },
+    {
+      "id": "c0002",
+      "name": "Ивен",
+      "aliases": [],
+      "mentions": [],
+      "status": "automatic_unverified"
+    },
+    {
+      "id": "c0003",
+      "name": "Рован",
+      "aliases": [
+        "Рован"
+      ],
+      "mentions": [
+        "p00009-0849d338:m000"
+      ],
+      "status": "automatic_unverified"
+    },
+    {
+      "id": "c0004",
+      "name": "Никто",
+      "aliases": [],
+      "mentions": [
+        "p00009-0849d338:m001"
+      ],
+      "status": "automatic_unverified"
+    }
+  ],
+  "record_sha256": "7a461fb8d4800624ad3f3685461b4eebea18cec03f829cdc5276ccbae495868d"
+}

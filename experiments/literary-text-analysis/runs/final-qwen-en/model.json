@@ -1,0 +1,68 @@
+{
+  "schema_version": "0.1.0",
+  "model": "qwen",
+  "checkpoint_revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+  "processing": {
+    "schema_version": "0.1.0",
+    "device": "cuda",
+    "seed": 42,
+    "context_tokens": 3072,
+    "previous_paragraphs": 2,
+    "registry_limit": 24,
+    "qwen_stages": [
+      "mentions",
+      "behavior"
+    ],
+    "fable_overlap_tokens": 64,
+    "generation": {
+      "enable_thinking": false,
+      "do_sample": false,
+      "max_new_tokens": 1152,
+      "num_beams": 1,
+      "use_cache": true
+    },
+    "models": {
+      "fable": {
+        "repo": "SaladTechnologies/fable-base",
+        "revision": "45aceef3d49fe75bd8240010cbfdc983724ec420",
+        "receipt": "../literary-decision-encoders/model-paths.json",
+        "receipt_key": "fable",
+        "dtype": "float32"
+      },
+      "qwen": {
+        "repo": "Qwen/Qwen3-1.7B",
+        "revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+        "receipt": "../character-decisions/model-paths.json",
+        "receipt_key": "qwen3_1_7b",
+        "dtype": "bfloat16"
+      }
+    }
+  },
+  "run_sha256": "d533f83e49c8e91d1505c7cd3d555564f92ab62ed20dd44def0c0a74420252ec",
+  "architecture": "Qwen3ForCausalLM",
+  "dtype": "torch.bfloat16",
+  "loading_info": {
+    "missing_keys": [],
+    "unexpected_keys": [],
+    "mismatched_keys": [],
+    "error_msgs": []
+  },
+  "load_measurement": {
+    "seconds": 34.47075969999423,
+    "rss_peak_bytes": 4239785984,
+    "cuda_peak_allocated_bytes": 3441689600,
+    "cuda_peak_reserved_bytes": 3451912192,
+    "rss_sampling_seconds": 0.02
+  },
+  "versions": {
+    "torch": "2.8.0+cu128",
+    "transformers": "5.5.4",
+    "tokenizers": "0.22.2",
+    "psutil": "7.2.2"
+  },
+  "device": "NVIDIA GeForce RTX 3060 Laptop GPU",
+  "frozen": true,
+  "python": "3.12.9",
+  "cuda_runtime": "12.8",
+  "architecture_context": 40960
+}

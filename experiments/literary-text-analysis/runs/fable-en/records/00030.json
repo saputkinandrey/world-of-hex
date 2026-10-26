@@ -1,0 +1,73 @@
+{
+  "schema_version": "0.1.0",
+  "model": "fable",
+  "checkpoint_revision": "45aceef3d49fe75bd8240010cbfdc983724ec420",
+  "processing": {
+    "schema_version": "0.1.0",
+    "device": "cuda",
+    "seed": 42,
+    "context_tokens": 3072,
+    "previous_paragraphs": 2,
+    "registry_limit": 24,
+    "qwen_stages": [
+      "mentions",
+      "behavior"
+    ],
+    "fable_overlap_tokens": 64,
+    "generation": {
+      "enable_thinking": false,
+      "do_sample": false,
+      "max_new_tokens": 1152,
+      "num_beams": 1,
+      "use_cache": true
+    },
+    "models": {
+      "fable": {
+        "repo": "SaladTechnologies/fable-base",
+        "revision": "45aceef3d49fe75bd8240010cbfdc983724ec420",
+        "receipt": "../literary-decision-encoders/model-paths.json",
+        "receipt_key": "fable",
+        "dtype": "float32"
+      },
+      "qwen": {
+        "repo": "Qwen/Qwen3-1.7B",
+        "revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+        "receipt": "../character-decisions/model-paths.json",
+        "receipt_key": "qwen3_1_7b",
+        "dtype": "bfloat16"
+      }
+    }
+  },
+  "run_sha256": "118382cefc4ce5a031820d0b0d6357e32d2a11e0c2031a753b4fed645a4ce98e",
+  "paragraph_id": "p00030-14f10584",
+  "ordinal": 30,
+  "status": "SUCCESS",
+  "normalized": {
+    "entities": [
+      {
+        "paragraph_id": "p00030-14f10584",
+        "start": 18,
+        "end": 31,
+        "type": "LOC",
+        "text": " western road",
+        "score": 0.498684898018837
+      },
+      {
+        "paragraph_id": "p00030-14f10584",
+        "start": 33,
+        "end": 38,
+        "type": "CHA",
+        "text": " Iven",
+        "score": 0.7933400571346283
+      }
+    ]
+  },
+  "artifacts": [
+    {
+      "path": "model_outputs\\fable\\00030.json",
+      "sha256": "0289a4c0d3a025a08e24a5dcb3c932db3d0e4b31370761a2ad649d1e23c40b44"
+    }
+  ],
+  "registry_after": [],
+  "record_sha256": "ed18196a7cb95b107d426e442045b3d84f7bcb93856cea2c617702b8bb0de7ee"
+}

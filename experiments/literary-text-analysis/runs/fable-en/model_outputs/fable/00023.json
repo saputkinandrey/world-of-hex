@@ -1,0 +1,165 @@
+{
+  "entities": [
+    {
+      "paragraph_id": "p00023-6161be9b",
+      "start": 0,
+      "end": 4,
+      "type": "CHA",
+      "text": "Iven",
+      "score": 0.7812126278877258
+    }
+  ],
+  "windows": [
+    {
+      "index": 0,
+      "input_tokens": 14,
+      "tokens": [
+        {
+          "start": 0,
+          "end": 1,
+          "label": "B-CHA",
+          "score": 0.8738908767700195,
+          "token_id": 273,
+          "window": 0
+        },
+        {
+          "start": 1,
+          "end": 4,
+          "label": "I-CHA",
+          "score": 0.6885343790054321,
+          "token_id": 15574,
+          "window": 0
+        },
+        {
+          "start": 4,
+          "end": 15,
+          "label": "O",
+          "score": 0.9692416191101074,
+          "token_id": 1403,
+          "window": 0
+        },
+        {
+          "start": 15,
+          "end": 24,
+          "label": "O",
+          "score": 0.8987745642662048,
+          "token_id": 11888,
+          "window": 0
+        },
+        {
+          "start": 24,
+          "end": 26,
+          "label": "O",
+          "score": 0.9638199806213379,
+          "token_id": 266,
+          "window": 0
+        },
+        {
+          "start": 26,
+          "end": 32,
+          "label": "O",
+          "score": 0.5303516387939453,
+          "token_id": 3449,
+          "window": 0
+        },
+        {
+          "start": 32,
+          "end": 33,
+          "label": "O",
+          "score": 0.9862658381462097,
+          "token_id": 261,
+          "window": 0
+        },
+        {
+          "start": 33,
+          "end": 38,
+          "label": "O",
+          "score": 0.9412514567375183,
+          "token_id": 393,
+          "window": 0
+        },
+        {
+          "start": 38,
+          "end": 46,
+          "label": "O",
+          "score": 0.9743656516075134,
+          "token_id": 1216,
+          "window": 0
+        },
+        {
+          "start": 46,
+          "end": 54,
+          "label": "O",
+          "score": 0.9338030815124512,
+          "token_id": 532,
+          "window": 0
+        },
+        {
+          "start": 54,
+          "end": 57,
+          "label": "O",
+          "score": 0.9182319641113281,
+          "token_id": 278,
+          "window": 0
+        },
+        {
+          "start": 57,
+          "end": 58,
+          "label": "O",
+          "score": 0.9797336459159851,
+          "token_id": 260,
+          "window": 0
+        }
+      ]
+    }
+  ],
+  "measurement": {
+    "seconds": 0.0843384000036167,
+    "rss_peak_bytes": 1367896064,
+    "cuda_peak_allocated_bytes": 754211328,
+    "cuda_peak_reserved_bytes": 796917760,
+    "rss_sampling_seconds": 0.02
+  },
+  "input_tokens": 14,
+  "output_tokens": 0,
+  "schema_version": "0.1.0",
+  "model": "fable",
+  "checkpoint_revision": "45aceef3d49fe75bd8240010cbfdc983724ec420",
+  "processing": {
+    "schema_version": "0.1.0",
+    "device": "cuda",
+    "seed": 42,
+    "context_tokens": 3072,
+    "previous_paragraphs": 2,
+    "registry_limit": 24,
+    "qwen_stages": [
+      "mentions",
+      "behavior"
+    ],
+    "fable_overlap_tokens": 64,
+    "generation": {
+      "enable_thinking": false,
+      "do_sample": false,
+      "max_new_tokens": 1152,
+      "num_beams": 1,
+      "use_cache": true
+    },
+    "models": {
+      "fable": {
+        "repo": "SaladTechnologies/fable-base",
+        "revision": "45aceef3d49fe75bd8240010cbfdc983724ec420",
+        "receipt": "../literary-decision-encoders/model-paths.json",
+        "receipt_key": "fable",
+        "dtype": "float32"
+      },
+      "qwen": {
+        "repo": "Qwen/Qwen3-1.7B",
+        "revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+        "receipt": "../character-decisions/model-paths.json",
+        "receipt_key": "qwen3_1_7b",
+        "dtype": "bfloat16"
+      }
+    }
+  },
+  "run_sha256": "118382cefc4ce5a031820d0b0d6357e32d2a11e0c2031a753b4fed645a4ce98e"
+}

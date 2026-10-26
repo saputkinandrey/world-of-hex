@@ -1,0 +1,193 @@
+{
+  "schema_version": "0.1.0",
+  "model": "qwen",
+  "checkpoint_revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+  "processing": {
+    "schema_version": "0.1.0",
+    "device": "cuda",
+    "seed": 42,
+    "context_tokens": 3072,
+    "previous_paragraphs": 2,
+    "registry_limit": 24,
+    "qwen_stages": [
+      "mentions",
+      "behavior"
+    ],
+    "fable_overlap_tokens": 64,
+    "generation": {
+      "enable_thinking": false,
+      "do_sample": false,
+      "max_new_tokens": 1152,
+      "num_beams": 1,
+      "use_cache": true
+    },
+    "models": {
+      "fable": {
+        "repo": "SaladTechnologies/fable-base",
+        "revision": "45aceef3d49fe75bd8240010cbfdc983724ec420",
+        "receipt": "../literary-decision-encoders/model-paths.json",
+        "receipt_key": "fable",
+        "dtype": "float32"
+      },
+      "qwen": {
+        "repo": "Qwen/Qwen3-1.7B",
+        "revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+        "receipt": "../character-decisions/model-paths.json",
+        "receipt_key": "qwen3_1_7b",
+        "dtype": "bfloat16"
+      }
+    }
+  },
+  "run_sha256": "d533f83e49c8e91d1505c7cd3d555564f92ab62ed20dd44def0c0a74420252ec",
+  "paragraph_id": "p00027-cac2a4c9",
+  "ordinal": 27,
+  "status": "SUCCESS",
+  "normalized": {
+    "mentions": [
+      {
+        "id": "p00027-cac2a4c9:m000",
+        "paragraph_id": "p00027-cac2a4c9",
+        "start": 0,
+        "end": 4,
+        "quote": "Mara",
+        "text": "Mara",
+        "character_id": "c0001",
+        "kind": "name",
+        "role": "actor",
+        "status": "automatic_unverified"
+      },
+      {
+        "id": "p00027-cac2a4c9:m001",
+        "paragraph_id": "p00027-cac2a4c9",
+        "start": 24,
+        "end": 27,
+        "quote": "She",
+        "text": "She",
+        "character_id": "c0001",
+        "kind": "pronoun",
+        "role": "speaker",
+        "status": "automatic_unverified"
+      }
+    ],
+    "observations": [],
+    "links": [],
+    "revision_proposals": [],
+    "rejected": [
+      {
+        "kind": "observation",
+        "index": 0,
+        "error": "Unestablished character name absent from target: folded",
+        "original": {
+          "who": "Mara",
+          "actor": "Mara",
+          "target": "letter",
+          "speaker": "Mara",
+          "about": "folded",
+          "categories": [
+            "action"
+          ],
+          "summary": "Mara folded the letter.",
+          "source": "narrator",
+          "status": "asserted",
+          "evidence": [
+            {
+              "paragraph_id": "p00027-cac2a4c9",
+              "quote": "Mara folded the letter."
+            }
+          ]
+        }
+      },
+      {
+        "kind": "observation",
+        "index": 1,
+        "error": "Unestablished character name absent from target: did not know whether its claim was true",
+        "original": {
+          "who": "Mara",
+          "actor": "Mara",
+          "target": "letter",
+          "speaker": "Mara",
+          "about": "did not know whether its claim was true",
+          "categories": [
+            "retrospective",
+            "intention"
+          ],
+          "summary": "Mara did not know whether its claim was true.",
+          "source": "narrator",
+          "status": "asserted",
+          "evidence": [
+            {
+              "paragraph_id": "p00027-cac2a4c9",
+              "quote": "She did not know whether its claim was true."
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "artifacts": [
+    {
+      "path": "model_outputs\\qwen\\00027.json",
+      "sha256": "be8fdfcfc5135a4470af660f2dc7a06e6741de652f75cfae26ca50921f3fc1ce"
+    }
+  ],
+  "registry_after": [
+    {
+      "id": "c0001",
+      "name": "Mara",
+      "aliases": [
+        "Mara",
+        "Ash"
+      ],
+      "mentions": [
+        "p00002-b6a414ed:m000",
+        "p00004-3c2fbe8e:m000",
+        "p00007-80579766:m000",
+        "p00014-e61731d7:m000",
+        "p00014-e61731d7:m001",
+        "p00015-6d2e0bd5:m000",
+        "p00015-6d2e0bd5:m002",
+        "p00018-82364d09:m000",
+        "p00022-a62fd3b1:m000",
+        "p00025-ae7dacb6:m000",
+        "p00027-cac2a4c9:m000",
+        "p00027-cac2a4c9:m001"
+      ],
+      "status": "automatic_unverified"
+    },
+    {
+      "id": "c0002",
+      "name": "Rowan",
+      "aliases": [
+        "Rowan"
+      ],
+      "mentions": [
+        "p00002-b6a414ed:m001",
+        "p00003-7957dcd5:m000",
+        "p00003-7957dcd5:m001",
+        "p00008-304e26be:m000",
+        "p00009-34f53a39:m000",
+        "p00012-c66f1d9d:m000",
+        "p00013-d72f6cf3:m001",
+        "p00015-6d2e0bd5:m001",
+        "p00021-d4282aff:m000",
+        "p00021-d4282aff:m001",
+        "p00022-a62fd3b1:m001"
+      ],
+      "status": "automatic_unverified"
+    },
+    {
+      "id": "c0003",
+      "name": "Iven",
+      "aliases": [
+        "Iven"
+      ],
+      "mentions": [
+        "p00008-304e26be:m001",
+        "p00012-c66f1d9d:m001",
+        "p00013-d72f6cf3:m000"
+      ],
+      "status": "automatic_unverified"
+    }
+  ],
+  "record_sha256": "efae757fd76202e3a18cfe094ab92438e54ec6c1a3f846392fe00498909b2e71"
+}

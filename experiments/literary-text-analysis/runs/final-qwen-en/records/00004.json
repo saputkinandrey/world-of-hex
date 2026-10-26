@@ -1,0 +1,161 @@
+{
+  "schema_version": "0.1.0",
+  "model": "qwen",
+  "checkpoint_revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+  "processing": {
+    "schema_version": "0.1.0",
+    "device": "cuda",
+    "seed": 42,
+    "context_tokens": 3072,
+    "previous_paragraphs": 2,
+    "registry_limit": 24,
+    "qwen_stages": [
+      "mentions",
+      "behavior"
+    ],
+    "fable_overlap_tokens": 64,
+    "generation": {
+      "enable_thinking": false,
+      "do_sample": false,
+      "max_new_tokens": 1152,
+      "num_beams": 1,
+      "use_cache": true
+    },
+    "models": {
+      "fable": {
+        "repo": "SaladTechnologies/fable-base",
+        "revision": "45aceef3d49fe75bd8240010cbfdc983724ec420",
+        "receipt": "../literary-decision-encoders/model-paths.json",
+        "receipt_key": "fable",
+        "dtype": "float32"
+      },
+      "qwen": {
+        "repo": "Qwen/Qwen3-1.7B",
+        "revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+        "receipt": "../character-decisions/model-paths.json",
+        "receipt_key": "qwen3_1_7b",
+        "dtype": "bfloat16"
+      }
+    }
+  },
+  "run_sha256": "d533f83e49c8e91d1505c7cd3d555564f92ab62ed20dd44def0c0a74420252ec",
+  "paragraph_id": "p00004-3c2fbe8e",
+  "ordinal": 4,
+  "status": "SUCCESS",
+  "normalized": {
+    "mentions": [
+      {
+        "id": "p00004-3c2fbe8e:m000",
+        "paragraph_id": "p00004-3c2fbe8e",
+        "start": 0,
+        "end": 4,
+        "quote": "Mara",
+        "text": "Mara",
+        "character_id": "c0001",
+        "kind": "name",
+        "role": "speaker",
+        "status": "automatic_unverified"
+      }
+    ],
+    "observations": [],
+    "links": [],
+    "revision_proposals": [],
+    "rejected": [
+      {
+        "kind": "mention",
+        "index": 1,
+        "error": "Quote has 0 occurrences; supply occurrence: 'Rowan'",
+        "original": {
+          "quote": "Rowan",
+          "who": "Rowan",
+          "kind": "name",
+          "role": "target"
+        }
+      },
+      {
+        "kind": "observation",
+        "index": 0,
+        "error": "Unestablished character name absent from target: planned to return before sunrise",
+        "original": {
+          "who": "Mara",
+          "actor": "Mara",
+          "target": "Rowan",
+          "speaker": "Mara",
+          "about": "planned to return before sunrise",
+          "categories": [
+            "action",
+            "intention"
+          ],
+          "summary": "Mara planned to return before sunrise",
+          "source": "narrator",
+          "status": "asserted",
+          "evidence": [
+            {
+              "paragraph_id": "p00004-3c2fbe8e",
+              "quote": "Mara planned to return before sunrise"
+            }
+          ]
+        }
+      },
+      {
+        "kind": "observation",
+        "index": 1,
+        "error": "Unestablished character name absent from target: had not yet left the bridge",
+        "original": {
+          "who": "Mara",
+          "actor": "Mara",
+          "target": "Rowan",
+          "speaker": "Mara",
+          "about": "had not yet left the bridge",
+          "categories": [
+            "action",
+            "retrospective"
+          ],
+          "summary": "Mara had not yet left the bridge",
+          "source": "narrator",
+          "status": "asserted",
+          "evidence": [
+            {
+              "paragraph_id": "p00004-3c2fbe8e",
+              "quote": "Mara planned to return before sunrise, but she had not yet left the bridge."
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "artifacts": [
+    {
+      "path": "model_outputs\\qwen\\00004.json",
+      "sha256": "cbe5cf4f0bd8ee51a357cb3fd2b230565362dae7a0b12b365a56d8704cca92d3"
+    }
+  ],
+  "registry_after": [
+    {
+      "id": "c0001",
+      "name": "Mara",
+      "aliases": [
+        "Mara"
+      ],
+      "mentions": [
+        "p00002-b6a414ed:m000",
+        "p00004-3c2fbe8e:m000"
+      ],
+      "status": "automatic_unverified"
+    },
+    {
+      "id": "c0002",
+      "name": "Rowan",
+      "aliases": [
+        "Rowan"
+      ],
+      "mentions": [
+        "p00002-b6a414ed:m001",
+        "p00003-7957dcd5:m000",
+        "p00003-7957dcd5:m001"
+      ],
+      "status": "automatic_unverified"
+    }
+  ],
+  "record_sha256": "8b4fe07d9427662d674aab61f079a09b72cdce38015d120368cca9a7433295fa"
+}

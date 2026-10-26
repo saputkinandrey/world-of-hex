@@ -1,0 +1,86 @@
+{
+  "schema_version": "0.1.0",
+  "model": "qwen",
+  "checkpoint_revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+  "processing": {
+    "schema_version": "0.1.0",
+    "device": "cuda",
+    "seed": 42,
+    "context_tokens": 3072,
+    "previous_paragraphs": 2,
+    "registry_limit": 24,
+    "qwen_stages": [
+      "mentions",
+      "behavior"
+    ],
+    "fable_overlap_tokens": 64,
+    "generation": {
+      "enable_thinking": false,
+      "do_sample": false,
+      "max_new_tokens": 1152,
+      "num_beams": 1,
+      "use_cache": true
+    },
+    "models": {
+      "fable": {
+        "repo": "SaladTechnologies/fable-base",
+        "revision": "45aceef3d49fe75bd8240010cbfdc983724ec420",
+        "receipt": "../literary-decision-encoders/model-paths.json",
+        "receipt_key": "fable",
+        "dtype": "float32"
+      },
+      "qwen": {
+        "repo": "Qwen/Qwen3-1.7B",
+        "revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+        "receipt": "../character-decisions/model-paths.json",
+        "receipt_key": "qwen3_1_7b",
+        "dtype": "bfloat16"
+      }
+    }
+  },
+  "run_sha256": "76b711fe576fa0ef122fc3631362a7d338cf766d02689779c0c462bd1f5ae8df",
+  "paragraph_id": "p00004-0fa31859",
+  "ordinal": 4,
+  "status": "SUCCESS",
+  "normalized": {
+    "mentions": [],
+    "observations": [],
+    "links": [],
+    "revision_proposals": [],
+    "rejected": [
+      {
+        "kind": "observation",
+        "index": 0,
+        "error": "Unestablished character name absent from target: Мара собиралась вернуться до рассвета",
+        "original": {
+          "who": "Мара",
+          "actor": "Мара",
+          "target": "Мара",
+          "speaker": "Мара",
+          "about": "Мара собиралась вернуться до рассвета",
+          "categories": [
+            "action",
+            "intention"
+          ],
+          "summary": "Мара собиралась вернуться до рассвета",
+          "source": "narrator",
+          "status": "asserted",
+          "evidence": [
+            {
+              "paragraph_id": "p00004-0fa31859",
+              "quote": "Мара собиралась вернуться до рассвета"
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "artifacts": [
+    {
+      "path": "model_outputs\\qwen\\00004.json",
+      "sha256": "d18ec98140ae21099b4f849db7ccd3548570abe278cd7061069668aace9774eb"
+    }
+  ],
+  "registry_after": [],
+  "record_sha256": "e4bfdc9266c39ebba61487dbe13682c2e76827162548955f9d1cb094eabb7de5"
+}

@@ -1,0 +1,75 @@
+{
+  "schema_version": "0.1.0",
+  "model": "qwen",
+  "checkpoint_revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+  "processing": {
+    "schema_version": "0.1.0",
+    "device": "cuda",
+    "seed": 42,
+    "context_tokens": 64,
+    "previous_paragraphs": 2,
+    "registry_limit": 24,
+    "qwen_stages": [
+      "mentions",
+      "behavior"
+    ],
+    "fable_overlap_tokens": 64,
+    "generation": {
+      "enable_thinking": false,
+      "do_sample": false,
+      "max_new_tokens": 1152,
+      "num_beams": 1,
+      "use_cache": true
+    },
+    "models": {
+      "fable": {
+        "repo": "SaladTechnologies/fable-base",
+        "revision": "45aceef3d49fe75bd8240010cbfdc983724ec420",
+        "receipt": "../literary-decision-encoders/model-paths.json",
+        "receipt_key": "fable",
+        "dtype": "float32"
+      },
+      "qwen": {
+        "repo": "Qwen/Qwen3-1.7B",
+        "revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+        "receipt": "../character-decisions/model-paths.json",
+        "receipt_key": "qwen3_1_7b",
+        "dtype": "bfloat16"
+      }
+    }
+  },
+  "run_sha256": "ce771b5863c8e99b8571749fbbd9ca60cb0476edcb3bfd3f5d39f0ae5a195699",
+  "paragraph_id": "p00000-4dc6742d",
+  "ordinal": 0,
+  "status": "ERROR",
+  "normalized": {
+    "mentions": [],
+    "observations": [],
+    "links": [],
+    "revision_proposals": [],
+    "rejected": []
+  },
+  "artifacts": [],
+  "stage_errors": [
+    {
+      "stage": "mentions",
+      "type": "ContextOverflow",
+      "message": "Input 313 + output 1152; working input cap 64",
+      "traceback": "Traceback (most recent call last):\n  File \"C:\\Users\\Андрей\\Desktop\\world-of-hex\\experiments\\literary-text-analysis\\analysis.py\", line 151, in analyze\n    stage_result = model.generate(messages(paragraph, previous, supplied_state, stage))\n                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\Андрей\\Desktop\\world-of-hex\\experiments\\literary-text-analysis\\models.py\", line 137, in generate\n    raise ContextOverflow(f'Input {count} + output {output_cap}; working input cap {self.config[\"context_tokens\"]}')\nmodels.ContextOverflow: Input 313 + output 1152; working input cap 64\n"
+    },
+    {
+      "stage": "behavior",
+      "type": "ContextOverflow",
+      "message": "Input 455 + output 1152; working input cap 64",
+      "traceback": "Traceback (most recent call last):\n  File \"C:\\Users\\Андрей\\Desktop\\world-of-hex\\experiments\\literary-text-analysis\\analysis.py\", line 151, in analyze\n    stage_result = model.generate(messages(paragraph, previous, supplied_state, stage))\n                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\Андрей\\Desktop\\world-of-hex\\experiments\\literary-text-analysis\\models.py\", line 137, in generate\n    raise ContextOverflow(f'Input {count} + output {output_cap}; working input cap {self.config[\"context_tokens\"]}')\nmodels.ContextOverflow: Input 455 + output 1152; working input cap 64\n"
+    }
+  ],
+  "error": {
+    "stage": "mentions",
+    "type": "ContextOverflow",
+    "message": "Input 313 + output 1152; working input cap 64",
+    "traceback": "Traceback (most recent call last):\n  File \"C:\\Users\\Андрей\\Desktop\\world-of-hex\\experiments\\literary-text-analysis\\analysis.py\", line 151, in analyze\n    stage_result = model.generate(messages(paragraph, previous, supplied_state, stage))\n                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\Андрей\\Desktop\\world-of-hex\\experiments\\literary-text-analysis\\models.py\", line 137, in generate\n    raise ContextOverflow(f'Input {count} + output {output_cap}; working input cap {self.config[\"context_tokens\"]}')\nmodels.ContextOverflow: Input 313 + output 1152; working input cap 64\n"
+  },
+  "registry_after": [],
+  "record_sha256": "c92a9b540b0e6d0b0705a680790ecbbfc40c8b769579d0e4b161190cbb4a6fea"
+}

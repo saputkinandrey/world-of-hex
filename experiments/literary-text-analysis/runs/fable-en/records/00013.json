@@ -1,0 +1,81 @@
+{
+  "schema_version": "0.1.0",
+  "model": "fable",
+  "checkpoint_revision": "45aceef3d49fe75bd8240010cbfdc983724ec420",
+  "processing": {
+    "schema_version": "0.1.0",
+    "device": "cuda",
+    "seed": 42,
+    "context_tokens": 3072,
+    "previous_paragraphs": 2,
+    "registry_limit": 24,
+    "qwen_stages": [
+      "mentions",
+      "behavior"
+    ],
+    "fable_overlap_tokens": 64,
+    "generation": {
+      "enable_thinking": false,
+      "do_sample": false,
+      "max_new_tokens": 1152,
+      "num_beams": 1,
+      "use_cache": true
+    },
+    "models": {
+      "fable": {
+        "repo": "SaladTechnologies/fable-base",
+        "revision": "45aceef3d49fe75bd8240010cbfdc983724ec420",
+        "receipt": "../literary-decision-encoders/model-paths.json",
+        "receipt_key": "fable",
+        "dtype": "float32"
+      },
+      "qwen": {
+        "repo": "Qwen/Qwen3-1.7B",
+        "revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+        "receipt": "../character-decisions/model-paths.json",
+        "receipt_key": "qwen3_1_7b",
+        "dtype": "bfloat16"
+      }
+    }
+  },
+  "run_sha256": "118382cefc4ce5a031820d0b0d6357e32d2a11e0c2031a753b4fed645a4ce98e",
+  "paragraph_id": "p00013-d72f6cf3",
+  "ordinal": 13,
+  "status": "SUCCESS",
+  "normalized": {
+    "entities": [
+      {
+        "paragraph_id": "p00013-d72f6cf3",
+        "start": 25,
+        "end": 30,
+        "type": "CHA",
+        "text": " Iven",
+        "score": 0.7482380867004395
+      },
+      {
+        "paragraph_id": "p00013-d72f6cf3",
+        "start": 31,
+        "end": 37,
+        "type": "CHA",
+        "text": " Rowan",
+        "score": 0.7567750811576843
+      },
+      {
+        "paragraph_id": "p00013-d72f6cf3",
+        "start": 59,
+        "end": 68,
+        "type": "OBJ",
+        "text": " blankets",
+        "score": 0.5965851545333862
+      }
+    ]
+  },
+  "artifacts": [
+    {
+      "path": "model_outputs\\fable\\00013.json",
+      "sha256": "e63f0b03a36c91d202057a6490d4f820aa5b31804034c7c2433e9b0fb10d8e3c"
+    }
+  ],
+  "registry_after": [],
+  "record_sha256": "1880604766f472ddc4eacc7393d857ba69fc4b75ce214c8bf9525d95d1711d1a"
+}

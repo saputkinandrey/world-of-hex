@@ -1,0 +1,89 @@
+{
+  "schema_version": "0.1.0",
+  "model": "fable",
+  "checkpoint_revision": "45aceef3d49fe75bd8240010cbfdc983724ec420",
+  "processing": {
+    "schema_version": "0.1.0",
+    "device": "cuda",
+    "seed": 42,
+    "context_tokens": 3072,
+    "previous_paragraphs": 2,
+    "registry_limit": 24,
+    "qwen_stages": [
+      "mentions",
+      "behavior"
+    ],
+    "fable_overlap_tokens": 64,
+    "generation": {
+      "enable_thinking": false,
+      "do_sample": false,
+      "max_new_tokens": 1152,
+      "num_beams": 1,
+      "use_cache": true
+    },
+    "models": {
+      "fable": {
+        "repo": "SaladTechnologies/fable-base",
+        "revision": "45aceef3d49fe75bd8240010cbfdc983724ec420",
+        "receipt": "../literary-decision-encoders/model-paths.json",
+        "receipt_key": "fable",
+        "dtype": "float32"
+      },
+      "qwen": {
+        "repo": "Qwen/Qwen3-1.7B",
+        "revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+        "receipt": "../character-decisions/model-paths.json",
+        "receipt_key": "qwen3_1_7b",
+        "dtype": "bfloat16"
+      }
+    }
+  },
+  "run_sha256": "0cf1534a5e069467b25b759fffa3646c36bc89fa76cec17c623fd25fae782b23",
+  "paragraph_id": "p00025-ae7dacb6",
+  "ordinal": 25,
+  "status": "SUCCESS",
+  "normalized": {
+    "entities": [
+      {
+        "paragraph_id": "p00025-ae7dacb6",
+        "start": 7,
+        "end": 12,
+        "type": "CHA",
+        "text": " Mara",
+        "score": 0.8982292413711548
+      },
+      {
+        "paragraph_id": "p00025-ae7dacb6",
+        "start": 20,
+        "end": 24,
+        "type": "FAC",
+        "text": " the",
+        "score": 0.4758915603160858
+      },
+      {
+        "paragraph_id": "p00025-ae7dacb6",
+        "start": 24,
+        "end": 29,
+        "type": "FAC",
+        "text": " mill",
+        "score": 0.521148145198822
+      },
+      {
+        "paragraph_id": "p00025-ae7dacb6",
+        "start": 58,
+        "end": 65,
+        "type": "OBJ",
+        "text": " letter",
+        "score": 0.46561068296432495
+      }
+    ]
+  },
+  "artifacts": [
+    {
+      "path": "model_outputs\\fable\\00025.json",
+      "sha256": "475d459fc3a205d5fdd8eae9160535b4707f7d9f83c781de93dc5a0f93353ae0"
+    }
+  ],
+  "registry_after": [],
+  "record_sha256": "9c043f5837045b6894d7aeab34ec9976922033668a9bbae8f333964e30653b31"
+}

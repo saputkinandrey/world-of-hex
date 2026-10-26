@@ -1,0 +1,81 @@
+{
+  "schema_version": "0.1.0",
+  "model": "fable",
+  "checkpoint_revision": "45aceef3d49fe75bd8240010cbfdc983724ec420",
+  "processing": {
+    "schema_version": "0.1.0",
+    "device": "cuda",
+    "seed": 42,
+    "context_tokens": 3072,
+    "previous_paragraphs": 2,
+    "registry_limit": 24,
+    "qwen_stages": [
+      "mentions",
+      "behavior"
+    ],
+    "fable_overlap_tokens": 64,
+    "generation": {
+      "enable_thinking": false,
+      "do_sample": false,
+      "max_new_tokens": 1152,
+      "num_beams": 1,
+      "use_cache": true
+    },
+    "models": {
+      "fable": {
+        "repo": "SaladTechnologies/fable-base",
+        "revision": "45aceef3d49fe75bd8240010cbfdc983724ec420",
+        "receipt": "../literary-decision-encoders/model-paths.json",
+        "receipt_key": "fable",
+        "dtype": "float32"
+      },
+      "qwen": {
+        "repo": "Qwen/Qwen3-1.7B",
+        "revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+        "receipt": "../character-decisions/model-paths.json",
+        "receipt_key": "qwen3_1_7b",
+        "dtype": "bfloat16"
+      }
+    }
+  },
+  "run_sha256": "0cf1534a5e069467b25b759fffa3646c36bc89fa76cec17c623fd25fae782b23",
+  "paragraph_id": "p00000-4dc6742d",
+  "ordinal": 0,
+  "status": "SUCCESS",
+  "normalized": {
+    "entities": [
+      {
+        "paragraph_id": "p00000-4dc6742d",
+        "start": 0,
+        "end": 4,
+        "type": "CHA",
+        "text": "Mara",
+        "score": 0.8036885261535645
+      },
+      {
+        "paragraph_id": "p00000-4dc6742d",
+        "start": 16,
+        "end": 29,
+        "type": "FAC",
+        "text": " stone bridge",
+        "score": 0.4948797971010208
+      },
+      {
+        "paragraph_id": "p00000-4dc6742d",
+        "start": 42,
+        "end": 50,
+        "type": "OBJ",
+        "text": " lantern",
+        "score": 0.5821953415870667
+      }
+    ]
+  },
+  "artifacts": [
+    {
+      "path": "model_outputs\\fable\\00000.json",
+      "sha256": "c87e96baa05992ee9d60f5a79039b7caeb297f3d3eafc7e37abd4d67e4aa8b75"
+    }
+  ],
+  "registry_after": [],
+  "record_sha256": "dbb0ba08f0c9efffe16b1dc78c4218066271d629f80596c9efbbf84c67bfe888"
+}

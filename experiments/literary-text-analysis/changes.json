@@ -1,0 +1,2271 @@
+{
+  "schema_version": "0.1.0",
+  "scope": "experiments/literary-text-analysis",
+  "git_eligible_files_excluding_manifest": 563,
+  "git_eligible_bytes_excluding_manifest": 7116997,
+  "files": [
+    {
+      "path": "experiments/literary-text-analysis/.gitignore",
+      "bytes": 68
+    },
+    {
+      "path": "experiments/literary-text-analysis/PLAN.md",
+      "bytes": 1495
+    },
+    {
+      "path": "experiments/literary-text-analysis/README.md",
+      "bytes": 7926
+    },
+    {
+      "path": "experiments/literary-text-analysis/REPORT.json",
+      "bytes": 90355
+    },
+    {
+      "path": "experiments/literary-text-analysis/REPORT.md",
+      "bytes": 22251
+    },
+    {
+      "path": "experiments/literary-text-analysis/acceptance.json",
+      "bytes": 970
+    },
+    {
+      "path": "experiments/literary-text-analysis/acceptance.py",
+      "bytes": 4491
+    },
+    {
+      "path": "experiments/literary-text-analysis/analysis.py",
+      "bytes": 13815
+    },
+    {
+      "path": "experiments/literary-text-analysis/audit.py",
+      "bytes": 1304
+    },
+    {
+      "path": "experiments/literary-text-analysis/cli.py",
+      "bytes": 2892
+    },
+    {
+      "path": "experiments/literary-text-analysis/common.py",
+      "bytes": 2876
+    },
+    {
+      "path": "experiments/literary-text-analysis/comparisons.py",
+      "bytes": 3275
+    },
+    {
+      "path": "experiments/literary-text-analysis/config.json",
+      "bytes": 871
+    },
+    {
+      "path": "experiments/literary-text-analysis/controls/qwen-ner-en/model.json",
+      "bytes": 3405
+    },
+    {
+      "path": "experiments/literary-text-analysis/controls/qwen-ner-en/model_outputs/qwen/00000.json",
+      "bytes": 4537
+    },
+    {
+      "path": "experiments/literary-text-analysis/controls/qwen-ner-en/model_outputs/qwen/00001.json",
+      "bytes": 5236
+    },
+    {
+      "path": "experiments/literary-text-analysis/controls/qwen-ner-en/model_outputs/qwen/00002.json",
+      "bytes": 5224
+    },
+    {
+      "path": "experiments/literary-text-analysis/controls/qwen-ner-en/model_outputs/qwen/00003.json",
+      "bytes": 5264
+    },
+    {
+      "path": "experiments/literary-text-analysis/controls/qwen-ner-en/model_outputs/qwen/00004.json",
+      "bytes": 4550
+    },
+    {
+      "path": "experiments/literary-text-analysis/controls/qwen-ner-en/model_outputs/qwen/00005.json",
+      "bytes": 4527
+    },
+    {
+      "path": "experiments/literary-text-analysis/controls/qwen-ner-en/model_outputs/qwen/00006.json",
+      "bytes": 4531
+    },
+    {
+      "path": "experiments/literary-text-analysis/controls/qwen-ner-en/model_outputs/qwen/00007.json",
+      "bytes": 5244
+    },
+    {
+      "path": "experiments/literary-text-analysis/controls/qwen-ner-en/model_outputs/qwen/00008.json",
+      "bytes": 5261
+    },
+    {
+      "path": "experiments/literary-text-analysis/controls/qwen-ner-en/model_outputs/qwen/00009.json",
+      "bytes": 5272
+    },
+    {
+      "path": "experiments/literary-text-analysis/controls/qwen-ner-en/model_outputs/qwen/00010.json",
+      "bytes": 5249
+    },
+    {
+      "path": "experiments/literary-text-analysis/controls/qwen-ner-en/model_outputs/qwen/00011.json",
+      "bytes": 5243
+    },
+    {
+      "path": "experiments/literary-text-analysis/controls/qwen-ner-en/model_outputs/qwen/00012.json",
+      "bytes": 5229
+    },
+    {
+      "path": "experiments/literary-text-analysis/controls/qwen-ner-en/model_outputs/qwen/00013.json",
+      "bytes": 5243
+    },
+    {
+      "path": "experiments/literary-text-analysis/controls/qwen-ner-en/model_outputs/qwen/00014.json",
+      "bytes": 5234
+    },
+    {
+      "path": "experiments/literary-text-analysis/controls/qwen-ner-en/model_outputs/qwen/00015.json",
+      "bytes": 5563
+    },
+    {
+      "path": "experiments/literary-text-analysis/controls/qwen-ner-en/model_outputs/qwen/00016.json",
+      "bytes": 5264
+    },
+    {
+      "path": "experiments/literary-text-analysis/controls/qwen-ner-en/model_outputs/qwen/00017.json",
+      "bytes": 4871
+    },
+    {
+      "path": "experiments/literary-text-analysis/controls/qwen-ner-en/model_outputs/qwen/00018.json",
+      "bytes": 5988
+    },
+    {
+      "path": "experiments/literary-text-analysis/controls/qwen-ner-en/model_outputs/qwen/00019.json",
+      "bytes": 4544
+    },
+    {
+      "path": "experiments/literary-text-analysis/controls/qwen-ner-en/model_outputs/qwen/00020.json",
+      "bytes": 4538
+    },
+    {
+      "path": "experiments/literary-text-analysis/controls/qwen-ner-en/model_outputs/qwen/00021.json",
+      "bytes": 4559
+    },
+    {
+      "path": "experiments/literary-text-analysis/controls/qwen-ner-en/model_outputs/qwen/00022.json",
+      "bytes": 5277
+    },
+    {
+      "path": "experiments/literary-text-analysis/controls/qwen-ner-en/model_outputs/qwen/00023.json",
+      "bytes": 4532
+    },
+    {
+      "path": "experiments/literary-text-analysis/controls/qwen-ner-en/model_outputs/qwen/00024.json",
+      "bytes": 4552
+    },
+    {
+      "path": "experiments/literary-text-analysis/controls/qwen-ner-en/model_outputs/qwen/00025.json",
+      "bytes": 5246
+    },
+    {
+      "path": "experiments/literary-text-analysis/controls/qwen-ner-en/model_outputs/qwen/00026.json",
+      "bytes": 4567
+    },
+    {
+      "path": "experiments/literary-text-analysis/controls/qwen-ner-en/model_outputs/qwen/00027.json",
+      "bytes": 4542
+    },
+    {
+      "path": "experiments/literary-text-analysis/controls/qwen-ner-en/model_outputs/qwen/00028.json",
+      "bytes": 8446
+    },
+    {
+      "path": "experiments/literary-text-analysis/controls/qwen-ner-en/model_outputs/qwen/00029.json",
+      "bytes": 4525
+    },
+    {
+      "path": "experiments/literary-text-analysis/controls/qwen-ner-en/model_outputs/qwen/00030.json",
+      "bytes": 5244
+    },
+    {
+      "path": "experiments/literary-text-analysis/controls/qwen-ner-en/model_outputs/qwen/00031.json",
+      "bytes": 4542
+    },
+    {
+      "path": "experiments/literary-text-analysis/controls/qwen-ner-en/records/00000.json",
+      "bytes": 3178
+    },
+    {
+      "path": "experiments/literary-text-analysis/controls/qwen-ner-en/records/00001.json",
+      "bytes": 3812
+    },
+    {
+      "path": "experiments/literary-text-analysis/controls/qwen-ner-en/records/00002.json",
+      "bytes": 3793
+    },
+    {
+      "path": "experiments/literary-text-analysis/controls/qwen-ner-en/records/00003.json",
+      "bytes": 3822
+    },
+    {
+      "path": "experiments/literary-text-analysis/controls/qwen-ner-en/records/00004.json",
+      "bytes": 3190
+    },
+    {
+      "path": "experiments/literary-text-analysis/controls/qwen-ner-en/records/00005.json",
+      "bytes": 3168
+    },
+    {
+      "path": "experiments/literary-text-analysis/controls/qwen-ner-en/records/00006.json",
+      "bytes": 3172
+    },
+    {
+      "path": "experiments/literary-text-analysis/controls/qwen-ner-en/records/00007.json",
+      "bytes": 3820
+    },
+    {
+      "path": "experiments/literary-text-analysis/controls/qwen-ner-en/records/00008.json",
+      "bytes": 3826
+    },
+    {
+      "path": "experiments/literary-text-analysis/controls/qwen-ner-en/records/00009.json",
+      "bytes": 3778
+    },
+    {
+      "path": "experiments/literary-text-analysis/controls/qwen-ner-en/records/00010.json",
+      "bytes": 3828
+    },
+    {
+      "path": "experiments/literary-text-analysis/controls/qwen-ner-en/records/00011.json",
+      "bytes": 3805
+    },
+    {
+      "path": "experiments/literary-text-analysis/controls/qwen-ner-en/records/00012.json",
+      "bytes": 3801
+    },
+    {
+      "path": "experiments/literary-text-analysis/controls/qwen-ner-en/records/00013.json",
+      "bytes": 3817
+    },
+    {
+      "path": "experiments/literary-text-analysis/controls/qwen-ner-en/records/00014.json",
+      "bytes": 3817
+    },
+    {
+      "path": "experiments/literary-text-analysis/controls/qwen-ner-en/records/00015.json",
+      "bytes": 4107
+    },
+    {
+      "path": "experiments/literary-text-analysis/controls/qwen-ner-en/records/00016.json",
+      "bytes": 3817
+    },
+    {
+      "path": "experiments/literary-text-analysis/controls/qwen-ner-en/records/00017.json",
+      "bytes": 3481
+    },
+    {
+      "path": "experiments/literary-text-analysis/controls/qwen-ner-en/records/00018.json",
+      "bytes": 4422
+    },
+    {
+      "path": "experiments/literary-text-analysis/controls/qwen-ner-en/records/00019.json",
+      "bytes": 3185
+    },
+    {
+      "path": "experiments/literary-text-analysis/controls/qwen-ner-en/records/00020.json",
+      "bytes": 3178
+    },
+    {
+      "path": "experiments/literary-text-analysis/controls/qwen-ner-en/records/00021.json",
+      "bytes": 3200
+    },
+    {
+      "path": "experiments/literary-text-analysis/controls/qwen-ner-en/records/00022.json",
+      "bytes": 3847
+    },
+    {
+      "path": "experiments/literary-text-analysis/controls/qwen-ner-en/records/00023.json",
+      "bytes": 3173
+    },
+    {
+      "path": "experiments/literary-text-analysis/controls/qwen-ner-en/records/00024.json",
+      "bytes": 3192
+    },
+    {
+      "path": "experiments/literary-text-analysis/controls/qwen-ner-en/records/00025.json",
+      "bytes": 3826
+    },
+    {
+      "path": "experiments/literary-text-analysis/controls/qwen-ner-en/records/00026.json",
+      "bytes": 3204
+    },
+    {
+      "path": "experiments/literary-text-analysis/controls/qwen-ner-en/records/00027.json",
+      "bytes": 3183
+    },
+    {
+      "path": "experiments/literary-text-analysis/controls/qwen-ner-en/records/00028.json",
+      "bytes": 4063
+    },
+    {
+      "path": "experiments/literary-text-analysis/controls/qwen-ner-en/records/00029.json",
+      "bytes": 3166
+    },
+    {
+      "path": "experiments/literary-text-analysis/controls/qwen-ner-en/records/00030.json",
+      "bytes": 3821
+    },
+    {
+      "path": "experiments/literary-text-analysis/controls/qwen-ner-en/records/00031.json",
+      "bytes": 3183
+    },
+    {
+      "path": "experiments/literary-text-analysis/controls/qwen-ner-en/results.json",
+      "bytes": 128835
+    },
+    {
+      "path": "experiments/literary-text-analysis/controls/qwen-ner-en/resume-check.json",
+      "bytes": 289
+    },
+    {
+      "path": "experiments/literary-text-analysis/controls/qwen-ner-en/run.json",
+      "bytes": 2716
+    },
+    {
+      "path": "experiments/literary-text-analysis/experiment.ps1",
+      "bytes": 1029
+    },
+    {
+      "path": "experiments/literary-text-analysis/final_audit.py",
+      "bytes": 3315
+    },
+    {
+      "path": "experiments/literary-text-analysis/fixtures/bridge-en.txt",
+      "bytes": 2209
+    },
+    {
+      "path": "experiments/literary-text-analysis/fixtures/bridge-ru.txt",
+      "bytes": 3781
+    },
+    {
+      "path": "experiments/literary-text-analysis/fixtures/document-en.json",
+      "bytes": 14132
+    },
+    {
+      "path": "experiments/literary-text-analysis/fixtures/document-long.json",
+      "bytes": 7130
+    },
+    {
+      "path": "experiments/literary-text-analysis/fixtures/document-long.positions.json",
+      "bytes": 91105
+    },
+    {
+      "path": "experiments/literary-text-analysis/fixtures/document-ru.json",
+      "bytes": 16239
+    },
+    {
+      "path": "experiments/literary-text-analysis/fixtures/events.json",
+      "bytes": 4305
+    },
+    {
+      "path": "experiments/literary-text-analysis/fixtures/long-paragraph.txt",
+      "bytes": 6101
+    },
+    {
+      "path": "experiments/literary-text-analysis/grounding.py",
+      "bytes": 7989
+    },
+    {
+      "path": "experiments/literary-text-analysis/make_fixtures.py",
+      "bytes": 7051
+    },
+    {
+      "path": "experiments/literary-text-analysis/models.py",
+      "bytes": 8328
+    },
+    {
+      "path": "experiments/literary-text-analysis/ner_control.py",
+      "bytes": 3970
+    },
+    {
+      "path": "experiments/literary-text-analysis/parsing.py",
+      "bytes": 7590
+    },
+    {
+      "path": "experiments/literary-text-analysis/positions.py",
+      "bytes": 2481
+    },
+    {
+      "path": "experiments/literary-text-analysis/probe.py",
+      "bytes": 1088
+    },
+    {
+      "path": "experiments/literary-text-analysis/prompts.py",
+      "bytes": 3385
+    },
+    {
+      "path": "experiments/literary-text-analysis/provenance/REQUEST.md",
+      "bytes": 35695
+    },
+    {
+      "path": "experiments/literary-text-analysis/provenance/probe-fable-initial-error.json",
+      "bytes": 2247
+    },
+    {
+      "path": "experiments/literary-text-analysis/provenance/probe-fable.json",
+      "bytes": 7077
+    },
+    {
+      "path": "experiments/literary-text-analysis/provenance/probe-qwen.json",
+      "bytes": 3945
+    },
+    {
+      "path": "experiments/literary-text-analysis/provenance/protected-after.json",
+      "bytes": 48
+    },
+    {
+      "path": "experiments/literary-text-analysis/provenance/protected-before.json",
+      "bytes": 23974
+    },
+    {
+      "path": "experiments/literary-text-analysis/provenance/runtime.json",
+      "bytes": 283
+    },
+    {
+      "path": "experiments/literary-text-analysis/reporting.py",
+      "bytes": 22677
+    },
+    {
+      "path": "experiments/literary-text-analysis/review.py",
+      "bytes": 6806
+    },
+    {
+      "path": "experiments/literary-text-analysis/review/PRELIMINARY.md",
+      "bytes": 5262
+    },
+    {
+      "path": "experiments/literary-text-analysis/review/bilingual-events.json",
+      "bytes": 70962
+    },
+    {
+      "path": "experiments/literary-text-analysis/review/implementation-review.md",
+      "bytes": 1188
+    },
+    {
+      "path": "experiments/literary-text-analysis/review/ner-comparison.json",
+      "bytes": 94803
+    },
+    {
+      "path": "experiments/literary-text-analysis/run.ps1",
+      "bytes": 1852
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/acceptance-fable-long/adapter-snapshot/analysis.py",
+      "bytes": 13815
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/acceptance-fable-long/adapter-snapshot/common.py",
+      "bytes": 2876
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/acceptance-fable-long/adapter-snapshot/grounding.py",
+      "bytes": 7989
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/acceptance-fable-long/adapter-snapshot/models.py",
+      "bytes": 8328
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/acceptance-fable-long/adapter-snapshot/parsing.py",
+      "bytes": 7590
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/acceptance-fable-long/adapter-snapshot/prompts.py",
+      "bytes": 3385
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/acceptance-fable-long/characters.json",
+      "bytes": 109761
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/acceptance-fable-long/document.json",
+      "bytes": 7130
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/acceptance-fable-long/evidence.jsonl",
+      "bytes": 0
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/acceptance-fable-long/fragments.jsonl",
+      "bytes": 1153
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/acceptance-fable-long/mentions.jsonl",
+      "bytes": 0
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/acceptance-fable-long/model.json",
+      "bytes": 2300
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/acceptance-fable-long/model_outputs/fable/00000.json",
+      "bytes": 308710
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/acceptance-fable-long/progress.json",
+      "bytes": 1290
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/acceptance-fable-long/records/00000.json",
+      "bytes": 80477
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/acceptance-fable-long/revision-history.jsonl",
+      "bytes": 0
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/acceptance-fable-long/run.json",
+      "bytes": 2477
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/acceptance-qwen-context/adapter-snapshot/analysis.py",
+      "bytes": 13815
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/acceptance-qwen-context/adapter-snapshot/common.py",
+      "bytes": 2876
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/acceptance-qwen-context/adapter-snapshot/grounding.py",
+      "bytes": 7989
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/acceptance-qwen-context/adapter-snapshot/models.py",
+      "bytes": 8328
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/acceptance-qwen-context/adapter-snapshot/parsing.py",
+      "bytes": 7590
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/acceptance-qwen-context/adapter-snapshot/prompts.py",
+      "bytes": 3385
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/acceptance-qwen-context/characters.json",
+      "bytes": 1264
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/acceptance-qwen-context/document.json",
+      "bytes": 14132
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/acceptance-qwen-context/evidence.jsonl",
+      "bytes": 0
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/acceptance-qwen-context/fragments.jsonl",
+      "bytes": 1148
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/acceptance-qwen-context/mentions.jsonl",
+      "bytes": 0
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/acceptance-qwen-context/model.json",
+      "bytes": 1925
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/acceptance-qwen-context/progress.json",
+      "bytes": 2165
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/acceptance-qwen-context/records/00000.json",
+      "bytes": 4086
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/acceptance-qwen-context/revision-history.jsonl",
+      "bytes": 0
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/acceptance-qwen-context/run.json",
+      "bytes": 2685
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/fable-en/adapter-snapshot/analysis.py",
+      "bytes": 13255
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/fable-en/adapter-snapshot/common.py",
+      "bytes": 2876
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/fable-en/adapter-snapshot/grounding.py",
+      "bytes": 7989
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/fable-en/adapter-snapshot/models.py",
+      "bytes": 8214
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/fable-en/adapter-snapshot/parsing.py",
+      "bytes": 7520
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/fable-en/adapter-snapshot/prompts.py",
+      "bytes": 3385
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/fable-en/characters.json",
+      "bytes": 17835
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/fable-en/document.json",
+      "bytes": 14132
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/fable-en/evidence.jsonl",
+      "bytes": 0
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/fable-en/fragments.jsonl",
+      "bytes": 36844
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/fable-en/mentions.jsonl",
+      "bytes": 0
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/fable-en/model.json",
+      "bytes": 2251
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/fable-en/model_outputs/fable/00000.json",
+      "bytes": 4578
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/fable-en/model_outputs/fable/00001.json",
+      "bytes": 4752
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/fable-en/model_outputs/fable/00002.json",
+      "bytes": 4194
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/fable-en/model_outputs/fable/00003.json",
+      "bytes": 4930
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/fable-en/model_outputs/fable/00004.json",
+      "bytes": 4931
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/fable-en/model_outputs/fable/00005.json",
+      "bytes": 4017
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/fable-en/model_outputs/fable/00006.json",
+      "bytes": 3830
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/fable-en/model_outputs/fable/00007.json",
+      "bytes": 4745
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/fable-en/model_outputs/fable/00008.json",
+      "bytes": 6411
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/fable-en/model_outputs/fable/00009.json",
+      "bytes": 4753
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/fable-en/model_outputs/fable/00010.json",
+      "bytes": 4383
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/fable-en/model_outputs/fable/00011.json",
+      "bytes": 4206
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/fable-en/model_outputs/fable/00012.json",
+      "bytes": 4567
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/fable-en/model_outputs/fable/00013.json",
+      "bytes": 5122
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/fable-en/model_outputs/fable/00014.json",
+      "bytes": 5672
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/fable-en/model_outputs/fable/00015.json",
+      "bytes": 4562
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/fable-en/model_outputs/fable/00016.json",
+      "bytes": 4021
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/fable-en/model_outputs/fable/00017.json",
+      "bytes": 4203
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/fable-en/model_outputs/fable/00018.json",
+      "bytes": 5125
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/fable-en/model_outputs/fable/00019.json",
+      "bytes": 4202
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/fable-en/model_outputs/fable/00020.json",
+      "bytes": 4749
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/fable-en/model_outputs/fable/00021.json",
+      "bytes": 4947
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/fable-en/model_outputs/fable/00022.json",
+      "bytes": 6606
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/fable-en/model_outputs/fable/00023.json",
+      "bytes": 4017
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/fable-en/model_outputs/fable/00024.json",
+      "bytes": 4939
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/fable-en/model_outputs/fable/00025.json",
+      "bytes": 5486
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/fable-en/model_outputs/fable/00026.json",
+      "bytes": 5302
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/fable-en/model_outputs/fable/00027.json",
+      "bytes": 4751
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/fable-en/model_outputs/fable/00028.json",
+      "bytes": 5310
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/fable-en/model_outputs/fable/00029.json",
+      "bytes": 3828
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/fable-en/model_outputs/fable/00030.json",
+      "bytes": 5505
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/fable-en/model_outputs/fable/00031.json",
+      "bytes": 4203
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/fable-en/progress.json",
+      "bytes": 1292
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/fable-en/records/00000.json",
+      "bytes": 2216
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/fable-en/records/00001.json",
+      "bytes": 2015
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/fable-en/records/00002.json",
+      "bytes": 2017
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/fable-en/records/00003.json",
+      "bytes": 1823
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/fable-en/records/00004.json",
+      "bytes": 2013
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/fable-en/records/00005.json",
+      "bytes": 1826
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/fable-en/records/00006.json",
+      "bytes": 1822
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/fable-en/records/00007.json",
+      "bytes": 2013
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/fable-en/records/00008.json",
+      "bytes": 2207
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/fable-en/records/00009.json",
+      "bytes": 1825
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/fable-en/records/00010.json",
+      "bytes": 1822
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/fable-en/records/00011.json",
+      "bytes": 1825
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/fable-en/records/00012.json",
+      "bytes": 2208
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/fable-en/records/00013.json",
+      "bytes": 2214
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/fable-en/records/00014.json",
+      "bytes": 2016
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/fable-en/records/00015.json",
+      "bytes": 2208
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/fable-en/records/00016.json",
+      "bytes": 2217
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/fable-en/records/00017.json",
+      "bytes": 1825
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/fable-en/records/00018.json",
+      "bytes": 2017
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/fable-en/records/00019.json",
+      "bytes": 1826
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/fable-en/records/00020.json",
+      "bytes": 2014
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/fable-en/records/00021.json",
+      "bytes": 1826
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/fable-en/records/00022.json",
+      "bytes": 2018
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/fable-en/records/00023.json",
+      "bytes": 1822
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/fable-en/records/00024.json",
+      "bytes": 2018
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/fable-en/records/00025.json",
+      "bytes": 2401
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/fable-en/records/00026.json",
+      "bytes": 1824
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/fable-en/records/00027.json",
+      "bytes": 2016
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/fable-en/records/00028.json",
+      "bytes": 1823
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/fable-en/records/00029.json",
+      "bytes": 1822
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/fable-en/records/00030.json",
+      "bytes": 2024
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/fable-en/records/00031.json",
+      "bytes": 1628
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/fable-en/revision-history.jsonl",
+      "bytes": 0
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/fable-en/run.json",
+      "bytes": 2478
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-fable-en/adapter-snapshot/analysis.py",
+      "bytes": 13815
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-fable-en/adapter-snapshot/common.py",
+      "bytes": 2876
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-fable-en/adapter-snapshot/grounding.py",
+      "bytes": 7989
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-fable-en/adapter-snapshot/models.py",
+      "bytes": 8328
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-fable-en/adapter-snapshot/parsing.py",
+      "bytes": 7590
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-fable-en/adapter-snapshot/prompts.py",
+      "bytes": 3385
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-fable-en/characters.json",
+      "bytes": 17835
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-fable-en/document.json",
+      "bytes": 14132
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-fable-en/evidence.jsonl",
+      "bytes": 0
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-fable-en/fragments.jsonl",
+      "bytes": 36844
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-fable-en/mentions.jsonl",
+      "bytes": 0
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-fable-en/model.json",
+      "bytes": 2299
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-fable-en/model_outputs/fable/00000.json",
+      "bytes": 4578
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-fable-en/model_outputs/fable/00001.json",
+      "bytes": 4752
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-fable-en/model_outputs/fable/00002.json",
+      "bytes": 4194
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-fable-en/model_outputs/fable/00003.json",
+      "bytes": 4930
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-fable-en/model_outputs/fable/00004.json",
+      "bytes": 4931
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-fable-en/model_outputs/fable/00005.json",
+      "bytes": 4016
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-fable-en/model_outputs/fable/00006.json",
+      "bytes": 3830
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-fable-en/model_outputs/fable/00007.json",
+      "bytes": 4745
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-fable-en/model_outputs/fable/00008.json",
+      "bytes": 6410
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-fable-en/model_outputs/fable/00009.json",
+      "bytes": 4753
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-fable-en/model_outputs/fable/00010.json",
+      "bytes": 4385
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-fable-en/model_outputs/fable/00011.json",
+      "bytes": 4207
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-fable-en/model_outputs/fable/00012.json",
+      "bytes": 4567
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-fable-en/model_outputs/fable/00013.json",
+      "bytes": 5122
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-fable-en/model_outputs/fable/00014.json",
+      "bytes": 5673
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-fable-en/model_outputs/fable/00015.json",
+      "bytes": 4563
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-fable-en/model_outputs/fable/00016.json",
+      "bytes": 4020
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-fable-en/model_outputs/fable/00017.json",
+      "bytes": 4204
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-fable-en/model_outputs/fable/00018.json",
+      "bytes": 5124
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-fable-en/model_outputs/fable/00019.json",
+      "bytes": 4202
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-fable-en/model_outputs/fable/00020.json",
+      "bytes": 4749
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-fable-en/model_outputs/fable/00021.json",
+      "bytes": 4946
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-fable-en/model_outputs/fable/00022.json",
+      "bytes": 6606
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-fable-en/model_outputs/fable/00023.json",
+      "bytes": 4018
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-fable-en/model_outputs/fable/00024.json",
+      "bytes": 4939
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-fable-en/model_outputs/fable/00025.json",
+      "bytes": 5486
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-fable-en/model_outputs/fable/00026.json",
+      "bytes": 5303
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-fable-en/model_outputs/fable/00027.json",
+      "bytes": 4751
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-fable-en/model_outputs/fable/00028.json",
+      "bytes": 5311
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-fable-en/model_outputs/fable/00029.json",
+      "bytes": 3827
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-fable-en/model_outputs/fable/00030.json",
+      "bytes": 5505
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-fable-en/model_outputs/fable/00031.json",
+      "bytes": 4203
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-fable-en/progress.json",
+      "bytes": 1292
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-fable-en/records/00000.json",
+      "bytes": 2216
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-fable-en/records/00001.json",
+      "bytes": 2015
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-fable-en/records/00002.json",
+      "bytes": 2017
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-fable-en/records/00003.json",
+      "bytes": 1823
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-fable-en/records/00004.json",
+      "bytes": 2013
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-fable-en/records/00005.json",
+      "bytes": 1826
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-fable-en/records/00006.json",
+      "bytes": 1822
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-fable-en/records/00007.json",
+      "bytes": 2013
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-fable-en/records/00008.json",
+      "bytes": 2207
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-fable-en/records/00009.json",
+      "bytes": 1825
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-fable-en/records/00010.json",
+      "bytes": 1822
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-fable-en/records/00011.json",
+      "bytes": 1825
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-fable-en/records/00012.json",
+      "bytes": 2208
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-fable-en/records/00013.json",
+      "bytes": 2214
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-fable-en/records/00014.json",
+      "bytes": 2016
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-fable-en/records/00015.json",
+      "bytes": 2208
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-fable-en/records/00016.json",
+      "bytes": 2217
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-fable-en/records/00017.json",
+      "bytes": 1825
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-fable-en/records/00018.json",
+      "bytes": 2017
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-fable-en/records/00019.json",
+      "bytes": 1826
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-fable-en/records/00020.json",
+      "bytes": 2014
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-fable-en/records/00021.json",
+      "bytes": 1826
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-fable-en/records/00022.json",
+      "bytes": 2018
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-fable-en/records/00023.json",
+      "bytes": 1822
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-fable-en/records/00024.json",
+      "bytes": 2018
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-fable-en/records/00025.json",
+      "bytes": 2401
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-fable-en/records/00026.json",
+      "bytes": 1824
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-fable-en/records/00027.json",
+      "bytes": 2016
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-fable-en/records/00028.json",
+      "bytes": 1823
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-fable-en/records/00029.json",
+      "bytes": 1822
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-fable-en/records/00030.json",
+      "bytes": 2024
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-fable-en/records/00031.json",
+      "bytes": 1628
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-fable-en/resume-check.json",
+      "bytes": 1259
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-fable-en/review/packet.json",
+      "bytes": 1707564
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-fable-en/review/packet.md",
+      "bytes": 376
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-fable-en/revision-history.jsonl",
+      "bytes": 0
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-fable-en/run.json",
+      "bytes": 2478
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-fable-en/source-positions.json",
+      "bytes": 38382
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-qwen-en/adapter-snapshot/analysis.py",
+      "bytes": 13815
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-qwen-en/adapter-snapshot/common.py",
+      "bytes": 2876
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-qwen-en/adapter-snapshot/grounding.py",
+      "bytes": 7989
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-qwen-en/adapter-snapshot/models.py",
+      "bytes": 8328
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-qwen-en/adapter-snapshot/parsing.py",
+      "bytes": 7590
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-qwen-en/adapter-snapshot/prompts.py",
+      "bytes": 3385
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-qwen-en/characters.json",
+      "bytes": 2772
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-qwen-en/document.json",
+      "bytes": 14132
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-qwen-en/evidence.jsonl",
+      "bytes": 3222
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-qwen-en/fragments.jsonl",
+      "bytes": 36985
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-qwen-en/mentions.jsonl",
+      "bytes": 33825
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-qwen-en/model.json",
+      "bytes": 1929
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-qwen-en/model_outputs/qwen/00000.json",
+      "bytes": 11612
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-qwen-en/model_outputs/qwen/00001.json",
+      "bytes": 11852
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-qwen-en/model_outputs/qwen/00002.json",
+      "bytes": 11055
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-qwen-en/model_outputs/qwen/00003.json",
+      "bytes": 13094
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-qwen-en/model_outputs/qwen/00004.json",
+      "bytes": 17210
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-qwen-en/model_outputs/qwen/00005.json",
+      "bytes": 10362
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-qwen-en/model_outputs/qwen/00006.json",
+      "bytes": 11265
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-qwen-en/model_outputs/qwen/00007.json",
+      "bytes": 11213
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-qwen-en/model_outputs/qwen/00008.json",
+      "bytes": 12775
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-qwen-en/model_outputs/qwen/00009.json",
+      "bytes": 14374
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-qwen-en/model_outputs/qwen/00010.json",
+      "bytes": 13568
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-qwen-en/model_outputs/qwen/00011.json",
+      "bytes": 11597
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-qwen-en/model_outputs/qwen/00012.json",
+      "bytes": 11494
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-qwen-en/model_outputs/qwen/00013.json",
+      "bytes": 15682
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-qwen-en/model_outputs/qwen/00014.json",
+      "bytes": 14999
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-qwen-en/model_outputs/qwen/00015.json",
+      "bytes": 15609
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-qwen-en/model_outputs/qwen/00016.json",
+      "bytes": 15070
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-qwen-en/model_outputs/qwen/00017.json",
+      "bytes": 10673
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-qwen-en/model_outputs/qwen/00018.json",
+      "bytes": 11945
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-qwen-en/model_outputs/qwen/00019.json",
+      "bytes": 9054
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-qwen-en/model_outputs/qwen/00020.json",
+      "bytes": 11644
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-qwen-en/model_outputs/qwen/00021.json",
+      "bytes": 12067
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-qwen-en/model_outputs/qwen/00022.json",
+      "bytes": 13867
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-qwen-en/model_outputs/qwen/00023.json",
+      "bytes": 16477
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-qwen-en/model_outputs/qwen/00024.json",
+      "bytes": 10021
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-qwen-en/model_outputs/qwen/00025.json",
+      "bytes": 12103
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-qwen-en/model_outputs/qwen/00026.json",
+      "bytes": 13044
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-qwen-en/model_outputs/qwen/00027.json",
+      "bytes": 14856
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-qwen-en/model_outputs/qwen/00028.json",
+      "bytes": 9968
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-qwen-en/model_outputs/qwen/00029.json",
+      "bytes": 13407
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-qwen-en/model_outputs/qwen/00030.json",
+      "bytes": 12727
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-qwen-en/model_outputs/qwen/00031.json",
+      "bytes": 10740
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-qwen-en/progress.json",
+      "bytes": 1291
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-qwen-en/records/00000.json",
+      "bytes": 3273
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-qwen-en/records/00001.json",
+      "bytes": 3277
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-qwen-en/records/00002.json",
+      "bytes": 3616
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-qwen-en/records/00003.json",
+      "bytes": 3689
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-qwen-en/records/00004.json",
+      "bytes": 4445
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-qwen-en/records/00005.json",
+      "bytes": 2242
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-qwen-en/records/00006.json",
+      "bytes": 3095
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-qwen-en/records/00007.json",
+      "bytes": 3708
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-qwen-en/records/00008.json",
+      "bytes": 4051
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-qwen-en/records/00009.json",
+      "bytes": 3996
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-qwen-en/records/00010.json",
+      "bytes": 3415
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-qwen-en/records/00011.json",
+      "bytes": 3313
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-qwen-en/records/00012.json",
+      "bytes": 4018
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-qwen-en/records/00013.json",
+      "bytes": 4877
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-qwen-en/records/00014.json",
+      "bytes": 4394
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-qwen-en/records/00015.json",
+      "bytes": 4648
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-qwen-en/records/00016.json",
+      "bytes": 3728
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-qwen-en/records/00017.json",
+      "bytes": 2864
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-qwen-en/records/00018.json",
+      "bytes": 4401
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-qwen-en/records/00019.json",
+      "bytes": 2897
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-qwen-en/records/00020.json",
+      "bytes": 3654
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-qwen-en/records/00021.json",
+      "bytes": 4546
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-qwen-en/records/00022.json",
+      "bytes": 4711
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-qwen-en/records/00023.json",
+      "bytes": 4513
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-qwen-en/records/00024.json",
+      "bytes": 3029
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-qwen-en/records/00025.json",
+      "bytes": 4721
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-qwen-en/records/00026.json",
+      "bytes": 4674
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-qwen-en/records/00027.json",
+      "bytes": 5273
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-qwen-en/records/00028.json",
+      "bytes": 3128
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-qwen-en/records/00029.json",
+      "bytes": 4593
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-qwen-en/records/00030.json",
+      "bytes": 4721
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-qwen-en/records/00031.json",
+      "bytes": 3227
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-qwen-en/resume-check.json",
+      "bytes": 1258
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-qwen-en/review/packet.json",
+      "bytes": 516021
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-qwen-en/review/packet.md",
+      "bytes": 376
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-qwen-en/revision-history.jsonl",
+      "bytes": 0
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-qwen-en/run.json",
+      "bytes": 2688
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-qwen-en/source-positions.json",
+      "bytes": 38382
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-qwen-ru/adapter-snapshot/analysis.py",
+      "bytes": 13815
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-qwen-ru/adapter-snapshot/common.py",
+      "bytes": 2876
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-qwen-ru/adapter-snapshot/grounding.py",
+      "bytes": 7989
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-qwen-ru/adapter-snapshot/models.py",
+      "bytes": 8328
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-qwen-ru/adapter-snapshot/parsing.py",
+      "bytes": 7590
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-qwen-ru/adapter-snapshot/prompts.py",
+      "bytes": 3385
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-qwen-ru/characters.json",
+      "bytes": 3198
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-qwen-ru/document.json",
+      "bytes": 16239
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-qwen-ru/evidence.jsonl",
+      "bytes": 13274
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-qwen-ru/fragments.jsonl",
+      "bytes": 37022
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-qwen-ru/mentions.jsonl",
+      "bytes": 22392
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-qwen-ru/model.json",
+      "bytes": 1930
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-qwen-ru/model_outputs/qwen/00000.json",
+      "bytes": 9666
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-qwen-ru/model_outputs/qwen/00001.json",
+      "bytes": 12772
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-qwen-ru/model_outputs/qwen/00002.json",
+      "bytes": 10539
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-qwen-ru/model_outputs/qwen/00003.json",
+      "bytes": 10361
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-qwen-ru/model_outputs/qwen/00004.json",
+      "bytes": 10204
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-qwen-ru/model_outputs/qwen/00005.json",
+      "bytes": 15485
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-qwen-ru/model_outputs/qwen/00006.json",
+      "bytes": 9952
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-qwen-ru/model_outputs/qwen/00007.json",
+      "bytes": 11257
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-qwen-ru/model_outputs/qwen/00008.json",
+      "bytes": 11822
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-qwen-ru/model_outputs/qwen/00009.json",
+      "bytes": 13231
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-qwen-ru/model_outputs/qwen/00010.json",
+      "bytes": 14114
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-qwen-ru/model_outputs/qwen/00011.json",
+      "bytes": 13545
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-qwen-ru/model_outputs/qwen/00012.json",
+      "bytes": 12508
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-qwen-ru/model_outputs/qwen/00013.json",
+      "bytes": 16421
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-qwen-ru/model_outputs/qwen/00014.json",
+      "bytes": 16793
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-qwen-ru/model_outputs/qwen/00015.json",
+      "bytes": 16917
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-qwen-ru/model_outputs/qwen/00016.json",
+      "bytes": 18191
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-qwen-ru/model_outputs/qwen/00017.json",
+      "bytes": 14309
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-qwen-ru/model_outputs/qwen/00018.json",
+      "bytes": 14500
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-qwen-ru/model_outputs/qwen/00019.json",
+      "bytes": 15834
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-qwen-ru/model_outputs/qwen/00020.json",
+      "bytes": 19016
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-qwen-ru/model_outputs/qwen/00021.json",
+      "bytes": 17596
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-qwen-ru/model_outputs/qwen/00022.json",
+      "bytes": 15106
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-qwen-ru/model_outputs/qwen/00023.json",
+      "bytes": 16139
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-qwen-ru/model_outputs/qwen/00024.json",
+      "bytes": 17747
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-qwen-ru/model_outputs/qwen/00025.json",
+      "bytes": 16981
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-qwen-ru/model_outputs/qwen/00026.json",
+      "bytes": 14259
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-qwen-ru/model_outputs/qwen/00027.json",
+      "bytes": 13630
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-qwen-ru/model_outputs/qwen/00028.json",
+      "bytes": 14757
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-qwen-ru/model_outputs/qwen/00029.json",
+      "bytes": 13722
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-qwen-ru/model_outputs/qwen/00030.json",
+      "bytes": 13697
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-qwen-ru/model_outputs/qwen/00031.json",
+      "bytes": 15811
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-qwen-ru/progress.json",
+      "bytes": 1291
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-qwen-ru/records/00000.json",
+      "bytes": 2633
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-qwen-ru/records/00001.json",
+      "bytes": 3470
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-qwen-ru/records/00002.json",
+      "bytes": 2753
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-qwen-ru/records/00003.json",
+      "bytes": 2709
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-qwen-ru/records/00004.json",
+      "bytes": 2661
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-qwen-ru/records/00005.json",
+      "bytes": 4098
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-qwen-ru/records/00006.json",
+      "bytes": 2581
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-qwen-ru/records/00007.json",
+      "bytes": 3168
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-qwen-ru/records/00008.json",
+      "bytes": 3221
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-qwen-ru/records/00009.json",
+      "bytes": 3983
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-qwen-ru/records/00010.json",
+      "bytes": 3486
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-qwen-ru/records/00011.json",
+      "bytes": 3340
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-qwen-ru/records/00012.json",
+      "bytes": 4098
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-qwen-ru/records/00013.json",
+      "bytes": 4839
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-qwen-ru/records/00014.json",
+      "bytes": 4736
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-qwen-ru/records/00015.json",
+      "bytes": 4793
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-qwen-ru/records/00016.json",
+      "bytes": 4534
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-qwen-ru/records/00017.json",
+      "bytes": 4108
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-qwen-ru/records/00018.json",
+      "bytes": 5522
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-qwen-ru/records/00019.json",
+      "bytes": 4378
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-qwen-ru/records/00020.json",
+      "bytes": 5387
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-qwen-ru/records/00021.json",
+      "bytes": 6971
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-qwen-ru/records/00022.json",
+      "bytes": 5123
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-qwen-ru/records/00023.json",
+      "bytes": 4510
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-qwen-ru/records/00024.json",
+      "bytes": 5240
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-qwen-ru/records/00025.json",
+      "bytes": 6078
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-qwen-ru/records/00026.json",
+      "bytes": 4531
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-qwen-ru/records/00027.json",
+      "bytes": 4368
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-qwen-ru/records/00028.json",
+      "bytes": 5363
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-qwen-ru/records/00029.json",
+      "bytes": 4486
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-qwen-ru/records/00030.json",
+      "bytes": 4436
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-qwen-ru/records/00031.json",
+      "bytes": 5298
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-qwen-ru/resume-check.json",
+      "bytes": 1258
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-qwen-ru/review/packet.json",
+      "bytes": 553388
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-qwen-ru/review/packet.md",
+      "bytes": 376
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-qwen-ru/revision-history.jsonl",
+      "bytes": 0
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-qwen-ru/run.json",
+      "bytes": 2688
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/final-qwen-ru/source-positions.json",
+      "bytes": 37287
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/neutral-smoke-qwen-en/adapter-snapshot/analysis.py",
+      "bytes": 12113
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/neutral-smoke-qwen-en/adapter-snapshot/common.py",
+      "bytes": 2496
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/neutral-smoke-qwen-en/adapter-snapshot/grounding.py",
+      "bytes": 6997
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/neutral-smoke-qwen-en/adapter-snapshot/models.py",
+      "bytes": 8214
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/neutral-smoke-qwen-en/adapter-snapshot/parsing.py",
+      "bytes": 7448
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/neutral-smoke-qwen-en/adapter-snapshot/prompts.py",
+      "bytes": 3385
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/neutral-smoke-qwen-en/characters.json",
+      "bytes": 1755
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/neutral-smoke-qwen-en/document.json",
+      "bytes": 14132
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/neutral-smoke-qwen-en/evidence.jsonl",
+      "bytes": 0
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/neutral-smoke-qwen-en/fragments.jsonl",
+      "bytes": 4623
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/neutral-smoke-qwen-en/mentions.jsonl",
+      "bytes": 4670
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/neutral-smoke-qwen-en/model.json",
+      "bytes": 1879
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/neutral-smoke-qwen-en/model_outputs/qwen/00000.json",
+      "bytes": 11612
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/neutral-smoke-qwen-en/model_outputs/qwen/00001.json",
+      "bytes": 11851
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/neutral-smoke-qwen-en/model_outputs/qwen/00002.json",
+      "bytes": 11130
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/neutral-smoke-qwen-en/model_outputs/qwen/00003.json",
+      "bytes": 13095
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/neutral-smoke-qwen-en/progress.json",
+      "bytes": 1289
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/neutral-smoke-qwen-en/records/00000.json",
+      "bytes": 3131
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/neutral-smoke-qwen-en/records/00001.json",
+      "bytes": 3131
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/neutral-smoke-qwen-en/records/00002.json",
+      "bytes": 3528
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/neutral-smoke-qwen-en/records/00003.json",
+      "bytes": 3601
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/neutral-smoke-qwen-en/revision-history.jsonl",
+      "bytes": 0
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/neutral-smoke-qwen-en/run.json",
+      "bytes": 2687
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/qwen-en/adapter-snapshot/analysis.py",
+      "bytes": 13255
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/qwen-en/adapter-snapshot/common.py",
+      "bytes": 2876
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/qwen-en/adapter-snapshot/grounding.py",
+      "bytes": 7989
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/qwen-en/adapter-snapshot/models.py",
+      "bytes": 8214
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/qwen-en/adapter-snapshot/parsing.py",
+      "bytes": 7520
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/qwen-en/adapter-snapshot/prompts.py",
+      "bytes": 3385
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/qwen-en/characters.json",
+      "bytes": 1266
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/qwen-en/document.json",
+      "bytes": 14132
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/qwen-en/evidence.jsonl",
+      "bytes": 0
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/qwen-en/fragments.jsonl",
+      "bytes": 1152
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/qwen-en/mentions.jsonl",
+      "bytes": 0
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/qwen-en/model.json",
+      "bytes": 1879
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/qwen-en/model_outputs/qwen/00000.json",
+      "bytes": 11613
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/qwen-en/model_outputs/qwen/00001.json",
+      "bytes": 3608
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/qwen-en/progress.json",
+      "bytes": 1289
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/qwen-en/records/00000.json",
+      "bytes": 3273
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/qwen-en/revision-history.jsonl",
+      "bytes": 0
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/qwen-en/run.json",
+      "bytes": 2688
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/smoke-qwen-en/adapter-snapshot/analysis.py",
+      "bytes": 9642
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/smoke-qwen-en/adapter-snapshot/common.py",
+      "bytes": 2496
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/smoke-qwen-en/adapter-snapshot/grounding.py",
+      "bytes": 6997
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/smoke-qwen-en/adapter-snapshot/models.py",
+      "bytes": 8214
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/smoke-qwen-en/adapter-snapshot/parsing.py",
+      "bytes": 7448
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/smoke-qwen-en/adapter-snapshot/prompts.py",
+      "bytes": 2929
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/smoke-qwen-en/characters.json",
+      "bytes": 1896
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/smoke-qwen-en/document.json",
+      "bytes": 14132
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/smoke-qwen-en/evidence.jsonl",
+      "bytes": 1509
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/smoke-qwen-en/fragments.jsonl",
+      "bytes": 4455
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/smoke-qwen-en/mentions.jsonl",
+      "bytes": 4843
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/smoke-qwen-en/model.json",
+      "bytes": 1813
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/smoke-qwen-en/model_outputs/qwen/00000.json",
+      "bytes": 5531
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/smoke-qwen-en/model_outputs/qwen/00001.json",
+      "bytes": 9987
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/smoke-qwen-en/model_outputs/qwen/00002.json",
+      "bytes": 15795
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/smoke-qwen-en/model_outputs/qwen/00003.json",
+      "bytes": 10240
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/smoke-qwen-en/progress.json",
+      "bytes": 2012
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/smoke-qwen-en/records/00000.json",
+      "bytes": 2280
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/smoke-qwen-en/records/00001.json",
+      "bytes": 3779
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/smoke-qwen-en/records/00002.json",
+      "bytes": 2792
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/smoke-qwen-en/records/00003.json",
+      "bytes": 3503
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/smoke-qwen-en/revision-history.jsonl",
+      "bytes": 0
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/smoke-qwen-en/run.json",
+      "bytes": 2620
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/staged-smoke-qwen-en/adapter-snapshot/analysis.py",
+      "bytes": 12113
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/staged-smoke-qwen-en/adapter-snapshot/common.py",
+      "bytes": 2496
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/staged-smoke-qwen-en/adapter-snapshot/grounding.py",
+      "bytes": 6997
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/staged-smoke-qwen-en/adapter-snapshot/models.py",
+      "bytes": 8214
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/staged-smoke-qwen-en/adapter-snapshot/parsing.py",
+      "bytes": 7448
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/staged-smoke-qwen-en/adapter-snapshot/prompts.py",
+      "bytes": 5771
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/staged-smoke-qwen-en/characters.json",
+      "bytes": 1755
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/staged-smoke-qwen-en/document.json",
+      "bytes": 14132
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/staged-smoke-qwen-en/evidence.jsonl",
+      "bytes": 1529
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/staged-smoke-qwen-en/fragments.jsonl",
+      "bytes": 4630
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/staged-smoke-qwen-en/mentions.jsonl",
+      "bytes": 4661
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/staged-smoke-qwen-en/model.json",
+      "bytes": 1879
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/staged-smoke-qwen-en/model_outputs/qwen/00000.json",
+      "bytes": 8683
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/staged-smoke-qwen-en/model_outputs/qwen/00001.json",
+      "bytes": 9587
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/staged-smoke-qwen-en/model_outputs/qwen/00002.json",
+      "bytes": 10692
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/staged-smoke-qwen-en/model_outputs/qwen/00003.json",
+      "bytes": 11607
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/staged-smoke-qwen-en/progress.json",
+      "bytes": 1289
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/staged-smoke-qwen-en/records/00000.json",
+      "bytes": 2943
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/staged-smoke-qwen-en/records/00001.json",
+      "bytes": 2577
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/staged-smoke-qwen-en/records/00002.json",
+      "bytes": 3439
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/staged-smoke-qwen-en/records/00003.json",
+      "bytes": 3415
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/staged-smoke-qwen-en/revision-history.jsonl",
+      "bytes": 0
+    },
+    {
+      "path": "experiments/literary-text-analysis/runs/staged-smoke-qwen-en/run.json",
+      "bytes": 2687
+    },
+    {
+      "path": "experiments/literary-text-analysis/test_pipeline.py",
+      "bytes": 12225
+    },
+    {
+      "path": "experiments/literary-text-analysis/verification.json",
+      "bytes": 811
+    }
+  ],
+  "excluded": [
+    "cache/",
+    "__pycache__/",
+    "inputs/",
+    "private-runs/",
+    "*.fb2",
+    "*.epub",
+    ".venv/"
+  ],
+  "checkpoint_files_added": false,
+  "commit_push_merge_performed": false
+}

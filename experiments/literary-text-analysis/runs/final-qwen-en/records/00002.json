@@ -1,0 +1,134 @@
+{
+  "schema_version": "0.1.0",
+  "model": "qwen",
+  "checkpoint_revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+  "processing": {
+    "schema_version": "0.1.0",
+    "device": "cuda",
+    "seed": 42,
+    "context_tokens": 3072,
+    "previous_paragraphs": 2,
+    "registry_limit": 24,
+    "qwen_stages": [
+      "mentions",
+      "behavior"
+    ],
+    "fable_overlap_tokens": 64,
+    "generation": {
+      "enable_thinking": false,
+      "do_sample": false,
+      "max_new_tokens": 1152,
+      "num_beams": 1,
+      "use_cache": true
+    },
+    "models": {
+      "fable": {
+        "repo": "SaladTechnologies/fable-base",
+        "revision": "45aceef3d49fe75bd8240010cbfdc983724ec420",
+        "receipt": "../literary-decision-encoders/model-paths.json",
+        "receipt_key": "fable",
+        "dtype": "float32"
+      },
+      "qwen": {
+        "repo": "Qwen/Qwen3-1.7B",
+        "revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+        "receipt": "../character-decisions/model-paths.json",
+        "receipt_key": "qwen3_1_7b",
+        "dtype": "bfloat16"
+      }
+    }
+  },
+  "run_sha256": "d533f83e49c8e91d1505c7cd3d555564f92ab62ed20dd44def0c0a74420252ec",
+  "paragraph_id": "p00002-b6a414ed",
+  "ordinal": 2,
+  "status": "SUCCESS",
+  "normalized": {
+    "mentions": [
+      {
+        "id": "p00002-b6a414ed:m000",
+        "paragraph_id": "p00002-b6a414ed",
+        "start": 26,
+        "end": 30,
+        "quote": "Mara",
+        "text": "Mara",
+        "character_id": "c0001",
+        "kind": "name",
+        "role": "speaker",
+        "status": "automatic_unverified"
+      },
+      {
+        "id": "p00002-b6a414ed:m001",
+        "paragraph_id": "p00002-b6a414ed",
+        "start": 37,
+        "end": 42,
+        "quote": "Rowan",
+        "text": "Rowan",
+        "character_id": "c0002",
+        "kind": "name",
+        "role": "target",
+        "status": "automatic_unverified"
+      }
+    ],
+    "observations": [],
+    "links": [],
+    "revision_proposals": [],
+    "rejected": [
+      {
+        "kind": "observation",
+        "index": 0,
+        "error": "Unestablished character name absent from target: Mara asked Rowan if he would open the gate.",
+        "original": {
+          "who": "Mara",
+          "actor": "Mara",
+          "target": "Rowan",
+          "speaker": "Mara",
+          "about": "Mara asked Rowan if he would open the gate.",
+          "categories": [
+            "action",
+            "decision"
+          ],
+          "summary": "Mara asked Rowan if he would open the gate.",
+          "source": "narrator",
+          "status": "asserted",
+          "evidence": [
+            {
+              "paragraph_id": "p00002-b6a414ed",
+              "quote": "\"Will you open the gate?\" Mara asked Rowan."
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "artifacts": [
+    {
+      "path": "model_outputs\\qwen\\00002.json",
+      "sha256": "cc079ed9edd92bf350520237ff620bb0299321b9d254de6e283c30955a0f295d"
+    }
+  ],
+  "registry_after": [
+    {
+      "id": "c0001",
+      "name": "Mara",
+      "aliases": [
+        "Mara"
+      ],
+      "mentions": [
+        "p00002-b6a414ed:m000"
+      ],
+      "status": "automatic_unverified"
+    },
+    {
+      "id": "c0002",
+      "name": "Rowan",
+      "aliases": [
+        "Rowan"
+      ],
+      "mentions": [
+        "p00002-b6a414ed:m001"
+      ],
+      "status": "automatic_unverified"
+    }
+  ],
+  "record_sha256": "827babe71383a2ad613eb21faab739ff58de342471ff46b6aefe19d33e2d4917"
+}

@@ -1,0 +1,2154 @@
+{
+  "schema_version": "0.1.0",
+  "model": [
+    "fable",
+    "qwen"
+  ],
+  "checkpoint_revision": {
+    "fable": "45aceef3d49fe75bd8240010cbfdc983724ec420",
+    "qwen": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e"
+  },
+  "processing": {
+    "0": {
+      "schema_version": "0.1.0",
+      "device": "cuda",
+      "seed": 42,
+      "context_tokens": 3072,
+      "previous_paragraphs": 2,
+      "registry_limit": 24,
+      "qwen_stages": [
+        "mentions",
+        "behavior"
+      ],
+      "fable_overlap_tokens": 64,
+      "generation": {
+        "enable_thinking": false,
+        "do_sample": false,
+        "max_new_tokens": 1152,
+        "num_beams": 1,
+        "use_cache": true
+      },
+      "models": {
+        "fable": {
+          "repo": "SaladTechnologies/fable-base",
+          "revision": "45aceef3d49fe75bd8240010cbfdc983724ec420",
+          "receipt": "../literary-decision-encoders/model-paths.json",
+          "receipt_key": "fable",
+          "dtype": "float32"
+        },
+        "qwen": {
+          "repo": "Qwen/Qwen3-1.7B",
+          "revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+          "receipt": "../character-decisions/model-paths.json",
+          "receipt_key": "qwen3_1_7b",
+          "dtype": "bfloat16"
+        }
+      }
+    },
+    "1": {
+      "schema_version": "0.1.0",
+      "device": "cuda",
+      "seed": 42,
+      "context_tokens": 3072,
+      "previous_paragraphs": 2,
+      "registry_limit": 24,
+      "qwen_stages": [
+        "mentions",
+        "behavior"
+      ],
+      "fable_overlap_tokens": 64,
+      "generation": {
+        "enable_thinking": false,
+        "do_sample": false,
+        "max_new_tokens": 1152,
+        "num_beams": 1,
+        "use_cache": true
+      },
+      "models": {
+        "fable": {
+          "repo": "SaladTechnologies/fable-base",
+          "revision": "45aceef3d49fe75bd8240010cbfdc983724ec420",
+          "receipt": "../literary-decision-encoders/model-paths.json",
+          "receipt_key": "fable",
+          "dtype": "float32"
+        },
+        "qwen": {
+          "repo": "Qwen/Qwen3-1.7B",
+          "revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+          "receipt": "../character-decisions/model-paths.json",
+          "receipt_key": "qwen3_1_7b",
+          "dtype": "bfloat16"
+        }
+      }
+    },
+    "2": {
+      "schema_version": "0.1.0",
+      "device": "cuda",
+      "seed": 42,
+      "context_tokens": 3072,
+      "previous_paragraphs": 2,
+      "registry_limit": 24,
+      "qwen_stages": [
+        "mentions",
+        "behavior"
+      ],
+      "fable_overlap_tokens": 64,
+      "generation": {
+        "enable_thinking": false,
+        "do_sample": false,
+        "max_new_tokens": 1152,
+        "num_beams": 1,
+        "use_cache": true
+      },
+      "models": {
+        "fable": {
+          "repo": "SaladTechnologies/fable-base",
+          "revision": "45aceef3d49fe75bd8240010cbfdc983724ec420",
+          "receipt": "../literary-decision-encoders/model-paths.json",
+          "receipt_key": "fable",
+          "dtype": "float32"
+        },
+        "qwen": {
+          "repo": "Qwen/Qwen3-1.7B",
+          "revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+          "receipt": "../character-decisions/model-paths.json",
+          "receipt_key": "qwen3_1_7b",
+          "dtype": "bfloat16"
+        }
+      }
+    }
+  },
+  "run_sha256": [
+    "0cf1534a5e069467b25b759fffa3646c36bc89fa76cec17c623fd25fae782b23",
+    "d533f83e49c8e91d1505c7cd3d555564f92ab62ed20dd44def0c0a74420252ec",
+    "76b711fe576fa0ef122fc3631362a7d338cf766d02689779c0c462bd1f5ae8df"
+  ],
+  "annotation_status": "unreviewed",
+  "quality_metrics": "not_measured_no_independent_gold",
+  "events": [
+    {
+      "event_id": "event-000",
+      "en_paragraph_ordinal": 0,
+      "ru_paragraph_ordinal": 0,
+      "alignment_source": "manually_authored_test_pair_not_automatic_translation_alignment",
+      "english": {
+        "id": "p00000-4dc6742d",
+        "section_id": "s000",
+        "ordinal": 0,
+        "text": "Mara reached the stone bridge and placed a lantern on the wall.",
+        "origin": {
+          "char_start": 0,
+          "char_end": 63
+        },
+        "element_type": "text",
+        "type": "narration",
+        "dialogue_spans": []
+      },
+      "russian": {
+        "id": "p00000-19febdd6",
+        "section_id": "s000",
+        "ordinal": 0,
+        "text": "Мара дошла до каменного моста и поставила фонарь на стену.",
+        "origin": {
+          "char_start": 0,
+          "char_end": 58
+        },
+        "element_type": "text",
+        "type": "narration",
+        "dialogue_spans": []
+      },
+      "qwen_en": [],
+      "qwen_ru": [],
+      "human_comparison": null
+    },
+    {
+      "event_id": "event-001",
+      "en_paragraph_ordinal": 1,
+      "ru_paragraph_ordinal": 1,
+      "alignment_source": "manually_authored_test_pair_not_automatic_translation_alignment",
+      "english": {
+        "id": "p00001-7c894f36",
+        "section_id": "s000",
+        "ordinal": 1,
+        "text": "Rowan watched her from the gate. He kept his sword in its sheath.",
+        "origin": {
+          "char_start": 65,
+          "char_end": 130
+        },
+        "element_type": "text",
+        "type": "narration",
+        "dialogue_spans": []
+      },
+      "russian": {
+        "id": "p00001-91138a16",
+        "section_id": "s000",
+        "ordinal": 1,
+        "text": "Рован смотрел на неё от ворот. Он держал меч в ножнах.",
+        "origin": {
+          "char_start": 60,
+          "char_end": 114
+        },
+        "element_type": "text",
+        "type": "narration",
+        "dialogue_spans": []
+      },
+      "qwen_en": [],
+      "qwen_ru": [],
+      "human_comparison": null
+    },
+    {
+      "event_id": "event-002",
+      "en_paragraph_ordinal": 2,
+      "ru_paragraph_ordinal": 2,
+      "alignment_source": "manually_authored_test_pair_not_automatic_translation_alignment",
+      "english": {
+        "id": "p00002-b6a414ed",
+        "section_id": "s000",
+        "ordinal": 2,
+        "text": "\"Will you open the gate?\" Mara asked Rowan.",
+        "origin": {
+          "char_start": 132,
+          "char_end": 175
+        },
+        "element_type": "text",
+        "type": "mixed",
+        "dialogue_spans": [
+          {
+            "start": 0,
+            "end": 25,
+            "text": "\"Will you open the gate?\""
+          }
+        ]
+      },
+      "russian": {
+        "id": "p00002-93c944f4",
+        "section_id": "s000",
+        "ordinal": 2,
+        "text": "— Ты откроешь ворота? — спросила Мара Рована.",
+        "origin": {
+          "char_start": 116,
+          "char_end": 161
+        },
+        "element_type": "text",
+        "type": "dialogue",
+        "dialogue_spans": [
+          {
+            "start": 0,
+            "end": 45,
+            "text": "— Ты откроешь ворота? — спросила Мара Рована."
+          }
+        ]
+      },
+      "qwen_en": [],
+      "qwen_ru": [],
+      "human_comparison": null
+    },
+    {
+      "event_id": "event-003",
+      "en_paragraph_ordinal": 3,
+      "ru_paragraph_ordinal": 3,
+      "alignment_source": "manually_authored_test_pair_not_automatic_translation_alignment",
+      "english": {
+        "id": "p00003-7957dcd5",
+        "section_id": "s000",
+        "ordinal": 3,
+        "text": "\"No,\" Rowan answered. \"I will not let the soldiers through.\"",
+        "origin": {
+          "char_start": 177,
+          "char_end": 237
+        },
+        "element_type": "text",
+        "type": "mixed",
+        "dialogue_spans": [
+          {
+            "start": 0,
+            "end": 5,
+            "text": "\"No,\""
+          },
+          {
+            "start": 22,
+            "end": 60,
+            "text": "\"I will not let the soldiers through.\""
+          }
+        ]
+      },
+      "russian": {
+        "id": "p00003-11cfa784",
+        "section_id": "s000",
+        "ordinal": 3,
+        "text": "— Нет, — ответил Рован. — Я не пропущу солдат.",
+        "origin": {
+          "char_start": 163,
+          "char_end": 209
+        },
+        "element_type": "text",
+        "type": "dialogue",
+        "dialogue_spans": [
+          {
+            "start": 0,
+            "end": 46,
+            "text": "— Нет, — ответил Рован. — Я не пропущу солдат."
+          }
+        ]
+      },
+      "qwen_en": [],
+      "qwen_ru": [],
+      "human_comparison": null
+    },
+    {
+      "event_id": "event-004",
+      "en_paragraph_ordinal": 4,
+      "ru_paragraph_ordinal": 4,
+      "alignment_source": "manually_authored_test_pair_not_automatic_translation_alignment",
+      "english": {
+        "id": "p00004-3c2fbe8e",
+        "section_id": "s000",
+        "ordinal": 4,
+        "text": "Mara planned to return before sunrise, but she had not yet left the bridge.",
+        "origin": {
+          "char_start": 239,
+          "char_end": 314
+        },
+        "element_type": "text",
+        "type": "narration",
+        "dialogue_spans": []
+      },
+      "russian": {
+        "id": "p00004-0fa31859",
+        "section_id": "s000",
+        "ordinal": 4,
+        "text": "Мара собиралась вернуться до рассвета, но ещё не ушла с моста.",
+        "origin": {
+          "char_start": 211,
+          "char_end": 273
+        },
+        "element_type": "text",
+        "type": "narration",
+        "dialogue_spans": []
+      },
+      "qwen_en": [],
+      "qwen_ru": [],
+      "human_comparison": null
+    },
+    {
+      "event_id": "event-005",
+      "en_paragraph_ordinal": 5,
+      "ru_paragraph_ordinal": 5,
+      "alignment_source": "manually_authored_test_pair_not_automatic_translation_alignment",
+      "english": {
+        "id": "p00005-3ae4f9f1",
+        "section_id": "s000",
+        "ordinal": 5,
+        "text": "The lantern glass was green. Mist lay over the river.",
+        "origin": {
+          "char_start": 316,
+          "char_end": 369
+        },
+        "element_type": "text",
+        "type": "narration",
+        "dialogue_spans": []
+      },
+      "russian": {
+        "id": "p00005-dd96a148",
+        "section_id": "s000",
+        "ordinal": 5,
+        "text": "Стекло фонаря было зелёным. Над рекой лежал туман.",
+        "origin": {
+          "char_start": 275,
+          "char_end": 325
+        },
+        "element_type": "text",
+        "type": "narration",
+        "dialogue_spans": []
+      },
+      "qwen_en": [],
+      "qwen_ru": [],
+      "human_comparison": null
+    },
+    {
+      "event_id": "event-006",
+      "en_paragraph_ordinal": 6,
+      "ru_paragraph_ordinal": 6,
+      "alignment_source": "manually_authored_test_pair_not_automatic_translation_alignment",
+      "english": {
+        "id": "p00006-d6095cad",
+        "section_id": "s000",
+        "ordinal": 6,
+        "text": "Rowan checked the lock every evening before he went home.",
+        "origin": {
+          "char_start": 371,
+          "char_end": 428
+        },
+        "element_type": "text",
+        "type": "narration",
+        "dialogue_spans": []
+      },
+      "russian": {
+        "id": "p00006-c5062ffc",
+        "section_id": "s000",
+        "ordinal": 6,
+        "text": "Рован каждый вечер проверял замок, прежде чем уйти домой.",
+        "origin": {
+          "char_start": 327,
+          "char_end": 384
+        },
+        "element_type": "text",
+        "type": "narration",
+        "dialogue_spans": []
+      },
+      "qwen_en": [],
+      "qwen_ru": [],
+      "human_comparison": null
+    },
+    {
+      "event_id": "event-007",
+      "en_paragraph_ordinal": 7,
+      "ru_paragraph_ordinal": 7,
+      "alignment_source": "manually_authored_test_pair_not_automatic_translation_alignment",
+      "english": {
+        "id": "p00007-80579766",
+        "section_id": "s000",
+        "ordinal": 7,
+        "text": "\"Last winter I hid three children in the mill,\" Mara said.",
+        "origin": {
+          "char_start": 430,
+          "char_end": 488
+        },
+        "element_type": "text",
+        "type": "mixed",
+        "dialogue_spans": [
+          {
+            "start": 0,
+            "end": 47,
+            "text": "\"Last winter I hid three children in the mill,\""
+          }
+        ]
+      },
+      "russian": {
+        "id": "p00007-50c73b40",
+        "section_id": "s000",
+        "ordinal": 7,
+        "text": "— Прошлой зимой я спрятала троих детей на мельнице, — сказала Мара.",
+        "origin": {
+          "char_start": 386,
+          "char_end": 453
+        },
+        "element_type": "text",
+        "type": "dialogue",
+        "dialogue_spans": [
+          {
+            "start": 0,
+            "end": 67,
+            "text": "— Прошлой зимой я спрятала троих детей на мельнице, — сказала Мара."
+          }
+        ]
+      },
+      "qwen_en": [
+        {
+          "schema_version": "0.1.0",
+          "model": "qwen",
+          "checkpoint_revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+          "processing": {
+            "schema_version": "0.1.0",
+            "device": "cuda",
+            "seed": 42,
+            "context_tokens": 3072,
+            "previous_paragraphs": 2,
+            "registry_limit": 24,
+            "qwen_stages": [
+              "mentions",
+              "behavior"
+            ],
+            "fable_overlap_tokens": 64,
+            "generation": {
+              "enable_thinking": false,
+              "do_sample": false,
+              "max_new_tokens": 1152,
+              "num_beams": 1,
+              "use_cache": true
+            },
+            "models": {
+              "fable": {
+                "repo": "SaladTechnologies/fable-base",
+                "revision": "45aceef3d49fe75bd8240010cbfdc983724ec420",
+                "receipt": "../literary-decision-encoders/model-paths.json",
+                "receipt_key": "fable",
+                "dtype": "float32"
+              },
+              "qwen": {
+                "repo": "Qwen/Qwen3-1.7B",
+                "revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+                "receipt": "../character-decisions/model-paths.json",
+                "receipt_key": "qwen3_1_7b",
+                "dtype": "bfloat16"
+              }
+            }
+          },
+          "run_sha256": "d533f83e49c8e91d1505c7cd3d555564f92ab62ed20dd44def0c0a74420252ec",
+          "id": "p00007-80579766:e000",
+          "character_id": "c0001",
+          "participants": {
+            "actor": "c0001",
+            "speaker": "c0001",
+            "about": "c0001",
+            "target": "c0001"
+          },
+          "categories": [
+            "reported_behavior"
+          ],
+          "summary": "Mara said she hid three children in the mill last winter.",
+          "evidence": [
+            {
+              "paragraph_id": "p00007-80579766",
+              "start": 0,
+              "end": 58,
+              "quote": "\"Last winter I hid three children in the mill,\" Mara said."
+            }
+          ],
+          "assertion_source": "narrator",
+          "assertion_status": "asserted",
+          "certainty": "model_unverified",
+          "status": "automatic_unverified",
+          "fragment_id": "fragment-p00007-80579766",
+          "paragraph_ids": [
+            "p00007-80579766"
+          ]
+        }
+      ],
+      "qwen_ru": [],
+      "human_comparison": null
+    },
+    {
+      "event_id": "event-008",
+      "en_paragraph_ordinal": 8,
+      "ru_paragraph_ordinal": 8,
+      "alignment_source": "manually_authored_test_pair_not_automatic_translation_alignment",
+      "english": {
+        "id": "p00008-304e26be",
+        "section_id": "s000",
+        "ordinal": 8,
+        "text": "\"I heard that Rowan sold the map,\" said Iven. \"I did not see it happen.\"",
+        "origin": {
+          "char_start": 490,
+          "char_end": 562
+        },
+        "element_type": "text",
+        "type": "mixed",
+        "dialogue_spans": [
+          {
+            "start": 0,
+            "end": 34,
+            "text": "\"I heard that Rowan sold the map,\""
+          },
+          {
+            "start": 46,
+            "end": 72,
+            "text": "\"I did not see it happen.\""
+          }
+        ]
+      },
+      "russian": {
+        "id": "p00008-77baa776",
+        "section_id": "s000",
+        "ordinal": 8,
+        "text": "— Я слышал, что Рован продал карту, — сказал Ивен. — Сам я этого не видел.",
+        "origin": {
+          "char_start": 455,
+          "char_end": 529
+        },
+        "element_type": "text",
+        "type": "dialogue",
+        "dialogue_spans": [
+          {
+            "start": 0,
+            "end": 74,
+            "text": "— Я слышал, что Рован продал карту, — сказал Ивен. — Сам я этого не видел."
+          }
+        ]
+      },
+      "qwen_en": [],
+      "qwen_ru": [
+        {
+          "schema_version": "0.1.0",
+          "model": "qwen",
+          "checkpoint_revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+          "processing": {
+            "schema_version": "0.1.0",
+            "device": "cuda",
+            "seed": 42,
+            "context_tokens": 3072,
+            "previous_paragraphs": 2,
+            "registry_limit": 24,
+            "qwen_stages": [
+              "mentions",
+              "behavior"
+            ],
+            "fable_overlap_tokens": 64,
+            "generation": {
+              "enable_thinking": false,
+              "do_sample": false,
+              "max_new_tokens": 1152,
+              "num_beams": 1,
+              "use_cache": true
+            },
+            "models": {
+              "fable": {
+                "repo": "SaladTechnologies/fable-base",
+                "revision": "45aceef3d49fe75bd8240010cbfdc983724ec420",
+                "receipt": "../literary-decision-encoders/model-paths.json",
+                "receipt_key": "fable",
+                "dtype": "float32"
+              },
+              "qwen": {
+                "repo": "Qwen/Qwen3-1.7B",
+                "revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+                "receipt": "../character-decisions/model-paths.json",
+                "receipt_key": "qwen3_1_7b",
+                "dtype": "bfloat16"
+              }
+            }
+          },
+          "run_sha256": "76b711fe576fa0ef122fc3631362a7d338cf766d02689779c0c462bd1f5ae8df",
+          "id": "p00008-77baa776:e000",
+          "character_id": "c0002",
+          "participants": {
+            "actor": "c0002",
+            "speaker": "c0002",
+            "about": "c0002",
+            "target": {
+              "kind": "textual_object",
+              "paragraph_id": "p00008-77baa776",
+              "start": 16,
+              "end": 21,
+              "quote": "Рован"
+            }
+          },
+          "categories": [
+            "reaction"
+          ],
+          "summary": "Ивен упоминает, что слышал, что Рован продал карту, но сам этого не видел.",
+          "evidence": [
+            {
+              "paragraph_id": "p00008-77baa776",
+              "start": 0,
+              "end": 74,
+              "quote": "— Я слышал, что Рован продал карту, — сказал Ивен. — Сам я этого не видел."
+            }
+          ],
+          "assertion_source": "self_report",
+          "assertion_status": "reported",
+          "certainty": "model_unverified",
+          "status": "automatic_unverified",
+          "fragment_id": "fragment-p00008-77baa776",
+          "paragraph_ids": [
+            "p00008-77baa776"
+          ]
+        }
+      ],
+      "human_comparison": null
+    },
+    {
+      "event_id": "event-009",
+      "en_paragraph_ordinal": 9,
+      "ru_paragraph_ordinal": 9,
+      "alignment_source": "manually_authored_test_pair_not_automatic_translation_alignment",
+      "english": {
+        "id": "p00009-34f53a39",
+        "section_id": "s000",
+        "ordinal": 9,
+        "text": "\"I never betrayed my friends,\" Rowan said. Nobody answered his claim.",
+        "origin": {
+          "char_start": 564,
+          "char_end": 633
+        },
+        "element_type": "text",
+        "type": "mixed",
+        "dialogue_spans": [
+          {
+            "start": 0,
+            "end": 30,
+            "text": "\"I never betrayed my friends,\""
+          }
+        ]
+      },
+      "russian": {
+        "id": "p00009-0849d338",
+        "section_id": "s000",
+        "ordinal": 9,
+        "text": "— Я никогда не предавал друзей, — сказал Рован. Никто не ответил на это заявление.",
+        "origin": {
+          "char_start": 531,
+          "char_end": 613
+        },
+        "element_type": "text",
+        "type": "dialogue",
+        "dialogue_spans": [
+          {
+            "start": 0,
+            "end": 82,
+            "text": "— Я никогда не предавал друзей, — сказал Рован. Никто не ответил на это заявление."
+          }
+        ]
+      },
+      "qwen_en": [],
+      "qwen_ru": [],
+      "human_comparison": null
+    },
+    {
+      "event_id": "event-010",
+      "en_paragraph_ordinal": 10,
+      "ru_paragraph_ordinal": 10,
+      "alignment_source": "manually_authored_test_pair_not_automatic_translation_alignment",
+      "english": {
+        "id": "p00010-67c3d0da",
+        "section_id": "s000",
+        "ordinal": 10,
+        "text": "Mara stayed by the gate because she wanted the children to reach safety.",
+        "origin": {
+          "char_start": 635,
+          "char_end": 707
+        },
+        "element_type": "text",
+        "type": "narration",
+        "dialogue_spans": []
+      },
+      "russian": {
+        "id": "p00010-85419180",
+        "section_id": "s000",
+        "ordinal": 10,
+        "text": "Мара осталась у ворот, потому что хотела, чтобы дети добрались до безопасного места.",
+        "origin": {
+          "char_start": 615,
+          "char_end": 699
+        },
+        "element_type": "text",
+        "type": "narration",
+        "dialogue_spans": []
+      },
+      "qwen_en": [],
+      "qwen_ru": [],
+      "human_comparison": null
+    },
+    {
+      "event_id": "event-011",
+      "en_paragraph_ordinal": 11,
+      "ru_paragraph_ordinal": 11,
+      "alignment_source": "manually_authored_test_pair_not_automatic_translation_alignment",
+      "english": {
+        "id": "p00011-8e6a8ffe",
+        "section_id": "s000",
+        "ordinal": 11,
+        "text": "When the bell rang, Iven flinched and dropped his cup.",
+        "origin": {
+          "char_start": 709,
+          "char_end": 763
+        },
+        "element_type": "text",
+        "type": "narration",
+        "dialogue_spans": []
+      },
+      "russian": {
+        "id": "p00011-ccdcb864",
+        "section_id": "s000",
+        "ordinal": 11,
+        "text": "Когда зазвонил колокол, Ивен вздрогнул и уронил чашку.",
+        "origin": {
+          "char_start": 701,
+          "char_end": 755
+        },
+        "element_type": "text",
+        "type": "narration",
+        "dialogue_spans": []
+      },
+      "qwen_en": [],
+      "qwen_ru": [
+        {
+          "schema_version": "0.1.0",
+          "model": "qwen",
+          "checkpoint_revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+          "processing": {
+            "schema_version": "0.1.0",
+            "device": "cuda",
+            "seed": 42,
+            "context_tokens": 3072,
+            "previous_paragraphs": 2,
+            "registry_limit": 24,
+            "qwen_stages": [
+              "mentions",
+              "behavior"
+            ],
+            "fable_overlap_tokens": 64,
+            "generation": {
+              "enable_thinking": false,
+              "do_sample": false,
+              "max_new_tokens": 1152,
+              "num_beams": 1,
+              "use_cache": true
+            },
+            "models": {
+              "fable": {
+                "repo": "SaladTechnologies/fable-base",
+                "revision": "45aceef3d49fe75bd8240010cbfdc983724ec420",
+                "receipt": "../literary-decision-encoders/model-paths.json",
+                "receipt_key": "fable",
+                "dtype": "float32"
+              },
+              "qwen": {
+                "repo": "Qwen/Qwen3-1.7B",
+                "revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+                "receipt": "../character-decisions/model-paths.json",
+                "receipt_key": "qwen3_1_7b",
+                "dtype": "bfloat16"
+              }
+            }
+          },
+          "run_sha256": "76b711fe576fa0ef122fc3631362a7d338cf766d02689779c0c462bd1f5ae8df",
+          "id": "p00011-ccdcb864:e000",
+          "character_id": "c0002",
+          "participants": {
+            "actor": "c0002",
+            "speaker": "c0002",
+            "about": "c0002",
+            "target": "c0002"
+          },
+          "categories": [
+            "action"
+          ],
+          "summary": "Ивен вздрогнул и уронил чашку.",
+          "evidence": [
+            {
+              "paragraph_id": "p00011-ccdcb864",
+              "start": 0,
+              "end": 54,
+              "quote": "Когда зазвонил колокол, Ивен вздрогнул и уронил чашку."
+            }
+          ],
+          "assertion_source": "narrator",
+          "assertion_status": "asserted",
+          "certainty": "model_unverified",
+          "status": "automatic_unverified",
+          "fragment_id": "fragment-p00011-ccdcb864",
+          "paragraph_ids": [
+            "p00011-ccdcb864"
+          ]
+        }
+      ],
+      "human_comparison": null
+    },
+    {
+      "event_id": "event-012",
+      "en_paragraph_ordinal": 12,
+      "ru_paragraph_ordinal": 12,
+      "alignment_source": "manually_authored_test_pair_not_automatic_translation_alignment",
+      "english": {
+        "id": "p00012-c66f1d9d",
+        "section_id": "s000",
+        "ordinal": 12,
+        "text": "Rowan and Iven entered the yard. He lifted the lantern.",
+        "origin": {
+          "char_start": 765,
+          "char_end": 820
+        },
+        "element_type": "text",
+        "type": "narration",
+        "dialogue_spans": []
+      },
+      "russian": {
+        "id": "p00012-13fb4141",
+        "section_id": "s000",
+        "ordinal": 12,
+        "text": "Рован и Ивен вошли во двор. Он поднял фонарь.",
+        "origin": {
+          "char_start": 757,
+          "char_end": 802
+        },
+        "element_type": "text",
+        "type": "narration",
+        "dialogue_spans": []
+      },
+      "qwen_en": [],
+      "qwen_ru": [],
+      "human_comparison": null
+    },
+    {
+      "event_id": "event-013",
+      "en_paragraph_ordinal": 13,
+      "ru_paragraph_ordinal": 13,
+      "alignment_source": "manually_authored_test_pair_not_automatic_translation_alignment",
+      "english": {
+        "id": "p00013-d72f6cf3",
+        "section_id": "s000",
+        "ordinal": 13,
+        "text": "The man who lifted it was Iven; Rowan had been carrying the blankets.",
+        "origin": {
+          "char_start": 822,
+          "char_end": 891
+        },
+        "element_type": "text",
+        "type": "narration",
+        "dialogue_spans": []
+      },
+      "russian": {
+        "id": "p00013-b97bbdc3",
+        "section_id": "s000",
+        "ordinal": 13,
+        "text": "Фонарь поднял Ивен; Рован нёс одеяла.",
+        "origin": {
+          "char_start": 804,
+          "char_end": 841
+        },
+        "element_type": "text",
+        "type": "narration",
+        "dialogue_spans": []
+      },
+      "qwen_en": [],
+      "qwen_ru": [],
+      "human_comparison": null
+    },
+    {
+      "event_id": "event-014",
+      "en_paragraph_ordinal": 14,
+      "ru_paragraph_ordinal": 14,
+      "alignment_source": "manually_authored_test_pair_not_automatic_translation_alignment",
+      "english": {
+        "id": "p00014-e61731d7",
+        "section_id": "s000",
+        "ordinal": 14,
+        "text": "\"They call me Ash,\" Mara told the guard. \"That is my old nickname.\"",
+        "origin": {
+          "char_start": 893,
+          "char_end": 960
+        },
+        "element_type": "text",
+        "type": "mixed",
+        "dialogue_spans": [
+          {
+            "start": 0,
+            "end": 19,
+            "text": "\"They call me Ash,\""
+          },
+          {
+            "start": 41,
+            "end": 67,
+            "text": "\"That is my old nickname.\""
+          }
+        ]
+      },
+      "russian": {
+        "id": "p00014-a089f6a7",
+        "section_id": "s000",
+        "ordinal": 14,
+        "text": "— Меня зовут Пепел, — сказала Мара стражнику. — Это моё старое прозвище.",
+        "origin": {
+          "char_start": 843,
+          "char_end": 915
+        },
+        "element_type": "text",
+        "type": "dialogue",
+        "dialogue_spans": [
+          {
+            "start": 0,
+            "end": 72,
+            "text": "— Меня зовут Пепел, — сказала Мара стражнику. — Это моё старое прозвище."
+          }
+        ]
+      },
+      "qwen_en": [
+        {
+          "schema_version": "0.1.0",
+          "model": "qwen",
+          "checkpoint_revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+          "processing": {
+            "schema_version": "0.1.0",
+            "device": "cuda",
+            "seed": 42,
+            "context_tokens": 3072,
+            "previous_paragraphs": 2,
+            "registry_limit": 24,
+            "qwen_stages": [
+              "mentions",
+              "behavior"
+            ],
+            "fable_overlap_tokens": 64,
+            "generation": {
+              "enable_thinking": false,
+              "do_sample": false,
+              "max_new_tokens": 1152,
+              "num_beams": 1,
+              "use_cache": true
+            },
+            "models": {
+              "fable": {
+                "repo": "SaladTechnologies/fable-base",
+                "revision": "45aceef3d49fe75bd8240010cbfdc983724ec420",
+                "receipt": "../literary-decision-encoders/model-paths.json",
+                "receipt_key": "fable",
+                "dtype": "float32"
+              },
+              "qwen": {
+                "repo": "Qwen/Qwen3-1.7B",
+                "revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+                "receipt": "../character-decisions/model-paths.json",
+                "receipt_key": "qwen3_1_7b",
+                "dtype": "bfloat16"
+              }
+            }
+          },
+          "run_sha256": "d533f83e49c8e91d1505c7cd3d555564f92ab62ed20dd44def0c0a74420252ec",
+          "id": "p00014-e61731d7:e000",
+          "character_id": "c0001",
+          "participants": {
+            "actor": "c0001",
+            "speaker": "c0001",
+            "about": "c0001",
+            "target": {
+              "kind": "textual_object",
+              "paragraph_id": "p00014-e61731d7",
+              "start": 34,
+              "end": 39,
+              "quote": "guard"
+            }
+          },
+          "categories": [
+            "reported_behavior"
+          ],
+          "summary": "Mara tells the guard her old nickname.",
+          "evidence": [
+            {
+              "paragraph_id": "p00014-e61731d7",
+              "start": 0,
+              "end": 67,
+              "quote": "\"They call me Ash,\" Mara told the guard. \"That is my old nickname.\""
+            }
+          ],
+          "assertion_source": "narrator",
+          "assertion_status": "asserted",
+          "certainty": "model_unverified",
+          "status": "automatic_unverified",
+          "fragment_id": "fragment-p00014-e61731d7",
+          "paragraph_ids": [
+            "p00014-e61731d7"
+          ]
+        }
+      ],
+      "qwen_ru": [
+        {
+          "schema_version": "0.1.0",
+          "model": "qwen",
+          "checkpoint_revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+          "processing": {
+            "schema_version": "0.1.0",
+            "device": "cuda",
+            "seed": 42,
+            "context_tokens": 3072,
+            "previous_paragraphs": 2,
+            "registry_limit": 24,
+            "qwen_stages": [
+              "mentions",
+              "behavior"
+            ],
+            "fable_overlap_tokens": 64,
+            "generation": {
+              "enable_thinking": false,
+              "do_sample": false,
+              "max_new_tokens": 1152,
+              "num_beams": 1,
+              "use_cache": true
+            },
+            "models": {
+              "fable": {
+                "repo": "SaladTechnologies/fable-base",
+                "revision": "45aceef3d49fe75bd8240010cbfdc983724ec420",
+                "receipt": "../literary-decision-encoders/model-paths.json",
+                "receipt_key": "fable",
+                "dtype": "float32"
+              },
+              "qwen": {
+                "repo": "Qwen/Qwen3-1.7B",
+                "revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+                "receipt": "../character-decisions/model-paths.json",
+                "receipt_key": "qwen3_1_7b",
+                "dtype": "bfloat16"
+              }
+            }
+          },
+          "run_sha256": "76b711fe576fa0ef122fc3631362a7d338cf766d02689779c0c462bd1f5ae8df",
+          "id": "p00014-a089f6a7:e000",
+          "character_id": "c0001",
+          "participants": {
+            "actor": "c0001",
+            "speaker": "c0001",
+            "about": "c0001",
+            "target": {
+              "kind": "textual_object",
+              "paragraph_id": "p00014-a089f6a7",
+              "start": 35,
+              "end": 44,
+              "quote": "стражнику"
+            }
+          },
+          "categories": [
+            "reported_behavior"
+          ],
+          "summary": "Мара сказала стражнику, что её зовут Пепел и это её старое прозвище.",
+          "evidence": [
+            {
+              "paragraph_id": "p00014-a089f6a7",
+              "start": 0,
+              "end": 72,
+              "quote": "— Меня зовут Пепел, — сказала Мара стражнику. — Это моё старое прозвище."
+            }
+          ],
+          "assertion_source": "self_report",
+          "assertion_status": "asserted",
+          "certainty": "model_unverified",
+          "status": "automatic_unverified",
+          "fragment_id": "fragment-p00014-a089f6a7",
+          "paragraph_ids": [
+            "p00014-a089f6a7"
+          ]
+        }
+      ],
+      "human_comparison": null
+    },
+    {
+      "event_id": "event-015",
+      "en_paragraph_ordinal": 15,
+      "ru_paragraph_ordinal": 15,
+      "alignment_source": "manually_authored_test_pair_not_automatic_translation_alignment",
+      "english": {
+        "id": "p00015-6d2e0bd5",
+        "section_id": "s000",
+        "ordinal": 15,
+        "text": "\"Ash, take the blankets,\" Rowan said to Mara.",
+        "origin": {
+          "char_start": 962,
+          "char_end": 1007
+        },
+        "element_type": "text",
+        "type": "mixed",
+        "dialogue_spans": [
+          {
+            "start": 0,
+            "end": 25,
+            "text": "\"Ash, take the blankets,\""
+          }
+        ]
+      },
+      "russian": {
+        "id": "p00015-03652ccf",
+        "section_id": "s000",
+        "ordinal": 15,
+        "text": "— Пепел, возьми одеяла, — сказал Рован Маре.",
+        "origin": {
+          "char_start": 917,
+          "char_end": 961
+        },
+        "element_type": "text",
+        "type": "dialogue",
+        "dialogue_spans": [
+          {
+            "start": 0,
+            "end": 44,
+            "text": "— Пепел, возьми одеяла, — сказал Рован Маре."
+          }
+        ]
+      },
+      "qwen_en": [],
+      "qwen_ru": [
+        {
+          "schema_version": "0.1.0",
+          "model": "qwen",
+          "checkpoint_revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+          "processing": {
+            "schema_version": "0.1.0",
+            "device": "cuda",
+            "seed": 42,
+            "context_tokens": 3072,
+            "previous_paragraphs": 2,
+            "registry_limit": 24,
+            "qwen_stages": [
+              "mentions",
+              "behavior"
+            ],
+            "fable_overlap_tokens": 64,
+            "generation": {
+              "enable_thinking": false,
+              "do_sample": false,
+              "max_new_tokens": 1152,
+              "num_beams": 1,
+              "use_cache": true
+            },
+            "models": {
+              "fable": {
+                "repo": "SaladTechnologies/fable-base",
+                "revision": "45aceef3d49fe75bd8240010cbfdc983724ec420",
+                "receipt": "../literary-decision-encoders/model-paths.json",
+                "receipt_key": "fable",
+                "dtype": "float32"
+              },
+              "qwen": {
+                "repo": "Qwen/Qwen3-1.7B",
+                "revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+                "receipt": "../character-decisions/model-paths.json",
+                "receipt_key": "qwen3_1_7b",
+                "dtype": "bfloat16"
+              }
+            }
+          },
+          "run_sha256": "76b711fe576fa0ef122fc3631362a7d338cf766d02689779c0c462bd1f5ae8df",
+          "id": "p00015-03652ccf:e000",
+          "character_id": "c0003",
+          "participants": {
+            "actor": "c0003",
+            "speaker": "c0003",
+            "about": "c0003",
+            "target": "c0001"
+          },
+          "categories": [
+            "action",
+            "intention"
+          ],
+          "summary": "Рован asks Mara to take the blankets.",
+          "evidence": [
+            {
+              "paragraph_id": "p00015-03652ccf",
+              "start": 0,
+              "end": 44,
+              "quote": "— Пепел, возьми одеяла, — сказал Рован Маре."
+            }
+          ],
+          "assertion_source": "narrator",
+          "assertion_status": "asserted",
+          "certainty": "model_unverified",
+          "status": "automatic_unverified",
+          "fragment_id": "fragment-p00015-03652ccf",
+          "paragraph_ids": [
+            "p00015-03652ccf"
+          ]
+        }
+      ],
+      "human_comparison": null
+    },
+    {
+      "event_id": "event-016",
+      "en_paragraph_ordinal": 16,
+      "ru_paragraph_ordinal": 16,
+      "alignment_source": "manually_authored_test_pair_not_automatic_translation_alignment",
+      "english": {
+        "id": "p00016-78b50b70",
+        "section_id": "s000",
+        "ordinal": 16,
+        "text": "Mara accepted the blankets but refused the silver coin.",
+        "origin": {
+          "char_start": 1009,
+          "char_end": 1064
+        },
+        "element_type": "text",
+        "type": "narration",
+        "dialogue_spans": []
+      },
+      "russian": {
+        "id": "p00016-5c5a090b",
+        "section_id": "s000",
+        "ordinal": 16,
+        "text": "Мара взяла одеяла, но отказалась от серебряной монеты.",
+        "origin": {
+          "char_start": 963,
+          "char_end": 1017
+        },
+        "element_type": "text",
+        "type": "narration",
+        "dialogue_spans": []
+      },
+      "qwen_en": [],
+      "qwen_ru": [],
+      "human_comparison": null
+    },
+    {
+      "event_id": "event-017",
+      "en_paragraph_ordinal": 17,
+      "ru_paragraph_ordinal": 17,
+      "alignment_source": "manually_authored_test_pair_not_automatic_translation_alignment",
+      "english": {
+        "id": "p00017-f21d773d",
+        "section_id": "s000",
+        "ordinal": 17,
+        "text": "\"Can we cross the river tonight?\" Iven asked.",
+        "origin": {
+          "char_start": 1066,
+          "char_end": 1111
+        },
+        "element_type": "text",
+        "type": "mixed",
+        "dialogue_spans": [
+          {
+            "start": 0,
+            "end": 33,
+            "text": "\"Can we cross the river tonight?\""
+          }
+        ]
+      },
+      "russian": {
+        "id": "p00017-b39e2ea0",
+        "section_id": "s000",
+        "ordinal": 17,
+        "text": "— Мы сможем перейти реку сегодня ночью? — спросил Ивен.",
+        "origin": {
+          "char_start": 1019,
+          "char_end": 1074
+        },
+        "element_type": "text",
+        "type": "dialogue",
+        "dialogue_spans": [
+          {
+            "start": 0,
+            "end": 55,
+            "text": "— Мы сможем перейти реку сегодня ночью? — спросил Ивен."
+          }
+        ]
+      },
+      "qwen_en": [],
+      "qwen_ru": [],
+      "human_comparison": null
+    },
+    {
+      "event_id": "event-018",
+      "en_paragraph_ordinal": 18,
+      "ru_paragraph_ordinal": 18,
+      "alignment_source": "manually_authored_test_pair_not_automatic_translation_alignment",
+      "english": {
+        "id": "p00018-82364d09",
+        "section_id": "s000",
+        "ordinal": 18,
+        "text": "\"Only after the bell,\" Mara replied. \"Wait beside the mill.\"",
+        "origin": {
+          "char_start": 1113,
+          "char_end": 1173
+        },
+        "element_type": "text",
+        "type": "mixed",
+        "dialogue_spans": [
+          {
+            "start": 0,
+            "end": 22,
+            "text": "\"Only after the bell,\""
+          },
+          {
+            "start": 37,
+            "end": 60,
+            "text": "\"Wait beside the mill.\""
+          }
+        ]
+      },
+      "russian": {
+        "id": "p00018-e82cdc9d",
+        "section_id": "s000",
+        "ordinal": 18,
+        "text": "— Только после колокола, — ответила Мара. — Жди у мельницы.",
+        "origin": {
+          "char_start": 1076,
+          "char_end": 1135
+        },
+        "element_type": "text",
+        "type": "dialogue",
+        "dialogue_spans": [
+          {
+            "start": 0,
+            "end": 59,
+            "text": "— Только после колокола, — ответила Мара. — Жди у мельницы."
+          }
+        ]
+      },
+      "qwen_en": [],
+      "qwen_ru": [],
+      "human_comparison": null
+    },
+    {
+      "event_id": "event-019",
+      "en_paragraph_ordinal": 19,
+      "ru_paragraph_ordinal": 19,
+      "alignment_source": "manually_authored_test_pair_not_automatic_translation_alignment",
+      "english": {
+        "id": "p00019-b0d084f4",
+        "section_id": "s000",
+        "ordinal": 19,
+        "text": "The discussion turned to food. Rowan asked whether any bread remained.",
+        "origin": {
+          "char_start": 1175,
+          "char_end": 1245
+        },
+        "element_type": "text",
+        "type": "narration",
+        "dialogue_spans": []
+      },
+      "russian": {
+        "id": "p00019-1a85e879",
+        "section_id": "s000",
+        "ordinal": 19,
+        "text": "Разговор перешёл к еде. Рован спросил, остался ли хлеб.",
+        "origin": {
+          "char_start": 1137,
+          "char_end": 1192
+        },
+        "element_type": "text",
+        "type": "narration",
+        "dialogue_spans": []
+      },
+      "qwen_en": [],
+      "qwen_ru": [],
+      "human_comparison": null
+    },
+    {
+      "event_id": "event-020",
+      "en_paragraph_ordinal": 20,
+      "ru_paragraph_ordinal": 20,
+      "alignment_source": "manually_authored_test_pair_not_automatic_translation_alignment",
+      "english": {
+        "id": "p00020-0570f388",
+        "section_id": "s000",
+        "ordinal": 20,
+        "text": "Iven gave Rowan half a loaf and kept the rest for the children.",
+        "origin": {
+          "char_start": 1247,
+          "char_end": 1310
+        },
+        "element_type": "text",
+        "type": "narration",
+        "dialogue_spans": []
+      },
+      "russian": {
+        "id": "p00020-5544a4e9",
+        "section_id": "s000",
+        "ordinal": 20,
+        "text": "Ивен отдал Ровану половину буханки, а остальное оставил детям.",
+        "origin": {
+          "char_start": 1194,
+          "char_end": 1256
+        },
+        "element_type": "text",
+        "type": "narration",
+        "dialogue_spans": []
+      },
+      "qwen_en": [],
+      "qwen_ru": [],
+      "human_comparison": null
+    },
+    {
+      "event_id": "event-021",
+      "en_paragraph_ordinal": 21,
+      "ru_paragraph_ordinal": 21,
+      "alignment_source": "manually_authored_test_pair_not_automatic_translation_alignment",
+      "english": {
+        "id": "p00021-d4282aff",
+        "section_id": "s000",
+        "ordinal": 21,
+        "text": "Years earlier, Rowan had chosen to abandon a paid post rather than arrest his sister.",
+        "origin": {
+          "char_start": 1312,
+          "char_end": 1397
+        },
+        "element_type": "text",
+        "type": "narration",
+        "dialogue_spans": []
+      },
+      "russian": {
+        "id": "p00021-f4aeb156",
+        "section_id": "s000",
+        "ordinal": 21,
+        "text": "Много лет назад Рован предпочёл бросить оплачиваемую должность, чтобы не арестовывать сестру.",
+        "origin": {
+          "char_start": 1258,
+          "char_end": 1351
+        },
+        "element_type": "text",
+        "type": "narration",
+        "dialogue_spans": []
+      },
+      "qwen_en": [],
+      "qwen_ru": [],
+      "human_comparison": null
+    },
+    {
+      "event_id": "event-022",
+      "en_paragraph_ordinal": 22,
+      "ru_paragraph_ordinal": 22,
+      "alignment_source": "manually_authored_test_pair_not_automatic_translation_alignment",
+      "english": {
+        "id": "p00022-a62fd3b1",
+        "section_id": "s000",
+        "ordinal": 22,
+        "text": "\"He always pays his debts,\" Mara said of Rowan. It was her opinion, not the narrator's guarantee.",
+        "origin": {
+          "char_start": 1399,
+          "char_end": 1496
+        },
+        "element_type": "text",
+        "type": "mixed",
+        "dialogue_spans": [
+          {
+            "start": 0,
+            "end": 27,
+            "text": "\"He always pays his debts,\""
+          }
+        ]
+      },
+      "russian": {
+        "id": "p00022-f523d9b8",
+        "section_id": "s000",
+        "ordinal": 22,
+        "text": "— Он всегда возвращает долги, — сказала Мара о Роване. Это было её мнение, а не гарантия рассказчика.",
+        "origin": {
+          "char_start": 1353,
+          "char_end": 1454
+        },
+        "element_type": "text",
+        "type": "dialogue",
+        "dialogue_spans": [
+          {
+            "start": 0,
+            "end": 101,
+            "text": "— Он всегда возвращает долги, — сказала Мара о Роване. Это было её мнение, а не гарантия рассказчика."
+          }
+        ]
+      },
+      "qwen_en": [],
+      "qwen_ru": [],
+      "human_comparison": null
+    },
+    {
+      "event_id": "event-023",
+      "en_paragraph_ordinal": 23,
+      "ru_paragraph_ordinal": 23,
+      "alignment_source": "manually_authored_test_pair_not_automatic_translation_alignment",
+      "english": {
+        "id": "p00023-6161be9b",
+        "section_id": "s000",
+        "ordinal": 23,
+        "text": "Iven considered stealing a horse, then decided against it.",
+        "origin": {
+          "char_start": 1498,
+          "char_end": 1556
+        },
+        "element_type": "text",
+        "type": "narration",
+        "dialogue_spans": []
+      },
+      "russian": {
+        "id": "p00023-a8d9126f",
+        "section_id": "s000",
+        "ordinal": 23,
+        "text": "Ивен подумывал украсть лошадь, но затем отказался от этой мысли.",
+        "origin": {
+          "char_start": 1456,
+          "char_end": 1520
+        },
+        "element_type": "text",
+        "type": "narration",
+        "dialogue_spans": []
+      },
+      "qwen_en": [],
+      "qwen_ru": [
+        {
+          "schema_version": "0.1.0",
+          "model": "qwen",
+          "checkpoint_revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+          "processing": {
+            "schema_version": "0.1.0",
+            "device": "cuda",
+            "seed": 42,
+            "context_tokens": 3072,
+            "previous_paragraphs": 2,
+            "registry_limit": 24,
+            "qwen_stages": [
+              "mentions",
+              "behavior"
+            ],
+            "fable_overlap_tokens": 64,
+            "generation": {
+              "enable_thinking": false,
+              "do_sample": false,
+              "max_new_tokens": 1152,
+              "num_beams": 1,
+              "use_cache": true
+            },
+            "models": {
+              "fable": {
+                "repo": "SaladTechnologies/fable-base",
+                "revision": "45aceef3d49fe75bd8240010cbfdc983724ec420",
+                "receipt": "../literary-decision-encoders/model-paths.json",
+                "receipt_key": "fable",
+                "dtype": "float32"
+              },
+              "qwen": {
+                "repo": "Qwen/Qwen3-1.7B",
+                "revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+                "receipt": "../character-decisions/model-paths.json",
+                "receipt_key": "qwen3_1_7b",
+                "dtype": "bfloat16"
+              }
+            }
+          },
+          "run_sha256": "76b711fe576fa0ef122fc3631362a7d338cf766d02689779c0c462bd1f5ae8df",
+          "id": "p00023-a8d9126f:e000",
+          "character_id": "c0002",
+          "participants": {
+            "actor": "c0002",
+            "speaker": "c0002",
+            "about": "c0002",
+            "target": "c0002"
+          },
+          "categories": [
+            "decision"
+          ],
+          "summary": "Ивен подумывал украсть лошадь, но затем отказался от этой мысли.",
+          "evidence": [
+            {
+              "paragraph_id": "p00023-a8d9126f",
+              "start": 0,
+              "end": 64,
+              "quote": "Ивен подумывал украсть лошадь, но затем отказался от этой мысли."
+            }
+          ],
+          "assertion_source": "self_report",
+          "assertion_status": "asserted",
+          "certainty": "model_unverified",
+          "status": "automatic_unverified",
+          "fragment_id": "fragment-p00023-a8d9126f",
+          "paragraph_ids": [
+            "p00023-a8d9126f"
+          ]
+        }
+      ],
+      "human_comparison": null
+    },
+    {
+      "event_id": "event-024",
+      "en_paragraph_ordinal": 24,
+      "ru_paragraph_ordinal": 24,
+      "alignment_source": "manually_authored_test_pair_not_automatic_translation_alignment",
+      "english": {
+        "id": "p00024-39573c99",
+        "section_id": "s000",
+        "ordinal": 24,
+        "text": "A broken cart stood beside the empty stable. Its wheels were covered in dust.",
+        "origin": {
+          "char_start": 1558,
+          "char_end": 1635
+        },
+        "element_type": "text",
+        "type": "narration",
+        "dialogue_spans": []
+      },
+      "russian": {
+        "id": "p00024-6d9d2e2d",
+        "section_id": "s000",
+        "ordinal": 24,
+        "text": "У пустой конюшни стояла сломанная телега. Её колёса покрывала пыль.",
+        "origin": {
+          "char_start": 1522,
+          "char_end": 1589
+        },
+        "element_type": "text",
+        "type": "narration",
+        "dialogue_spans": []
+      },
+      "qwen_en": [],
+      "qwen_ru": [],
+      "human_comparison": null
+    },
+    {
+      "event_id": "event-025",
+      "en_paragraph_ordinal": 25,
+      "ru_paragraph_ordinal": 25,
+      "alignment_source": "manually_authored_test_pair_not_automatic_translation_alignment",
+      "english": {
+        "id": "p00025-ae7dacb6",
+        "section_id": "s000",
+        "ordinal": 25,
+        "text": "At dawn Mara entered the mill alone. She found an unsigned letter on the table.",
+        "origin": {
+          "char_start": 1637,
+          "char_end": 1716
+        },
+        "element_type": "text",
+        "type": "narration",
+        "dialogue_spans": []
+      },
+      "russian": {
+        "id": "p00025-c247b054",
+        "section_id": "s000",
+        "ordinal": 25,
+        "text": "На рассвете Мара одна вошла на мельницу. На столе она нашла неподписанное письмо.",
+        "origin": {
+          "char_start": 1591,
+          "char_end": 1672
+        },
+        "element_type": "text",
+        "type": "narration",
+        "dialogue_spans": []
+      },
+      "qwen_en": [],
+      "qwen_ru": [
+        {
+          "schema_version": "0.1.0",
+          "model": "qwen",
+          "checkpoint_revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+          "processing": {
+            "schema_version": "0.1.0",
+            "device": "cuda",
+            "seed": 42,
+            "context_tokens": 3072,
+            "previous_paragraphs": 2,
+            "registry_limit": 24,
+            "qwen_stages": [
+              "mentions",
+              "behavior"
+            ],
+            "fable_overlap_tokens": 64,
+            "generation": {
+              "enable_thinking": false,
+              "do_sample": false,
+              "max_new_tokens": 1152,
+              "num_beams": 1,
+              "use_cache": true
+            },
+            "models": {
+              "fable": {
+                "repo": "SaladTechnologies/fable-base",
+                "revision": "45aceef3d49fe75bd8240010cbfdc983724ec420",
+                "receipt": "../literary-decision-encoders/model-paths.json",
+                "receipt_key": "fable",
+                "dtype": "float32"
+              },
+              "qwen": {
+                "repo": "Qwen/Qwen3-1.7B",
+                "revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+                "receipt": "../character-decisions/model-paths.json",
+                "receipt_key": "qwen3_1_7b",
+                "dtype": "bfloat16"
+              }
+            }
+          },
+          "run_sha256": "76b711fe576fa0ef122fc3631362a7d338cf766d02689779c0c462bd1f5ae8df",
+          "id": "p00025-c247b054:e000",
+          "character_id": "c0001",
+          "participants": {
+            "actor": "c0001",
+            "speaker": "c0001",
+            "about": "c0001",
+            "target": "c0001"
+          },
+          "categories": [
+            "action"
+          ],
+          "summary": "Мара одна вошла на мельницу.",
+          "evidence": [
+            {
+              "paragraph_id": "p00025-c247b054",
+              "start": 0,
+              "end": 40,
+              "quote": "На рассвете Мара одна вошла на мельницу."
+            }
+          ],
+          "assertion_source": "narrator",
+          "assertion_status": "asserted",
+          "certainty": "model_unverified",
+          "status": "automatic_unverified",
+          "fragment_id": "fragment-p00025-c247b054",
+          "paragraph_ids": [
+            "p00025-c247b054"
+          ]
+        },
+        {
+          "schema_version": "0.1.0",
+          "model": "qwen",
+          "checkpoint_revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+          "processing": {
+            "schema_version": "0.1.0",
+            "device": "cuda",
+            "seed": 42,
+            "context_tokens": 3072,
+            "previous_paragraphs": 2,
+            "registry_limit": 24,
+            "qwen_stages": [
+              "mentions",
+              "behavior"
+            ],
+            "fable_overlap_tokens": 64,
+            "generation": {
+              "enable_thinking": false,
+              "do_sample": false,
+              "max_new_tokens": 1152,
+              "num_beams": 1,
+              "use_cache": true
+            },
+            "models": {
+              "fable": {
+                "repo": "SaladTechnologies/fable-base",
+                "revision": "45aceef3d49fe75bd8240010cbfdc983724ec420",
+                "receipt": "../literary-decision-encoders/model-paths.json",
+                "receipt_key": "fable",
+                "dtype": "float32"
+              },
+              "qwen": {
+                "repo": "Qwen/Qwen3-1.7B",
+                "revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+                "receipt": "../character-decisions/model-paths.json",
+                "receipt_key": "qwen3_1_7b",
+                "dtype": "bfloat16"
+              }
+            }
+          },
+          "run_sha256": "76b711fe576fa0ef122fc3631362a7d338cf766d02689779c0c462bd1f5ae8df",
+          "id": "p00025-c247b054:e001",
+          "character_id": "c0001",
+          "participants": {
+            "actor": "c0001",
+            "speaker": "c0001",
+            "about": "c0001",
+            "target": "c0001"
+          },
+          "categories": [
+            "action"
+          ],
+          "summary": "Мара нашла неподписанное письмо.",
+          "evidence": [
+            {
+              "paragraph_id": "p00025-c247b054",
+              "start": 41,
+              "end": 81,
+              "quote": "На столе она нашла неподписанное письмо."
+            }
+          ],
+          "assertion_source": "narrator",
+          "assertion_status": "asserted",
+          "certainty": "model_unverified",
+          "status": "automatic_unverified",
+          "fragment_id": "fragment-p00025-c247b054",
+          "paragraph_ids": [
+            "p00025-c247b054"
+          ]
+        }
+      ],
+      "human_comparison": null
+    },
+    {
+      "event_id": "event-026",
+      "en_paragraph_ordinal": 26,
+      "ru_paragraph_ordinal": 26,
+      "alignment_source": "manually_authored_test_pair_not_automatic_translation_alignment",
+      "english": {
+        "id": "p00026-5a8c702b",
+        "section_id": "s000",
+        "ordinal": 26,
+        "text": "The letter said, \"I moved the children before midnight.\" No name identified its writer.",
+        "origin": {
+          "char_start": 1718,
+          "char_end": 1805
+        },
+        "element_type": "text",
+        "type": "mixed",
+        "dialogue_spans": [
+          {
+            "start": 17,
+            "end": 56,
+            "text": "\"I moved the children before midnight.\""
+          }
+        ]
+      },
+      "russian": {
+        "id": "p00026-c961890a",
+        "section_id": "s000",
+        "ordinal": 26,
+        "text": "В письме было сказано: «Я увёл детей до полуночи». Имени автора не было.",
+        "origin": {
+          "char_start": 1674,
+          "char_end": 1746
+        },
+        "element_type": "text",
+        "type": "mixed",
+        "dialogue_spans": [
+          {
+            "start": 23,
+            "end": 49,
+            "text": "«Я увёл детей до полуночи»"
+          }
+        ]
+      },
+      "qwen_en": [],
+      "qwen_ru": [
+        {
+          "schema_version": "0.1.0",
+          "model": "qwen",
+          "checkpoint_revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+          "processing": {
+            "schema_version": "0.1.0",
+            "device": "cuda",
+            "seed": 42,
+            "context_tokens": 3072,
+            "previous_paragraphs": 2,
+            "registry_limit": 24,
+            "qwen_stages": [
+              "mentions",
+              "behavior"
+            ],
+            "fable_overlap_tokens": 64,
+            "generation": {
+              "enable_thinking": false,
+              "do_sample": false,
+              "max_new_tokens": 1152,
+              "num_beams": 1,
+              "use_cache": true
+            },
+            "models": {
+              "fable": {
+                "repo": "SaladTechnologies/fable-base",
+                "revision": "45aceef3d49fe75bd8240010cbfdc983724ec420",
+                "receipt": "../literary-decision-encoders/model-paths.json",
+                "receipt_key": "fable",
+                "dtype": "float32"
+              },
+              "qwen": {
+                "repo": "Qwen/Qwen3-1.7B",
+                "revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+                "receipt": "../character-decisions/model-paths.json",
+                "receipt_key": "qwen3_1_7b",
+                "dtype": "bfloat16"
+              }
+            }
+          },
+          "run_sha256": "76b711fe576fa0ef122fc3631362a7d338cf766d02689779c0c462bd1f5ae8df",
+          "id": "p00026-c961890a:e000",
+          "character_id": "c0001",
+          "participants": {
+            "actor": "c0001",
+            "speaker": "c0001",
+            "about": "c0001",
+            "target": "c0001"
+          },
+          "categories": [
+            "reported_behavior"
+          ],
+          "summary": "Мара упомянула, что она увела детей до полуночи.",
+          "evidence": [
+            {
+              "paragraph_id": "p00026-c961890a",
+              "start": 0,
+              "end": 72,
+              "quote": "В письме было сказано: «Я увёл детей до полуночи». Имени автора не было."
+            }
+          ],
+          "assertion_source": "narrator",
+          "assertion_status": "asserted",
+          "certainty": "model_unverified",
+          "status": "automatic_unverified",
+          "fragment_id": "fragment-p00026-c961890a",
+          "paragraph_ids": [
+            "p00026-c961890a"
+          ]
+        }
+      ],
+      "human_comparison": null
+    },
+    {
+      "event_id": "event-027",
+      "en_paragraph_ordinal": 27,
+      "ru_paragraph_ordinal": 27,
+      "alignment_source": "manually_authored_test_pair_not_automatic_translation_alignment",
+      "english": {
+        "id": "p00027-cac2a4c9",
+        "section_id": "s000",
+        "ordinal": 27,
+        "text": "Mara folded the letter. She did not know whether its claim was true.",
+        "origin": {
+          "char_start": 1807,
+          "char_end": 1875
+        },
+        "element_type": "text",
+        "type": "narration",
+        "dialogue_spans": []
+      },
+      "russian": {
+        "id": "p00027-61a9ab5d",
+        "section_id": "s000",
+        "ordinal": 27,
+        "text": "Мара сложила письмо. Она не знала, было ли написанное правдой.",
+        "origin": {
+          "char_start": 1748,
+          "char_end": 1810
+        },
+        "element_type": "text",
+        "type": "narration",
+        "dialogue_spans": []
+      },
+      "qwen_en": [],
+      "qwen_ru": [],
+      "human_comparison": null
+    },
+    {
+      "event_id": "event-028",
+      "en_paragraph_ordinal": 28,
+      "ru_paragraph_ordinal": 28,
+      "alignment_source": "manually_authored_test_pair_not_automatic_translation_alignment",
+      "english": {
+        "id": "p00028-bd0086ac",
+        "section_id": "s000",
+        "ordinal": 28,
+        "text": "Rowan arrived and said, \"I meant to warn you, but the gate was locked.\"",
+        "origin": {
+          "char_start": 1877,
+          "char_end": 1948
+        },
+        "element_type": "text",
+        "type": "mixed",
+        "dialogue_spans": [
+          {
+            "start": 24,
+            "end": 71,
+            "text": "\"I meant to warn you, but the gate was locked.\""
+          }
+        ]
+      },
+      "russian": {
+        "id": "p00028-30b4154b",
+        "section_id": "s000",
+        "ordinal": 28,
+        "text": "Пришёл Рован и сказал: «Я хотел предупредить тебя, но ворота были заперты».",
+        "origin": {
+          "char_start": 1812,
+          "char_end": 1887
+        },
+        "element_type": "text",
+        "type": "mixed",
+        "dialogue_spans": [
+          {
+            "start": 23,
+            "end": 74,
+            "text": "«Я хотел предупредить тебя, но ворота были заперты»"
+          }
+        ]
+      },
+      "qwen_en": [],
+      "qwen_ru": [],
+      "human_comparison": null
+    },
+    {
+      "event_id": "event-029",
+      "en_paragraph_ordinal": 29,
+      "ru_paragraph_ordinal": 29,
+      "alignment_source": "manually_authored_test_pair_not_automatic_translation_alignment",
+      "english": {
+        "id": "p00029-c9753cbc",
+        "section_id": "s000",
+        "ordinal": 29,
+        "text": "Mara stepped away from him when she heard the news.",
+        "origin": {
+          "char_start": 1950,
+          "char_end": 2001
+        },
+        "element_type": "text",
+        "type": "narration",
+        "dialogue_spans": []
+      },
+      "russian": {
+        "id": "p00029-87233612",
+        "section_id": "s000",
+        "ordinal": 29,
+        "text": "Услышав новость, Мара отступила от него.",
+        "origin": {
+          "char_start": 1889,
+          "char_end": 1929
+        },
+        "element_type": "text",
+        "type": "narration",
+        "dialogue_spans": []
+      },
+      "qwen_en": [],
+      "qwen_ru": [],
+      "human_comparison": null
+    },
+    {
+      "event_id": "event-030",
+      "en_paragraph_ordinal": 30,
+      "ru_paragraph_ordinal": 30,
+      "alignment_source": "manually_authored_test_pair_not_automatic_translation_alignment",
+      "english": {
+        "id": "p00030-14f10584",
+        "section_id": "s000",
+        "ordinal": 30,
+        "text": "\"I will search the western road,\" Iven said. He remained in the doorway.",
+        "origin": {
+          "char_start": 2003,
+          "char_end": 2075
+        },
+        "element_type": "text",
+        "type": "mixed",
+        "dialogue_spans": [
+          {
+            "start": 0,
+            "end": 33,
+            "text": "\"I will search the western road,\""
+          }
+        ]
+      },
+      "russian": {
+        "id": "p00030-e3b99416",
+        "section_id": "s000",
+        "ordinal": 30,
+        "text": "— Я поищу на западной дороге, — сказал Ивен. Он остался в дверях.",
+        "origin": {
+          "char_start": 1931,
+          "char_end": 1996
+        },
+        "element_type": "text",
+        "type": "dialogue",
+        "dialogue_spans": [
+          {
+            "start": 0,
+            "end": 65,
+            "text": "— Я поищу на западной дороге, — сказал Ивен. Он остался в дверях."
+          }
+        ]
+      },
+      "qwen_en": [],
+      "qwen_ru": [],
+      "human_comparison": null
+    },
+    {
+      "event_id": "event-031",
+      "en_paragraph_ordinal": 31,
+      "ru_paragraph_ordinal": 31,
+      "alignment_source": "manually_authored_test_pair_not_automatic_translation_alignment",
+      "english": {
+        "id": "p00031-92135bf5",
+        "section_id": "s000",
+        "ordinal": 31,
+        "text": "The rain stopped. The three stood quietly until the bell rang again.",
+        "origin": {
+          "char_start": 2077,
+          "char_end": 2145
+        },
+        "element_type": "text",
+        "type": "narration",
+        "dialogue_spans": []
+      },
+      "russian": {
+        "id": "p00031-3e6480c5",
+        "section_id": "s000",
+        "ordinal": 31,
+        "text": "Дождь прекратился. Все трое молча стояли, пока колокол не зазвонил снова.",
+        "origin": {
+          "char_start": 1998,
+          "char_end": 2071
+        },
+        "element_type": "text",
+        "type": "narration",
+        "dialogue_spans": []
+      },
+      "qwen_en": [],
+      "qwen_ru": [],
+      "human_comparison": null
+    }
+  ]
+}

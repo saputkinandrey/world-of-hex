@@ -1,0 +1,229 @@
+{
+  "entities": [
+    {
+      "paragraph_id": "p00030-14f10584",
+      "start": 18,
+      "end": 31,
+      "type": "LOC",
+      "text": " western road",
+      "score": 0.498684898018837
+    },
+    {
+      "paragraph_id": "p00030-14f10584",
+      "start": 33,
+      "end": 38,
+      "type": "CHA",
+      "text": " Iven",
+      "score": 0.7933400571346283
+    }
+  ],
+  "windows": [
+    {
+      "index": 0,
+      "input_tokens": 21,
+      "tokens": [
+        {
+          "start": 0,
+          "end": 1,
+          "label": "O",
+          "score": 0.9138103127479553,
+          "token_id": 307,
+          "window": 0
+        },
+        {
+          "start": 1,
+          "end": 2,
+          "label": "O",
+          "score": 0.8885700106620789,
+          "token_id": 476,
+          "window": 0
+        },
+        {
+          "start": 2,
+          "end": 7,
+          "label": "O",
+          "score": 0.7022129893302917,
+          "token_id": 296,
+          "window": 0
+        },
+        {
+          "start": 7,
+          "end": 14,
+          "label": "O",
+          "score": 0.6236576437950134,
+          "token_id": 1004,
+          "window": 0
+        },
+        {
+          "start": 14,
+          "end": 18,
+          "label": "O",
+          "score": 0.8539296984672546,
+          "token_id": 262,
+          "window": 0
+        },
+        {
+          "start": 18,
+          "end": 26,
+          "label": "B-LOC",
+          "score": 0.48353472352027893,
+          "token_id": 4494,
+          "window": 0
+        },
+        {
+          "start": 26,
+          "end": 31,
+          "label": "I-LOC",
+          "score": 0.513835072517395,
+          "token_id": 1212,
+          "window": 0
+        },
+        {
+          "start": 31,
+          "end": 32,
+          "label": "O",
+          "score": 0.936977744102478,
+          "token_id": 261,
+          "window": 0
+        },
+        {
+          "start": 32,
+          "end": 33,
+          "label": "O",
+          "score": 0.9594465494155884,
+          "token_id": 309,
+          "window": 0
+        },
+        {
+          "start": 33,
+          "end": 35,
+          "label": "B-CHA",
+          "score": 0.8458555936813354,
+          "token_id": 273,
+          "window": 0
+        },
+        {
+          "start": 35,
+          "end": 38,
+          "label": "I-CHA",
+          "score": 0.7408245205879211,
+          "token_id": 15574,
+          "window": 0
+        },
+        {
+          "start": 38,
+          "end": 43,
+          "label": "O",
+          "score": 0.9255056977272034,
+          "token_id": 357,
+          "window": 0
+        },
+        {
+          "start": 43,
+          "end": 44,
+          "label": "O",
+          "score": 0.9288326501846313,
+          "token_id": 260,
+          "window": 0
+        },
+        {
+          "start": 44,
+          "end": 47,
+          "label": "O",
+          "score": 0.9103971719741821,
+          "token_id": 383,
+          "window": 0
+        },
+        {
+          "start": 47,
+          "end": 56,
+          "label": "O",
+          "score": 0.9610854983329773,
+          "token_id": 3663,
+          "window": 0
+        },
+        {
+          "start": 56,
+          "end": 59,
+          "label": "O",
+          "score": 0.8845388293266296,
+          "token_id": 267,
+          "window": 0
+        },
+        {
+          "start": 59,
+          "end": 63,
+          "label": "O",
+          "score": 0.8975257873535156,
+          "token_id": 262,
+          "window": 0
+        },
+        {
+          "start": 63,
+          "end": 71,
+          "label": "O",
+          "score": 0.7934190630912781,
+          "token_id": 19206,
+          "window": 0
+        },
+        {
+          "start": 71,
+          "end": 72,
+          "label": "O",
+          "score": 0.9250819683074951,
+          "token_id": 260,
+          "window": 0
+        }
+      ]
+    }
+  ],
+  "measurement": {
+    "seconds": 0.07791330000327434,
+    "rss_peak_bytes": 1368068096,
+    "cuda_peak_allocated_bytes": 754548736,
+    "cuda_peak_reserved_bytes": 796917760,
+    "rss_sampling_seconds": 0.02
+  },
+  "input_tokens": 21,
+  "output_tokens": 0,
+  "schema_version": "0.1.0",
+  "model": "fable",
+  "checkpoint_revision": "45aceef3d49fe75bd8240010cbfdc983724ec420",
+  "processing": {
+    "schema_version": "0.1.0",
+    "device": "cuda",
+    "seed": 42,
+    "context_tokens": 3072,
+    "previous_paragraphs": 2,
+    "registry_limit": 24,
+    "qwen_stages": [
+      "mentions",
+      "behavior"
+    ],
+    "fable_overlap_tokens": 64,
+    "generation": {
+      "enable_thinking": false,
+      "do_sample": false,
+      "max_new_tokens": 1152,
+      "num_beams": 1,
+      "use_cache": true
+    },
+    "models": {
+      "fable": {
+        "repo": "SaladTechnologies/fable-base",
+        "revision": "45aceef3d49fe75bd8240010cbfdc983724ec420",
+        "receipt": "../literary-decision-encoders/model-paths.json",
+        "receipt_key": "fable",
+        "dtype": "float32"
+      },
+      "qwen": {
+        "repo": "Qwen/Qwen3-1.7B",
+        "revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+        "receipt": "../character-decisions/model-paths.json",
+        "receipt_key": "qwen3_1_7b",
+        "dtype": "bfloat16"
+      }
+    }
+  },
+  "run_sha256": "118382cefc4ce5a031820d0b0d6357e32d2a11e0c2031a753b4fed645a4ce98e"
+}

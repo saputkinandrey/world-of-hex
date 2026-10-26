@@ -1,0 +1,136 @@
+{
+  "schema_version": "0.1.0",
+  "model": "qwen",
+  "checkpoint_revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+  "processing": {
+    "schema_version": "0.1.0",
+    "device": "cuda",
+    "seed": 42,
+    "context_tokens": 3072,
+    "previous_paragraphs": 2,
+    "registry_limit": 24,
+    "qwen_stages": [
+      "mentions",
+      "behavior"
+    ],
+    "fable_overlap_tokens": 64,
+    "generation": {
+      "enable_thinking": false,
+      "do_sample": false,
+      "max_new_tokens": 1152,
+      "num_beams": 1,
+      "use_cache": true
+    },
+    "models": {
+      "fable": {
+        "repo": "SaladTechnologies/fable-base",
+        "revision": "45aceef3d49fe75bd8240010cbfdc983724ec420",
+        "receipt": "../literary-decision-encoders/model-paths.json",
+        "receipt_key": "fable",
+        "dtype": "float32"
+      },
+      "qwen": {
+        "repo": "Qwen/Qwen3-1.7B",
+        "revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+        "receipt": "../character-decisions/model-paths.json",
+        "receipt_key": "qwen3_1_7b",
+        "dtype": "bfloat16"
+      }
+    }
+  },
+  "run_sha256": "d533f83e49c8e91d1505c7cd3d555564f92ab62ed20dd44def0c0a74420252ec",
+  "paragraph_id": "p00003-7957dcd5",
+  "ordinal": 3,
+  "status": "SUCCESS",
+  "normalized": {
+    "mentions": [
+      {
+        "id": "p00003-7957dcd5:m000",
+        "paragraph_id": "p00003-7957dcd5",
+        "start": 6,
+        "end": 11,
+        "quote": "Rowan",
+        "text": "Rowan",
+        "character_id": "c0002",
+        "kind": "name",
+        "role": "speaker",
+        "status": "automatic_unverified"
+      },
+      {
+        "id": "p00003-7957dcd5:m001",
+        "paragraph_id": "p00003-7957dcd5",
+        "start": 6,
+        "end": 11,
+        "quote": "Rowan",
+        "text": "Rowan",
+        "character_id": "c0002",
+        "kind": "name",
+        "role": "target",
+        "status": "automatic_unverified"
+      }
+    ],
+    "observations": [],
+    "links": [],
+    "revision_proposals": [],
+    "rejected": [
+      {
+        "kind": "observation",
+        "index": 0,
+        "error": "Unestablished character name absent from target: Rowan's response to Mara's question",
+        "original": {
+          "who": "Rowan",
+          "actor": "Rowan",
+          "target": "Mara",
+          "speaker": "Rowan",
+          "about": "Rowan's response to Mara's question",
+          "categories": [
+            "action",
+            "decision"
+          ],
+          "summary": "Rowan refuses to let the soldiers through.",
+          "source": "self_report",
+          "status": "asserted",
+          "evidence": [
+            {
+              "paragraph_id": "p00003-7957dcd5",
+              "quote": "\"No,\" Rowan answered. \"I will not let the soldiers through.\""
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "artifacts": [
+    {
+      "path": "model_outputs\\qwen\\00003.json",
+      "sha256": "00e2cff4e92a41c0604e7c5cdfe5cdd031224c268497446ec1a5133af0344180"
+    }
+  ],
+  "registry_after": [
+    {
+      "id": "c0001",
+      "name": "Mara",
+      "aliases": [
+        "Mara"
+      ],
+      "mentions": [
+        "p00002-b6a414ed:m000"
+      ],
+      "status": "automatic_unverified"
+    },
+    {
+      "id": "c0002",
+      "name": "Rowan",
+      "aliases": [
+        "Rowan"
+      ],
+      "mentions": [
+        "p00002-b6a414ed:m001",
+        "p00003-7957dcd5:m000",
+        "p00003-7957dcd5:m001"
+      ],
+      "status": "automatic_unverified"
+    }
+  ],
+  "record_sha256": "3c2641107ce32b07411f94a421296b28cd605b9c426660fc6f589caf2079f532"
+}

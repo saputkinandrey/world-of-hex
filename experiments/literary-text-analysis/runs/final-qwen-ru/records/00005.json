@@ -1,0 +1,133 @@
+{
+  "schema_version": "0.1.0",
+  "model": "qwen",
+  "checkpoint_revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+  "processing": {
+    "schema_version": "0.1.0",
+    "device": "cuda",
+    "seed": 42,
+    "context_tokens": 3072,
+    "previous_paragraphs": 2,
+    "registry_limit": 24,
+    "qwen_stages": [
+      "mentions",
+      "behavior"
+    ],
+    "fable_overlap_tokens": 64,
+    "generation": {
+      "enable_thinking": false,
+      "do_sample": false,
+      "max_new_tokens": 1152,
+      "num_beams": 1,
+      "use_cache": true
+    },
+    "models": {
+      "fable": {
+        "repo": "SaladTechnologies/fable-base",
+        "revision": "45aceef3d49fe75bd8240010cbfdc983724ec420",
+        "receipt": "../literary-decision-encoders/model-paths.json",
+        "receipt_key": "fable",
+        "dtype": "float32"
+      },
+      "qwen": {
+        "repo": "Qwen/Qwen3-1.7B",
+        "revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+        "receipt": "../character-decisions/model-paths.json",
+        "receipt_key": "qwen3_1_7b",
+        "dtype": "bfloat16"
+      }
+    }
+  },
+  "run_sha256": "76b711fe576fa0ef122fc3631362a7d338cf766d02689779c0c462bd1f5ae8df",
+  "paragraph_id": "p00005-dd96a148",
+  "ordinal": 5,
+  "status": "SUCCESS",
+  "normalized": {
+    "mentions": [],
+    "observations": [],
+    "links": [],
+    "revision_proposals": [],
+    "rejected": [
+      {
+        "kind": "observation",
+        "index": 0,
+        "error": "Observation must have target-paragraph evidence",
+        "original": {
+          "who": "Рован",
+          "actor": "Рован",
+          "target": "Рован",
+          "speaker": "Рован",
+          "about": "Рован",
+          "categories": [
+            "action"
+          ],
+          "summary": "Рован не пропустит солдат.",
+          "source": "narrator",
+          "status": "asserted",
+          "evidence": [
+            {
+              "paragraph_id": "p00003-11cfa784",
+              "quote": "— Нет, — ответил Рован. — Я не пропущу солдат."
+            }
+          ]
+        }
+      },
+      {
+        "kind": "observation",
+        "index": 1,
+        "error": "Observation must have target-paragraph evidence",
+        "original": {
+          "who": "Мара",
+          "actor": "Мара",
+          "target": "Мара",
+          "speaker": "Мара",
+          "about": "Мара",
+          "categories": [
+            "action"
+          ],
+          "summary": "Мара собиралась вернуться до рассвета.",
+          "source": "narrator",
+          "status": "asserted",
+          "evidence": [
+            {
+              "paragraph_id": "p00004-0fa31859",
+              "quote": "Мара собиралась вернуться до рассвета, но ещё не ушла с моста."
+            }
+          ]
+        }
+      },
+      {
+        "kind": "observation",
+        "index": 2,
+        "error": "Observation must have target-paragraph evidence",
+        "original": {
+          "who": "Рован",
+          "actor": "Рован",
+          "target": "Рован",
+          "speaker": "Рован",
+          "about": "Рован",
+          "categories": [
+            "action"
+          ],
+          "summary": "Рован не пропустит солдат.",
+          "source": "narrator",
+          "status": "asserted",
+          "evidence": [
+            {
+              "paragraph_id": "p00003-11cfa784",
+              "quote": "— Нет, — ответил Рован. — Я не пропущу солдат."
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "artifacts": [
+    {
+      "path": "model_outputs\\qwen\\00005.json",
+      "sha256": "05de9338c621c6690d10dafc7be7b39f9a4a3974fdbb7b72744d08574c81dd34"
+    }
+  ],
+  "registry_after": [],
+  "record_sha256": "83028dd7c7f5620fa5e1ecef794d504dac93158bdf7c00287147f2e023800029"
+}

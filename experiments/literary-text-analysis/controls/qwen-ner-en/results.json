@@ -1,0 +1,2914 @@
+{
+  "schema_version": "0.1.0",
+  "model": "qwen",
+  "repo": "Qwen/Qwen3-1.7B",
+  "revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+  "receipt": "../character-decisions/model-paths.json",
+  "receipt_key": "qwen3_1_7b",
+  "dtype": "bfloat16",
+  "local_path": "D:\\gamedev\\huggingface\\decision-models\\qwen3_1_7b\\70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+  "checkpoint_files": {
+    "config.json": "1ddb5b89ebc90dcb417a45c213d818577e65976454d29385c8f6140771d95197",
+    "generation_config.json": "2325da0f15bb848e018c5ae071b7943332e9f871d6b60e2ed22ca97d4cb993d2",
+    "merges.txt": "8831e4f1a044471340f7c0a83d7bd71306a5b867e95fd870f74d0c5308a904d5",
+    "model-00001-of-00002.safetensors": "169ad53ec313c3a34b06c0809216e4fc072cce444a5d4ff2b59690d064130ed5",
+    "model-00002-of-00002.safetensors": "912becff8d60672aa8628ef08c05898d9adf17c2ad4ae3caf99b065622fdeff9",
+    "model.safetensors.index.json": "0d660e94b165eb912669a5249dff44b83188c4777a07ddb9611fb78d91b0578d",
+    "tokenizer.json": "aeb13307a71acd8fe81861d94ad54ab689df773318809eed3cbe794b4492dae4",
+    "tokenizer_config.json": "d5d09f07b48c3086c508b30d1c9114bd1189145b74e982a265350c923acd8101",
+    "vocab.json": "ca10d7e9fb3ed18575dd1e277a2579c16d108e32f27439684afa0e10b1440910"
+  },
+  "processing": {
+    "schema_version": "0.1.0",
+    "device": "cuda",
+    "seed": 42,
+    "context_tokens": 3072,
+    "previous_paragraphs": 0,
+    "registry_limit": 0,
+    "qwen_stages": [
+      "mentions"
+    ],
+    "fable_overlap_tokens": 64,
+    "generation": {
+      "enable_thinking": false,
+      "do_sample": false,
+      "max_new_tokens": 512,
+      "num_beams": 1,
+      "use_cache": true
+    },
+    "models": {
+      "fable": {
+        "repo": "SaladTechnologies/fable-base",
+        "revision": "45aceef3d49fe75bd8240010cbfdc983724ec420",
+        "receipt": "../literary-decision-encoders/model-paths.json",
+        "receipt_key": "fable",
+        "dtype": "float32"
+      },
+      "qwen": {
+        "repo": "Qwen/Qwen3-1.7B",
+        "revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+        "receipt": "../character-decisions/model-paths.json",
+        "receipt_key": "qwen3_1_7b",
+        "dtype": "bfloat16"
+      }
+    },
+    "protocol": "independent_current_paragraph_only_no_state"
+  },
+  "code_sha256": "7becca72b6ab65aee07efa01a24cfd3e2ce29d3ee67d4df7ad5fa285a256dc61",
+  "source_sha256": "0a9687919d8d2080515213f1674a138be8c2f14b4a12a430fb0b5476d40891f6",
+  "range": [
+    0,
+    32
+  ],
+  "control_script_sha256": "9b9e971ee7407faed8334b0984046b178631ee0b5bb31655a03fb90ea39a06d9",
+  "run_sha256": "4a6c475368ff4e6a94a79f77998bb353517546f2c6665b2280a3555e695be817",
+  "paragraphs": [
+    {
+      "schema_version": "0.1.0",
+      "model": "qwen",
+      "repo": "Qwen/Qwen3-1.7B",
+      "revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+      "receipt": "../character-decisions/model-paths.json",
+      "receipt_key": "qwen3_1_7b",
+      "dtype": "bfloat16",
+      "local_path": "D:\\gamedev\\huggingface\\decision-models\\qwen3_1_7b\\70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+      "checkpoint_files": {
+        "config.json": "1ddb5b89ebc90dcb417a45c213d818577e65976454d29385c8f6140771d95197",
+        "generation_config.json": "2325da0f15bb848e018c5ae071b7943332e9f871d6b60e2ed22ca97d4cb993d2",
+        "merges.txt": "8831e4f1a044471340f7c0a83d7bd71306a5b867e95fd870f74d0c5308a904d5",
+        "model-00001-of-00002.safetensors": "169ad53ec313c3a34b06c0809216e4fc072cce444a5d4ff2b59690d064130ed5",
+        "model-00002-of-00002.safetensors": "912becff8d60672aa8628ef08c05898d9adf17c2ad4ae3caf99b065622fdeff9",
+        "model.safetensors.index.json": "0d660e94b165eb912669a5249dff44b83188c4777a07ddb9611fb78d91b0578d",
+        "tokenizer.json": "aeb13307a71acd8fe81861d94ad54ab689df773318809eed3cbe794b4492dae4",
+        "tokenizer_config.json": "d5d09f07b48c3086c508b30d1c9114bd1189145b74e982a265350c923acd8101",
+        "vocab.json": "ca10d7e9fb3ed18575dd1e277a2579c16d108e32f27439684afa0e10b1440910"
+      },
+      "processing": {
+        "schema_version": "0.1.0",
+        "device": "cuda",
+        "seed": 42,
+        "context_tokens": 3072,
+        "previous_paragraphs": 0,
+        "registry_limit": 0,
+        "qwen_stages": [
+          "mentions"
+        ],
+        "fable_overlap_tokens": 64,
+        "generation": {
+          "enable_thinking": false,
+          "do_sample": false,
+          "max_new_tokens": 512,
+          "num_beams": 1,
+          "use_cache": true
+        },
+        "models": {
+          "fable": {
+            "repo": "SaladTechnologies/fable-base",
+            "revision": "45aceef3d49fe75bd8240010cbfdc983724ec420",
+            "receipt": "../literary-decision-encoders/model-paths.json",
+            "receipt_key": "fable",
+            "dtype": "float32"
+          },
+          "qwen": {
+            "repo": "Qwen/Qwen3-1.7B",
+            "revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+            "receipt": "../character-decisions/model-paths.json",
+            "receipt_key": "qwen3_1_7b",
+            "dtype": "bfloat16"
+          }
+        },
+        "protocol": "independent_current_paragraph_only_no_state"
+      },
+      "code_sha256": "7becca72b6ab65aee07efa01a24cfd3e2ce29d3ee67d4df7ad5fa285a256dc61",
+      "source_sha256": "0a9687919d8d2080515213f1674a138be8c2f14b4a12a430fb0b5476d40891f6",
+      "range": [
+        0,
+        32
+      ],
+      "control_script_sha256": "9b9e971ee7407faed8334b0984046b178631ee0b5bb31655a03fb90ea39a06d9",
+      "run_sha256": "4a6c475368ff4e6a94a79f77998bb353517546f2c6665b2280a3555e695be817",
+      "paragraph_id": "p00000-4dc6742d",
+      "source_text": "Mara reached the stone bridge and placed a lantern on the wall.",
+      "raw_file": "model_outputs/qwen/00000.json",
+      "raw_sha256": "b46411be184a77ec9c9cf8a9ce5f86a600c78a945baedda6f28b74c6b9bf4f65",
+      "identity_scope": "paragraph_local_not_coreference",
+      "status": "SUCCESS",
+      "mentions": [],
+      "rejected": [],
+      "record_sha256": "f3ab2b72bc9736fb6cec378fe20d5b58435ab8ae52dacff3d0730eefeb6acd71"
+    },
+    {
+      "schema_version": "0.1.0",
+      "model": "qwen",
+      "repo": "Qwen/Qwen3-1.7B",
+      "revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+      "receipt": "../character-decisions/model-paths.json",
+      "receipt_key": "qwen3_1_7b",
+      "dtype": "bfloat16",
+      "local_path": "D:\\gamedev\\huggingface\\decision-models\\qwen3_1_7b\\70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+      "checkpoint_files": {
+        "config.json": "1ddb5b89ebc90dcb417a45c213d818577e65976454d29385c8f6140771d95197",
+        "generation_config.json": "2325da0f15bb848e018c5ae071b7943332e9f871d6b60e2ed22ca97d4cb993d2",
+        "merges.txt": "8831e4f1a044471340f7c0a83d7bd71306a5b867e95fd870f74d0c5308a904d5",
+        "model-00001-of-00002.safetensors": "169ad53ec313c3a34b06c0809216e4fc072cce444a5d4ff2b59690d064130ed5",
+        "model-00002-of-00002.safetensors": "912becff8d60672aa8628ef08c05898d9adf17c2ad4ae3caf99b065622fdeff9",
+        "model.safetensors.index.json": "0d660e94b165eb912669a5249dff44b83188c4777a07ddb9611fb78d91b0578d",
+        "tokenizer.json": "aeb13307a71acd8fe81861d94ad54ab689df773318809eed3cbe794b4492dae4",
+        "tokenizer_config.json": "d5d09f07b48c3086c508b30d1c9114bd1189145b74e982a265350c923acd8101",
+        "vocab.json": "ca10d7e9fb3ed18575dd1e277a2579c16d108e32f27439684afa0e10b1440910"
+      },
+      "processing": {
+        "schema_version": "0.1.0",
+        "device": "cuda",
+        "seed": 42,
+        "context_tokens": 3072,
+        "previous_paragraphs": 0,
+        "registry_limit": 0,
+        "qwen_stages": [
+          "mentions"
+        ],
+        "fable_overlap_tokens": 64,
+        "generation": {
+          "enable_thinking": false,
+          "do_sample": false,
+          "max_new_tokens": 512,
+          "num_beams": 1,
+          "use_cache": true
+        },
+        "models": {
+          "fable": {
+            "repo": "SaladTechnologies/fable-base",
+            "revision": "45aceef3d49fe75bd8240010cbfdc983724ec420",
+            "receipt": "../literary-decision-encoders/model-paths.json",
+            "receipt_key": "fable",
+            "dtype": "float32"
+          },
+          "qwen": {
+            "repo": "Qwen/Qwen3-1.7B",
+            "revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+            "receipt": "../character-decisions/model-paths.json",
+            "receipt_key": "qwen3_1_7b",
+            "dtype": "bfloat16"
+          }
+        },
+        "protocol": "independent_current_paragraph_only_no_state"
+      },
+      "code_sha256": "7becca72b6ab65aee07efa01a24cfd3e2ce29d3ee67d4df7ad5fa285a256dc61",
+      "source_sha256": "0a9687919d8d2080515213f1674a138be8c2f14b4a12a430fb0b5476d40891f6",
+      "range": [
+        0,
+        32
+      ],
+      "control_script_sha256": "9b9e971ee7407faed8334b0984046b178631ee0b5bb31655a03fb90ea39a06d9",
+      "run_sha256": "4a6c475368ff4e6a94a79f77998bb353517546f2c6665b2280a3555e695be817",
+      "paragraph_id": "p00001-7c894f36",
+      "source_text": "Rowan watched her from the gate. He kept his sword in its sheath.",
+      "raw_file": "model_outputs/qwen/00001.json",
+      "raw_sha256": "ce6c2a933cb8ab4a67bd06bac6523881bb18a0e5563b07beffa7278974bcc70d",
+      "identity_scope": "paragraph_local_not_coreference",
+      "status": "SUCCESS",
+      "mentions": [
+        {
+          "id": "p00001-7c894f36:m000",
+          "paragraph_id": "p00001-7c894f36",
+          "start": 0,
+          "end": 5,
+          "quote": "Rowan",
+          "text": "Rowan",
+          "character_id": "p00001-7c894f36:c0001",
+          "kind": "name",
+          "role": "actor",
+          "status": "automatic_unverified"
+        },
+        {
+          "id": "p00001-7c894f36:m001",
+          "paragraph_id": "p00001-7c894f36",
+          "start": 33,
+          "end": 35,
+          "quote": "He",
+          "text": "He",
+          "character_id": "p00001-7c894f36:c0002",
+          "kind": "pronoun",
+          "role": "speaker",
+          "status": "automatic_unverified"
+        }
+      ],
+      "rejected": [],
+      "record_sha256": "898d5c62874b729b528ab35a928d2517f8b9136a5f15db775a20a06cc20b5b2b"
+    },
+    {
+      "schema_version": "0.1.0",
+      "model": "qwen",
+      "repo": "Qwen/Qwen3-1.7B",
+      "revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+      "receipt": "../character-decisions/model-paths.json",
+      "receipt_key": "qwen3_1_7b",
+      "dtype": "bfloat16",
+      "local_path": "D:\\gamedev\\huggingface\\decision-models\\qwen3_1_7b\\70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+      "checkpoint_files": {
+        "config.json": "1ddb5b89ebc90dcb417a45c213d818577e65976454d29385c8f6140771d95197",
+        "generation_config.json": "2325da0f15bb848e018c5ae071b7943332e9f871d6b60e2ed22ca97d4cb993d2",
+        "merges.txt": "8831e4f1a044471340f7c0a83d7bd71306a5b867e95fd870f74d0c5308a904d5",
+        "model-00001-of-00002.safetensors": "169ad53ec313c3a34b06c0809216e4fc072cce444a5d4ff2b59690d064130ed5",
+        "model-00002-of-00002.safetensors": "912becff8d60672aa8628ef08c05898d9adf17c2ad4ae3caf99b065622fdeff9",
+        "model.safetensors.index.json": "0d660e94b165eb912669a5249dff44b83188c4777a07ddb9611fb78d91b0578d",
+        "tokenizer.json": "aeb13307a71acd8fe81861d94ad54ab689df773318809eed3cbe794b4492dae4",
+        "tokenizer_config.json": "d5d09f07b48c3086c508b30d1c9114bd1189145b74e982a265350c923acd8101",
+        "vocab.json": "ca10d7e9fb3ed18575dd1e277a2579c16d108e32f27439684afa0e10b1440910"
+      },
+      "processing": {
+        "schema_version": "0.1.0",
+        "device": "cuda",
+        "seed": 42,
+        "context_tokens": 3072,
+        "previous_paragraphs": 0,
+        "registry_limit": 0,
+        "qwen_stages": [
+          "mentions"
+        ],
+        "fable_overlap_tokens": 64,
+        "generation": {
+          "enable_thinking": false,
+          "do_sample": false,
+          "max_new_tokens": 512,
+          "num_beams": 1,
+          "use_cache": true
+        },
+        "models": {
+          "fable": {
+            "repo": "SaladTechnologies/fable-base",
+            "revision": "45aceef3d49fe75bd8240010cbfdc983724ec420",
+            "receipt": "../literary-decision-encoders/model-paths.json",
+            "receipt_key": "fable",
+            "dtype": "float32"
+          },
+          "qwen": {
+            "repo": "Qwen/Qwen3-1.7B",
+            "revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+            "receipt": "../character-decisions/model-paths.json",
+            "receipt_key": "qwen3_1_7b",
+            "dtype": "bfloat16"
+          }
+        },
+        "protocol": "independent_current_paragraph_only_no_state"
+      },
+      "code_sha256": "7becca72b6ab65aee07efa01a24cfd3e2ce29d3ee67d4df7ad5fa285a256dc61",
+      "source_sha256": "0a9687919d8d2080515213f1674a138be8c2f14b4a12a430fb0b5476d40891f6",
+      "range": [
+        0,
+        32
+      ],
+      "control_script_sha256": "9b9e971ee7407faed8334b0984046b178631ee0b5bb31655a03fb90ea39a06d9",
+      "run_sha256": "4a6c475368ff4e6a94a79f77998bb353517546f2c6665b2280a3555e695be817",
+      "paragraph_id": "p00002-b6a414ed",
+      "source_text": "\"Will you open the gate?\" Mara asked Rowan.",
+      "raw_file": "model_outputs/qwen/00002.json",
+      "raw_sha256": "a8c689924ab34b06667ef28983348cd48ab5eeb5dd86ec2b2452fc7dc86ea1d7",
+      "identity_scope": "paragraph_local_not_coreference",
+      "status": "SUCCESS",
+      "mentions": [
+        {
+          "id": "p00002-b6a414ed:m000",
+          "paragraph_id": "p00002-b6a414ed",
+          "start": 26,
+          "end": 30,
+          "quote": "Mara",
+          "text": "Mara",
+          "character_id": "p00002-b6a414ed:c0001",
+          "kind": "name",
+          "role": "actor",
+          "status": "automatic_unverified"
+        },
+        {
+          "id": "p00002-b6a414ed:m001",
+          "paragraph_id": "p00002-b6a414ed",
+          "start": 37,
+          "end": 42,
+          "quote": "Rowan",
+          "text": "Rowan",
+          "character_id": "p00002-b6a414ed:c0002",
+          "kind": "name",
+          "role": "actor",
+          "status": "automatic_unverified"
+        }
+      ],
+      "rejected": [],
+      "record_sha256": "9a61120df62632911e8fd3a92102c5ab8361215aeab57cce36d80d0d7985a26e"
+    },
+    {
+      "schema_version": "0.1.0",
+      "model": "qwen",
+      "repo": "Qwen/Qwen3-1.7B",
+      "revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+      "receipt": "../character-decisions/model-paths.json",
+      "receipt_key": "qwen3_1_7b",
+      "dtype": "bfloat16",
+      "local_path": "D:\\gamedev\\huggingface\\decision-models\\qwen3_1_7b\\70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+      "checkpoint_files": {
+        "config.json": "1ddb5b89ebc90dcb417a45c213d818577e65976454d29385c8f6140771d95197",
+        "generation_config.json": "2325da0f15bb848e018c5ae071b7943332e9f871d6b60e2ed22ca97d4cb993d2",
+        "merges.txt": "8831e4f1a044471340f7c0a83d7bd71306a5b867e95fd870f74d0c5308a904d5",
+        "model-00001-of-00002.safetensors": "169ad53ec313c3a34b06c0809216e4fc072cce444a5d4ff2b59690d064130ed5",
+        "model-00002-of-00002.safetensors": "912becff8d60672aa8628ef08c05898d9adf17c2ad4ae3caf99b065622fdeff9",
+        "model.safetensors.index.json": "0d660e94b165eb912669a5249dff44b83188c4777a07ddb9611fb78d91b0578d",
+        "tokenizer.json": "aeb13307a71acd8fe81861d94ad54ab689df773318809eed3cbe794b4492dae4",
+        "tokenizer_config.json": "d5d09f07b48c3086c508b30d1c9114bd1189145b74e982a265350c923acd8101",
+        "vocab.json": "ca10d7e9fb3ed18575dd1e277a2579c16d108e32f27439684afa0e10b1440910"
+      },
+      "processing": {
+        "schema_version": "0.1.0",
+        "device": "cuda",
+        "seed": 42,
+        "context_tokens": 3072,
+        "previous_paragraphs": 0,
+        "registry_limit": 0,
+        "qwen_stages": [
+          "mentions"
+        ],
+        "fable_overlap_tokens": 64,
+        "generation": {
+          "enable_thinking": false,
+          "do_sample": false,
+          "max_new_tokens": 512,
+          "num_beams": 1,
+          "use_cache": true
+        },
+        "models": {
+          "fable": {
+            "repo": "SaladTechnologies/fable-base",
+            "revision": "45aceef3d49fe75bd8240010cbfdc983724ec420",
+            "receipt": "../literary-decision-encoders/model-paths.json",
+            "receipt_key": "fable",
+            "dtype": "float32"
+          },
+          "qwen": {
+            "repo": "Qwen/Qwen3-1.7B",
+            "revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+            "receipt": "../character-decisions/model-paths.json",
+            "receipt_key": "qwen3_1_7b",
+            "dtype": "bfloat16"
+          }
+        },
+        "protocol": "independent_current_paragraph_only_no_state"
+      },
+      "code_sha256": "7becca72b6ab65aee07efa01a24cfd3e2ce29d3ee67d4df7ad5fa285a256dc61",
+      "source_sha256": "0a9687919d8d2080515213f1674a138be8c2f14b4a12a430fb0b5476d40891f6",
+      "range": [
+        0,
+        32
+      ],
+      "control_script_sha256": "9b9e971ee7407faed8334b0984046b178631ee0b5bb31655a03fb90ea39a06d9",
+      "run_sha256": "4a6c475368ff4e6a94a79f77998bb353517546f2c6665b2280a3555e695be817",
+      "paragraph_id": "p00003-7957dcd5",
+      "source_text": "\"No,\" Rowan answered. \"I will not let the soldiers through.\"",
+      "raw_file": "model_outputs/qwen/00003.json",
+      "raw_sha256": "2f194d1b100937f44b07594719e805761b50198da53c17e7a4fdfcad4d50ef5d",
+      "identity_scope": "paragraph_local_not_coreference",
+      "status": "SUCCESS",
+      "mentions": [
+        {
+          "id": "p00003-7957dcd5:m000",
+          "paragraph_id": "p00003-7957dcd5",
+          "start": 6,
+          "end": 11,
+          "quote": "Rowan",
+          "text": "Rowan",
+          "character_id": "p00003-7957dcd5:c0001",
+          "kind": "name",
+          "role": "speaker",
+          "status": "automatic_unverified"
+        },
+        {
+          "id": "p00003-7957dcd5:m001",
+          "paragraph_id": "p00003-7957dcd5",
+          "start": 42,
+          "end": 50,
+          "quote": "soldiers",
+          "text": "soldiers",
+          "character_id": "p00003-7957dcd5:c0002",
+          "kind": "name",
+          "role": "target",
+          "status": "automatic_unverified"
+        }
+      ],
+      "rejected": [],
+      "record_sha256": "351ea36c118765b11ede441528beb46a85fe9d51cb2174d4221bb2758070b98b"
+    },
+    {
+      "schema_version": "0.1.0",
+      "model": "qwen",
+      "repo": "Qwen/Qwen3-1.7B",
+      "revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+      "receipt": "../character-decisions/model-paths.json",
+      "receipt_key": "qwen3_1_7b",
+      "dtype": "bfloat16",
+      "local_path": "D:\\gamedev\\huggingface\\decision-models\\qwen3_1_7b\\70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+      "checkpoint_files": {
+        "config.json": "1ddb5b89ebc90dcb417a45c213d818577e65976454d29385c8f6140771d95197",
+        "generation_config.json": "2325da0f15bb848e018c5ae071b7943332e9f871d6b60e2ed22ca97d4cb993d2",
+        "merges.txt": "8831e4f1a044471340f7c0a83d7bd71306a5b867e95fd870f74d0c5308a904d5",
+        "model-00001-of-00002.safetensors": "169ad53ec313c3a34b06c0809216e4fc072cce444a5d4ff2b59690d064130ed5",
+        "model-00002-of-00002.safetensors": "912becff8d60672aa8628ef08c05898d9adf17c2ad4ae3caf99b065622fdeff9",
+        "model.safetensors.index.json": "0d660e94b165eb912669a5249dff44b83188c4777a07ddb9611fb78d91b0578d",
+        "tokenizer.json": "aeb13307a71acd8fe81861d94ad54ab689df773318809eed3cbe794b4492dae4",
+        "tokenizer_config.json": "d5d09f07b48c3086c508b30d1c9114bd1189145b74e982a265350c923acd8101",
+        "vocab.json": "ca10d7e9fb3ed18575dd1e277a2579c16d108e32f27439684afa0e10b1440910"
+      },
+      "processing": {
+        "schema_version": "0.1.0",
+        "device": "cuda",
+        "seed": 42,
+        "context_tokens": 3072,
+        "previous_paragraphs": 0,
+        "registry_limit": 0,
+        "qwen_stages": [
+          "mentions"
+        ],
+        "fable_overlap_tokens": 64,
+        "generation": {
+          "enable_thinking": false,
+          "do_sample": false,
+          "max_new_tokens": 512,
+          "num_beams": 1,
+          "use_cache": true
+        },
+        "models": {
+          "fable": {
+            "repo": "SaladTechnologies/fable-base",
+            "revision": "45aceef3d49fe75bd8240010cbfdc983724ec420",
+            "receipt": "../literary-decision-encoders/model-paths.json",
+            "receipt_key": "fable",
+            "dtype": "float32"
+          },
+          "qwen": {
+            "repo": "Qwen/Qwen3-1.7B",
+            "revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+            "receipt": "../character-decisions/model-paths.json",
+            "receipt_key": "qwen3_1_7b",
+            "dtype": "bfloat16"
+          }
+        },
+        "protocol": "independent_current_paragraph_only_no_state"
+      },
+      "code_sha256": "7becca72b6ab65aee07efa01a24cfd3e2ce29d3ee67d4df7ad5fa285a256dc61",
+      "source_sha256": "0a9687919d8d2080515213f1674a138be8c2f14b4a12a430fb0b5476d40891f6",
+      "range": [
+        0,
+        32
+      ],
+      "control_script_sha256": "9b9e971ee7407faed8334b0984046b178631ee0b5bb31655a03fb90ea39a06d9",
+      "run_sha256": "4a6c475368ff4e6a94a79f77998bb353517546f2c6665b2280a3555e695be817",
+      "paragraph_id": "p00004-3c2fbe8e",
+      "source_text": "Mara planned to return before sunrise, but she had not yet left the bridge.",
+      "raw_file": "model_outputs/qwen/00004.json",
+      "raw_sha256": "03fad9e58843e0fd3bb538d37268f38087654c44bd65f2a1a86bb829fb10b86c",
+      "identity_scope": "paragraph_local_not_coreference",
+      "status": "SUCCESS",
+      "mentions": [],
+      "rejected": [],
+      "record_sha256": "5828592996b968b293f19a637ca7364d6c99b95e9c7f507a39630f56277dc17d"
+    },
+    {
+      "schema_version": "0.1.0",
+      "model": "qwen",
+      "repo": "Qwen/Qwen3-1.7B",
+      "revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+      "receipt": "../character-decisions/model-paths.json",
+      "receipt_key": "qwen3_1_7b",
+      "dtype": "bfloat16",
+      "local_path": "D:\\gamedev\\huggingface\\decision-models\\qwen3_1_7b\\70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+      "checkpoint_files": {
+        "config.json": "1ddb5b89ebc90dcb417a45c213d818577e65976454d29385c8f6140771d95197",
+        "generation_config.json": "2325da0f15bb848e018c5ae071b7943332e9f871d6b60e2ed22ca97d4cb993d2",
+        "merges.txt": "8831e4f1a044471340f7c0a83d7bd71306a5b867e95fd870f74d0c5308a904d5",
+        "model-00001-of-00002.safetensors": "169ad53ec313c3a34b06c0809216e4fc072cce444a5d4ff2b59690d064130ed5",
+        "model-00002-of-00002.safetensors": "912becff8d60672aa8628ef08c05898d9adf17c2ad4ae3caf99b065622fdeff9",
+        "model.safetensors.index.json": "0d660e94b165eb912669a5249dff44b83188c4777a07ddb9611fb78d91b0578d",
+        "tokenizer.json": "aeb13307a71acd8fe81861d94ad54ab689df773318809eed3cbe794b4492dae4",
+        "tokenizer_config.json": "d5d09f07b48c3086c508b30d1c9114bd1189145b74e982a265350c923acd8101",
+        "vocab.json": "ca10d7e9fb3ed18575dd1e277a2579c16d108e32f27439684afa0e10b1440910"
+      },
+      "processing": {
+        "schema_version": "0.1.0",
+        "device": "cuda",
+        "seed": 42,
+        "context_tokens": 3072,
+        "previous_paragraphs": 0,
+        "registry_limit": 0,
+        "qwen_stages": [
+          "mentions"
+        ],
+        "fable_overlap_tokens": 64,
+        "generation": {
+          "enable_thinking": false,
+          "do_sample": false,
+          "max_new_tokens": 512,
+          "num_beams": 1,
+          "use_cache": true
+        },
+        "models": {
+          "fable": {
+            "repo": "SaladTechnologies/fable-base",
+            "revision": "45aceef3d49fe75bd8240010cbfdc983724ec420",
+            "receipt": "../literary-decision-encoders/model-paths.json",
+            "receipt_key": "fable",
+            "dtype": "float32"
+          },
+          "qwen": {
+            "repo": "Qwen/Qwen3-1.7B",
+            "revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+            "receipt": "../character-decisions/model-paths.json",
+            "receipt_key": "qwen3_1_7b",
+            "dtype": "bfloat16"
+          }
+        },
+        "protocol": "independent_current_paragraph_only_no_state"
+      },
+      "code_sha256": "7becca72b6ab65aee07efa01a24cfd3e2ce29d3ee67d4df7ad5fa285a256dc61",
+      "source_sha256": "0a9687919d8d2080515213f1674a138be8c2f14b4a12a430fb0b5476d40891f6",
+      "range": [
+        0,
+        32
+      ],
+      "control_script_sha256": "9b9e971ee7407faed8334b0984046b178631ee0b5bb31655a03fb90ea39a06d9",
+      "run_sha256": "4a6c475368ff4e6a94a79f77998bb353517546f2c6665b2280a3555e695be817",
+      "paragraph_id": "p00005-3ae4f9f1",
+      "source_text": "The lantern glass was green. Mist lay over the river.",
+      "raw_file": "model_outputs/qwen/00005.json",
+      "raw_sha256": "51c27a738909a6fc3f4447360f4c9b199ec56c0f443f6cde3f7e82371088b775",
+      "identity_scope": "paragraph_local_not_coreference",
+      "status": "SUCCESS",
+      "mentions": [],
+      "rejected": [],
+      "record_sha256": "33fbe22d2569ab56a5941fa6d4f7fb0a8fd51d04cb7d5647ecaefff8a514e8f9"
+    },
+    {
+      "schema_version": "0.1.0",
+      "model": "qwen",
+      "repo": "Qwen/Qwen3-1.7B",
+      "revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+      "receipt": "../character-decisions/model-paths.json",
+      "receipt_key": "qwen3_1_7b",
+      "dtype": "bfloat16",
+      "local_path": "D:\\gamedev\\huggingface\\decision-models\\qwen3_1_7b\\70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+      "checkpoint_files": {
+        "config.json": "1ddb5b89ebc90dcb417a45c213d818577e65976454d29385c8f6140771d95197",
+        "generation_config.json": "2325da0f15bb848e018c5ae071b7943332e9f871d6b60e2ed22ca97d4cb993d2",
+        "merges.txt": "8831e4f1a044471340f7c0a83d7bd71306a5b867e95fd870f74d0c5308a904d5",
+        "model-00001-of-00002.safetensors": "169ad53ec313c3a34b06c0809216e4fc072cce444a5d4ff2b59690d064130ed5",
+        "model-00002-of-00002.safetensors": "912becff8d60672aa8628ef08c05898d9adf17c2ad4ae3caf99b065622fdeff9",
+        "model.safetensors.index.json": "0d660e94b165eb912669a5249dff44b83188c4777a07ddb9611fb78d91b0578d",
+        "tokenizer.json": "aeb13307a71acd8fe81861d94ad54ab689df773318809eed3cbe794b4492dae4",
+        "tokenizer_config.json": "d5d09f07b48c3086c508b30d1c9114bd1189145b74e982a265350c923acd8101",
+        "vocab.json": "ca10d7e9fb3ed18575dd1e277a2579c16d108e32f27439684afa0e10b1440910"
+      },
+      "processing": {
+        "schema_version": "0.1.0",
+        "device": "cuda",
+        "seed": 42,
+        "context_tokens": 3072,
+        "previous_paragraphs": 0,
+        "registry_limit": 0,
+        "qwen_stages": [
+          "mentions"
+        ],
+        "fable_overlap_tokens": 64,
+        "generation": {
+          "enable_thinking": false,
+          "do_sample": false,
+          "max_new_tokens": 512,
+          "num_beams": 1,
+          "use_cache": true
+        },
+        "models": {
+          "fable": {
+            "repo": "SaladTechnologies/fable-base",
+            "revision": "45aceef3d49fe75bd8240010cbfdc983724ec420",
+            "receipt": "../literary-decision-encoders/model-paths.json",
+            "receipt_key": "fable",
+            "dtype": "float32"
+          },
+          "qwen": {
+            "repo": "Qwen/Qwen3-1.7B",
+            "revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+            "receipt": "../character-decisions/model-paths.json",
+            "receipt_key": "qwen3_1_7b",
+            "dtype": "bfloat16"
+          }
+        },
+        "protocol": "independent_current_paragraph_only_no_state"
+      },
+      "code_sha256": "7becca72b6ab65aee07efa01a24cfd3e2ce29d3ee67d4df7ad5fa285a256dc61",
+      "source_sha256": "0a9687919d8d2080515213f1674a138be8c2f14b4a12a430fb0b5476d40891f6",
+      "range": [
+        0,
+        32
+      ],
+      "control_script_sha256": "9b9e971ee7407faed8334b0984046b178631ee0b5bb31655a03fb90ea39a06d9",
+      "run_sha256": "4a6c475368ff4e6a94a79f77998bb353517546f2c6665b2280a3555e695be817",
+      "paragraph_id": "p00006-d6095cad",
+      "source_text": "Rowan checked the lock every evening before he went home.",
+      "raw_file": "model_outputs/qwen/00006.json",
+      "raw_sha256": "0dfdf01bc20081499edfe54c1df9dbfd4b680c40952f1451e8e455c60977a15c",
+      "identity_scope": "paragraph_local_not_coreference",
+      "status": "SUCCESS",
+      "mentions": [],
+      "rejected": [],
+      "record_sha256": "f70f7833ad664708a2f7fff021963506d4db4e60377c159f73b3d13530ae0fde"
+    },
+    {
+      "schema_version": "0.1.0",
+      "model": "qwen",
+      "repo": "Qwen/Qwen3-1.7B",
+      "revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+      "receipt": "../character-decisions/model-paths.json",
+      "receipt_key": "qwen3_1_7b",
+      "dtype": "bfloat16",
+      "local_path": "D:\\gamedev\\huggingface\\decision-models\\qwen3_1_7b\\70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+      "checkpoint_files": {
+        "config.json": "1ddb5b89ebc90dcb417a45c213d818577e65976454d29385c8f6140771d95197",
+        "generation_config.json": "2325da0f15bb848e018c5ae071b7943332e9f871d6b60e2ed22ca97d4cb993d2",
+        "merges.txt": "8831e4f1a044471340f7c0a83d7bd71306a5b867e95fd870f74d0c5308a904d5",
+        "model-00001-of-00002.safetensors": "169ad53ec313c3a34b06c0809216e4fc072cce444a5d4ff2b59690d064130ed5",
+        "model-00002-of-00002.safetensors": "912becff8d60672aa8628ef08c05898d9adf17c2ad4ae3caf99b065622fdeff9",
+        "model.safetensors.index.json": "0d660e94b165eb912669a5249dff44b83188c4777a07ddb9611fb78d91b0578d",
+        "tokenizer.json": "aeb13307a71acd8fe81861d94ad54ab689df773318809eed3cbe794b4492dae4",
+        "tokenizer_config.json": "d5d09f07b48c3086c508b30d1c9114bd1189145b74e982a265350c923acd8101",
+        "vocab.json": "ca10d7e9fb3ed18575dd1e277a2579c16d108e32f27439684afa0e10b1440910"
+      },
+      "processing": {
+        "schema_version": "0.1.0",
+        "device": "cuda",
+        "seed": 42,
+        "context_tokens": 3072,
+        "previous_paragraphs": 0,
+        "registry_limit": 0,
+        "qwen_stages": [
+          "mentions"
+        ],
+        "fable_overlap_tokens": 64,
+        "generation": {
+          "enable_thinking": false,
+          "do_sample": false,
+          "max_new_tokens": 512,
+          "num_beams": 1,
+          "use_cache": true
+        },
+        "models": {
+          "fable": {
+            "repo": "SaladTechnologies/fable-base",
+            "revision": "45aceef3d49fe75bd8240010cbfdc983724ec420",
+            "receipt": "../literary-decision-encoders/model-paths.json",
+            "receipt_key": "fable",
+            "dtype": "float32"
+          },
+          "qwen": {
+            "repo": "Qwen/Qwen3-1.7B",
+            "revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+            "receipt": "../character-decisions/model-paths.json",
+            "receipt_key": "qwen3_1_7b",
+            "dtype": "bfloat16"
+          }
+        },
+        "protocol": "independent_current_paragraph_only_no_state"
+      },
+      "code_sha256": "7becca72b6ab65aee07efa01a24cfd3e2ce29d3ee67d4df7ad5fa285a256dc61",
+      "source_sha256": "0a9687919d8d2080515213f1674a138be8c2f14b4a12a430fb0b5476d40891f6",
+      "range": [
+        0,
+        32
+      ],
+      "control_script_sha256": "9b9e971ee7407faed8334b0984046b178631ee0b5bb31655a03fb90ea39a06d9",
+      "run_sha256": "4a6c475368ff4e6a94a79f77998bb353517546f2c6665b2280a3555e695be817",
+      "paragraph_id": "p00007-80579766",
+      "source_text": "\"Last winter I hid three children in the mill,\" Mara said.",
+      "raw_file": "model_outputs/qwen/00007.json",
+      "raw_sha256": "795935be5e4e2c538f250bc5ec7fa9593c92dccf7586cbcca578b498ab0ec2f4",
+      "identity_scope": "paragraph_local_not_coreference",
+      "status": "SUCCESS",
+      "mentions": [
+        {
+          "id": "p00007-80579766:m000",
+          "paragraph_id": "p00007-80579766",
+          "start": 48,
+          "end": 52,
+          "quote": "Mara",
+          "text": "Mara",
+          "character_id": "p00007-80579766:c0001",
+          "kind": "name",
+          "role": "speaker",
+          "status": "automatic_unverified"
+        },
+        {
+          "id": "p00007-80579766:m001",
+          "paragraph_id": "p00007-80579766",
+          "start": 25,
+          "end": 33,
+          "quote": "children",
+          "text": "children",
+          "character_id": "p00007-80579766:c0002",
+          "kind": "pronoun",
+          "role": "target",
+          "status": "automatic_unverified"
+        }
+      ],
+      "rejected": [],
+      "record_sha256": "1ae18041c6816da40870462b8d8c53b134e55b35038b31f02792c0438daf09e3"
+    },
+    {
+      "schema_version": "0.1.0",
+      "model": "qwen",
+      "repo": "Qwen/Qwen3-1.7B",
+      "revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+      "receipt": "../character-decisions/model-paths.json",
+      "receipt_key": "qwen3_1_7b",
+      "dtype": "bfloat16",
+      "local_path": "D:\\gamedev\\huggingface\\decision-models\\qwen3_1_7b\\70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+      "checkpoint_files": {
+        "config.json": "1ddb5b89ebc90dcb417a45c213d818577e65976454d29385c8f6140771d95197",
+        "generation_config.json": "2325da0f15bb848e018c5ae071b7943332e9f871d6b60e2ed22ca97d4cb993d2",
+        "merges.txt": "8831e4f1a044471340f7c0a83d7bd71306a5b867e95fd870f74d0c5308a904d5",
+        "model-00001-of-00002.safetensors": "169ad53ec313c3a34b06c0809216e4fc072cce444a5d4ff2b59690d064130ed5",
+        "model-00002-of-00002.safetensors": "912becff8d60672aa8628ef08c05898d9adf17c2ad4ae3caf99b065622fdeff9",
+        "model.safetensors.index.json": "0d660e94b165eb912669a5249dff44b83188c4777a07ddb9611fb78d91b0578d",
+        "tokenizer.json": "aeb13307a71acd8fe81861d94ad54ab689df773318809eed3cbe794b4492dae4",
+        "tokenizer_config.json": "d5d09f07b48c3086c508b30d1c9114bd1189145b74e982a265350c923acd8101",
+        "vocab.json": "ca10d7e9fb3ed18575dd1e277a2579c16d108e32f27439684afa0e10b1440910"
+      },
+      "processing": {
+        "schema_version": "0.1.0",
+        "device": "cuda",
+        "seed": 42,
+        "context_tokens": 3072,
+        "previous_paragraphs": 0,
+        "registry_limit": 0,
+        "qwen_stages": [
+          "mentions"
+        ],
+        "fable_overlap_tokens": 64,
+        "generation": {
+          "enable_thinking": false,
+          "do_sample": false,
+          "max_new_tokens": 512,
+          "num_beams": 1,
+          "use_cache": true
+        },
+        "models": {
+          "fable": {
+            "repo": "SaladTechnologies/fable-base",
+            "revision": "45aceef3d49fe75bd8240010cbfdc983724ec420",
+            "receipt": "../literary-decision-encoders/model-paths.json",
+            "receipt_key": "fable",
+            "dtype": "float32"
+          },
+          "qwen": {
+            "repo": "Qwen/Qwen3-1.7B",
+            "revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+            "receipt": "../character-decisions/model-paths.json",
+            "receipt_key": "qwen3_1_7b",
+            "dtype": "bfloat16"
+          }
+        },
+        "protocol": "independent_current_paragraph_only_no_state"
+      },
+      "code_sha256": "7becca72b6ab65aee07efa01a24cfd3e2ce29d3ee67d4df7ad5fa285a256dc61",
+      "source_sha256": "0a9687919d8d2080515213f1674a138be8c2f14b4a12a430fb0b5476d40891f6",
+      "range": [
+        0,
+        32
+      ],
+      "control_script_sha256": "9b9e971ee7407faed8334b0984046b178631ee0b5bb31655a03fb90ea39a06d9",
+      "run_sha256": "4a6c475368ff4e6a94a79f77998bb353517546f2c6665b2280a3555e695be817",
+      "paragraph_id": "p00008-304e26be",
+      "source_text": "\"I heard that Rowan sold the map,\" said Iven. \"I did not see it happen.\"",
+      "raw_file": "model_outputs/qwen/00008.json",
+      "raw_sha256": "d1622a4948698ed93c2e2a93f323554f3871f143f8c3e7760ebcc695288c00fa",
+      "identity_scope": "paragraph_local_not_coreference",
+      "status": "SUCCESS",
+      "mentions": [
+        {
+          "id": "p00008-304e26be:m000",
+          "paragraph_id": "p00008-304e26be",
+          "start": 14,
+          "end": 19,
+          "quote": "Rowan",
+          "text": "Rowan",
+          "character_id": "p00008-304e26be:c0001",
+          "kind": "name",
+          "role": "about",
+          "status": "automatic_unverified"
+        },
+        {
+          "id": "p00008-304e26be:m001",
+          "paragraph_id": "p00008-304e26be",
+          "start": 40,
+          "end": 44,
+          "quote": "Iven",
+          "text": "Iven",
+          "character_id": "p00008-304e26be:c0002",
+          "kind": "name",
+          "role": "speaker",
+          "status": "automatic_unverified"
+        }
+      ],
+      "rejected": [],
+      "record_sha256": "6487d985bddbd08485a893c9ac83157ec8c5afecacf91dc60d8c165a039989ae"
+    },
+    {
+      "schema_version": "0.1.0",
+      "model": "qwen",
+      "repo": "Qwen/Qwen3-1.7B",
+      "revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+      "receipt": "../character-decisions/model-paths.json",
+      "receipt_key": "qwen3_1_7b",
+      "dtype": "bfloat16",
+      "local_path": "D:\\gamedev\\huggingface\\decision-models\\qwen3_1_7b\\70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+      "checkpoint_files": {
+        "config.json": "1ddb5b89ebc90dcb417a45c213d818577e65976454d29385c8f6140771d95197",
+        "generation_config.json": "2325da0f15bb848e018c5ae071b7943332e9f871d6b60e2ed22ca97d4cb993d2",
+        "merges.txt": "8831e4f1a044471340f7c0a83d7bd71306a5b867e95fd870f74d0c5308a904d5",
+        "model-00001-of-00002.safetensors": "169ad53ec313c3a34b06c0809216e4fc072cce444a5d4ff2b59690d064130ed5",
+        "model-00002-of-00002.safetensors": "912becff8d60672aa8628ef08c05898d9adf17c2ad4ae3caf99b065622fdeff9",
+        "model.safetensors.index.json": "0d660e94b165eb912669a5249dff44b83188c4777a07ddb9611fb78d91b0578d",
+        "tokenizer.json": "aeb13307a71acd8fe81861d94ad54ab689df773318809eed3cbe794b4492dae4",
+        "tokenizer_config.json": "d5d09f07b48c3086c508b30d1c9114bd1189145b74e982a265350c923acd8101",
+        "vocab.json": "ca10d7e9fb3ed18575dd1e277a2579c16d108e32f27439684afa0e10b1440910"
+      },
+      "processing": {
+        "schema_version": "0.1.0",
+        "device": "cuda",
+        "seed": 42,
+        "context_tokens": 3072,
+        "previous_paragraphs": 0,
+        "registry_limit": 0,
+        "qwen_stages": [
+          "mentions"
+        ],
+        "fable_overlap_tokens": 64,
+        "generation": {
+          "enable_thinking": false,
+          "do_sample": false,
+          "max_new_tokens": 512,
+          "num_beams": 1,
+          "use_cache": true
+        },
+        "models": {
+          "fable": {
+            "repo": "SaladTechnologies/fable-base",
+            "revision": "45aceef3d49fe75bd8240010cbfdc983724ec420",
+            "receipt": "../literary-decision-encoders/model-paths.json",
+            "receipt_key": "fable",
+            "dtype": "float32"
+          },
+          "qwen": {
+            "repo": "Qwen/Qwen3-1.7B",
+            "revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+            "receipt": "../character-decisions/model-paths.json",
+            "receipt_key": "qwen3_1_7b",
+            "dtype": "bfloat16"
+          }
+        },
+        "protocol": "independent_current_paragraph_only_no_state"
+      },
+      "code_sha256": "7becca72b6ab65aee07efa01a24cfd3e2ce29d3ee67d4df7ad5fa285a256dc61",
+      "source_sha256": "0a9687919d8d2080515213f1674a138be8c2f14b4a12a430fb0b5476d40891f6",
+      "range": [
+        0,
+        32
+      ],
+      "control_script_sha256": "9b9e971ee7407faed8334b0984046b178631ee0b5bb31655a03fb90ea39a06d9",
+      "run_sha256": "4a6c475368ff4e6a94a79f77998bb353517546f2c6665b2280a3555e695be817",
+      "paragraph_id": "p00009-34f53a39",
+      "source_text": "\"I never betrayed my friends,\" Rowan said. Nobody answered his claim.",
+      "raw_file": "model_outputs/qwen/00009.json",
+      "raw_sha256": "2f7017a707395316c6fb42d1c31ae3b07c6b802ea37976655f6a1b5bd6f098ef",
+      "identity_scope": "paragraph_local_not_coreference",
+      "status": "SUCCESS",
+      "mentions": [
+        {
+          "id": "p00009-34f53a39:m000",
+          "paragraph_id": "p00009-34f53a39",
+          "start": 31,
+          "end": 36,
+          "quote": "Rowan",
+          "text": "Rowan",
+          "character_id": "p00009-34f53a39:c0001",
+          "kind": "name",
+          "role": "actor",
+          "status": "automatic_unverified"
+        }
+      ],
+      "rejected": [
+        {
+          "kind": "mention",
+          "index": 1,
+          "error": "Quote has 0 occurrences; supply occurrence: 'nobody'",
+          "original": {
+            "quote": "nobody",
+            "who": "nobody",
+            "kind": "pronoun",
+            "role": "target"
+          }
+        }
+      ],
+      "record_sha256": "3924fb71aff15b1eba58db53c287feb7a4dd54f74c23cb06e321b2fc0c556b76"
+    },
+    {
+      "schema_version": "0.1.0",
+      "model": "qwen",
+      "repo": "Qwen/Qwen3-1.7B",
+      "revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+      "receipt": "../character-decisions/model-paths.json",
+      "receipt_key": "qwen3_1_7b",
+      "dtype": "bfloat16",
+      "local_path": "D:\\gamedev\\huggingface\\decision-models\\qwen3_1_7b\\70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+      "checkpoint_files": {
+        "config.json": "1ddb5b89ebc90dcb417a45c213d818577e65976454d29385c8f6140771d95197",
+        "generation_config.json": "2325da0f15bb848e018c5ae071b7943332e9f871d6b60e2ed22ca97d4cb993d2",
+        "merges.txt": "8831e4f1a044471340f7c0a83d7bd71306a5b867e95fd870f74d0c5308a904d5",
+        "model-00001-of-00002.safetensors": "169ad53ec313c3a34b06c0809216e4fc072cce444a5d4ff2b59690d064130ed5",
+        "model-00002-of-00002.safetensors": "912becff8d60672aa8628ef08c05898d9adf17c2ad4ae3caf99b065622fdeff9",
+        "model.safetensors.index.json": "0d660e94b165eb912669a5249dff44b83188c4777a07ddb9611fb78d91b0578d",
+        "tokenizer.json": "aeb13307a71acd8fe81861d94ad54ab689df773318809eed3cbe794b4492dae4",
+        "tokenizer_config.json": "d5d09f07b48c3086c508b30d1c9114bd1189145b74e982a265350c923acd8101",
+        "vocab.json": "ca10d7e9fb3ed18575dd1e277a2579c16d108e32f27439684afa0e10b1440910"
+      },
+      "processing": {
+        "schema_version": "0.1.0",
+        "device": "cuda",
+        "seed": 42,
+        "context_tokens": 3072,
+        "previous_paragraphs": 0,
+        "registry_limit": 0,
+        "qwen_stages": [
+          "mentions"
+        ],
+        "fable_overlap_tokens": 64,
+        "generation": {
+          "enable_thinking": false,
+          "do_sample": false,
+          "max_new_tokens": 512,
+          "num_beams": 1,
+          "use_cache": true
+        },
+        "models": {
+          "fable": {
+            "repo": "SaladTechnologies/fable-base",
+            "revision": "45aceef3d49fe75bd8240010cbfdc983724ec420",
+            "receipt": "../literary-decision-encoders/model-paths.json",
+            "receipt_key": "fable",
+            "dtype": "float32"
+          },
+          "qwen": {
+            "repo": "Qwen/Qwen3-1.7B",
+            "revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+            "receipt": "../character-decisions/model-paths.json",
+            "receipt_key": "qwen3_1_7b",
+            "dtype": "bfloat16"
+          }
+        },
+        "protocol": "independent_current_paragraph_only_no_state"
+      },
+      "code_sha256": "7becca72b6ab65aee07efa01a24cfd3e2ce29d3ee67d4df7ad5fa285a256dc61",
+      "source_sha256": "0a9687919d8d2080515213f1674a138be8c2f14b4a12a430fb0b5476d40891f6",
+      "range": [
+        0,
+        32
+      ],
+      "control_script_sha256": "9b9e971ee7407faed8334b0984046b178631ee0b5bb31655a03fb90ea39a06d9",
+      "run_sha256": "4a6c475368ff4e6a94a79f77998bb353517546f2c6665b2280a3555e695be817",
+      "paragraph_id": "p00010-67c3d0da",
+      "source_text": "Mara stayed by the gate because she wanted the children to reach safety.",
+      "raw_file": "model_outputs/qwen/00010.json",
+      "raw_sha256": "0e58cb66263cc2273f67441e6755d39112fa4426d4b5ca94aa1d883e6f943612",
+      "identity_scope": "paragraph_local_not_coreference",
+      "status": "SUCCESS",
+      "mentions": [
+        {
+          "id": "p00010-67c3d0da:m000",
+          "paragraph_id": "p00010-67c3d0da",
+          "start": 0,
+          "end": 4,
+          "quote": "Mara",
+          "text": "Mara",
+          "character_id": "p00010-67c3d0da:c0001",
+          "kind": "name",
+          "role": "actor",
+          "status": "automatic_unverified"
+        },
+        {
+          "id": "p00010-67c3d0da:m001",
+          "paragraph_id": "p00010-67c3d0da",
+          "start": 47,
+          "end": 55,
+          "quote": "children",
+          "text": "children",
+          "character_id": "p00010-67c3d0da:c0002",
+          "kind": "pronoun",
+          "role": "target",
+          "status": "automatic_unverified"
+        }
+      ],
+      "rejected": [],
+      "record_sha256": "6a64e7c9d38412383d0fba79ef8402a4a56eb2725cffbad2985cda41b8bd461b"
+    },
+    {
+      "schema_version": "0.1.0",
+      "model": "qwen",
+      "repo": "Qwen/Qwen3-1.7B",
+      "revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+      "receipt": "../character-decisions/model-paths.json",
+      "receipt_key": "qwen3_1_7b",
+      "dtype": "bfloat16",
+      "local_path": "D:\\gamedev\\huggingface\\decision-models\\qwen3_1_7b\\70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+      "checkpoint_files": {
+        "config.json": "1ddb5b89ebc90dcb417a45c213d818577e65976454d29385c8f6140771d95197",
+        "generation_config.json": "2325da0f15bb848e018c5ae071b7943332e9f871d6b60e2ed22ca97d4cb993d2",
+        "merges.txt": "8831e4f1a044471340f7c0a83d7bd71306a5b867e95fd870f74d0c5308a904d5",
+        "model-00001-of-00002.safetensors": "169ad53ec313c3a34b06c0809216e4fc072cce444a5d4ff2b59690d064130ed5",
+        "model-00002-of-00002.safetensors": "912becff8d60672aa8628ef08c05898d9adf17c2ad4ae3caf99b065622fdeff9",
+        "model.safetensors.index.json": "0d660e94b165eb912669a5249dff44b83188c4777a07ddb9611fb78d91b0578d",
+        "tokenizer.json": "aeb13307a71acd8fe81861d94ad54ab689df773318809eed3cbe794b4492dae4",
+        "tokenizer_config.json": "d5d09f07b48c3086c508b30d1c9114bd1189145b74e982a265350c923acd8101",
+        "vocab.json": "ca10d7e9fb3ed18575dd1e277a2579c16d108e32f27439684afa0e10b1440910"
+      },
+      "processing": {
+        "schema_version": "0.1.0",
+        "device": "cuda",
+        "seed": 42,
+        "context_tokens": 3072,
+        "previous_paragraphs": 0,
+        "registry_limit": 0,
+        "qwen_stages": [
+          "mentions"
+        ],
+        "fable_overlap_tokens": 64,
+        "generation": {
+          "enable_thinking": false,
+          "do_sample": false,
+          "max_new_tokens": 512,
+          "num_beams": 1,
+          "use_cache": true
+        },
+        "models": {
+          "fable": {
+            "repo": "SaladTechnologies/fable-base",
+            "revision": "45aceef3d49fe75bd8240010cbfdc983724ec420",
+            "receipt": "../literary-decision-encoders/model-paths.json",
+            "receipt_key": "fable",
+            "dtype": "float32"
+          },
+          "qwen": {
+            "repo": "Qwen/Qwen3-1.7B",
+            "revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+            "receipt": "../character-decisions/model-paths.json",
+            "receipt_key": "qwen3_1_7b",
+            "dtype": "bfloat16"
+          }
+        },
+        "protocol": "independent_current_paragraph_only_no_state"
+      },
+      "code_sha256": "7becca72b6ab65aee07efa01a24cfd3e2ce29d3ee67d4df7ad5fa285a256dc61",
+      "source_sha256": "0a9687919d8d2080515213f1674a138be8c2f14b4a12a430fb0b5476d40891f6",
+      "range": [
+        0,
+        32
+      ],
+      "control_script_sha256": "9b9e971ee7407faed8334b0984046b178631ee0b5bb31655a03fb90ea39a06d9",
+      "run_sha256": "4a6c475368ff4e6a94a79f77998bb353517546f2c6665b2280a3555e695be817",
+      "paragraph_id": "p00011-8e6a8ffe",
+      "source_text": "When the bell rang, Iven flinched and dropped his cup.",
+      "raw_file": "model_outputs/qwen/00011.json",
+      "raw_sha256": "144997cb409bec6aed4bc36b984466858a87814a8f19f3d4f783e89fb6dbc686",
+      "identity_scope": "paragraph_local_not_coreference",
+      "status": "SUCCESS",
+      "mentions": [
+        {
+          "id": "p00011-8e6a8ffe:m000",
+          "paragraph_id": "p00011-8e6a8ffe",
+          "start": 20,
+          "end": 24,
+          "quote": "Iven",
+          "text": "Iven",
+          "character_id": "p00011-8e6a8ffe:c0001",
+          "kind": "name",
+          "role": "actor",
+          "status": "automatic_unverified"
+        },
+        {
+          "id": "p00011-8e6a8ffe:m001",
+          "paragraph_id": "p00011-8e6a8ffe",
+          "start": 20,
+          "end": 24,
+          "quote": "Iven",
+          "text": "Iven",
+          "character_id": "p00011-8e6a8ffe:c0001",
+          "kind": "pronoun",
+          "role": "speaker",
+          "status": "automatic_unverified"
+        }
+      ],
+      "rejected": [],
+      "record_sha256": "9245aac66eb426b423ca7f7bbfef62d49bfd4631c8e97b957a3e8c11c34649d2"
+    },
+    {
+      "schema_version": "0.1.0",
+      "model": "qwen",
+      "repo": "Qwen/Qwen3-1.7B",
+      "revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+      "receipt": "../character-decisions/model-paths.json",
+      "receipt_key": "qwen3_1_7b",
+      "dtype": "bfloat16",
+      "local_path": "D:\\gamedev\\huggingface\\decision-models\\qwen3_1_7b\\70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+      "checkpoint_files": {
+        "config.json": "1ddb5b89ebc90dcb417a45c213d818577e65976454d29385c8f6140771d95197",
+        "generation_config.json": "2325da0f15bb848e018c5ae071b7943332e9f871d6b60e2ed22ca97d4cb993d2",
+        "merges.txt": "8831e4f1a044471340f7c0a83d7bd71306a5b867e95fd870f74d0c5308a904d5",
+        "model-00001-of-00002.safetensors": "169ad53ec313c3a34b06c0809216e4fc072cce444a5d4ff2b59690d064130ed5",
+        "model-00002-of-00002.safetensors": "912becff8d60672aa8628ef08c05898d9adf17c2ad4ae3caf99b065622fdeff9",
+        "model.safetensors.index.json": "0d660e94b165eb912669a5249dff44b83188c4777a07ddb9611fb78d91b0578d",
+        "tokenizer.json": "aeb13307a71acd8fe81861d94ad54ab689df773318809eed3cbe794b4492dae4",
+        "tokenizer_config.json": "d5d09f07b48c3086c508b30d1c9114bd1189145b74e982a265350c923acd8101",
+        "vocab.json": "ca10d7e9fb3ed18575dd1e277a2579c16d108e32f27439684afa0e10b1440910"
+      },
+      "processing": {
+        "schema_version": "0.1.0",
+        "device": "cuda",
+        "seed": 42,
+        "context_tokens": 3072,
+        "previous_paragraphs": 0,
+        "registry_limit": 0,
+        "qwen_stages": [
+          "mentions"
+        ],
+        "fable_overlap_tokens": 64,
+        "generation": {
+          "enable_thinking": false,
+          "do_sample": false,
+          "max_new_tokens": 512,
+          "num_beams": 1,
+          "use_cache": true
+        },
+        "models": {
+          "fable": {
+            "repo": "SaladTechnologies/fable-base",
+            "revision": "45aceef3d49fe75bd8240010cbfdc983724ec420",
+            "receipt": "../literary-decision-encoders/model-paths.json",
+            "receipt_key": "fable",
+            "dtype": "float32"
+          },
+          "qwen": {
+            "repo": "Qwen/Qwen3-1.7B",
+            "revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+            "receipt": "../character-decisions/model-paths.json",
+            "receipt_key": "qwen3_1_7b",
+            "dtype": "bfloat16"
+          }
+        },
+        "protocol": "independent_current_paragraph_only_no_state"
+      },
+      "code_sha256": "7becca72b6ab65aee07efa01a24cfd3e2ce29d3ee67d4df7ad5fa285a256dc61",
+      "source_sha256": "0a9687919d8d2080515213f1674a138be8c2f14b4a12a430fb0b5476d40891f6",
+      "range": [
+        0,
+        32
+      ],
+      "control_script_sha256": "9b9e971ee7407faed8334b0984046b178631ee0b5bb31655a03fb90ea39a06d9",
+      "run_sha256": "4a6c475368ff4e6a94a79f77998bb353517546f2c6665b2280a3555e695be817",
+      "paragraph_id": "p00012-c66f1d9d",
+      "source_text": "Rowan and Iven entered the yard. He lifted the lantern.",
+      "raw_file": "model_outputs/qwen/00012.json",
+      "raw_sha256": "c7ed9ddf8570af2fc63c6d4456f8046567d566659bb27708c0ff926c5a84e549",
+      "identity_scope": "paragraph_local_not_coreference",
+      "status": "SUCCESS",
+      "mentions": [
+        {
+          "id": "p00012-c66f1d9d:m000",
+          "paragraph_id": "p00012-c66f1d9d",
+          "start": 0,
+          "end": 5,
+          "quote": "Rowan",
+          "text": "Rowan",
+          "character_id": "p00012-c66f1d9d:c0001",
+          "kind": "name",
+          "role": "actor",
+          "status": "automatic_unverified"
+        },
+        {
+          "id": "p00012-c66f1d9d:m001",
+          "paragraph_id": "p00012-c66f1d9d",
+          "start": 10,
+          "end": 14,
+          "quote": "Iven",
+          "text": "Iven",
+          "character_id": "p00012-c66f1d9d:c0002",
+          "kind": "name",
+          "role": "actor",
+          "status": "automatic_unverified"
+        }
+      ],
+      "rejected": [],
+      "record_sha256": "050426af9f8a1418f4733d333202718b49570f9051fe41c1624091275a1c88cf"
+    },
+    {
+      "schema_version": "0.1.0",
+      "model": "qwen",
+      "repo": "Qwen/Qwen3-1.7B",
+      "revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+      "receipt": "../character-decisions/model-paths.json",
+      "receipt_key": "qwen3_1_7b",
+      "dtype": "bfloat16",
+      "local_path": "D:\\gamedev\\huggingface\\decision-models\\qwen3_1_7b\\70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+      "checkpoint_files": {
+        "config.json": "1ddb5b89ebc90dcb417a45c213d818577e65976454d29385c8f6140771d95197",
+        "generation_config.json": "2325da0f15bb848e018c5ae071b7943332e9f871d6b60e2ed22ca97d4cb993d2",
+        "merges.txt": "8831e4f1a044471340f7c0a83d7bd71306a5b867e95fd870f74d0c5308a904d5",
+        "model-00001-of-00002.safetensors": "169ad53ec313c3a34b06c0809216e4fc072cce444a5d4ff2b59690d064130ed5",
+        "model-00002-of-00002.safetensors": "912becff8d60672aa8628ef08c05898d9adf17c2ad4ae3caf99b065622fdeff9",
+        "model.safetensors.index.json": "0d660e94b165eb912669a5249dff44b83188c4777a07ddb9611fb78d91b0578d",
+        "tokenizer.json": "aeb13307a71acd8fe81861d94ad54ab689df773318809eed3cbe794b4492dae4",
+        "tokenizer_config.json": "d5d09f07b48c3086c508b30d1c9114bd1189145b74e982a265350c923acd8101",
+        "vocab.json": "ca10d7e9fb3ed18575dd1e277a2579c16d108e32f27439684afa0e10b1440910"
+      },
+      "processing": {
+        "schema_version": "0.1.0",
+        "device": "cuda",
+        "seed": 42,
+        "context_tokens": 3072,
+        "previous_paragraphs": 0,
+        "registry_limit": 0,
+        "qwen_stages": [
+          "mentions"
+        ],
+        "fable_overlap_tokens": 64,
+        "generation": {
+          "enable_thinking": false,
+          "do_sample": false,
+          "max_new_tokens": 512,
+          "num_beams": 1,
+          "use_cache": true
+        },
+        "models": {
+          "fable": {
+            "repo": "SaladTechnologies/fable-base",
+            "revision": "45aceef3d49fe75bd8240010cbfdc983724ec420",
+            "receipt": "../literary-decision-encoders/model-paths.json",
+            "receipt_key": "fable",
+            "dtype": "float32"
+          },
+          "qwen": {
+            "repo": "Qwen/Qwen3-1.7B",
+            "revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+            "receipt": "../character-decisions/model-paths.json",
+            "receipt_key": "qwen3_1_7b",
+            "dtype": "bfloat16"
+          }
+        },
+        "protocol": "independent_current_paragraph_only_no_state"
+      },
+      "code_sha256": "7becca72b6ab65aee07efa01a24cfd3e2ce29d3ee67d4df7ad5fa285a256dc61",
+      "source_sha256": "0a9687919d8d2080515213f1674a138be8c2f14b4a12a430fb0b5476d40891f6",
+      "range": [
+        0,
+        32
+      ],
+      "control_script_sha256": "9b9e971ee7407faed8334b0984046b178631ee0b5bb31655a03fb90ea39a06d9",
+      "run_sha256": "4a6c475368ff4e6a94a79f77998bb353517546f2c6665b2280a3555e695be817",
+      "paragraph_id": "p00013-d72f6cf3",
+      "source_text": "The man who lifted it was Iven; Rowan had been carrying the blankets.",
+      "raw_file": "model_outputs/qwen/00013.json",
+      "raw_sha256": "205a5f6267344e71f96434c2e40c448ede80a85601134b7fcf9f5e2f5dc6b2bd",
+      "identity_scope": "paragraph_local_not_coreference",
+      "status": "SUCCESS",
+      "mentions": [
+        {
+          "id": "p00013-d72f6cf3:m000",
+          "paragraph_id": "p00013-d72f6cf3",
+          "start": 26,
+          "end": 30,
+          "quote": "Iven",
+          "text": "Iven",
+          "character_id": "p00013-d72f6cf3:c0001",
+          "kind": "name",
+          "role": "actor",
+          "status": "automatic_unverified"
+        },
+        {
+          "id": "p00013-d72f6cf3:m001",
+          "paragraph_id": "p00013-d72f6cf3",
+          "start": 32,
+          "end": 37,
+          "quote": "Rowan",
+          "text": "Rowan",
+          "character_id": "p00013-d72f6cf3:c0002",
+          "kind": "name",
+          "role": "actor",
+          "status": "automatic_unverified"
+        }
+      ],
+      "rejected": [],
+      "record_sha256": "fc16dda13d3ce9ff6520bf9756c8df12b9102922aad469dc758d8daa7cb32c48"
+    },
+    {
+      "schema_version": "0.1.0",
+      "model": "qwen",
+      "repo": "Qwen/Qwen3-1.7B",
+      "revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+      "receipt": "../character-decisions/model-paths.json",
+      "receipt_key": "qwen3_1_7b",
+      "dtype": "bfloat16",
+      "local_path": "D:\\gamedev\\huggingface\\decision-models\\qwen3_1_7b\\70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+      "checkpoint_files": {
+        "config.json": "1ddb5b89ebc90dcb417a45c213d818577e65976454d29385c8f6140771d95197",
+        "generation_config.json": "2325da0f15bb848e018c5ae071b7943332e9f871d6b60e2ed22ca97d4cb993d2",
+        "merges.txt": "8831e4f1a044471340f7c0a83d7bd71306a5b867e95fd870f74d0c5308a904d5",
+        "model-00001-of-00002.safetensors": "169ad53ec313c3a34b06c0809216e4fc072cce444a5d4ff2b59690d064130ed5",
+        "model-00002-of-00002.safetensors": "912becff8d60672aa8628ef08c05898d9adf17c2ad4ae3caf99b065622fdeff9",
+        "model.safetensors.index.json": "0d660e94b165eb912669a5249dff44b83188c4777a07ddb9611fb78d91b0578d",
+        "tokenizer.json": "aeb13307a71acd8fe81861d94ad54ab689df773318809eed3cbe794b4492dae4",
+        "tokenizer_config.json": "d5d09f07b48c3086c508b30d1c9114bd1189145b74e982a265350c923acd8101",
+        "vocab.json": "ca10d7e9fb3ed18575dd1e277a2579c16d108e32f27439684afa0e10b1440910"
+      },
+      "processing": {
+        "schema_version": "0.1.0",
+        "device": "cuda",
+        "seed": 42,
+        "context_tokens": 3072,
+        "previous_paragraphs": 0,
+        "registry_limit": 0,
+        "qwen_stages": [
+          "mentions"
+        ],
+        "fable_overlap_tokens": 64,
+        "generation": {
+          "enable_thinking": false,
+          "do_sample": false,
+          "max_new_tokens": 512,
+          "num_beams": 1,
+          "use_cache": true
+        },
+        "models": {
+          "fable": {
+            "repo": "SaladTechnologies/fable-base",
+            "revision": "45aceef3d49fe75bd8240010cbfdc983724ec420",
+            "receipt": "../literary-decision-encoders/model-paths.json",
+            "receipt_key": "fable",
+            "dtype": "float32"
+          },
+          "qwen": {
+            "repo": "Qwen/Qwen3-1.7B",
+            "revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+            "receipt": "../character-decisions/model-paths.json",
+            "receipt_key": "qwen3_1_7b",
+            "dtype": "bfloat16"
+          }
+        },
+        "protocol": "independent_current_paragraph_only_no_state"
+      },
+      "code_sha256": "7becca72b6ab65aee07efa01a24cfd3e2ce29d3ee67d4df7ad5fa285a256dc61",
+      "source_sha256": "0a9687919d8d2080515213f1674a138be8c2f14b4a12a430fb0b5476d40891f6",
+      "range": [
+        0,
+        32
+      ],
+      "control_script_sha256": "9b9e971ee7407faed8334b0984046b178631ee0b5bb31655a03fb90ea39a06d9",
+      "run_sha256": "4a6c475368ff4e6a94a79f77998bb353517546f2c6665b2280a3555e695be817",
+      "paragraph_id": "p00014-e61731d7",
+      "source_text": "\"They call me Ash,\" Mara told the guard. \"That is my old nickname.\"",
+      "raw_file": "model_outputs/qwen/00014.json",
+      "raw_sha256": "b624eff1c5084cb875e2c34f0f531fc5872325f18e5945560d440be5db3220db",
+      "identity_scope": "paragraph_local_not_coreference",
+      "status": "SUCCESS",
+      "mentions": [
+        {
+          "id": "p00014-e61731d7:m000",
+          "paragraph_id": "p00014-e61731d7",
+          "start": 20,
+          "end": 24,
+          "quote": "Mara",
+          "text": "Mara",
+          "character_id": "p00014-e61731d7:c0001",
+          "kind": "name",
+          "role": "speaker",
+          "status": "automatic_unverified"
+        },
+        {
+          "id": "p00014-e61731d7:m001",
+          "paragraph_id": "p00014-e61731d7",
+          "start": 14,
+          "end": 17,
+          "quote": "Ash",
+          "text": "Ash",
+          "character_id": "p00014-e61731d7:c0002",
+          "kind": "name",
+          "role": "actor",
+          "status": "automatic_unverified"
+        }
+      ],
+      "rejected": [],
+      "record_sha256": "069d264299f264d9eb715b274c2c8733e232fb44d09e53d937144e5c34cd7df1"
+    },
+    {
+      "schema_version": "0.1.0",
+      "model": "qwen",
+      "repo": "Qwen/Qwen3-1.7B",
+      "revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+      "receipt": "../character-decisions/model-paths.json",
+      "receipt_key": "qwen3_1_7b",
+      "dtype": "bfloat16",
+      "local_path": "D:\\gamedev\\huggingface\\decision-models\\qwen3_1_7b\\70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+      "checkpoint_files": {
+        "config.json": "1ddb5b89ebc90dcb417a45c213d818577e65976454d29385c8f6140771d95197",
+        "generation_config.json": "2325da0f15bb848e018c5ae071b7943332e9f871d6b60e2ed22ca97d4cb993d2",
+        "merges.txt": "8831e4f1a044471340f7c0a83d7bd71306a5b867e95fd870f74d0c5308a904d5",
+        "model-00001-of-00002.safetensors": "169ad53ec313c3a34b06c0809216e4fc072cce444a5d4ff2b59690d064130ed5",
+        "model-00002-of-00002.safetensors": "912becff8d60672aa8628ef08c05898d9adf17c2ad4ae3caf99b065622fdeff9",
+        "model.safetensors.index.json": "0d660e94b165eb912669a5249dff44b83188c4777a07ddb9611fb78d91b0578d",
+        "tokenizer.json": "aeb13307a71acd8fe81861d94ad54ab689df773318809eed3cbe794b4492dae4",
+        "tokenizer_config.json": "d5d09f07b48c3086c508b30d1c9114bd1189145b74e982a265350c923acd8101",
+        "vocab.json": "ca10d7e9fb3ed18575dd1e277a2579c16d108e32f27439684afa0e10b1440910"
+      },
+      "processing": {
+        "schema_version": "0.1.0",
+        "device": "cuda",
+        "seed": 42,
+        "context_tokens": 3072,
+        "previous_paragraphs": 0,
+        "registry_limit": 0,
+        "qwen_stages": [
+          "mentions"
+        ],
+        "fable_overlap_tokens": 64,
+        "generation": {
+          "enable_thinking": false,
+          "do_sample": false,
+          "max_new_tokens": 512,
+          "num_beams": 1,
+          "use_cache": true
+        },
+        "models": {
+          "fable": {
+            "repo": "SaladTechnologies/fable-base",
+            "revision": "45aceef3d49fe75bd8240010cbfdc983724ec420",
+            "receipt": "../literary-decision-encoders/model-paths.json",
+            "receipt_key": "fable",
+            "dtype": "float32"
+          },
+          "qwen": {
+            "repo": "Qwen/Qwen3-1.7B",
+            "revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+            "receipt": "../character-decisions/model-paths.json",
+            "receipt_key": "qwen3_1_7b",
+            "dtype": "bfloat16"
+          }
+        },
+        "protocol": "independent_current_paragraph_only_no_state"
+      },
+      "code_sha256": "7becca72b6ab65aee07efa01a24cfd3e2ce29d3ee67d4df7ad5fa285a256dc61",
+      "source_sha256": "0a9687919d8d2080515213f1674a138be8c2f14b4a12a430fb0b5476d40891f6",
+      "range": [
+        0,
+        32
+      ],
+      "control_script_sha256": "9b9e971ee7407faed8334b0984046b178631ee0b5bb31655a03fb90ea39a06d9",
+      "run_sha256": "4a6c475368ff4e6a94a79f77998bb353517546f2c6665b2280a3555e695be817",
+      "paragraph_id": "p00015-6d2e0bd5",
+      "source_text": "\"Ash, take the blankets,\" Rowan said to Mara.",
+      "raw_file": "model_outputs/qwen/00015.json",
+      "raw_sha256": "7613620adedb0e8cc4a6078852e8c585f2c9151fc6e1044de6407fe5ed0648e2",
+      "identity_scope": "paragraph_local_not_coreference",
+      "status": "SUCCESS",
+      "mentions": [
+        {
+          "id": "p00015-6d2e0bd5:m000",
+          "paragraph_id": "p00015-6d2e0bd5",
+          "start": 1,
+          "end": 4,
+          "quote": "Ash",
+          "text": "Ash",
+          "character_id": "p00015-6d2e0bd5:c0001",
+          "kind": "name",
+          "role": "actor",
+          "status": "automatic_unverified"
+        },
+        {
+          "id": "p00015-6d2e0bd5:m001",
+          "paragraph_id": "p00015-6d2e0bd5",
+          "start": 40,
+          "end": 44,
+          "quote": "Mara",
+          "text": "Mara",
+          "character_id": "p00015-6d2e0bd5:c0002",
+          "kind": "name",
+          "role": "actor",
+          "status": "automatic_unverified"
+        },
+        {
+          "id": "p00015-6d2e0bd5:m002",
+          "paragraph_id": "p00015-6d2e0bd5",
+          "start": 26,
+          "end": 31,
+          "quote": "Rowan",
+          "text": "Rowan",
+          "character_id": "p00015-6d2e0bd5:c0003",
+          "kind": "name",
+          "role": "speaker",
+          "status": "automatic_unverified"
+        }
+      ],
+      "rejected": [],
+      "record_sha256": "116d2e6b65f0903b9e5ddd89b028495409b7b49229f138148b2a19fd00f6aef7"
+    },
+    {
+      "schema_version": "0.1.0",
+      "model": "qwen",
+      "repo": "Qwen/Qwen3-1.7B",
+      "revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+      "receipt": "../character-decisions/model-paths.json",
+      "receipt_key": "qwen3_1_7b",
+      "dtype": "bfloat16",
+      "local_path": "D:\\gamedev\\huggingface\\decision-models\\qwen3_1_7b\\70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+      "checkpoint_files": {
+        "config.json": "1ddb5b89ebc90dcb417a45c213d818577e65976454d29385c8f6140771d95197",
+        "generation_config.json": "2325da0f15bb848e018c5ae071b7943332e9f871d6b60e2ed22ca97d4cb993d2",
+        "merges.txt": "8831e4f1a044471340f7c0a83d7bd71306a5b867e95fd870f74d0c5308a904d5",
+        "model-00001-of-00002.safetensors": "169ad53ec313c3a34b06c0809216e4fc072cce444a5d4ff2b59690d064130ed5",
+        "model-00002-of-00002.safetensors": "912becff8d60672aa8628ef08c05898d9adf17c2ad4ae3caf99b065622fdeff9",
+        "model.safetensors.index.json": "0d660e94b165eb912669a5249dff44b83188c4777a07ddb9611fb78d91b0578d",
+        "tokenizer.json": "aeb13307a71acd8fe81861d94ad54ab689df773318809eed3cbe794b4492dae4",
+        "tokenizer_config.json": "d5d09f07b48c3086c508b30d1c9114bd1189145b74e982a265350c923acd8101",
+        "vocab.json": "ca10d7e9fb3ed18575dd1e277a2579c16d108e32f27439684afa0e10b1440910"
+      },
+      "processing": {
+        "schema_version": "0.1.0",
+        "device": "cuda",
+        "seed": 42,
+        "context_tokens": 3072,
+        "previous_paragraphs": 0,
+        "registry_limit": 0,
+        "qwen_stages": [
+          "mentions"
+        ],
+        "fable_overlap_tokens": 64,
+        "generation": {
+          "enable_thinking": false,
+          "do_sample": false,
+          "max_new_tokens": 512,
+          "num_beams": 1,
+          "use_cache": true
+        },
+        "models": {
+          "fable": {
+            "repo": "SaladTechnologies/fable-base",
+            "revision": "45aceef3d49fe75bd8240010cbfdc983724ec420",
+            "receipt": "../literary-decision-encoders/model-paths.json",
+            "receipt_key": "fable",
+            "dtype": "float32"
+          },
+          "qwen": {
+            "repo": "Qwen/Qwen3-1.7B",
+            "revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+            "receipt": "../character-decisions/model-paths.json",
+            "receipt_key": "qwen3_1_7b",
+            "dtype": "bfloat16"
+          }
+        },
+        "protocol": "independent_current_paragraph_only_no_state"
+      },
+      "code_sha256": "7becca72b6ab65aee07efa01a24cfd3e2ce29d3ee67d4df7ad5fa285a256dc61",
+      "source_sha256": "0a9687919d8d2080515213f1674a138be8c2f14b4a12a430fb0b5476d40891f6",
+      "range": [
+        0,
+        32
+      ],
+      "control_script_sha256": "9b9e971ee7407faed8334b0984046b178631ee0b5bb31655a03fb90ea39a06d9",
+      "run_sha256": "4a6c475368ff4e6a94a79f77998bb353517546f2c6665b2280a3555e695be817",
+      "paragraph_id": "p00016-78b50b70",
+      "source_text": "Mara accepted the blankets but refused the silver coin.",
+      "raw_file": "model_outputs/qwen/00016.json",
+      "raw_sha256": "6eeb84914541b3542dd8d7f0798794998f96342453680250efc9f798df55a02c",
+      "identity_scope": "paragraph_local_not_coreference",
+      "status": "SUCCESS",
+      "mentions": [
+        {
+          "id": "p00016-78b50b70:m000",
+          "paragraph_id": "p00016-78b50b70",
+          "start": 0,
+          "end": 4,
+          "quote": "Mara",
+          "text": "Mara",
+          "character_id": "p00016-78b50b70:c0001",
+          "kind": "name",
+          "role": "actor",
+          "status": "automatic_unverified"
+        },
+        {
+          "id": "p00016-78b50b70:m001",
+          "paragraph_id": "p00016-78b50b70",
+          "start": 43,
+          "end": 54,
+          "quote": "silver coin",
+          "text": "silver coin",
+          "character_id": "p00016-78b50b70:c0002",
+          "kind": "pronoun",
+          "role": "target",
+          "status": "automatic_unverified"
+        }
+      ],
+      "rejected": [],
+      "record_sha256": "120608b43d060a30f29d51163f47974b1c936b6c5f018d01e5e96fa0e5a34bc0"
+    },
+    {
+      "schema_version": "0.1.0",
+      "model": "qwen",
+      "repo": "Qwen/Qwen3-1.7B",
+      "revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+      "receipt": "../character-decisions/model-paths.json",
+      "receipt_key": "qwen3_1_7b",
+      "dtype": "bfloat16",
+      "local_path": "D:\\gamedev\\huggingface\\decision-models\\qwen3_1_7b\\70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+      "checkpoint_files": {
+        "config.json": "1ddb5b89ebc90dcb417a45c213d818577e65976454d29385c8f6140771d95197",
+        "generation_config.json": "2325da0f15bb848e018c5ae071b7943332e9f871d6b60e2ed22ca97d4cb993d2",
+        "merges.txt": "8831e4f1a044471340f7c0a83d7bd71306a5b867e95fd870f74d0c5308a904d5",
+        "model-00001-of-00002.safetensors": "169ad53ec313c3a34b06c0809216e4fc072cce444a5d4ff2b59690d064130ed5",
+        "model-00002-of-00002.safetensors": "912becff8d60672aa8628ef08c05898d9adf17c2ad4ae3caf99b065622fdeff9",
+        "model.safetensors.index.json": "0d660e94b165eb912669a5249dff44b83188c4777a07ddb9611fb78d91b0578d",
+        "tokenizer.json": "aeb13307a71acd8fe81861d94ad54ab689df773318809eed3cbe794b4492dae4",
+        "tokenizer_config.json": "d5d09f07b48c3086c508b30d1c9114bd1189145b74e982a265350c923acd8101",
+        "vocab.json": "ca10d7e9fb3ed18575dd1e277a2579c16d108e32f27439684afa0e10b1440910"
+      },
+      "processing": {
+        "schema_version": "0.1.0",
+        "device": "cuda",
+        "seed": 42,
+        "context_tokens": 3072,
+        "previous_paragraphs": 0,
+        "registry_limit": 0,
+        "qwen_stages": [
+          "mentions"
+        ],
+        "fable_overlap_tokens": 64,
+        "generation": {
+          "enable_thinking": false,
+          "do_sample": false,
+          "max_new_tokens": 512,
+          "num_beams": 1,
+          "use_cache": true
+        },
+        "models": {
+          "fable": {
+            "repo": "SaladTechnologies/fable-base",
+            "revision": "45aceef3d49fe75bd8240010cbfdc983724ec420",
+            "receipt": "../literary-decision-encoders/model-paths.json",
+            "receipt_key": "fable",
+            "dtype": "float32"
+          },
+          "qwen": {
+            "repo": "Qwen/Qwen3-1.7B",
+            "revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+            "receipt": "../character-decisions/model-paths.json",
+            "receipt_key": "qwen3_1_7b",
+            "dtype": "bfloat16"
+          }
+        },
+        "protocol": "independent_current_paragraph_only_no_state"
+      },
+      "code_sha256": "7becca72b6ab65aee07efa01a24cfd3e2ce29d3ee67d4df7ad5fa285a256dc61",
+      "source_sha256": "0a9687919d8d2080515213f1674a138be8c2f14b4a12a430fb0b5476d40891f6",
+      "range": [
+        0,
+        32
+      ],
+      "control_script_sha256": "9b9e971ee7407faed8334b0984046b178631ee0b5bb31655a03fb90ea39a06d9",
+      "run_sha256": "4a6c475368ff4e6a94a79f77998bb353517546f2c6665b2280a3555e695be817",
+      "paragraph_id": "p00017-f21d773d",
+      "source_text": "\"Can we cross the river tonight?\" Iven asked.",
+      "raw_file": "model_outputs/qwen/00017.json",
+      "raw_sha256": "a90b65cd0dc86dd9a4375f60871df02b6cba6b15732c4045101fbdf1bd823a4c",
+      "identity_scope": "paragraph_local_not_coreference",
+      "status": "SUCCESS",
+      "mentions": [
+        {
+          "id": "p00017-f21d773d:m000",
+          "paragraph_id": "p00017-f21d773d",
+          "start": 34,
+          "end": 38,
+          "quote": "Iven",
+          "text": "Iven",
+          "character_id": "p00017-f21d773d:c0001",
+          "kind": "name",
+          "role": "speaker",
+          "status": "automatic_unverified"
+        }
+      ],
+      "rejected": [],
+      "record_sha256": "d399459684eb03564e64088cc402815159fa7a52b29166feb944651831b56041"
+    },
+    {
+      "schema_version": "0.1.0",
+      "model": "qwen",
+      "repo": "Qwen/Qwen3-1.7B",
+      "revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+      "receipt": "../character-decisions/model-paths.json",
+      "receipt_key": "qwen3_1_7b",
+      "dtype": "bfloat16",
+      "local_path": "D:\\gamedev\\huggingface\\decision-models\\qwen3_1_7b\\70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+      "checkpoint_files": {
+        "config.json": "1ddb5b89ebc90dcb417a45c213d818577e65976454d29385c8f6140771d95197",
+        "generation_config.json": "2325da0f15bb848e018c5ae071b7943332e9f871d6b60e2ed22ca97d4cb993d2",
+        "merges.txt": "8831e4f1a044471340f7c0a83d7bd71306a5b867e95fd870f74d0c5308a904d5",
+        "model-00001-of-00002.safetensors": "169ad53ec313c3a34b06c0809216e4fc072cce444a5d4ff2b59690d064130ed5",
+        "model-00002-of-00002.safetensors": "912becff8d60672aa8628ef08c05898d9adf17c2ad4ae3caf99b065622fdeff9",
+        "model.safetensors.index.json": "0d660e94b165eb912669a5249dff44b83188c4777a07ddb9611fb78d91b0578d",
+        "tokenizer.json": "aeb13307a71acd8fe81861d94ad54ab689df773318809eed3cbe794b4492dae4",
+        "tokenizer_config.json": "d5d09f07b48c3086c508b30d1c9114bd1189145b74e982a265350c923acd8101",
+        "vocab.json": "ca10d7e9fb3ed18575dd1e277a2579c16d108e32f27439684afa0e10b1440910"
+      },
+      "processing": {
+        "schema_version": "0.1.0",
+        "device": "cuda",
+        "seed": 42,
+        "context_tokens": 3072,
+        "previous_paragraphs": 0,
+        "registry_limit": 0,
+        "qwen_stages": [
+          "mentions"
+        ],
+        "fable_overlap_tokens": 64,
+        "generation": {
+          "enable_thinking": false,
+          "do_sample": false,
+          "max_new_tokens": 512,
+          "num_beams": 1,
+          "use_cache": true
+        },
+        "models": {
+          "fable": {
+            "repo": "SaladTechnologies/fable-base",
+            "revision": "45aceef3d49fe75bd8240010cbfdc983724ec420",
+            "receipt": "../literary-decision-encoders/model-paths.json",
+            "receipt_key": "fable",
+            "dtype": "float32"
+          },
+          "qwen": {
+            "repo": "Qwen/Qwen3-1.7B",
+            "revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+            "receipt": "../character-decisions/model-paths.json",
+            "receipt_key": "qwen3_1_7b",
+            "dtype": "bfloat16"
+          }
+        },
+        "protocol": "independent_current_paragraph_only_no_state"
+      },
+      "code_sha256": "7becca72b6ab65aee07efa01a24cfd3e2ce29d3ee67d4df7ad5fa285a256dc61",
+      "source_sha256": "0a9687919d8d2080515213f1674a138be8c2f14b4a12a430fb0b5476d40891f6",
+      "range": [
+        0,
+        32
+      ],
+      "control_script_sha256": "9b9e971ee7407faed8334b0984046b178631ee0b5bb31655a03fb90ea39a06d9",
+      "run_sha256": "4a6c475368ff4e6a94a79f77998bb353517546f2c6665b2280a3555e695be817",
+      "paragraph_id": "p00018-82364d09",
+      "source_text": "\"Only after the bell,\" Mara replied. \"Wait beside the mill.\"",
+      "raw_file": "model_outputs/qwen/00018.json",
+      "raw_sha256": "90700cab010db23d75c1d96290da038c12b9c59420df5aa8d5f8a2f3c45f369c",
+      "identity_scope": "paragraph_local_not_coreference",
+      "status": "SUCCESS",
+      "mentions": [
+        {
+          "id": "p00018-82364d09:m000",
+          "paragraph_id": "p00018-82364d09",
+          "start": 23,
+          "end": 27,
+          "quote": "Mara",
+          "text": "Mara",
+          "character_id": "p00018-82364d09:c0001",
+          "kind": "name",
+          "role": "speaker",
+          "status": "automatic_unverified"
+        },
+        {
+          "id": "p00018-82364d09:m001",
+          "paragraph_id": "p00018-82364d09",
+          "start": 38,
+          "end": 42,
+          "quote": "Wait",
+          "text": "Wait",
+          "character_id": "unknown",
+          "kind": "pronoun",
+          "role": "target",
+          "status": "automatic_unverified"
+        },
+        {
+          "id": "p00018-82364d09:m002",
+          "paragraph_id": "p00018-82364d09",
+          "start": 43,
+          "end": 49,
+          "quote": "beside",
+          "text": "beside",
+          "character_id": "unknown",
+          "kind": "pronoun",
+          "role": "target",
+          "status": "automatic_unverified"
+        },
+        {
+          "id": "p00018-82364d09:m003",
+          "paragraph_id": "p00018-82364d09",
+          "start": 50,
+          "end": 58,
+          "quote": "the mill",
+          "text": "the mill",
+          "character_id": "unknown",
+          "kind": "pronoun",
+          "role": "target",
+          "status": "automatic_unverified"
+        }
+      ],
+      "rejected": [],
+      "record_sha256": "197e85fd75b4083653f5a6b505110b4177cc210c7807c4b287cdf0e4be342522"
+    },
+    {
+      "schema_version": "0.1.0",
+      "model": "qwen",
+      "repo": "Qwen/Qwen3-1.7B",
+      "revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+      "receipt": "../character-decisions/model-paths.json",
+      "receipt_key": "qwen3_1_7b",
+      "dtype": "bfloat16",
+      "local_path": "D:\\gamedev\\huggingface\\decision-models\\qwen3_1_7b\\70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+      "checkpoint_files": {
+        "config.json": "1ddb5b89ebc90dcb417a45c213d818577e65976454d29385c8f6140771d95197",
+        "generation_config.json": "2325da0f15bb848e018c5ae071b7943332e9f871d6b60e2ed22ca97d4cb993d2",
+        "merges.txt": "8831e4f1a044471340f7c0a83d7bd71306a5b867e95fd870f74d0c5308a904d5",
+        "model-00001-of-00002.safetensors": "169ad53ec313c3a34b06c0809216e4fc072cce444a5d4ff2b59690d064130ed5",
+        "model-00002-of-00002.safetensors": "912becff8d60672aa8628ef08c05898d9adf17c2ad4ae3caf99b065622fdeff9",
+        "model.safetensors.index.json": "0d660e94b165eb912669a5249dff44b83188c4777a07ddb9611fb78d91b0578d",
+        "tokenizer.json": "aeb13307a71acd8fe81861d94ad54ab689df773318809eed3cbe794b4492dae4",
+        "tokenizer_config.json": "d5d09f07b48c3086c508b30d1c9114bd1189145b74e982a265350c923acd8101",
+        "vocab.json": "ca10d7e9fb3ed18575dd1e277a2579c16d108e32f27439684afa0e10b1440910"
+      },
+      "processing": {
+        "schema_version": "0.1.0",
+        "device": "cuda",
+        "seed": 42,
+        "context_tokens": 3072,
+        "previous_paragraphs": 0,
+        "registry_limit": 0,
+        "qwen_stages": [
+          "mentions"
+        ],
+        "fable_overlap_tokens": 64,
+        "generation": {
+          "enable_thinking": false,
+          "do_sample": false,
+          "max_new_tokens": 512,
+          "num_beams": 1,
+          "use_cache": true
+        },
+        "models": {
+          "fable": {
+            "repo": "SaladTechnologies/fable-base",
+            "revision": "45aceef3d49fe75bd8240010cbfdc983724ec420",
+            "receipt": "../literary-decision-encoders/model-paths.json",
+            "receipt_key": "fable",
+            "dtype": "float32"
+          },
+          "qwen": {
+            "repo": "Qwen/Qwen3-1.7B",
+            "revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+            "receipt": "../character-decisions/model-paths.json",
+            "receipt_key": "qwen3_1_7b",
+            "dtype": "bfloat16"
+          }
+        },
+        "protocol": "independent_current_paragraph_only_no_state"
+      },
+      "code_sha256": "7becca72b6ab65aee07efa01a24cfd3e2ce29d3ee67d4df7ad5fa285a256dc61",
+      "source_sha256": "0a9687919d8d2080515213f1674a138be8c2f14b4a12a430fb0b5476d40891f6",
+      "range": [
+        0,
+        32
+      ],
+      "control_script_sha256": "9b9e971ee7407faed8334b0984046b178631ee0b5bb31655a03fb90ea39a06d9",
+      "run_sha256": "4a6c475368ff4e6a94a79f77998bb353517546f2c6665b2280a3555e695be817",
+      "paragraph_id": "p00019-b0d084f4",
+      "source_text": "The discussion turned to food. Rowan asked whether any bread remained.",
+      "raw_file": "model_outputs/qwen/00019.json",
+      "raw_sha256": "f971f60e013830f02475e625aef9703862baffb33c2034af067fc7caa5e55e06",
+      "identity_scope": "paragraph_local_not_coreference",
+      "status": "SUCCESS",
+      "mentions": [],
+      "rejected": [],
+      "record_sha256": "cba9ea367596303d33d690edb0ae0faad053f4eab4b4c50a1a71637c32d27b0a"
+    },
+    {
+      "schema_version": "0.1.0",
+      "model": "qwen",
+      "repo": "Qwen/Qwen3-1.7B",
+      "revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+      "receipt": "../character-decisions/model-paths.json",
+      "receipt_key": "qwen3_1_7b",
+      "dtype": "bfloat16",
+      "local_path": "D:\\gamedev\\huggingface\\decision-models\\qwen3_1_7b\\70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+      "checkpoint_files": {
+        "config.json": "1ddb5b89ebc90dcb417a45c213d818577e65976454d29385c8f6140771d95197",
+        "generation_config.json": "2325da0f15bb848e018c5ae071b7943332e9f871d6b60e2ed22ca97d4cb993d2",
+        "merges.txt": "8831e4f1a044471340f7c0a83d7bd71306a5b867e95fd870f74d0c5308a904d5",
+        "model-00001-of-00002.safetensors": "169ad53ec313c3a34b06c0809216e4fc072cce444a5d4ff2b59690d064130ed5",
+        "model-00002-of-00002.safetensors": "912becff8d60672aa8628ef08c05898d9adf17c2ad4ae3caf99b065622fdeff9",
+        "model.safetensors.index.json": "0d660e94b165eb912669a5249dff44b83188c4777a07ddb9611fb78d91b0578d",
+        "tokenizer.json": "aeb13307a71acd8fe81861d94ad54ab689df773318809eed3cbe794b4492dae4",
+        "tokenizer_config.json": "d5d09f07b48c3086c508b30d1c9114bd1189145b74e982a265350c923acd8101",
+        "vocab.json": "ca10d7e9fb3ed18575dd1e277a2579c16d108e32f27439684afa0e10b1440910"
+      },
+      "processing": {
+        "schema_version": "0.1.0",
+        "device": "cuda",
+        "seed": 42,
+        "context_tokens": 3072,
+        "previous_paragraphs": 0,
+        "registry_limit": 0,
+        "qwen_stages": [
+          "mentions"
+        ],
+        "fable_overlap_tokens": 64,
+        "generation": {
+          "enable_thinking": false,
+          "do_sample": false,
+          "max_new_tokens": 512,
+          "num_beams": 1,
+          "use_cache": true
+        },
+        "models": {
+          "fable": {
+            "repo": "SaladTechnologies/fable-base",
+            "revision": "45aceef3d49fe75bd8240010cbfdc983724ec420",
+            "receipt": "../literary-decision-encoders/model-paths.json",
+            "receipt_key": "fable",
+            "dtype": "float32"
+          },
+          "qwen": {
+            "repo": "Qwen/Qwen3-1.7B",
+            "revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+            "receipt": "../character-decisions/model-paths.json",
+            "receipt_key": "qwen3_1_7b",
+            "dtype": "bfloat16"
+          }
+        },
+        "protocol": "independent_current_paragraph_only_no_state"
+      },
+      "code_sha256": "7becca72b6ab65aee07efa01a24cfd3e2ce29d3ee67d4df7ad5fa285a256dc61",
+      "source_sha256": "0a9687919d8d2080515213f1674a138be8c2f14b4a12a430fb0b5476d40891f6",
+      "range": [
+        0,
+        32
+      ],
+      "control_script_sha256": "9b9e971ee7407faed8334b0984046b178631ee0b5bb31655a03fb90ea39a06d9",
+      "run_sha256": "4a6c475368ff4e6a94a79f77998bb353517546f2c6665b2280a3555e695be817",
+      "paragraph_id": "p00020-0570f388",
+      "source_text": "Iven gave Rowan half a loaf and kept the rest for the children.",
+      "raw_file": "model_outputs/qwen/00020.json",
+      "raw_sha256": "3bb373179444bf8f8b884d244a55525b4d68071c6bd9819d485935db9b7056fa",
+      "identity_scope": "paragraph_local_not_coreference",
+      "status": "SUCCESS",
+      "mentions": [],
+      "rejected": [],
+      "record_sha256": "fb0167e1bdc520bc0f41707e5023de2ad5239494c5c490d305080775c420c400"
+    },
+    {
+      "schema_version": "0.1.0",
+      "model": "qwen",
+      "repo": "Qwen/Qwen3-1.7B",
+      "revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+      "receipt": "../character-decisions/model-paths.json",
+      "receipt_key": "qwen3_1_7b",
+      "dtype": "bfloat16",
+      "local_path": "D:\\gamedev\\huggingface\\decision-models\\qwen3_1_7b\\70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+      "checkpoint_files": {
+        "config.json": "1ddb5b89ebc90dcb417a45c213d818577e65976454d29385c8f6140771d95197",
+        "generation_config.json": "2325da0f15bb848e018c5ae071b7943332e9f871d6b60e2ed22ca97d4cb993d2",
+        "merges.txt": "8831e4f1a044471340f7c0a83d7bd71306a5b867e95fd870f74d0c5308a904d5",
+        "model-00001-of-00002.safetensors": "169ad53ec313c3a34b06c0809216e4fc072cce444a5d4ff2b59690d064130ed5",
+        "model-00002-of-00002.safetensors": "912becff8d60672aa8628ef08c05898d9adf17c2ad4ae3caf99b065622fdeff9",
+        "model.safetensors.index.json": "0d660e94b165eb912669a5249dff44b83188c4777a07ddb9611fb78d91b0578d",
+        "tokenizer.json": "aeb13307a71acd8fe81861d94ad54ab689df773318809eed3cbe794b4492dae4",
+        "tokenizer_config.json": "d5d09f07b48c3086c508b30d1c9114bd1189145b74e982a265350c923acd8101",
+        "vocab.json": "ca10d7e9fb3ed18575dd1e277a2579c16d108e32f27439684afa0e10b1440910"
+      },
+      "processing": {
+        "schema_version": "0.1.0",
+        "device": "cuda",
+        "seed": 42,
+        "context_tokens": 3072,
+        "previous_paragraphs": 0,
+        "registry_limit": 0,
+        "qwen_stages": [
+          "mentions"
+        ],
+        "fable_overlap_tokens": 64,
+        "generation": {
+          "enable_thinking": false,
+          "do_sample": false,
+          "max_new_tokens": 512,
+          "num_beams": 1,
+          "use_cache": true
+        },
+        "models": {
+          "fable": {
+            "repo": "SaladTechnologies/fable-base",
+            "revision": "45aceef3d49fe75bd8240010cbfdc983724ec420",
+            "receipt": "../literary-decision-encoders/model-paths.json",
+            "receipt_key": "fable",
+            "dtype": "float32"
+          },
+          "qwen": {
+            "repo": "Qwen/Qwen3-1.7B",
+            "revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+            "receipt": "../character-decisions/model-paths.json",
+            "receipt_key": "qwen3_1_7b",
+            "dtype": "bfloat16"
+          }
+        },
+        "protocol": "independent_current_paragraph_only_no_state"
+      },
+      "code_sha256": "7becca72b6ab65aee07efa01a24cfd3e2ce29d3ee67d4df7ad5fa285a256dc61",
+      "source_sha256": "0a9687919d8d2080515213f1674a138be8c2f14b4a12a430fb0b5476d40891f6",
+      "range": [
+        0,
+        32
+      ],
+      "control_script_sha256": "9b9e971ee7407faed8334b0984046b178631ee0b5bb31655a03fb90ea39a06d9",
+      "run_sha256": "4a6c475368ff4e6a94a79f77998bb353517546f2c6665b2280a3555e695be817",
+      "paragraph_id": "p00021-d4282aff",
+      "source_text": "Years earlier, Rowan had chosen to abandon a paid post rather than arrest his sister.",
+      "raw_file": "model_outputs/qwen/00021.json",
+      "raw_sha256": "67f55f0815f304d3f2f27c39a038b535b87614d88c319be637088ca17214c893",
+      "identity_scope": "paragraph_local_not_coreference",
+      "status": "SUCCESS",
+      "mentions": [],
+      "rejected": [],
+      "record_sha256": "31f277accccd4f879f79eeba746795c53f8c8a6e7437164852df426fd860f57d"
+    },
+    {
+      "schema_version": "0.1.0",
+      "model": "qwen",
+      "repo": "Qwen/Qwen3-1.7B",
+      "revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+      "receipt": "../character-decisions/model-paths.json",
+      "receipt_key": "qwen3_1_7b",
+      "dtype": "bfloat16",
+      "local_path": "D:\\gamedev\\huggingface\\decision-models\\qwen3_1_7b\\70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+      "checkpoint_files": {
+        "config.json": "1ddb5b89ebc90dcb417a45c213d818577e65976454d29385c8f6140771d95197",
+        "generation_config.json": "2325da0f15bb848e018c5ae071b7943332e9f871d6b60e2ed22ca97d4cb993d2",
+        "merges.txt": "8831e4f1a044471340f7c0a83d7bd71306a5b867e95fd870f74d0c5308a904d5",
+        "model-00001-of-00002.safetensors": "169ad53ec313c3a34b06c0809216e4fc072cce444a5d4ff2b59690d064130ed5",
+        "model-00002-of-00002.safetensors": "912becff8d60672aa8628ef08c05898d9adf17c2ad4ae3caf99b065622fdeff9",
+        "model.safetensors.index.json": "0d660e94b165eb912669a5249dff44b83188c4777a07ddb9611fb78d91b0578d",
+        "tokenizer.json": "aeb13307a71acd8fe81861d94ad54ab689df773318809eed3cbe794b4492dae4",
+        "tokenizer_config.json": "d5d09f07b48c3086c508b30d1c9114bd1189145b74e982a265350c923acd8101",
+        "vocab.json": "ca10d7e9fb3ed18575dd1e277a2579c16d108e32f27439684afa0e10b1440910"
+      },
+      "processing": {
+        "schema_version": "0.1.0",
+        "device": "cuda",
+        "seed": 42,
+        "context_tokens": 3072,
+        "previous_paragraphs": 0,
+        "registry_limit": 0,
+        "qwen_stages": [
+          "mentions"
+        ],
+        "fable_overlap_tokens": 64,
+        "generation": {
+          "enable_thinking": false,
+          "do_sample": false,
+          "max_new_tokens": 512,
+          "num_beams": 1,
+          "use_cache": true
+        },
+        "models": {
+          "fable": {
+            "repo": "SaladTechnologies/fable-base",
+            "revision": "45aceef3d49fe75bd8240010cbfdc983724ec420",
+            "receipt": "../literary-decision-encoders/model-paths.json",
+            "receipt_key": "fable",
+            "dtype": "float32"
+          },
+          "qwen": {
+            "repo": "Qwen/Qwen3-1.7B",
+            "revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+            "receipt": "../character-decisions/model-paths.json",
+            "receipt_key": "qwen3_1_7b",
+            "dtype": "bfloat16"
+          }
+        },
+        "protocol": "independent_current_paragraph_only_no_state"
+      },
+      "code_sha256": "7becca72b6ab65aee07efa01a24cfd3e2ce29d3ee67d4df7ad5fa285a256dc61",
+      "source_sha256": "0a9687919d8d2080515213f1674a138be8c2f14b4a12a430fb0b5476d40891f6",
+      "range": [
+        0,
+        32
+      ],
+      "control_script_sha256": "9b9e971ee7407faed8334b0984046b178631ee0b5bb31655a03fb90ea39a06d9",
+      "run_sha256": "4a6c475368ff4e6a94a79f77998bb353517546f2c6665b2280a3555e695be817",
+      "paragraph_id": "p00022-a62fd3b1",
+      "source_text": "\"He always pays his debts,\" Mara said of Rowan. It was her opinion, not the narrator's guarantee.",
+      "raw_file": "model_outputs/qwen/00022.json",
+      "raw_sha256": "93103407a4def1cda108ccc9adf369b4df8f45209a2c81e17b5c42e2f59be951",
+      "identity_scope": "paragraph_local_not_coreference",
+      "status": "SUCCESS",
+      "mentions": [
+        {
+          "id": "p00022-a62fd3b1:m000",
+          "paragraph_id": "p00022-a62fd3b1",
+          "start": 28,
+          "end": 32,
+          "quote": "Mara",
+          "text": "Mara",
+          "character_id": "p00022-a62fd3b1:c0001",
+          "kind": "name",
+          "role": "actor",
+          "status": "automatic_unverified"
+        },
+        {
+          "id": "p00022-a62fd3b1:m001",
+          "paragraph_id": "p00022-a62fd3b1",
+          "start": 41,
+          "end": 46,
+          "quote": "Rowan",
+          "text": "Rowan",
+          "character_id": "p00022-a62fd3b1:c0002",
+          "kind": "name",
+          "role": "actor",
+          "status": "automatic_unverified"
+        }
+      ],
+      "rejected": [],
+      "record_sha256": "cfd67dd23cee261697fa2d244182979bce26aa9acdbaa2953baf90866be66f07"
+    },
+    {
+      "schema_version": "0.1.0",
+      "model": "qwen",
+      "repo": "Qwen/Qwen3-1.7B",
+      "revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+      "receipt": "../character-decisions/model-paths.json",
+      "receipt_key": "qwen3_1_7b",
+      "dtype": "bfloat16",
+      "local_path": "D:\\gamedev\\huggingface\\decision-models\\qwen3_1_7b\\70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+      "checkpoint_files": {
+        "config.json": "1ddb5b89ebc90dcb417a45c213d818577e65976454d29385c8f6140771d95197",
+        "generation_config.json": "2325da0f15bb848e018c5ae071b7943332e9f871d6b60e2ed22ca97d4cb993d2",
+        "merges.txt": "8831e4f1a044471340f7c0a83d7bd71306a5b867e95fd870f74d0c5308a904d5",
+        "model-00001-of-00002.safetensors": "169ad53ec313c3a34b06c0809216e4fc072cce444a5d4ff2b59690d064130ed5",
+        "model-00002-of-00002.safetensors": "912becff8d60672aa8628ef08c05898d9adf17c2ad4ae3caf99b065622fdeff9",
+        "model.safetensors.index.json": "0d660e94b165eb912669a5249dff44b83188c4777a07ddb9611fb78d91b0578d",
+        "tokenizer.json": "aeb13307a71acd8fe81861d94ad54ab689df773318809eed3cbe794b4492dae4",
+        "tokenizer_config.json": "d5d09f07b48c3086c508b30d1c9114bd1189145b74e982a265350c923acd8101",
+        "vocab.json": "ca10d7e9fb3ed18575dd1e277a2579c16d108e32f27439684afa0e10b1440910"
+      },
+      "processing": {
+        "schema_version": "0.1.0",
+        "device": "cuda",
+        "seed": 42,
+        "context_tokens": 3072,
+        "previous_paragraphs": 0,
+        "registry_limit": 0,
+        "qwen_stages": [
+          "mentions"
+        ],
+        "fable_overlap_tokens": 64,
+        "generation": {
+          "enable_thinking": false,
+          "do_sample": false,
+          "max_new_tokens": 512,
+          "num_beams": 1,
+          "use_cache": true
+        },
+        "models": {
+          "fable": {
+            "repo": "SaladTechnologies/fable-base",
+            "revision": "45aceef3d49fe75bd8240010cbfdc983724ec420",
+            "receipt": "../literary-decision-encoders/model-paths.json",
+            "receipt_key": "fable",
+            "dtype": "float32"
+          },
+          "qwen": {
+            "repo": "Qwen/Qwen3-1.7B",
+            "revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+            "receipt": "../character-decisions/model-paths.json",
+            "receipt_key": "qwen3_1_7b",
+            "dtype": "bfloat16"
+          }
+        },
+        "protocol": "independent_current_paragraph_only_no_state"
+      },
+      "code_sha256": "7becca72b6ab65aee07efa01a24cfd3e2ce29d3ee67d4df7ad5fa285a256dc61",
+      "source_sha256": "0a9687919d8d2080515213f1674a138be8c2f14b4a12a430fb0b5476d40891f6",
+      "range": [
+        0,
+        32
+      ],
+      "control_script_sha256": "9b9e971ee7407faed8334b0984046b178631ee0b5bb31655a03fb90ea39a06d9",
+      "run_sha256": "4a6c475368ff4e6a94a79f77998bb353517546f2c6665b2280a3555e695be817",
+      "paragraph_id": "p00023-6161be9b",
+      "source_text": "Iven considered stealing a horse, then decided against it.",
+      "raw_file": "model_outputs/qwen/00023.json",
+      "raw_sha256": "0f7b2e576c084598ee98995067cf1e93ff6cb2d6070f73f26f23f045fd301a2b",
+      "identity_scope": "paragraph_local_not_coreference",
+      "status": "SUCCESS",
+      "mentions": [],
+      "rejected": [],
+      "record_sha256": "7073b3cfd7fbeec0e7d3b6d472243ea856c16e56c377040ee7aa02c823799be5"
+    },
+    {
+      "schema_version": "0.1.0",
+      "model": "qwen",
+      "repo": "Qwen/Qwen3-1.7B",
+      "revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+      "receipt": "../character-decisions/model-paths.json",
+      "receipt_key": "qwen3_1_7b",
+      "dtype": "bfloat16",
+      "local_path": "D:\\gamedev\\huggingface\\decision-models\\qwen3_1_7b\\70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+      "checkpoint_files": {
+        "config.json": "1ddb5b89ebc90dcb417a45c213d818577e65976454d29385c8f6140771d95197",
+        "generation_config.json": "2325da0f15bb848e018c5ae071b7943332e9f871d6b60e2ed22ca97d4cb993d2",
+        "merges.txt": "8831e4f1a044471340f7c0a83d7bd71306a5b867e95fd870f74d0c5308a904d5",
+        "model-00001-of-00002.safetensors": "169ad53ec313c3a34b06c0809216e4fc072cce444a5d4ff2b59690d064130ed5",
+        "model-00002-of-00002.safetensors": "912becff8d60672aa8628ef08c05898d9adf17c2ad4ae3caf99b065622fdeff9",
+        "model.safetensors.index.json": "0d660e94b165eb912669a5249dff44b83188c4777a07ddb9611fb78d91b0578d",
+        "tokenizer.json": "aeb13307a71acd8fe81861d94ad54ab689df773318809eed3cbe794b4492dae4",
+        "tokenizer_config.json": "d5d09f07b48c3086c508b30d1c9114bd1189145b74e982a265350c923acd8101",
+        "vocab.json": "ca10d7e9fb3ed18575dd1e277a2579c16d108e32f27439684afa0e10b1440910"
+      },
+      "processing": {
+        "schema_version": "0.1.0",
+        "device": "cuda",
+        "seed": 42,
+        "context_tokens": 3072,
+        "previous_paragraphs": 0,
+        "registry_limit": 0,
+        "qwen_stages": [
+          "mentions"
+        ],
+        "fable_overlap_tokens": 64,
+        "generation": {
+          "enable_thinking": false,
+          "do_sample": false,
+          "max_new_tokens": 512,
+          "num_beams": 1,
+          "use_cache": true
+        },
+        "models": {
+          "fable": {
+            "repo": "SaladTechnologies/fable-base",
+            "revision": "45aceef3d49fe75bd8240010cbfdc983724ec420",
+            "receipt": "../literary-decision-encoders/model-paths.json",
+            "receipt_key": "fable",
+            "dtype": "float32"
+          },
+          "qwen": {
+            "repo": "Qwen/Qwen3-1.7B",
+            "revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+            "receipt": "../character-decisions/model-paths.json",
+            "receipt_key": "qwen3_1_7b",
+            "dtype": "bfloat16"
+          }
+        },
+        "protocol": "independent_current_paragraph_only_no_state"
+      },
+      "code_sha256": "7becca72b6ab65aee07efa01a24cfd3e2ce29d3ee67d4df7ad5fa285a256dc61",
+      "source_sha256": "0a9687919d8d2080515213f1674a138be8c2f14b4a12a430fb0b5476d40891f6",
+      "range": [
+        0,
+        32
+      ],
+      "control_script_sha256": "9b9e971ee7407faed8334b0984046b178631ee0b5bb31655a03fb90ea39a06d9",
+      "run_sha256": "4a6c475368ff4e6a94a79f77998bb353517546f2c6665b2280a3555e695be817",
+      "paragraph_id": "p00024-39573c99",
+      "source_text": "A broken cart stood beside the empty stable. Its wheels were covered in dust.",
+      "raw_file": "model_outputs/qwen/00024.json",
+      "raw_sha256": "5419d64d7b2d4a478e89f48f9052aa63afb5dd27ae4dd985c79fa8baba1eda74",
+      "identity_scope": "paragraph_local_not_coreference",
+      "status": "SUCCESS",
+      "mentions": [],
+      "rejected": [],
+      "record_sha256": "2d941dbe3c4b79070a0555bf8a02f73dba2a8119770536268f36b6615aef7b50"
+    },
+    {
+      "schema_version": "0.1.0",
+      "model": "qwen",
+      "repo": "Qwen/Qwen3-1.7B",
+      "revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+      "receipt": "../character-decisions/model-paths.json",
+      "receipt_key": "qwen3_1_7b",
+      "dtype": "bfloat16",
+      "local_path": "D:\\gamedev\\huggingface\\decision-models\\qwen3_1_7b\\70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+      "checkpoint_files": {
+        "config.json": "1ddb5b89ebc90dcb417a45c213d818577e65976454d29385c8f6140771d95197",
+        "generation_config.json": "2325da0f15bb848e018c5ae071b7943332e9f871d6b60e2ed22ca97d4cb993d2",
+        "merges.txt": "8831e4f1a044471340f7c0a83d7bd71306a5b867e95fd870f74d0c5308a904d5",
+        "model-00001-of-00002.safetensors": "169ad53ec313c3a34b06c0809216e4fc072cce444a5d4ff2b59690d064130ed5",
+        "model-00002-of-00002.safetensors": "912becff8d60672aa8628ef08c05898d9adf17c2ad4ae3caf99b065622fdeff9",
+        "model.safetensors.index.json": "0d660e94b165eb912669a5249dff44b83188c4777a07ddb9611fb78d91b0578d",
+        "tokenizer.json": "aeb13307a71acd8fe81861d94ad54ab689df773318809eed3cbe794b4492dae4",
+        "tokenizer_config.json": "d5d09f07b48c3086c508b30d1c9114bd1189145b74e982a265350c923acd8101",
+        "vocab.json": "ca10d7e9fb3ed18575dd1e277a2579c16d108e32f27439684afa0e10b1440910"
+      },
+      "processing": {
+        "schema_version": "0.1.0",
+        "device": "cuda",
+        "seed": 42,
+        "context_tokens": 3072,
+        "previous_paragraphs": 0,
+        "registry_limit": 0,
+        "qwen_stages": [
+          "mentions"
+        ],
+        "fable_overlap_tokens": 64,
+        "generation": {
+          "enable_thinking": false,
+          "do_sample": false,
+          "max_new_tokens": 512,
+          "num_beams": 1,
+          "use_cache": true
+        },
+        "models": {
+          "fable": {
+            "repo": "SaladTechnologies/fable-base",
+            "revision": "45aceef3d49fe75bd8240010cbfdc983724ec420",
+            "receipt": "../literary-decision-encoders/model-paths.json",
+            "receipt_key": "fable",
+            "dtype": "float32"
+          },
+          "qwen": {
+            "repo": "Qwen/Qwen3-1.7B",
+            "revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+            "receipt": "../character-decisions/model-paths.json",
+            "receipt_key": "qwen3_1_7b",
+            "dtype": "bfloat16"
+          }
+        },
+        "protocol": "independent_current_paragraph_only_no_state"
+      },
+      "code_sha256": "7becca72b6ab65aee07efa01a24cfd3e2ce29d3ee67d4df7ad5fa285a256dc61",
+      "source_sha256": "0a9687919d8d2080515213f1674a138be8c2f14b4a12a430fb0b5476d40891f6",
+      "range": [
+        0,
+        32
+      ],
+      "control_script_sha256": "9b9e971ee7407faed8334b0984046b178631ee0b5bb31655a03fb90ea39a06d9",
+      "run_sha256": "4a6c475368ff4e6a94a79f77998bb353517546f2c6665b2280a3555e695be817",
+      "paragraph_id": "p00025-ae7dacb6",
+      "source_text": "At dawn Mara entered the mill alone. She found an unsigned letter on the table.",
+      "raw_file": "model_outputs/qwen/00025.json",
+      "raw_sha256": "873ad3c5fc15edb76b80a22cb28b5a2b653a58abc054c1ff7e59ecd3f59aad14",
+      "identity_scope": "paragraph_local_not_coreference",
+      "status": "SUCCESS",
+      "mentions": [
+        {
+          "id": "p00025-ae7dacb6:m000",
+          "paragraph_id": "p00025-ae7dacb6",
+          "start": 8,
+          "end": 12,
+          "quote": "Mara",
+          "text": "Mara",
+          "character_id": "p00025-ae7dacb6:c0001",
+          "kind": "name",
+          "role": "actor",
+          "status": "automatic_unverified"
+        },
+        {
+          "id": "p00025-ae7dacb6:m001",
+          "paragraph_id": "p00025-ae7dacb6",
+          "start": 37,
+          "end": 40,
+          "quote": "She",
+          "text": "She",
+          "character_id": "p00025-ae7dacb6:c0002",
+          "kind": "pronoun",
+          "role": "target",
+          "status": "automatic_unverified"
+        }
+      ],
+      "rejected": [],
+      "record_sha256": "8128cea12dcdf233948ac85c24f39949f73bb4ae3afec1a70a422ccf22cb8d5a"
+    },
+    {
+      "schema_version": "0.1.0",
+      "model": "qwen",
+      "repo": "Qwen/Qwen3-1.7B",
+      "revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+      "receipt": "../character-decisions/model-paths.json",
+      "receipt_key": "qwen3_1_7b",
+      "dtype": "bfloat16",
+      "local_path": "D:\\gamedev\\huggingface\\decision-models\\qwen3_1_7b\\70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+      "checkpoint_files": {
+        "config.json": "1ddb5b89ebc90dcb417a45c213d818577e65976454d29385c8f6140771d95197",
+        "generation_config.json": "2325da0f15bb848e018c5ae071b7943332e9f871d6b60e2ed22ca97d4cb993d2",
+        "merges.txt": "8831e4f1a044471340f7c0a83d7bd71306a5b867e95fd870f74d0c5308a904d5",
+        "model-00001-of-00002.safetensors": "169ad53ec313c3a34b06c0809216e4fc072cce444a5d4ff2b59690d064130ed5",
+        "model-00002-of-00002.safetensors": "912becff8d60672aa8628ef08c05898d9adf17c2ad4ae3caf99b065622fdeff9",
+        "model.safetensors.index.json": "0d660e94b165eb912669a5249dff44b83188c4777a07ddb9611fb78d91b0578d",
+        "tokenizer.json": "aeb13307a71acd8fe81861d94ad54ab689df773318809eed3cbe794b4492dae4",
+        "tokenizer_config.json": "d5d09f07b48c3086c508b30d1c9114bd1189145b74e982a265350c923acd8101",
+        "vocab.json": "ca10d7e9fb3ed18575dd1e277a2579c16d108e32f27439684afa0e10b1440910"
+      },
+      "processing": {
+        "schema_version": "0.1.0",
+        "device": "cuda",
+        "seed": 42,
+        "context_tokens": 3072,
+        "previous_paragraphs": 0,
+        "registry_limit": 0,
+        "qwen_stages": [
+          "mentions"
+        ],
+        "fable_overlap_tokens": 64,
+        "generation": {
+          "enable_thinking": false,
+          "do_sample": false,
+          "max_new_tokens": 512,
+          "num_beams": 1,
+          "use_cache": true
+        },
+        "models": {
+          "fable": {
+            "repo": "SaladTechnologies/fable-base",
+            "revision": "45aceef3d49fe75bd8240010cbfdc983724ec420",
+            "receipt": "../literary-decision-encoders/model-paths.json",
+            "receipt_key": "fable",
+            "dtype": "float32"
+          },
+          "qwen": {
+            "repo": "Qwen/Qwen3-1.7B",
+            "revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+            "receipt": "../character-decisions/model-paths.json",
+            "receipt_key": "qwen3_1_7b",
+            "dtype": "bfloat16"
+          }
+        },
+        "protocol": "independent_current_paragraph_only_no_state"
+      },
+      "code_sha256": "7becca72b6ab65aee07efa01a24cfd3e2ce29d3ee67d4df7ad5fa285a256dc61",
+      "source_sha256": "0a9687919d8d2080515213f1674a138be8c2f14b4a12a430fb0b5476d40891f6",
+      "range": [
+        0,
+        32
+      ],
+      "control_script_sha256": "9b9e971ee7407faed8334b0984046b178631ee0b5bb31655a03fb90ea39a06d9",
+      "run_sha256": "4a6c475368ff4e6a94a79f77998bb353517546f2c6665b2280a3555e695be817",
+      "paragraph_id": "p00026-5a8c702b",
+      "source_text": "The letter said, \"I moved the children before midnight.\" No name identified its writer.",
+      "raw_file": "model_outputs/qwen/00026.json",
+      "raw_sha256": "996c01571b19f1be4b337b32c7d374a0c5024d5d396dbf0b7b9d472024a8655b",
+      "identity_scope": "paragraph_local_not_coreference",
+      "status": "SUCCESS",
+      "mentions": [],
+      "rejected": [],
+      "record_sha256": "5e0dc736ce0ec3c80a5d0d0eb0f39d3aeb596db3f30a117cbb4ee9b93db3054e"
+    },
+    {
+      "schema_version": "0.1.0",
+      "model": "qwen",
+      "repo": "Qwen/Qwen3-1.7B",
+      "revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+      "receipt": "../character-decisions/model-paths.json",
+      "receipt_key": "qwen3_1_7b",
+      "dtype": "bfloat16",
+      "local_path": "D:\\gamedev\\huggingface\\decision-models\\qwen3_1_7b\\70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+      "checkpoint_files": {
+        "config.json": "1ddb5b89ebc90dcb417a45c213d818577e65976454d29385c8f6140771d95197",
+        "generation_config.json": "2325da0f15bb848e018c5ae071b7943332e9f871d6b60e2ed22ca97d4cb993d2",
+        "merges.txt": "8831e4f1a044471340f7c0a83d7bd71306a5b867e95fd870f74d0c5308a904d5",
+        "model-00001-of-00002.safetensors": "169ad53ec313c3a34b06c0809216e4fc072cce444a5d4ff2b59690d064130ed5",
+        "model-00002-of-00002.safetensors": "912becff8d60672aa8628ef08c05898d9adf17c2ad4ae3caf99b065622fdeff9",
+        "model.safetensors.index.json": "0d660e94b165eb912669a5249dff44b83188c4777a07ddb9611fb78d91b0578d",
+        "tokenizer.json": "aeb13307a71acd8fe81861d94ad54ab689df773318809eed3cbe794b4492dae4",
+        "tokenizer_config.json": "d5d09f07b48c3086c508b30d1c9114bd1189145b74e982a265350c923acd8101",
+        "vocab.json": "ca10d7e9fb3ed18575dd1e277a2579c16d108e32f27439684afa0e10b1440910"
+      },
+      "processing": {
+        "schema_version": "0.1.0",
+        "device": "cuda",
+        "seed": 42,
+        "context_tokens": 3072,
+        "previous_paragraphs": 0,
+        "registry_limit": 0,
+        "qwen_stages": [
+          "mentions"
+        ],
+        "fable_overlap_tokens": 64,
+        "generation": {
+          "enable_thinking": false,
+          "do_sample": false,
+          "max_new_tokens": 512,
+          "num_beams": 1,
+          "use_cache": true
+        },
+        "models": {
+          "fable": {
+            "repo": "SaladTechnologies/fable-base",
+            "revision": "45aceef3d49fe75bd8240010cbfdc983724ec420",
+            "receipt": "../literary-decision-encoders/model-paths.json",
+            "receipt_key": "fable",
+            "dtype": "float32"
+          },
+          "qwen": {
+            "repo": "Qwen/Qwen3-1.7B",
+            "revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+            "receipt": "../character-decisions/model-paths.json",
+            "receipt_key": "qwen3_1_7b",
+            "dtype": "bfloat16"
+          }
+        },
+        "protocol": "independent_current_paragraph_only_no_state"
+      },
+      "code_sha256": "7becca72b6ab65aee07efa01a24cfd3e2ce29d3ee67d4df7ad5fa285a256dc61",
+      "source_sha256": "0a9687919d8d2080515213f1674a138be8c2f14b4a12a430fb0b5476d40891f6",
+      "range": [
+        0,
+        32
+      ],
+      "control_script_sha256": "9b9e971ee7407faed8334b0984046b178631ee0b5bb31655a03fb90ea39a06d9",
+      "run_sha256": "4a6c475368ff4e6a94a79f77998bb353517546f2c6665b2280a3555e695be817",
+      "paragraph_id": "p00027-cac2a4c9",
+      "source_text": "Mara folded the letter. She did not know whether its claim was true.",
+      "raw_file": "model_outputs/qwen/00027.json",
+      "raw_sha256": "f4c01d7af24640b63fd2d2aec43c591e6f2d7e592b92cc2e420ba60e0e1df338",
+      "identity_scope": "paragraph_local_not_coreference",
+      "status": "SUCCESS",
+      "mentions": [],
+      "rejected": [],
+      "record_sha256": "ae6fba03f62f30c41484f8d1dc3a3be3c4eb5bb20df827dbdeb6d162f7f5aa1b"
+    },
+    {
+      "schema_version": "0.1.0",
+      "model": "qwen",
+      "repo": "Qwen/Qwen3-1.7B",
+      "revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+      "receipt": "../character-decisions/model-paths.json",
+      "receipt_key": "qwen3_1_7b",
+      "dtype": "bfloat16",
+      "local_path": "D:\\gamedev\\huggingface\\decision-models\\qwen3_1_7b\\70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+      "checkpoint_files": {
+        "config.json": "1ddb5b89ebc90dcb417a45c213d818577e65976454d29385c8f6140771d95197",
+        "generation_config.json": "2325da0f15bb848e018c5ae071b7943332e9f871d6b60e2ed22ca97d4cb993d2",
+        "merges.txt": "8831e4f1a044471340f7c0a83d7bd71306a5b867e95fd870f74d0c5308a904d5",
+        "model-00001-of-00002.safetensors": "169ad53ec313c3a34b06c0809216e4fc072cce444a5d4ff2b59690d064130ed5",
+        "model-00002-of-00002.safetensors": "912becff8d60672aa8628ef08c05898d9adf17c2ad4ae3caf99b065622fdeff9",
+        "model.safetensors.index.json": "0d660e94b165eb912669a5249dff44b83188c4777a07ddb9611fb78d91b0578d",
+        "tokenizer.json": "aeb13307a71acd8fe81861d94ad54ab689df773318809eed3cbe794b4492dae4",
+        "tokenizer_config.json": "d5d09f07b48c3086c508b30d1c9114bd1189145b74e982a265350c923acd8101",
+        "vocab.json": "ca10d7e9fb3ed18575dd1e277a2579c16d108e32f27439684afa0e10b1440910"
+      },
+      "processing": {
+        "schema_version": "0.1.0",
+        "device": "cuda",
+        "seed": 42,
+        "context_tokens": 3072,
+        "previous_paragraphs": 0,
+        "registry_limit": 0,
+        "qwen_stages": [
+          "mentions"
+        ],
+        "fable_overlap_tokens": 64,
+        "generation": {
+          "enable_thinking": false,
+          "do_sample": false,
+          "max_new_tokens": 512,
+          "num_beams": 1,
+          "use_cache": true
+        },
+        "models": {
+          "fable": {
+            "repo": "SaladTechnologies/fable-base",
+            "revision": "45aceef3d49fe75bd8240010cbfdc983724ec420",
+            "receipt": "../literary-decision-encoders/model-paths.json",
+            "receipt_key": "fable",
+            "dtype": "float32"
+          },
+          "qwen": {
+            "repo": "Qwen/Qwen3-1.7B",
+            "revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+            "receipt": "../character-decisions/model-paths.json",
+            "receipt_key": "qwen3_1_7b",
+            "dtype": "bfloat16"
+          }
+        },
+        "protocol": "independent_current_paragraph_only_no_state"
+      },
+      "code_sha256": "7becca72b6ab65aee07efa01a24cfd3e2ce29d3ee67d4df7ad5fa285a256dc61",
+      "source_sha256": "0a9687919d8d2080515213f1674a138be8c2f14b4a12a430fb0b5476d40891f6",
+      "range": [
+        0,
+        32
+      ],
+      "control_script_sha256": "9b9e971ee7407faed8334b0984046b178631ee0b5bb31655a03fb90ea39a06d9",
+      "run_sha256": "4a6c475368ff4e6a94a79f77998bb353517546f2c6665b2280a3555e695be817",
+      "paragraph_id": "p00028-bd0086ac",
+      "source_text": "Rowan arrived and said, \"I meant to warn you, but the gate was locked.\"",
+      "raw_file": "model_outputs/qwen/00028.json",
+      "raw_sha256": "34510acb3d853ebf6e0825a9aef66ef7e90be6483108c466dac9d38898c19f92",
+      "identity_scope": "paragraph_local_not_coreference",
+      "status": "ERROR",
+      "mentions": [],
+      "rejected": [],
+      "error": {
+        "type": "JSONDecodeError",
+        "message": "Extra data: line 1 column 780 (char 779)",
+        "traceback": "Traceback (most recent call last):\n  File \"C:\\Users\\Андрей\\Desktop\\world-of-hex\\experiments\\literary-text-analysis\\ner_control.py\", line 58, in run\n    payload = json.loads(raw['response'])\n              ^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\Андрей\\AppData\\Roaming\\uv\\python\\cpython-3.12.9-windows-x86_64-none\\Lib\\json\\__init__.py\", line 346, in loads\n    return _default_decoder.decode(s)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\Андрей\\AppData\\Roaming\\uv\\python\\cpython-3.12.9-windows-x86_64-none\\Lib\\json\\decoder.py\", line 341, in decode\n    raise JSONDecodeError(\"Extra data\", s, end)\njson.decoder.JSONDecodeError: Extra data: line 1 column 780 (char 779)\n"
+      },
+      "record_sha256": "9c162ff51962444f707e126e068309e51a279d191bfc44ade013207fe03459f7"
+    },
+    {
+      "schema_version": "0.1.0",
+      "model": "qwen",
+      "repo": "Qwen/Qwen3-1.7B",
+      "revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+      "receipt": "../character-decisions/model-paths.json",
+      "receipt_key": "qwen3_1_7b",
+      "dtype": "bfloat16",
+      "local_path": "D:\\gamedev\\huggingface\\decision-models\\qwen3_1_7b\\70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+      "checkpoint_files": {
+        "config.json": "1ddb5b89ebc90dcb417a45c213d818577e65976454d29385c8f6140771d95197",
+        "generation_config.json": "2325da0f15bb848e018c5ae071b7943332e9f871d6b60e2ed22ca97d4cb993d2",
+        "merges.txt": "8831e4f1a044471340f7c0a83d7bd71306a5b867e95fd870f74d0c5308a904d5",
+        "model-00001-of-00002.safetensors": "169ad53ec313c3a34b06c0809216e4fc072cce444a5d4ff2b59690d064130ed5",
+        "model-00002-of-00002.safetensors": "912becff8d60672aa8628ef08c05898d9adf17c2ad4ae3caf99b065622fdeff9",
+        "model.safetensors.index.json": "0d660e94b165eb912669a5249dff44b83188c4777a07ddb9611fb78d91b0578d",
+        "tokenizer.json": "aeb13307a71acd8fe81861d94ad54ab689df773318809eed3cbe794b4492dae4",
+        "tokenizer_config.json": "d5d09f07b48c3086c508b30d1c9114bd1189145b74e982a265350c923acd8101",
+        "vocab.json": "ca10d7e9fb3ed18575dd1e277a2579c16d108e32f27439684afa0e10b1440910"
+      },
+      "processing": {
+        "schema_version": "0.1.0",
+        "device": "cuda",
+        "seed": 42,
+        "context_tokens": 3072,
+        "previous_paragraphs": 0,
+        "registry_limit": 0,
+        "qwen_stages": [
+          "mentions"
+        ],
+        "fable_overlap_tokens": 64,
+        "generation": {
+          "enable_thinking": false,
+          "do_sample": false,
+          "max_new_tokens": 512,
+          "num_beams": 1,
+          "use_cache": true
+        },
+        "models": {
+          "fable": {
+            "repo": "SaladTechnologies/fable-base",
+            "revision": "45aceef3d49fe75bd8240010cbfdc983724ec420",
+            "receipt": "../literary-decision-encoders/model-paths.json",
+            "receipt_key": "fable",
+            "dtype": "float32"
+          },
+          "qwen": {
+            "repo": "Qwen/Qwen3-1.7B",
+            "revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+            "receipt": "../character-decisions/model-paths.json",
+            "receipt_key": "qwen3_1_7b",
+            "dtype": "bfloat16"
+          }
+        },
+        "protocol": "independent_current_paragraph_only_no_state"
+      },
+      "code_sha256": "7becca72b6ab65aee07efa01a24cfd3e2ce29d3ee67d4df7ad5fa285a256dc61",
+      "source_sha256": "0a9687919d8d2080515213f1674a138be8c2f14b4a12a430fb0b5476d40891f6",
+      "range": [
+        0,
+        32
+      ],
+      "control_script_sha256": "9b9e971ee7407faed8334b0984046b178631ee0b5bb31655a03fb90ea39a06d9",
+      "run_sha256": "4a6c475368ff4e6a94a79f77998bb353517546f2c6665b2280a3555e695be817",
+      "paragraph_id": "p00029-c9753cbc",
+      "source_text": "Mara stepped away from him when she heard the news.",
+      "raw_file": "model_outputs/qwen/00029.json",
+      "raw_sha256": "724859795884b8f0417585a7acde18faafbff141b235f58d9c3073821fb0860d",
+      "identity_scope": "paragraph_local_not_coreference",
+      "status": "SUCCESS",
+      "mentions": [],
+      "rejected": [],
+      "record_sha256": "701646343c4bce1f9f549903da22690afa0d5dba8965fa8e32a9822e63c8cfe0"
+    },
+    {
+      "schema_version": "0.1.0",
+      "model": "qwen",
+      "repo": "Qwen/Qwen3-1.7B",
+      "revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+      "receipt": "../character-decisions/model-paths.json",
+      "receipt_key": "qwen3_1_7b",
+      "dtype": "bfloat16",
+      "local_path": "D:\\gamedev\\huggingface\\decision-models\\qwen3_1_7b\\70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+      "checkpoint_files": {
+        "config.json": "1ddb5b89ebc90dcb417a45c213d818577e65976454d29385c8f6140771d95197",
+        "generation_config.json": "2325da0f15bb848e018c5ae071b7943332e9f871d6b60e2ed22ca97d4cb993d2",
+        "merges.txt": "8831e4f1a044471340f7c0a83d7bd71306a5b867e95fd870f74d0c5308a904d5",
+        "model-00001-of-00002.safetensors": "169ad53ec313c3a34b06c0809216e4fc072cce444a5d4ff2b59690d064130ed5",
+        "model-00002-of-00002.safetensors": "912becff8d60672aa8628ef08c05898d9adf17c2ad4ae3caf99b065622fdeff9",
+        "model.safetensors.index.json": "0d660e94b165eb912669a5249dff44b83188c4777a07ddb9611fb78d91b0578d",
+        "tokenizer.json": "aeb13307a71acd8fe81861d94ad54ab689df773318809eed3cbe794b4492dae4",
+        "tokenizer_config.json": "d5d09f07b48c3086c508b30d1c9114bd1189145b74e982a265350c923acd8101",
+        "vocab.json": "ca10d7e9fb3ed18575dd1e277a2579c16d108e32f27439684afa0e10b1440910"
+      },
+      "processing": {
+        "schema_version": "0.1.0",
+        "device": "cuda",
+        "seed": 42,
+        "context_tokens": 3072,
+        "previous_paragraphs": 0,
+        "registry_limit": 0,
+        "qwen_stages": [
+          "mentions"
+        ],
+        "fable_overlap_tokens": 64,
+        "generation": {
+          "enable_thinking": false,
+          "do_sample": false,
+          "max_new_tokens": 512,
+          "num_beams": 1,
+          "use_cache": true
+        },
+        "models": {
+          "fable": {
+            "repo": "SaladTechnologies/fable-base",
+            "revision": "45aceef3d49fe75bd8240010cbfdc983724ec420",
+            "receipt": "../literary-decision-encoders/model-paths.json",
+            "receipt_key": "fable",
+            "dtype": "float32"
+          },
+          "qwen": {
+            "repo": "Qwen/Qwen3-1.7B",
+            "revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+            "receipt": "../character-decisions/model-paths.json",
+            "receipt_key": "qwen3_1_7b",
+            "dtype": "bfloat16"
+          }
+        },
+        "protocol": "independent_current_paragraph_only_no_state"
+      },
+      "code_sha256": "7becca72b6ab65aee07efa01a24cfd3e2ce29d3ee67d4df7ad5fa285a256dc61",
+      "source_sha256": "0a9687919d8d2080515213f1674a138be8c2f14b4a12a430fb0b5476d40891f6",
+      "range": [
+        0,
+        32
+      ],
+      "control_script_sha256": "9b9e971ee7407faed8334b0984046b178631ee0b5bb31655a03fb90ea39a06d9",
+      "run_sha256": "4a6c475368ff4e6a94a79f77998bb353517546f2c6665b2280a3555e695be817",
+      "paragraph_id": "p00030-14f10584",
+      "source_text": "\"I will search the western road,\" Iven said. He remained in the doorway.",
+      "raw_file": "model_outputs/qwen/00030.json",
+      "raw_sha256": "7baeae366da7ef86ea6f9b1836e5cc1e5b0cf96c1226de420e1a085cd336f4db",
+      "identity_scope": "paragraph_local_not_coreference",
+      "status": "SUCCESS",
+      "mentions": [
+        {
+          "id": "p00030-14f10584:m000",
+          "paragraph_id": "p00030-14f10584",
+          "start": 34,
+          "end": 38,
+          "quote": "Iven",
+          "text": "Iven",
+          "character_id": "p00030-14f10584:c0001",
+          "kind": "name",
+          "role": "speaker",
+          "status": "automatic_unverified"
+        },
+        {
+          "id": "p00030-14f10584:m001",
+          "paragraph_id": "p00030-14f10584",
+          "start": 45,
+          "end": 47,
+          "quote": "He",
+          "text": "He",
+          "character_id": "p00030-14f10584:c0002",
+          "kind": "pronoun",
+          "role": "actor",
+          "status": "automatic_unverified"
+        }
+      ],
+      "rejected": [],
+      "record_sha256": "ee17caedfcf2418fc14e518e3ccffe8239cf3116d3f7130ef9e51e4a8453e4ed"
+    },
+    {
+      "schema_version": "0.1.0",
+      "model": "qwen",
+      "repo": "Qwen/Qwen3-1.7B",
+      "revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+      "receipt": "../character-decisions/model-paths.json",
+      "receipt_key": "qwen3_1_7b",
+      "dtype": "bfloat16",
+      "local_path": "D:\\gamedev\\huggingface\\decision-models\\qwen3_1_7b\\70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+      "checkpoint_files": {
+        "config.json": "1ddb5b89ebc90dcb417a45c213d818577e65976454d29385c8f6140771d95197",
+        "generation_config.json": "2325da0f15bb848e018c5ae071b7943332e9f871d6b60e2ed22ca97d4cb993d2",
+        "merges.txt": "8831e4f1a044471340f7c0a83d7bd71306a5b867e95fd870f74d0c5308a904d5",
+        "model-00001-of-00002.safetensors": "169ad53ec313c3a34b06c0809216e4fc072cce444a5d4ff2b59690d064130ed5",
+        "model-00002-of-00002.safetensors": "912becff8d60672aa8628ef08c05898d9adf17c2ad4ae3caf99b065622fdeff9",
+        "model.safetensors.index.json": "0d660e94b165eb912669a5249dff44b83188c4777a07ddb9611fb78d91b0578d",
+        "tokenizer.json": "aeb13307a71acd8fe81861d94ad54ab689df773318809eed3cbe794b4492dae4",
+        "tokenizer_config.json": "d5d09f07b48c3086c508b30d1c9114bd1189145b74e982a265350c923acd8101",
+        "vocab.json": "ca10d7e9fb3ed18575dd1e277a2579c16d108e32f27439684afa0e10b1440910"
+      },
+      "processing": {
+        "schema_version": "0.1.0",
+        "device": "cuda",
+        "seed": 42,
+        "context_tokens": 3072,
+        "previous_paragraphs": 0,
+        "registry_limit": 0,
+        "qwen_stages": [
+          "mentions"
+        ],
+        "fable_overlap_tokens": 64,
+        "generation": {
+          "enable_thinking": false,
+          "do_sample": false,
+          "max_new_tokens": 512,
+          "num_beams": 1,
+          "use_cache": true
+        },
+        "models": {
+          "fable": {
+            "repo": "SaladTechnologies/fable-base",
+            "revision": "45aceef3d49fe75bd8240010cbfdc983724ec420",
+            "receipt": "../literary-decision-encoders/model-paths.json",
+            "receipt_key": "fable",
+            "dtype": "float32"
+          },
+          "qwen": {
+            "repo": "Qwen/Qwen3-1.7B",
+            "revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+            "receipt": "../character-decisions/model-paths.json",
+            "receipt_key": "qwen3_1_7b",
+            "dtype": "bfloat16"
+          }
+        },
+        "protocol": "independent_current_paragraph_only_no_state"
+      },
+      "code_sha256": "7becca72b6ab65aee07efa01a24cfd3e2ce29d3ee67d4df7ad5fa285a256dc61",
+      "source_sha256": "0a9687919d8d2080515213f1674a138be8c2f14b4a12a430fb0b5476d40891f6",
+      "range": [
+        0,
+        32
+      ],
+      "control_script_sha256": "9b9e971ee7407faed8334b0984046b178631ee0b5bb31655a03fb90ea39a06d9",
+      "run_sha256": "4a6c475368ff4e6a94a79f77998bb353517546f2c6665b2280a3555e695be817",
+      "paragraph_id": "p00031-92135bf5",
+      "source_text": "The rain stopped. The three stood quietly until the bell rang again.",
+      "raw_file": "model_outputs/qwen/00031.json",
+      "raw_sha256": "00879531dcbe314f05aa31799eac2db0e3d280c16c4373c67ebaa3230ab70678",
+      "identity_scope": "paragraph_local_not_coreference",
+      "status": "SUCCESS",
+      "mentions": [],
+      "rejected": [],
+      "record_sha256": "54b7ce39e99eda74d4787a3edf6c800b594dcb4e62cfde0bfe054b32f5334612"
+    }
+  ]
+}

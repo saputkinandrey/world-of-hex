@@ -1,0 +1,122 @@
+{
+  "schema_version": "0.1.0",
+  "model": "qwen",
+  "checkpoint_revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+  "processing": {
+    "schema_version": "0.1.0",
+    "device": "cuda",
+    "seed": 42,
+    "context_tokens": 3072,
+    "previous_paragraphs": 2,
+    "registry_limit": 24,
+    "fable_overlap_tokens": 64,
+    "generation": {
+      "enable_thinking": false,
+      "do_sample": false,
+      "max_new_tokens": 1152,
+      "num_beams": 1,
+      "use_cache": true
+    },
+    "models": {
+      "fable": {
+        "repo": "SaladTechnologies/fable-base",
+        "revision": "45aceef3d49fe75bd8240010cbfdc983724ec420",
+        "receipt": "../literary-decision-encoders/model-paths.json",
+        "receipt_key": "fable",
+        "dtype": "float32"
+      },
+      "qwen": {
+        "repo": "Qwen/Qwen3-1.7B",
+        "revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+        "receipt": "../character-decisions/model-paths.json",
+        "receipt_key": "qwen3_1_7b",
+        "dtype": "bfloat16"
+      }
+    }
+  },
+  "run_sha256": "16c09f5192ea36dbbe34b80ad478d691535ff03a2610e7760da73c7eb7a88a09",
+  "paragraph_id": "p00003-7957dcd5",
+  "ordinal": 3,
+  "status": "SUCCESS",
+  "normalized": {
+    "mentions": [
+      {
+        "id": "p00003-7957dcd5:m000",
+        "paragraph_id": "p00003-7957dcd5",
+        "start": 0,
+        "end": 60,
+        "quote": "\"No,\" Rowan answered. \"I will not let the soldiers through.\"",
+        "text": "\"No,\" Rowan answered. \"I will not let the soldiers through.\"",
+        "character_id": "c0002",
+        "kind": "name",
+        "role": "actor",
+        "status": "automatic_unverified"
+      }
+    ],
+    "observations": [
+      {
+        "id": "p00003-7957dcd5:e000",
+        "character_id": "c0002",
+        "participants": {
+          "actor": "c0002",
+          "target": "c0001",
+          "speaker": "c0002",
+          "about": "c0001"
+        },
+        "categories": [
+          "action"
+        ],
+        "summary": "Rowan refuses to let soldiers through the gate.",
+        "evidence": [
+          {
+            "paragraph_id": "p00003-7957dcd5",
+            "start": 0,
+            "end": 60,
+            "quote": "\"No,\" Rowan answered. \"I will not let the soldiers through.\""
+          }
+        ],
+        "assertion_source": "narrator",
+        "assertion_status": "asserted",
+        "certainty": "model_unverified",
+        "status": "automatic_unverified"
+      }
+    ],
+    "links": [],
+    "revision_proposals": [],
+    "rejected": []
+  },
+  "artifacts": [
+    {
+      "path": "model_outputs\\qwen\\00003.json",
+      "sha256": "c5c65e3157fd05e2c640002584e97538bfd2eec7f25d88a750fe1a286db2137b"
+    }
+  ],
+  "registry_after": [
+    {
+      "id": "c0001",
+      "name": "Mara",
+      "aliases": [
+        "Mara reached the stone bridge and placed a lantern on the wall."
+      ],
+      "mentions": [
+        "p00000-4dc6742d:m000"
+      ],
+      "status": "automatic_unverified"
+    },
+    {
+      "id": "c0002",
+      "name": "Rowan",
+      "aliases": [
+        "Rowan watched her from the gate.",
+        "He kept his sword in its sheath.",
+        "\"No,\" Rowan answered. \"I will not let the soldiers through.\""
+      ],
+      "mentions": [
+        "p00001-7c894f36:m000",
+        "p00001-7c894f36:m001",
+        "p00003-7957dcd5:m000"
+      ],
+      "status": "automatic_unverified"
+    }
+  ]
+}

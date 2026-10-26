@@ -1,0 +1,799 @@
+{
+  "schema_version": "0.1.0",
+  "model": "fable",
+  "checkpoint_revision": "45aceef3d49fe75bd8240010cbfdc983724ec420",
+  "processing": {
+    "schema_version": "0.1.0",
+    "device": "cuda",
+    "seed": 42,
+    "context_tokens": 3072,
+    "previous_paragraphs": 2,
+    "registry_limit": 24,
+    "qwen_stages": [
+      "mentions",
+      "behavior"
+    ],
+    "fable_overlap_tokens": 64,
+    "generation": {
+      "enable_thinking": false,
+      "do_sample": false,
+      "max_new_tokens": 1152,
+      "num_beams": 1,
+      "use_cache": true
+    },
+    "models": {
+      "fable": {
+        "repo": "SaladTechnologies/fable-base",
+        "revision": "45aceef3d49fe75bd8240010cbfdc983724ec420",
+        "receipt": "../literary-decision-encoders/model-paths.json",
+        "receipt_key": "fable",
+        "dtype": "float32"
+      },
+      "qwen": {
+        "repo": "Qwen/Qwen3-1.7B",
+        "revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+        "receipt": "../character-decisions/model-paths.json",
+        "receipt_key": "qwen3_1_7b",
+        "dtype": "bfloat16"
+      }
+    }
+  },
+  "run_sha256": "0cf1534a5e069467b25b759fffa3646c36bc89fa76cec17c623fd25fae782b23",
+  "scope": "mentions_only_not_coreference",
+  "character_mentions": [
+    {
+      "paragraph_id": "p00000-4dc6742d",
+      "start": 0,
+      "end": 4,
+      "type": "CHA",
+      "text": "Mara",
+      "score": 0.8036885261535645
+    },
+    {
+      "paragraph_id": "p00001-7c894f36",
+      "start": 0,
+      "end": 5,
+      "type": "CHA",
+      "text": "Rowan",
+      "score": 0.6833418607711792
+    },
+    {
+      "paragraph_id": "p00002-b6a414ed",
+      "start": 25,
+      "end": 30,
+      "type": "CHA",
+      "text": " Mara",
+      "score": 0.8523305058479309
+    },
+    {
+      "paragraph_id": "p00002-b6a414ed",
+      "start": 36,
+      "end": 42,
+      "type": "CHA",
+      "text": " Rowan",
+      "score": 0.8082783222198486
+    },
+    {
+      "paragraph_id": "p00003-7957dcd5",
+      "start": 5,
+      "end": 11,
+      "type": "CHA",
+      "text": " Rowan",
+      "score": 0.726894736289978
+    },
+    {
+      "paragraph_id": "p00004-3c2fbe8e",
+      "start": 0,
+      "end": 4,
+      "type": "CHA",
+      "text": "Mara",
+      "score": 0.828594982624054
+    },
+    {
+      "paragraph_id": "p00006-d6095cad",
+      "start": 0,
+      "end": 5,
+      "type": "CHA",
+      "text": "Rowan",
+      "score": 0.8148560523986816
+    },
+    {
+      "paragraph_id": "p00007-80579766",
+      "start": 47,
+      "end": 52,
+      "type": "CHA",
+      "text": " Mara",
+      "score": 0.83830326795578
+    },
+    {
+      "paragraph_id": "p00008-304e26be",
+      "start": 13,
+      "end": 19,
+      "type": "CHA",
+      "text": " Rowan",
+      "score": 0.635170042514801
+    },
+    {
+      "paragraph_id": "p00008-304e26be",
+      "start": 39,
+      "end": 44,
+      "type": "CHA",
+      "text": " Iven",
+      "score": 0.8032749593257904
+    },
+    {
+      "paragraph_id": "p00009-34f53a39",
+      "start": 30,
+      "end": 36,
+      "type": "CHA",
+      "text": " Rowan",
+      "score": 0.7278072834014893
+    },
+    {
+      "paragraph_id": "p00010-67c3d0da",
+      "start": 0,
+      "end": 4,
+      "type": "CHA",
+      "text": "Mara",
+      "score": 0.8036040663719177
+    },
+    {
+      "paragraph_id": "p00011-8e6a8ffe",
+      "start": 19,
+      "end": 24,
+      "type": "CHA",
+      "text": " Iven",
+      "score": 0.7976935803890228
+    },
+    {
+      "paragraph_id": "p00012-c66f1d9d",
+      "start": 0,
+      "end": 5,
+      "type": "CHA",
+      "text": "Rowan",
+      "score": 0.7275333404541016
+    },
+    {
+      "paragraph_id": "p00012-c66f1d9d",
+      "start": 9,
+      "end": 14,
+      "type": "CHA",
+      "text": " Iven",
+      "score": 0.778090238571167
+    },
+    {
+      "paragraph_id": "p00013-d72f6cf3",
+      "start": 25,
+      "end": 30,
+      "type": "CHA",
+      "text": " Iven",
+      "score": 0.7482380867004395
+    },
+    {
+      "paragraph_id": "p00013-d72f6cf3",
+      "start": 31,
+      "end": 37,
+      "type": "CHA",
+      "text": " Rowan",
+      "score": 0.7567750811576843
+    },
+    {
+      "paragraph_id": "p00014-e61731d7",
+      "start": 13,
+      "end": 17,
+      "type": "CHA",
+      "text": " Ash",
+      "score": 0.6700858473777771
+    },
+    {
+      "paragraph_id": "p00014-e61731d7",
+      "start": 19,
+      "end": 24,
+      "type": "CHA",
+      "text": " Mara",
+      "score": 0.8596585988998413
+    },
+    {
+      "paragraph_id": "p00015-6d2e0bd5",
+      "start": 0,
+      "end": 4,
+      "type": "CHA",
+      "text": "\"Ash",
+      "score": 0.6447941958904266
+    },
+    {
+      "paragraph_id": "p00015-6d2e0bd5",
+      "start": 25,
+      "end": 31,
+      "type": "CHA",
+      "text": " Rowan",
+      "score": 0.7912799715995789
+    },
+    {
+      "paragraph_id": "p00015-6d2e0bd5",
+      "start": 39,
+      "end": 44,
+      "type": "CHA",
+      "text": " Mara",
+      "score": 0.8698921203613281
+    },
+    {
+      "paragraph_id": "p00016-78b50b70",
+      "start": 0,
+      "end": 4,
+      "type": "CHA",
+      "text": "Mara",
+      "score": 0.8442517518997192
+    },
+    {
+      "paragraph_id": "p00017-f21d773d",
+      "start": 33,
+      "end": 38,
+      "type": "CHA",
+      "text": " Iven",
+      "score": 0.7984966039657593
+    },
+    {
+      "paragraph_id": "p00018-82364d09",
+      "start": 22,
+      "end": 27,
+      "type": "CHA",
+      "text": " Mara",
+      "score": 0.8696094751358032
+    },
+    {
+      "paragraph_id": "p00019-b0d084f4",
+      "start": 30,
+      "end": 36,
+      "type": "CHA",
+      "text": " Rowan",
+      "score": 0.8062909245491028
+    },
+    {
+      "paragraph_id": "p00020-0570f388",
+      "start": 0,
+      "end": 4,
+      "type": "CHA",
+      "text": "Iven",
+      "score": 0.7810126543045044
+    },
+    {
+      "paragraph_id": "p00020-0570f388",
+      "start": 9,
+      "end": 15,
+      "type": "CHA",
+      "text": " Rowan",
+      "score": 0.8392074704170227
+    },
+    {
+      "paragraph_id": "p00021-d4282aff",
+      "start": 14,
+      "end": 20,
+      "type": "CHA",
+      "text": " Rowan",
+      "score": 0.7504286766052246
+    },
+    {
+      "paragraph_id": "p00022-a62fd3b1",
+      "start": 27,
+      "end": 32,
+      "type": "CHA",
+      "text": " Mara",
+      "score": 0.8559799790382385
+    },
+    {
+      "paragraph_id": "p00022-a62fd3b1",
+      "start": 40,
+      "end": 46,
+      "type": "CHA",
+      "text": " Rowan",
+      "score": 0.7468073964118958
+    },
+    {
+      "paragraph_id": "p00023-6161be9b",
+      "start": 0,
+      "end": 4,
+      "type": "CHA",
+      "text": "Iven",
+      "score": 0.7812126278877258
+    },
+    {
+      "paragraph_id": "p00025-ae7dacb6",
+      "start": 7,
+      "end": 12,
+      "type": "CHA",
+      "text": " Mara",
+      "score": 0.8982292413711548
+    },
+    {
+      "paragraph_id": "p00027-cac2a4c9",
+      "start": 0,
+      "end": 4,
+      "type": "CHA",
+      "text": "Mara",
+      "score": 0.7408942580223083
+    },
+    {
+      "paragraph_id": "p00028-bd0086ac",
+      "start": 0,
+      "end": 5,
+      "type": "CHA",
+      "text": "Rowan",
+      "score": 0.5709831118583679
+    },
+    {
+      "paragraph_id": "p00029-c9753cbc",
+      "start": 0,
+      "end": 4,
+      "type": "CHA",
+      "text": "Mara",
+      "score": 0.8221675753593445
+    },
+    {
+      "paragraph_id": "p00030-14f10584",
+      "start": 33,
+      "end": 38,
+      "type": "CHA",
+      "text": " Iven",
+      "score": 0.7933400571346283
+    }
+  ],
+  "all_entities": [
+    {
+      "paragraph_id": "p00000-4dc6742d",
+      "start": 0,
+      "end": 4,
+      "type": "CHA",
+      "text": "Mara",
+      "score": 0.8036885261535645
+    },
+    {
+      "paragraph_id": "p00000-4dc6742d",
+      "start": 16,
+      "end": 29,
+      "type": "FAC",
+      "text": " stone bridge",
+      "score": 0.4948797971010208
+    },
+    {
+      "paragraph_id": "p00000-4dc6742d",
+      "start": 42,
+      "end": 50,
+      "type": "OBJ",
+      "text": " lantern",
+      "score": 0.5821953415870667
+    },
+    {
+      "paragraph_id": "p00001-7c894f36",
+      "start": 0,
+      "end": 5,
+      "type": "CHA",
+      "text": "Rowan",
+      "score": 0.6833418607711792
+    },
+    {
+      "paragraph_id": "p00001-7c894f36",
+      "start": 44,
+      "end": 50,
+      "type": "OBJ",
+      "text": " sword",
+      "score": 0.6868264675140381
+    },
+    {
+      "paragraph_id": "p00002-b6a414ed",
+      "start": 25,
+      "end": 30,
+      "type": "CHA",
+      "text": " Mara",
+      "score": 0.8523305058479309
+    },
+    {
+      "paragraph_id": "p00002-b6a414ed",
+      "start": 36,
+      "end": 42,
+      "type": "CHA",
+      "text": " Rowan",
+      "score": 0.8082783222198486
+    },
+    {
+      "paragraph_id": "p00003-7957dcd5",
+      "start": 5,
+      "end": 11,
+      "type": "CHA",
+      "text": " Rowan",
+      "score": 0.726894736289978
+    },
+    {
+      "paragraph_id": "p00004-3c2fbe8e",
+      "start": 0,
+      "end": 4,
+      "type": "CHA",
+      "text": "Mara",
+      "score": 0.828594982624054
+    },
+    {
+      "paragraph_id": "p00004-3c2fbe8e",
+      "start": 67,
+      "end": 74,
+      "type": "FAC",
+      "text": " bridge",
+      "score": 0.515612006187439
+    },
+    {
+      "paragraph_id": "p00005-3ae4f9f1",
+      "start": 3,
+      "end": 11,
+      "type": "OBJ",
+      "text": " lantern",
+      "score": 0.5474947094917297
+    },
+    {
+      "paragraph_id": "p00006-d6095cad",
+      "start": 0,
+      "end": 5,
+      "type": "CHA",
+      "text": "Rowan",
+      "score": 0.8148560523986816
+    },
+    {
+      "paragraph_id": "p00007-80579766",
+      "start": 40,
+      "end": 45,
+      "type": "FAC",
+      "text": " mill",
+      "score": 0.515231728553772
+    },
+    {
+      "paragraph_id": "p00007-80579766",
+      "start": 47,
+      "end": 52,
+      "type": "CHA",
+      "text": " Mara",
+      "score": 0.83830326795578
+    },
+    {
+      "paragraph_id": "p00008-304e26be",
+      "start": 13,
+      "end": 19,
+      "type": "CHA",
+      "text": " Rowan",
+      "score": 0.635170042514801
+    },
+    {
+      "paragraph_id": "p00008-304e26be",
+      "start": 28,
+      "end": 32,
+      "type": "OBJ",
+      "text": " map",
+      "score": 0.7041984796524048
+    },
+    {
+      "paragraph_id": "p00008-304e26be",
+      "start": 39,
+      "end": 44,
+      "type": "CHA",
+      "text": " Iven",
+      "score": 0.8032749593257904
+    },
+    {
+      "paragraph_id": "p00009-34f53a39",
+      "start": 30,
+      "end": 36,
+      "type": "CHA",
+      "text": " Rowan",
+      "score": 0.7278072834014893
+    },
+    {
+      "paragraph_id": "p00010-67c3d0da",
+      "start": 0,
+      "end": 4,
+      "type": "CHA",
+      "text": "Mara",
+      "score": 0.8036040663719177
+    },
+    {
+      "paragraph_id": "p00011-8e6a8ffe",
+      "start": 19,
+      "end": 24,
+      "type": "CHA",
+      "text": " Iven",
+      "score": 0.7976935803890228
+    },
+    {
+      "paragraph_id": "p00012-c66f1d9d",
+      "start": 0,
+      "end": 5,
+      "type": "CHA",
+      "text": "Rowan",
+      "score": 0.7275333404541016
+    },
+    {
+      "paragraph_id": "p00012-c66f1d9d",
+      "start": 9,
+      "end": 14,
+      "type": "CHA",
+      "text": " Iven",
+      "score": 0.778090238571167
+    },
+    {
+      "paragraph_id": "p00012-c66f1d9d",
+      "start": 46,
+      "end": 54,
+      "type": "OBJ",
+      "text": " lantern",
+      "score": 0.5855687856674194
+    },
+    {
+      "paragraph_id": "p00013-d72f6cf3",
+      "start": 25,
+      "end": 30,
+      "type": "CHA",
+      "text": " Iven",
+      "score": 0.7482380867004395
+    },
+    {
+      "paragraph_id": "p00013-d72f6cf3",
+      "start": 31,
+      "end": 37,
+      "type": "CHA",
+      "text": " Rowan",
+      "score": 0.7567750811576843
+    },
+    {
+      "paragraph_id": "p00013-d72f6cf3",
+      "start": 59,
+      "end": 68,
+      "type": "OBJ",
+      "text": " blankets",
+      "score": 0.5965851545333862
+    },
+    {
+      "paragraph_id": "p00014-e61731d7",
+      "start": 13,
+      "end": 17,
+      "type": "CHA",
+      "text": " Ash",
+      "score": 0.6700858473777771
+    },
+    {
+      "paragraph_id": "p00014-e61731d7",
+      "start": 19,
+      "end": 24,
+      "type": "CHA",
+      "text": " Mara",
+      "score": 0.8596585988998413
+    },
+    {
+      "paragraph_id": "p00015-6d2e0bd5",
+      "start": 0,
+      "end": 4,
+      "type": "CHA",
+      "text": "\"Ash",
+      "score": 0.6447941958904266
+    },
+    {
+      "paragraph_id": "p00015-6d2e0bd5",
+      "start": 25,
+      "end": 31,
+      "type": "CHA",
+      "text": " Rowan",
+      "score": 0.7912799715995789
+    },
+    {
+      "paragraph_id": "p00015-6d2e0bd5",
+      "start": 39,
+      "end": 44,
+      "type": "CHA",
+      "text": " Mara",
+      "score": 0.8698921203613281
+    },
+    {
+      "paragraph_id": "p00016-78b50b70",
+      "start": 0,
+      "end": 4,
+      "type": "CHA",
+      "text": "Mara",
+      "score": 0.8442517518997192
+    },
+    {
+      "paragraph_id": "p00016-78b50b70",
+      "start": 17,
+      "end": 26,
+      "type": "OBJ",
+      "text": " blankets",
+      "score": 0.5108351707458496
+    },
+    {
+      "paragraph_id": "p00016-78b50b70",
+      "start": 42,
+      "end": 54,
+      "type": "OBJ",
+      "text": " silver coin",
+      "score": 0.6817077696323395
+    },
+    {
+      "paragraph_id": "p00017-f21d773d",
+      "start": 33,
+      "end": 38,
+      "type": "CHA",
+      "text": " Iven",
+      "score": 0.7984966039657593
+    },
+    {
+      "paragraph_id": "p00018-82364d09",
+      "start": 22,
+      "end": 27,
+      "type": "CHA",
+      "text": " Mara",
+      "score": 0.8696094751358032
+    },
+    {
+      "paragraph_id": "p00018-82364d09",
+      "start": 53,
+      "end": 58,
+      "type": "FAC",
+      "text": " mill",
+      "score": 0.4477957487106323
+    },
+    {
+      "paragraph_id": "p00019-b0d084f4",
+      "start": 30,
+      "end": 36,
+      "type": "CHA",
+      "text": " Rowan",
+      "score": 0.8062909245491028
+    },
+    {
+      "paragraph_id": "p00020-0570f388",
+      "start": 0,
+      "end": 4,
+      "type": "CHA",
+      "text": "Iven",
+      "score": 0.7810126543045044
+    },
+    {
+      "paragraph_id": "p00020-0570f388",
+      "start": 9,
+      "end": 15,
+      "type": "CHA",
+      "text": " Rowan",
+      "score": 0.8392074704170227
+    },
+    {
+      "paragraph_id": "p00021-d4282aff",
+      "start": 14,
+      "end": 20,
+      "type": "CHA",
+      "text": " Rowan",
+      "score": 0.7504286766052246
+    },
+    {
+      "paragraph_id": "p00022-a62fd3b1",
+      "start": 27,
+      "end": 32,
+      "type": "CHA",
+      "text": " Mara",
+      "score": 0.8559799790382385
+    },
+    {
+      "paragraph_id": "p00022-a62fd3b1",
+      "start": 40,
+      "end": 46,
+      "type": "CHA",
+      "text": " Rowan",
+      "score": 0.7468073964118958
+    },
+    {
+      "paragraph_id": "p00023-6161be9b",
+      "start": 0,
+      "end": 4,
+      "type": "CHA",
+      "text": "Iven",
+      "score": 0.7812126278877258
+    },
+    {
+      "paragraph_id": "p00024-39573c99",
+      "start": 8,
+      "end": 13,
+      "type": "OBJ",
+      "text": " cart",
+      "score": 0.3584434986114502
+    },
+    {
+      "paragraph_id": "p00024-39573c99",
+      "start": 36,
+      "end": 43,
+      "type": "FAC",
+      "text": " stable",
+      "score": 0.6528741717338562
+    },
+    {
+      "paragraph_id": "p00025-ae7dacb6",
+      "start": 7,
+      "end": 12,
+      "type": "CHA",
+      "text": " Mara",
+      "score": 0.8982292413711548
+    },
+    {
+      "paragraph_id": "p00025-ae7dacb6",
+      "start": 20,
+      "end": 24,
+      "type": "FAC",
+      "text": " the",
+      "score": 0.4758915603160858
+    },
+    {
+      "paragraph_id": "p00025-ae7dacb6",
+      "start": 24,
+      "end": 29,
+      "type": "FAC",
+      "text": " mill",
+      "score": 0.521148145198822
+    },
+    {
+      "paragraph_id": "p00025-ae7dacb6",
+      "start": 58,
+      "end": 65,
+      "type": "OBJ",
+      "text": " letter",
+      "score": 0.46561068296432495
+    },
+    {
+      "paragraph_id": "p00026-5a8c702b",
+      "start": 3,
+      "end": 10,
+      "type": "OBJ",
+      "text": " letter",
+      "score": 0.50722736120224
+    },
+    {
+      "paragraph_id": "p00027-cac2a4c9",
+      "start": 0,
+      "end": 4,
+      "type": "CHA",
+      "text": "Mara",
+      "score": 0.7408942580223083
+    },
+    {
+      "paragraph_id": "p00027-cac2a4c9",
+      "start": 15,
+      "end": 22,
+      "type": "OBJ",
+      "text": " letter",
+      "score": 0.6019524931907654
+    },
+    {
+      "paragraph_id": "p00028-bd0086ac",
+      "start": 0,
+      "end": 5,
+      "type": "CHA",
+      "text": "Rowan",
+      "score": 0.5709831118583679
+    },
+    {
+      "paragraph_id": "p00029-c9753cbc",
+      "start": 0,
+      "end": 4,
+      "type": "CHA",
+      "text": "Mara",
+      "score": 0.8221675753593445
+    },
+    {
+      "paragraph_id": "p00030-14f10584",
+      "start": 18,
+      "end": 31,
+      "type": "LOC",
+      "text": " western road",
+      "score": 0.498684898018837
+    },
+    {
+      "paragraph_id": "p00030-14f10584",
+      "start": 33,
+      "end": 38,
+      "type": "CHA",
+      "text": " Iven",
+      "score": 0.7933400571346283
+    }
+  ]
+}

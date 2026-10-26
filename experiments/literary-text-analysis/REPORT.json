@@ -1,0 +1,2598 @@
+{
+  "schema_version": "0.1.0",
+  "producer": "saved_result_reporter",
+  "model": "per_run",
+  "checkpoint_revision": "per_run",
+  "processing": "read_saved_outputs_only",
+  "literary_benchmark": "not_run",
+  "independent_human_gold": false,
+  "quality_metrics": "not_measured",
+  "runs": [
+    {
+      "schema_version": "0.1.0",
+      "model": "fable",
+      "revision": "45aceef3d49fe75bd8240010cbfdc983724ec420",
+      "processing": {
+        "schema_version": "0.1.0",
+        "device": "cuda",
+        "seed": 42,
+        "context_tokens": 3072,
+        "previous_paragraphs": 2,
+        "registry_limit": 24,
+        "qwen_stages": [
+          "mentions",
+          "behavior"
+        ],
+        "fable_overlap_tokens": 64,
+        "generation": {
+          "enable_thinking": false,
+          "do_sample": false,
+          "max_new_tokens": 1152,
+          "num_beams": 1,
+          "use_cache": true
+        },
+        "models": {
+          "fable": {
+            "repo": "SaladTechnologies/fable-base",
+            "revision": "45aceef3d49fe75bd8240010cbfdc983724ec420",
+            "receipt": "../literary-decision-encoders/model-paths.json",
+            "receipt_key": "fable",
+            "dtype": "float32"
+          },
+          "qwen": {
+            "repo": "Qwen/Qwen3-1.7B",
+            "revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+            "receipt": "../character-decisions/model-paths.json",
+            "receipt_key": "qwen3_1_7b",
+            "dtype": "bfloat16"
+          }
+        }
+      },
+      "language": "en",
+      "source_sha256": "dc1de6e9f4d0b2bfe13c71dc759e0f18f232bc5a8bc420eeeef4e24607b7f5a5",
+      "range": [
+        0,
+        1
+      ],
+      "run_sha256": "835d896ee6b3e47dddaa9e0d51f3088927cff8c578ee34717e4849272b373cad",
+      "run_directory": "runs/acceptance-fable-long",
+      "source_kind": "authored_fixture",
+      "paragraphs_recorded": 1,
+      "successful_paragraphs": 1,
+      "partial_paragraphs": 0,
+      "failed_paragraphs": 0,
+      "pending_paragraphs": 0,
+      "context_or_memory_failures": 0,
+      "paragraphs_unprocessed_due_context_or_memory": 0,
+      "generation_errors": 0,
+      "attempted_calls": 1,
+      "invalid_json_calls": 0,
+      "invalid_json_fraction_of_saved_calls": 0.0,
+      "generation_or_schema_error_fraction_of_attempts": 0.0,
+      "schema_error_calls": 0,
+      "output_cap_calls": 0,
+      "calls_with_saved_output": 1,
+      "processing_seconds": 1.1883498999959556,
+      "load_seconds": 2.639127499991446,
+      "paragraphs_per_minute": 50.490179702294924,
+      "input_tokens_including_overlap_and_context": 1234,
+      "generated_tokens": 0,
+      "input_tokens_per_second": 1038.414695877199,
+      "generated_tokens_per_second": null,
+      "cuda_peak_allocated_bytes": 852160000,
+      "cuda_peak_reserved_bytes": 884998144,
+      "rss_peak_bytes": 1536274432,
+      "entity_types": {
+        "CHA": 200,
+        "OBJ": 100,
+        "FAC": 100
+      },
+      "character_mentions": 200,
+      "qwen_name_mentions": 0,
+      "other_mentions": 0,
+      "unresolved_mentions": 0,
+      "behavior_observations": 0,
+      "behavior_categories": {},
+      "grounding_rejections": 0,
+      "rejection_examples": [],
+      "fragments": 1,
+      "revisions": 0,
+      "evidence_examples": [],
+      "mention_examples": [
+        {
+          "paragraph_id": "p00000-564eed6a",
+          "start": 0,
+          "end": 4,
+          "type": "CHA",
+          "text": "Mara",
+          "score": 0.7565590143203735
+        },
+        {
+          "paragraph_id": "p00000-564eed6a",
+          "start": 14,
+          "end": 22,
+          "type": "OBJ",
+          "text": " lantern",
+          "score": 0.6312015056610107
+        },
+        {
+          "paragraph_id": "p00000-564eed6a",
+          "start": 28,
+          "end": 34,
+          "type": "CHA",
+          "text": " Rowan",
+          "score": 0.8302752375602722
+        }
+      ]
+    },
+    {
+      "schema_version": "0.1.0",
+      "model": "qwen",
+      "revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+      "processing": {
+        "schema_version": "0.1.0",
+        "device": "cuda",
+        "seed": 42,
+        "context_tokens": 64,
+        "previous_paragraphs": 2,
+        "registry_limit": 24,
+        "qwen_stages": [
+          "mentions",
+          "behavior"
+        ],
+        "fable_overlap_tokens": 64,
+        "generation": {
+          "enable_thinking": false,
+          "do_sample": false,
+          "max_new_tokens": 1152,
+          "num_beams": 1,
+          "use_cache": true
+        },
+        "models": {
+          "fable": {
+            "repo": "SaladTechnologies/fable-base",
+            "revision": "45aceef3d49fe75bd8240010cbfdc983724ec420",
+            "receipt": "../literary-decision-encoders/model-paths.json",
+            "receipt_key": "fable",
+            "dtype": "float32"
+          },
+          "qwen": {
+            "repo": "Qwen/Qwen3-1.7B",
+            "revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+            "receipt": "../character-decisions/model-paths.json",
+            "receipt_key": "qwen3_1_7b",
+            "dtype": "bfloat16"
+          }
+        }
+      },
+      "language": "en",
+      "source_sha256": "0a9687919d8d2080515213f1674a138be8c2f14b4a12a430fb0b5476d40891f6",
+      "range": [
+        0,
+        1
+      ],
+      "run_sha256": "ce771b5863c8e99b8571749fbbd9ca60cb0476edcb3bfd3f5d39f0ae5a195699",
+      "run_directory": "runs/acceptance-qwen-context",
+      "source_kind": "authored_fixture",
+      "paragraphs_recorded": 1,
+      "successful_paragraphs": 0,
+      "partial_paragraphs": 0,
+      "failed_paragraphs": 1,
+      "pending_paragraphs": 0,
+      "context_or_memory_failures": 2,
+      "paragraphs_unprocessed_due_context_or_memory": 1,
+      "generation_errors": 2,
+      "attempted_calls": 2,
+      "invalid_json_calls": 0,
+      "invalid_json_fraction_of_saved_calls": null,
+      "generation_or_schema_error_fraction_of_attempts": 1.0,
+      "schema_error_calls": 0,
+      "output_cap_calls": 0,
+      "calls_with_saved_output": 0,
+      "processing_seconds": 0,
+      "load_seconds": 4.2806733000034,
+      "paragraphs_per_minute": null,
+      "input_tokens_including_overlap_and_context": 0,
+      "generated_tokens": 0,
+      "input_tokens_per_second": null,
+      "generated_tokens_per_second": null,
+      "cuda_peak_allocated_bytes": 3441689600,
+      "cuda_peak_reserved_bytes": 3451912192,
+      "rss_peak_bytes": 4189151232,
+      "entity_types": {},
+      "character_mentions": 0,
+      "qwen_name_mentions": 0,
+      "other_mentions": 0,
+      "unresolved_mentions": 0,
+      "behavior_observations": 0,
+      "behavior_categories": {},
+      "grounding_rejections": 0,
+      "rejection_examples": [],
+      "fragments": 1,
+      "revisions": 0,
+      "evidence_examples": [],
+      "mention_examples": []
+    },
+    {
+      "schema_version": "0.1.0",
+      "model": "fable",
+      "revision": "45aceef3d49fe75bd8240010cbfdc983724ec420",
+      "processing": {
+        "schema_version": "0.1.0",
+        "device": "cuda",
+        "seed": 42,
+        "context_tokens": 3072,
+        "previous_paragraphs": 2,
+        "registry_limit": 24,
+        "qwen_stages": [
+          "mentions",
+          "behavior"
+        ],
+        "fable_overlap_tokens": 64,
+        "generation": {
+          "enable_thinking": false,
+          "do_sample": false,
+          "max_new_tokens": 1152,
+          "num_beams": 1,
+          "use_cache": true
+        },
+        "models": {
+          "fable": {
+            "repo": "SaladTechnologies/fable-base",
+            "revision": "45aceef3d49fe75bd8240010cbfdc983724ec420",
+            "receipt": "../literary-decision-encoders/model-paths.json",
+            "receipt_key": "fable",
+            "dtype": "float32"
+          },
+          "qwen": {
+            "repo": "Qwen/Qwen3-1.7B",
+            "revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+            "receipt": "../character-decisions/model-paths.json",
+            "receipt_key": "qwen3_1_7b",
+            "dtype": "bfloat16"
+          }
+        }
+      },
+      "language": "en",
+      "source_sha256": "0a9687919d8d2080515213f1674a138be8c2f14b4a12a430fb0b5476d40891f6",
+      "range": [
+        0,
+        32
+      ],
+      "run_sha256": "118382cefc4ce5a031820d0b0d6357e32d2a11e0c2031a753b4fed645a4ce98e",
+      "run_directory": "runs/fable-en",
+      "source_kind": "authored_fixture",
+      "paragraphs_recorded": 32,
+      "successful_paragraphs": 32,
+      "partial_paragraphs": 0,
+      "failed_paragraphs": 0,
+      "pending_paragraphs": 0,
+      "context_or_memory_failures": 0,
+      "paragraphs_unprocessed_due_context_or_memory": 0,
+      "generation_errors": 0,
+      "attempted_calls": 32,
+      "invalid_json_calls": 0,
+      "invalid_json_fraction_of_saved_calls": 0.0,
+      "generation_or_schema_error_fraction_of_attempts": 0.0,
+      "schema_error_calls": 0,
+      "output_cap_calls": 0,
+      "calls_with_saved_output": 32,
+      "processing_seconds": 3.976184800005285,
+      "load_seconds": 2.1929720000043744,
+      "paragraphs_per_minute": 482.8749408220282,
+      "input_tokens_including_overlap_and_context": 555,
+      "generated_tokens": 0,
+      "input_tokens_per_second": 139.58103758136753,
+      "generated_tokens_per_second": null,
+      "cuda_peak_allocated_bytes": 754844160,
+      "cuda_peak_reserved_bytes": 796917760,
+      "rss_peak_bytes": 1540993024,
+      "entity_types": {
+        "CHA": 37,
+        "FAC": 7,
+        "OBJ": 12,
+        "LOC": 1
+      },
+      "character_mentions": 37,
+      "qwen_name_mentions": 0,
+      "other_mentions": 0,
+      "unresolved_mentions": 0,
+      "behavior_observations": 0,
+      "behavior_categories": {},
+      "grounding_rejections": 0,
+      "rejection_examples": [],
+      "fragments": 32,
+      "revisions": 0,
+      "evidence_examples": [],
+      "mention_examples": [
+        {
+          "paragraph_id": "p00000-4dc6742d",
+          "start": 0,
+          "end": 4,
+          "type": "CHA",
+          "text": "Mara",
+          "score": 0.8036885261535645
+        },
+        {
+          "paragraph_id": "p00000-4dc6742d",
+          "start": 16,
+          "end": 29,
+          "type": "FAC",
+          "text": " stone bridge",
+          "score": 0.4948797971010208
+        },
+        {
+          "paragraph_id": "p00000-4dc6742d",
+          "start": 42,
+          "end": 50,
+          "type": "OBJ",
+          "text": " lantern",
+          "score": 0.5821953415870667
+        }
+      ]
+    },
+    {
+      "schema_version": "0.1.0",
+      "model": "fable",
+      "revision": "45aceef3d49fe75bd8240010cbfdc983724ec420",
+      "processing": {
+        "schema_version": "0.1.0",
+        "device": "cuda",
+        "seed": 42,
+        "context_tokens": 3072,
+        "previous_paragraphs": 2,
+        "registry_limit": 24,
+        "qwen_stages": [
+          "mentions",
+          "behavior"
+        ],
+        "fable_overlap_tokens": 64,
+        "generation": {
+          "enable_thinking": false,
+          "do_sample": false,
+          "max_new_tokens": 1152,
+          "num_beams": 1,
+          "use_cache": true
+        },
+        "models": {
+          "fable": {
+            "repo": "SaladTechnologies/fable-base",
+            "revision": "45aceef3d49fe75bd8240010cbfdc983724ec420",
+            "receipt": "../literary-decision-encoders/model-paths.json",
+            "receipt_key": "fable",
+            "dtype": "float32"
+          },
+          "qwen": {
+            "repo": "Qwen/Qwen3-1.7B",
+            "revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+            "receipt": "../character-decisions/model-paths.json",
+            "receipt_key": "qwen3_1_7b",
+            "dtype": "bfloat16"
+          }
+        }
+      },
+      "language": "en",
+      "source_sha256": "0a9687919d8d2080515213f1674a138be8c2f14b4a12a430fb0b5476d40891f6",
+      "range": [
+        0,
+        32
+      ],
+      "run_sha256": "0cf1534a5e069467b25b759fffa3646c36bc89fa76cec17c623fd25fae782b23",
+      "run_directory": "runs/final-fable-en",
+      "source_kind": "authored_fixture",
+      "paragraphs_recorded": 32,
+      "successful_paragraphs": 32,
+      "partial_paragraphs": 0,
+      "failed_paragraphs": 0,
+      "pending_paragraphs": 0,
+      "context_or_memory_failures": 0,
+      "paragraphs_unprocessed_due_context_or_memory": 0,
+      "generation_errors": 0,
+      "attempted_calls": 32,
+      "invalid_json_calls": 0,
+      "invalid_json_fraction_of_saved_calls": 0.0,
+      "generation_or_schema_error_fraction_of_attempts": 0.0,
+      "schema_error_calls": 0,
+      "output_cap_calls": 0,
+      "calls_with_saved_output": 32,
+      "processing_seconds": 3.5706394000008004,
+      "load_seconds": 2.37603030000173,
+      "paragraphs_per_minute": 537.7188186517993,
+      "input_tokens_including_overlap_and_context": 555,
+      "generated_tokens": 0,
+      "input_tokens_per_second": 155.43434601653576,
+      "generated_tokens_per_second": null,
+      "cuda_peak_allocated_bytes": 754844160,
+      "cuda_peak_reserved_bytes": 796917760,
+      "rss_peak_bytes": 1562550272,
+      "entity_types": {
+        "CHA": 37,
+        "FAC": 7,
+        "OBJ": 12,
+        "LOC": 1
+      },
+      "character_mentions": 37,
+      "qwen_name_mentions": 0,
+      "other_mentions": 0,
+      "unresolved_mentions": 0,
+      "behavior_observations": 0,
+      "behavior_categories": {},
+      "grounding_rejections": 0,
+      "rejection_examples": [],
+      "fragments": 32,
+      "revisions": 0,
+      "evidence_examples": [],
+      "mention_examples": [
+        {
+          "paragraph_id": "p00000-4dc6742d",
+          "start": 0,
+          "end": 4,
+          "type": "CHA",
+          "text": "Mara",
+          "score": 0.8036885261535645
+        },
+        {
+          "paragraph_id": "p00000-4dc6742d",
+          "start": 16,
+          "end": 29,
+          "type": "FAC",
+          "text": " stone bridge",
+          "score": 0.4948797971010208
+        },
+        {
+          "paragraph_id": "p00000-4dc6742d",
+          "start": 42,
+          "end": 50,
+          "type": "OBJ",
+          "text": " lantern",
+          "score": 0.5821953415870667
+        }
+      ]
+    },
+    {
+      "schema_version": "0.1.0",
+      "model": "qwen",
+      "revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+      "processing": {
+        "schema_version": "0.1.0",
+        "device": "cuda",
+        "seed": 42,
+        "context_tokens": 3072,
+        "previous_paragraphs": 2,
+        "registry_limit": 24,
+        "qwen_stages": [
+          "mentions",
+          "behavior"
+        ],
+        "fable_overlap_tokens": 64,
+        "generation": {
+          "enable_thinking": false,
+          "do_sample": false,
+          "max_new_tokens": 1152,
+          "num_beams": 1,
+          "use_cache": true
+        },
+        "models": {
+          "fable": {
+            "repo": "SaladTechnologies/fable-base",
+            "revision": "45aceef3d49fe75bd8240010cbfdc983724ec420",
+            "receipt": "../literary-decision-encoders/model-paths.json",
+            "receipt_key": "fable",
+            "dtype": "float32"
+          },
+          "qwen": {
+            "repo": "Qwen/Qwen3-1.7B",
+            "revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+            "receipt": "../character-decisions/model-paths.json",
+            "receipt_key": "qwen3_1_7b",
+            "dtype": "bfloat16"
+          }
+        }
+      },
+      "language": "en",
+      "source_sha256": "0a9687919d8d2080515213f1674a138be8c2f14b4a12a430fb0b5476d40891f6",
+      "range": [
+        0,
+        32
+      ],
+      "run_sha256": "d533f83e49c8e91d1505c7cd3d555564f92ab62ed20dd44def0c0a74420252ec",
+      "run_directory": "runs/final-qwen-en",
+      "source_kind": "authored_fixture",
+      "paragraphs_recorded": 32,
+      "successful_paragraphs": 32,
+      "partial_paragraphs": 0,
+      "failed_paragraphs": 0,
+      "pending_paragraphs": 0,
+      "context_or_memory_failures": 0,
+      "paragraphs_unprocessed_due_context_or_memory": 0,
+      "generation_errors": 0,
+      "attempted_calls": 64,
+      "invalid_json_calls": 0,
+      "invalid_json_fraction_of_saved_calls": 0.0,
+      "generation_or_schema_error_fraction_of_attempts": 0.0,
+      "schema_error_calls": 0,
+      "output_cap_calls": 0,
+      "calls_with_saved_output": 64,
+      "processing_seconds": 593.4774520999927,
+      "load_seconds": 34.47075969999423,
+      "paragraphs_per_minute": 3.2351692439302764,
+      "input_tokens_including_overlap_and_context": 46479,
+      "generated_tokens": 6361,
+      "input_tokens_per_second": 78.31637046283089,
+      "generated_tokens_per_second": 10.718183104500254,
+      "cuda_peak_allocated_bytes": 3843201024,
+      "cuda_peak_reserved_bytes": 4406116352,
+      "rss_peak_bytes": 4239785984,
+      "entity_types": {},
+      "character_mentions": 29,
+      "qwen_name_mentions": 28,
+      "other_mentions": 1,
+      "unresolved_mentions": 0,
+      "behavior_observations": 2,
+      "behavior_categories": {
+        "reported_behavior": 2
+      },
+      "grounding_rejections": 41,
+      "rejection_examples": [
+        {
+          "kind": "observation",
+          "index": 0,
+          "error": "Unestablished character name absent from target: Mara reached the stone bridge",
+          "original": {
+            "who": "Mara",
+            "actor": "Mara",
+            "target": "stone bridge",
+            "speaker": "Mara",
+            "about": "Mara reached the stone bridge",
+            "categories": [
+              "action"
+            ],
+            "summary": "Mara reached the stone bridge",
+            "source": "narrator",
+            "status": "asserted",
+            "evidence": [
+              {
+                "paragraph_id": "p00000-4dc6742d",
+                "quote": "Mara reached the stone bridge and placed a lantern on the wall."
+              }
+            ]
+          }
+        },
+        {
+          "kind": "observation",
+          "index": 1,
+          "error": "Unestablished character name absent from target: Mara placed a lantern on the wall",
+          "original": {
+            "who": "Mara",
+            "actor": "Mara",
+            "target": "wall",
+            "speaker": "Mara",
+            "about": "Mara placed a lantern on the wall",
+            "categories": [
+              "action"
+            ],
+            "summary": "Mara placed a lantern on the wall",
+            "source": "narrator",
+            "status": "asserted",
+            "evidence": [
+              {
+                "paragraph_id": "p00000-4dc6742d",
+                "quote": "Mara reached the stone bridge and placed a lantern on the wall."
+              }
+            ]
+          }
+        },
+        {
+          "kind": "observation",
+          "index": 0,
+          "error": "Unestablished character name absent from target: Rowan watched Mara from the gate.",
+          "original": {
+            "who": "Rowan",
+            "actor": "Rowan",
+            "target": "Mara",
+            "speaker": "Rowan",
+            "about": "Rowan watched Mara from the gate.",
+            "categories": [
+              "action",
+              "reaction"
+            ],
+            "summary": "Rowan watched Mara from the gate.",
+            "source": "narrator",
+            "status": "asserted",
+            "evidence": [
+              {
+                "paragraph_id": "p00001-7c894f36",
+                "quote": "Rowan watched her from the gate."
+              }
+            ]
+          }
+        }
+      ],
+      "fragments": 32,
+      "revisions": 0,
+      "evidence_examples": [
+        {
+          "schema_version": "0.1.0",
+          "model": "qwen",
+          "checkpoint_revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+          "processing": {
+            "schema_version": "0.1.0",
+            "device": "cuda",
+            "seed": 42,
+            "context_tokens": 3072,
+            "previous_paragraphs": 2,
+            "registry_limit": 24,
+            "qwen_stages": [
+              "mentions",
+              "behavior"
+            ],
+            "fable_overlap_tokens": 64,
+            "generation": {
+              "enable_thinking": false,
+              "do_sample": false,
+              "max_new_tokens": 1152,
+              "num_beams": 1,
+              "use_cache": true
+            },
+            "models": {
+              "fable": {
+                "repo": "SaladTechnologies/fable-base",
+                "revision": "45aceef3d49fe75bd8240010cbfdc983724ec420",
+                "receipt": "../literary-decision-encoders/model-paths.json",
+                "receipt_key": "fable",
+                "dtype": "float32"
+              },
+              "qwen": {
+                "repo": "Qwen/Qwen3-1.7B",
+                "revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+                "receipt": "../character-decisions/model-paths.json",
+                "receipt_key": "qwen3_1_7b",
+                "dtype": "bfloat16"
+              }
+            }
+          },
+          "run_sha256": "d533f83e49c8e91d1505c7cd3d555564f92ab62ed20dd44def0c0a74420252ec",
+          "id": "p00007-80579766:e000",
+          "character_id": "c0001",
+          "participants": {
+            "actor": "c0001",
+            "speaker": "c0001",
+            "about": "c0001",
+            "target": "c0001"
+          },
+          "categories": [
+            "reported_behavior"
+          ],
+          "summary": "Mara said she hid three children in the mill last winter.",
+          "evidence": [
+            {
+              "paragraph_id": "p00007-80579766",
+              "start": 0,
+              "end": 58,
+              "quote": "\"Last winter I hid three children in the mill,\" Mara said."
+            }
+          ],
+          "assertion_source": "narrator",
+          "assertion_status": "asserted",
+          "certainty": "model_unverified",
+          "status": "automatic_unverified",
+          "fragment_id": "fragment-p00007-80579766",
+          "paragraph_ids": [
+            "p00007-80579766"
+          ]
+        },
+        {
+          "schema_version": "0.1.0",
+          "model": "qwen",
+          "checkpoint_revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+          "processing": {
+            "schema_version": "0.1.0",
+            "device": "cuda",
+            "seed": 42,
+            "context_tokens": 3072,
+            "previous_paragraphs": 2,
+            "registry_limit": 24,
+            "qwen_stages": [
+              "mentions",
+              "behavior"
+            ],
+            "fable_overlap_tokens": 64,
+            "generation": {
+              "enable_thinking": false,
+              "do_sample": false,
+              "max_new_tokens": 1152,
+              "num_beams": 1,
+              "use_cache": true
+            },
+            "models": {
+              "fable": {
+                "repo": "SaladTechnologies/fable-base",
+                "revision": "45aceef3d49fe75bd8240010cbfdc983724ec420",
+                "receipt": "../literary-decision-encoders/model-paths.json",
+                "receipt_key": "fable",
+                "dtype": "float32"
+              },
+              "qwen": {
+                "repo": "Qwen/Qwen3-1.7B",
+                "revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+                "receipt": "../character-decisions/model-paths.json",
+                "receipt_key": "qwen3_1_7b",
+                "dtype": "bfloat16"
+              }
+            }
+          },
+          "run_sha256": "d533f83e49c8e91d1505c7cd3d555564f92ab62ed20dd44def0c0a74420252ec",
+          "id": "p00014-e61731d7:e000",
+          "character_id": "c0001",
+          "participants": {
+            "actor": "c0001",
+            "speaker": "c0001",
+            "about": "c0001",
+            "target": {
+              "kind": "textual_object",
+              "paragraph_id": "p00014-e61731d7",
+              "start": 34,
+              "end": 39,
+              "quote": "guard"
+            }
+          },
+          "categories": [
+            "reported_behavior"
+          ],
+          "summary": "Mara tells the guard her old nickname.",
+          "evidence": [
+            {
+              "paragraph_id": "p00014-e61731d7",
+              "start": 0,
+              "end": 67,
+              "quote": "\"They call me Ash,\" Mara told the guard. \"That is my old nickname.\""
+            }
+          ],
+          "assertion_source": "narrator",
+          "assertion_status": "asserted",
+          "certainty": "model_unverified",
+          "status": "automatic_unverified",
+          "fragment_id": "fragment-p00014-e61731d7",
+          "paragraph_ids": [
+            "p00014-e61731d7"
+          ]
+        }
+      ],
+      "mention_examples": [
+        {
+          "schema_version": "0.1.0",
+          "model": "qwen",
+          "checkpoint_revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+          "processing": {
+            "schema_version": "0.1.0",
+            "device": "cuda",
+            "seed": 42,
+            "context_tokens": 3072,
+            "previous_paragraphs": 2,
+            "registry_limit": 24,
+            "qwen_stages": [
+              "mentions",
+              "behavior"
+            ],
+            "fable_overlap_tokens": 64,
+            "generation": {
+              "enable_thinking": false,
+              "do_sample": false,
+              "max_new_tokens": 1152,
+              "num_beams": 1,
+              "use_cache": true
+            },
+            "models": {
+              "fable": {
+                "repo": "SaladTechnologies/fable-base",
+                "revision": "45aceef3d49fe75bd8240010cbfdc983724ec420",
+                "receipt": "../literary-decision-encoders/model-paths.json",
+                "receipt_key": "fable",
+                "dtype": "float32"
+              },
+              "qwen": {
+                "repo": "Qwen/Qwen3-1.7B",
+                "revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+                "receipt": "../character-decisions/model-paths.json",
+                "receipt_key": "qwen3_1_7b",
+                "dtype": "bfloat16"
+              }
+            }
+          },
+          "run_sha256": "d533f83e49c8e91d1505c7cd3d555564f92ab62ed20dd44def0c0a74420252ec",
+          "id": "p00002-b6a414ed:m000",
+          "paragraph_id": "p00002-b6a414ed",
+          "start": 26,
+          "end": 30,
+          "quote": "Mara",
+          "text": "Mara",
+          "character_id": "c0001",
+          "kind": "name",
+          "role": "speaker",
+          "status": "automatic_unverified"
+        },
+        {
+          "schema_version": "0.1.0",
+          "model": "qwen",
+          "checkpoint_revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+          "processing": {
+            "schema_version": "0.1.0",
+            "device": "cuda",
+            "seed": 42,
+            "context_tokens": 3072,
+            "previous_paragraphs": 2,
+            "registry_limit": 24,
+            "qwen_stages": [
+              "mentions",
+              "behavior"
+            ],
+            "fable_overlap_tokens": 64,
+            "generation": {
+              "enable_thinking": false,
+              "do_sample": false,
+              "max_new_tokens": 1152,
+              "num_beams": 1,
+              "use_cache": true
+            },
+            "models": {
+              "fable": {
+                "repo": "SaladTechnologies/fable-base",
+                "revision": "45aceef3d49fe75bd8240010cbfdc983724ec420",
+                "receipt": "../literary-decision-encoders/model-paths.json",
+                "receipt_key": "fable",
+                "dtype": "float32"
+              },
+              "qwen": {
+                "repo": "Qwen/Qwen3-1.7B",
+                "revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+                "receipt": "../character-decisions/model-paths.json",
+                "receipt_key": "qwen3_1_7b",
+                "dtype": "bfloat16"
+              }
+            }
+          },
+          "run_sha256": "d533f83e49c8e91d1505c7cd3d555564f92ab62ed20dd44def0c0a74420252ec",
+          "id": "p00002-b6a414ed:m001",
+          "paragraph_id": "p00002-b6a414ed",
+          "start": 37,
+          "end": 42,
+          "quote": "Rowan",
+          "text": "Rowan",
+          "character_id": "c0002",
+          "kind": "name",
+          "role": "target",
+          "status": "automatic_unverified"
+        },
+        {
+          "schema_version": "0.1.0",
+          "model": "qwen",
+          "checkpoint_revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+          "processing": {
+            "schema_version": "0.1.0",
+            "device": "cuda",
+            "seed": 42,
+            "context_tokens": 3072,
+            "previous_paragraphs": 2,
+            "registry_limit": 24,
+            "qwen_stages": [
+              "mentions",
+              "behavior"
+            ],
+            "fable_overlap_tokens": 64,
+            "generation": {
+              "enable_thinking": false,
+              "do_sample": false,
+              "max_new_tokens": 1152,
+              "num_beams": 1,
+              "use_cache": true
+            },
+            "models": {
+              "fable": {
+                "repo": "SaladTechnologies/fable-base",
+                "revision": "45aceef3d49fe75bd8240010cbfdc983724ec420",
+                "receipt": "../literary-decision-encoders/model-paths.json",
+                "receipt_key": "fable",
+                "dtype": "float32"
+              },
+              "qwen": {
+                "repo": "Qwen/Qwen3-1.7B",
+                "revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+                "receipt": "../character-decisions/model-paths.json",
+                "receipt_key": "qwen3_1_7b",
+                "dtype": "bfloat16"
+              }
+            }
+          },
+          "run_sha256": "d533f83e49c8e91d1505c7cd3d555564f92ab62ed20dd44def0c0a74420252ec",
+          "id": "p00003-7957dcd5:m000",
+          "paragraph_id": "p00003-7957dcd5",
+          "start": 6,
+          "end": 11,
+          "quote": "Rowan",
+          "text": "Rowan",
+          "character_id": "c0002",
+          "kind": "name",
+          "role": "speaker",
+          "status": "automatic_unverified"
+        }
+      ]
+    },
+    {
+      "schema_version": "0.1.0",
+      "model": "qwen",
+      "revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+      "processing": {
+        "schema_version": "0.1.0",
+        "device": "cuda",
+        "seed": 42,
+        "context_tokens": 3072,
+        "previous_paragraphs": 2,
+        "registry_limit": 24,
+        "qwen_stages": [
+          "mentions",
+          "behavior"
+        ],
+        "fable_overlap_tokens": 64,
+        "generation": {
+          "enable_thinking": false,
+          "do_sample": false,
+          "max_new_tokens": 1152,
+          "num_beams": 1,
+          "use_cache": true
+        },
+        "models": {
+          "fable": {
+            "repo": "SaladTechnologies/fable-base",
+            "revision": "45aceef3d49fe75bd8240010cbfdc983724ec420",
+            "receipt": "../literary-decision-encoders/model-paths.json",
+            "receipt_key": "fable",
+            "dtype": "float32"
+          },
+          "qwen": {
+            "repo": "Qwen/Qwen3-1.7B",
+            "revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+            "receipt": "../character-decisions/model-paths.json",
+            "receipt_key": "qwen3_1_7b",
+            "dtype": "bfloat16"
+          }
+        }
+      },
+      "language": "ru",
+      "source_sha256": "95a0df5fbb165fbf4cab131a11bad331bc179c12c7f613f6f61c9de1a52c0f52",
+      "range": [
+        0,
+        32
+      ],
+      "run_sha256": "76b711fe576fa0ef122fc3631362a7d338cf766d02689779c0c462bd1f5ae8df",
+      "run_directory": "runs/final-qwen-ru",
+      "source_kind": "authored_fixture",
+      "paragraphs_recorded": 32,
+      "successful_paragraphs": 32,
+      "partial_paragraphs": 0,
+      "failed_paragraphs": 0,
+      "pending_paragraphs": 0,
+      "context_or_memory_failures": 0,
+      "paragraphs_unprocessed_due_context_or_memory": 0,
+      "generation_errors": 0,
+      "attempted_calls": 64,
+      "invalid_json_calls": 0,
+      "invalid_json_fraction_of_saved_calls": 0.0,
+      "generation_or_schema_error_fraction_of_attempts": 0.0,
+      "schema_error_calls": 0,
+      "output_cap_calls": 0,
+      "calls_with_saved_output": 64,
+      "processing_seconds": 800.985946400062,
+      "load_seconds": 30.270863899990218,
+      "paragraphs_per_minute": 2.397045801651348,
+      "input_tokens_including_overlap_and_context": 48146,
+      "generated_tokens": 7934,
+      "input_tokens_per_second": 60.1084203991176,
+      "generated_tokens_per_second": 9.905292390782185,
+      "cuda_peak_allocated_bytes": 3850173440,
+      "cuda_peak_reserved_bytes": 4454350848,
+      "rss_peak_bytes": 4239011840,
+      "entity_types": {},
+      "character_mentions": 19,
+      "qwen_name_mentions": 16,
+      "other_mentions": 3,
+      "unresolved_mentions": 0,
+      "behavior_observations": 8,
+      "behavior_categories": {
+        "reaction": 1,
+        "action": 4,
+        "reported_behavior": 2,
+        "intention": 1,
+        "decision": 1
+      },
+      "grounding_rejections": 42,
+      "rejection_examples": [
+        {
+          "kind": "observation",
+          "index": 0,
+          "error": "Unestablished character name absent from target: Мара поставила фонарь на стену",
+          "original": {
+            "who": "Мара",
+            "actor": "Мара",
+            "target": "фонарь",
+            "speaker": "Мара",
+            "about": "Мара поставила фонарь на стену",
+            "categories": [
+              "action"
+            ],
+            "summary": "Мара поставила фонарь на стену",
+            "source": "narrator",
+            "status": "asserted",
+            "evidence": [
+              {
+                "paragraph_id": "p00000-19febdd6",
+                "quote": "Мара дошла до каменного моста и поставила фонарь на стену."
+              }
+            ]
+          }
+        },
+        {
+          "kind": "observation",
+          "index": 0,
+          "error": "Unestablished character name absent from target: Рован смотрел на неё от ворот.",
+          "original": {
+            "who": "Рован",
+            "actor": "Рован",
+            "target": "неё",
+            "speaker": "Рован",
+            "about": "Рован смотрел на неё от ворот.",
+            "categories": [
+              "action",
+              "retrospective"
+            ],
+            "summary": "Рован смотрел на неё от ворот.",
+            "source": "narrator",
+            "status": "asserted",
+            "evidence": [
+              {
+                "paragraph_id": "p00001-91138a16",
+                "quote": "Рован смотрел на неё от ворот."
+              }
+            ]
+          }
+        },
+        {
+          "kind": "observation",
+          "index": 1,
+          "error": "Quote has 0 occurrences; supply occurrence: 'Рован держал меч в ножнах.'",
+          "original": {
+            "who": "Рован",
+            "actor": "Рован",
+            "target": "меч в ножнах",
+            "speaker": "Рован",
+            "about": "Рован держал меч в ножнах.",
+            "categories": [
+              "action",
+              "retrospective"
+            ],
+            "summary": "Рован держал меч в ножнах.",
+            "source": "narrator",
+            "status": "asserted",
+            "evidence": [
+              {
+                "paragraph_id": "p00001-91138a16",
+                "quote": "Рован держал меч в ножнах."
+              }
+            ]
+          }
+        }
+      ],
+      "fragments": 32,
+      "revisions": 0,
+      "evidence_examples": [
+        {
+          "schema_version": "0.1.0",
+          "model": "qwen",
+          "checkpoint_revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+          "processing": {
+            "schema_version": "0.1.0",
+            "device": "cuda",
+            "seed": 42,
+            "context_tokens": 3072,
+            "previous_paragraphs": 2,
+            "registry_limit": 24,
+            "qwen_stages": [
+              "mentions",
+              "behavior"
+            ],
+            "fable_overlap_tokens": 64,
+            "generation": {
+              "enable_thinking": false,
+              "do_sample": false,
+              "max_new_tokens": 1152,
+              "num_beams": 1,
+              "use_cache": true
+            },
+            "models": {
+              "fable": {
+                "repo": "SaladTechnologies/fable-base",
+                "revision": "45aceef3d49fe75bd8240010cbfdc983724ec420",
+                "receipt": "../literary-decision-encoders/model-paths.json",
+                "receipt_key": "fable",
+                "dtype": "float32"
+              },
+              "qwen": {
+                "repo": "Qwen/Qwen3-1.7B",
+                "revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+                "receipt": "../character-decisions/model-paths.json",
+                "receipt_key": "qwen3_1_7b",
+                "dtype": "bfloat16"
+              }
+            }
+          },
+          "run_sha256": "76b711fe576fa0ef122fc3631362a7d338cf766d02689779c0c462bd1f5ae8df",
+          "id": "p00008-77baa776:e000",
+          "character_id": "c0002",
+          "participants": {
+            "actor": "c0002",
+            "speaker": "c0002",
+            "about": "c0002",
+            "target": {
+              "kind": "textual_object",
+              "paragraph_id": "p00008-77baa776",
+              "start": 16,
+              "end": 21,
+              "quote": "Рован"
+            }
+          },
+          "categories": [
+            "reaction"
+          ],
+          "summary": "Ивен упоминает, что слышал, что Рован продал карту, но сам этого не видел.",
+          "evidence": [
+            {
+              "paragraph_id": "p00008-77baa776",
+              "start": 0,
+              "end": 74,
+              "quote": "— Я слышал, что Рован продал карту, — сказал Ивен. — Сам я этого не видел."
+            }
+          ],
+          "assertion_source": "self_report",
+          "assertion_status": "reported",
+          "certainty": "model_unverified",
+          "status": "automatic_unverified",
+          "fragment_id": "fragment-p00008-77baa776",
+          "paragraph_ids": [
+            "p00008-77baa776"
+          ]
+        },
+        {
+          "schema_version": "0.1.0",
+          "model": "qwen",
+          "checkpoint_revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+          "processing": {
+            "schema_version": "0.1.0",
+            "device": "cuda",
+            "seed": 42,
+            "context_tokens": 3072,
+            "previous_paragraphs": 2,
+            "registry_limit": 24,
+            "qwen_stages": [
+              "mentions",
+              "behavior"
+            ],
+            "fable_overlap_tokens": 64,
+            "generation": {
+              "enable_thinking": false,
+              "do_sample": false,
+              "max_new_tokens": 1152,
+              "num_beams": 1,
+              "use_cache": true
+            },
+            "models": {
+              "fable": {
+                "repo": "SaladTechnologies/fable-base",
+                "revision": "45aceef3d49fe75bd8240010cbfdc983724ec420",
+                "receipt": "../literary-decision-encoders/model-paths.json",
+                "receipt_key": "fable",
+                "dtype": "float32"
+              },
+              "qwen": {
+                "repo": "Qwen/Qwen3-1.7B",
+                "revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+                "receipt": "../character-decisions/model-paths.json",
+                "receipt_key": "qwen3_1_7b",
+                "dtype": "bfloat16"
+              }
+            }
+          },
+          "run_sha256": "76b711fe576fa0ef122fc3631362a7d338cf766d02689779c0c462bd1f5ae8df",
+          "id": "p00011-ccdcb864:e000",
+          "character_id": "c0002",
+          "participants": {
+            "actor": "c0002",
+            "speaker": "c0002",
+            "about": "c0002",
+            "target": "c0002"
+          },
+          "categories": [
+            "action"
+          ],
+          "summary": "Ивен вздрогнул и уронил чашку.",
+          "evidence": [
+            {
+              "paragraph_id": "p00011-ccdcb864",
+              "start": 0,
+              "end": 54,
+              "quote": "Когда зазвонил колокол, Ивен вздрогнул и уронил чашку."
+            }
+          ],
+          "assertion_source": "narrator",
+          "assertion_status": "asserted",
+          "certainty": "model_unverified",
+          "status": "automatic_unverified",
+          "fragment_id": "fragment-p00011-ccdcb864",
+          "paragraph_ids": [
+            "p00011-ccdcb864"
+          ]
+        }
+      ],
+      "mention_examples": [
+        {
+          "schema_version": "0.1.0",
+          "model": "qwen",
+          "checkpoint_revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+          "processing": {
+            "schema_version": "0.1.0",
+            "device": "cuda",
+            "seed": 42,
+            "context_tokens": 3072,
+            "previous_paragraphs": 2,
+            "registry_limit": 24,
+            "qwen_stages": [
+              "mentions",
+              "behavior"
+            ],
+            "fable_overlap_tokens": 64,
+            "generation": {
+              "enable_thinking": false,
+              "do_sample": false,
+              "max_new_tokens": 1152,
+              "num_beams": 1,
+              "use_cache": true
+            },
+            "models": {
+              "fable": {
+                "repo": "SaladTechnologies/fable-base",
+                "revision": "45aceef3d49fe75bd8240010cbfdc983724ec420",
+                "receipt": "../literary-decision-encoders/model-paths.json",
+                "receipt_key": "fable",
+                "dtype": "float32"
+              },
+              "qwen": {
+                "repo": "Qwen/Qwen3-1.7B",
+                "revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+                "receipt": "../character-decisions/model-paths.json",
+                "receipt_key": "qwen3_1_7b",
+                "dtype": "bfloat16"
+              }
+            }
+          },
+          "run_sha256": "76b711fe576fa0ef122fc3631362a7d338cf766d02689779c0c462bd1f5ae8df",
+          "id": "p00007-50c73b40:m000",
+          "paragraph_id": "p00007-50c73b40",
+          "start": 62,
+          "end": 66,
+          "quote": "Мара",
+          "text": "Мара",
+          "character_id": "c0001",
+          "kind": "name",
+          "role": "speaker",
+          "status": "automatic_unverified"
+        },
+        {
+          "schema_version": "0.1.0",
+          "model": "qwen",
+          "checkpoint_revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+          "processing": {
+            "schema_version": "0.1.0",
+            "device": "cuda",
+            "seed": 42,
+            "context_tokens": 3072,
+            "previous_paragraphs": 2,
+            "registry_limit": 24,
+            "qwen_stages": [
+              "mentions",
+              "behavior"
+            ],
+            "fable_overlap_tokens": 64,
+            "generation": {
+              "enable_thinking": false,
+              "do_sample": false,
+              "max_new_tokens": 1152,
+              "num_beams": 1,
+              "use_cache": true
+            },
+            "models": {
+              "fable": {
+                "repo": "SaladTechnologies/fable-base",
+                "revision": "45aceef3d49fe75bd8240010cbfdc983724ec420",
+                "receipt": "../literary-decision-encoders/model-paths.json",
+                "receipt_key": "fable",
+                "dtype": "float32"
+              },
+              "qwen": {
+                "repo": "Qwen/Qwen3-1.7B",
+                "revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+                "receipt": "../character-decisions/model-paths.json",
+                "receipt_key": "qwen3_1_7b",
+                "dtype": "bfloat16"
+              }
+            }
+          },
+          "run_sha256": "76b711fe576fa0ef122fc3631362a7d338cf766d02689779c0c462bd1f5ae8df",
+          "id": "p00009-0849d338:m000",
+          "paragraph_id": "p00009-0849d338",
+          "start": 41,
+          "end": 46,
+          "quote": "Рован",
+          "text": "Рован",
+          "character_id": "c0003",
+          "kind": "name",
+          "role": "speaker",
+          "status": "automatic_unverified"
+        },
+        {
+          "schema_version": "0.1.0",
+          "model": "qwen",
+          "checkpoint_revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+          "processing": {
+            "schema_version": "0.1.0",
+            "device": "cuda",
+            "seed": 42,
+            "context_tokens": 3072,
+            "previous_paragraphs": 2,
+            "registry_limit": 24,
+            "qwen_stages": [
+              "mentions",
+              "behavior"
+            ],
+            "fable_overlap_tokens": 64,
+            "generation": {
+              "enable_thinking": false,
+              "do_sample": false,
+              "max_new_tokens": 1152,
+              "num_beams": 1,
+              "use_cache": true
+            },
+            "models": {
+              "fable": {
+                "repo": "SaladTechnologies/fable-base",
+                "revision": "45aceef3d49fe75bd8240010cbfdc983724ec420",
+                "receipt": "../literary-decision-encoders/model-paths.json",
+                "receipt_key": "fable",
+                "dtype": "float32"
+              },
+              "qwen": {
+                "repo": "Qwen/Qwen3-1.7B",
+                "revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+                "receipt": "../character-decisions/model-paths.json",
+                "receipt_key": "qwen3_1_7b",
+                "dtype": "bfloat16"
+              }
+            }
+          },
+          "run_sha256": "76b711fe576fa0ef122fc3631362a7d338cf766d02689779c0c462bd1f5ae8df",
+          "id": "p00009-0849d338:m001",
+          "paragraph_id": "p00009-0849d338",
+          "start": 48,
+          "end": 53,
+          "quote": "Никто",
+          "text": "Никто",
+          "character_id": "c0004",
+          "kind": "pronoun",
+          "role": "about",
+          "status": "automatic_unverified"
+        }
+      ]
+    },
+    {
+      "schema_version": "0.1.0",
+      "model": "qwen",
+      "revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+      "processing": {
+        "schema_version": "0.1.0",
+        "device": "cuda",
+        "seed": 42,
+        "context_tokens": 3072,
+        "previous_paragraphs": 2,
+        "registry_limit": 24,
+        "qwen_stages": [
+          "mentions",
+          "behavior"
+        ],
+        "fable_overlap_tokens": 64,
+        "generation": {
+          "enable_thinking": false,
+          "do_sample": false,
+          "max_new_tokens": 1152,
+          "num_beams": 1,
+          "use_cache": true
+        },
+        "models": {
+          "fable": {
+            "repo": "SaladTechnologies/fable-base",
+            "revision": "45aceef3d49fe75bd8240010cbfdc983724ec420",
+            "receipt": "../literary-decision-encoders/model-paths.json",
+            "receipt_key": "fable",
+            "dtype": "float32"
+          },
+          "qwen": {
+            "repo": "Qwen/Qwen3-1.7B",
+            "revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+            "receipt": "../character-decisions/model-paths.json",
+            "receipt_key": "qwen3_1_7b",
+            "dtype": "bfloat16"
+          }
+        }
+      },
+      "language": "en",
+      "source_sha256": "0a9687919d8d2080515213f1674a138be8c2f14b4a12a430fb0b5476d40891f6",
+      "range": [
+        0,
+        4
+      ],
+      "run_sha256": "4e587be30ff7e37d20897b23cf2640966b9737edbb74c02569de2a147e3638a6",
+      "run_directory": "runs/neutral-smoke-qwen-en",
+      "source_kind": "authored_fixture",
+      "paragraphs_recorded": 4,
+      "successful_paragraphs": 4,
+      "partial_paragraphs": 0,
+      "failed_paragraphs": 0,
+      "pending_paragraphs": 0,
+      "context_or_memory_failures": 0,
+      "paragraphs_unprocessed_due_context_or_memory": 0,
+      "generation_errors": 0,
+      "attempted_calls": 8,
+      "invalid_json_calls": 0,
+      "invalid_json_fraction_of_saved_calls": 0.0,
+      "generation_or_schema_error_fraction_of_attempts": 0.0,
+      "schema_error_calls": 0,
+      "output_cap_calls": 0,
+      "calls_with_saved_output": 8,
+      "processing_seconds": 86.73177929996746,
+      "load_seconds": 33.41716799999995,
+      "paragraphs_per_minute": 2.767151809141889,
+      "input_tokens_including_overlap_and_context": 4080,
+      "generated_tokens": 1052,
+      "input_tokens_per_second": 47.04158075541211,
+      "generated_tokens_per_second": 12.12934876340528,
+      "cuda_peak_allocated_bytes": 3688149504,
+      "cuda_peak_reserved_bytes": 3860856832,
+      "rss_peak_bytes": 4238983168,
+      "entity_types": {},
+      "character_mentions": 4,
+      "qwen_name_mentions": 4,
+      "other_mentions": 0,
+      "unresolved_mentions": 0,
+      "behavior_observations": 0,
+      "behavior_categories": {},
+      "grounding_rejections": 6,
+      "rejection_examples": [
+        {
+          "kind": "observation",
+          "index": 0,
+          "error": "Unestablished character name absent from target: Mara",
+          "original": {
+            "who": "Mara",
+            "actor": "Mara",
+            "target": "stone bridge",
+            "speaker": "Mara",
+            "about": "Mara reached the stone bridge",
+            "categories": [
+              "action"
+            ],
+            "summary": "Mara reached the stone bridge",
+            "source": "narrator",
+            "status": "asserted",
+            "evidence": [
+              {
+                "paragraph_id": "p00000-4dc6742d",
+                "quote": "Mara reached the stone bridge and placed a lantern on the wall."
+              }
+            ]
+          }
+        },
+        {
+          "kind": "observation",
+          "index": 1,
+          "error": "Unestablished character name absent from target: Mara",
+          "original": {
+            "who": "Mara",
+            "actor": "Mara",
+            "target": "wall",
+            "speaker": "Mara",
+            "about": "Mara placed a lantern on the wall",
+            "categories": [
+              "action"
+            ],
+            "summary": "Mara placed a lantern on the wall",
+            "source": "narrator",
+            "status": "asserted",
+            "evidence": [
+              {
+                "paragraph_id": "p00000-4dc6742d",
+                "quote": "Mara reached the stone bridge and placed a lantern on the wall."
+              }
+            ]
+          }
+        },
+        {
+          "kind": "observation",
+          "index": 0,
+          "error": "Unestablished character name absent from target: Rowan",
+          "original": {
+            "who": "Rowan",
+            "actor": "Rowan",
+            "target": "Mara",
+            "speaker": "Rowan",
+            "about": "Rowan watched Mara from the gate.",
+            "categories": [
+              "action",
+              "reaction"
+            ],
+            "summary": "Rowan watched Mara from the gate.",
+            "source": "narrator",
+            "status": "asserted",
+            "evidence": [
+              {
+                "paragraph_id": "p00001-7c894f36",
+                "quote": "Rowan watched her from the gate."
+              }
+            ]
+          }
+        }
+      ],
+      "fragments": 4,
+      "revisions": 0,
+      "evidence_examples": [],
+      "mention_examples": [
+        {
+          "schema_version": "0.1.0",
+          "model": "qwen",
+          "checkpoint_revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+          "processing": {
+            "schema_version": "0.1.0",
+            "device": "cuda",
+            "seed": 42,
+            "context_tokens": 3072,
+            "previous_paragraphs": 2,
+            "registry_limit": 24,
+            "qwen_stages": [
+              "mentions",
+              "behavior"
+            ],
+            "fable_overlap_tokens": 64,
+            "generation": {
+              "enable_thinking": false,
+              "do_sample": false,
+              "max_new_tokens": 1152,
+              "num_beams": 1,
+              "use_cache": true
+            },
+            "models": {
+              "fable": {
+                "repo": "SaladTechnologies/fable-base",
+                "revision": "45aceef3d49fe75bd8240010cbfdc983724ec420",
+                "receipt": "../literary-decision-encoders/model-paths.json",
+                "receipt_key": "fable",
+                "dtype": "float32"
+              },
+              "qwen": {
+                "repo": "Qwen/Qwen3-1.7B",
+                "revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+                "receipt": "../character-decisions/model-paths.json",
+                "receipt_key": "qwen3_1_7b",
+                "dtype": "bfloat16"
+              }
+            }
+          },
+          "run_sha256": "4e587be30ff7e37d20897b23cf2640966b9737edbb74c02569de2a147e3638a6",
+          "id": "p00002-b6a414ed:m000",
+          "paragraph_id": "p00002-b6a414ed",
+          "start": 26,
+          "end": 30,
+          "quote": "Mara",
+          "text": "Mara",
+          "character_id": "c0001",
+          "kind": "name",
+          "role": "speaker",
+          "status": "automatic_unverified"
+        },
+        {
+          "schema_version": "0.1.0",
+          "model": "qwen",
+          "checkpoint_revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+          "processing": {
+            "schema_version": "0.1.0",
+            "device": "cuda",
+            "seed": 42,
+            "context_tokens": 3072,
+            "previous_paragraphs": 2,
+            "registry_limit": 24,
+            "qwen_stages": [
+              "mentions",
+              "behavior"
+            ],
+            "fable_overlap_tokens": 64,
+            "generation": {
+              "enable_thinking": false,
+              "do_sample": false,
+              "max_new_tokens": 1152,
+              "num_beams": 1,
+              "use_cache": true
+            },
+            "models": {
+              "fable": {
+                "repo": "SaladTechnologies/fable-base",
+                "revision": "45aceef3d49fe75bd8240010cbfdc983724ec420",
+                "receipt": "../literary-decision-encoders/model-paths.json",
+                "receipt_key": "fable",
+                "dtype": "float32"
+              },
+              "qwen": {
+                "repo": "Qwen/Qwen3-1.7B",
+                "revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+                "receipt": "../character-decisions/model-paths.json",
+                "receipt_key": "qwen3_1_7b",
+                "dtype": "bfloat16"
+              }
+            }
+          },
+          "run_sha256": "4e587be30ff7e37d20897b23cf2640966b9737edbb74c02569de2a147e3638a6",
+          "id": "p00002-b6a414ed:m001",
+          "paragraph_id": "p00002-b6a414ed",
+          "start": 37,
+          "end": 42,
+          "quote": "Rowan",
+          "text": "Rowan",
+          "character_id": "c0002",
+          "kind": "name",
+          "role": "target",
+          "status": "automatic_unverified"
+        },
+        {
+          "schema_version": "0.1.0",
+          "model": "qwen",
+          "checkpoint_revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+          "processing": {
+            "schema_version": "0.1.0",
+            "device": "cuda",
+            "seed": 42,
+            "context_tokens": 3072,
+            "previous_paragraphs": 2,
+            "registry_limit": 24,
+            "qwen_stages": [
+              "mentions",
+              "behavior"
+            ],
+            "fable_overlap_tokens": 64,
+            "generation": {
+              "enable_thinking": false,
+              "do_sample": false,
+              "max_new_tokens": 1152,
+              "num_beams": 1,
+              "use_cache": true
+            },
+            "models": {
+              "fable": {
+                "repo": "SaladTechnologies/fable-base",
+                "revision": "45aceef3d49fe75bd8240010cbfdc983724ec420",
+                "receipt": "../literary-decision-encoders/model-paths.json",
+                "receipt_key": "fable",
+                "dtype": "float32"
+              },
+              "qwen": {
+                "repo": "Qwen/Qwen3-1.7B",
+                "revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+                "receipt": "../character-decisions/model-paths.json",
+                "receipt_key": "qwen3_1_7b",
+                "dtype": "bfloat16"
+              }
+            }
+          },
+          "run_sha256": "4e587be30ff7e37d20897b23cf2640966b9737edbb74c02569de2a147e3638a6",
+          "id": "p00003-7957dcd5:m000",
+          "paragraph_id": "p00003-7957dcd5",
+          "start": 6,
+          "end": 11,
+          "quote": "Rowan",
+          "text": "Rowan",
+          "character_id": "c0002",
+          "kind": "name",
+          "role": "speaker",
+          "status": "automatic_unverified"
+        }
+      ]
+    },
+    {
+      "schema_version": "0.1.0",
+      "model": "qwen",
+      "revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+      "processing": {
+        "schema_version": "0.1.0",
+        "device": "cuda",
+        "seed": 42,
+        "context_tokens": 3072,
+        "previous_paragraphs": 2,
+        "registry_limit": 24,
+        "qwen_stages": [
+          "mentions",
+          "behavior"
+        ],
+        "fable_overlap_tokens": 64,
+        "generation": {
+          "enable_thinking": false,
+          "do_sample": false,
+          "max_new_tokens": 1152,
+          "num_beams": 1,
+          "use_cache": true
+        },
+        "models": {
+          "fable": {
+            "repo": "SaladTechnologies/fable-base",
+            "revision": "45aceef3d49fe75bd8240010cbfdc983724ec420",
+            "receipt": "../literary-decision-encoders/model-paths.json",
+            "receipt_key": "fable",
+            "dtype": "float32"
+          },
+          "qwen": {
+            "repo": "Qwen/Qwen3-1.7B",
+            "revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+            "receipt": "../character-decisions/model-paths.json",
+            "receipt_key": "qwen3_1_7b",
+            "dtype": "bfloat16"
+          }
+        }
+      },
+      "language": "en",
+      "source_sha256": "0a9687919d8d2080515213f1674a138be8c2f14b4a12a430fb0b5476d40891f6",
+      "range": [
+        0,
+        32
+      ],
+      "run_sha256": "33b25febb9f447d1d61c827902fd3c0815b141d407b456f97627a4bd7fc86122",
+      "run_directory": "runs/qwen-en",
+      "source_kind": "authored_fixture",
+      "paragraphs_recorded": 1,
+      "successful_paragraphs": 1,
+      "partial_paragraphs": 0,
+      "failed_paragraphs": 0,
+      "pending_paragraphs": 31,
+      "context_or_memory_failures": 0,
+      "paragraphs_unprocessed_due_context_or_memory": 0,
+      "generation_errors": 0,
+      "attempted_calls": 2,
+      "invalid_json_calls": 0,
+      "invalid_json_fraction_of_saved_calls": 0.0,
+      "generation_or_schema_error_fraction_of_attempts": 0.0,
+      "schema_error_calls": 0,
+      "output_cap_calls": 0,
+      "calls_with_saved_output": 3,
+      "processing_seconds": 32.53452590001689,
+      "load_seconds": 34.17206680000527,
+      "paragraphs_per_minute": 1.8441946928745274,
+      "input_tokens_including_overlap_and_context": 1122,
+      "generated_tokens": 308,
+      "input_tokens_per_second": 34.48644075675366,
+      "generated_tokens_per_second": 9.46686609008924,
+      "cuda_peak_allocated_bytes": 3566313984,
+      "cuda_peak_reserved_bytes": 3667918848,
+      "rss_peak_bytes": 4239454208,
+      "entity_types": {},
+      "character_mentions": 0,
+      "qwen_name_mentions": 0,
+      "other_mentions": 0,
+      "unresolved_mentions": 0,
+      "behavior_observations": 0,
+      "behavior_categories": {},
+      "grounding_rejections": 2,
+      "rejection_examples": [
+        {
+          "kind": "observation",
+          "index": 0,
+          "error": "Unestablished character name absent from target: Mara reached the stone bridge",
+          "original": {
+            "who": "Mara",
+            "actor": "Mara",
+            "target": "stone bridge",
+            "speaker": "Mara",
+            "about": "Mara reached the stone bridge",
+            "categories": [
+              "action"
+            ],
+            "summary": "Mara reached the stone bridge",
+            "source": "narrator",
+            "status": "asserted",
+            "evidence": [
+              {
+                "paragraph_id": "p00000-4dc6742d",
+                "quote": "Mara reached the stone bridge and placed a lantern on the wall."
+              }
+            ]
+          }
+        },
+        {
+          "kind": "observation",
+          "index": 1,
+          "error": "Unestablished character name absent from target: Mara placed a lantern on the wall",
+          "original": {
+            "who": "Mara",
+            "actor": "Mara",
+            "target": "wall",
+            "speaker": "Mara",
+            "about": "Mara placed a lantern on the wall",
+            "categories": [
+              "action"
+            ],
+            "summary": "Mara placed a lantern on the wall",
+            "source": "narrator",
+            "status": "asserted",
+            "evidence": [
+              {
+                "paragraph_id": "p00000-4dc6742d",
+                "quote": "Mara reached the stone bridge and placed a lantern on the wall."
+              }
+            ]
+          }
+        }
+      ],
+      "fragments": 1,
+      "revisions": 0,
+      "evidence_examples": [],
+      "mention_examples": []
+    },
+    {
+      "schema_version": "0.1.0",
+      "model": "qwen",
+      "revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+      "processing": {
+        "schema_version": "0.1.0",
+        "device": "cuda",
+        "seed": 42,
+        "context_tokens": 3072,
+        "previous_paragraphs": 2,
+        "registry_limit": 24,
+        "fable_overlap_tokens": 64,
+        "generation": {
+          "enable_thinking": false,
+          "do_sample": false,
+          "max_new_tokens": 1152,
+          "num_beams": 1,
+          "use_cache": true
+        },
+        "models": {
+          "fable": {
+            "repo": "SaladTechnologies/fable-base",
+            "revision": "45aceef3d49fe75bd8240010cbfdc983724ec420",
+            "receipt": "../literary-decision-encoders/model-paths.json",
+            "receipt_key": "fable",
+            "dtype": "float32"
+          },
+          "qwen": {
+            "repo": "Qwen/Qwen3-1.7B",
+            "revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+            "receipt": "../character-decisions/model-paths.json",
+            "receipt_key": "qwen3_1_7b",
+            "dtype": "bfloat16"
+          }
+        }
+      },
+      "language": "en",
+      "source_sha256": "0a9687919d8d2080515213f1674a138be8c2f14b4a12a430fb0b5476d40891f6",
+      "range": [
+        0,
+        4
+      ],
+      "run_sha256": "16c09f5192ea36dbbe34b80ad478d691535ff03a2610e7760da73c7eb7a88a09",
+      "run_directory": "runs/smoke-qwen-en",
+      "source_kind": "authored_fixture",
+      "paragraphs_recorded": 4,
+      "successful_paragraphs": 3,
+      "partial_paragraphs": 0,
+      "failed_paragraphs": 1,
+      "pending_paragraphs": 0,
+      "context_or_memory_failures": 0,
+      "paragraphs_unprocessed_due_context_or_memory": 0,
+      "generation_errors": 1,
+      "attempted_calls": 4,
+      "invalid_json_calls": 0,
+      "invalid_json_fraction_of_saved_calls": 0.0,
+      "generation_or_schema_error_fraction_of_attempts": 0.25,
+      "schema_error_calls": 1,
+      "output_cap_calls": 0,
+      "calls_with_saved_output": 4,
+      "processing_seconds": 114.87790839999798,
+      "load_seconds": 35.406558600006974,
+      "paragraphs_per_minute": 2.0891745274847313,
+      "input_tokens_including_overlap_and_context": 3600,
+      "generated_tokens": 1080,
+      "input_tokens_per_second": 31.337617912270968,
+      "generated_tokens_per_second": 9.40128537368129,
+      "cuda_peak_allocated_bytes": 3842341888,
+      "cuda_peak_reserved_bytes": 3886022656,
+      "rss_peak_bytes": 4235837440,
+      "entity_types": {},
+      "character_mentions": 4,
+      "qwen_name_mentions": 4,
+      "other_mentions": 0,
+      "unresolved_mentions": 0,
+      "behavior_observations": 1,
+      "behavior_categories": {
+        "action": 1
+      },
+      "grounding_rejections": 1,
+      "rejection_examples": [
+        {
+          "kind": "observation",
+          "index": 0,
+          "error": "Quote has 0 occurrences; supply occurrence: 'He kept his sword in its sheath.'",
+          "original": {
+            "who": "Rowan",
+            "categories": [
+              "action"
+            ],
+            "summary": "Rowan is watching Mara from the gate.",
+            "actor": "Rowan",
+            "target": "Mara",
+            "speaker": "Narrator",
+            "about": "Mara",
+            "source": "Narrator",
+            "status": "asserted",
+            "evidence": [
+              {
+                "paragraph_id": "p00001-7c894f36",
+                "quote": "Rowan watched her from the gate."
+              },
+              {
+                "paragraph_id": "p00000-4dc6742d",
+                "quote": "He kept his sword in its sheath."
+              }
+            ]
+          }
+        }
+      ],
+      "fragments": 4,
+      "revisions": 0,
+      "evidence_examples": [
+        {
+          "schema_version": "0.1.0",
+          "model": "qwen",
+          "checkpoint_revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+          "processing": {
+            "schema_version": "0.1.0",
+            "device": "cuda",
+            "seed": 42,
+            "context_tokens": 3072,
+            "previous_paragraphs": 2,
+            "registry_limit": 24,
+            "fable_overlap_tokens": 64,
+            "generation": {
+              "enable_thinking": false,
+              "do_sample": false,
+              "max_new_tokens": 1152,
+              "num_beams": 1,
+              "use_cache": true
+            },
+            "models": {
+              "fable": {
+                "repo": "SaladTechnologies/fable-base",
+                "revision": "45aceef3d49fe75bd8240010cbfdc983724ec420",
+                "receipt": "../literary-decision-encoders/model-paths.json",
+                "receipt_key": "fable",
+                "dtype": "float32"
+              },
+              "qwen": {
+                "repo": "Qwen/Qwen3-1.7B",
+                "revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+                "receipt": "../character-decisions/model-paths.json",
+                "receipt_key": "qwen3_1_7b",
+                "dtype": "bfloat16"
+              }
+            }
+          },
+          "run_sha256": "16c09f5192ea36dbbe34b80ad478d691535ff03a2610e7760da73c7eb7a88a09",
+          "id": "p00003-7957dcd5:e000",
+          "character_id": "c0002",
+          "participants": {
+            "actor": "c0002",
+            "target": "c0001",
+            "speaker": "c0002",
+            "about": "c0001"
+          },
+          "categories": [
+            "action"
+          ],
+          "summary": "Rowan refuses to let soldiers through the gate.",
+          "evidence": [
+            {
+              "paragraph_id": "p00003-7957dcd5",
+              "start": 0,
+              "end": 60,
+              "quote": "\"No,\" Rowan answered. \"I will not let the soldiers through.\""
+            }
+          ],
+          "assertion_source": "narrator",
+          "assertion_status": "asserted",
+          "certainty": "model_unverified",
+          "status": "automatic_unverified",
+          "fragment_id": "fragment-p00003-7957dcd5",
+          "paragraph_ids": [
+            "p00003-7957dcd5"
+          ]
+        }
+      ],
+      "mention_examples": [
+        {
+          "schema_version": "0.1.0",
+          "model": "qwen",
+          "checkpoint_revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+          "processing": {
+            "schema_version": "0.1.0",
+            "device": "cuda",
+            "seed": 42,
+            "context_tokens": 3072,
+            "previous_paragraphs": 2,
+            "registry_limit": 24,
+            "fable_overlap_tokens": 64,
+            "generation": {
+              "enable_thinking": false,
+              "do_sample": false,
+              "max_new_tokens": 1152,
+              "num_beams": 1,
+              "use_cache": true
+            },
+            "models": {
+              "fable": {
+                "repo": "SaladTechnologies/fable-base",
+                "revision": "45aceef3d49fe75bd8240010cbfdc983724ec420",
+                "receipt": "../literary-decision-encoders/model-paths.json",
+                "receipt_key": "fable",
+                "dtype": "float32"
+              },
+              "qwen": {
+                "repo": "Qwen/Qwen3-1.7B",
+                "revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+                "receipt": "../character-decisions/model-paths.json",
+                "receipt_key": "qwen3_1_7b",
+                "dtype": "bfloat16"
+              }
+            }
+          },
+          "run_sha256": "16c09f5192ea36dbbe34b80ad478d691535ff03a2610e7760da73c7eb7a88a09",
+          "id": "p00000-4dc6742d:m000",
+          "paragraph_id": "p00000-4dc6742d",
+          "start": 0,
+          "end": 63,
+          "quote": "Mara reached the stone bridge and placed a lantern on the wall.",
+          "text": "Mara reached the stone bridge and placed a lantern on the wall.",
+          "character_id": "c0001",
+          "kind": "name",
+          "role": "actor",
+          "status": "automatic_unverified"
+        },
+        {
+          "schema_version": "0.1.0",
+          "model": "qwen",
+          "checkpoint_revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+          "processing": {
+            "schema_version": "0.1.0",
+            "device": "cuda",
+            "seed": 42,
+            "context_tokens": 3072,
+            "previous_paragraphs": 2,
+            "registry_limit": 24,
+            "fable_overlap_tokens": 64,
+            "generation": {
+              "enable_thinking": false,
+              "do_sample": false,
+              "max_new_tokens": 1152,
+              "num_beams": 1,
+              "use_cache": true
+            },
+            "models": {
+              "fable": {
+                "repo": "SaladTechnologies/fable-base",
+                "revision": "45aceef3d49fe75bd8240010cbfdc983724ec420",
+                "receipt": "../literary-decision-encoders/model-paths.json",
+                "receipt_key": "fable",
+                "dtype": "float32"
+              },
+              "qwen": {
+                "repo": "Qwen/Qwen3-1.7B",
+                "revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+                "receipt": "../character-decisions/model-paths.json",
+                "receipt_key": "qwen3_1_7b",
+                "dtype": "bfloat16"
+              }
+            }
+          },
+          "run_sha256": "16c09f5192ea36dbbe34b80ad478d691535ff03a2610e7760da73c7eb7a88a09",
+          "id": "p00001-7c894f36:m000",
+          "paragraph_id": "p00001-7c894f36",
+          "start": 0,
+          "end": 32,
+          "quote": "Rowan watched her from the gate.",
+          "text": "Rowan watched her from the gate.",
+          "character_id": "c0002",
+          "kind": "name",
+          "role": "actor",
+          "status": "automatic_unverified"
+        },
+        {
+          "schema_version": "0.1.0",
+          "model": "qwen",
+          "checkpoint_revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+          "processing": {
+            "schema_version": "0.1.0",
+            "device": "cuda",
+            "seed": 42,
+            "context_tokens": 3072,
+            "previous_paragraphs": 2,
+            "registry_limit": 24,
+            "fable_overlap_tokens": 64,
+            "generation": {
+              "enable_thinking": false,
+              "do_sample": false,
+              "max_new_tokens": 1152,
+              "num_beams": 1,
+              "use_cache": true
+            },
+            "models": {
+              "fable": {
+                "repo": "SaladTechnologies/fable-base",
+                "revision": "45aceef3d49fe75bd8240010cbfdc983724ec420",
+                "receipt": "../literary-decision-encoders/model-paths.json",
+                "receipt_key": "fable",
+                "dtype": "float32"
+              },
+              "qwen": {
+                "repo": "Qwen/Qwen3-1.7B",
+                "revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+                "receipt": "../character-decisions/model-paths.json",
+                "receipt_key": "qwen3_1_7b",
+                "dtype": "bfloat16"
+              }
+            }
+          },
+          "run_sha256": "16c09f5192ea36dbbe34b80ad478d691535ff03a2610e7760da73c7eb7a88a09",
+          "id": "p00001-7c894f36:m001",
+          "paragraph_id": "p00001-7c894f36",
+          "start": 33,
+          "end": 65,
+          "quote": "He kept his sword in its sheath.",
+          "text": "He kept his sword in its sheath.",
+          "character_id": "c0002",
+          "kind": "name",
+          "role": "actor",
+          "status": "automatic_unverified"
+        }
+      ]
+    },
+    {
+      "schema_version": "0.1.0",
+      "model": "qwen",
+      "revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+      "processing": {
+        "schema_version": "0.1.0",
+        "device": "cuda",
+        "seed": 42,
+        "context_tokens": 3072,
+        "previous_paragraphs": 2,
+        "registry_limit": 24,
+        "qwen_stages": [
+          "mentions",
+          "behavior"
+        ],
+        "fable_overlap_tokens": 64,
+        "generation": {
+          "enable_thinking": false,
+          "do_sample": false,
+          "max_new_tokens": 1152,
+          "num_beams": 1,
+          "use_cache": true
+        },
+        "models": {
+          "fable": {
+            "repo": "SaladTechnologies/fable-base",
+            "revision": "45aceef3d49fe75bd8240010cbfdc983724ec420",
+            "receipt": "../literary-decision-encoders/model-paths.json",
+            "receipt_key": "fable",
+            "dtype": "float32"
+          },
+          "qwen": {
+            "repo": "Qwen/Qwen3-1.7B",
+            "revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+            "receipt": "../character-decisions/model-paths.json",
+            "receipt_key": "qwen3_1_7b",
+            "dtype": "bfloat16"
+          }
+        }
+      },
+      "language": "en",
+      "source_sha256": "0a9687919d8d2080515213f1674a138be8c2f14b4a12a430fb0b5476d40891f6",
+      "range": [
+        0,
+        4
+      ],
+      "run_sha256": "8f48c0becd6ba827ba0193fedaa88253dbd7727ef17844cbd24b18291a289831",
+      "run_directory": "runs/staged-smoke-qwen-en",
+      "source_kind": "authored_fixture",
+      "paragraphs_recorded": 4,
+      "successful_paragraphs": 3,
+      "partial_paragraphs": 1,
+      "failed_paragraphs": 0,
+      "pending_paragraphs": 0,
+      "context_or_memory_failures": 0,
+      "paragraphs_unprocessed_due_context_or_memory": 0,
+      "generation_errors": 1,
+      "attempted_calls": 8,
+      "invalid_json_calls": 0,
+      "invalid_json_fraction_of_saved_calls": 0.0,
+      "generation_or_schema_error_fraction_of_attempts": 0.125,
+      "schema_error_calls": 1,
+      "output_cap_calls": 0,
+      "calls_with_saved_output": 8,
+      "processing_seconds": 54.074731900007464,
+      "load_seconds": 32.97869050000736,
+      "paragraphs_per_minute": 4.438302171221063,
+      "input_tokens_including_overlap_and_context": 4656,
+      "generated_tokens": 511,
+      "input_tokens_per_second": 86.10306212168862,
+      "generated_tokens_per_second": 9.449885039558179,
+      "cuda_peak_allocated_bytes": 3703579648,
+      "cuda_peak_reserved_bytes": 3906994176,
+      "rss_peak_bytes": 4238282752,
+      "entity_types": {},
+      "character_mentions": 4,
+      "qwen_name_mentions": 4,
+      "other_mentions": 0,
+      "unresolved_mentions": 0,
+      "behavior_observations": 1,
+      "behavior_categories": {
+        "action": 1
+      },
+      "grounding_rejections": 4,
+      "rejection_examples": [
+        {
+          "kind": "mention",
+          "index": 0,
+          "error": "Quote has 0 occurrences; supply occurrence: 'Mara'",
+          "original": {
+            "quote": "Mara",
+            "who": "Mara",
+            "kind": "name",
+            "role": "actor"
+          }
+        },
+        {
+          "kind": "observation",
+          "index": 0,
+          "error": "Missing/unknown paragraph or empty quote",
+          "original": {
+            "who": "Mara",
+            "categories": [
+              "action"
+            ],
+            "summary": "Mara reached the stone bridge and placed a lantern on the wall.",
+            "actor": "Mara",
+            "target": "unknown",
+            "speaker": "narrator",
+            "about": "Mara",
+            "source": "narrator",
+            "status": "asserted",
+            "evidence": [
+              {
+                "paragraph_id": "TARGET id",
+                "quote": "exact source substring"
+              }
+            ]
+          }
+        },
+        {
+          "kind": "mention",
+          "index": 0,
+          "error": "Quote has 0 occurrences; supply occurrence: 'Mara'",
+          "original": {
+            "quote": "Mara",
+            "who": "Mara",
+            "kind": "name",
+            "role": "actor"
+          }
+        }
+      ],
+      "fragments": 4,
+      "revisions": 0,
+      "evidence_examples": [
+        {
+          "schema_version": "0.1.0",
+          "model": "qwen",
+          "checkpoint_revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+          "processing": {
+            "schema_version": "0.1.0",
+            "device": "cuda",
+            "seed": 42,
+            "context_tokens": 3072,
+            "previous_paragraphs": 2,
+            "registry_limit": 24,
+            "qwen_stages": [
+              "mentions",
+              "behavior"
+            ],
+            "fable_overlap_tokens": 64,
+            "generation": {
+              "enable_thinking": false,
+              "do_sample": false,
+              "max_new_tokens": 1152,
+              "num_beams": 1,
+              "use_cache": true
+            },
+            "models": {
+              "fable": {
+                "repo": "SaladTechnologies/fable-base",
+                "revision": "45aceef3d49fe75bd8240010cbfdc983724ec420",
+                "receipt": "../literary-decision-encoders/model-paths.json",
+                "receipt_key": "fable",
+                "dtype": "float32"
+              },
+              "qwen": {
+                "repo": "Qwen/Qwen3-1.7B",
+                "revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+                "receipt": "../character-decisions/model-paths.json",
+                "receipt_key": "qwen3_1_7b",
+                "dtype": "bfloat16"
+              }
+            }
+          },
+          "run_sha256": "8f48c0becd6ba827ba0193fedaa88253dbd7727ef17844cbd24b18291a289831",
+          "id": "p00000-4dc6742d:e000",
+          "character_id": "c0001",
+          "participants": {
+            "actor": "c0001",
+            "target": "unknown",
+            "speaker": "narrator",
+            "about": "c0001"
+          },
+          "categories": [
+            "action"
+          ],
+          "summary": "Mara places a lantern.",
+          "evidence": [
+            {
+              "paragraph_id": "p00000-4dc6742d",
+              "start": 0,
+              "end": 63,
+              "quote": "Mara reached the stone bridge and placed a lantern on the wall."
+            }
+          ],
+          "assertion_source": "narrator",
+          "assertion_status": "asserted",
+          "certainty": "model_unverified",
+          "status": "automatic_unverified",
+          "fragment_id": "fragment-p00000-4dc6742d",
+          "paragraph_ids": [
+            "p00000-4dc6742d"
+          ]
+        }
+      ],
+      "mention_examples": [
+        {
+          "schema_version": "0.1.0",
+          "model": "qwen",
+          "checkpoint_revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+          "processing": {
+            "schema_version": "0.1.0",
+            "device": "cuda",
+            "seed": 42,
+            "context_tokens": 3072,
+            "previous_paragraphs": 2,
+            "registry_limit": 24,
+            "qwen_stages": [
+              "mentions",
+              "behavior"
+            ],
+            "fable_overlap_tokens": 64,
+            "generation": {
+              "enable_thinking": false,
+              "do_sample": false,
+              "max_new_tokens": 1152,
+              "num_beams": 1,
+              "use_cache": true
+            },
+            "models": {
+              "fable": {
+                "repo": "SaladTechnologies/fable-base",
+                "revision": "45aceef3d49fe75bd8240010cbfdc983724ec420",
+                "receipt": "../literary-decision-encoders/model-paths.json",
+                "receipt_key": "fable",
+                "dtype": "float32"
+              },
+              "qwen": {
+                "repo": "Qwen/Qwen3-1.7B",
+                "revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+                "receipt": "../character-decisions/model-paths.json",
+                "receipt_key": "qwen3_1_7b",
+                "dtype": "bfloat16"
+              }
+            }
+          },
+          "run_sha256": "8f48c0becd6ba827ba0193fedaa88253dbd7727ef17844cbd24b18291a289831",
+          "id": "p00000-4dc6742d:m000",
+          "paragraph_id": "p00000-4dc6742d",
+          "start": 0,
+          "end": 4,
+          "quote": "Mara",
+          "text": "Mara",
+          "character_id": "c0001",
+          "kind": "name",
+          "role": "actor",
+          "status": "automatic_unverified"
+        },
+        {
+          "schema_version": "0.1.0",
+          "model": "qwen",
+          "checkpoint_revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+          "processing": {
+            "schema_version": "0.1.0",
+            "device": "cuda",
+            "seed": 42,
+            "context_tokens": 3072,
+            "previous_paragraphs": 2,
+            "registry_limit": 24,
+            "qwen_stages": [
+              "mentions",
+              "behavior"
+            ],
+            "fable_overlap_tokens": 64,
+            "generation": {
+              "enable_thinking": false,
+              "do_sample": false,
+              "max_new_tokens": 1152,
+              "num_beams": 1,
+              "use_cache": true
+            },
+            "models": {
+              "fable": {
+                "repo": "SaladTechnologies/fable-base",
+                "revision": "45aceef3d49fe75bd8240010cbfdc983724ec420",
+                "receipt": "../literary-decision-encoders/model-paths.json",
+                "receipt_key": "fable",
+                "dtype": "float32"
+              },
+              "qwen": {
+                "repo": "Qwen/Qwen3-1.7B",
+                "revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+                "receipt": "../character-decisions/model-paths.json",
+                "receipt_key": "qwen3_1_7b",
+                "dtype": "bfloat16"
+              }
+            }
+          },
+          "run_sha256": "8f48c0becd6ba827ba0193fedaa88253dbd7727ef17844cbd24b18291a289831",
+          "id": "p00002-b6a414ed:m000",
+          "paragraph_id": "p00002-b6a414ed",
+          "start": 26,
+          "end": 30,
+          "quote": "Mara",
+          "text": "Mara",
+          "character_id": "c0001",
+          "kind": "name",
+          "role": "actor",
+          "status": "automatic_unverified"
+        },
+        {
+          "schema_version": "0.1.0",
+          "model": "qwen",
+          "checkpoint_revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+          "processing": {
+            "schema_version": "0.1.0",
+            "device": "cuda",
+            "seed": 42,
+            "context_tokens": 3072,
+            "previous_paragraphs": 2,
+            "registry_limit": 24,
+            "qwen_stages": [
+              "mentions",
+              "behavior"
+            ],
+            "fable_overlap_tokens": 64,
+            "generation": {
+              "enable_thinking": false,
+              "do_sample": false,
+              "max_new_tokens": 1152,
+              "num_beams": 1,
+              "use_cache": true
+            },
+            "models": {
+              "fable": {
+                "repo": "SaladTechnologies/fable-base",
+                "revision": "45aceef3d49fe75bd8240010cbfdc983724ec420",
+                "receipt": "../literary-decision-encoders/model-paths.json",
+                "receipt_key": "fable",
+                "dtype": "float32"
+              },
+              "qwen": {
+                "repo": "Qwen/Qwen3-1.7B",
+                "revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+                "receipt": "../character-decisions/model-paths.json",
+                "receipt_key": "qwen3_1_7b",
+                "dtype": "bfloat16"
+              }
+            }
+          },
+          "run_sha256": "8f48c0becd6ba827ba0193fedaa88253dbd7727ef17844cbd24b18291a289831",
+          "id": "p00002-b6a414ed:m001",
+          "paragraph_id": "p00002-b6a414ed",
+          "start": 37,
+          "end": 42,
+          "quote": "Rowan",
+          "text": "Rowan",
+          "character_id": "c0002",
+          "kind": "name",
+          "role": "actor",
+          "status": "automatic_unverified"
+        }
+      ]
+    }
+  ],
+  "stateless_ner_control": {
+    "schema_version": "0.1.0",
+    "model": "qwen",
+    "checkpoint_revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+    "processing": {
+      "schema_version": "0.1.0",
+      "device": "cuda",
+      "seed": 42,
+      "context_tokens": 3072,
+      "previous_paragraphs": 0,
+      "registry_limit": 0,
+      "qwen_stages": [
+        "mentions"
+      ],
+      "fable_overlap_tokens": 64,
+      "generation": {
+        "enable_thinking": false,
+        "do_sample": false,
+        "max_new_tokens": 512,
+        "num_beams": 1,
+        "use_cache": true
+      },
+      "models": {
+        "fable": {
+          "repo": "SaladTechnologies/fable-base",
+          "revision": "45aceef3d49fe75bd8240010cbfdc983724ec420",
+          "receipt": "../literary-decision-encoders/model-paths.json",
+          "receipt_key": "fable",
+          "dtype": "float32"
+        },
+        "qwen": {
+          "repo": "Qwen/Qwen3-1.7B",
+          "revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+          "receipt": "../character-decisions/model-paths.json",
+          "receipt_key": "qwen3_1_7b",
+          "dtype": "bfloat16"
+        }
+      },
+      "protocol": "independent_current_paragraph_only_no_state"
+    },
+    "paragraphs": 32,
+    "mentions": 37,
+    "names": 27,
+    "errors": 1,
+    "rejected_objects": 1,
+    "seconds": 122.4817258999683,
+    "load_measurement": {
+      "seconds": 3.614198299997952,
+      "rss_peak_bytes": 4185255936,
+      "cuda_peak_allocated_bytes": 3441689600,
+      "cuda_peak_reserved_bytes": 3451912192,
+      "rss_sampling_seconds": 0.02
+    },
+    "source_sha256": "0a9687919d8d2080515213f1674a138be8c2f14b4a12a430fb0b5476d40891f6",
+    "quality_metrics": "not_measured"
+  }
+}

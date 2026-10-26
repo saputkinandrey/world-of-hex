@@ -1,0 +1,111 @@
+{
+  "schema_version": "0.1.0",
+  "model": "qwen",
+  "checkpoint_revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+  "processing": {
+    "schema_version": "0.1.0",
+    "device": "cuda",
+    "seed": 42,
+    "context_tokens": 3072,
+    "previous_paragraphs": 2,
+    "registry_limit": 24,
+    "qwen_stages": [
+      "mentions",
+      "behavior"
+    ],
+    "fable_overlap_tokens": 64,
+    "generation": {
+      "enable_thinking": false,
+      "do_sample": false,
+      "max_new_tokens": 1152,
+      "num_beams": 1,
+      "use_cache": true
+    },
+    "models": {
+      "fable": {
+        "repo": "SaladTechnologies/fable-base",
+        "revision": "45aceef3d49fe75bd8240010cbfdc983724ec420",
+        "receipt": "../literary-decision-encoders/model-paths.json",
+        "receipt_key": "fable",
+        "dtype": "float32"
+      },
+      "qwen": {
+        "repo": "Qwen/Qwen3-1.7B",
+        "revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+        "receipt": "../character-decisions/model-paths.json",
+        "receipt_key": "qwen3_1_7b",
+        "dtype": "bfloat16"
+      }
+    }
+  },
+  "run_sha256": "d533f83e49c8e91d1505c7cd3d555564f92ab62ed20dd44def0c0a74420252ec",
+  "paragraph_id": "p00019-b0d084f4",
+  "ordinal": 19,
+  "status": "SUCCESS",
+  "normalized": {
+    "mentions": [],
+    "observations": [],
+    "links": [],
+    "revision_proposals": [],
+    "rejected": []
+  },
+  "artifacts": [
+    {
+      "path": "model_outputs\\qwen\\00019.json",
+      "sha256": "c1f83c37e7614fe899c726c778a888f9242635399b9b1920441a7f0e5bef7f5f"
+    }
+  ],
+  "registry_after": [
+    {
+      "id": "c0001",
+      "name": "Mara",
+      "aliases": [
+        "Mara",
+        "Ash"
+      ],
+      "mentions": [
+        "p00002-b6a414ed:m000",
+        "p00004-3c2fbe8e:m000",
+        "p00007-80579766:m000",
+        "p00014-e61731d7:m000",
+        "p00014-e61731d7:m001",
+        "p00015-6d2e0bd5:m000",
+        "p00015-6d2e0bd5:m002",
+        "p00018-82364d09:m000"
+      ],
+      "status": "automatic_unverified"
+    },
+    {
+      "id": "c0002",
+      "name": "Rowan",
+      "aliases": [
+        "Rowan"
+      ],
+      "mentions": [
+        "p00002-b6a414ed:m001",
+        "p00003-7957dcd5:m000",
+        "p00003-7957dcd5:m001",
+        "p00008-304e26be:m000",
+        "p00009-34f53a39:m000",
+        "p00012-c66f1d9d:m000",
+        "p00013-d72f6cf3:m001",
+        "p00015-6d2e0bd5:m001"
+      ],
+      "status": "automatic_unverified"
+    },
+    {
+      "id": "c0003",
+      "name": "Iven",
+      "aliases": [
+        "Iven"
+      ],
+      "mentions": [
+        "p00008-304e26be:m001",
+        "p00012-c66f1d9d:m001",
+        "p00013-d72f6cf3:m000"
+      ],
+      "status": "automatic_unverified"
+    }
+  ],
+  "record_sha256": "4988509ebcf5edbd23407e6388af38ef9ed3a511948fe3e84ce09fffdf026074"
+}

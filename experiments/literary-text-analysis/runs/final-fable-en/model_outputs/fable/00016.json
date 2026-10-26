@@ -1,0 +1,165 @@
+{
+  "entities": [
+    {
+      "paragraph_id": "p00016-78b50b70",
+      "start": 0,
+      "end": 4,
+      "type": "CHA",
+      "text": "Mara",
+      "score": 0.8442517518997192
+    },
+    {
+      "paragraph_id": "p00016-78b50b70",
+      "start": 17,
+      "end": 26,
+      "type": "OBJ",
+      "text": " blankets",
+      "score": 0.5108351707458496
+    },
+    {
+      "paragraph_id": "p00016-78b50b70",
+      "start": 42,
+      "end": 54,
+      "type": "OBJ",
+      "text": " silver coin",
+      "score": 0.6817077696323395
+    }
+  ],
+  "windows": [
+    {
+      "index": 0,
+      "input_tokens": 12,
+      "tokens": [
+        {
+          "start": 0,
+          "end": 4,
+          "label": "B-CHA",
+          "score": 0.8442517518997192,
+          "token_id": 17563,
+          "window": 0
+        },
+        {
+          "start": 4,
+          "end": 13,
+          "label": "O",
+          "score": 0.9626823663711548,
+          "token_id": 2918,
+          "window": 0
+        },
+        {
+          "start": 13,
+          "end": 17,
+          "label": "O",
+          "score": 0.9327530264854431,
+          "token_id": 262,
+          "window": 0
+        },
+        {
+          "start": 17,
+          "end": 26,
+          "label": "B-OBJ",
+          "score": 0.5108351707458496,
+          "token_id": 14393,
+          "window": 0
+        },
+        {
+          "start": 26,
+          "end": 30,
+          "label": "O",
+          "score": 0.879619836807251,
+          "token_id": 304,
+          "window": 0
+        },
+        {
+          "start": 30,
+          "end": 38,
+          "label": "O",
+          "score": 0.9629108905792236,
+          "token_id": 4977,
+          "window": 0
+        },
+        {
+          "start": 38,
+          "end": 42,
+          "label": "O",
+          "score": 0.9128720164299011,
+          "token_id": 262,
+          "window": 0
+        },
+        {
+          "start": 42,
+          "end": 49,
+          "label": "B-OBJ",
+          "score": 0.666089653968811,
+          "token_id": 3120,
+          "window": 0
+        },
+        {
+          "start": 49,
+          "end": 54,
+          "label": "I-OBJ",
+          "score": 0.6973258852958679,
+          "token_id": 7496,
+          "window": 0
+        },
+        {
+          "start": 54,
+          "end": 55,
+          "label": "O",
+          "score": 0.9616962671279907,
+          "token_id": 260,
+          "window": 0
+        }
+      ]
+    }
+  ],
+  "measurement": {
+    "seconds": 0.05908160000399221,
+    "rss_peak_bytes": 1369223168,
+    "cuda_peak_allocated_bytes": 754115584,
+    "cuda_peak_reserved_bytes": 796917760,
+    "rss_sampling_seconds": 0.02
+  },
+  "input_tokens": 12,
+  "output_tokens": 0,
+  "schema_version": "0.1.0",
+  "model": "fable",
+  "checkpoint_revision": "45aceef3d49fe75bd8240010cbfdc983724ec420",
+  "processing": {
+    "schema_version": "0.1.0",
+    "device": "cuda",
+    "seed": 42,
+    "context_tokens": 3072,
+    "previous_paragraphs": 2,
+    "registry_limit": 24,
+    "qwen_stages": [
+      "mentions",
+      "behavior"
+    ],
+    "fable_overlap_tokens": 64,
+    "generation": {
+      "enable_thinking": false,
+      "do_sample": false,
+      "max_new_tokens": 1152,
+      "num_beams": 1,
+      "use_cache": true
+    },
+    "models": {
+      "fable": {
+        "repo": "SaladTechnologies/fable-base",
+        "revision": "45aceef3d49fe75bd8240010cbfdc983724ec420",
+        "receipt": "../literary-decision-encoders/model-paths.json",
+        "receipt_key": "fable",
+        "dtype": "float32"
+      },
+      "qwen": {
+        "repo": "Qwen/Qwen3-1.7B",
+        "revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+        "receipt": "../character-decisions/model-paths.json",
+        "receipt_key": "qwen3_1_7b",
+        "dtype": "bfloat16"
+      }
+    }
+  },
+  "run_sha256": "0cf1534a5e069467b25b759fffa3646c36bc89fa76cec17c623fd25fae782b23"
+}

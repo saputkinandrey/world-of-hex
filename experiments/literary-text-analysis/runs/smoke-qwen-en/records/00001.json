@@ -1,0 +1,134 @@
+{
+  "schema_version": "0.1.0",
+  "model": "qwen",
+  "checkpoint_revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+  "processing": {
+    "schema_version": "0.1.0",
+    "device": "cuda",
+    "seed": 42,
+    "context_tokens": 3072,
+    "previous_paragraphs": 2,
+    "registry_limit": 24,
+    "fable_overlap_tokens": 64,
+    "generation": {
+      "enable_thinking": false,
+      "do_sample": false,
+      "max_new_tokens": 1152,
+      "num_beams": 1,
+      "use_cache": true
+    },
+    "models": {
+      "fable": {
+        "repo": "SaladTechnologies/fable-base",
+        "revision": "45aceef3d49fe75bd8240010cbfdc983724ec420",
+        "receipt": "../literary-decision-encoders/model-paths.json",
+        "receipt_key": "fable",
+        "dtype": "float32"
+      },
+      "qwen": {
+        "repo": "Qwen/Qwen3-1.7B",
+        "revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+        "receipt": "../character-decisions/model-paths.json",
+        "receipt_key": "qwen3_1_7b",
+        "dtype": "bfloat16"
+      }
+    }
+  },
+  "run_sha256": "16c09f5192ea36dbbe34b80ad478d691535ff03a2610e7760da73c7eb7a88a09",
+  "paragraph_id": "p00001-7c894f36",
+  "ordinal": 1,
+  "status": "SUCCESS",
+  "normalized": {
+    "mentions": [
+      {
+        "id": "p00001-7c894f36:m000",
+        "paragraph_id": "p00001-7c894f36",
+        "start": 0,
+        "end": 32,
+        "quote": "Rowan watched her from the gate.",
+        "text": "Rowan watched her from the gate.",
+        "character_id": "c0002",
+        "kind": "name",
+        "role": "actor",
+        "status": "automatic_unverified"
+      },
+      {
+        "id": "p00001-7c894f36:m001",
+        "paragraph_id": "p00001-7c894f36",
+        "start": 33,
+        "end": 65,
+        "quote": "He kept his sword in its sheath.",
+        "text": "He kept his sword in its sheath.",
+        "character_id": "c0002",
+        "kind": "name",
+        "role": "actor",
+        "status": "automatic_unverified"
+      }
+    ],
+    "observations": [],
+    "links": [],
+    "revision_proposals": [],
+    "rejected": [
+      {
+        "kind": "observation",
+        "index": 0,
+        "error": "Quote has 0 occurrences; supply occurrence: 'He kept his sword in its sheath.'",
+        "original": {
+          "who": "Rowan",
+          "categories": [
+            "action"
+          ],
+          "summary": "Rowan is watching Mara from the gate.",
+          "actor": "Rowan",
+          "target": "Mara",
+          "speaker": "Narrator",
+          "about": "Mara",
+          "source": "Narrator",
+          "status": "asserted",
+          "evidence": [
+            {
+              "paragraph_id": "p00001-7c894f36",
+              "quote": "Rowan watched her from the gate."
+            },
+            {
+              "paragraph_id": "p00000-4dc6742d",
+              "quote": "He kept his sword in its sheath."
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "artifacts": [
+    {
+      "path": "model_outputs\\qwen\\00001.json",
+      "sha256": "2677a51adf6a3563f423c7b316230f9af36b383bb4d0c913e2b2efdb9ea6c44b"
+    }
+  ],
+  "registry_after": [
+    {
+      "id": "c0001",
+      "name": "Mara",
+      "aliases": [
+        "Mara reached the stone bridge and placed a lantern on the wall."
+      ],
+      "mentions": [
+        "p00000-4dc6742d:m000"
+      ],
+      "status": "automatic_unverified"
+    },
+    {
+      "id": "c0002",
+      "name": "Rowan",
+      "aliases": [
+        "Rowan watched her from the gate.",
+        "He kept his sword in its sheath."
+      ],
+      "mentions": [
+        "p00001-7c894f36:m000",
+        "p00001-7c894f36:m001"
+      ],
+      "status": "automatic_unverified"
+    }
+  ]
+}

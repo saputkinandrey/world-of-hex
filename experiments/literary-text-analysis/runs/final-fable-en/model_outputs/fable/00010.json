@@ -1,0 +1,181 @@
+{
+  "entities": [
+    {
+      "paragraph_id": "p00010-67c3d0da",
+      "start": 0,
+      "end": 4,
+      "type": "CHA",
+      "text": "Mara",
+      "score": 0.8036040663719177
+    }
+  ],
+  "windows": [
+    {
+      "index": 0,
+      "input_tokens": 16,
+      "tokens": [
+        {
+          "start": 0,
+          "end": 4,
+          "label": "B-CHA",
+          "score": 0.8036040663719177,
+          "token_id": 17563,
+          "window": 0
+        },
+        {
+          "start": 4,
+          "end": 11,
+          "label": "O",
+          "score": 0.9576847553253174,
+          "token_id": 4217,
+          "window": 0
+        },
+        {
+          "start": 11,
+          "end": 14,
+          "label": "O",
+          "score": 0.9248605370521545,
+          "token_id": 293,
+          "window": 0
+        },
+        {
+          "start": 14,
+          "end": 18,
+          "label": "O",
+          "score": 0.8472864031791687,
+          "token_id": 262,
+          "window": 0
+        },
+        {
+          "start": 18,
+          "end": 23,
+          "label": "O",
+          "score": 0.5245129466056824,
+          "token_id": 5502,
+          "window": 0
+        },
+        {
+          "start": 23,
+          "end": 31,
+          "label": "O",
+          "score": 0.9371653199195862,
+          "token_id": 401,
+          "window": 0
+        },
+        {
+          "start": 31,
+          "end": 35,
+          "label": "O",
+          "score": 0.946085512638092,
+          "token_id": 373,
+          "window": 0
+        },
+        {
+          "start": 35,
+          "end": 42,
+          "label": "O",
+          "score": 0.9483584761619568,
+          "token_id": 849,
+          "window": 0
+        },
+        {
+          "start": 42,
+          "end": 46,
+          "label": "O",
+          "score": 0.9195104241371155,
+          "token_id": 262,
+          "window": 0
+        },
+        {
+          "start": 46,
+          "end": 55,
+          "label": "O",
+          "score": 0.7202508449554443,
+          "token_id": 572,
+          "window": 0
+        },
+        {
+          "start": 55,
+          "end": 58,
+          "label": "O",
+          "score": 0.9383264183998108,
+          "token_id": 264,
+          "window": 0
+        },
+        {
+          "start": 58,
+          "end": 64,
+          "label": "O",
+          "score": 0.9521287083625793,
+          "token_id": 1431,
+          "window": 0
+        },
+        {
+          "start": 64,
+          "end": 71,
+          "label": "O",
+          "score": 0.7932510375976562,
+          "token_id": 1343,
+          "window": 0
+        },
+        {
+          "start": 71,
+          "end": 72,
+          "label": "O",
+          "score": 0.9615404605865479,
+          "token_id": 260,
+          "window": 0
+        }
+      ]
+    }
+  ],
+  "measurement": {
+    "seconds": 0.052227300009690225,
+    "rss_peak_bytes": 1369047040,
+    "cuda_peak_allocated_bytes": 754306048,
+    "cuda_peak_reserved_bytes": 796917760,
+    "rss_sampling_seconds": 0.02
+  },
+  "input_tokens": 16,
+  "output_tokens": 0,
+  "schema_version": "0.1.0",
+  "model": "fable",
+  "checkpoint_revision": "45aceef3d49fe75bd8240010cbfdc983724ec420",
+  "processing": {
+    "schema_version": "0.1.0",
+    "device": "cuda",
+    "seed": 42,
+    "context_tokens": 3072,
+    "previous_paragraphs": 2,
+    "registry_limit": 24,
+    "qwen_stages": [
+      "mentions",
+      "behavior"
+    ],
+    "fable_overlap_tokens": 64,
+    "generation": {
+      "enable_thinking": false,
+      "do_sample": false,
+      "max_new_tokens": 1152,
+      "num_beams": 1,
+      "use_cache": true
+    },
+    "models": {
+      "fable": {
+        "repo": "SaladTechnologies/fable-base",
+        "revision": "45aceef3d49fe75bd8240010cbfdc983724ec420",
+        "receipt": "../literary-decision-encoders/model-paths.json",
+        "receipt_key": "fable",
+        "dtype": "float32"
+      },
+      "qwen": {
+        "repo": "Qwen/Qwen3-1.7B",
+        "revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+        "receipt": "../character-decisions/model-paths.json",
+        "receipt_key": "qwen3_1_7b",
+        "dtype": "bfloat16"
+      }
+    }
+  },
+  "run_sha256": "0cf1534a5e069467b25b759fffa3646c36bc89fa76cec17c623fd25fae782b23"
+}

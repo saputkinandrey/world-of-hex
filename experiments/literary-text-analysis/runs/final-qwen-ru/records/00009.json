@@ -1,0 +1,149 @@
+{
+  "schema_version": "0.1.0",
+  "model": "qwen",
+  "checkpoint_revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+  "processing": {
+    "schema_version": "0.1.0",
+    "device": "cuda",
+    "seed": 42,
+    "context_tokens": 3072,
+    "previous_paragraphs": 2,
+    "registry_limit": 24,
+    "qwen_stages": [
+      "mentions",
+      "behavior"
+    ],
+    "fable_overlap_tokens": 64,
+    "generation": {
+      "enable_thinking": false,
+      "do_sample": false,
+      "max_new_tokens": 1152,
+      "num_beams": 1,
+      "use_cache": true
+    },
+    "models": {
+      "fable": {
+        "repo": "SaladTechnologies/fable-base",
+        "revision": "45aceef3d49fe75bd8240010cbfdc983724ec420",
+        "receipt": "../literary-decision-encoders/model-paths.json",
+        "receipt_key": "fable",
+        "dtype": "float32"
+      },
+      "qwen": {
+        "repo": "Qwen/Qwen3-1.7B",
+        "revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+        "receipt": "../character-decisions/model-paths.json",
+        "receipt_key": "qwen3_1_7b",
+        "dtype": "bfloat16"
+      }
+    }
+  },
+  "run_sha256": "76b711fe576fa0ef122fc3631362a7d338cf766d02689779c0c462bd1f5ae8df",
+  "paragraph_id": "p00009-0849d338",
+  "ordinal": 9,
+  "status": "SUCCESS",
+  "normalized": {
+    "mentions": [
+      {
+        "id": "p00009-0849d338:m000",
+        "paragraph_id": "p00009-0849d338",
+        "start": 41,
+        "end": 46,
+        "quote": "Рован",
+        "text": "Рован",
+        "character_id": "c0003",
+        "kind": "name",
+        "role": "speaker",
+        "status": "automatic_unverified"
+      },
+      {
+        "id": "p00009-0849d338:m001",
+        "paragraph_id": "p00009-0849d338",
+        "start": 48,
+        "end": 53,
+        "quote": "Никто",
+        "text": "Никто",
+        "character_id": "c0004",
+        "kind": "pronoun",
+        "role": "about",
+        "status": "automatic_unverified"
+      }
+    ],
+    "observations": [],
+    "links": [],
+    "revision_proposals": [],
+    "rejected": [
+      {
+        "kind": "observation",
+        "index": 0,
+        "error": "Unsupported behavior category",
+        "original": {
+          "who": "Рован",
+          "actor": "Рован",
+          "target": "Никто",
+          "speaker": "Рован",
+          "about": "Рован",
+          "categories": [
+            "statement"
+          ],
+          "summary": "Рован заявил, что никогда не предавал друзей.",
+          "source": "narrator",
+          "status": "asserted",
+          "evidence": [
+            {
+              "paragraph_id": "p00009-0849d338",
+              "quote": "— Я никогда не предавал друзей, — сказал Рован."
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "artifacts": [
+    {
+      "path": "model_outputs\\qwen\\00009.json",
+      "sha256": "bdc678adce7b9e07876b5c61c3e4460be931c9173aea00d79d9df7423540caea"
+    }
+  ],
+  "registry_after": [
+    {
+      "id": "c0001",
+      "name": "Мара",
+      "aliases": [
+        "Мара"
+      ],
+      "mentions": [
+        "p00007-50c73b40:m000"
+      ],
+      "status": "automatic_unverified"
+    },
+    {
+      "id": "c0002",
+      "name": "Ивен",
+      "aliases": [],
+      "mentions": [],
+      "status": "automatic_unverified"
+    },
+    {
+      "id": "c0003",
+      "name": "Рован",
+      "aliases": [
+        "Рован"
+      ],
+      "mentions": [
+        "p00009-0849d338:m000"
+      ],
+      "status": "automatic_unverified"
+    },
+    {
+      "id": "c0004",
+      "name": "Никто",
+      "aliases": [],
+      "mentions": [
+        "p00009-0849d338:m001"
+      ],
+      "status": "automatic_unverified"
+    }
+  ],
+  "record_sha256": "9e25bc3fdfb59bd4e0fd77f6c9622d7510c4ea3be24d185e9d0b7a656477531f"
+}

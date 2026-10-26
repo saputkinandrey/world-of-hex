@@ -1,0 +1,109 @@
+{
+  "schema_version": "0.1.0",
+  "model": "qwen",
+  "checkpoint_revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+  "processing": {
+    "schema_version": "0.1.0",
+    "device": "cuda",
+    "seed": 42,
+    "context_tokens": 3072,
+    "previous_paragraphs": 2,
+    "registry_limit": 24,
+    "qwen_stages": [
+      "mentions",
+      "behavior"
+    ],
+    "fable_overlap_tokens": 64,
+    "generation": {
+      "enable_thinking": false,
+      "do_sample": false,
+      "max_new_tokens": 1152,
+      "num_beams": 1,
+      "use_cache": true
+    },
+    "models": {
+      "fable": {
+        "repo": "SaladTechnologies/fable-base",
+        "revision": "45aceef3d49fe75bd8240010cbfdc983724ec420",
+        "receipt": "../literary-decision-encoders/model-paths.json",
+        "receipt_key": "fable",
+        "dtype": "float32"
+      },
+      "qwen": {
+        "repo": "Qwen/Qwen3-1.7B",
+        "revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+        "receipt": "../character-decisions/model-paths.json",
+        "receipt_key": "qwen3_1_7b",
+        "dtype": "bfloat16"
+      }
+    }
+  },
+  "run_sha256": "d533f83e49c8e91d1505c7cd3d555564f92ab62ed20dd44def0c0a74420252ec",
+  "paragraph_id": "p00000-4dc6742d",
+  "ordinal": 0,
+  "status": "SUCCESS",
+  "normalized": {
+    "mentions": [],
+    "observations": [],
+    "links": [],
+    "revision_proposals": [],
+    "rejected": [
+      {
+        "kind": "observation",
+        "index": 0,
+        "error": "Unestablished character name absent from target: Mara reached the stone bridge",
+        "original": {
+          "who": "Mara",
+          "actor": "Mara",
+          "target": "stone bridge",
+          "speaker": "Mara",
+          "about": "Mara reached the stone bridge",
+          "categories": [
+            "action"
+          ],
+          "summary": "Mara reached the stone bridge",
+          "source": "narrator",
+          "status": "asserted",
+          "evidence": [
+            {
+              "paragraph_id": "p00000-4dc6742d",
+              "quote": "Mara reached the stone bridge and placed a lantern on the wall."
+            }
+          ]
+        }
+      },
+      {
+        "kind": "observation",
+        "index": 1,
+        "error": "Unestablished character name absent from target: Mara placed a lantern on the wall",
+        "original": {
+          "who": "Mara",
+          "actor": "Mara",
+          "target": "wall",
+          "speaker": "Mara",
+          "about": "Mara placed a lantern on the wall",
+          "categories": [
+            "action"
+          ],
+          "summary": "Mara placed a lantern on the wall",
+          "source": "narrator",
+          "status": "asserted",
+          "evidence": [
+            {
+              "paragraph_id": "p00000-4dc6742d",
+              "quote": "Mara reached the stone bridge and placed a lantern on the wall."
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "artifacts": [
+    {
+      "path": "model_outputs\\qwen\\00000.json",
+      "sha256": "11d5017e153fe8e41e40c65f8c87edff01fc78d4e3581825072dceb3312276ea"
+    }
+  ],
+  "registry_after": [],
+  "record_sha256": "29d6937d0bd2478ca275e166ef2a9e2fbfc363a996a65d0c84f6946d7acd198a"
+}

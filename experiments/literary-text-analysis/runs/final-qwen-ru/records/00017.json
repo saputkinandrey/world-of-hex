@@ -1,0 +1,146 @@
+{
+  "schema_version": "0.1.0",
+  "model": "qwen",
+  "checkpoint_revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+  "processing": {
+    "schema_version": "0.1.0",
+    "device": "cuda",
+    "seed": 42,
+    "context_tokens": 3072,
+    "previous_paragraphs": 2,
+    "registry_limit": 24,
+    "qwen_stages": [
+      "mentions",
+      "behavior"
+    ],
+    "fable_overlap_tokens": 64,
+    "generation": {
+      "enable_thinking": false,
+      "do_sample": false,
+      "max_new_tokens": 1152,
+      "num_beams": 1,
+      "use_cache": true
+    },
+    "models": {
+      "fable": {
+        "repo": "SaladTechnologies/fable-base",
+        "revision": "45aceef3d49fe75bd8240010cbfdc983724ec420",
+        "receipt": "../literary-decision-encoders/model-paths.json",
+        "receipt_key": "fable",
+        "dtype": "float32"
+      },
+      "qwen": {
+        "repo": "Qwen/Qwen3-1.7B",
+        "revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+        "receipt": "../character-decisions/model-paths.json",
+        "receipt_key": "qwen3_1_7b",
+        "dtype": "bfloat16"
+      }
+    }
+  },
+  "run_sha256": "76b711fe576fa0ef122fc3631362a7d338cf766d02689779c0c462bd1f5ae8df",
+  "paragraph_id": "p00017-b39e2ea0",
+  "ordinal": 17,
+  "status": "SUCCESS",
+  "normalized": {
+    "mentions": [],
+    "observations": [],
+    "links": [],
+    "revision_proposals": [],
+    "rejected": [
+      {
+        "kind": "observation",
+        "index": 0,
+        "error": "Unestablished character name absent from target: Ивен спрашивает Рован о возможности перейти реку сегодня ночью.",
+        "original": {
+          "who": "Ивен",
+          "actor": "Ивен",
+          "target": "Рован",
+          "speaker": "Ивен",
+          "about": "Ивен спрашивает Рован о возможности перейти реку сегодня ночью.",
+          "categories": [
+            "action",
+            "retrospective"
+          ],
+          "summary": "Ивен спрашивает Рован о возможности перейти реку сегодня ночью.",
+          "source": "narrator",
+          "status": "asserted",
+          "evidence": [
+            {
+              "paragraph_id": "p00017-b39e2ea0",
+              "quote": "— Мы сможем перейти реку сегодня ночью? — спросил Ивен."
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "artifacts": [
+    {
+      "path": "model_outputs\\qwen\\00017.json",
+      "sha256": "4ad8022fef891ce2b09aa88a0f85a9d50f6cb8603b4d1a6ebaad0cfd7a2868b3"
+    }
+  ],
+  "registry_after": [
+    {
+      "id": "c0001",
+      "name": "Мара",
+      "aliases": [
+        "Мара"
+      ],
+      "mentions": [
+        "p00007-50c73b40:m000",
+        "p00014-a089f6a7:m001"
+      ],
+      "status": "automatic_unverified"
+    },
+    {
+      "id": "c0002",
+      "name": "Ивен",
+      "aliases": [
+        "Ивен"
+      ],
+      "mentions": [
+        "p00012-13fb4141:m001",
+        "p00013-b97bbdc3:m000"
+      ],
+      "status": "automatic_unverified"
+    },
+    {
+      "id": "c0003",
+      "name": "Рован",
+      "aliases": [
+        "Рован"
+      ],
+      "mentions": [
+        "p00009-0849d338:m000",
+        "p00012-13fb4141:m000",
+        "p00013-b97bbdc3:m001",
+        "p00015-03652ccf:m002"
+      ],
+      "status": "automatic_unverified"
+    },
+    {
+      "id": "c0004",
+      "name": "Никто",
+      "aliases": [],
+      "mentions": [
+        "p00009-0849d338:m001"
+      ],
+      "status": "automatic_unverified"
+    },
+    {
+      "id": "c0005",
+      "name": "Пепел",
+      "aliases": [
+        "Пепел"
+      ],
+      "mentions": [
+        "p00014-a089f6a7:m000",
+        "p00015-03652ccf:m000"
+      ],
+      "status": "automatic_unverified"
+    }
+  ],
+  "record_sha256": "f00d67085fda68cf41177ef34b3fb28106ed4d7f5231d4287ec98764d525070b"
+}

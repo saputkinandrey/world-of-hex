@@ -1,0 +1,139 @@
+{
+  "schema_version": "0.1.0",
+  "model": "qwen",
+  "checkpoint_revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+  "processing": {
+    "schema_version": "0.1.0",
+    "device": "cuda",
+    "seed": 42,
+    "context_tokens": 3072,
+    "previous_paragraphs": 2,
+    "registry_limit": 24,
+    "qwen_stages": [
+      "mentions",
+      "behavior"
+    ],
+    "fable_overlap_tokens": 64,
+    "generation": {
+      "enable_thinking": false,
+      "do_sample": false,
+      "max_new_tokens": 1152,
+      "num_beams": 1,
+      "use_cache": true
+    },
+    "models": {
+      "fable": {
+        "repo": "SaladTechnologies/fable-base",
+        "revision": "45aceef3d49fe75bd8240010cbfdc983724ec420",
+        "receipt": "../literary-decision-encoders/model-paths.json",
+        "receipt_key": "fable",
+        "dtype": "float32"
+      },
+      "qwen": {
+        "repo": "Qwen/Qwen3-1.7B",
+        "revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+        "receipt": "../character-decisions/model-paths.json",
+        "receipt_key": "qwen3_1_7b",
+        "dtype": "bfloat16"
+      }
+    }
+  },
+  "run_sha256": "d533f83e49c8e91d1505c7cd3d555564f92ab62ed20dd44def0c0a74420252ec",
+  "paragraph_id": "p00007-80579766",
+  "ordinal": 7,
+  "status": "SUCCESS",
+  "normalized": {
+    "mentions": [
+      {
+        "id": "p00007-80579766:m000",
+        "paragraph_id": "p00007-80579766",
+        "start": 48,
+        "end": 52,
+        "quote": "Mara",
+        "text": "Mara",
+        "character_id": "c0001",
+        "kind": "name",
+        "role": "speaker",
+        "status": "automatic_unverified"
+      }
+    ],
+    "observations": [
+      {
+        "id": "p00007-80579766:e000",
+        "character_id": "c0001",
+        "participants": {
+          "actor": "c0001",
+          "speaker": "c0001",
+          "about": "c0001",
+          "target": "c0001"
+        },
+        "categories": [
+          "reported_behavior"
+        ],
+        "summary": "Mara said she hid three children in the mill last winter.",
+        "evidence": [
+          {
+            "paragraph_id": "p00007-80579766",
+            "start": 0,
+            "end": 58,
+            "quote": "\"Last winter I hid three children in the mill,\" Mara said."
+          }
+        ],
+        "assertion_source": "narrator",
+        "assertion_status": "asserted",
+        "certainty": "model_unverified",
+        "status": "automatic_unverified"
+      }
+    ],
+    "links": [],
+    "revision_proposals": [],
+    "rejected": [
+      {
+        "kind": "mention",
+        "index": 1,
+        "error": "Quote has 0 occurrences; supply occurrence: 'Rowan'",
+        "original": {
+          "quote": "Rowan",
+          "who": "Rowan",
+          "kind": "name",
+          "role": "unknown"
+        }
+      }
+    ]
+  },
+  "artifacts": [
+    {
+      "path": "model_outputs\\qwen\\00007.json",
+      "sha256": "7cc015e687a31cfd8f16a00c71d4a1b7e36afc9938d0dbdad06a4355df272933"
+    }
+  ],
+  "registry_after": [
+    {
+      "id": "c0001",
+      "name": "Mara",
+      "aliases": [
+        "Mara"
+      ],
+      "mentions": [
+        "p00002-b6a414ed:m000",
+        "p00004-3c2fbe8e:m000",
+        "p00007-80579766:m000"
+      ],
+      "status": "automatic_unverified"
+    },
+    {
+      "id": "c0002",
+      "name": "Rowan",
+      "aliases": [
+        "Rowan"
+      ],
+      "mentions": [
+        "p00002-b6a414ed:m001",
+        "p00003-7957dcd5:m000",
+        "p00003-7957dcd5:m001"
+      ],
+      "status": "automatic_unverified"
+    }
+  ],
+  "record_sha256": "e9b20bbb2777d7974c72ce26d1402fd7f229bfee58060a780d18972ddcf8cae8"
+}

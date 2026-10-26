@@ -1,0 +1,173 @@
+{
+  "entities": [
+    {
+      "paragraph_id": "p00011-8e6a8ffe",
+      "start": 19,
+      "end": 24,
+      "type": "CHA",
+      "text": " Iven",
+      "score": 0.7976935803890228
+    }
+  ],
+  "windows": [
+    {
+      "index": 0,
+      "input_tokens": 15,
+      "tokens": [
+        {
+          "start": 0,
+          "end": 4,
+          "label": "O",
+          "score": 0.9208434820175171,
+          "token_id": 486,
+          "window": 0
+        },
+        {
+          "start": 4,
+          "end": 8,
+          "label": "O",
+          "score": 0.8986838459968567,
+          "token_id": 262,
+          "window": 0
+        },
+        {
+          "start": 8,
+          "end": 13,
+          "label": "O",
+          "score": 0.687407910823822,
+          "token_id": 10240,
+          "window": 0
+        },
+        {
+          "start": 13,
+          "end": 18,
+          "label": "O",
+          "score": 0.9238888025283813,
+          "token_id": 17398,
+          "window": 0
+        },
+        {
+          "start": 18,
+          "end": 19,
+          "label": "O",
+          "score": 0.9818407893180847,
+          "token_id": 261,
+          "window": 0
+        },
+        {
+          "start": 19,
+          "end": 21,
+          "label": "B-CHA",
+          "score": 0.863207221031189,
+          "token_id": 273,
+          "window": 0
+        },
+        {
+          "start": 21,
+          "end": 24,
+          "label": "I-CHA",
+          "score": 0.7321799397468567,
+          "token_id": 15574,
+          "window": 0
+        },
+        {
+          "start": 24,
+          "end": 33,
+          "label": "O",
+          "score": 0.9814790487289429,
+          "token_id": 95626,
+          "window": 0
+        },
+        {
+          "start": 33,
+          "end": 37,
+          "label": "O",
+          "score": 0.8935152292251587,
+          "token_id": 263,
+          "window": 0
+        },
+        {
+          "start": 37,
+          "end": 45,
+          "label": "O",
+          "score": 0.946867823600769,
+          "token_id": 3227,
+          "window": 0
+        },
+        {
+          "start": 45,
+          "end": 49,
+          "label": "O",
+          "score": 0.7954737544059753,
+          "token_id": 315,
+          "window": 0
+        },
+        {
+          "start": 49,
+          "end": 53,
+          "label": "O",
+          "score": 0.5426552295684814,
+          "token_id": 3189,
+          "window": 0
+        },
+        {
+          "start": 53,
+          "end": 54,
+          "label": "O",
+          "score": 0.9490801095962524,
+          "token_id": 260,
+          "window": 0
+        }
+      ]
+    }
+  ],
+  "measurement": {
+    "seconds": 0.060514600001624785,
+    "rss_peak_bytes": 1369088000,
+    "cuda_peak_allocated_bytes": 754258944,
+    "cuda_peak_reserved_bytes": 796917760,
+    "rss_sampling_seconds": 0.02
+  },
+  "input_tokens": 15,
+  "output_tokens": 0,
+  "schema_version": "0.1.0",
+  "model": "fable",
+  "checkpoint_revision": "45aceef3d49fe75bd8240010cbfdc983724ec420",
+  "processing": {
+    "schema_version": "0.1.0",
+    "device": "cuda",
+    "seed": 42,
+    "context_tokens": 3072,
+    "previous_paragraphs": 2,
+    "registry_limit": 24,
+    "qwen_stages": [
+      "mentions",
+      "behavior"
+    ],
+    "fable_overlap_tokens": 64,
+    "generation": {
+      "enable_thinking": false,
+      "do_sample": false,
+      "max_new_tokens": 1152,
+      "num_beams": 1,
+      "use_cache": true
+    },
+    "models": {
+      "fable": {
+        "repo": "SaladTechnologies/fable-base",
+        "revision": "45aceef3d49fe75bd8240010cbfdc983724ec420",
+        "receipt": "../literary-decision-encoders/model-paths.json",
+        "receipt_key": "fable",
+        "dtype": "float32"
+      },
+      "qwen": {
+        "repo": "Qwen/Qwen3-1.7B",
+        "revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+        "receipt": "../character-decisions/model-paths.json",
+        "receipt_key": "qwen3_1_7b",
+        "dtype": "bfloat16"
+      }
+    }
+  },
+  "run_sha256": "0cf1534a5e069467b25b759fffa3646c36bc89fa76cec17c623fd25fae782b23"
+}

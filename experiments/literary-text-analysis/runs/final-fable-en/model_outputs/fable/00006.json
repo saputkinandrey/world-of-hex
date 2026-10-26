@@ -1,0 +1,157 @@
+{
+  "entities": [
+    {
+      "paragraph_id": "p00006-d6095cad",
+      "start": 0,
+      "end": 5,
+      "type": "CHA",
+      "text": "Rowan",
+      "score": 0.8148560523986816
+    }
+  ],
+  "windows": [
+    {
+      "index": 0,
+      "input_tokens": 13,
+      "tokens": [
+        {
+          "start": 0,
+          "end": 5,
+          "label": "B-CHA",
+          "score": 0.8148560523986816,
+          "token_id": 30651,
+          "window": 0
+        },
+        {
+          "start": 5,
+          "end": 13,
+          "label": "O",
+          "score": 0.9668715000152588,
+          "token_id": 4294,
+          "window": 0
+        },
+        {
+          "start": 13,
+          "end": 17,
+          "label": "O",
+          "score": 0.8755176663398743,
+          "token_id": 262,
+          "window": 0
+        },
+        {
+          "start": 17,
+          "end": 22,
+          "label": "O",
+          "score": 0.7149190902709961,
+          "token_id": 4333,
+          "window": 0
+        },
+        {
+          "start": 22,
+          "end": 28,
+          "label": "O",
+          "score": 0.9522448778152466,
+          "token_id": 469,
+          "window": 0
+        },
+        {
+          "start": 28,
+          "end": 36,
+          "label": "O",
+          "score": 0.8603686690330505,
+          "token_id": 1882,
+          "window": 0
+        },
+        {
+          "start": 36,
+          "end": 43,
+          "label": "O",
+          "score": 0.9082282781600952,
+          "token_id": 416,
+          "window": 0
+        },
+        {
+          "start": 43,
+          "end": 46,
+          "label": "O",
+          "score": 0.9595808982849121,
+          "token_id": 313,
+          "window": 0
+        },
+        {
+          "start": 46,
+          "end": 51,
+          "label": "O",
+          "score": 0.9656503200531006,
+          "token_id": 700,
+          "window": 0
+        },
+        {
+          "start": 51,
+          "end": 56,
+          "label": "O",
+          "score": 0.7062915563583374,
+          "token_id": 425,
+          "window": 0
+        },
+        {
+          "start": 56,
+          "end": 57,
+          "label": "O",
+          "score": 0.9681265950202942,
+          "token_id": 260,
+          "window": 0
+        }
+      ]
+    }
+  ],
+  "measurement": {
+    "seconds": 0.08069100001011975,
+    "rss_peak_bytes": 1368727552,
+    "cuda_peak_allocated_bytes": 754162688,
+    "cuda_peak_reserved_bytes": 796917760,
+    "rss_sampling_seconds": 0.02
+  },
+  "input_tokens": 13,
+  "output_tokens": 0,
+  "schema_version": "0.1.0",
+  "model": "fable",
+  "checkpoint_revision": "45aceef3d49fe75bd8240010cbfdc983724ec420",
+  "processing": {
+    "schema_version": "0.1.0",
+    "device": "cuda",
+    "seed": 42,
+    "context_tokens": 3072,
+    "previous_paragraphs": 2,
+    "registry_limit": 24,
+    "qwen_stages": [
+      "mentions",
+      "behavior"
+    ],
+    "fable_overlap_tokens": 64,
+    "generation": {
+      "enable_thinking": false,
+      "do_sample": false,
+      "max_new_tokens": 1152,
+      "num_beams": 1,
+      "use_cache": true
+    },
+    "models": {
+      "fable": {
+        "repo": "SaladTechnologies/fable-base",
+        "revision": "45aceef3d49fe75bd8240010cbfdc983724ec420",
+        "receipt": "../literary-decision-encoders/model-paths.json",
+        "receipt_key": "fable",
+        "dtype": "float32"
+      },
+      "qwen": {
+        "repo": "Qwen/Qwen3-1.7B",
+        "revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+        "receipt": "../character-decisions/model-paths.json",
+        "receipt_key": "qwen3_1_7b",
+        "dtype": "bfloat16"
+      }
+    }
+  },
+  "run_sha256": "0cf1534a5e069467b25b759fffa3646c36bc89fa76cec17c623fd25fae782b23"
+}

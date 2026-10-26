@@ -1,0 +1,172 @@
+{
+  "entities": [],
+  "windows": [
+    {
+      "index": 0,
+      "input_tokens": 16,
+      "tokens": [
+        {
+          "start": 0,
+          "end": 3,
+          "label": "O",
+          "score": 0.9171764850616455,
+          "token_id": 279,
+          "window": 0
+        },
+        {
+          "start": 3,
+          "end": 8,
+          "label": "O",
+          "score": 0.648632287979126,
+          "token_id": 2894,
+          "window": 0
+        },
+        {
+          "start": 8,
+          "end": 16,
+          "label": "O",
+          "score": 0.9479479193687439,
+          "token_id": 2564,
+          "window": 0
+        },
+        {
+          "start": 16,
+          "end": 17,
+          "label": "O",
+          "score": 0.9337793588638306,
+          "token_id": 260,
+          "window": 0
+        },
+        {
+          "start": 17,
+          "end": 21,
+          "label": "O",
+          "score": 0.9046863913536072,
+          "token_id": 279,
+          "window": 0
+        },
+        {
+          "start": 21,
+          "end": 27,
+          "label": "O",
+          "score": 0.8743277192115784,
+          "token_id": 475,
+          "window": 0
+        },
+        {
+          "start": 27,
+          "end": 33,
+          "label": "O",
+          "score": 0.941718578338623,
+          "token_id": 3565,
+          "window": 0
+        },
+        {
+          "start": 33,
+          "end": 41,
+          "label": "O",
+          "score": 0.9262456893920898,
+          "token_id": 8566,
+          "window": 0
+        },
+        {
+          "start": 41,
+          "end": 47,
+          "label": "O",
+          "score": 0.9335020184516907,
+          "token_id": 583,
+          "window": 0
+        },
+        {
+          "start": 47,
+          "end": 51,
+          "label": "O",
+          "score": 0.8895108103752136,
+          "token_id": 262,
+          "window": 0
+        },
+        {
+          "start": 51,
+          "end": 56,
+          "label": "O",
+          "score": 0.7018606662750244,
+          "token_id": 10240,
+          "window": 0
+        },
+        {
+          "start": 56,
+          "end": 61,
+          "label": "O",
+          "score": 0.9332459568977356,
+          "token_id": 17398,
+          "window": 0
+        },
+        {
+          "start": 61,
+          "end": 67,
+          "label": "O",
+          "score": 0.9331486821174622,
+          "token_id": 541,
+          "window": 0
+        },
+        {
+          "start": 67,
+          "end": 68,
+          "label": "O",
+          "score": 0.9413149356842041,
+          "token_id": 260,
+          "window": 0
+        }
+      ]
+    }
+  ],
+  "measurement": {
+    "seconds": 0.10529400000814348,
+    "rss_peak_bytes": 1369784320,
+    "cuda_peak_allocated_bytes": 754306048,
+    "cuda_peak_reserved_bytes": 796917760,
+    "rss_sampling_seconds": 0.02
+  },
+  "input_tokens": 16,
+  "output_tokens": 0,
+  "schema_version": "0.1.0",
+  "model": "fable",
+  "checkpoint_revision": "45aceef3d49fe75bd8240010cbfdc983724ec420",
+  "processing": {
+    "schema_version": "0.1.0",
+    "device": "cuda",
+    "seed": 42,
+    "context_tokens": 3072,
+    "previous_paragraphs": 2,
+    "registry_limit": 24,
+    "qwen_stages": [
+      "mentions",
+      "behavior"
+    ],
+    "fable_overlap_tokens": 64,
+    "generation": {
+      "enable_thinking": false,
+      "do_sample": false,
+      "max_new_tokens": 1152,
+      "num_beams": 1,
+      "use_cache": true
+    },
+    "models": {
+      "fable": {
+        "repo": "SaladTechnologies/fable-base",
+        "revision": "45aceef3d49fe75bd8240010cbfdc983724ec420",
+        "receipt": "../literary-decision-encoders/model-paths.json",
+        "receipt_key": "fable",
+        "dtype": "float32"
+      },
+      "qwen": {
+        "repo": "Qwen/Qwen3-1.7B",
+        "revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+        "receipt": "../character-decisions/model-paths.json",
+        "receipt_key": "qwen3_1_7b",
+        "dtype": "bfloat16"
+      }
+    }
+  },
+  "run_sha256": "0cf1534a5e069467b25b759fffa3646c36bc89fa76cec17c623fd25fae782b23"
+}

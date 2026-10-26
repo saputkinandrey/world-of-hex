@@ -1,0 +1,111 @@
+{
+  "schema_version": "0.1.0",
+  "model": "qwen",
+  "checkpoint_revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+  "processing": {
+    "schema_version": "0.1.0",
+    "device": "cuda",
+    "seed": 42,
+    "context_tokens": 3072,
+    "previous_paragraphs": 2,
+    "registry_limit": 24,
+    "qwen_stages": [
+      "mentions",
+      "behavior"
+    ],
+    "fable_overlap_tokens": 64,
+    "generation": {
+      "enable_thinking": false,
+      "do_sample": false,
+      "max_new_tokens": 1152,
+      "num_beams": 1,
+      "use_cache": true
+    },
+    "models": {
+      "fable": {
+        "repo": "SaladTechnologies/fable-base",
+        "revision": "45aceef3d49fe75bd8240010cbfdc983724ec420",
+        "receipt": "../literary-decision-encoders/model-paths.json",
+        "receipt_key": "fable",
+        "dtype": "float32"
+      },
+      "qwen": {
+        "repo": "Qwen/Qwen3-1.7B",
+        "revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+        "receipt": "../character-decisions/model-paths.json",
+        "receipt_key": "qwen3_1_7b",
+        "dtype": "bfloat16"
+      }
+    }
+  },
+  "run_sha256": "76b711fe576fa0ef122fc3631362a7d338cf766d02689779c0c462bd1f5ae8df",
+  "paragraph_id": "p00001-91138a16",
+  "ordinal": 1,
+  "status": "SUCCESS",
+  "normalized": {
+    "mentions": [],
+    "observations": [],
+    "links": [],
+    "revision_proposals": [],
+    "rejected": [
+      {
+        "kind": "observation",
+        "index": 0,
+        "error": "Unestablished character name absent from target: Рован смотрел на неё от ворот.",
+        "original": {
+          "who": "Рован",
+          "actor": "Рован",
+          "target": "неё",
+          "speaker": "Рован",
+          "about": "Рован смотрел на неё от ворот.",
+          "categories": [
+            "action",
+            "retrospective"
+          ],
+          "summary": "Рован смотрел на неё от ворот.",
+          "source": "narrator",
+          "status": "asserted",
+          "evidence": [
+            {
+              "paragraph_id": "p00001-91138a16",
+              "quote": "Рован смотрел на неё от ворот."
+            }
+          ]
+        }
+      },
+      {
+        "kind": "observation",
+        "index": 1,
+        "error": "Quote has 0 occurrences; supply occurrence: 'Рован держал меч в ножнах.'",
+        "original": {
+          "who": "Рован",
+          "actor": "Рован",
+          "target": "меч в ножнах",
+          "speaker": "Рован",
+          "about": "Рован держал меч в ножнах.",
+          "categories": [
+            "action",
+            "retrospective"
+          ],
+          "summary": "Рован держал меч в ножнах.",
+          "source": "narrator",
+          "status": "asserted",
+          "evidence": [
+            {
+              "paragraph_id": "p00001-91138a16",
+              "quote": "Рован держал меч в ножнах."
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "artifacts": [
+    {
+      "path": "model_outputs\\qwen\\00001.json",
+      "sha256": "2b1372e453bebb51c9493a138a5c7f4784f45431695d522159d1d60b9956db8d"
+    }
+  ],
+  "registry_after": [],
+  "record_sha256": "405a66e87aee252a329c5eefe0794a44612eee5f9cb84cb7577b35b86e12be25"
+}

@@ -1,0 +1,189 @@
+{
+  "entities": [
+    {
+      "paragraph_id": "p00000-4dc6742d",
+      "start": 0,
+      "end": 4,
+      "type": "CHA",
+      "text": "Mara",
+      "score": 0.8036885261535645
+    },
+    {
+      "paragraph_id": "p00000-4dc6742d",
+      "start": 16,
+      "end": 29,
+      "type": "FAC",
+      "text": " stone bridge",
+      "score": 0.4948797971010208
+    },
+    {
+      "paragraph_id": "p00000-4dc6742d",
+      "start": 42,
+      "end": 50,
+      "type": "OBJ",
+      "text": " lantern",
+      "score": 0.5821953415870667
+    }
+  ],
+  "windows": [
+    {
+      "index": 0,
+      "input_tokens": 15,
+      "tokens": [
+        {
+          "start": 0,
+          "end": 4,
+          "label": "B-CHA",
+          "score": 0.8036885261535645,
+          "token_id": 17563,
+          "window": 0
+        },
+        {
+          "start": 4,
+          "end": 12,
+          "label": "O",
+          "score": 0.9591325521469116,
+          "token_id": 2182,
+          "window": 0
+        },
+        {
+          "start": 12,
+          "end": 16,
+          "label": "O",
+          "score": 0.7102689146995544,
+          "token_id": 262,
+          "window": 0
+        },
+        {
+          "start": 16,
+          "end": 22,
+          "label": "B-FAC",
+          "score": 0.5041853785514832,
+          "token_id": 2494,
+          "window": 0
+        },
+        {
+          "start": 22,
+          "end": 29,
+          "label": "I-FAC",
+          "score": 0.48557421565055847,
+          "token_id": 3579,
+          "window": 0
+        },
+        {
+          "start": 29,
+          "end": 33,
+          "label": "O",
+          "score": 0.9381152987480164,
+          "token_id": 263,
+          "window": 0
+        },
+        {
+          "start": 33,
+          "end": 40,
+          "label": "O",
+          "score": 0.9545362591743469,
+          "token_id": 1958,
+          "window": 0
+        },
+        {
+          "start": 40,
+          "end": 42,
+          "label": "O",
+          "score": 0.9404237270355225,
+          "token_id": 266,
+          "window": 0
+        },
+        {
+          "start": 42,
+          "end": 50,
+          "label": "B-OBJ",
+          "score": 0.5821953415870667,
+          "token_id": 26529,
+          "window": 0
+        },
+        {
+          "start": 50,
+          "end": 53,
+          "label": "O",
+          "score": 0.9222195744514465,
+          "token_id": 277,
+          "window": 0
+        },
+        {
+          "start": 53,
+          "end": 57,
+          "label": "O",
+          "score": 0.8450554013252258,
+          "token_id": 262,
+          "window": 0
+        },
+        {
+          "start": 57,
+          "end": 62,
+          "label": "O",
+          "score": 0.6944777369499207,
+          "token_id": 1405,
+          "window": 0
+        },
+        {
+          "start": 62,
+          "end": 63,
+          "label": "O",
+          "score": 0.9516600966453552,
+          "token_id": 260,
+          "window": 0
+        }
+      ]
+    }
+  ],
+  "measurement": {
+    "seconds": 0.6143573000008473,
+    "rss_peak_bytes": 1320542208,
+    "cuda_peak_allocated_bytes": 754258944,
+    "cuda_peak_reserved_bytes": 796917760,
+    "rss_sampling_seconds": 0.02
+  },
+  "input_tokens": 15,
+  "output_tokens": 0,
+  "schema_version": "0.1.0",
+  "model": "fable",
+  "checkpoint_revision": "45aceef3d49fe75bd8240010cbfdc983724ec420",
+  "processing": {
+    "schema_version": "0.1.0",
+    "device": "cuda",
+    "seed": 42,
+    "context_tokens": 3072,
+    "previous_paragraphs": 2,
+    "registry_limit": 24,
+    "qwen_stages": [
+      "mentions",
+      "behavior"
+    ],
+    "fable_overlap_tokens": 64,
+    "generation": {
+      "enable_thinking": false,
+      "do_sample": false,
+      "max_new_tokens": 1152,
+      "num_beams": 1,
+      "use_cache": true
+    },
+    "models": {
+      "fable": {
+        "repo": "SaladTechnologies/fable-base",
+        "revision": "45aceef3d49fe75bd8240010cbfdc983724ec420",
+        "receipt": "../literary-decision-encoders/model-paths.json",
+        "receipt_key": "fable",
+        "dtype": "float32"
+      },
+      "qwen": {
+        "repo": "Qwen/Qwen3-1.7B",
+        "revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+        "receipt": "../character-decisions/model-paths.json",
+        "receipt_key": "qwen3_1_7b",
+        "dtype": "bfloat16"
+      }
+    }
+  },
+  "run_sha256": "118382cefc4ce5a031820d0b0d6357e32d2a11e0c2031a753b4fed645a4ce98e"
+}

@@ -1,0 +1,36 @@
+{
+  "schema_version": "0.1.0",
+  "model": "per_probe",
+  "checkpoint_revision": "see_run_manifests",
+  "processing": "real sequential CUDA probes and source/output invariant checks",
+  "fable_long_windows": 3,
+  "max_fable_input_tokens": 512,
+  "long_paragraph_nonspace_characters_missing": 0,
+  "qwen_context_overflow_explicit": true,
+  "resume_proofs": [
+    {
+      "model": "fable",
+      "language": "en",
+      "run": "final-fable-en",
+      "files_unchanged": 64,
+      "new_inferences": 0,
+      "sizes_hashes_mtimes_identical": true
+    },
+    {
+      "model": "qwen",
+      "language": "en",
+      "run": "final-qwen-en",
+      "files_unchanged": 64,
+      "new_inferences": 0,
+      "sizes_hashes_mtimes_identical": true
+    },
+    {
+      "model": "qwen",
+      "language": "ru",
+      "run": "final-qwen-ru",
+      "files_unchanged": 64,
+      "new_inferences": 0,
+      "sizes_hashes_mtimes_identical": true
+    }
+  ]
+}

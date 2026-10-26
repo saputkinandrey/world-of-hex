@@ -1,0 +1,237 @@
+{
+  "entities": [
+    {
+      "paragraph_id": "p00014-e61731d7",
+      "start": 13,
+      "end": 17,
+      "type": "CHA",
+      "text": " Ash",
+      "score": 0.6700858473777771
+    },
+    {
+      "paragraph_id": "p00014-e61731d7",
+      "start": 19,
+      "end": 24,
+      "type": "CHA",
+      "text": " Mara",
+      "score": 0.8596585988998413
+    }
+  ],
+  "windows": [
+    {
+      "index": 0,
+      "input_tokens": 22,
+      "tokens": [
+        {
+          "start": 0,
+          "end": 1,
+          "label": "O",
+          "score": 0.9329363107681274,
+          "token_id": 307,
+          "window": 0
+        },
+        {
+          "start": 1,
+          "end": 5,
+          "label": "O",
+          "score": 0.8977560997009277,
+          "token_id": 4193,
+          "window": 0
+        },
+        {
+          "start": 5,
+          "end": 10,
+          "label": "O",
+          "score": 0.902097761631012,
+          "token_id": 660,
+          "window": 0
+        },
+        {
+          "start": 10,
+          "end": 13,
+          "label": "O",
+          "score": 0.9161039590835571,
+          "token_id": 351,
+          "window": 0
+        },
+        {
+          "start": 13,
+          "end": 17,
+          "label": "B-CHA",
+          "score": 0.6700858473777771,
+          "token_id": 9999,
+          "window": 0
+        },
+        {
+          "start": 17,
+          "end": 18,
+          "label": "O",
+          "score": 0.951033890247345,
+          "token_id": 261,
+          "window": 0
+        },
+        {
+          "start": 18,
+          "end": 19,
+          "label": "O",
+          "score": 0.97112637758255,
+          "token_id": 309,
+          "window": 0
+        },
+        {
+          "start": 19,
+          "end": 24,
+          "label": "B-CHA",
+          "score": 0.8596585988998413,
+          "token_id": 17563,
+          "window": 0
+        },
+        {
+          "start": 24,
+          "end": 29,
+          "label": "O",
+          "score": 0.9523648619651794,
+          "token_id": 732,
+          "window": 0
+        },
+        {
+          "start": 29,
+          "end": 33,
+          "label": "O",
+          "score": 0.8599197864532471,
+          "token_id": 262,
+          "window": 0
+        },
+        {
+          "start": 33,
+          "end": 39,
+          "label": "O",
+          "score": 0.6730818152427673,
+          "token_id": 4268,
+          "window": 0
+        },
+        {
+          "start": 39,
+          "end": 40,
+          "label": "O",
+          "score": 0.9525556564331055,
+          "token_id": 260,
+          "window": 0
+        },
+        {
+          "start": 40,
+          "end": 42,
+          "label": "O",
+          "score": 0.9274265170097351,
+          "token_id": 307,
+          "window": 0
+        },
+        {
+          "start": 42,
+          "end": 46,
+          "label": "O",
+          "score": 0.8934169411659241,
+          "token_id": 4525,
+          "window": 0
+        },
+        {
+          "start": 46,
+          "end": 49,
+          "label": "O",
+          "score": 0.9424498081207275,
+          "token_id": 269,
+          "window": 0
+        },
+        {
+          "start": 49,
+          "end": 52,
+          "label": "O",
+          "score": 0.8418035507202148,
+          "token_id": 312,
+          "window": 0
+        },
+        {
+          "start": 52,
+          "end": 56,
+          "label": "O",
+          "score": 0.8782466650009155,
+          "token_id": 597,
+          "window": 0
+        },
+        {
+          "start": 56,
+          "end": 65,
+          "label": "O",
+          "score": 0.9142232537269592,
+          "token_id": 16554,
+          "window": 0
+        },
+        {
+          "start": 65,
+          "end": 66,
+          "label": "O",
+          "score": 0.9582738876342773,
+          "token_id": 260,
+          "window": 0
+        },
+        {
+          "start": 66,
+          "end": 67,
+          "label": "O",
+          "score": 0.9530733823776245,
+          "token_id": 309,
+          "window": 0
+        }
+      ]
+    }
+  ],
+  "measurement": {
+    "seconds": 0.0718837999884272,
+    "rss_peak_bytes": 1367621632,
+    "cuda_peak_allocated_bytes": 754597888,
+    "cuda_peak_reserved_bytes": 796917760,
+    "rss_sampling_seconds": 0.02
+  },
+  "input_tokens": 22,
+  "output_tokens": 0,
+  "schema_version": "0.1.0",
+  "model": "fable",
+  "checkpoint_revision": "45aceef3d49fe75bd8240010cbfdc983724ec420",
+  "processing": {
+    "schema_version": "0.1.0",
+    "device": "cuda",
+    "seed": 42,
+    "context_tokens": 3072,
+    "previous_paragraphs": 2,
+    "registry_limit": 24,
+    "qwen_stages": [
+      "mentions",
+      "behavior"
+    ],
+    "fable_overlap_tokens": 64,
+    "generation": {
+      "enable_thinking": false,
+      "do_sample": false,
+      "max_new_tokens": 1152,
+      "num_beams": 1,
+      "use_cache": true
+    },
+    "models": {
+      "fable": {
+        "repo": "SaladTechnologies/fable-base",
+        "revision": "45aceef3d49fe75bd8240010cbfdc983724ec420",
+        "receipt": "../literary-decision-encoders/model-paths.json",
+        "receipt_key": "fable",
+        "dtype": "float32"
+      },
+      "qwen": {
+        "repo": "Qwen/Qwen3-1.7B",
+        "revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+        "receipt": "../character-decisions/model-paths.json",
+        "receipt_key": "qwen3_1_7b",
+        "dtype": "bfloat16"
+      }
+    }
+  },
+  "run_sha256": "118382cefc4ce5a031820d0b0d6357e32d2a11e0c2031a753b4fed645a4ce98e"
+}

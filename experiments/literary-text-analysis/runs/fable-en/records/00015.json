@@ -1,0 +1,81 @@
+{
+  "schema_version": "0.1.0",
+  "model": "fable",
+  "checkpoint_revision": "45aceef3d49fe75bd8240010cbfdc983724ec420",
+  "processing": {
+    "schema_version": "0.1.0",
+    "device": "cuda",
+    "seed": 42,
+    "context_tokens": 3072,
+    "previous_paragraphs": 2,
+    "registry_limit": 24,
+    "qwen_stages": [
+      "mentions",
+      "behavior"
+    ],
+    "fable_overlap_tokens": 64,
+    "generation": {
+      "enable_thinking": false,
+      "do_sample": false,
+      "max_new_tokens": 1152,
+      "num_beams": 1,
+      "use_cache": true
+    },
+    "models": {
+      "fable": {
+        "repo": "SaladTechnologies/fable-base",
+        "revision": "45aceef3d49fe75bd8240010cbfdc983724ec420",
+        "receipt": "../literary-decision-encoders/model-paths.json",
+        "receipt_key": "fable",
+        "dtype": "float32"
+      },
+      "qwen": {
+        "repo": "Qwen/Qwen3-1.7B",
+        "revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+        "receipt": "../character-decisions/model-paths.json",
+        "receipt_key": "qwen3_1_7b",
+        "dtype": "bfloat16"
+      }
+    }
+  },
+  "run_sha256": "118382cefc4ce5a031820d0b0d6357e32d2a11e0c2031a753b4fed645a4ce98e",
+  "paragraph_id": "p00015-6d2e0bd5",
+  "ordinal": 15,
+  "status": "SUCCESS",
+  "normalized": {
+    "entities": [
+      {
+        "paragraph_id": "p00015-6d2e0bd5",
+        "start": 0,
+        "end": 4,
+        "type": "CHA",
+        "text": "\"Ash",
+        "score": 0.6447941958904266
+      },
+      {
+        "paragraph_id": "p00015-6d2e0bd5",
+        "start": 25,
+        "end": 31,
+        "type": "CHA",
+        "text": " Rowan",
+        "score": 0.7912799715995789
+      },
+      {
+        "paragraph_id": "p00015-6d2e0bd5",
+        "start": 39,
+        "end": 44,
+        "type": "CHA",
+        "text": " Mara",
+        "score": 0.8698921203613281
+      }
+    ]
+  },
+  "artifacts": [
+    {
+      "path": "model_outputs\\fable\\00015.json",
+      "sha256": "6ac7cfb271d95e871627601b90055cafc0dfc36433d94bc664f265e6c7aaaafa"
+    }
+  ],
+  "registry_after": [],
+  "record_sha256": "2f6db713c4debdfdfaf83c68ae72a2fe35d1a3ec1f57cc3e7b5e98603858d095"
+}

@@ -1,0 +1,213 @@
+{
+  "entities": [
+    {
+      "paragraph_id": "p00018-82364d09",
+      "start": 22,
+      "end": 27,
+      "type": "CHA",
+      "text": " Mara",
+      "score": 0.8696094751358032
+    },
+    {
+      "paragraph_id": "p00018-82364d09",
+      "start": 53,
+      "end": 58,
+      "type": "FAC",
+      "text": " mill",
+      "score": 0.4477957487106323
+    }
+  ],
+  "windows": [
+    {
+      "index": 0,
+      "input_tokens": 19,
+      "tokens": [
+        {
+          "start": 0,
+          "end": 1,
+          "label": "O",
+          "score": 0.9303128719329834,
+          "token_id": 307,
+          "window": 0
+        },
+        {
+          "start": 1,
+          "end": 5,
+          "label": "O",
+          "score": 0.9204896092414856,
+          "token_id": 21248,
+          "window": 0
+        },
+        {
+          "start": 5,
+          "end": 11,
+          "label": "O",
+          "score": 0.8700775504112244,
+          "token_id": 385,
+          "window": 0
+        },
+        {
+          "start": 11,
+          "end": 15,
+          "label": "O",
+          "score": 0.8802947998046875,
+          "token_id": 262,
+          "window": 0
+        },
+        {
+          "start": 15,
+          "end": 20,
+          "label": "O",
+          "score": 0.698623776435852,
+          "token_id": 10240,
+          "window": 0
+        },
+        {
+          "start": 20,
+          "end": 21,
+          "label": "O",
+          "score": 0.9697273373603821,
+          "token_id": 261,
+          "window": 0
+        },
+        {
+          "start": 21,
+          "end": 22,
+          "label": "O",
+          "score": 0.9555841684341431,
+          "token_id": 309,
+          "window": 0
+        },
+        {
+          "start": 22,
+          "end": 27,
+          "label": "B-CHA",
+          "score": 0.8696094751358032,
+          "token_id": 17563,
+          "window": 0
+        },
+        {
+          "start": 27,
+          "end": 35,
+          "label": "O",
+          "score": 0.9633961319923401,
+          "token_id": 6781,
+          "window": 0
+        },
+        {
+          "start": 35,
+          "end": 36,
+          "label": "O",
+          "score": 0.9397532939910889,
+          "token_id": 260,
+          "window": 0
+        },
+        {
+          "start": 36,
+          "end": 38,
+          "label": "O",
+          "score": 0.9128872156143188,
+          "token_id": 307,
+          "window": 0
+        },
+        {
+          "start": 38,
+          "end": 42,
+          "label": "O",
+          "score": 0.9322941303253174,
+          "token_id": 34863,
+          "window": 0
+        },
+        {
+          "start": 42,
+          "end": 49,
+          "label": "O",
+          "score": 0.9520727396011353,
+          "token_id": 7438,
+          "window": 0
+        },
+        {
+          "start": 49,
+          "end": 53,
+          "label": "O",
+          "score": 0.5830562710762024,
+          "token_id": 262,
+          "window": 0
+        },
+        {
+          "start": 53,
+          "end": 58,
+          "label": "B-FAC",
+          "score": 0.4477957487106323,
+          "token_id": 4874,
+          "window": 0
+        },
+        {
+          "start": 58,
+          "end": 59,
+          "label": "O",
+          "score": 0.9650327563285828,
+          "token_id": 260,
+          "window": 0
+        },
+        {
+          "start": 59,
+          "end": 60,
+          "label": "O",
+          "score": 0.9314724206924438,
+          "token_id": 309,
+          "window": 0
+        }
+      ]
+    }
+  ],
+  "measurement": {
+    "seconds": 0.04865179999615066,
+    "rss_peak_bytes": 1367732224,
+    "cuda_peak_allocated_bytes": 754451456,
+    "cuda_peak_reserved_bytes": 796917760,
+    "rss_sampling_seconds": 0.02
+  },
+  "input_tokens": 19,
+  "output_tokens": 0,
+  "schema_version": "0.1.0",
+  "model": "fable",
+  "checkpoint_revision": "45aceef3d49fe75bd8240010cbfdc983724ec420",
+  "processing": {
+    "schema_version": "0.1.0",
+    "device": "cuda",
+    "seed": 42,
+    "context_tokens": 3072,
+    "previous_paragraphs": 2,
+    "registry_limit": 24,
+    "qwen_stages": [
+      "mentions",
+      "behavior"
+    ],
+    "fable_overlap_tokens": 64,
+    "generation": {
+      "enable_thinking": false,
+      "do_sample": false,
+      "max_new_tokens": 1152,
+      "num_beams": 1,
+      "use_cache": true
+    },
+    "models": {
+      "fable": {
+        "repo": "SaladTechnologies/fable-base",
+        "revision": "45aceef3d49fe75bd8240010cbfdc983724ec420",
+        "receipt": "../literary-decision-encoders/model-paths.json",
+        "receipt_key": "fable",
+        "dtype": "float32"
+      },
+      "qwen": {
+        "repo": "Qwen/Qwen3-1.7B",
+        "revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+        "receipt": "../character-decisions/model-paths.json",
+        "receipt_key": "qwen3_1_7b",
+        "dtype": "bfloat16"
+      }
+    }
+  },
+  "run_sha256": "118382cefc4ce5a031820d0b0d6357e32d2a11e0c2031a753b4fed645a4ce98e"
+}

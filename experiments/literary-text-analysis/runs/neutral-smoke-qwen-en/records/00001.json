@@ -1,0 +1,110 @@
+{
+  "schema_version": "0.1.0",
+  "model": "qwen",
+  "checkpoint_revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+  "processing": {
+    "schema_version": "0.1.0",
+    "device": "cuda",
+    "seed": 42,
+    "context_tokens": 3072,
+    "previous_paragraphs": 2,
+    "registry_limit": 24,
+    "qwen_stages": [
+      "mentions",
+      "behavior"
+    ],
+    "fable_overlap_tokens": 64,
+    "generation": {
+      "enable_thinking": false,
+      "do_sample": false,
+      "max_new_tokens": 1152,
+      "num_beams": 1,
+      "use_cache": true
+    },
+    "models": {
+      "fable": {
+        "repo": "SaladTechnologies/fable-base",
+        "revision": "45aceef3d49fe75bd8240010cbfdc983724ec420",
+        "receipt": "../literary-decision-encoders/model-paths.json",
+        "receipt_key": "fable",
+        "dtype": "float32"
+      },
+      "qwen": {
+        "repo": "Qwen/Qwen3-1.7B",
+        "revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+        "receipt": "../character-decisions/model-paths.json",
+        "receipt_key": "qwen3_1_7b",
+        "dtype": "bfloat16"
+      }
+    }
+  },
+  "run_sha256": "4e587be30ff7e37d20897b23cf2640966b9737edbb74c02569de2a147e3638a6",
+  "paragraph_id": "p00001-7c894f36",
+  "ordinal": 1,
+  "status": "SUCCESS",
+  "normalized": {
+    "mentions": [],
+    "observations": [],
+    "links": [],
+    "revision_proposals": [],
+    "rejected": [
+      {
+        "kind": "observation",
+        "index": 0,
+        "error": "Unestablished character name absent from target: Rowan",
+        "original": {
+          "who": "Rowan",
+          "actor": "Rowan",
+          "target": "Mara",
+          "speaker": "Rowan",
+          "about": "Rowan watched Mara from the gate.",
+          "categories": [
+            "action",
+            "reaction"
+          ],
+          "summary": "Rowan watched Mara from the gate.",
+          "source": "narrator",
+          "status": "asserted",
+          "evidence": [
+            {
+              "paragraph_id": "p00001-7c894f36",
+              "quote": "Rowan watched her from the gate."
+            }
+          ]
+        }
+      },
+      {
+        "kind": "observation",
+        "index": 1,
+        "error": "Unestablished character name absent from target: Rowan",
+        "original": {
+          "who": "Rowan",
+          "actor": "Rowan",
+          "target": "himself",
+          "speaker": "Rowan",
+          "about": "Rowan kept his sword in its sheath.",
+          "categories": [
+            "action",
+            "habit"
+          ],
+          "summary": "Rowan kept his sword in its sheath.",
+          "source": "narrator",
+          "status": "asserted",
+          "evidence": [
+            {
+              "paragraph_id": "p00001-7c894f36",
+              "quote": "He kept his sword in its sheath."
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "artifacts": [
+    {
+      "path": "model_outputs\\qwen\\00001.json",
+      "sha256": "34484493115bbdc035db109de1ffefd8d2fda10db3508894d28325e191a2ae6a"
+    }
+  ],
+  "registry_after": []
+}
