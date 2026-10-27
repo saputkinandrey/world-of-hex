@@ -1,9 +1,10 @@
-[gd_scene load_steps=6 format=3]
+[gd_scene load_steps=7 format=3]
 [ext_resource type="Script" path="res://modules/character-rigging-editor/editor.gd" id="1"]
 [ext_resource type="Script" path="res://modules/character-rigging-editor/canvas.gd" id="2"]
 [ext_resource type="PackedScene" path="res://modules/character-rigging-editor/rig.tscn" id="3"]
 [ext_resource type="Script" path="res://modules/character-rigging-editor/timeline.gd" id="4"]
 [ext_resource type="Script" path="res://modules/character-rigging-editor/sequence.gd" id="5"]
+[ext_resource type="PackedScene" path="res://modules/character-rigging-editor/soma/panel.tscn" id="6"]
 [node name="RiggingEditor" type="Control"]
 layout_mode = 3
 anchors_preset = 15
@@ -509,3 +510,5 @@ offset_bottom = 410.0
 title = "Unsaved changes"
 dialog_text = "Save changes before switching resources?"
 ok_button_text = "Save and continue"
+[node name="Soma" parent="." instance=ExtResource("6")]
+visible = false

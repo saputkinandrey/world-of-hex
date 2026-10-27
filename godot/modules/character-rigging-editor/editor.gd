@@ -35,7 +35,7 @@ func _ready() -> void:
 	get_window().close_requested.connect(func(): request_switch(func(): get_tree().quit()))
 	canvas.rig = rig
 	canvas.render_view = $Viewport
-	for mode in ["Rig Setup", "Pose Preview", "Transition Editing", "Sequence Preview"]:
+	for mode in ["Rig Setup", "Pose Preview", "Transition Editing", "Sequence Preview", "SOMA Calibration"]:
 		$Mode.add_item(mode)
 	for name in ["Pelvis","Spine","Chest","Head","ArmL","ForearmL","ArmR","ForearmR","ThighL","CalfL","ThighR","CalfR"]:
 		$Bone.add_item(name)
@@ -86,7 +86,8 @@ func _ready() -> void:
 	canvas.joint_selected.connect(select_bone)
 	canvas.joint_moved.connect(move_joint)
 	$Save.pressed.connect(save_all)
-	$Unsaved.confirmed.connect(func(): save_all(); pending.call())
+	$Unsaved.confirmed.connect(func():
+		if save_all(): pending.call())
 	$Unsaved.canceled.connect(func(): $Status.text="Switch cancelled; edits retained")
 	$Catalog.item_selected.connect(catalog_selected)
 	for name in ["X","Y","Angle","Length","RootX","RootY","Z","Deformation"]:
@@ -173,7 +174,7 @@ func catalog_selected() -> void:
 			request_switch(func(): open_pose(meta[0],meta[1]))
 
 func request_switch(action: Callable) -> void:
-	if dirty or not session.changed.is_empty():
+	if dirty or not session.changed.is_empty() or $Soma.dirty:
 		pending=action
 		$Unsaved.popup_centered()
 	else:
@@ -312,10 +313,12 @@ func reset_bone() -> void:
 	pose_data.lengths[selected]=pose_data.original_lengths[selected]
 	move_joint(selected,Vector2(pose_data.original_joints[selected][0],pose_data.original_joints[selected][1]))
 
-func save_all() -> void:
+func save_all() -> bool:
+	if $Soma.dirty and not $Soma.save_edits(): return false
 	session.save_all()
 	dirty=false
 	$Status.text="Saved "+active_pose+" / "+direction
+	return true
 
 func update_display() -> void:
 	canvas.show_skeleton=$Skeleton.button_pressed
@@ -440,6 +443,13 @@ func toggle_play() -> void:
 
 func mode_changed(index: int) -> void:
 	pause()
+	$Soma.visible=index==4
+	$SourceLabel.visible=index!=4
+	$SingleView.visible=index!=4
+	if index==4:
+		animation_active=false
+		sequence_active=false
+		return
 	sequence_active=false
 	canvas.render_view=$Viewport
 	canvas.rig=rig

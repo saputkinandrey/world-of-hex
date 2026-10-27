@@ -2,12 +2,13 @@
 from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 R = 'res://modules/character-rigging-editor/'
-text = f'''[gd_scene load_steps=6 format=3]
+text = f'''[gd_scene load_steps=7 format=3]
 [ext_resource type="Script" path="{R}editor.gd" id="1"]
 [ext_resource type="Script" path="{R}canvas.gd" id="2"]
 [ext_resource type="PackedScene" path="{R}rig.tscn" id="3"]
 [ext_resource type="Script" path="{R}timeline.gd" id="4"]
 [ext_resource type="Script" path="{R}sequence.gd" id="5"]
+[ext_resource type="PackedScene" path="{R}soma/panel.tscn" id="6"]
 [node name="RiggingEditor" type="Control"]
 layout_mode = 3
 anchors_preset = 15
@@ -88,4 +89,5 @@ node('Keys','OptionButton',655,860,210,30)
 node('MoveKey','Button',875,860,210,30,'text = "Move selected key here"')
 node('Status','Label',220,754,870,28,'text = "Stage A"\ntheme_override_font_sizes/font_size = 13')
 node('Unsaved','ConfirmationDialog',350,250,500,160,'title = "Unsaved changes"\ndialog_text = "Save changes before switching resources?"\nok_button_text = "Save and continue"')
+text+='[node name="Soma" parent="." instance=ExtResource("6")]\nvisible = false\n'
 (ROOT/'editor.tscn').write_text(text, encoding='utf-8')

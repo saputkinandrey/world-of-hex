@@ -1,0 +1,220 @@
+[gd_scene load_steps=4 format=3]
+[ext_resource type="Script" path="res://modules/character-rigging-editor/soma/panel.gd" id="1"]
+[ext_resource type="Script" path="res://modules/character-rigging-editor/soma/canvas.gd" id="2"]
+[sub_resource type="StyleBoxFlat" id="Background"]
+bg_color = Color(0.11,0.13,0.16,1)
+[node name="Soma" type="Panel"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 48.0
+script = ExtResource("1")
+theme_override_styles/panel = SubResource("Background")
+[node name="Character" type="OptionButton" parent="."]
+offset_left = 12.0
+offset_top = 8.0
+offset_right = 127.0
+offset_bottom = 40.0
+
+[node name="Case" type="OptionButton" parent="."]
+offset_left = 130.0
+offset_top = 8.0
+offset_right = 415.0
+offset_bottom = 40.0
+
+[node name="Layer" type="OptionButton" parent="."]
+offset_left = 425.0
+offset_top = 8.0
+offset_right = 665.0
+offset_bottom = 40.0
+
+[node name="Save" type="Button" parent="."]
+offset_left = 675.0
+offset_top = 8.0
+offset_right = 795.0
+offset_bottom = 40.0
+text = "Save edits"
+[node name="Reload" type="Button" parent="."]
+offset_left = 805.0
+offset_top = 8.0
+offset_right = 905.0
+offset_bottom = 40.0
+text = "Reload"
+[node name="Refit" type="Button" parent="."]
+offset_left = 915.0
+offset_top = 8.0
+offset_right = 1055.0
+offset_bottom = 40.0
+text = "Joint refit (CPU)"
+[node name="Accumulated" type="CheckBox" parent="."]
+offset_left = 1070.0
+offset_top = 8.0
+offset_right = 1420.0
+offset_bottom = 40.0
+text = "Accumulated shared model"
+[node name="Previous" type="Button" parent="."]
+offset_left = 12.0
+offset_top = 49.0
+offset_right = 92.0
+offset_bottom = 79.0
+text = "< Step"
+[node name="Next" type="Button" parent="."]
+offset_left = 100.0
+offset_top = 49.0
+offset_right = 180.0
+offset_bottom = 79.0
+text = "Step >"
+[node name="Step" type="Label" parent="."]
+offset_left = 190.0
+offset_top = 49.0
+offset_right = 1040.0
+offset_bottom = 79.0
+text = "Placement"
+[node name="Canvas" type="Control" parent="."]
+offset_left = 12.0
+offset_top = 90.0
+offset_right = 927.0
+offset_bottom = 790.0
+script = ExtResource("2")
+clip_contents = true
+texture_filter = 1
+mouse_filter = 0
+[node name="Chunks" type="ItemList" parent="."]
+offset_left = 945.0
+offset_top = 90.0
+offset_right = 1420.0
+offset_bottom = 285.0
+theme_override_font_sizes/font_size = 13
+[node name="MapLabel" type="Label" parent="."]
+offset_left = 945.0
+offset_top = 290.0
+offset_right = 1420.0
+offset_bottom = 312.0
+text = "Selected chunk -> original SOMA names (comma separated)"
+theme_override_font_sizes/font_size = 12
+[node name="Mapping" type="LineEdit" parent="."]
+offset_left = 945.0
+offset_top = 313.0
+offset_right = 1320.0
+offset_bottom = 343.0
+
+[node name="ApplyMapping" type="Button" parent="."]
+offset_left = 1325.0
+offset_top = 313.0
+offset_right = 1420.0
+offset_bottom = 343.0
+text = "Apply map"
+[node name="Exclude" type="CheckBox" parent="."]
+offset_left = 945.0
+offset_top = 348.0
+offset_right = 1420.0
+offset_bottom = 378.0
+text = "Exclude this uncertain chunk from fitting"
+[node name="Joint" type="OptionButton" parent="."]
+offset_left = 945.0
+offset_top = 387.0
+offset_right = 1420.0
+offset_bottom = 417.0
+
+[node name="PinLabel" type="Label" parent="."]
+offset_left = 945.0
+offset_top = 423.0
+offset_right = 1420.0
+offset_bottom = 445.0
+text = "Manual native pixel pin X / Y (or drag joint in canvas)"
+theme_override_font_sizes/font_size = 12
+[node name="PinX" type="SpinBox" parent="."]
+offset_left = 945.0
+offset_top = 448.0
+offset_right = 1065.0
+offset_bottom = 478.0
+min_value = -500.0
+max_value = 500.0
+step = 0.25
+[node name="PinY" type="SpinBox" parent="."]
+offset_left = 1075.0
+offset_top = 448.0
+offset_right = 1195.0
+offset_bottom = 478.0
+min_value = -500.0
+max_value = 500.0
+step = 0.25
+[node name="Pin" type="Button" parent="."]
+offset_left = 1205.0
+offset_top = 448.0
+offset_right = 1300.0
+offset_bottom = 478.0
+text = "Set pin"
+[node name="Unpin" type="Button" parent="."]
+offset_left = 1310.0
+offset_top = 448.0
+offset_right = 1420.0
+offset_bottom = 478.0
+text = "Clear pin"
+[node name="Semantics" type="CheckBox" parent="."]
+offset_left = 945.0
+offset_top = 489.0
+offset_right = 1420.0
+offset_bottom = 519.0
+text = "I verified anatomical correspondence"
+[node name="Registration" type="CheckBox" parent="."]
+offset_left = 945.0
+offset_top = 521.0
+offset_right = 1420.0
+offset_bottom = 551.0
+text = "I verified image / camera registration"
+[node name="Details" type="RichTextLabel" parent="."]
+offset_left = 945.0
+offset_top = 560.0
+offset_right = 1420.0
+offset_bottom = 688.0
+bbcode_enabled = false
+scroll_active = true
+theme_override_font_sizes/normal_font_size = 13
+[node name="ArtLabel" type="Label" parent="."]
+offset_left = 945.0
+offset_top = 693.0
+offset_right = 1420.0
+offset_bottom = 715.0
+text = "Explicit art correction: selected bone multiplier + reason"
+theme_override_font_sizes/font_size = 12
+[node name="ArtScale" type="SpinBox" parent="."]
+offset_left = 945.0
+offset_top = 719.0
+offset_right = 1065.0
+offset_bottom = 749.0
+min_value = 0.25
+max_value = 4.0
+step = 0.01
+value = 1.0
+[node name="ArtReason" type="LineEdit" parent="."]
+offset_left = 1075.0
+offset_top = 719.0
+offset_right = 1420.0
+offset_bottom = 749.0
+placeholder_text = "Required evidence / manual confirmation"
+[node name="ArtConfirm" type="Button" parent="."]
+offset_left = 945.0
+offset_top = 757.0
+offset_right = 1175.0
+offset_bottom = 787.0
+text = "Confirm art correction"
+[node name="ArtClear" type="Button" parent="."]
+offset_left = 1185.0
+offset_top = 757.0
+offset_right = 1420.0
+offset_bottom = 787.0
+text = "Remove art correction"
+[node name="Status" type="Label" parent="."]
+offset_left = 12.0
+offset_top = 800.0
+offset_right = 1420.0
+offset_bottom = 840.0
+autowrap_mode = 2
+theme_override_font_sizes/font_size = 13
+[node name="Help" type="Label" parent="."]
+offset_left = 12.0
+offset_top = 840.0
+offset_right = 1420.0
+offset_bottom = 860.0
+text = "Wheel: zoom | middle drag: pan | left drag: manual joint pin | right: 3D prior (depth unobserved) | all scores: uncalibrated heuristics"
+theme_override_font_sizes/font_size = 12
