@@ -1,0 +1,121 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://modules/character-rigging-editor/rig.gd" id="1"]
+
+[node name="Rig" type="Node2D"]
+script = ExtResource("1")
+texture_filter = 1
+
+[node name="Skeleton2D" type="Skeleton2D" parent="."]
+
+[node name="Pelvis" type="Bone2D" parent="Skeleton2D"]
+rest = Transform2D(1,0,0,1,0,0)
+auto_calculate_length_and_angle = false
+length = 10.0
+
+[node name="Spine" type="Bone2D" parent="Skeleton2D/Pelvis"]
+rest = Transform2D(1,0,0,1,0,0)
+auto_calculate_length_and_angle = false
+length = 10.0
+
+[node name="Chest" type="Bone2D" parent="Skeleton2D/Pelvis/Spine"]
+rest = Transform2D(1,0,0,1,0,0)
+auto_calculate_length_and_angle = false
+length = 10.0
+
+[node name="Head" type="Bone2D" parent="Skeleton2D/Pelvis/Spine/Chest"]
+rest = Transform2D(1,0,0,1,0,0)
+auto_calculate_length_and_angle = false
+length = 10.0
+
+[node name="ArmL" type="Bone2D" parent="Skeleton2D/Pelvis/Spine/Chest"]
+rest = Transform2D(1,0,0,1,0,0)
+auto_calculate_length_and_angle = false
+length = 10.0
+
+[node name="ForearmL" type="Bone2D" parent="Skeleton2D/Pelvis/Spine/Chest/ArmL"]
+rest = Transform2D(1,0,0,1,0,0)
+auto_calculate_length_and_angle = false
+length = 10.0
+
+[node name="ArmR" type="Bone2D" parent="Skeleton2D/Pelvis/Spine/Chest"]
+rest = Transform2D(1,0,0,1,0,0)
+auto_calculate_length_and_angle = false
+length = 10.0
+
+[node name="ForearmR" type="Bone2D" parent="Skeleton2D/Pelvis/Spine/Chest/ArmR"]
+rest = Transform2D(1,0,0,1,0,0)
+auto_calculate_length_and_angle = false
+length = 10.0
+
+[node name="ThighL" type="Bone2D" parent="Skeleton2D/Pelvis"]
+rest = Transform2D(1,0,0,1,0,0)
+auto_calculate_length_and_angle = false
+length = 10.0
+
+[node name="CalfL" type="Bone2D" parent="Skeleton2D/Pelvis/ThighL"]
+rest = Transform2D(1,0,0,1,0,0)
+auto_calculate_length_and_angle = false
+length = 10.0
+
+[node name="ThighR" type="Bone2D" parent="Skeleton2D/Pelvis"]
+rest = Transform2D(1,0,0,1,0,0)
+auto_calculate_length_and_angle = false
+length = 10.0
+
+[node name="CalfR" type="Bone2D" parent="Skeleton2D/Pelvis/ThighR"]
+rest = Transform2D(1,0,0,1,0,0)
+auto_calculate_length_and_angle = false
+length = 10.0
+
+[node name="Pelvis" type="Polygon2D" parent="."]
+skeleton = NodePath("../Skeleton2D")
+antialiased = false
+
+[node name="Spine" type="Polygon2D" parent="."]
+skeleton = NodePath("../Skeleton2D")
+antialiased = false
+
+[node name="Chest" type="Polygon2D" parent="."]
+skeleton = NodePath("../Skeleton2D")
+antialiased = false
+
+[node name="Head" type="Polygon2D" parent="."]
+skeleton = NodePath("../Skeleton2D")
+antialiased = false
+
+[node name="ArmL" type="Polygon2D" parent="."]
+skeleton = NodePath("../Skeleton2D")
+antialiased = false
+
+[node name="ForearmL" type="Polygon2D" parent="."]
+skeleton = NodePath("../Skeleton2D")
+antialiased = false
+
+[node name="ArmR" type="Polygon2D" parent="."]
+skeleton = NodePath("../Skeleton2D")
+antialiased = false
+
+[node name="ForearmR" type="Polygon2D" parent="."]
+skeleton = NodePath("../Skeleton2D")
+antialiased = false
+
+[node name="ThighL" type="Polygon2D" parent="."]
+skeleton = NodePath("../Skeleton2D")
+antialiased = false
+
+[node name="CalfL" type="Polygon2D" parent="."]
+skeleton = NodePath("../Skeleton2D")
+antialiased = false
+
+[node name="ThighR" type="Polygon2D" parent="."]
+skeleton = NodePath("../Skeleton2D")
+antialiased = false
+
+[node name="CalfR" type="Polygon2D" parent="."]
+skeleton = NodePath("../Skeleton2D")
+antialiased = false
+
+[node name="Anatomy" type="Sprite2D" parent="."]
+centered = false
+visible = false
