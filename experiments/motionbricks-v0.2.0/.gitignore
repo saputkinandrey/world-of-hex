@@ -1,0 +1,8 @@
+__pycache__/
+config.local.json
+runs/
+# Raw render sequences are reproducible; keep videos and validation data in Git.
+results/**/frame-*.png
+# Keep the original diagnostic evidence despite repository-wide log rules.
+!logs/
+!logs/**

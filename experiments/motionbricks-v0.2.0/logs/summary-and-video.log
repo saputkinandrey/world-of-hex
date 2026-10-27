@@ -1,0 +1,47 @@
+{
+  "memory": {
+    "once": {
+      "samples": 439,
+      "device_vram_min_mib": 406,
+      "device_vram_max_mib": 1701
+    },
+    "loop": {
+      "samples": 48,
+      "device_vram_min_mib": 406,
+      "device_vram_max_mib": 1261
+    },
+    "verify": {
+      "samples": 19,
+      "device_vram_min_mib": 373,
+      "device_vram_max_mib": 1228
+    },
+    "benchmark": {
+      "samples": 13,
+      "device_vram_min_mib": 373,
+      "device_vram_max_mib": 1222
+    },
+    "fp16": {
+      "samples": 487,
+      "device_vram_min_mib": 400,
+      "device_vram_max_mib": 1370
+    }
+  },
+  "precision_comparison": {
+    "fp32_shape": [
+      26,
+      77,
+      7
+    ],
+    "fp16_shape": [
+      26,
+      77,
+      7
+    ],
+    "max_root_trajectory_difference_m": 0.003999728709459305,
+    "mean_root_trajectory_difference_m": 0.001988120609894395
+  },
+  "wall_speedup_fp16": 1.736057713702698,
+  "inference_speedup_fp16": 2.026639024830602
+}
+Encoded verified inbetweener: 120 frames, 4.0 s, 960x640, 30 FPS
+Encoded verified scene-preview: 420 frames, 14.0 s, 960x640, 30 FPS

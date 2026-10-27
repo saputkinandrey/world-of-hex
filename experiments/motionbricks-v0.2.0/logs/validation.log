@@ -1,0 +1,61 @@
+Warp 1.17.0 initialized:
+   CUDA Toolkit 12.9, Driver 13.2
+   Devices:
+     "cpu"      : "AMD64 Family 23 Model 96 Stepping 1, AuthenticAMD"
+     "cuda:0"   : "NVIDIA GeForce RTX 3060 Laptop GPU" (6 GiB, sm_86, mempool enabled)
+   Kernel cache:
+     \\?\D:\motionbricks-experiment\cache\warp\1.17.0
+{
+  "os": "Windows-11-10.0.26200-SP0",
+  "python": "3.12.16 (main, Oct 26 2026, 14:10:56) [MSC v.1944 64 bit (AMD64)]",
+  "versions": {
+    "motionbricks": "0.2.0",
+    "tensorrt-cu12": "10.8.0.43",
+    "tensorrt-cu12-bindings": "10.8.0.43",
+    "tensorrt-cu12-libs": "10.8.0.43",
+    "warp-lang": "1.17.0",
+    "newton": "1.6.0",
+    "numpy": "2.4.3",
+    "usd-core": "26.3"
+  },
+  "gpu": "NVIDIA GeForce RTX 3060 Laptop GPU, 502 MiB, 6144 MiB, 596.49, 8.6",
+  "warp_device": "cuda:0",
+  "warp_arch": 86,
+  "commit": "54fc563aeaaf819a753d72cc9fdc6713989cdd43",
+  "soma_models": [
+    {
+      "file": "mmm_v6_soma_fp16.onnx",
+      "bytes": 380327058
+    },
+    {
+      "file": "mmm_v6_soma_fp32.onnx",
+      "bytes": 757864273
+    },
+    {
+      "file": "soma_n1.json",
+      "bytes": 2168
+    }
+  ]
+}
+Module motionbricks.io.bvh 3096d5e load on device 'cuda:0' took 9.46 ms  (cached)
+Module motionbricks.utils.pose_utils 69c6c76 load on device 'cuda:0' took 2.59 ms  (cached)
+Module motionbricks.animation.animation_buffer 904ccb6 load on device 'cuda:0' took 2.44 ms  (cached)
+Module motionbricks.model.kernels 1d77da0 load on device 'cuda:0' took 5.92 ms  (cached)
+Module motionbricks.model.soma.kernels ca20bbf load on device 'cuda:0' took 4.72 ms  (cached)
+generated 26 frames (0.87 s), root from [-0.13 -0.94  0.94] to [-0.13 -2.12  0.97]
+generated 50 frames (1.67 s), root from [-0.13 -2.12  0.97] to [-0.19 -4.49  0.98]
+Module motionbricks.runtime.target_pose fc455c2 load on device 'cuda:0' took 21.60 ms  (cached)
+Module motionbricks.model.soma.buffers 7e9f5c8 load on device 'cuda:0' took 20.79 ms  (cached)
+Module motionbricks.animation.foot_contacts fffad88 load on device 'cuda:0' took 17.05 ms  (cached)
+Module motionbricks.runtime.motion_recorder b8cbd04 load on device 'cuda:0' took 15.82 ms  (cached)
+t =  0.0 s  steering [1. 0.]  root [ 0.19 -0.  ]
+t =  1.0 s  steering [1. 0.]  root [0.89 0.05]
+t =  2.0 s  steering [1. 0.]  root [2.81 0.01]
+t =  3.0 s  steering [0.71 0.71]  root [4.67 0.41]
+t =  4.0 s  steering [0. 1.]  root [5.75 2.05]
+t =  5.0 s  steering [0. 1.]  root [5.75 4.02]
+t =  6.0 s  steering [0. 1.]  root [5.75 5.95]
+t =  7.0 s  steering [0. 1.]  root [5.76 7.93]
+t =  8.0 s  steering [0. 1.]  root [5.77 9.86]
+14 generations in 9 s
+ANIMATION VALIDATION PASSED {"generations": [{"shape": [26, 77, 7], "finite": true, "sample_rate": 30, "duration_seconds": 0.8666666666666667, "root_start": [-0.13072289526462555, -0.94343101978302, 0.9404674768447876], "root_end": [-0.12885083258152008, -2.117905616760254, 0.9745389223098755], "max_root_step_meters": 0.055187296122312546, "max_quaternion_norm_error": 2.384185791015625e-07}, {"shape": [50, 77, 7], "finite": true, "sample_rate": 30, "duration_seconds": 1.6666666666666667, "root_start": [-0.12885083258152008, -2.117905616760254, 0.9745389223098755], "root_end": [-0.19231592118740082, -4.488629341125488, 0.9766432642936707], "max_root_step_meters": 0.05479038879275322, "max_quaternion_norm_error": 2.384185791015625e-07}], "chained_endpoint_max_abs_difference": 1.7881393432617188e-07, "chained_translation_max_meters": 2.9802322387695312e-08, "chained_rotation_max_radians": 0.0006905339541845024, "locomotion": {"shape": [540, 77, 7], "finite": true, "sample_rate": 60, "duration_seconds": 9.0, "root_start": [0.19052937626838684, -2.8393082175171003e-05, 0.9724563360214233], "root_end": [5.765109062194824, 11.824346542358398, 1.0297746658325195], "max_root_step_meters": 0.037791647017002106, "max_quaternion_norm_error": 2.384185791015625e-07}, "wall_seconds": 4.253187999999682}

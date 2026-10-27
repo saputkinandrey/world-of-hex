@@ -1,0 +1,33 @@
+Warp 1.17.0 initialized:
+   CUDA Toolkit 12.9, Driver 13.2
+   Devices:
+     "cpu"      : "AMD64 Family 23 Model 96 Stepping 1, AuthenticAMD"
+     "cuda:0"   : "NVIDIA GeForce RTX 3060 Laptop GPU" (6 GiB, sm_86, mempool enabled)
+   Kernel cache:
+     \\?\D:\motionbricks-experiment\cache\warp\1.17.0
+Module motionbricks.io.bvh 3096d5e load on device 'cuda:0' took 10.68 ms  (cached)
+Module motionbricks.utils.pose_utils 69c6c76 load on device 'cuda:0' took 3.16 ms  (cached)
+Module motionbricks.animation.animation_buffer 904ccb6 load on device 'cuda:0' took 2.69 ms  (cached)
+Module motionbricks.runtime.smart_primitive 855680f load on device 'cuda:0' took 1933.54 ms  (compiled)
+Module motionbricks.runtime.blend_spaces 208564f load on device 'cuda:0' took 2662.91 ms  (compiled)
+Module motionbricks.model.soma.buffers 7e9f5c8 load on device 'cuda:0' took 63.35 ms  (cached)
+Module app.runtime.common.interaction a6d2a99 load on device 'cuda:0' took 307.92 ms  (compiled)
+Module newton._src.geometry.bvh 58a3a49 load on device 'cuda:0' took 12.96 ms  (cached)
+Module newton._src.viewer.gl.opengl 5fededf load on device 'cuda:0' took 2.30 ms  (cached)
+Module newton._src.viewer.kernels 110772f load on device 'cuda:0' took 6.50 ms  (cached)
+Module newton._src.geometry.raycast 50212d9 load on device 'cuda:0' took 3.84 ms  (cached)
+Module motionbricks.runtime.target_pose fc455c2 load on device 'cuda:0' took 35.60 ms  (cached)
+Module motionbricks.model.kernels 1d77da0 load on device 'cuda:0' took 2.78 ms  (cached)
+Module motionbricks.model.soma.kernels ca20bbf load on device 'cuda:0' took 6.34 ms  (cached)
+Module motionbricks.animation.foot_contacts fffad88 load on device 'cuda:0' took 10.70 ms  (cached)
+Module motionbricks.runtime.motion_recorder b8cbd04 load on device 'cuda:0' took 17.83 ms  (cached)
+Module motionbricks.renderers.skeletal_mesh_renderer 4f6fce9 load on device 'cuda:0' took 2.84 ms  (cached)
+Module warp.utils 1de54f6 load on device 'cuda:0' took 2.13 ms  (cached)
+Module newton._src.utils.mesh b7d1752 load on device 'cuda:0' took 3.40 ms  (cached)
+Module motionbricks.renderers.wire_box_renderer dd652a8 load on device 'cuda:0' took 340.89 ms  (compiled)
+Module motionbricks.renderers.vector_arrow_renderer 40b6d7f load on device 'cuda:0' took 200.61 ms  (compiled)
+Module newton._src.viewer.viewer_gl 0550734 load on device 'cuda:0' took 12.69 ms  (cached)
+Module newton._src.utils.render f02db3b load on device 'cuda:0' took 14.47 ms  (cached)
+INTERACTION {"frame": 119, "time": 3.966666666666667, "interacting": true, "object": "SmallJumpSP"}
+INTERACTION {"frame": 172, "time": 5.733333333333333, "interacting": false, "object": null}
+SCENE INTERACTION RENDER PASSED {"frames": 420, "fps": 30, "seconds": 14.0, "events": [{"frame": 119, "time": 3.966666666666667, "interacting": true, "object": "SmallJumpSP"}, {"frame": 172, "time": 5.733333333333333, "interacting": false, "object": null}], "finite": true, "root_max_height": 1.3825554847717285, "input": "scripted LocomotionCommand, official automatic Smart Primitive overlap/dispatch/state machine", "renderer": "official ScenePreview + Newton ViewerGL.get_frame"}
