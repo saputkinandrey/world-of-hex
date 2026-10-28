@@ -1,5 +1,22 @@
 # SOMA source classification
 
+## Anatomical reconstruction 2.0.0
+
+The original PNG alpha is now a direct geometric source, independently of owner
+categories. A missing Foot owner does not imply missing visible foot geometry.
+Ordered chain/contact/cap hypotheses and paired fragments replace the old
+PCA-endpoint-to-joint interpretation. PCA remains an unoriented shape diagnostic.
+Proposed foot regions are stored separately; original owner maps are immutable.
+
+The owner correspondence table below still identifies anatomical semantics.
+Descriptions of visible-axis endpoints in the original 1.0 section are historical
+and are superseded by the current relation-based reconstruction documented in
+[SOMA-CALIBRATION.md](SOMA-CALIBRATION.md). No clothing category becomes anatomy
+implicitly. Image symmetry is tested globally and on lateral limbs for each
+frontal image; paired anatomy does not imply pose mirroring.
+
+## Original source inventory and constraints
+
 These categories are deliberately separate. Existing source files are read-only.
 
 | Source | Category | Use |

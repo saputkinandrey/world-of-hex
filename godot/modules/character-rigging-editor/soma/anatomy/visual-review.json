@@ -1,0 +1,42 @@
+{
+  "method": "Codex visual inspection of actual source/owner/SOMA overlays, including before/after and GPU placement states",
+  "is_independent_anatomical_ground_truth": false,
+  "A-B": {
+    "status": "done",
+    "observed": "Spine is central; both shoulders precede elbows and wrists; hip/knee/ankle chains track the drawing; both toe chains terminate on visible feet instead of below the image.",
+    "uncertain": "Skull-base and neck pivots are hidden; ankle positions are intervals; depth is not identified."
+  },
+  "C-upper-arm-removed": {
+    "status": "done",
+    "observed": "Affected shoulder/arm stays on its own visible branch. The retained forearm/wrist and paired upper-arm proportions contribute without copying reference joint coordinates."
+  },
+  "C-lower-arm-removed": {
+    "status": "done",
+    "observed": "Visible upper arm and hand are connected through the affected arm's alpha-supported interior; elbow order remains correct."
+  },
+  "C-complementary-fragments": {
+    "status": "done",
+    "observed": "With one upper-arm category and the opposite hand category removed, useful upper/lower fragments from both arms still form coherent chains."
+  },
+  "D-asymmetric-walk": {
+    "status": "done",
+    "observed": "Arms retain different heights and directions. No reflected pose is imposed. Visible leg lengths differ; hidden attachment/depth interpretation remains conditional."
+  },
+  "E-diagonal-idle": {
+    "status": "done",
+    "observed": "Unequal projected arms/legs track the diagonal sprite while the baseline character geometry stays shared; no automatic 3D asymmetry conclusion is made."
+  },
+  "F-wrong-owner": {
+    "status": "done",
+    "observed": "The false upper-arm patch on the foot is explicitly flagged and does not pull the arm into the lower body. Original labels are unchanged."
+  },
+  "D-aim-occlusion": {
+    "status": "partial",
+    "observed": "Visible feet are assigned to separate leg chains using corroborated foot/leg contacts. The missing arm labels no longer leave a remote canonical T-pose arm.",
+    "uncertain": "The foreshortened/occluded right arm and the anatomical ownership of the inferred outer hand region are not uniquely recognizable; manual review remains necessary."
+  },
+  "GPU": {
+    "status": "done",
+    "observed": "Placement step 0 has zero placed joints and no final inspector coordinates. A later step shows only one recovered foot. Full 77 joints is separately selectable."
+  }
+}

@@ -1,0 +1,296 @@
+{
+  "success": true,
+  "checks": {
+    "before_detector": {
+      "arms_lowered_order": false,
+      "main_joints_outside_native_image": 4
+    },
+    "A-B": {
+      "arms_lowered_order": true,
+      "legs_descending": true,
+      "paired_y_difference_px": 0.16666666666671404,
+      "feet": {
+        "LeftFoot": [
+          68.0,
+          96.5
+        ],
+        "LeftToeEnd": [
+          70.91176470588235,
+          102.55882352941177
+        ],
+        "RightFoot": [
+          42.0,
+          96.49999999999999
+        ],
+        "RightToeEnd": [
+          39.088235294117645,
+          102.55882352941175
+        ]
+      },
+      "max_main_joint_outside_alpha_px": 0.0
+    },
+    "C-upper-arm-removed": {
+      "removed_owner_ids": [
+        10
+      ],
+      "maximum_arm_shift_px": 1.8204701937107532,
+      "transfers": [
+        {
+          "to": "Left arm",
+          "from": "Right observed arm",
+          "relation": "paired segment proportion and shoulder span checked against own visible alpha; no coordinate mirroring",
+          "used_silhouette": true
+        },
+        {
+          "to": "LeftShin",
+          "from": "Right alpha-supported leg",
+          "relation": "hip-knee-ankle fraction",
+          "used_silhouette": true
+        }
+      ],
+      "anatomical_order": true,
+      "source_alpha_unchanged": true,
+      "reference_coordinates_used_by_reconstruction": false
+    },
+    "C-lower-arm-removed": {
+      "removed_owner_ids": [
+        12
+      ],
+      "maximum_arm_shift_px": 1.050847000280305,
+      "transfers": [
+        {
+          "to": "LeftForeArm",
+          "from": "Right observed arm",
+          "relation": "upper/lower segment proportion, not mirrored coordinates",
+          "used_silhouette": true,
+          "path": [
+            [
+              77.5,
+              38.5
+            ],
+            [
+              77.5,
+              39.5
+            ],
+            [
+              77.5,
+              40.5
+            ],
+            [
+              77.5,
+              41.5
+            ],
+            [
+              77.5,
+              42.5
+            ],
+            [
+              77.5,
+              43.5
+            ],
+            [
+              77.5,
+              44.5
+            ],
+            [
+              77.5,
+              45.5
+            ],
+            [
+              77.5,
+              46.5
+            ],
+            [
+              77.5,
+              47.5
+            ],
+            [
+              77.5,
+              48.5
+            ],
+            [
+              77.5,
+              49.5
+            ],
+            [
+              77.5,
+              50.5
+            ],
+            [
+              77.5,
+              51.5
+            ],
+            [
+              77.5,
+              52.5
+            ],
+            [
+              77.5,
+              53.5
+            ],
+            [
+              78.5,
+              54.5
+            ],
+            [
+              79.5,
+              55.5
+            ],
+            [
+              80.5,
+              56.5
+            ],
+            [
+              80.5,
+              57.5
+            ],
+            [
+              81.5,
+              58.5
+            ],
+            [
+              81.5,
+              59.5
+            ],
+            [
+              81.5,
+              60.5
+            ],
+            [
+              81.5,
+              61.5
+            ],
+            [
+              81.5,
+              62.5
+            ],
+            [
+              81.5,
+              63.5
+            ],
+            [
+              81.5,
+              64.5
+            ],
+            [
+              81.5,
+              65.5
+            ],
+            [
+              81.5,
+              66.5
+            ],
+            [
+              81.5,
+              67.5
+            ],
+            [
+              81.5,
+              68.5
+            ],
+            [
+              81.5,
+              69.5
+            ],
+            [
+              80.5,
+              70.5
+            ],
+            [
+              79.5,
+              71.5
+            ],
+            [
+              78.5,
+              72.5
+            ]
+          ]
+        },
+        {
+          "to": "LeftShin",
+          "from": "Right alpha-supported leg",
+          "relation": "hip-knee-ankle fraction",
+          "used_silhouette": true
+        }
+      ],
+      "anatomical_order": true,
+      "source_alpha_unchanged": true,
+      "reference_coordinates_used_by_reconstruction": false
+    },
+    "C-complementary-fragments": {
+      "removed_owner_ids": [
+        10,
+        2
+      ],
+      "maximum_arm_shift_px": 2.6872805765270864,
+      "transfers": [
+        {
+          "to": "Right arm",
+          "from": "Left lower fragment + Right upper fragment",
+          "relation": "paired segment proportion and shoulder span checked against own visible alpha; no coordinate mirroring",
+          "used_silhouette": true
+        },
+        {
+          "to": "Left arm",
+          "from": "Left lower fragment + Right upper fragment",
+          "relation": "paired segment proportion and shoulder span checked against own visible alpha; no coordinate mirroring",
+          "used_silhouette": true
+        },
+        {
+          "to": "LeftShin",
+          "from": "Right alpha-supported leg",
+          "relation": "hip-knee-ankle fraction",
+          "used_silhouette": true
+        }
+      ],
+      "anatomical_order": true,
+      "source_alpha_unchanged": true,
+      "reference_coordinates_used_by_reconstruction": false
+    },
+    "D-asymmetric-walk": {
+      "pose_symmetry_forced": false,
+      "same_character_geometry": true,
+      "hand_projection_y_difference_px": 13.999859407375126,
+      "max_main_joint_outside_alpha_px": 1.7814796802993754e-12,
+      "conflicts": [
+        "Owner 4: disconnected competing anatomical fragments; use chain-compatible component, retain source labels",
+        "Owner 5: disconnected competing anatomical fragments; use chain-compatible component, retain source labels",
+        "Owner 6: disconnected competing anatomical fragments; use chain-compatible component, retain source labels"
+      ],
+      "status": "visual review required"
+    },
+    "E-diagonal-idle": {
+      "pose_symmetry_forced": false,
+      "same_character_geometry": true,
+      "hand_projection_y_difference_px": 8.750379553935673,
+      "max_main_joint_outside_alpha_px": 0.0,
+      "conflicts": [],
+      "status": "visual review required"
+    },
+    "D-aim-occlusion": {
+      "pose_symmetry_forced": false,
+      "same_character_geometry": true,
+      "hand_projection_y_difference_px": 34.985430064629,
+      "max_main_joint_outside_alpha_px": 0.0,
+      "conflicts": [
+        "Owner 7: disconnected competing anatomical fragments; use chain-compatible component, retain source labels",
+        "Left upper/lower boundary is inconsistent with a knee; possible shin pixels labelled upper leg",
+        "Upper-arm category lies below the anatomical shoulder girdle; not accepted as shoulder evidence",
+        "Left hand/forearm semantics absent: outer alpha branch is a bounded anatomical hypothesis, not a detected hand"
+      ],
+      "status": "partial: occlusion/semantic mismatch explicitly unresolved"
+    },
+    "F": {
+      "wrong_owner_pixels": 52,
+      "specific_conflict_detected": true,
+      "conflicts": [
+        "Owner 10: disconnected competing anatomical fragments; use chain-compatible component, retain source labels",
+        "Left upper/lower boundary is inconsistent with a knee; possible shin pixels labelled upper leg"
+      ],
+      "not_silently_accepted": true
+    },
+    "original_sources_unchanged": true,
+    "joint_names_and_parents_unchanged": true
+  },
+  "visual_review": "pending; technical assertions alone do not establish anatomy"
+}

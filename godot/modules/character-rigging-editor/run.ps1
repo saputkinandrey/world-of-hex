@@ -1,11 +1,23 @@
 param(
-    [ValidateSet('soma-build','soma-fit','soma-test','soma-report','soma-editor','soma-proof','prepare-a','prepare-b','prepare-d','prepare-e','import','parse','stage-a','stage-b','stage-d','editor','demo','test','proof','diagnostics','export','video')]
+    [ValidateSet('soma-anatomy-checks','soma-anatomy-inspect','soma-anatomy-hypothesis','soma-build','soma-fit','soma-test','soma-report','soma-editor','soma-proof','prepare-a','prepare-b','prepare-d','prepare-e','import','parse','stage-a','stage-b','stage-d','editor','demo','test','proof','diagnostics','export','video')]
     [string]$Action = 'editor'
 )
 $ErrorActionPreference = 'Stop'
 $repo = (Resolve-Path (Join-Path $PSScriptRoot '../../..')).Path
 $project = Join-Path $repo 'godot'
 $python = Join-Path $repo 'experiments/anatomy-benchmark-v1.0.0/.venv/Scripts/python.exe'
+if ($Action -eq 'soma-anatomy-checks') {
+    & 'C:/Users/Public/motionbricks-runtime/motionbricks/.venv/Scripts/python.exe' -B (Join-Path $PSScriptRoot 'tools/soma_anatomy_checks.py')
+    if ($LASTEXITCODE -ne 0) { throw 'Anatomical control failed; inspect the actual saved overlay and original error above' }
+    return
+}
+if ($Action -in @('soma-anatomy-inspect','soma-anatomy-hypothesis')) {
+    $somaPython = 'C:/Users/Public/motionbricks-runtime/motionbricks/.venv/Scripts/python.exe'
+    $diagnosticAction = if ($Action -eq 'soma-anatomy-inspect') { 'before' } else { 'hypothesis' }
+    & $somaPython -B (Join-Path $PSScriptRoot 'tools/soma_anatomy_diagnostics.py') $diagnosticAction
+    if ($LASTEXITCODE -ne 0) { throw 'Anatomical diagnosis failed; see original error above' }
+    return
+}
 if ($Action -in @('soma-build','soma-fit','soma-test','soma-report')) {
     $somaPython = 'C:/Users/Public/motionbricks-runtime/motionbricks/.venv/Scripts/python.exe'
     if ($Action -eq 'soma-test') {

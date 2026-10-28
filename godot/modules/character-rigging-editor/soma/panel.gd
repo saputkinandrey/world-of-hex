@@ -72,6 +72,8 @@ func _ready() -> void:
 		if not refreshing: patch.verified_registration=value; mark_dirty())
 	$Canvas.joint_moved.connect(set_pin)
 	$Canvas.joint_selected.connect(select_joint)
+	$FullSkeleton.toggled.connect(func(value): $Canvas.full_skeleton=value; $Canvas.queue_redraw())
+	$Evidence.toggled.connect(func(value): $Canvas.show_evidence=value; $Canvas.queue_redraw())
 	select_case_key("idle/south")
 	if "--soma" in OS.get_cmdline_user_args() or "--soma-proof-check" in OS.get_cmdline_user_args():
 		call_deferred("activate_mode")
@@ -150,7 +152,10 @@ func select_joint(index: int) -> void:
 	$Joint.select(index)
 	$Canvas.selected_joint=index
 	var joint_name: String=model.joint_names[index]
-	var point: Array=patch.pins.get(joint_name,data.get("projected_joints",[])[index] if data.has("projected_joints") else [0,0])
+	var default_point: Array=data.get("projected_joints",[])[index] if data.has("projected_joints") else [0,0]
+	if $Layer.selected==2 and not data.get("placement",[]).is_empty():
+		default_point=data.placement[mini(step_index,data.placement.size()-1)].after.get(joint_name,{}).get("point",[0,0])
+	var point: Array=patch.pins.get(joint_name,default_point)
 	$PinX.value=point[0]
 	$PinY.value=point[1]
 	var art: Dictionary=patch.art_corrections.get(joint_name,{})
@@ -163,7 +168,16 @@ func show_details() -> void:
 	if data.is_empty(): return
 	var chunk: Dictionary=data.chunks[selected_chunk]
 	var text: String=chunk.name+"\n"+"\n".join(chunk.reasons)+"\n"
+	if $Layer.selected==2 and not data.get("placement",[]).is_empty():
+		var current: Dictionary=data.placement[mini(step_index,data.placement.size()-1)]
+		var name: String=model.joint_names[selected_joint]
+		var local: Dictionary=current.after.get(name,{})
+		$Details.text=current.name+"\n"+current.why+"\n"+("Not reconstructed at this step; no final coordinates substituted." if local.is_empty() else name+"\nPoint: "+str(local.point)+"\nSources: "+str(local.get("sources",[]))+"\nInterval: "+str(local.heuristic_radius_px)+" px")+"\n3D depth remains unobserved.\n"+str(current.get("conflicts",[]))
+		return
 	text+="Joint: "+str(model.joint_names[selected_joint])+"\nDepth: unobserved canonical prior\n"
+	if data.has("joint_status"):
+		var evidence: Dictionary=data.joint_status[selected_joint]
+		text="%s | %s | interval %s px\nSources: %s\n"%[evidence.joint,evidence.status,str(evidence.get("heuristic_radius_px")),str(evidence.get("sources",[]))]+text
 	var display: Dictionary=$Canvas.data
 	if display.has("spatial_joints_m"):
 		text+="XYZ metres: "+str(display.spatial_joints_m[selected_joint])+"\n"
@@ -197,9 +211,10 @@ func change_step(delta: int) -> void:
 		return
 	step_index=clampi(step_index+delta,0,steps.size()-1)
 	var current: Dictionary=steps[step_index]
-	$Step.text="%d/%d %s | score %.3f | used neighbours %s | prior-only joints %d"%[step_index+1,steps.size(),current.name,current.quality,str(current.used_neighbors),current.remaining_prior_only_joints]
+	$Step.text="%d/%d %s | known joints %d | priority %.3f"%[step_index+1,steps.size(),current.name,current.after.size(),current.priority]
 	$Step.tooltip_text=current.why+"\nJoints: "+str(current.constrained_joints)+"\n"+current.unknown_depth
 	$Canvas.step_index=step_index
+	select_joint(selected_joint)
 	$Canvas.queue_redraw()
 
 func apply_mapping() -> void:
@@ -289,7 +304,8 @@ func _process(_delta: float) -> void:
 		$Status.text="ERROR: solver exited without matching result. Inspect SOMA cache and Python runtime."
 
 func proof() -> void:
-	var folder:=ROOT+"proof/"
+	var relative_folder: String="soma/anatomy/gpu/run-"+str(Time.get_unix_time_from_system()).replace(".","-")+"/"
+	var folder: String="res://modules/character-rigging-editor/"+relative_folder
 	DirAccess.make_dir_recursive_absolute(folder)
 	for view in [0,1,2,3,4,5,6]:
 		$Layer.select(view)
@@ -298,9 +314,29 @@ func proof() -> void:
 		await get_tree().process_frame
 		var error:=get_viewport().get_texture().get_image().save_png(folder+str(view)+".png")
 		assert(error==OK)
+	select_case_key("idle/south")
+	$Layer.select(2)
+	layer_selected(2)
+	var placement_folder:=folder+"placement/"
+	DirAccess.make_dir_recursive_absolute(placement_folder)
+	for index in range(data.placement.size()):
+		step_index=index
+		change_step(0)
+		assert($Canvas.data.placement[index].after.size()==data.placement[index].after.size())
+		await get_tree().process_frame
+		await get_tree().process_frame
+		assert(get_viewport().get_texture().get_image().save_png(placement_folder+"step-%02d.png"%index)==OK)
+	$Layer.select(4)
+	layer_selected(4)
+	$FullSkeleton.button_pressed=true
+	await get_tree().process_frame
+	await get_tree().process_frame
+	assert(get_viewport().get_texture().get_image().save_png(folder+"full-77.png")==OK)
+	$FullSkeleton.button_pressed=false
 	# Exercise the actual panel save/switch/reload path in an isolated override store.
 	overrides_root=ROOT+"cache/proof-overrides-"+str(Time.get_ticks_usec())+"/"
 	select_case_key("idle/south")
+	step_index=0
 	change_step(1)
 	assert(step_index==1)
 	change_step(-1)
@@ -325,7 +361,8 @@ func proof() -> void:
 	var fitted:=read_json(ROOT+"cache/solver-validation/result.json")
 	assert(fitted.get("manual",{}).get("pins",{}).has("Hips"))
 	assert(fitted.get("metrics",{}).get("solver_success",false))
-	write_json(ROOT+"proof/ui-validation.json",{"save_reload_switch":true,"manual_pin":true,"legacy_mode_return":true,"screenshot_layers":7,"override_store":"isolated cache","gui_cpu_refit":true})
+	assert(write_json(ROOT+"proof/latest.json",{"folder":relative_folder,"placement_folder":relative_folder+"placement/","full_skeleton":relative_folder+"full-77.png"}),"Cannot publish successful GPU capture manifest")
+	assert(write_json(ROOT+"proof/ui-validation.json",{"save_reload_switch":true,"manual_pin":true,"legacy_mode_return":true,"screenshot_layers":7,"override_store":"isolated cache","gui_cpu_refit":true}),"Cannot save GPU validation record")
 	get_tree().quit()
 
 func activate_mode() -> void:

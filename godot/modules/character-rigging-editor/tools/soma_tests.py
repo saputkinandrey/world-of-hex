@@ -9,7 +9,7 @@ import numpy as np
 from scipy.spatial.transform import Rotation
 
 from soma_common import ROOT, canonical, case_path, fk, overrides, project, read, write
-from soma_solver import accumulate, constraints_for, fit, observation_residual, placement
+from soma_solver import accumulate, constraints_for, fit, observation_residual
 from soma_sources import EXPECTED, MAPPING, analyze, inventory
 
 
@@ -49,24 +49,26 @@ class CalibrationTests(unittest.TestCase):
         cam['yaw']=np.pi/3
         self.assertAlmostEqual(np.linalg.norm(np.diff(project(points[:2],cam),axis=0)),10.)
 
-    def test_puzzle_not_fixed_head_order_and_adaptive(self):
-        constraints=[{'joint':'Hips','target':[1,2],'radius_px':2,'weight':.6,'source_chunk':1},
-                     {'joint':'Hips','target':[2,2],'radius_px':2,'weight':.59,'source_chunk':2},
-                     {'joint':'Head','target':[8,8],'radius_px':2,'weight':.65,'source_chunk':3}]
-        chunks=[{'id':1,'name':'A','score':.8,'neighbors':[2],'status':'partial'},
-                {'id':2,'name':'B','score':.59,'neighbors':[1],'status':'partial'},
-                {'id':3,'name':'C','score':.65,'neighbors':[],'status':'partial'}]
-        steps=placement(chunks,constraints,self.model['joint_names'])
-        self.assertEqual([s['chunk'] for s in steps],[1,2,3])
-        chunks[2]['score']=1.
-        self.assertEqual(placement(chunks,constraints,self.model['joint_names'])[0]['chunk'],3)
-        self.assertEqual(steps[1]['used_neighbors'],[1])
+    def test_puzzle_priority_and_causal_states(self):
+        from soma_anatomy import reconstruct
+        from prepare import owners_for
+        dataset=inventory();entry,owners,_=owners_for(dataset,'idle/south')
+        case=copy.deepcopy(self.base)
+        for chunk in case['chunks']:
+            chunk['score']=.05 if chunk['id'] in [2,3,10,11,12,13] else .9
+        state=reconstruct(case,self.model,entry.alpha,owners)
+        order=[step['name'] for step in state['steps']]
+        self.assertEqual(state['steps'][0]['after'],{})
+        self.assertLess(order.index('Right foot recovery'),order.index('Right arm reconstruction'))
+        self.assertTrue(any(t['to']=='LeftShin' for t in state['knowledge']['transfers']))
+        self.assertTrue(self.base['refinement']['hypothesis_used_as_initial_state'])
 
-    def test_conflicting_intervals_do_not_fake_precision(self):
-        chunks=[{'id':i,'name':str(i),'score':1.,'neighbors':[],'status':'partial'} for i in [1,2]]
-        constraints=[{'joint':'Hips','target':[x,0],'radius_px':2,'weight':1.,'source_chunk':i} for i,x in [(1,0),(2,100)]]
-        steps=placement(chunks,constraints,self.model['joint_names'])
-        self.assertGreater(steps[-1]['after']['Hips']['heuristic_radius_px'],steps[0]['after']['Hips']['heuristic_radius_px'])
+    def test_conflicting_segmentation_is_not_forced_into_anatomy(self):
+        conflicts=self.base['metrics']['anatomical_conflicts']
+        self.assertTrue(any('boundary' in reason and 'knee' in reason for reason in conflicts))
+        i=self.model['joint_names'].index('LeftShin')
+        self.assertLess(self.base['projected_joints'][i][1],94.)
+        self.assertGreater(self.base['joint_status'][i]['heuristic_radius_px'],0.)
 
     def test_partial_and_missing_are_explicit(self):
         chunks=self.base['chunks']
@@ -85,6 +87,15 @@ class CalibrationTests(unittest.TestCase):
         self.assertNotEqual(chunks[0]['status'],'reliable')
         self.assertEqual(chunks[0]['components'],1)
 
+    def test_large_symmetric_head_cannot_hide_asymmetric_limbs(self):
+        from soma_anatomy import pose_symmetry
+        from prepare import owners_for
+        dataset=inventory();entry,owners,_=owners_for(dataset,'idle/south')
+        silhouette=entry.alpha.copy();silhouette[owners==12]=False
+        result=pose_symmetry(silhouette,owners==1,'south')
+        self.assertGreater(result['silhouette_mirror_iou'],.87)
+        self.assertFalse(result['pose_symmetric'])
+
     def test_intervals_do_not_force_boundary_into_joint(self):
         c={'joint':'Hips','target':[0,0],'radius_px':5,'weight':1}
         points=np.zeros((77,2)); points[0]=[3,0]
@@ -95,7 +106,11 @@ class CalibrationTests(unittest.TestCase):
         patch['mapping']={'2':['LeftHand']}
         patch['pins']={'Hips':[55.,65.]}
         values=constraints_for(self.base,patch,self.model['joint_names'])
-        self.assertTrue(any(c['joint']=='LeftHand' and c['source_chunk']==2 for c in values))
+        from soma_anatomy_fit import apply_overrides
+        state=copy.deepcopy(self.base['anatomy'])
+        expected=state['joints']['RightHand']['point']
+        apply_overrides(state,self.base,patch,self.model)
+        self.assertEqual(state['joints']['LeftHand']['point'],expected)
         self.assertEqual(values[-1]['kind'],'manual_pin')
         patch['mapping']['2']=['InventedJoint']
         with self.assertRaises(ValueError): constraints_for(self.base,patch,self.model['joint_names'])
@@ -116,9 +131,10 @@ class CalibrationTests(unittest.TestCase):
             self.assertEqual(case['geometry']['length_factors'],self.base['geometry']['length_factors'])
             self.assertEqual(len(case['comparison']),76)
             self.assertTrue(all(row['proposed_length_correction_m'] is None for row in case['comparison']))
-            self.assertGreater(case['metrics']['conflicts'],0)
-            if case['pose']=='idle':
-                self.assertEqual(case['soma_pose']['local_rotation_vectors'],self.base['soma_pose']['local_rotation_vectors'])
+            self.assertIsInstance(case['metrics']['anatomical_conflicts'],list)
+            from soma_anatomy_rig import calibrated_model
+            self.assertEqual(case['geometry']['local_offsets_m'],self.base['geometry']['local_offsets_m'])
+            np.testing.assert_allclose(fk(calibrated_model(self.model,case['geometry']),pose=case['soma_pose']['local_rotation_vectors']),case['spatial_joints_m'],atol=1e-7)
 
     def test_no_unverified_accumulation(self):
         cases=[self.base,read(case_path('idle/south-west'))]
@@ -179,17 +195,17 @@ class CalibrationTests(unittest.TestCase):
         patch['art_corrections']={'LeftForeArm':{'multiplier':1.1,'confirmed':False,'reason':'test'}}
         with self.assertRaises(ValueError): fit(self.model,read(ROOT/'observations/walk/south.json'),patch,self.base)
 
-    def test_weak_wrong_mask_cannot_dominate_joint_fit(self):
-        case=read(ROOT/'observations/idle/south.json')
-        weak=copy.deepcopy(case['chunks'][1])
-        weak.update(id=99,name='synthetic contamination',score=1e-10,neighbors=[])
-        for c in weak['constraints']:
-            c.update(source_chunk=99,target=[250.,250.],weight=1e-10)
-        case['chunks'].append(weak)
-        result=fit(self.model,case,overrides('idle/south'))
-        displacement=np.linalg.norm(np.array(result['projected_joints'])-self.base['projected_joints'],axis=1)
-        self.assertLess(float(displacement.max()),.75)
-        self.assertTrue(any(c['conflict'] for c in result['constraints'] if c['source_chunk']==99))
+    def test_wrong_semantic_pixels_do_not_dominate_anatomy(self):
+        from prepare import owners_for
+        dataset=inventory();entry,owners,_=owners_for(dataset,'idle/south')
+        bad=owners.copy();yy,xx=np.indices(bad.shape)
+        bad[entry.alpha&(yy>=99)&(xx>=64)]=10
+        result=fit(self.model,self.base,overrides('idle/south'),diagnostic_input=(entry.alpha.copy(),bad))
+        self.assertTrue(any('Owner 10' in r for r in result['metrics']['anatomical_conflicts']))
+        indices=[self.model['joint_names'].index(n) for n in ['LeftArm','LeftForeArm','RightArm','RightForeArm']]
+        delta=np.array(result['projected_joints'])[indices]-np.array(self.base['projected_joints'])[indices]
+        self.assertLess(float(np.linalg.norm(delta,axis=1).max()),1.)
+        np.testing.assert_array_equal(owners,dataset.entry('idle/south').filled)
 
     def test_confirmed_art_change_is_explicit_and_local(self):
         patch=overrides('idle/south-west')

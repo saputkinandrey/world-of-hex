@@ -1,33 +1,74 @@
 {
+  "anatomy_version": "2.0.0",
   "baseline": {
     "solver_success": true,
-    "solver_message": "`xtol` termination condition is satisfied.",
-    "evaluations": 58,
-    "robust_cost": 1.0443192511383255,
-    "mean_outside_interval_px": 1.408336832907828,
-    "conflicts": 4,
+    "solver_message": "`gtol` termination condition is satisfied.",
+    "evaluations": 4,
+    "robust_cost": 0.011002064498956354,
+    "mean_outside_interval_px": 0.0,
+    "conflicts": 1,
     "identified_3d": false,
-    "statistical_confidence": null
+    "statistical_confidence": null,
+    "anatomical_conflicts": [
+      "Left upper/lower boundary is inconsistent with a knee; possible shin pixels labelled upper leg"
+    ],
+    "hypothesis_used_as_initial_state": true
   },
-  "source_review_counts": {
-    "Not reviewed": 25,
-    "Needs review": 7
-  },
-  "fitted_cases": [
-    "idle/north-west",
-    "idle/north",
-    "idle/south-west",
-    "idle/south",
-    "walk/south"
-  ],
+  "puzzle_effect": "demonstrated on missing feet, a misclassified knee and copied-label arm removals",
+  "actual_image_controls": true,
+  "original_sources_unchanged": true,
   "confirmed_automatic_size_changes": 0,
-  "real_multi_view_verified": 0,
-  "stages": {
-    "A": "done",
-    "B": "partial",
-    "C": "done",
-    "D": "partial",
-    "E": "partial",
-    "F": "partial"
+  "identified_3d": false,
+  "optional_aim": "partial: occlusion/correspondence remains ambiguous",
+  "visual_review": {
+    "method": "Codex visual inspection of actual source/owner/SOMA overlays, including before/after and GPU placement states",
+    "is_independent_anatomical_ground_truth": false,
+    "A-B": {
+      "status": "done",
+      "observed": "Spine is central; both shoulders precede elbows and wrists; hip/knee/ankle chains track the drawing; both toe chains terminate on visible feet instead of below the image.",
+      "uncertain": "Skull-base and neck pivots are hidden; ankle positions are intervals; depth is not identified."
+    },
+    "C-upper-arm-removed": {
+      "status": "done",
+      "observed": "Affected shoulder/arm stays on its own visible branch. The retained forearm/wrist and paired upper-arm proportions contribute without copying reference joint coordinates."
+    },
+    "C-lower-arm-removed": {
+      "status": "done",
+      "observed": "Visible upper arm and hand are connected through the affected arm's alpha-supported interior; elbow order remains correct."
+    },
+    "C-complementary-fragments": {
+      "status": "done",
+      "observed": "With one upper-arm category and the opposite hand category removed, useful upper/lower fragments from both arms still form coherent chains."
+    },
+    "D-asymmetric-walk": {
+      "status": "done",
+      "observed": "Arms retain different heights and directions. No reflected pose is imposed. Visible leg lengths differ; hidden attachment/depth interpretation remains conditional."
+    },
+    "E-diagonal-idle": {
+      "status": "done",
+      "observed": "Unequal projected arms/legs track the diagonal sprite while the baseline character geometry stays shared; no automatic 3D asymmetry conclusion is made."
+    },
+    "F-wrong-owner": {
+      "status": "done",
+      "observed": "The false upper-arm patch on the foot is explicitly flagged and does not pull the arm into the lower body. Original labels are unchanged."
+    },
+    "D-aim-occlusion": {
+      "status": "partial",
+      "observed": "Visible feet are assigned to separate leg chains using corroborated foot/leg contacts. The missing arm labels no longer leave a remote canonical T-pose arm.",
+      "uncertain": "The foreshortened/occluded right arm and the anatomical ownership of the inferred outer hand region are not uniquely recognizable; manual review remains necessary."
+    },
+    "GPU": {
+      "status": "done",
+      "observed": "Placement step 0 has zero placed joints and no final inspector coordinates. A later step shows only one recovered foot. Full 77 joints is separately selectable."
+    }
+  },
+  "tests": {
+    "tests": 22,
+    "failures": 0,
+    "errors": 0,
+    "success": true,
+    "source_cases": 32,
+    "hierarchy_joints": 77,
+    "claims": "synthetic mathematical checks plus actual immutable source signatures; no anatomical ground truth"
   }
 }

@@ -127,73 +127,25 @@
         12,
         14
       ],
-      "landmarks": [
+      "landmarks": [],
+      "unoriented_shape_axis": [
+        [
+          61.77617139626762,
+          34.00169252517112
+        ],
         [
           49.16308511139771,
           51.41820095039442
-        ],
-        [
-          61.776171396267614,
-          34.00169252517112
         ]
       ],
       "centroid": [
         55.4375,
         42.75431034482759
       ],
-      "visible_span_px": 21.504062670933774,
+      "visible_span_px": 21.504062670933777,
       "width_px": 8.351970533538475,
       "endpoint_radius_px": 8.351970533538475,
-      "constraints": [
-        {
-          "joint": "Hips",
-          "target": [
-            49.16308511139771,
-            51.41820095039442
-          ],
-          "radius_px": 8.351970533538475,
-          "weight": 0.0487831299324441,
-          "source_chunk": 1,
-          "kind": "visible_axis_interval",
-          "status": "hypothesis"
-        },
-        {
-          "joint": "Spine1",
-          "target": [
-            53.36744720635435,
-            45.612698141986655
-          ],
-          "radius_px": 8.351970533538475,
-          "weight": 0.0487831299324441,
-          "source_chunk": 1,
-          "kind": "visible_axis_interval",
-          "status": "hypothesis"
-        },
-        {
-          "joint": "Spine2",
-          "target": [
-            57.57180930131098,
-            39.80719533357889
-          ],
-          "radius_px": 8.351970533538475,
-          "weight": 0.0487831299324441,
-          "source_chunk": 1,
-          "kind": "visible_axis_interval",
-          "status": "hypothesis"
-        },
-        {
-          "joint": "Chest",
-          "target": [
-            61.776171396267614,
-            34.00169252517112
-          ],
-          "radius_px": 8.351970533538475,
-          "weight": 0.0487831299324441,
-          "source_chunk": 1,
-          "kind": "visible_axis_interval",
-          "status": "hypothesis"
-        }
-      ]
+      "constraints": []
     },
     {
       "id": 2,
@@ -207,15 +159,14 @@
       "score_kind": "uncalibrated heuristic",
       "overlap": "exclusive owner map; hidden overlap unobservable",
       "status": "ambiguous",
-      "score": 0.025927429172390114,
+      "score": 0.05185485834478023,
       "reasons": [
         "Owner labels are DensePose hypotheses; flood fill is not independent evidence",
         "Visible region completeness and hidden anatomy are unverified",
         "Contact boundaries constrain intervals, not exact joints",
         "No accepted manual anatomical verification",
         "Source explicitly needs review: Missing anatomical categories",
-        "Expected anatomical contact absent or occluded",
-        "Endpoint orientation has no proximal semantic support"
+        "Expected anatomical contact absent or occluded"
       ],
       "pixels": 112,
       "components": 2,
@@ -234,7 +185,8 @@
         6,
         14
       ],
-      "landmarks": [
+      "landmarks": [],
+      "unoriented_shape_axis": [
         [
           48.238216675100645,
           8.039409234137516
@@ -251,20 +203,7 @@
       "visible_span_px": 49.189534980513045,
       "width_px": 3.5795430149445715,
       "endpoint_radius_px": 7.870325596882087,
-      "constraints": [
-        {
-          "joint": "RightHand",
-          "target": [
-            45.209510291141086,
-            32.44698030418752
-          ],
-          "radius_px": 7.870325596882087,
-          "weight": 0.025927429172390114,
-          "source_chunk": 2,
-          "kind": "visible_axis_interval",
-          "status": "hypothesis"
-        }
-      ]
+      "constraints": []
     },
     {
       "id": 3,
@@ -304,14 +243,15 @@
         12,
         14
       ],
-      "landmarks": [
-        [
-          40.874259840001,
-          51.49449173192106
-        ],
+      "landmarks": [],
+      "unoriented_shape_axis": [
         [
           40.59351807329558,
           37.516197481385134
+        ],
+        [
+          40.874259840001,
+          51.49449173192106
         ]
       ],
       "centroid": [
@@ -321,20 +261,7 @@
       "visible_span_px": 13.981113192236826,
       "width_px": 0.9806008518328848,
       "endpoint_radius_px": 2.2369781107578923,
-      "constraints": [
-        {
-          "joint": "LeftHand",
-          "target": [
-            40.733888956648286,
-            44.5053446066531
-          ],
-          "radius_px": 2.2369781107578923,
-          "weight": 0.10777354570637122,
-          "source_chunk": 3,
-          "kind": "visible_axis_interval",
-          "status": "hypothesis"
-        }
-      ]
+      "constraints": []
     },
     {
       "id": 4,
@@ -394,14 +321,15 @@
         8,
         9
       ],
-      "landmarks": [
-        [
-          48.772201027535324,
-          93.07439851785948
-        ],
+      "landmarks": [],
+      "unoriented_shape_axis": [
         [
           55.52780839851528,
           94.5747910147699
+        ],
+        [
+          48.772201027535324,
+          93.07439851785948
         ]
       ],
       "centroid": [
@@ -411,32 +339,7 @@
       "visible_span_px": 6.92021738066254,
       "width_px": 1.960600075794086,
       "endpoint_radius_px": 2.0,
-      "constraints": [
-        {
-          "joint": "RightFoot",
-          "target": [
-            48.772201027535324,
-            93.07439851785948
-          ],
-          "radius_px": 2.0,
-          "weight": 0.06590717137592138,
-          "source_chunk": 5,
-          "kind": "visible_axis_interval",
-          "status": "hypothesis"
-        },
-        {
-          "joint": "RightToeBase",
-          "target": [
-            55.52780839851528,
-            94.5747910147699
-          ],
-          "radius_px": 2.0,
-          "weight": 0.06590717137592138,
-          "source_chunk": 5,
-          "kind": "visible_axis_interval",
-          "status": "hypothesis"
-        }
-      ]
+      "constraints": []
     },
     {
       "id": 6,
@@ -479,7 +382,8 @@
         9,
         14
       ],
-      "landmarks": [
+      "landmarks": [],
+      "unoriented_shape_axis": [
         [
           48.301543597863024,
           53.15936673845438
@@ -496,32 +400,7 @@
       "visible_span_px": 20.15020401436395,
       "width_px": 4.595282954646903,
       "endpoint_radius_px": 4.595282954646903,
-      "constraints": [
-        {
-          "joint": "RightLeg",
-          "target": [
-            48.301543597863024,
-            53.15936673845438
-          ],
-          "radius_px": 4.595282954646903,
-          "weight": 0.10526210106382979,
-          "source_chunk": 6,
-          "kind": "visible_axis_interval",
-          "status": "hypothesis"
-        },
-        {
-          "joint": "RightShin",
-          "target": [
-            51.525556736666594,
-            73.04997912473628
-          ],
-          "radius_px": 4.595282954646903,
-          "weight": 0.10526210106382979,
-          "source_chunk": 6,
-          "kind": "visible_axis_interval",
-          "status": "hypothesis"
-        }
-      ]
+      "constraints": []
     },
     {
       "id": 7,
@@ -562,7 +441,8 @@
         8,
         9
       ],
-      "landmarks": [
+      "landmarks": [],
+      "unoriented_shape_axis": [
         [
           63.569770607428474,
           52.88522485602354
@@ -579,32 +459,7 @@
       "visible_span_px": 19.751642271200957,
       "width_px": 7.445397318421598,
       "endpoint_radius_px": 7.445397318421598,
-      "constraints": [
-        {
-          "joint": "LeftLeg",
-          "target": [
-            63.569770607428474,
-            52.88522485602354
-          ],
-          "radius_px": 7.445397318421598,
-          "weight": 0.082810836779196,
-          "source_chunk": 7,
-          "kind": "visible_axis_interval",
-          "status": "hypothesis"
-        },
-        {
-          "joint": "LeftShin",
-          "target": [
-            57.99647948681266,
-            71.83425645382182
-          ],
-          "radius_px": 7.445397318421598,
-          "weight": 0.082810836779196,
-          "source_chunk": 7,
-          "kind": "visible_axis_interval",
-          "status": "hypothesis"
-        }
-      ]
+      "constraints": []
     },
     {
       "id": 8,
@@ -646,7 +501,8 @@
         7,
         9
       ],
-      "landmarks": [
+      "landmarks": [],
+      "unoriented_shape_axis": [
         [
           51.17476571060451,
           74.80956607685178
@@ -663,32 +519,7 @@
       "visible_span_px": 15.997474090073915,
       "width_px": 4.2089599749848015,
       "endpoint_radius_px": 4.2089599749848015,
-      "constraints": [
-        {
-          "joint": "RightShin",
-          "target": [
-            51.17476571060451,
-            74.80956607685178
-          ],
-          "radius_px": 4.2089599749848015,
-          "weight": 0.07683733069839856,
-          "source_chunk": 8,
-          "kind": "visible_axis_interval",
-          "status": "hypothesis"
-        },
-        {
-          "joint": "RightFoot",
-          "target": [
-            55.19386247486521,
-            90.29394654434533
-          ],
-          "radius_px": 4.2089599749848015,
-          "weight": 0.07683733069839856,
-          "source_chunk": 8,
-          "kind": "visible_axis_interval",
-          "status": "hypothesis"
-        }
-      ]
+      "constraints": []
     },
     {
       "id": 9,
@@ -730,7 +561,8 @@
         7,
         8
       ],
-      "landmarks": [
+      "landmarks": [],
+      "unoriented_shape_axis": [
         [
           60.15489765103359,
           74.63387198863107
@@ -747,32 +579,7 @@
       "visible_span_px": 30.040589541062204,
       "width_px": 7.306669486370745,
       "endpoint_radius_px": 7.306669486370745,
-      "constraints": [
-        {
-          "joint": "LeftShin",
-          "target": [
-            60.15489765103359,
-            74.63387198863107
-          ],
-          "radius_px": 7.306669486370745,
-          "weight": 0.045279953917050704,
-          "source_chunk": 9,
-          "kind": "visible_axis_interval",
-          "status": "hypothesis"
-        },
-        {
-          "joint": "LeftFoot",
-          "target": [
-            61.059212232989594,
-            104.66084711286624
-          ],
-          "radius_px": 7.306669486370745,
-          "weight": 0.045279953917050704,
-          "source_chunk": 9,
-          "kind": "visible_axis_interval",
-          "status": "hypothesis"
-        }
-      ]
+      "constraints": []
     },
     {
       "id": 10,
@@ -812,14 +619,15 @@
         12,
         14
       ],
-      "landmarks": [
-        [
-          68.44094990320909,
-          38.51184474281813
-        ],
+      "landmarks": [],
+      "unoriented_shape_axis": [
         [
           65.35511201128537,
           23.12788672895312
+        ],
+        [
+          68.44094990320909,
+          38.51184474281813
         ]
       ],
       "centroid": [
@@ -829,32 +637,7 @@
       "visible_span_px": 15.690397052579446,
       "width_px": 2.8782998466226024,
       "endpoint_radius_px": 2.8782998466226024,
-      "constraints": [
-        {
-          "joint": "LeftArm",
-          "target": [
-            68.44094990320909,
-            38.51184474281813
-          ],
-          "radius_px": 2.8782998466226024,
-          "weight": 0.07933441558441559,
-          "source_chunk": 10,
-          "kind": "visible_axis_interval",
-          "status": "hypothesis"
-        },
-        {
-          "joint": "LeftForeArm",
-          "target": [
-            65.35511201128537,
-            23.12788672895312
-          ],
-          "radius_px": 2.8782998466226024,
-          "weight": 0.07933441558441559,
-          "source_chunk": 10,
-          "kind": "visible_axis_interval",
-          "status": "hypothesis"
-        }
-      ]
+      "constraints": []
     },
     {
       "id": 11,
@@ -918,7 +701,8 @@
         10,
         14
       ],
-      "landmarks": [
+      "landmarks": [],
+      "unoriented_shape_axis": [
         [
           69.68422142125188,
           42.3664763633144
@@ -935,32 +719,7 @@
       "visible_span_px": 30.330246325094755,
       "width_px": 2.879082480913685,
       "endpoint_radius_px": 4.852839412015161,
-      "constraints": [
-        {
-          "joint": "LeftForeArm",
-          "target": [
-            69.68422142125188,
-            42.3664763633144
-          ],
-          "radius_px": 4.852839412015161,
-          "weight": 0.04678058086025544,
-          "source_chunk": 12,
-          "kind": "visible_axis_interval",
-          "status": "hypothesis"
-        },
-        {
-          "joint": "LeftHand",
-          "target": [
-            39.52716330362031,
-            45.60309308926698
-          ],
-          "radius_px": 4.852839412015161,
-          "weight": 0.04678058086025544,
-          "source_chunk": 12,
-          "kind": "visible_axis_interval",
-          "status": "hypothesis"
-        }
-      ]
+      "constraints": []
     },
     {
       "id": 13,
@@ -1025,14 +784,15 @@
         10,
         12
       ],
-      "landmarks": [
-        [
-          41.65170987296837,
-          35.651011795789266
-        ],
+      "landmarks": [],
+      "unoriented_shape_axis": [
         [
           60.50281987557061,
           16.541931465147712
+        ],
+        [
+          41.65170987296837,
+          35.651011795789266
         ]
       ],
       "centroid": [
@@ -1042,44 +802,7 @@
       "visible_span_px": 26.842527813399432,
       "width_px": 6.451010333186883,
       "endpoint_radius_px": 6.451010333186883,
-      "constraints": [
-        {
-          "joint": "Neck2",
-          "target": [
-            41.65170987296837,
-            35.651011795789266
-          ],
-          "radius_px": 6.451010333186883,
-          "weight": 0.06203069931764854,
-          "source_chunk": 14,
-          "kind": "visible_axis_interval",
-          "status": "hypothesis"
-        },
-        {
-          "joint": "Head",
-          "target": [
-            51.07726487426949,
-            26.09647163046849
-          ],
-          "radius_px": 6.451010333186883,
-          "weight": 0.06203069931764854,
-          "source_chunk": 14,
-          "kind": "visible_axis_interval",
-          "status": "hypothesis"
-        },
-        {
-          "joint": "HeadEnd",
-          "target": [
-            60.50281987557061,
-            16.541931465147712
-          ],
-          "radius_px": 6.451010333186883,
-          "weight": 0.06203069931764854,
-          "source_chunk": 14,
-          "kind": "visible_axis_interval",
-          "status": "hypothesis"
-        }
-      ]
+      "constraints": []
     }
   ],
   "independent_segmentation": {

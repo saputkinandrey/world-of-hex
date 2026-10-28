@@ -1,0 +1,5782 @@
+{
+  "names": [
+    "Hips",
+    "Spine1",
+    "Spine2",
+    "Chest",
+    "Neck1",
+    "Neck2",
+    "Head",
+    "HeadEnd",
+    "Jaw",
+    "LeftEye",
+    "RightEye",
+    "LeftShoulder",
+    "LeftArm",
+    "LeftForeArm",
+    "LeftHand",
+    "LeftHandThumb1",
+    "LeftHandThumb2",
+    "LeftHandThumb3",
+    "LeftHandThumbEnd",
+    "LeftHandIndex1",
+    "LeftHandIndex2",
+    "LeftHandIndex3",
+    "LeftHandIndex4",
+    "LeftHandIndexEnd",
+    "LeftHandMiddle1",
+    "LeftHandMiddle2",
+    "LeftHandMiddle3",
+    "LeftHandMiddle4",
+    "LeftHandMiddleEnd",
+    "LeftHandRing1",
+    "LeftHandRing2",
+    "LeftHandRing3",
+    "LeftHandRing4",
+    "LeftHandRingEnd",
+    "LeftHandPinky1",
+    "LeftHandPinky2",
+    "LeftHandPinky3",
+    "LeftHandPinky4",
+    "LeftHandPinkyEnd",
+    "RightShoulder",
+    "RightArm",
+    "RightForeArm",
+    "RightHand",
+    "RightHandThumb1",
+    "RightHandThumb2",
+    "RightHandThumb3",
+    "RightHandThumbEnd",
+    "RightHandIndex1",
+    "RightHandIndex2",
+    "RightHandIndex3",
+    "RightHandIndex4",
+    "RightHandIndexEnd",
+    "RightHandMiddle1",
+    "RightHandMiddle2",
+    "RightHandMiddle3",
+    "RightHandMiddle4",
+    "RightHandMiddleEnd",
+    "RightHandRing1",
+    "RightHandRing2",
+    "RightHandRing3",
+    "RightHandRing4",
+    "RightHandRingEnd",
+    "RightHandPinky1",
+    "RightHandPinky2",
+    "RightHandPinky3",
+    "RightHandPinky4",
+    "RightHandPinkyEnd",
+    "LeftLeg",
+    "LeftShin",
+    "LeftFoot",
+    "LeftToeBase",
+    "LeftToeEnd",
+    "RightLeg",
+    "RightShin",
+    "RightFoot",
+    "RightToeBase",
+    "RightToeEnd"
+  ],
+  "quality": {
+    "1": 0.40135963995641843,
+    "2": 0.39653547671840356,
+    "3": 0.386789795701213,
+    "4": 0.0,
+    "5": 0.0,
+    "6": 0.33658863955119217,
+    "7": 0.34394207430918594,
+    "8": 0.13244651162790697,
+    "9": 0.25344827586206903,
+    "10": 0.33952288401253916,
+    "11": 0.34866025274325235,
+    "12": 0.26045206310679614,
+    "13": 0.33973761792452833,
+    "14": 0.40353052647962956
+  },
+  "joints": {
+    "Hips": {
+      "point": [
+        55.0,
+        75.5
+      ],
+      "heuristic_radius_px": 3.0,
+      "evidence_count": 3,
+      "sources": [
+        1,
+        14,
+        "central-body-chain"
+      ],
+      "status": "observed-chain",
+      "why": "",
+      "depth": "unobserved"
+    },
+    "Chest": {
+      "point": [
+        55.0,
+        56.65
+      ],
+      "heuristic_radius_px": 3.0,
+      "evidence_count": 3,
+      "sources": [
+        1,
+        14,
+        "central-body-chain"
+      ],
+      "status": "observed-chain",
+      "why": "",
+      "depth": "unobserved"
+    },
+    "Neck1": {
+      "point": [
+        54.5,
+        39.25
+      ],
+      "heuristic_radius_px": 5.0,
+      "evidence_count": 3,
+      "sources": [
+        1,
+        14,
+        "central-body-chain"
+      ],
+      "status": "occluded-hypothesis",
+      "why": "",
+      "depth": "unobserved"
+    },
+    "Neck2": {
+      "point": [
+        54.5,
+        36.35
+      ],
+      "heuristic_radius_px": 5.0,
+      "evidence_count": 3,
+      "sources": [
+        1,
+        14,
+        "central-body-chain"
+      ],
+      "status": "occluded-hypothesis",
+      "why": "",
+      "depth": "unobserved"
+    },
+    "Head": {
+      "point": [
+        54.5,
+        32.0
+      ],
+      "heuristic_radius_px": 5.0,
+      "evidence_count": 3,
+      "sources": [
+        1,
+        14,
+        "central-body-chain"
+      ],
+      "status": "occluded-hypothesis",
+      "why": "",
+      "depth": "unobserved"
+    },
+    "HeadEnd": {
+      "point": [
+        54.5,
+        17.5
+      ],
+      "heuristic_radius_px": 3.0,
+      "evidence_count": 3,
+      "sources": [
+        1,
+        14,
+        "central-body-chain"
+      ],
+      "status": "observed-chain",
+      "why": "",
+      "depth": "unobserved"
+    },
+    "Spine1": {
+      "point": [
+        55.0,
+        69.21666666666667
+      ],
+      "heuristic_radius_px": 3.0,
+      "evidence_count": 3,
+      "sources": [
+        1,
+        14,
+        "central-body-chain"
+      ],
+      "status": "recovered-silhouette",
+      "why": "",
+      "depth": "unobserved"
+    },
+    "Spine2": {
+      "point": [
+        55.0,
+        62.93333333333334
+      ],
+      "heuristic_radius_px": 3.0,
+      "evidence_count": 3,
+      "sources": [
+        1,
+        14,
+        "central-body-chain"
+      ],
+      "status": "recovered-silhouette",
+      "why": "",
+      "depth": "unobserved"
+    },
+    "RightArm": {
+      "point": [
+        32.41379310344828,
+        38.56896551724138
+      ],
+      "heuristic_radius_px": 2.5,
+      "evidence_count": 5,
+      "sources": [
+        11,
+        13,
+        2,
+        "alpha",
+        "body-girdle"
+      ],
+      "status": "observed-chain",
+      "why": "Ordered shoulder-elbow-wrist chain, visible interior, semantic interfaces and anatomical pairing",
+      "depth": "unobserved"
+    },
+    "RightForeArm": {
+      "point": [
+        27.0,
+        60.5
+      ],
+      "heuristic_radius_px": 3.0,
+      "evidence_count": 5,
+      "sources": [
+        11,
+        13,
+        2,
+        "alpha",
+        "body-girdle"
+      ],
+      "status": "observed-chain",
+      "why": "Ordered shoulder-elbow-wrist chain, visible interior, semantic interfaces and anatomical pairing",
+      "depth": "unobserved"
+    },
+    "RightHand": {
+      "point": [
+        29.75,
+        71.5
+      ],
+      "heuristic_radius_px": 2.5,
+      "evidence_count": 5,
+      "sources": [
+        11,
+        13,
+        2,
+        "alpha",
+        "body-girdle"
+      ],
+      "status": "observed-chain",
+      "why": "Ordered shoulder-elbow-wrist chain, visible interior, semantic interfaces and anatomical pairing",
+      "depth": "unobserved"
+    },
+    "RightShoulder": {
+      "point": [
+        52.063793103448276,
+        40.56896551724138
+      ],
+      "heuristic_radius_px": 3.0,
+      "evidence_count": 2,
+      "sources": [
+        "body-girdle",
+        11
+      ],
+      "status": "recovered-silhouette",
+      "why": "Clavicle root relative to central chest; not the glenohumeral Arm joint",
+      "depth": "unobserved"
+    },
+    "LeftArm": {
+      "point": [
+        77.55084745762711,
+        38.55084745762712
+      ],
+      "heuristic_radius_px": 2.5,
+      "evidence_count": 5,
+      "sources": [
+        10,
+        12,
+        3,
+        "alpha",
+        "body-girdle"
+      ],
+      "status": "observed-chain",
+      "why": "Ordered shoulder-elbow-wrist chain, visible interior, semantic interfaces and anatomical pairing",
+      "depth": "unobserved"
+    },
+    "LeftForeArm": {
+      "point": [
+        82.75,
+        61.0
+      ],
+      "heuristic_radius_px": 3.0,
+      "evidence_count": 5,
+      "sources": [
+        10,
+        12,
+        3,
+        "alpha",
+        "body-girdle"
+      ],
+      "status": "observed-chain",
+      "why": "Ordered shoulder-elbow-wrist chain, visible interior, semantic interfaces and anatomical pairing",
+      "depth": "unobserved"
+    },
+    "LeftHand": {
+      "point": [
+        80.0,
+        71.5
+      ],
+      "heuristic_radius_px": 2.5,
+      "evidence_count": 5,
+      "sources": [
+        10,
+        12,
+        3,
+        "alpha",
+        "body-girdle"
+      ],
+      "status": "observed-chain",
+      "why": "Ordered shoulder-elbow-wrist chain, visible interior, semantic interfaces and anatomical pairing",
+      "depth": "unobserved"
+    },
+    "LeftShoulder": {
+      "point": [
+        57.93161016949153,
+        40.55084745762712
+      ],
+      "heuristic_radius_px": 3.0,
+      "evidence_count": 2,
+      "sources": [
+        "body-girdle",
+        10
+      ],
+      "status": "recovered-silhouette",
+      "why": "Clavicle root relative to central chest; not the glenohumeral Arm joint",
+      "depth": "unobserved"
+    },
+    "RightLeg": {
+      "point": [
+        45.5,
+        78.5
+      ],
+      "heuristic_radius_px": 3.0,
+      "evidence_count": 3,
+      "sources": [
+        1,
+        6,
+        "pelvis-frame"
+      ],
+      "status": "observed-chain",
+      "why": "",
+      "depth": "unobserved"
+    },
+    "RightShin": {
+      "point": [
+        43.5,
+        90.0
+      ],
+      "heuristic_radius_px": 3.5,
+      "evidence_count": 4,
+      "sources": [
+        6,
+        8,
+        "alpha",
+        "paired-leg-proportions"
+      ],
+      "status": "observed-chain",
+      "why": "",
+      "depth": "unobserved"
+    },
+    "RightFoot": {
+      "point": [
+        42.0,
+        96.5
+      ],
+      "heuristic_radius_px": 2.5,
+      "evidence_count": 4,
+      "sources": [
+        8,
+        5,
+        "alpha-distal-contour",
+        "SOMA-leg-chain"
+      ],
+      "status": "recovered-silhouette",
+      "why": "Terminal silhouette support and distal width flare; owner labels remain unchanged; ankle interval is not a verified art seam",
+      "depth": "unobserved"
+    },
+    "RightToeBase": {
+      "point": [
+        41.16184210526316,
+        100.67368421052632
+      ],
+      "heuristic_radius_px": 2.5,
+      "evidence_count": 4,
+      "sources": [
+        8,
+        5,
+        "alpha-distal-contour",
+        "SOMA-leg-chain"
+      ],
+      "status": "recovered-silhouette",
+      "why": "Terminal silhouette support and distal width flare; owner labels remain unchanged; ankle interval is not a verified art seam",
+      "depth": "unobserved"
+    },
+    "RightToeEnd": {
+      "point": [
+        40.71052631578947,
+        102.92105263157895
+      ],
+      "heuristic_radius_px": 2.5,
+      "evidence_count": 4,
+      "sources": [
+        8,
+        5,
+        "alpha-distal-contour",
+        "SOMA-leg-chain"
+      ],
+      "status": "recovered-silhouette",
+      "why": "Terminal silhouette support and distal width flare; owner labels remain unchanged; ankle interval is not a verified art seam",
+      "depth": "unobserved"
+    },
+    "LeftLeg": {
+      "point": [
+        64.5,
+        78.5
+      ],
+      "heuristic_radius_px": 3.0,
+      "evidence_count": 3,
+      "sources": [
+        1,
+        7,
+        "pelvis-frame"
+      ],
+      "status": "observed-chain",
+      "why": "",
+      "depth": "unobserved"
+    },
+    "LeftShin": {
+      "point": [
+        66.5,
+        89.5
+      ],
+      "heuristic_radius_px": 3.5,
+      "evidence_count": 4,
+      "sources": [
+        7,
+        9,
+        "alpha",
+        "paired-leg-proportions"
+      ],
+      "status": "recovered-silhouette",
+      "why": "",
+      "depth": "unobserved"
+    },
+    "LeftFoot": {
+      "point": [
+        68.0,
+        96.5
+      ],
+      "heuristic_radius_px": 2.5,
+      "evidence_count": 4,
+      "sources": [
+        9,
+        4,
+        "alpha-distal-contour",
+        "SOMA-leg-chain"
+      ],
+      "status": "recovered-silhouette",
+      "why": "Terminal silhouette support and distal width flare; owner labels remain unchanged; ankle interval is not a verified art seam",
+      "depth": "unobserved"
+    },
+    "LeftToeBase": {
+      "point": [
+        68.83815789473684,
+        100.67368421052632
+      ],
+      "heuristic_radius_px": 2.5,
+      "evidence_count": 4,
+      "sources": [
+        9,
+        4,
+        "alpha-distal-contour",
+        "SOMA-leg-chain"
+      ],
+      "status": "recovered-silhouette",
+      "why": "Terminal silhouette support and distal width flare; owner labels remain unchanged; ankle interval is not a verified art seam",
+      "depth": "unobserved"
+    },
+    "LeftToeEnd": {
+      "point": [
+        69.28947368421052,
+        102.92105263157895
+      ],
+      "heuristic_radius_px": 2.5,
+      "evidence_count": 4,
+      "sources": [
+        9,
+        4,
+        "alpha-distal-contour",
+        "SOMA-leg-chain"
+      ],
+      "status": "recovered-silhouette",
+      "why": "Terminal silhouette support and distal width flare; owner labels remain unchanged; ankle interval is not a verified art seam",
+      "depth": "unobserved"
+    }
+  },
+  "steps": [
+    {
+      "step": 0,
+      "name": "Initial anatomical evidence",
+      "chunk": 0,
+      "quality": 0.0,
+      "priority": 0.0,
+      "why": "No posed skeleton yet. Original owners, silhouette, SOMA semantics and quality are available",
+      "used_neighbors": [],
+      "constrained_joints": [],
+      "before": {},
+      "after": {},
+      "unknown_joints": [
+        "Hips",
+        "Spine1",
+        "Spine2",
+        "Chest",
+        "Neck1",
+        "Neck2",
+        "Head",
+        "HeadEnd",
+        "Jaw",
+        "LeftEye",
+        "RightEye",
+        "LeftShoulder",
+        "LeftArm",
+        "LeftForeArm",
+        "LeftHand",
+        "LeftHandThumb1",
+        "LeftHandThumb2",
+        "LeftHandThumb3",
+        "LeftHandThumbEnd",
+        "LeftHandIndex1",
+        "LeftHandIndex2",
+        "LeftHandIndex3",
+        "LeftHandIndex4",
+        "LeftHandIndexEnd",
+        "LeftHandMiddle1",
+        "LeftHandMiddle2",
+        "LeftHandMiddle3",
+        "LeftHandMiddle4",
+        "LeftHandMiddleEnd",
+        "LeftHandRing1",
+        "LeftHandRing2",
+        "LeftHandRing3",
+        "LeftHandRing4",
+        "LeftHandRingEnd",
+        "LeftHandPinky1",
+        "LeftHandPinky2",
+        "LeftHandPinky3",
+        "LeftHandPinky4",
+        "LeftHandPinkyEnd",
+        "RightShoulder",
+        "RightArm",
+        "RightForeArm",
+        "RightHand",
+        "RightHandThumb1",
+        "RightHandThumb2",
+        "RightHandThumb3",
+        "RightHandThumbEnd",
+        "RightHandIndex1",
+        "RightHandIndex2",
+        "RightHandIndex3",
+        "RightHandIndex4",
+        "RightHandIndexEnd",
+        "RightHandMiddle1",
+        "RightHandMiddle2",
+        "RightHandMiddle3",
+        "RightHandMiddle4",
+        "RightHandMiddleEnd",
+        "RightHandRing1",
+        "RightHandRing2",
+        "RightHandRing3",
+        "RightHandRing4",
+        "RightHandRingEnd",
+        "RightHandPinky1",
+        "RightHandPinky2",
+        "RightHandPinky3",
+        "RightHandPinky4",
+        "RightHandPinkyEnd",
+        "LeftLeg",
+        "LeftShin",
+        "LeftFoot",
+        "LeftToeBase",
+        "LeftToeEnd",
+        "RightLeg",
+        "RightShin",
+        "RightFoot",
+        "RightToeBase",
+        "RightToeEnd"
+      ],
+      "remaining_prior_only_joints": 77,
+      "unknown_depth": "Unobserved; canonical depth prior",
+      "knowledge": {
+        "transfers": [],
+        "pose_symmetry": {
+          "silhouette_mirror_iou": 0.9994614970382337,
+          "axis_x": 55.0,
+          "pose_symmetric": true,
+          "anatomical_pairing": true,
+          "reason": "Pose symmetry requires frontal view AND measured alpha agreement; paired anatomy alone does not imply a mirrored pose"
+        }
+      },
+      "conflicts": []
+    },
+    {
+      "step": 1,
+      "name": "Central body frame",
+      "chunk": 1,
+      "quality": 0.40135963995641843,
+      "priority": 0.40135963995641843,
+      "why": "Head base, visible central torso and pelvis define an ordered axial chain; torso PCA endpoints are not joints",
+      "used_neighbors": [
+        14
+      ],
+      "constrained_joints": [
+        "Hips",
+        "Chest",
+        "Neck1",
+        "Neck2",
+        "Head",
+        "HeadEnd",
+        "Spine1",
+        "Spine2"
+      ],
+      "before": {},
+      "after": {
+        "Hips": {
+          "point": [
+            55.0,
+            75.5
+          ],
+          "heuristic_radius_px": 3.0,
+          "evidence_count": 3,
+          "sources": [
+            1,
+            14,
+            "central-body-chain"
+          ],
+          "status": "observed-chain",
+          "why": "",
+          "depth": "unobserved"
+        },
+        "Chest": {
+          "point": [
+            55.0,
+            56.65
+          ],
+          "heuristic_radius_px": 3.0,
+          "evidence_count": 3,
+          "sources": [
+            1,
+            14,
+            "central-body-chain"
+          ],
+          "status": "observed-chain",
+          "why": "",
+          "depth": "unobserved"
+        },
+        "Neck1": {
+          "point": [
+            54.5,
+            39.25
+          ],
+          "heuristic_radius_px": 5.0,
+          "evidence_count": 3,
+          "sources": [
+            1,
+            14,
+            "central-body-chain"
+          ],
+          "status": "occluded-hypothesis",
+          "why": "",
+          "depth": "unobserved"
+        },
+        "Neck2": {
+          "point": [
+            54.5,
+            36.35
+          ],
+          "heuristic_radius_px": 5.0,
+          "evidence_count": 3,
+          "sources": [
+            1,
+            14,
+            "central-body-chain"
+          ],
+          "status": "occluded-hypothesis",
+          "why": "",
+          "depth": "unobserved"
+        },
+        "Head": {
+          "point": [
+            54.5,
+            32.0
+          ],
+          "heuristic_radius_px": 5.0,
+          "evidence_count": 3,
+          "sources": [
+            1,
+            14,
+            "central-body-chain"
+          ],
+          "status": "occluded-hypothesis",
+          "why": "",
+          "depth": "unobserved"
+        },
+        "HeadEnd": {
+          "point": [
+            54.5,
+            17.5
+          ],
+          "heuristic_radius_px": 3.0,
+          "evidence_count": 3,
+          "sources": [
+            1,
+            14,
+            "central-body-chain"
+          ],
+          "status": "observed-chain",
+          "why": "",
+          "depth": "unobserved"
+        },
+        "Spine1": {
+          "point": [
+            55.0,
+            69.21666666666667
+          ],
+          "heuristic_radius_px": 3.0,
+          "evidence_count": 3,
+          "sources": [
+            1,
+            14,
+            "central-body-chain"
+          ],
+          "status": "recovered-silhouette",
+          "why": "",
+          "depth": "unobserved"
+        },
+        "Spine2": {
+          "point": [
+            55.0,
+            62.93333333333334
+          ],
+          "heuristic_radius_px": 3.0,
+          "evidence_count": 3,
+          "sources": [
+            1,
+            14,
+            "central-body-chain"
+          ],
+          "status": "recovered-silhouette",
+          "why": "",
+          "depth": "unobserved"
+        }
+      },
+      "unknown_joints": [
+        "Jaw",
+        "LeftEye",
+        "RightEye",
+        "LeftShoulder",
+        "LeftArm",
+        "LeftForeArm",
+        "LeftHand",
+        "LeftHandThumb1",
+        "LeftHandThumb2",
+        "LeftHandThumb3",
+        "LeftHandThumbEnd",
+        "LeftHandIndex1",
+        "LeftHandIndex2",
+        "LeftHandIndex3",
+        "LeftHandIndex4",
+        "LeftHandIndexEnd",
+        "LeftHandMiddle1",
+        "LeftHandMiddle2",
+        "LeftHandMiddle3",
+        "LeftHandMiddle4",
+        "LeftHandMiddleEnd",
+        "LeftHandRing1",
+        "LeftHandRing2",
+        "LeftHandRing3",
+        "LeftHandRing4",
+        "LeftHandRingEnd",
+        "LeftHandPinky1",
+        "LeftHandPinky2",
+        "LeftHandPinky3",
+        "LeftHandPinky4",
+        "LeftHandPinkyEnd",
+        "RightShoulder",
+        "RightArm",
+        "RightForeArm",
+        "RightHand",
+        "RightHandThumb1",
+        "RightHandThumb2",
+        "RightHandThumb3",
+        "RightHandThumbEnd",
+        "RightHandIndex1",
+        "RightHandIndex2",
+        "RightHandIndex3",
+        "RightHandIndex4",
+        "RightHandIndexEnd",
+        "RightHandMiddle1",
+        "RightHandMiddle2",
+        "RightHandMiddle3",
+        "RightHandMiddle4",
+        "RightHandMiddleEnd",
+        "RightHandRing1",
+        "RightHandRing2",
+        "RightHandRing3",
+        "RightHandRing4",
+        "RightHandRingEnd",
+        "RightHandPinky1",
+        "RightHandPinky2",
+        "RightHandPinky3",
+        "RightHandPinky4",
+        "RightHandPinkyEnd",
+        "LeftLeg",
+        "LeftShin",
+        "LeftFoot",
+        "LeftToeBase",
+        "LeftToeEnd",
+        "RightLeg",
+        "RightShin",
+        "RightFoot",
+        "RightToeBase",
+        "RightToeEnd"
+      ],
+      "remaining_prior_only_joints": 69,
+      "unknown_depth": "Unobserved; canonical depth prior",
+      "knowledge": {
+        "transfers": [],
+        "pose_symmetry": {
+          "silhouette_mirror_iou": 0.9994614970382337,
+          "axis_x": 55.0,
+          "pose_symmetric": true,
+          "anatomical_pairing": true,
+          "reason": "Pose symmetry requires frontal view AND measured alpha agreement; paired anatomy alone does not imply a mirrored pose"
+        }
+      },
+      "conflicts": []
+    },
+    {
+      "step": 2,
+      "name": "Right arm reconstruction",
+      "chunk": 11,
+      "quality": 0.34866025274325235,
+      "priority": 0.34866025274325235,
+      "why": "The ordered chain resolves endpoint direction; recovered fragments consume prior established pair proportions and visible geodesics",
+      "used_neighbors": [
+        1,
+        14
+      ],
+      "constrained_joints": [
+        "RightArm",
+        "RightForeArm",
+        "RightHand",
+        "RightShoulder"
+      ],
+      "before": {
+        "Hips": {
+          "point": [
+            55.0,
+            75.5
+          ],
+          "heuristic_radius_px": 3.0,
+          "evidence_count": 3,
+          "sources": [
+            1,
+            14,
+            "central-body-chain"
+          ],
+          "status": "observed-chain",
+          "why": "",
+          "depth": "unobserved"
+        },
+        "Chest": {
+          "point": [
+            55.0,
+            56.65
+          ],
+          "heuristic_radius_px": 3.0,
+          "evidence_count": 3,
+          "sources": [
+            1,
+            14,
+            "central-body-chain"
+          ],
+          "status": "observed-chain",
+          "why": "",
+          "depth": "unobserved"
+        },
+        "Neck1": {
+          "point": [
+            54.5,
+            39.25
+          ],
+          "heuristic_radius_px": 5.0,
+          "evidence_count": 3,
+          "sources": [
+            1,
+            14,
+            "central-body-chain"
+          ],
+          "status": "occluded-hypothesis",
+          "why": "",
+          "depth": "unobserved"
+        },
+        "Neck2": {
+          "point": [
+            54.5,
+            36.35
+          ],
+          "heuristic_radius_px": 5.0,
+          "evidence_count": 3,
+          "sources": [
+            1,
+            14,
+            "central-body-chain"
+          ],
+          "status": "occluded-hypothesis",
+          "why": "",
+          "depth": "unobserved"
+        },
+        "Head": {
+          "point": [
+            54.5,
+            32.0
+          ],
+          "heuristic_radius_px": 5.0,
+          "evidence_count": 3,
+          "sources": [
+            1,
+            14,
+            "central-body-chain"
+          ],
+          "status": "occluded-hypothesis",
+          "why": "",
+          "depth": "unobserved"
+        },
+        "HeadEnd": {
+          "point": [
+            54.5,
+            17.5
+          ],
+          "heuristic_radius_px": 3.0,
+          "evidence_count": 3,
+          "sources": [
+            1,
+            14,
+            "central-body-chain"
+          ],
+          "status": "observed-chain",
+          "why": "",
+          "depth": "unobserved"
+        },
+        "Spine1": {
+          "point": [
+            55.0,
+            69.21666666666667
+          ],
+          "heuristic_radius_px": 3.0,
+          "evidence_count": 3,
+          "sources": [
+            1,
+            14,
+            "central-body-chain"
+          ],
+          "status": "recovered-silhouette",
+          "why": "",
+          "depth": "unobserved"
+        },
+        "Spine2": {
+          "point": [
+            55.0,
+            62.93333333333334
+          ],
+          "heuristic_radius_px": 3.0,
+          "evidence_count": 3,
+          "sources": [
+            1,
+            14,
+            "central-body-chain"
+          ],
+          "status": "recovered-silhouette",
+          "why": "",
+          "depth": "unobserved"
+        }
+      },
+      "after": {
+        "Hips": {
+          "point": [
+            55.0,
+            75.5
+          ],
+          "heuristic_radius_px": 3.0,
+          "evidence_count": 3,
+          "sources": [
+            1,
+            14,
+            "central-body-chain"
+          ],
+          "status": "observed-chain",
+          "why": "",
+          "depth": "unobserved"
+        },
+        "Chest": {
+          "point": [
+            55.0,
+            56.65
+          ],
+          "heuristic_radius_px": 3.0,
+          "evidence_count": 3,
+          "sources": [
+            1,
+            14,
+            "central-body-chain"
+          ],
+          "status": "observed-chain",
+          "why": "",
+          "depth": "unobserved"
+        },
+        "Neck1": {
+          "point": [
+            54.5,
+            39.25
+          ],
+          "heuristic_radius_px": 5.0,
+          "evidence_count": 3,
+          "sources": [
+            1,
+            14,
+            "central-body-chain"
+          ],
+          "status": "occluded-hypothesis",
+          "why": "",
+          "depth": "unobserved"
+        },
+        "Neck2": {
+          "point": [
+            54.5,
+            36.35
+          ],
+          "heuristic_radius_px": 5.0,
+          "evidence_count": 3,
+          "sources": [
+            1,
+            14,
+            "central-body-chain"
+          ],
+          "status": "occluded-hypothesis",
+          "why": "",
+          "depth": "unobserved"
+        },
+        "Head": {
+          "point": [
+            54.5,
+            32.0
+          ],
+          "heuristic_radius_px": 5.0,
+          "evidence_count": 3,
+          "sources": [
+            1,
+            14,
+            "central-body-chain"
+          ],
+          "status": "occluded-hypothesis",
+          "why": "",
+          "depth": "unobserved"
+        },
+        "HeadEnd": {
+          "point": [
+            54.5,
+            17.5
+          ],
+          "heuristic_radius_px": 3.0,
+          "evidence_count": 3,
+          "sources": [
+            1,
+            14,
+            "central-body-chain"
+          ],
+          "status": "observed-chain",
+          "why": "",
+          "depth": "unobserved"
+        },
+        "Spine1": {
+          "point": [
+            55.0,
+            69.21666666666667
+          ],
+          "heuristic_radius_px": 3.0,
+          "evidence_count": 3,
+          "sources": [
+            1,
+            14,
+            "central-body-chain"
+          ],
+          "status": "recovered-silhouette",
+          "why": "",
+          "depth": "unobserved"
+        },
+        "Spine2": {
+          "point": [
+            55.0,
+            62.93333333333334
+          ],
+          "heuristic_radius_px": 3.0,
+          "evidence_count": 3,
+          "sources": [
+            1,
+            14,
+            "central-body-chain"
+          ],
+          "status": "recovered-silhouette",
+          "why": "",
+          "depth": "unobserved"
+        },
+        "RightArm": {
+          "point": [
+            32.41379310344828,
+            38.56896551724138
+          ],
+          "heuristic_radius_px": 2.5,
+          "evidence_count": 5,
+          "sources": [
+            11,
+            13,
+            2,
+            "alpha",
+            "body-girdle"
+          ],
+          "status": "observed-chain",
+          "why": "Ordered shoulder-elbow-wrist chain, visible interior, semantic interfaces and anatomical pairing",
+          "depth": "unobserved"
+        },
+        "RightForeArm": {
+          "point": [
+            27.0,
+            60.5
+          ],
+          "heuristic_radius_px": 3.0,
+          "evidence_count": 5,
+          "sources": [
+            11,
+            13,
+            2,
+            "alpha",
+            "body-girdle"
+          ],
+          "status": "observed-chain",
+          "why": "Ordered shoulder-elbow-wrist chain, visible interior, semantic interfaces and anatomical pairing",
+          "depth": "unobserved"
+        },
+        "RightHand": {
+          "point": [
+            29.75,
+            71.5
+          ],
+          "heuristic_radius_px": 2.5,
+          "evidence_count": 5,
+          "sources": [
+            11,
+            13,
+            2,
+            "alpha",
+            "body-girdle"
+          ],
+          "status": "observed-chain",
+          "why": "Ordered shoulder-elbow-wrist chain, visible interior, semantic interfaces and anatomical pairing",
+          "depth": "unobserved"
+        },
+        "RightShoulder": {
+          "point": [
+            52.063793103448276,
+            40.56896551724138
+          ],
+          "heuristic_radius_px": 3.0,
+          "evidence_count": 2,
+          "sources": [
+            "body-girdle",
+            11
+          ],
+          "status": "recovered-silhouette",
+          "why": "Clavicle root relative to central chest; not the glenohumeral Arm joint",
+          "depth": "unobserved"
+        }
+      },
+      "unknown_joints": [
+        "Jaw",
+        "LeftEye",
+        "RightEye",
+        "LeftShoulder",
+        "LeftArm",
+        "LeftForeArm",
+        "LeftHand",
+        "LeftHandThumb1",
+        "LeftHandThumb2",
+        "LeftHandThumb3",
+        "LeftHandThumbEnd",
+        "LeftHandIndex1",
+        "LeftHandIndex2",
+        "LeftHandIndex3",
+        "LeftHandIndex4",
+        "LeftHandIndexEnd",
+        "LeftHandMiddle1",
+        "LeftHandMiddle2",
+        "LeftHandMiddle3",
+        "LeftHandMiddle4",
+        "LeftHandMiddleEnd",
+        "LeftHandRing1",
+        "LeftHandRing2",
+        "LeftHandRing3",
+        "LeftHandRing4",
+        "LeftHandRingEnd",
+        "LeftHandPinky1",
+        "LeftHandPinky2",
+        "LeftHandPinky3",
+        "LeftHandPinky4",
+        "LeftHandPinkyEnd",
+        "RightHandThumb1",
+        "RightHandThumb2",
+        "RightHandThumb3",
+        "RightHandThumbEnd",
+        "RightHandIndex1",
+        "RightHandIndex2",
+        "RightHandIndex3",
+        "RightHandIndex4",
+        "RightHandIndexEnd",
+        "RightHandMiddle1",
+        "RightHandMiddle2",
+        "RightHandMiddle3",
+        "RightHandMiddle4",
+        "RightHandMiddleEnd",
+        "RightHandRing1",
+        "RightHandRing2",
+        "RightHandRing3",
+        "RightHandRing4",
+        "RightHandRingEnd",
+        "RightHandPinky1",
+        "RightHandPinky2",
+        "RightHandPinky3",
+        "RightHandPinky4",
+        "RightHandPinkyEnd",
+        "LeftLeg",
+        "LeftShin",
+        "LeftFoot",
+        "LeftToeBase",
+        "LeftToeEnd",
+        "RightLeg",
+        "RightShin",
+        "RightFoot",
+        "RightToeBase",
+        "RightToeEnd"
+      ],
+      "remaining_prior_only_joints": 65,
+      "unknown_depth": "Unobserved; canonical depth prior",
+      "knowledge": {
+        "transfers": [],
+        "pose_symmetry": {
+          "silhouette_mirror_iou": 0.9994614970382337,
+          "axis_x": 55.0,
+          "pose_symmetric": true,
+          "anatomical_pairing": true,
+          "reason": "Pose symmetry requires frontal view AND measured alpha agreement; paired anatomy alone does not imply a mirrored pose"
+        },
+        "arm_template": {
+          "source": "Right observed arm",
+          "upper_fraction": 0.6658048830605535,
+          "shoulder_span": 22.586206896551722,
+          "upper_px": 22.58936540168607,
+          "lower_px": 11.338540470448567
+        }
+      },
+      "conflicts": []
+    },
+    {
+      "step": 3,
+      "name": "Left arm reconstruction",
+      "chunk": 10,
+      "quality": 0.33952288401253916,
+      "priority": 0.33952288401253916,
+      "why": "The ordered chain resolves endpoint direction; recovered fragments consume prior established pair proportions and visible geodesics",
+      "used_neighbors": [
+        1,
+        14,
+        11
+      ],
+      "constrained_joints": [
+        "LeftArm",
+        "LeftForeArm",
+        "LeftHand",
+        "LeftShoulder"
+      ],
+      "before": {
+        "Hips": {
+          "point": [
+            55.0,
+            75.5
+          ],
+          "heuristic_radius_px": 3.0,
+          "evidence_count": 3,
+          "sources": [
+            1,
+            14,
+            "central-body-chain"
+          ],
+          "status": "observed-chain",
+          "why": "",
+          "depth": "unobserved"
+        },
+        "Chest": {
+          "point": [
+            55.0,
+            56.65
+          ],
+          "heuristic_radius_px": 3.0,
+          "evidence_count": 3,
+          "sources": [
+            1,
+            14,
+            "central-body-chain"
+          ],
+          "status": "observed-chain",
+          "why": "",
+          "depth": "unobserved"
+        },
+        "Neck1": {
+          "point": [
+            54.5,
+            39.25
+          ],
+          "heuristic_radius_px": 5.0,
+          "evidence_count": 3,
+          "sources": [
+            1,
+            14,
+            "central-body-chain"
+          ],
+          "status": "occluded-hypothesis",
+          "why": "",
+          "depth": "unobserved"
+        },
+        "Neck2": {
+          "point": [
+            54.5,
+            36.35
+          ],
+          "heuristic_radius_px": 5.0,
+          "evidence_count": 3,
+          "sources": [
+            1,
+            14,
+            "central-body-chain"
+          ],
+          "status": "occluded-hypothesis",
+          "why": "",
+          "depth": "unobserved"
+        },
+        "Head": {
+          "point": [
+            54.5,
+            32.0
+          ],
+          "heuristic_radius_px": 5.0,
+          "evidence_count": 3,
+          "sources": [
+            1,
+            14,
+            "central-body-chain"
+          ],
+          "status": "occluded-hypothesis",
+          "why": "",
+          "depth": "unobserved"
+        },
+        "HeadEnd": {
+          "point": [
+            54.5,
+            17.5
+          ],
+          "heuristic_radius_px": 3.0,
+          "evidence_count": 3,
+          "sources": [
+            1,
+            14,
+            "central-body-chain"
+          ],
+          "status": "observed-chain",
+          "why": "",
+          "depth": "unobserved"
+        },
+        "Spine1": {
+          "point": [
+            55.0,
+            69.21666666666667
+          ],
+          "heuristic_radius_px": 3.0,
+          "evidence_count": 3,
+          "sources": [
+            1,
+            14,
+            "central-body-chain"
+          ],
+          "status": "recovered-silhouette",
+          "why": "",
+          "depth": "unobserved"
+        },
+        "Spine2": {
+          "point": [
+            55.0,
+            62.93333333333334
+          ],
+          "heuristic_radius_px": 3.0,
+          "evidence_count": 3,
+          "sources": [
+            1,
+            14,
+            "central-body-chain"
+          ],
+          "status": "recovered-silhouette",
+          "why": "",
+          "depth": "unobserved"
+        },
+        "RightArm": {
+          "point": [
+            32.41379310344828,
+            38.56896551724138
+          ],
+          "heuristic_radius_px": 2.5,
+          "evidence_count": 5,
+          "sources": [
+            11,
+            13,
+            2,
+            "alpha",
+            "body-girdle"
+          ],
+          "status": "observed-chain",
+          "why": "Ordered shoulder-elbow-wrist chain, visible interior, semantic interfaces and anatomical pairing",
+          "depth": "unobserved"
+        },
+        "RightForeArm": {
+          "point": [
+            27.0,
+            60.5
+          ],
+          "heuristic_radius_px": 3.0,
+          "evidence_count": 5,
+          "sources": [
+            11,
+            13,
+            2,
+            "alpha",
+            "body-girdle"
+          ],
+          "status": "observed-chain",
+          "why": "Ordered shoulder-elbow-wrist chain, visible interior, semantic interfaces and anatomical pairing",
+          "depth": "unobserved"
+        },
+        "RightHand": {
+          "point": [
+            29.75,
+            71.5
+          ],
+          "heuristic_radius_px": 2.5,
+          "evidence_count": 5,
+          "sources": [
+            11,
+            13,
+            2,
+            "alpha",
+            "body-girdle"
+          ],
+          "status": "observed-chain",
+          "why": "Ordered shoulder-elbow-wrist chain, visible interior, semantic interfaces and anatomical pairing",
+          "depth": "unobserved"
+        },
+        "RightShoulder": {
+          "point": [
+            52.063793103448276,
+            40.56896551724138
+          ],
+          "heuristic_radius_px": 3.0,
+          "evidence_count": 2,
+          "sources": [
+            "body-girdle",
+            11
+          ],
+          "status": "recovered-silhouette",
+          "why": "Clavicle root relative to central chest; not the glenohumeral Arm joint",
+          "depth": "unobserved"
+        }
+      },
+      "after": {
+        "Hips": {
+          "point": [
+            55.0,
+            75.5
+          ],
+          "heuristic_radius_px": 3.0,
+          "evidence_count": 3,
+          "sources": [
+            1,
+            14,
+            "central-body-chain"
+          ],
+          "status": "observed-chain",
+          "why": "",
+          "depth": "unobserved"
+        },
+        "Chest": {
+          "point": [
+            55.0,
+            56.65
+          ],
+          "heuristic_radius_px": 3.0,
+          "evidence_count": 3,
+          "sources": [
+            1,
+            14,
+            "central-body-chain"
+          ],
+          "status": "observed-chain",
+          "why": "",
+          "depth": "unobserved"
+        },
+        "Neck1": {
+          "point": [
+            54.5,
+            39.25
+          ],
+          "heuristic_radius_px": 5.0,
+          "evidence_count": 3,
+          "sources": [
+            1,
+            14,
+            "central-body-chain"
+          ],
+          "status": "occluded-hypothesis",
+          "why": "",
+          "depth": "unobserved"
+        },
+        "Neck2": {
+          "point": [
+            54.5,
+            36.35
+          ],
+          "heuristic_radius_px": 5.0,
+          "evidence_count": 3,
+          "sources": [
+            1,
+            14,
+            "central-body-chain"
+          ],
+          "status": "occluded-hypothesis",
+          "why": "",
+          "depth": "unobserved"
+        },
+        "Head": {
+          "point": [
+            54.5,
+            32.0
+          ],
+          "heuristic_radius_px": 5.0,
+          "evidence_count": 3,
+          "sources": [
+            1,
+            14,
+            "central-body-chain"
+          ],
+          "status": "occluded-hypothesis",
+          "why": "",
+          "depth": "unobserved"
+        },
+        "HeadEnd": {
+          "point": [
+            54.5,
+            17.5
+          ],
+          "heuristic_radius_px": 3.0,
+          "evidence_count": 3,
+          "sources": [
+            1,
+            14,
+            "central-body-chain"
+          ],
+          "status": "observed-chain",
+          "why": "",
+          "depth": "unobserved"
+        },
+        "Spine1": {
+          "point": [
+            55.0,
+            69.21666666666667
+          ],
+          "heuristic_radius_px": 3.0,
+          "evidence_count": 3,
+          "sources": [
+            1,
+            14,
+            "central-body-chain"
+          ],
+          "status": "recovered-silhouette",
+          "why": "",
+          "depth": "unobserved"
+        },
+        "Spine2": {
+          "point": [
+            55.0,
+            62.93333333333334
+          ],
+          "heuristic_radius_px": 3.0,
+          "evidence_count": 3,
+          "sources": [
+            1,
+            14,
+            "central-body-chain"
+          ],
+          "status": "recovered-silhouette",
+          "why": "",
+          "depth": "unobserved"
+        },
+        "RightArm": {
+          "point": [
+            32.41379310344828,
+            38.56896551724138
+          ],
+          "heuristic_radius_px": 2.5,
+          "evidence_count": 5,
+          "sources": [
+            11,
+            13,
+            2,
+            "alpha",
+            "body-girdle"
+          ],
+          "status": "observed-chain",
+          "why": "Ordered shoulder-elbow-wrist chain, visible interior, semantic interfaces and anatomical pairing",
+          "depth": "unobserved"
+        },
+        "RightForeArm": {
+          "point": [
+            27.0,
+            60.5
+          ],
+          "heuristic_radius_px": 3.0,
+          "evidence_count": 5,
+          "sources": [
+            11,
+            13,
+            2,
+            "alpha",
+            "body-girdle"
+          ],
+          "status": "observed-chain",
+          "why": "Ordered shoulder-elbow-wrist chain, visible interior, semantic interfaces and anatomical pairing",
+          "depth": "unobserved"
+        },
+        "RightHand": {
+          "point": [
+            29.75,
+            71.5
+          ],
+          "heuristic_radius_px": 2.5,
+          "evidence_count": 5,
+          "sources": [
+            11,
+            13,
+            2,
+            "alpha",
+            "body-girdle"
+          ],
+          "status": "observed-chain",
+          "why": "Ordered shoulder-elbow-wrist chain, visible interior, semantic interfaces and anatomical pairing",
+          "depth": "unobserved"
+        },
+        "RightShoulder": {
+          "point": [
+            52.063793103448276,
+            40.56896551724138
+          ],
+          "heuristic_radius_px": 3.0,
+          "evidence_count": 2,
+          "sources": [
+            "body-girdle",
+            11
+          ],
+          "status": "recovered-silhouette",
+          "why": "Clavicle root relative to central chest; not the glenohumeral Arm joint",
+          "depth": "unobserved"
+        },
+        "LeftArm": {
+          "point": [
+            77.55084745762711,
+            38.55084745762712
+          ],
+          "heuristic_radius_px": 2.5,
+          "evidence_count": 5,
+          "sources": [
+            10,
+            12,
+            3,
+            "alpha",
+            "body-girdle"
+          ],
+          "status": "observed-chain",
+          "why": "Ordered shoulder-elbow-wrist chain, visible interior, semantic interfaces and anatomical pairing",
+          "depth": "unobserved"
+        },
+        "LeftForeArm": {
+          "point": [
+            82.75,
+            61.0
+          ],
+          "heuristic_radius_px": 3.0,
+          "evidence_count": 5,
+          "sources": [
+            10,
+            12,
+            3,
+            "alpha",
+            "body-girdle"
+          ],
+          "status": "observed-chain",
+          "why": "Ordered shoulder-elbow-wrist chain, visible interior, semantic interfaces and anatomical pairing",
+          "depth": "unobserved"
+        },
+        "LeftHand": {
+          "point": [
+            80.0,
+            71.5
+          ],
+          "heuristic_radius_px": 2.5,
+          "evidence_count": 5,
+          "sources": [
+            10,
+            12,
+            3,
+            "alpha",
+            "body-girdle"
+          ],
+          "status": "observed-chain",
+          "why": "Ordered shoulder-elbow-wrist chain, visible interior, semantic interfaces and anatomical pairing",
+          "depth": "unobserved"
+        },
+        "LeftShoulder": {
+          "point": [
+            57.93161016949153,
+            40.55084745762712
+          ],
+          "heuristic_radius_px": 3.0,
+          "evidence_count": 2,
+          "sources": [
+            "body-girdle",
+            10
+          ],
+          "status": "recovered-silhouette",
+          "why": "Clavicle root relative to central chest; not the glenohumeral Arm joint",
+          "depth": "unobserved"
+        }
+      },
+      "unknown_joints": [
+        "Jaw",
+        "LeftEye",
+        "RightEye",
+        "LeftHandThumb1",
+        "LeftHandThumb2",
+        "LeftHandThumb3",
+        "LeftHandThumbEnd",
+        "LeftHandIndex1",
+        "LeftHandIndex2",
+        "LeftHandIndex3",
+        "LeftHandIndex4",
+        "LeftHandIndexEnd",
+        "LeftHandMiddle1",
+        "LeftHandMiddle2",
+        "LeftHandMiddle3",
+        "LeftHandMiddle4",
+        "LeftHandMiddleEnd",
+        "LeftHandRing1",
+        "LeftHandRing2",
+        "LeftHandRing3",
+        "LeftHandRing4",
+        "LeftHandRingEnd",
+        "LeftHandPinky1",
+        "LeftHandPinky2",
+        "LeftHandPinky3",
+        "LeftHandPinky4",
+        "LeftHandPinkyEnd",
+        "RightHandThumb1",
+        "RightHandThumb2",
+        "RightHandThumb3",
+        "RightHandThumbEnd",
+        "RightHandIndex1",
+        "RightHandIndex2",
+        "RightHandIndex3",
+        "RightHandIndex4",
+        "RightHandIndexEnd",
+        "RightHandMiddle1",
+        "RightHandMiddle2",
+        "RightHandMiddle3",
+        "RightHandMiddle4",
+        "RightHandMiddleEnd",
+        "RightHandRing1",
+        "RightHandRing2",
+        "RightHandRing3",
+        "RightHandRing4",
+        "RightHandRingEnd",
+        "RightHandPinky1",
+        "RightHandPinky2",
+        "RightHandPinky3",
+        "RightHandPinky4",
+        "RightHandPinkyEnd",
+        "LeftLeg",
+        "LeftShin",
+        "LeftFoot",
+        "LeftToeBase",
+        "LeftToeEnd",
+        "RightLeg",
+        "RightShin",
+        "RightFoot",
+        "RightToeBase",
+        "RightToeEnd"
+      ],
+      "remaining_prior_only_joints": 61,
+      "unknown_depth": "Unobserved; canonical depth prior",
+      "knowledge": {
+        "transfers": [],
+        "pose_symmetry": {
+          "silhouette_mirror_iou": 0.9994614970382337,
+          "axis_x": 55.0,
+          "pose_symmetric": true,
+          "anatomical_pairing": true,
+          "reason": "Pose symmetry requires frontal view AND measured alpha agreement; paired anatomy alone does not imply a mirrored pose"
+        },
+        "arm_template": {
+          "source": "Right observed arm + Left observed arm",
+          "upper_fraction": 0.6727999248864166,
+          "shoulder_span": 22.56852717708942,
+          "upper_px": 22.816353988351516,
+          "lower_px": 11.096343571747386
+        }
+      },
+      "conflicts": []
+    },
+    {
+      "step": 4,
+      "name": "Right hip and knee",
+      "chunk": 6,
+      "quality": 0.33658863955119217,
+      "priority": 0.33658863955119217,
+      "why": "Pelvis attachment and visible leg corridor reject a distal mislabelled knee",
+      "used_neighbors": [
+        1
+      ],
+      "constrained_joints": [
+        "RightLeg",
+        "RightShin"
+      ],
+      "before": {
+        "Hips": {
+          "point": [
+            55.0,
+            75.5
+          ],
+          "heuristic_radius_px": 3.0,
+          "evidence_count": 3,
+          "sources": [
+            1,
+            14,
+            "central-body-chain"
+          ],
+          "status": "observed-chain",
+          "why": "",
+          "depth": "unobserved"
+        },
+        "Chest": {
+          "point": [
+            55.0,
+            56.65
+          ],
+          "heuristic_radius_px": 3.0,
+          "evidence_count": 3,
+          "sources": [
+            1,
+            14,
+            "central-body-chain"
+          ],
+          "status": "observed-chain",
+          "why": "",
+          "depth": "unobserved"
+        },
+        "Neck1": {
+          "point": [
+            54.5,
+            39.25
+          ],
+          "heuristic_radius_px": 5.0,
+          "evidence_count": 3,
+          "sources": [
+            1,
+            14,
+            "central-body-chain"
+          ],
+          "status": "occluded-hypothesis",
+          "why": "",
+          "depth": "unobserved"
+        },
+        "Neck2": {
+          "point": [
+            54.5,
+            36.35
+          ],
+          "heuristic_radius_px": 5.0,
+          "evidence_count": 3,
+          "sources": [
+            1,
+            14,
+            "central-body-chain"
+          ],
+          "status": "occluded-hypothesis",
+          "why": "",
+          "depth": "unobserved"
+        },
+        "Head": {
+          "point": [
+            54.5,
+            32.0
+          ],
+          "heuristic_radius_px": 5.0,
+          "evidence_count": 3,
+          "sources": [
+            1,
+            14,
+            "central-body-chain"
+          ],
+          "status": "occluded-hypothesis",
+          "why": "",
+          "depth": "unobserved"
+        },
+        "HeadEnd": {
+          "point": [
+            54.5,
+            17.5
+          ],
+          "heuristic_radius_px": 3.0,
+          "evidence_count": 3,
+          "sources": [
+            1,
+            14,
+            "central-body-chain"
+          ],
+          "status": "observed-chain",
+          "why": "",
+          "depth": "unobserved"
+        },
+        "Spine1": {
+          "point": [
+            55.0,
+            69.21666666666667
+          ],
+          "heuristic_radius_px": 3.0,
+          "evidence_count": 3,
+          "sources": [
+            1,
+            14,
+            "central-body-chain"
+          ],
+          "status": "recovered-silhouette",
+          "why": "",
+          "depth": "unobserved"
+        },
+        "Spine2": {
+          "point": [
+            55.0,
+            62.93333333333334
+          ],
+          "heuristic_radius_px": 3.0,
+          "evidence_count": 3,
+          "sources": [
+            1,
+            14,
+            "central-body-chain"
+          ],
+          "status": "recovered-silhouette",
+          "why": "",
+          "depth": "unobserved"
+        },
+        "RightArm": {
+          "point": [
+            32.41379310344828,
+            38.56896551724138
+          ],
+          "heuristic_radius_px": 2.5,
+          "evidence_count": 5,
+          "sources": [
+            11,
+            13,
+            2,
+            "alpha",
+            "body-girdle"
+          ],
+          "status": "observed-chain",
+          "why": "Ordered shoulder-elbow-wrist chain, visible interior, semantic interfaces and anatomical pairing",
+          "depth": "unobserved"
+        },
+        "RightForeArm": {
+          "point": [
+            27.0,
+            60.5
+          ],
+          "heuristic_radius_px": 3.0,
+          "evidence_count": 5,
+          "sources": [
+            11,
+            13,
+            2,
+            "alpha",
+            "body-girdle"
+          ],
+          "status": "observed-chain",
+          "why": "Ordered shoulder-elbow-wrist chain, visible interior, semantic interfaces and anatomical pairing",
+          "depth": "unobserved"
+        },
+        "RightHand": {
+          "point": [
+            29.75,
+            71.5
+          ],
+          "heuristic_radius_px": 2.5,
+          "evidence_count": 5,
+          "sources": [
+            11,
+            13,
+            2,
+            "alpha",
+            "body-girdle"
+          ],
+          "status": "observed-chain",
+          "why": "Ordered shoulder-elbow-wrist chain, visible interior, semantic interfaces and anatomical pairing",
+          "depth": "unobserved"
+        },
+        "RightShoulder": {
+          "point": [
+            52.063793103448276,
+            40.56896551724138
+          ],
+          "heuristic_radius_px": 3.0,
+          "evidence_count": 2,
+          "sources": [
+            "body-girdle",
+            11
+          ],
+          "status": "recovered-silhouette",
+          "why": "Clavicle root relative to central chest; not the glenohumeral Arm joint",
+          "depth": "unobserved"
+        },
+        "LeftArm": {
+          "point": [
+            77.55084745762711,
+            38.55084745762712
+          ],
+          "heuristic_radius_px": 2.5,
+          "evidence_count": 5,
+          "sources": [
+            10,
+            12,
+            3,
+            "alpha",
+            "body-girdle"
+          ],
+          "status": "observed-chain",
+          "why": "Ordered shoulder-elbow-wrist chain, visible interior, semantic interfaces and anatomical pairing",
+          "depth": "unobserved"
+        },
+        "LeftForeArm": {
+          "point": [
+            82.75,
+            61.0
+          ],
+          "heuristic_radius_px": 3.0,
+          "evidence_count": 5,
+          "sources": [
+            10,
+            12,
+            3,
+            "alpha",
+            "body-girdle"
+          ],
+          "status": "observed-chain",
+          "why": "Ordered shoulder-elbow-wrist chain, visible interior, semantic interfaces and anatomical pairing",
+          "depth": "unobserved"
+        },
+        "LeftHand": {
+          "point": [
+            80.0,
+            71.5
+          ],
+          "heuristic_radius_px": 2.5,
+          "evidence_count": 5,
+          "sources": [
+            10,
+            12,
+            3,
+            "alpha",
+            "body-girdle"
+          ],
+          "status": "observed-chain",
+          "why": "Ordered shoulder-elbow-wrist chain, visible interior, semantic interfaces and anatomical pairing",
+          "depth": "unobserved"
+        },
+        "LeftShoulder": {
+          "point": [
+            57.93161016949153,
+            40.55084745762712
+          ],
+          "heuristic_radius_px": 3.0,
+          "evidence_count": 2,
+          "sources": [
+            "body-girdle",
+            10
+          ],
+          "status": "recovered-silhouette",
+          "why": "Clavicle root relative to central chest; not the glenohumeral Arm joint",
+          "depth": "unobserved"
+        }
+      },
+      "after": {
+        "Hips": {
+          "point": [
+            55.0,
+            75.5
+          ],
+          "heuristic_radius_px": 3.0,
+          "evidence_count": 3,
+          "sources": [
+            1,
+            14,
+            "central-body-chain"
+          ],
+          "status": "observed-chain",
+          "why": "",
+          "depth": "unobserved"
+        },
+        "Chest": {
+          "point": [
+            55.0,
+            56.65
+          ],
+          "heuristic_radius_px": 3.0,
+          "evidence_count": 3,
+          "sources": [
+            1,
+            14,
+            "central-body-chain"
+          ],
+          "status": "observed-chain",
+          "why": "",
+          "depth": "unobserved"
+        },
+        "Neck1": {
+          "point": [
+            54.5,
+            39.25
+          ],
+          "heuristic_radius_px": 5.0,
+          "evidence_count": 3,
+          "sources": [
+            1,
+            14,
+            "central-body-chain"
+          ],
+          "status": "occluded-hypothesis",
+          "why": "",
+          "depth": "unobserved"
+        },
+        "Neck2": {
+          "point": [
+            54.5,
+            36.35
+          ],
+          "heuristic_radius_px": 5.0,
+          "evidence_count": 3,
+          "sources": [
+            1,
+            14,
+            "central-body-chain"
+          ],
+          "status": "occluded-hypothesis",
+          "why": "",
+          "depth": "unobserved"
+        },
+        "Head": {
+          "point": [
+            54.5,
+            32.0
+          ],
+          "heuristic_radius_px": 5.0,
+          "evidence_count": 3,
+          "sources": [
+            1,
+            14,
+            "central-body-chain"
+          ],
+          "status": "occluded-hypothesis",
+          "why": "",
+          "depth": "unobserved"
+        },
+        "HeadEnd": {
+          "point": [
+            54.5,
+            17.5
+          ],
+          "heuristic_radius_px": 3.0,
+          "evidence_count": 3,
+          "sources": [
+            1,
+            14,
+            "central-body-chain"
+          ],
+          "status": "observed-chain",
+          "why": "",
+          "depth": "unobserved"
+        },
+        "Spine1": {
+          "point": [
+            55.0,
+            69.21666666666667
+          ],
+          "heuristic_radius_px": 3.0,
+          "evidence_count": 3,
+          "sources": [
+            1,
+            14,
+            "central-body-chain"
+          ],
+          "status": "recovered-silhouette",
+          "why": "",
+          "depth": "unobserved"
+        },
+        "Spine2": {
+          "point": [
+            55.0,
+            62.93333333333334
+          ],
+          "heuristic_radius_px": 3.0,
+          "evidence_count": 3,
+          "sources": [
+            1,
+            14,
+            "central-body-chain"
+          ],
+          "status": "recovered-silhouette",
+          "why": "",
+          "depth": "unobserved"
+        },
+        "RightArm": {
+          "point": [
+            32.41379310344828,
+            38.56896551724138
+          ],
+          "heuristic_radius_px": 2.5,
+          "evidence_count": 5,
+          "sources": [
+            11,
+            13,
+            2,
+            "alpha",
+            "body-girdle"
+          ],
+          "status": "observed-chain",
+          "why": "Ordered shoulder-elbow-wrist chain, visible interior, semantic interfaces and anatomical pairing",
+          "depth": "unobserved"
+        },
+        "RightForeArm": {
+          "point": [
+            27.0,
+            60.5
+          ],
+          "heuristic_radius_px": 3.0,
+          "evidence_count": 5,
+          "sources": [
+            11,
+            13,
+            2,
+            "alpha",
+            "body-girdle"
+          ],
+          "status": "observed-chain",
+          "why": "Ordered shoulder-elbow-wrist chain, visible interior, semantic interfaces and anatomical pairing",
+          "depth": "unobserved"
+        },
+        "RightHand": {
+          "point": [
+            29.75,
+            71.5
+          ],
+          "heuristic_radius_px": 2.5,
+          "evidence_count": 5,
+          "sources": [
+            11,
+            13,
+            2,
+            "alpha",
+            "body-girdle"
+          ],
+          "status": "observed-chain",
+          "why": "Ordered shoulder-elbow-wrist chain, visible interior, semantic interfaces and anatomical pairing",
+          "depth": "unobserved"
+        },
+        "RightShoulder": {
+          "point": [
+            52.063793103448276,
+            40.56896551724138
+          ],
+          "heuristic_radius_px": 3.0,
+          "evidence_count": 2,
+          "sources": [
+            "body-girdle",
+            11
+          ],
+          "status": "recovered-silhouette",
+          "why": "Clavicle root relative to central chest; not the glenohumeral Arm joint",
+          "depth": "unobserved"
+        },
+        "LeftArm": {
+          "point": [
+            77.55084745762711,
+            38.55084745762712
+          ],
+          "heuristic_radius_px": 2.5,
+          "evidence_count": 5,
+          "sources": [
+            10,
+            12,
+            3,
+            "alpha",
+            "body-girdle"
+          ],
+          "status": "observed-chain",
+          "why": "Ordered shoulder-elbow-wrist chain, visible interior, semantic interfaces and anatomical pairing",
+          "depth": "unobserved"
+        },
+        "LeftForeArm": {
+          "point": [
+            82.75,
+            61.0
+          ],
+          "heuristic_radius_px": 3.0,
+          "evidence_count": 5,
+          "sources": [
+            10,
+            12,
+            3,
+            "alpha",
+            "body-girdle"
+          ],
+          "status": "observed-chain",
+          "why": "Ordered shoulder-elbow-wrist chain, visible interior, semantic interfaces and anatomical pairing",
+          "depth": "unobserved"
+        },
+        "LeftHand": {
+          "point": [
+            80.0,
+            71.5
+          ],
+          "heuristic_radius_px": 2.5,
+          "evidence_count": 5,
+          "sources": [
+            10,
+            12,
+            3,
+            "alpha",
+            "body-girdle"
+          ],
+          "status": "observed-chain",
+          "why": "Ordered shoulder-elbow-wrist chain, visible interior, semantic interfaces and anatomical pairing",
+          "depth": "unobserved"
+        },
+        "LeftShoulder": {
+          "point": [
+            57.93161016949153,
+            40.55084745762712
+          ],
+          "heuristic_radius_px": 3.0,
+          "evidence_count": 2,
+          "sources": [
+            "body-girdle",
+            10
+          ],
+          "status": "recovered-silhouette",
+          "why": "Clavicle root relative to central chest; not the glenohumeral Arm joint",
+          "depth": "unobserved"
+        },
+        "RightLeg": {
+          "point": [
+            45.5,
+            78.5
+          ],
+          "heuristic_radius_px": 3.0,
+          "evidence_count": 3,
+          "sources": [
+            1,
+            6,
+            "pelvis-frame"
+          ],
+          "status": "observed-chain",
+          "why": "",
+          "depth": "unobserved"
+        },
+        "RightShin": {
+          "point": [
+            43.5,
+            90.0
+          ],
+          "heuristic_radius_px": 3.5,
+          "evidence_count": 4,
+          "sources": [
+            6,
+            8,
+            "alpha",
+            "paired-leg-proportions"
+          ],
+          "status": "observed-chain",
+          "why": "",
+          "depth": "unobserved"
+        }
+      },
+      "unknown_joints": [
+        "Jaw",
+        "LeftEye",
+        "RightEye",
+        "LeftHandThumb1",
+        "LeftHandThumb2",
+        "LeftHandThumb3",
+        "LeftHandThumbEnd",
+        "LeftHandIndex1",
+        "LeftHandIndex2",
+        "LeftHandIndex3",
+        "LeftHandIndex4",
+        "LeftHandIndexEnd",
+        "LeftHandMiddle1",
+        "LeftHandMiddle2",
+        "LeftHandMiddle3",
+        "LeftHandMiddle4",
+        "LeftHandMiddleEnd",
+        "LeftHandRing1",
+        "LeftHandRing2",
+        "LeftHandRing3",
+        "LeftHandRing4",
+        "LeftHandRingEnd",
+        "LeftHandPinky1",
+        "LeftHandPinky2",
+        "LeftHandPinky3",
+        "LeftHandPinky4",
+        "LeftHandPinkyEnd",
+        "RightHandThumb1",
+        "RightHandThumb2",
+        "RightHandThumb3",
+        "RightHandThumbEnd",
+        "RightHandIndex1",
+        "RightHandIndex2",
+        "RightHandIndex3",
+        "RightHandIndex4",
+        "RightHandIndexEnd",
+        "RightHandMiddle1",
+        "RightHandMiddle2",
+        "RightHandMiddle3",
+        "RightHandMiddle4",
+        "RightHandMiddleEnd",
+        "RightHandRing1",
+        "RightHandRing2",
+        "RightHandRing3",
+        "RightHandRing4",
+        "RightHandRingEnd",
+        "RightHandPinky1",
+        "RightHandPinky2",
+        "RightHandPinky3",
+        "RightHandPinky4",
+        "RightHandPinkyEnd",
+        "LeftLeg",
+        "LeftShin",
+        "LeftFoot",
+        "LeftToeBase",
+        "LeftToeEnd",
+        "RightFoot",
+        "RightToeBase",
+        "RightToeEnd"
+      ],
+      "remaining_prior_only_joints": 59,
+      "unknown_depth": "Unobserved; canonical depth prior",
+      "knowledge": {
+        "transfers": [],
+        "pose_symmetry": {
+          "silhouette_mirror_iou": 0.9994614970382337,
+          "axis_x": 55.0,
+          "pose_symmetric": true,
+          "anatomical_pairing": true,
+          "reason": "Pose symmetry requires frontal view AND measured alpha agreement; paired anatomy alone does not imply a mirrored pose"
+        },
+        "arm_template": {
+          "source": "Right observed arm + Left observed arm",
+          "upper_fraction": 0.6727999248864166,
+          "shoulder_span": 22.56852717708942,
+          "upper_px": 22.816353988351516,
+          "lower_px": 11.096343571747386
+        }
+      },
+      "conflicts": []
+    },
+    {
+      "step": 5,
+      "name": "Right foot recovery",
+      "chunk": 5,
+      "quality": 0.0,
+      "priority": 0.0,
+      "why": "Established hip/knee chain plus terminal alpha support reconstructs missing foot observations",
+      "used_neighbors": [
+        6,
+        8,
+        "alpha"
+      ],
+      "constrained_joints": [
+        "RightFoot",
+        "RightToeBase",
+        "RightToeEnd"
+      ],
+      "before": {
+        "Hips": {
+          "point": [
+            55.0,
+            75.5
+          ],
+          "heuristic_radius_px": 3.0,
+          "evidence_count": 3,
+          "sources": [
+            1,
+            14,
+            "central-body-chain"
+          ],
+          "status": "observed-chain",
+          "why": "",
+          "depth": "unobserved"
+        },
+        "Chest": {
+          "point": [
+            55.0,
+            56.65
+          ],
+          "heuristic_radius_px": 3.0,
+          "evidence_count": 3,
+          "sources": [
+            1,
+            14,
+            "central-body-chain"
+          ],
+          "status": "observed-chain",
+          "why": "",
+          "depth": "unobserved"
+        },
+        "Neck1": {
+          "point": [
+            54.5,
+            39.25
+          ],
+          "heuristic_radius_px": 5.0,
+          "evidence_count": 3,
+          "sources": [
+            1,
+            14,
+            "central-body-chain"
+          ],
+          "status": "occluded-hypothesis",
+          "why": "",
+          "depth": "unobserved"
+        },
+        "Neck2": {
+          "point": [
+            54.5,
+            36.35
+          ],
+          "heuristic_radius_px": 5.0,
+          "evidence_count": 3,
+          "sources": [
+            1,
+            14,
+            "central-body-chain"
+          ],
+          "status": "occluded-hypothesis",
+          "why": "",
+          "depth": "unobserved"
+        },
+        "Head": {
+          "point": [
+            54.5,
+            32.0
+          ],
+          "heuristic_radius_px": 5.0,
+          "evidence_count": 3,
+          "sources": [
+            1,
+            14,
+            "central-body-chain"
+          ],
+          "status": "occluded-hypothesis",
+          "why": "",
+          "depth": "unobserved"
+        },
+        "HeadEnd": {
+          "point": [
+            54.5,
+            17.5
+          ],
+          "heuristic_radius_px": 3.0,
+          "evidence_count": 3,
+          "sources": [
+            1,
+            14,
+            "central-body-chain"
+          ],
+          "status": "observed-chain",
+          "why": "",
+          "depth": "unobserved"
+        },
+        "Spine1": {
+          "point": [
+            55.0,
+            69.21666666666667
+          ],
+          "heuristic_radius_px": 3.0,
+          "evidence_count": 3,
+          "sources": [
+            1,
+            14,
+            "central-body-chain"
+          ],
+          "status": "recovered-silhouette",
+          "why": "",
+          "depth": "unobserved"
+        },
+        "Spine2": {
+          "point": [
+            55.0,
+            62.93333333333334
+          ],
+          "heuristic_radius_px": 3.0,
+          "evidence_count": 3,
+          "sources": [
+            1,
+            14,
+            "central-body-chain"
+          ],
+          "status": "recovered-silhouette",
+          "why": "",
+          "depth": "unobserved"
+        },
+        "RightArm": {
+          "point": [
+            32.41379310344828,
+            38.56896551724138
+          ],
+          "heuristic_radius_px": 2.5,
+          "evidence_count": 5,
+          "sources": [
+            11,
+            13,
+            2,
+            "alpha",
+            "body-girdle"
+          ],
+          "status": "observed-chain",
+          "why": "Ordered shoulder-elbow-wrist chain, visible interior, semantic interfaces and anatomical pairing",
+          "depth": "unobserved"
+        },
+        "RightForeArm": {
+          "point": [
+            27.0,
+            60.5
+          ],
+          "heuristic_radius_px": 3.0,
+          "evidence_count": 5,
+          "sources": [
+            11,
+            13,
+            2,
+            "alpha",
+            "body-girdle"
+          ],
+          "status": "observed-chain",
+          "why": "Ordered shoulder-elbow-wrist chain, visible interior, semantic interfaces and anatomical pairing",
+          "depth": "unobserved"
+        },
+        "RightHand": {
+          "point": [
+            29.75,
+            71.5
+          ],
+          "heuristic_radius_px": 2.5,
+          "evidence_count": 5,
+          "sources": [
+            11,
+            13,
+            2,
+            "alpha",
+            "body-girdle"
+          ],
+          "status": "observed-chain",
+          "why": "Ordered shoulder-elbow-wrist chain, visible interior, semantic interfaces and anatomical pairing",
+          "depth": "unobserved"
+        },
+        "RightShoulder": {
+          "point": [
+            52.063793103448276,
+            40.56896551724138
+          ],
+          "heuristic_radius_px": 3.0,
+          "evidence_count": 2,
+          "sources": [
+            "body-girdle",
+            11
+          ],
+          "status": "recovered-silhouette",
+          "why": "Clavicle root relative to central chest; not the glenohumeral Arm joint",
+          "depth": "unobserved"
+        },
+        "LeftArm": {
+          "point": [
+            77.55084745762711,
+            38.55084745762712
+          ],
+          "heuristic_radius_px": 2.5,
+          "evidence_count": 5,
+          "sources": [
+            10,
+            12,
+            3,
+            "alpha",
+            "body-girdle"
+          ],
+          "status": "observed-chain",
+          "why": "Ordered shoulder-elbow-wrist chain, visible interior, semantic interfaces and anatomical pairing",
+          "depth": "unobserved"
+        },
+        "LeftForeArm": {
+          "point": [
+            82.75,
+            61.0
+          ],
+          "heuristic_radius_px": 3.0,
+          "evidence_count": 5,
+          "sources": [
+            10,
+            12,
+            3,
+            "alpha",
+            "body-girdle"
+          ],
+          "status": "observed-chain",
+          "why": "Ordered shoulder-elbow-wrist chain, visible interior, semantic interfaces and anatomical pairing",
+          "depth": "unobserved"
+        },
+        "LeftHand": {
+          "point": [
+            80.0,
+            71.5
+          ],
+          "heuristic_radius_px": 2.5,
+          "evidence_count": 5,
+          "sources": [
+            10,
+            12,
+            3,
+            "alpha",
+            "body-girdle"
+          ],
+          "status": "observed-chain",
+          "why": "Ordered shoulder-elbow-wrist chain, visible interior, semantic interfaces and anatomical pairing",
+          "depth": "unobserved"
+        },
+        "LeftShoulder": {
+          "point": [
+            57.93161016949153,
+            40.55084745762712
+          ],
+          "heuristic_radius_px": 3.0,
+          "evidence_count": 2,
+          "sources": [
+            "body-girdle",
+            10
+          ],
+          "status": "recovered-silhouette",
+          "why": "Clavicle root relative to central chest; not the glenohumeral Arm joint",
+          "depth": "unobserved"
+        },
+        "RightLeg": {
+          "point": [
+            45.5,
+            78.5
+          ],
+          "heuristic_radius_px": 3.0,
+          "evidence_count": 3,
+          "sources": [
+            1,
+            6,
+            "pelvis-frame"
+          ],
+          "status": "observed-chain",
+          "why": "",
+          "depth": "unobserved"
+        },
+        "RightShin": {
+          "point": [
+            43.5,
+            90.0
+          ],
+          "heuristic_radius_px": 3.5,
+          "evidence_count": 4,
+          "sources": [
+            6,
+            8,
+            "alpha",
+            "paired-leg-proportions"
+          ],
+          "status": "observed-chain",
+          "why": "",
+          "depth": "unobserved"
+        }
+      },
+      "after": {
+        "Hips": {
+          "point": [
+            55.0,
+            75.5
+          ],
+          "heuristic_radius_px": 3.0,
+          "evidence_count": 3,
+          "sources": [
+            1,
+            14,
+            "central-body-chain"
+          ],
+          "status": "observed-chain",
+          "why": "",
+          "depth": "unobserved"
+        },
+        "Chest": {
+          "point": [
+            55.0,
+            56.65
+          ],
+          "heuristic_radius_px": 3.0,
+          "evidence_count": 3,
+          "sources": [
+            1,
+            14,
+            "central-body-chain"
+          ],
+          "status": "observed-chain",
+          "why": "",
+          "depth": "unobserved"
+        },
+        "Neck1": {
+          "point": [
+            54.5,
+            39.25
+          ],
+          "heuristic_radius_px": 5.0,
+          "evidence_count": 3,
+          "sources": [
+            1,
+            14,
+            "central-body-chain"
+          ],
+          "status": "occluded-hypothesis",
+          "why": "",
+          "depth": "unobserved"
+        },
+        "Neck2": {
+          "point": [
+            54.5,
+            36.35
+          ],
+          "heuristic_radius_px": 5.0,
+          "evidence_count": 3,
+          "sources": [
+            1,
+            14,
+            "central-body-chain"
+          ],
+          "status": "occluded-hypothesis",
+          "why": "",
+          "depth": "unobserved"
+        },
+        "Head": {
+          "point": [
+            54.5,
+            32.0
+          ],
+          "heuristic_radius_px": 5.0,
+          "evidence_count": 3,
+          "sources": [
+            1,
+            14,
+            "central-body-chain"
+          ],
+          "status": "occluded-hypothesis",
+          "why": "",
+          "depth": "unobserved"
+        },
+        "HeadEnd": {
+          "point": [
+            54.5,
+            17.5
+          ],
+          "heuristic_radius_px": 3.0,
+          "evidence_count": 3,
+          "sources": [
+            1,
+            14,
+            "central-body-chain"
+          ],
+          "status": "observed-chain",
+          "why": "",
+          "depth": "unobserved"
+        },
+        "Spine1": {
+          "point": [
+            55.0,
+            69.21666666666667
+          ],
+          "heuristic_radius_px": 3.0,
+          "evidence_count": 3,
+          "sources": [
+            1,
+            14,
+            "central-body-chain"
+          ],
+          "status": "recovered-silhouette",
+          "why": "",
+          "depth": "unobserved"
+        },
+        "Spine2": {
+          "point": [
+            55.0,
+            62.93333333333334
+          ],
+          "heuristic_radius_px": 3.0,
+          "evidence_count": 3,
+          "sources": [
+            1,
+            14,
+            "central-body-chain"
+          ],
+          "status": "recovered-silhouette",
+          "why": "",
+          "depth": "unobserved"
+        },
+        "RightArm": {
+          "point": [
+            32.41379310344828,
+            38.56896551724138
+          ],
+          "heuristic_radius_px": 2.5,
+          "evidence_count": 5,
+          "sources": [
+            11,
+            13,
+            2,
+            "alpha",
+            "body-girdle"
+          ],
+          "status": "observed-chain",
+          "why": "Ordered shoulder-elbow-wrist chain, visible interior, semantic interfaces and anatomical pairing",
+          "depth": "unobserved"
+        },
+        "RightForeArm": {
+          "point": [
+            27.0,
+            60.5
+          ],
+          "heuristic_radius_px": 3.0,
+          "evidence_count": 5,
+          "sources": [
+            11,
+            13,
+            2,
+            "alpha",
+            "body-girdle"
+          ],
+          "status": "observed-chain",
+          "why": "Ordered shoulder-elbow-wrist chain, visible interior, semantic interfaces and anatomical pairing",
+          "depth": "unobserved"
+        },
+        "RightHand": {
+          "point": [
+            29.75,
+            71.5
+          ],
+          "heuristic_radius_px": 2.5,
+          "evidence_count": 5,
+          "sources": [
+            11,
+            13,
+            2,
+            "alpha",
+            "body-girdle"
+          ],
+          "status": "observed-chain",
+          "why": "Ordered shoulder-elbow-wrist chain, visible interior, semantic interfaces and anatomical pairing",
+          "depth": "unobserved"
+        },
+        "RightShoulder": {
+          "point": [
+            52.063793103448276,
+            40.56896551724138
+          ],
+          "heuristic_radius_px": 3.0,
+          "evidence_count": 2,
+          "sources": [
+            "body-girdle",
+            11
+          ],
+          "status": "recovered-silhouette",
+          "why": "Clavicle root relative to central chest; not the glenohumeral Arm joint",
+          "depth": "unobserved"
+        },
+        "LeftArm": {
+          "point": [
+            77.55084745762711,
+            38.55084745762712
+          ],
+          "heuristic_radius_px": 2.5,
+          "evidence_count": 5,
+          "sources": [
+            10,
+            12,
+            3,
+            "alpha",
+            "body-girdle"
+          ],
+          "status": "observed-chain",
+          "why": "Ordered shoulder-elbow-wrist chain, visible interior, semantic interfaces and anatomical pairing",
+          "depth": "unobserved"
+        },
+        "LeftForeArm": {
+          "point": [
+            82.75,
+            61.0
+          ],
+          "heuristic_radius_px": 3.0,
+          "evidence_count": 5,
+          "sources": [
+            10,
+            12,
+            3,
+            "alpha",
+            "body-girdle"
+          ],
+          "status": "observed-chain",
+          "why": "Ordered shoulder-elbow-wrist chain, visible interior, semantic interfaces and anatomical pairing",
+          "depth": "unobserved"
+        },
+        "LeftHand": {
+          "point": [
+            80.0,
+            71.5
+          ],
+          "heuristic_radius_px": 2.5,
+          "evidence_count": 5,
+          "sources": [
+            10,
+            12,
+            3,
+            "alpha",
+            "body-girdle"
+          ],
+          "status": "observed-chain",
+          "why": "Ordered shoulder-elbow-wrist chain, visible interior, semantic interfaces and anatomical pairing",
+          "depth": "unobserved"
+        },
+        "LeftShoulder": {
+          "point": [
+            57.93161016949153,
+            40.55084745762712
+          ],
+          "heuristic_radius_px": 3.0,
+          "evidence_count": 2,
+          "sources": [
+            "body-girdle",
+            10
+          ],
+          "status": "recovered-silhouette",
+          "why": "Clavicle root relative to central chest; not the glenohumeral Arm joint",
+          "depth": "unobserved"
+        },
+        "RightLeg": {
+          "point": [
+            45.5,
+            78.5
+          ],
+          "heuristic_radius_px": 3.0,
+          "evidence_count": 3,
+          "sources": [
+            1,
+            6,
+            "pelvis-frame"
+          ],
+          "status": "observed-chain",
+          "why": "",
+          "depth": "unobserved"
+        },
+        "RightShin": {
+          "point": [
+            43.5,
+            90.0
+          ],
+          "heuristic_radius_px": 3.5,
+          "evidence_count": 4,
+          "sources": [
+            6,
+            8,
+            "alpha",
+            "paired-leg-proportions"
+          ],
+          "status": "observed-chain",
+          "why": "",
+          "depth": "unobserved"
+        },
+        "RightFoot": {
+          "point": [
+            42.0,
+            96.5
+          ],
+          "heuristic_radius_px": 2.5,
+          "evidence_count": 4,
+          "sources": [
+            8,
+            5,
+            "alpha-distal-contour",
+            "SOMA-leg-chain"
+          ],
+          "status": "recovered-silhouette",
+          "why": "Terminal silhouette support and distal width flare; owner labels remain unchanged; ankle interval is not a verified art seam",
+          "depth": "unobserved"
+        },
+        "RightToeBase": {
+          "point": [
+            41.16184210526316,
+            100.67368421052632
+          ],
+          "heuristic_radius_px": 2.5,
+          "evidence_count": 4,
+          "sources": [
+            8,
+            5,
+            "alpha-distal-contour",
+            "SOMA-leg-chain"
+          ],
+          "status": "recovered-silhouette",
+          "why": "Terminal silhouette support and distal width flare; owner labels remain unchanged; ankle interval is not a verified art seam",
+          "depth": "unobserved"
+        },
+        "RightToeEnd": {
+          "point": [
+            40.71052631578947,
+            102.92105263157895
+          ],
+          "heuristic_radius_px": 2.5,
+          "evidence_count": 4,
+          "sources": [
+            8,
+            5,
+            "alpha-distal-contour",
+            "SOMA-leg-chain"
+          ],
+          "status": "recovered-silhouette",
+          "why": "Terminal silhouette support and distal width flare; owner labels remain unchanged; ankle interval is not a verified art seam",
+          "depth": "unobserved"
+        }
+      },
+      "unknown_joints": [
+        "Jaw",
+        "LeftEye",
+        "RightEye",
+        "LeftHandThumb1",
+        "LeftHandThumb2",
+        "LeftHandThumb3",
+        "LeftHandThumbEnd",
+        "LeftHandIndex1",
+        "LeftHandIndex2",
+        "LeftHandIndex3",
+        "LeftHandIndex4",
+        "LeftHandIndexEnd",
+        "LeftHandMiddle1",
+        "LeftHandMiddle2",
+        "LeftHandMiddle3",
+        "LeftHandMiddle4",
+        "LeftHandMiddleEnd",
+        "LeftHandRing1",
+        "LeftHandRing2",
+        "LeftHandRing3",
+        "LeftHandRing4",
+        "LeftHandRingEnd",
+        "LeftHandPinky1",
+        "LeftHandPinky2",
+        "LeftHandPinky3",
+        "LeftHandPinky4",
+        "LeftHandPinkyEnd",
+        "RightHandThumb1",
+        "RightHandThumb2",
+        "RightHandThumb3",
+        "RightHandThumbEnd",
+        "RightHandIndex1",
+        "RightHandIndex2",
+        "RightHandIndex3",
+        "RightHandIndex4",
+        "RightHandIndexEnd",
+        "RightHandMiddle1",
+        "RightHandMiddle2",
+        "RightHandMiddle3",
+        "RightHandMiddle4",
+        "RightHandMiddleEnd",
+        "RightHandRing1",
+        "RightHandRing2",
+        "RightHandRing3",
+        "RightHandRing4",
+        "RightHandRingEnd",
+        "RightHandPinky1",
+        "RightHandPinky2",
+        "RightHandPinky3",
+        "RightHandPinky4",
+        "RightHandPinkyEnd",
+        "LeftLeg",
+        "LeftShin",
+        "LeftFoot",
+        "LeftToeBase",
+        "LeftToeEnd"
+      ],
+      "remaining_prior_only_joints": 56,
+      "unknown_depth": "Unobserved; canonical depth prior",
+      "knowledge": {
+        "transfers": [],
+        "pose_symmetry": {
+          "silhouette_mirror_iou": 0.9994614970382337,
+          "axis_x": 55.0,
+          "pose_symmetric": true,
+          "anatomical_pairing": true,
+          "reason": "Pose symmetry requires frontal view AND measured alpha agreement; paired anatomy alone does not imply a mirrored pose"
+        },
+        "arm_template": {
+          "source": "Right observed arm + Left observed arm",
+          "upper_fraction": 0.6727999248864166,
+          "shoulder_span": 22.56852717708942,
+          "upper_px": 22.816353988351516,
+          "lower_px": 11.096343571747386
+        },
+        "leg_template": {
+          "source": "Right alpha-supported leg",
+          "upper_fraction": 0.6363371017256594
+        }
+      },
+      "conflicts": []
+    },
+    {
+      "step": 6,
+      "name": "Left hip and knee",
+      "chunk": 7,
+      "quality": 0.34394207430918594,
+      "priority": 0.34394207430918594,
+      "why": "Pelvis attachment and visible leg corridor reject a distal mislabelled knee",
+      "used_neighbors": [
+        1
+      ],
+      "constrained_joints": [
+        "LeftLeg",
+        "LeftShin"
+      ],
+      "before": {
+        "Hips": {
+          "point": [
+            55.0,
+            75.5
+          ],
+          "heuristic_radius_px": 3.0,
+          "evidence_count": 3,
+          "sources": [
+            1,
+            14,
+            "central-body-chain"
+          ],
+          "status": "observed-chain",
+          "why": "",
+          "depth": "unobserved"
+        },
+        "Chest": {
+          "point": [
+            55.0,
+            56.65
+          ],
+          "heuristic_radius_px": 3.0,
+          "evidence_count": 3,
+          "sources": [
+            1,
+            14,
+            "central-body-chain"
+          ],
+          "status": "observed-chain",
+          "why": "",
+          "depth": "unobserved"
+        },
+        "Neck1": {
+          "point": [
+            54.5,
+            39.25
+          ],
+          "heuristic_radius_px": 5.0,
+          "evidence_count": 3,
+          "sources": [
+            1,
+            14,
+            "central-body-chain"
+          ],
+          "status": "occluded-hypothesis",
+          "why": "",
+          "depth": "unobserved"
+        },
+        "Neck2": {
+          "point": [
+            54.5,
+            36.35
+          ],
+          "heuristic_radius_px": 5.0,
+          "evidence_count": 3,
+          "sources": [
+            1,
+            14,
+            "central-body-chain"
+          ],
+          "status": "occluded-hypothesis",
+          "why": "",
+          "depth": "unobserved"
+        },
+        "Head": {
+          "point": [
+            54.5,
+            32.0
+          ],
+          "heuristic_radius_px": 5.0,
+          "evidence_count": 3,
+          "sources": [
+            1,
+            14,
+            "central-body-chain"
+          ],
+          "status": "occluded-hypothesis",
+          "why": "",
+          "depth": "unobserved"
+        },
+        "HeadEnd": {
+          "point": [
+            54.5,
+            17.5
+          ],
+          "heuristic_radius_px": 3.0,
+          "evidence_count": 3,
+          "sources": [
+            1,
+            14,
+            "central-body-chain"
+          ],
+          "status": "observed-chain",
+          "why": "",
+          "depth": "unobserved"
+        },
+        "Spine1": {
+          "point": [
+            55.0,
+            69.21666666666667
+          ],
+          "heuristic_radius_px": 3.0,
+          "evidence_count": 3,
+          "sources": [
+            1,
+            14,
+            "central-body-chain"
+          ],
+          "status": "recovered-silhouette",
+          "why": "",
+          "depth": "unobserved"
+        },
+        "Spine2": {
+          "point": [
+            55.0,
+            62.93333333333334
+          ],
+          "heuristic_radius_px": 3.0,
+          "evidence_count": 3,
+          "sources": [
+            1,
+            14,
+            "central-body-chain"
+          ],
+          "status": "recovered-silhouette",
+          "why": "",
+          "depth": "unobserved"
+        },
+        "RightArm": {
+          "point": [
+            32.41379310344828,
+            38.56896551724138
+          ],
+          "heuristic_radius_px": 2.5,
+          "evidence_count": 5,
+          "sources": [
+            11,
+            13,
+            2,
+            "alpha",
+            "body-girdle"
+          ],
+          "status": "observed-chain",
+          "why": "Ordered shoulder-elbow-wrist chain, visible interior, semantic interfaces and anatomical pairing",
+          "depth": "unobserved"
+        },
+        "RightForeArm": {
+          "point": [
+            27.0,
+            60.5
+          ],
+          "heuristic_radius_px": 3.0,
+          "evidence_count": 5,
+          "sources": [
+            11,
+            13,
+            2,
+            "alpha",
+            "body-girdle"
+          ],
+          "status": "observed-chain",
+          "why": "Ordered shoulder-elbow-wrist chain, visible interior, semantic interfaces and anatomical pairing",
+          "depth": "unobserved"
+        },
+        "RightHand": {
+          "point": [
+            29.75,
+            71.5
+          ],
+          "heuristic_radius_px": 2.5,
+          "evidence_count": 5,
+          "sources": [
+            11,
+            13,
+            2,
+            "alpha",
+            "body-girdle"
+          ],
+          "status": "observed-chain",
+          "why": "Ordered shoulder-elbow-wrist chain, visible interior, semantic interfaces and anatomical pairing",
+          "depth": "unobserved"
+        },
+        "RightShoulder": {
+          "point": [
+            52.063793103448276,
+            40.56896551724138
+          ],
+          "heuristic_radius_px": 3.0,
+          "evidence_count": 2,
+          "sources": [
+            "body-girdle",
+            11
+          ],
+          "status": "recovered-silhouette",
+          "why": "Clavicle root relative to central chest; not the glenohumeral Arm joint",
+          "depth": "unobserved"
+        },
+        "LeftArm": {
+          "point": [
+            77.55084745762711,
+            38.55084745762712
+          ],
+          "heuristic_radius_px": 2.5,
+          "evidence_count": 5,
+          "sources": [
+            10,
+            12,
+            3,
+            "alpha",
+            "body-girdle"
+          ],
+          "status": "observed-chain",
+          "why": "Ordered shoulder-elbow-wrist chain, visible interior, semantic interfaces and anatomical pairing",
+          "depth": "unobserved"
+        },
+        "LeftForeArm": {
+          "point": [
+            82.75,
+            61.0
+          ],
+          "heuristic_radius_px": 3.0,
+          "evidence_count": 5,
+          "sources": [
+            10,
+            12,
+            3,
+            "alpha",
+            "body-girdle"
+          ],
+          "status": "observed-chain",
+          "why": "Ordered shoulder-elbow-wrist chain, visible interior, semantic interfaces and anatomical pairing",
+          "depth": "unobserved"
+        },
+        "LeftHand": {
+          "point": [
+            80.0,
+            71.5
+          ],
+          "heuristic_radius_px": 2.5,
+          "evidence_count": 5,
+          "sources": [
+            10,
+            12,
+            3,
+            "alpha",
+            "body-girdle"
+          ],
+          "status": "observed-chain",
+          "why": "Ordered shoulder-elbow-wrist chain, visible interior, semantic interfaces and anatomical pairing",
+          "depth": "unobserved"
+        },
+        "LeftShoulder": {
+          "point": [
+            57.93161016949153,
+            40.55084745762712
+          ],
+          "heuristic_radius_px": 3.0,
+          "evidence_count": 2,
+          "sources": [
+            "body-girdle",
+            10
+          ],
+          "status": "recovered-silhouette",
+          "why": "Clavicle root relative to central chest; not the glenohumeral Arm joint",
+          "depth": "unobserved"
+        },
+        "RightLeg": {
+          "point": [
+            45.5,
+            78.5
+          ],
+          "heuristic_radius_px": 3.0,
+          "evidence_count": 3,
+          "sources": [
+            1,
+            6,
+            "pelvis-frame"
+          ],
+          "status": "observed-chain",
+          "why": "",
+          "depth": "unobserved"
+        },
+        "RightShin": {
+          "point": [
+            43.5,
+            90.0
+          ],
+          "heuristic_radius_px": 3.5,
+          "evidence_count": 4,
+          "sources": [
+            6,
+            8,
+            "alpha",
+            "paired-leg-proportions"
+          ],
+          "status": "observed-chain",
+          "why": "",
+          "depth": "unobserved"
+        },
+        "RightFoot": {
+          "point": [
+            42.0,
+            96.5
+          ],
+          "heuristic_radius_px": 2.5,
+          "evidence_count": 4,
+          "sources": [
+            8,
+            5,
+            "alpha-distal-contour",
+            "SOMA-leg-chain"
+          ],
+          "status": "recovered-silhouette",
+          "why": "Terminal silhouette support and distal width flare; owner labels remain unchanged; ankle interval is not a verified art seam",
+          "depth": "unobserved"
+        },
+        "RightToeBase": {
+          "point": [
+            41.16184210526316,
+            100.67368421052632
+          ],
+          "heuristic_radius_px": 2.5,
+          "evidence_count": 4,
+          "sources": [
+            8,
+            5,
+            "alpha-distal-contour",
+            "SOMA-leg-chain"
+          ],
+          "status": "recovered-silhouette",
+          "why": "Terminal silhouette support and distal width flare; owner labels remain unchanged; ankle interval is not a verified art seam",
+          "depth": "unobserved"
+        },
+        "RightToeEnd": {
+          "point": [
+            40.71052631578947,
+            102.92105263157895
+          ],
+          "heuristic_radius_px": 2.5,
+          "evidence_count": 4,
+          "sources": [
+            8,
+            5,
+            "alpha-distal-contour",
+            "SOMA-leg-chain"
+          ],
+          "status": "recovered-silhouette",
+          "why": "Terminal silhouette support and distal width flare; owner labels remain unchanged; ankle interval is not a verified art seam",
+          "depth": "unobserved"
+        }
+      },
+      "after": {
+        "Hips": {
+          "point": [
+            55.0,
+            75.5
+          ],
+          "heuristic_radius_px": 3.0,
+          "evidence_count": 3,
+          "sources": [
+            1,
+            14,
+            "central-body-chain"
+          ],
+          "status": "observed-chain",
+          "why": "",
+          "depth": "unobserved"
+        },
+        "Chest": {
+          "point": [
+            55.0,
+            56.65
+          ],
+          "heuristic_radius_px": 3.0,
+          "evidence_count": 3,
+          "sources": [
+            1,
+            14,
+            "central-body-chain"
+          ],
+          "status": "observed-chain",
+          "why": "",
+          "depth": "unobserved"
+        },
+        "Neck1": {
+          "point": [
+            54.5,
+            39.25
+          ],
+          "heuristic_radius_px": 5.0,
+          "evidence_count": 3,
+          "sources": [
+            1,
+            14,
+            "central-body-chain"
+          ],
+          "status": "occluded-hypothesis",
+          "why": "",
+          "depth": "unobserved"
+        },
+        "Neck2": {
+          "point": [
+            54.5,
+            36.35
+          ],
+          "heuristic_radius_px": 5.0,
+          "evidence_count": 3,
+          "sources": [
+            1,
+            14,
+            "central-body-chain"
+          ],
+          "status": "occluded-hypothesis",
+          "why": "",
+          "depth": "unobserved"
+        },
+        "Head": {
+          "point": [
+            54.5,
+            32.0
+          ],
+          "heuristic_radius_px": 5.0,
+          "evidence_count": 3,
+          "sources": [
+            1,
+            14,
+            "central-body-chain"
+          ],
+          "status": "occluded-hypothesis",
+          "why": "",
+          "depth": "unobserved"
+        },
+        "HeadEnd": {
+          "point": [
+            54.5,
+            17.5
+          ],
+          "heuristic_radius_px": 3.0,
+          "evidence_count": 3,
+          "sources": [
+            1,
+            14,
+            "central-body-chain"
+          ],
+          "status": "observed-chain",
+          "why": "",
+          "depth": "unobserved"
+        },
+        "Spine1": {
+          "point": [
+            55.0,
+            69.21666666666667
+          ],
+          "heuristic_radius_px": 3.0,
+          "evidence_count": 3,
+          "sources": [
+            1,
+            14,
+            "central-body-chain"
+          ],
+          "status": "recovered-silhouette",
+          "why": "",
+          "depth": "unobserved"
+        },
+        "Spine2": {
+          "point": [
+            55.0,
+            62.93333333333334
+          ],
+          "heuristic_radius_px": 3.0,
+          "evidence_count": 3,
+          "sources": [
+            1,
+            14,
+            "central-body-chain"
+          ],
+          "status": "recovered-silhouette",
+          "why": "",
+          "depth": "unobserved"
+        },
+        "RightArm": {
+          "point": [
+            32.41379310344828,
+            38.56896551724138
+          ],
+          "heuristic_radius_px": 2.5,
+          "evidence_count": 5,
+          "sources": [
+            11,
+            13,
+            2,
+            "alpha",
+            "body-girdle"
+          ],
+          "status": "observed-chain",
+          "why": "Ordered shoulder-elbow-wrist chain, visible interior, semantic interfaces and anatomical pairing",
+          "depth": "unobserved"
+        },
+        "RightForeArm": {
+          "point": [
+            27.0,
+            60.5
+          ],
+          "heuristic_radius_px": 3.0,
+          "evidence_count": 5,
+          "sources": [
+            11,
+            13,
+            2,
+            "alpha",
+            "body-girdle"
+          ],
+          "status": "observed-chain",
+          "why": "Ordered shoulder-elbow-wrist chain, visible interior, semantic interfaces and anatomical pairing",
+          "depth": "unobserved"
+        },
+        "RightHand": {
+          "point": [
+            29.75,
+            71.5
+          ],
+          "heuristic_radius_px": 2.5,
+          "evidence_count": 5,
+          "sources": [
+            11,
+            13,
+            2,
+            "alpha",
+            "body-girdle"
+          ],
+          "status": "observed-chain",
+          "why": "Ordered shoulder-elbow-wrist chain, visible interior, semantic interfaces and anatomical pairing",
+          "depth": "unobserved"
+        },
+        "RightShoulder": {
+          "point": [
+            52.063793103448276,
+            40.56896551724138
+          ],
+          "heuristic_radius_px": 3.0,
+          "evidence_count": 2,
+          "sources": [
+            "body-girdle",
+            11
+          ],
+          "status": "recovered-silhouette",
+          "why": "Clavicle root relative to central chest; not the glenohumeral Arm joint",
+          "depth": "unobserved"
+        },
+        "LeftArm": {
+          "point": [
+            77.55084745762711,
+            38.55084745762712
+          ],
+          "heuristic_radius_px": 2.5,
+          "evidence_count": 5,
+          "sources": [
+            10,
+            12,
+            3,
+            "alpha",
+            "body-girdle"
+          ],
+          "status": "observed-chain",
+          "why": "Ordered shoulder-elbow-wrist chain, visible interior, semantic interfaces and anatomical pairing",
+          "depth": "unobserved"
+        },
+        "LeftForeArm": {
+          "point": [
+            82.75,
+            61.0
+          ],
+          "heuristic_radius_px": 3.0,
+          "evidence_count": 5,
+          "sources": [
+            10,
+            12,
+            3,
+            "alpha",
+            "body-girdle"
+          ],
+          "status": "observed-chain",
+          "why": "Ordered shoulder-elbow-wrist chain, visible interior, semantic interfaces and anatomical pairing",
+          "depth": "unobserved"
+        },
+        "LeftHand": {
+          "point": [
+            80.0,
+            71.5
+          ],
+          "heuristic_radius_px": 2.5,
+          "evidence_count": 5,
+          "sources": [
+            10,
+            12,
+            3,
+            "alpha",
+            "body-girdle"
+          ],
+          "status": "observed-chain",
+          "why": "Ordered shoulder-elbow-wrist chain, visible interior, semantic interfaces and anatomical pairing",
+          "depth": "unobserved"
+        },
+        "LeftShoulder": {
+          "point": [
+            57.93161016949153,
+            40.55084745762712
+          ],
+          "heuristic_radius_px": 3.0,
+          "evidence_count": 2,
+          "sources": [
+            "body-girdle",
+            10
+          ],
+          "status": "recovered-silhouette",
+          "why": "Clavicle root relative to central chest; not the glenohumeral Arm joint",
+          "depth": "unobserved"
+        },
+        "RightLeg": {
+          "point": [
+            45.5,
+            78.5
+          ],
+          "heuristic_radius_px": 3.0,
+          "evidence_count": 3,
+          "sources": [
+            1,
+            6,
+            "pelvis-frame"
+          ],
+          "status": "observed-chain",
+          "why": "",
+          "depth": "unobserved"
+        },
+        "RightShin": {
+          "point": [
+            43.5,
+            90.0
+          ],
+          "heuristic_radius_px": 3.5,
+          "evidence_count": 4,
+          "sources": [
+            6,
+            8,
+            "alpha",
+            "paired-leg-proportions"
+          ],
+          "status": "observed-chain",
+          "why": "",
+          "depth": "unobserved"
+        },
+        "RightFoot": {
+          "point": [
+            42.0,
+            96.5
+          ],
+          "heuristic_radius_px": 2.5,
+          "evidence_count": 4,
+          "sources": [
+            8,
+            5,
+            "alpha-distal-contour",
+            "SOMA-leg-chain"
+          ],
+          "status": "recovered-silhouette",
+          "why": "Terminal silhouette support and distal width flare; owner labels remain unchanged; ankle interval is not a verified art seam",
+          "depth": "unobserved"
+        },
+        "RightToeBase": {
+          "point": [
+            41.16184210526316,
+            100.67368421052632
+          ],
+          "heuristic_radius_px": 2.5,
+          "evidence_count": 4,
+          "sources": [
+            8,
+            5,
+            "alpha-distal-contour",
+            "SOMA-leg-chain"
+          ],
+          "status": "recovered-silhouette",
+          "why": "Terminal silhouette support and distal width flare; owner labels remain unchanged; ankle interval is not a verified art seam",
+          "depth": "unobserved"
+        },
+        "RightToeEnd": {
+          "point": [
+            40.71052631578947,
+            102.92105263157895
+          ],
+          "heuristic_radius_px": 2.5,
+          "evidence_count": 4,
+          "sources": [
+            8,
+            5,
+            "alpha-distal-contour",
+            "SOMA-leg-chain"
+          ],
+          "status": "recovered-silhouette",
+          "why": "Terminal silhouette support and distal width flare; owner labels remain unchanged; ankle interval is not a verified art seam",
+          "depth": "unobserved"
+        },
+        "LeftLeg": {
+          "point": [
+            64.5,
+            78.5
+          ],
+          "heuristic_radius_px": 3.0,
+          "evidence_count": 3,
+          "sources": [
+            1,
+            7,
+            "pelvis-frame"
+          ],
+          "status": "observed-chain",
+          "why": "",
+          "depth": "unobserved"
+        },
+        "LeftShin": {
+          "point": [
+            66.5,
+            89.5
+          ],
+          "heuristic_radius_px": 3.5,
+          "evidence_count": 4,
+          "sources": [
+            7,
+            9,
+            "alpha",
+            "paired-leg-proportions"
+          ],
+          "status": "recovered-silhouette",
+          "why": "",
+          "depth": "unobserved"
+        }
+      },
+      "unknown_joints": [
+        "Jaw",
+        "LeftEye",
+        "RightEye",
+        "LeftHandThumb1",
+        "LeftHandThumb2",
+        "LeftHandThumb3",
+        "LeftHandThumbEnd",
+        "LeftHandIndex1",
+        "LeftHandIndex2",
+        "LeftHandIndex3",
+        "LeftHandIndex4",
+        "LeftHandIndexEnd",
+        "LeftHandMiddle1",
+        "LeftHandMiddle2",
+        "LeftHandMiddle3",
+        "LeftHandMiddle4",
+        "LeftHandMiddleEnd",
+        "LeftHandRing1",
+        "LeftHandRing2",
+        "LeftHandRing3",
+        "LeftHandRing4",
+        "LeftHandRingEnd",
+        "LeftHandPinky1",
+        "LeftHandPinky2",
+        "LeftHandPinky3",
+        "LeftHandPinky4",
+        "LeftHandPinkyEnd",
+        "RightHandThumb1",
+        "RightHandThumb2",
+        "RightHandThumb3",
+        "RightHandThumbEnd",
+        "RightHandIndex1",
+        "RightHandIndex2",
+        "RightHandIndex3",
+        "RightHandIndex4",
+        "RightHandIndexEnd",
+        "RightHandMiddle1",
+        "RightHandMiddle2",
+        "RightHandMiddle3",
+        "RightHandMiddle4",
+        "RightHandMiddleEnd",
+        "RightHandRing1",
+        "RightHandRing2",
+        "RightHandRing3",
+        "RightHandRing4",
+        "RightHandRingEnd",
+        "RightHandPinky1",
+        "RightHandPinky2",
+        "RightHandPinky3",
+        "RightHandPinky4",
+        "RightHandPinkyEnd",
+        "LeftFoot",
+        "LeftToeBase",
+        "LeftToeEnd"
+      ],
+      "remaining_prior_only_joints": 54,
+      "unknown_depth": "Unobserved; canonical depth prior",
+      "knowledge": {
+        "transfers": [
+          {
+            "to": "LeftShin",
+            "from": "Right alpha-supported leg",
+            "relation": "hip-knee-ankle fraction",
+            "used_silhouette": true
+          }
+        ],
+        "pose_symmetry": {
+          "silhouette_mirror_iou": 0.9994614970382337,
+          "axis_x": 55.0,
+          "pose_symmetric": true,
+          "anatomical_pairing": true,
+          "reason": "Pose symmetry requires frontal view AND measured alpha agreement; paired anatomy alone does not imply a mirrored pose"
+        },
+        "arm_template": {
+          "source": "Right observed arm + Left observed arm",
+          "upper_fraction": 0.6727999248864166,
+          "shoulder_span": 22.56852717708942,
+          "upper_px": 22.816353988351516,
+          "lower_px": 11.096343571747386
+        },
+        "leg_template": {
+          "source": "Right alpha-supported leg",
+          "upper_fraction": 0.6363371017256594
+        }
+      },
+      "conflicts": [
+        "Left upper/lower boundary is inconsistent with a knee; possible shin pixels labelled upper leg"
+      ]
+    },
+    {
+      "step": 7,
+      "name": "Left foot recovery",
+      "chunk": 4,
+      "quality": 0.0,
+      "priority": 0.0,
+      "why": "Established hip/knee chain plus terminal alpha support reconstructs missing foot observations",
+      "used_neighbors": [
+        7,
+        9,
+        "alpha"
+      ],
+      "constrained_joints": [
+        "LeftFoot",
+        "LeftToeBase",
+        "LeftToeEnd"
+      ],
+      "before": {
+        "Hips": {
+          "point": [
+            55.0,
+            75.5
+          ],
+          "heuristic_radius_px": 3.0,
+          "evidence_count": 3,
+          "sources": [
+            1,
+            14,
+            "central-body-chain"
+          ],
+          "status": "observed-chain",
+          "why": "",
+          "depth": "unobserved"
+        },
+        "Chest": {
+          "point": [
+            55.0,
+            56.65
+          ],
+          "heuristic_radius_px": 3.0,
+          "evidence_count": 3,
+          "sources": [
+            1,
+            14,
+            "central-body-chain"
+          ],
+          "status": "observed-chain",
+          "why": "",
+          "depth": "unobserved"
+        },
+        "Neck1": {
+          "point": [
+            54.5,
+            39.25
+          ],
+          "heuristic_radius_px": 5.0,
+          "evidence_count": 3,
+          "sources": [
+            1,
+            14,
+            "central-body-chain"
+          ],
+          "status": "occluded-hypothesis",
+          "why": "",
+          "depth": "unobserved"
+        },
+        "Neck2": {
+          "point": [
+            54.5,
+            36.35
+          ],
+          "heuristic_radius_px": 5.0,
+          "evidence_count": 3,
+          "sources": [
+            1,
+            14,
+            "central-body-chain"
+          ],
+          "status": "occluded-hypothesis",
+          "why": "",
+          "depth": "unobserved"
+        },
+        "Head": {
+          "point": [
+            54.5,
+            32.0
+          ],
+          "heuristic_radius_px": 5.0,
+          "evidence_count": 3,
+          "sources": [
+            1,
+            14,
+            "central-body-chain"
+          ],
+          "status": "occluded-hypothesis",
+          "why": "",
+          "depth": "unobserved"
+        },
+        "HeadEnd": {
+          "point": [
+            54.5,
+            17.5
+          ],
+          "heuristic_radius_px": 3.0,
+          "evidence_count": 3,
+          "sources": [
+            1,
+            14,
+            "central-body-chain"
+          ],
+          "status": "observed-chain",
+          "why": "",
+          "depth": "unobserved"
+        },
+        "Spine1": {
+          "point": [
+            55.0,
+            69.21666666666667
+          ],
+          "heuristic_radius_px": 3.0,
+          "evidence_count": 3,
+          "sources": [
+            1,
+            14,
+            "central-body-chain"
+          ],
+          "status": "recovered-silhouette",
+          "why": "",
+          "depth": "unobserved"
+        },
+        "Spine2": {
+          "point": [
+            55.0,
+            62.93333333333334
+          ],
+          "heuristic_radius_px": 3.0,
+          "evidence_count": 3,
+          "sources": [
+            1,
+            14,
+            "central-body-chain"
+          ],
+          "status": "recovered-silhouette",
+          "why": "",
+          "depth": "unobserved"
+        },
+        "RightArm": {
+          "point": [
+            32.41379310344828,
+            38.56896551724138
+          ],
+          "heuristic_radius_px": 2.5,
+          "evidence_count": 5,
+          "sources": [
+            11,
+            13,
+            2,
+            "alpha",
+            "body-girdle"
+          ],
+          "status": "observed-chain",
+          "why": "Ordered shoulder-elbow-wrist chain, visible interior, semantic interfaces and anatomical pairing",
+          "depth": "unobserved"
+        },
+        "RightForeArm": {
+          "point": [
+            27.0,
+            60.5
+          ],
+          "heuristic_radius_px": 3.0,
+          "evidence_count": 5,
+          "sources": [
+            11,
+            13,
+            2,
+            "alpha",
+            "body-girdle"
+          ],
+          "status": "observed-chain",
+          "why": "Ordered shoulder-elbow-wrist chain, visible interior, semantic interfaces and anatomical pairing",
+          "depth": "unobserved"
+        },
+        "RightHand": {
+          "point": [
+            29.75,
+            71.5
+          ],
+          "heuristic_radius_px": 2.5,
+          "evidence_count": 5,
+          "sources": [
+            11,
+            13,
+            2,
+            "alpha",
+            "body-girdle"
+          ],
+          "status": "observed-chain",
+          "why": "Ordered shoulder-elbow-wrist chain, visible interior, semantic interfaces and anatomical pairing",
+          "depth": "unobserved"
+        },
+        "RightShoulder": {
+          "point": [
+            52.063793103448276,
+            40.56896551724138
+          ],
+          "heuristic_radius_px": 3.0,
+          "evidence_count": 2,
+          "sources": [
+            "body-girdle",
+            11
+          ],
+          "status": "recovered-silhouette",
+          "why": "Clavicle root relative to central chest; not the glenohumeral Arm joint",
+          "depth": "unobserved"
+        },
+        "LeftArm": {
+          "point": [
+            77.55084745762711,
+            38.55084745762712
+          ],
+          "heuristic_radius_px": 2.5,
+          "evidence_count": 5,
+          "sources": [
+            10,
+            12,
+            3,
+            "alpha",
+            "body-girdle"
+          ],
+          "status": "observed-chain",
+          "why": "Ordered shoulder-elbow-wrist chain, visible interior, semantic interfaces and anatomical pairing",
+          "depth": "unobserved"
+        },
+        "LeftForeArm": {
+          "point": [
+            82.75,
+            61.0
+          ],
+          "heuristic_radius_px": 3.0,
+          "evidence_count": 5,
+          "sources": [
+            10,
+            12,
+            3,
+            "alpha",
+            "body-girdle"
+          ],
+          "status": "observed-chain",
+          "why": "Ordered shoulder-elbow-wrist chain, visible interior, semantic interfaces and anatomical pairing",
+          "depth": "unobserved"
+        },
+        "LeftHand": {
+          "point": [
+            80.0,
+            71.5
+          ],
+          "heuristic_radius_px": 2.5,
+          "evidence_count": 5,
+          "sources": [
+            10,
+            12,
+            3,
+            "alpha",
+            "body-girdle"
+          ],
+          "status": "observed-chain",
+          "why": "Ordered shoulder-elbow-wrist chain, visible interior, semantic interfaces and anatomical pairing",
+          "depth": "unobserved"
+        },
+        "LeftShoulder": {
+          "point": [
+            57.93161016949153,
+            40.55084745762712
+          ],
+          "heuristic_radius_px": 3.0,
+          "evidence_count": 2,
+          "sources": [
+            "body-girdle",
+            10
+          ],
+          "status": "recovered-silhouette",
+          "why": "Clavicle root relative to central chest; not the glenohumeral Arm joint",
+          "depth": "unobserved"
+        },
+        "RightLeg": {
+          "point": [
+            45.5,
+            78.5
+          ],
+          "heuristic_radius_px": 3.0,
+          "evidence_count": 3,
+          "sources": [
+            1,
+            6,
+            "pelvis-frame"
+          ],
+          "status": "observed-chain",
+          "why": "",
+          "depth": "unobserved"
+        },
+        "RightShin": {
+          "point": [
+            43.5,
+            90.0
+          ],
+          "heuristic_radius_px": 3.5,
+          "evidence_count": 4,
+          "sources": [
+            6,
+            8,
+            "alpha",
+            "paired-leg-proportions"
+          ],
+          "status": "observed-chain",
+          "why": "",
+          "depth": "unobserved"
+        },
+        "RightFoot": {
+          "point": [
+            42.0,
+            96.5
+          ],
+          "heuristic_radius_px": 2.5,
+          "evidence_count": 4,
+          "sources": [
+            8,
+            5,
+            "alpha-distal-contour",
+            "SOMA-leg-chain"
+          ],
+          "status": "recovered-silhouette",
+          "why": "Terminal silhouette support and distal width flare; owner labels remain unchanged; ankle interval is not a verified art seam",
+          "depth": "unobserved"
+        },
+        "RightToeBase": {
+          "point": [
+            41.16184210526316,
+            100.67368421052632
+          ],
+          "heuristic_radius_px": 2.5,
+          "evidence_count": 4,
+          "sources": [
+            8,
+            5,
+            "alpha-distal-contour",
+            "SOMA-leg-chain"
+          ],
+          "status": "recovered-silhouette",
+          "why": "Terminal silhouette support and distal width flare; owner labels remain unchanged; ankle interval is not a verified art seam",
+          "depth": "unobserved"
+        },
+        "RightToeEnd": {
+          "point": [
+            40.71052631578947,
+            102.92105263157895
+          ],
+          "heuristic_radius_px": 2.5,
+          "evidence_count": 4,
+          "sources": [
+            8,
+            5,
+            "alpha-distal-contour",
+            "SOMA-leg-chain"
+          ],
+          "status": "recovered-silhouette",
+          "why": "Terminal silhouette support and distal width flare; owner labels remain unchanged; ankle interval is not a verified art seam",
+          "depth": "unobserved"
+        },
+        "LeftLeg": {
+          "point": [
+            64.5,
+            78.5
+          ],
+          "heuristic_radius_px": 3.0,
+          "evidence_count": 3,
+          "sources": [
+            1,
+            7,
+            "pelvis-frame"
+          ],
+          "status": "observed-chain",
+          "why": "",
+          "depth": "unobserved"
+        },
+        "LeftShin": {
+          "point": [
+            66.5,
+            89.5
+          ],
+          "heuristic_radius_px": 3.5,
+          "evidence_count": 4,
+          "sources": [
+            7,
+            9,
+            "alpha",
+            "paired-leg-proportions"
+          ],
+          "status": "recovered-silhouette",
+          "why": "",
+          "depth": "unobserved"
+        }
+      },
+      "after": {
+        "Hips": {
+          "point": [
+            55.0,
+            75.5
+          ],
+          "heuristic_radius_px": 3.0,
+          "evidence_count": 3,
+          "sources": [
+            1,
+            14,
+            "central-body-chain"
+          ],
+          "status": "observed-chain",
+          "why": "",
+          "depth": "unobserved"
+        },
+        "Chest": {
+          "point": [
+            55.0,
+            56.65
+          ],
+          "heuristic_radius_px": 3.0,
+          "evidence_count": 3,
+          "sources": [
+            1,
+            14,
+            "central-body-chain"
+          ],
+          "status": "observed-chain",
+          "why": "",
+          "depth": "unobserved"
+        },
+        "Neck1": {
+          "point": [
+            54.5,
+            39.25
+          ],
+          "heuristic_radius_px": 5.0,
+          "evidence_count": 3,
+          "sources": [
+            1,
+            14,
+            "central-body-chain"
+          ],
+          "status": "occluded-hypothesis",
+          "why": "",
+          "depth": "unobserved"
+        },
+        "Neck2": {
+          "point": [
+            54.5,
+            36.35
+          ],
+          "heuristic_radius_px": 5.0,
+          "evidence_count": 3,
+          "sources": [
+            1,
+            14,
+            "central-body-chain"
+          ],
+          "status": "occluded-hypothesis",
+          "why": "",
+          "depth": "unobserved"
+        },
+        "Head": {
+          "point": [
+            54.5,
+            32.0
+          ],
+          "heuristic_radius_px": 5.0,
+          "evidence_count": 3,
+          "sources": [
+            1,
+            14,
+            "central-body-chain"
+          ],
+          "status": "occluded-hypothesis",
+          "why": "",
+          "depth": "unobserved"
+        },
+        "HeadEnd": {
+          "point": [
+            54.5,
+            17.5
+          ],
+          "heuristic_radius_px": 3.0,
+          "evidence_count": 3,
+          "sources": [
+            1,
+            14,
+            "central-body-chain"
+          ],
+          "status": "observed-chain",
+          "why": "",
+          "depth": "unobserved"
+        },
+        "Spine1": {
+          "point": [
+            55.0,
+            69.21666666666667
+          ],
+          "heuristic_radius_px": 3.0,
+          "evidence_count": 3,
+          "sources": [
+            1,
+            14,
+            "central-body-chain"
+          ],
+          "status": "recovered-silhouette",
+          "why": "",
+          "depth": "unobserved"
+        },
+        "Spine2": {
+          "point": [
+            55.0,
+            62.93333333333334
+          ],
+          "heuristic_radius_px": 3.0,
+          "evidence_count": 3,
+          "sources": [
+            1,
+            14,
+            "central-body-chain"
+          ],
+          "status": "recovered-silhouette",
+          "why": "",
+          "depth": "unobserved"
+        },
+        "RightArm": {
+          "point": [
+            32.41379310344828,
+            38.56896551724138
+          ],
+          "heuristic_radius_px": 2.5,
+          "evidence_count": 5,
+          "sources": [
+            11,
+            13,
+            2,
+            "alpha",
+            "body-girdle"
+          ],
+          "status": "observed-chain",
+          "why": "Ordered shoulder-elbow-wrist chain, visible interior, semantic interfaces and anatomical pairing",
+          "depth": "unobserved"
+        },
+        "RightForeArm": {
+          "point": [
+            27.0,
+            60.5
+          ],
+          "heuristic_radius_px": 3.0,
+          "evidence_count": 5,
+          "sources": [
+            11,
+            13,
+            2,
+            "alpha",
+            "body-girdle"
+          ],
+          "status": "observed-chain",
+          "why": "Ordered shoulder-elbow-wrist chain, visible interior, semantic interfaces and anatomical pairing",
+          "depth": "unobserved"
+        },
+        "RightHand": {
+          "point": [
+            29.75,
+            71.5
+          ],
+          "heuristic_radius_px": 2.5,
+          "evidence_count": 5,
+          "sources": [
+            11,
+            13,
+            2,
+            "alpha",
+            "body-girdle"
+          ],
+          "status": "observed-chain",
+          "why": "Ordered shoulder-elbow-wrist chain, visible interior, semantic interfaces and anatomical pairing",
+          "depth": "unobserved"
+        },
+        "RightShoulder": {
+          "point": [
+            52.063793103448276,
+            40.56896551724138
+          ],
+          "heuristic_radius_px": 3.0,
+          "evidence_count": 2,
+          "sources": [
+            "body-girdle",
+            11
+          ],
+          "status": "recovered-silhouette",
+          "why": "Clavicle root relative to central chest; not the glenohumeral Arm joint",
+          "depth": "unobserved"
+        },
+        "LeftArm": {
+          "point": [
+            77.55084745762711,
+            38.55084745762712
+          ],
+          "heuristic_radius_px": 2.5,
+          "evidence_count": 5,
+          "sources": [
+            10,
+            12,
+            3,
+            "alpha",
+            "body-girdle"
+          ],
+          "status": "observed-chain",
+          "why": "Ordered shoulder-elbow-wrist chain, visible interior, semantic interfaces and anatomical pairing",
+          "depth": "unobserved"
+        },
+        "LeftForeArm": {
+          "point": [
+            82.75,
+            61.0
+          ],
+          "heuristic_radius_px": 3.0,
+          "evidence_count": 5,
+          "sources": [
+            10,
+            12,
+            3,
+            "alpha",
+            "body-girdle"
+          ],
+          "status": "observed-chain",
+          "why": "Ordered shoulder-elbow-wrist chain, visible interior, semantic interfaces and anatomical pairing",
+          "depth": "unobserved"
+        },
+        "LeftHand": {
+          "point": [
+            80.0,
+            71.5
+          ],
+          "heuristic_radius_px": 2.5,
+          "evidence_count": 5,
+          "sources": [
+            10,
+            12,
+            3,
+            "alpha",
+            "body-girdle"
+          ],
+          "status": "observed-chain",
+          "why": "Ordered shoulder-elbow-wrist chain, visible interior, semantic interfaces and anatomical pairing",
+          "depth": "unobserved"
+        },
+        "LeftShoulder": {
+          "point": [
+            57.93161016949153,
+            40.55084745762712
+          ],
+          "heuristic_radius_px": 3.0,
+          "evidence_count": 2,
+          "sources": [
+            "body-girdle",
+            10
+          ],
+          "status": "recovered-silhouette",
+          "why": "Clavicle root relative to central chest; not the glenohumeral Arm joint",
+          "depth": "unobserved"
+        },
+        "RightLeg": {
+          "point": [
+            45.5,
+            78.5
+          ],
+          "heuristic_radius_px": 3.0,
+          "evidence_count": 3,
+          "sources": [
+            1,
+            6,
+            "pelvis-frame"
+          ],
+          "status": "observed-chain",
+          "why": "",
+          "depth": "unobserved"
+        },
+        "RightShin": {
+          "point": [
+            43.5,
+            90.0
+          ],
+          "heuristic_radius_px": 3.5,
+          "evidence_count": 4,
+          "sources": [
+            6,
+            8,
+            "alpha",
+            "paired-leg-proportions"
+          ],
+          "status": "observed-chain",
+          "why": "",
+          "depth": "unobserved"
+        },
+        "RightFoot": {
+          "point": [
+            42.0,
+            96.5
+          ],
+          "heuristic_radius_px": 2.5,
+          "evidence_count": 4,
+          "sources": [
+            8,
+            5,
+            "alpha-distal-contour",
+            "SOMA-leg-chain"
+          ],
+          "status": "recovered-silhouette",
+          "why": "Terminal silhouette support and distal width flare; owner labels remain unchanged; ankle interval is not a verified art seam",
+          "depth": "unobserved"
+        },
+        "RightToeBase": {
+          "point": [
+            41.16184210526316,
+            100.67368421052632
+          ],
+          "heuristic_radius_px": 2.5,
+          "evidence_count": 4,
+          "sources": [
+            8,
+            5,
+            "alpha-distal-contour",
+            "SOMA-leg-chain"
+          ],
+          "status": "recovered-silhouette",
+          "why": "Terminal silhouette support and distal width flare; owner labels remain unchanged; ankle interval is not a verified art seam",
+          "depth": "unobserved"
+        },
+        "RightToeEnd": {
+          "point": [
+            40.71052631578947,
+            102.92105263157895
+          ],
+          "heuristic_radius_px": 2.5,
+          "evidence_count": 4,
+          "sources": [
+            8,
+            5,
+            "alpha-distal-contour",
+            "SOMA-leg-chain"
+          ],
+          "status": "recovered-silhouette",
+          "why": "Terminal silhouette support and distal width flare; owner labels remain unchanged; ankle interval is not a verified art seam",
+          "depth": "unobserved"
+        },
+        "LeftLeg": {
+          "point": [
+            64.5,
+            78.5
+          ],
+          "heuristic_radius_px": 3.0,
+          "evidence_count": 3,
+          "sources": [
+            1,
+            7,
+            "pelvis-frame"
+          ],
+          "status": "observed-chain",
+          "why": "",
+          "depth": "unobserved"
+        },
+        "LeftShin": {
+          "point": [
+            66.5,
+            89.5
+          ],
+          "heuristic_radius_px": 3.5,
+          "evidence_count": 4,
+          "sources": [
+            7,
+            9,
+            "alpha",
+            "paired-leg-proportions"
+          ],
+          "status": "recovered-silhouette",
+          "why": "",
+          "depth": "unobserved"
+        },
+        "LeftFoot": {
+          "point": [
+            68.0,
+            96.5
+          ],
+          "heuristic_radius_px": 2.5,
+          "evidence_count": 4,
+          "sources": [
+            9,
+            4,
+            "alpha-distal-contour",
+            "SOMA-leg-chain"
+          ],
+          "status": "recovered-silhouette",
+          "why": "Terminal silhouette support and distal width flare; owner labels remain unchanged; ankle interval is not a verified art seam",
+          "depth": "unobserved"
+        },
+        "LeftToeBase": {
+          "point": [
+            68.83815789473684,
+            100.67368421052632
+          ],
+          "heuristic_radius_px": 2.5,
+          "evidence_count": 4,
+          "sources": [
+            9,
+            4,
+            "alpha-distal-contour",
+            "SOMA-leg-chain"
+          ],
+          "status": "recovered-silhouette",
+          "why": "Terminal silhouette support and distal width flare; owner labels remain unchanged; ankle interval is not a verified art seam",
+          "depth": "unobserved"
+        },
+        "LeftToeEnd": {
+          "point": [
+            69.28947368421052,
+            102.92105263157895
+          ],
+          "heuristic_radius_px": 2.5,
+          "evidence_count": 4,
+          "sources": [
+            9,
+            4,
+            "alpha-distal-contour",
+            "SOMA-leg-chain"
+          ],
+          "status": "recovered-silhouette",
+          "why": "Terminal silhouette support and distal width flare; owner labels remain unchanged; ankle interval is not a verified art seam",
+          "depth": "unobserved"
+        }
+      },
+      "unknown_joints": [
+        "Jaw",
+        "LeftEye",
+        "RightEye",
+        "LeftHandThumb1",
+        "LeftHandThumb2",
+        "LeftHandThumb3",
+        "LeftHandThumbEnd",
+        "LeftHandIndex1",
+        "LeftHandIndex2",
+        "LeftHandIndex3",
+        "LeftHandIndex4",
+        "LeftHandIndexEnd",
+        "LeftHandMiddle1",
+        "LeftHandMiddle2",
+        "LeftHandMiddle3",
+        "LeftHandMiddle4",
+        "LeftHandMiddleEnd",
+        "LeftHandRing1",
+        "LeftHandRing2",
+        "LeftHandRing3",
+        "LeftHandRing4",
+        "LeftHandRingEnd",
+        "LeftHandPinky1",
+        "LeftHandPinky2",
+        "LeftHandPinky3",
+        "LeftHandPinky4",
+        "LeftHandPinkyEnd",
+        "RightHandThumb1",
+        "RightHandThumb2",
+        "RightHandThumb3",
+        "RightHandThumbEnd",
+        "RightHandIndex1",
+        "RightHandIndex2",
+        "RightHandIndex3",
+        "RightHandIndex4",
+        "RightHandIndexEnd",
+        "RightHandMiddle1",
+        "RightHandMiddle2",
+        "RightHandMiddle3",
+        "RightHandMiddle4",
+        "RightHandMiddleEnd",
+        "RightHandRing1",
+        "RightHandRing2",
+        "RightHandRing3",
+        "RightHandRing4",
+        "RightHandRingEnd",
+        "RightHandPinky1",
+        "RightHandPinky2",
+        "RightHandPinky3",
+        "RightHandPinky4",
+        "RightHandPinkyEnd"
+      ],
+      "remaining_prior_only_joints": 51,
+      "unknown_depth": "Unobserved; canonical depth prior",
+      "knowledge": {
+        "transfers": [
+          {
+            "to": "LeftShin",
+            "from": "Right alpha-supported leg",
+            "relation": "hip-knee-ankle fraction",
+            "used_silhouette": true
+          }
+        ],
+        "pose_symmetry": {
+          "silhouette_mirror_iou": 0.9994614970382337,
+          "axis_x": 55.0,
+          "pose_symmetric": true,
+          "anatomical_pairing": true,
+          "reason": "Pose symmetry requires frontal view AND measured alpha agreement; paired anatomy alone does not imply a mirrored pose"
+        },
+        "arm_template": {
+          "source": "Right observed arm + Left observed arm",
+          "upper_fraction": 0.6727999248864166,
+          "shoulder_span": 22.56852717708942,
+          "upper_px": 22.816353988351516,
+          "lower_px": 11.096343571747386
+        },
+        "leg_template": {
+          "source": "Left alpha-supported leg",
+          "upper_fraction": 0.6096399597571442
+        }
+      },
+      "conflicts": []
+    }
+  ],
+  "knowledge": {
+    "transfers": [
+      {
+        "to": "LeftShin",
+        "from": "Right alpha-supported leg",
+        "relation": "hip-knee-ankle fraction",
+        "used_silhouette": true
+      }
+    ],
+    "pose_symmetry": {
+      "silhouette_mirror_iou": 0.9994614970382337,
+      "axis_x": 55.0,
+      "pose_symmetric": true,
+      "anatomical_pairing": true,
+      "reason": "Pose symmetry requires frontal view AND measured alpha agreement; paired anatomy alone does not imply a mirrored pose"
+    },
+    "arm_template": {
+      "source": "Right observed arm + Left observed arm",
+      "upper_fraction": 0.6727999248864166,
+      "shoulder_span": 22.56852717708942,
+      "upper_px": 22.816353988351516,
+      "lower_px": 11.096343571747386
+    },
+    "leg_template": {
+      "source": "Left alpha-supported leg",
+      "upper_fraction": 0.6096399597571442
+    }
+  },
+  "regions": [
+    {
+      "name": "Right foot proposal",
+      "joint": "RightFoot",
+      "status": "hypothesis",
+      "source_owner_ids": [
+        8
+      ],
+      "pixels": [
+        [
+          38.5,
+          96.5
+        ],
+        [
+          39.5,
+          96.5
+        ],
+        [
+          40.5,
+          96.5
+        ],
+        [
+          41.5,
+          96.5
+        ],
+        [
+          42.5,
+          96.5
+        ],
+        [
+          43.5,
+          96.5
+        ],
+        [
+          44.5,
+          96.5
+        ],
+        [
+          45.5,
+          96.5
+        ],
+        [
+          36.5,
+          97.5
+        ],
+        [
+          37.5,
+          97.5
+        ],
+        [
+          38.5,
+          97.5
+        ],
+        [
+          39.5,
+          97.5
+        ],
+        [
+          40.5,
+          97.5
+        ],
+        [
+          41.5,
+          97.5
+        ],
+        [
+          42.5,
+          97.5
+        ],
+        [
+          43.5,
+          97.5
+        ],
+        [
+          44.5,
+          97.5
+        ],
+        [
+          45.5,
+          97.5
+        ],
+        [
+          36.5,
+          98.5
+        ],
+        [
+          37.5,
+          98.5
+        ],
+        [
+          38.5,
+          98.5
+        ],
+        [
+          39.5,
+          98.5
+        ],
+        [
+          40.5,
+          98.5
+        ],
+        [
+          41.5,
+          98.5
+        ],
+        [
+          42.5,
+          98.5
+        ],
+        [
+          43.5,
+          98.5
+        ],
+        [
+          44.5,
+          98.5
+        ],
+        [
+          45.5,
+          98.5
+        ],
+        [
+          35.5,
+          99.5
+        ],
+        [
+          36.5,
+          99.5
+        ],
+        [
+          37.5,
+          99.5
+        ],
+        [
+          38.5,
+          99.5
+        ],
+        [
+          39.5,
+          99.5
+        ],
+        [
+          40.5,
+          99.5
+        ],
+        [
+          41.5,
+          99.5
+        ],
+        [
+          42.5,
+          99.5
+        ],
+        [
+          43.5,
+          99.5
+        ],
+        [
+          44.5,
+          99.5
+        ],
+        [
+          45.5,
+          99.5
+        ],
+        [
+          46.5,
+          99.5
+        ],
+        [
+          35.5,
+          100.5
+        ],
+        [
+          36.5,
+          100.5
+        ],
+        [
+          37.5,
+          100.5
+        ],
+        [
+          38.5,
+          100.5
+        ],
+        [
+          39.5,
+          100.5
+        ],
+        [
+          40.5,
+          100.5
+        ],
+        [
+          41.5,
+          100.5
+        ],
+        [
+          42.5,
+          100.5
+        ],
+        [
+          43.5,
+          100.5
+        ],
+        [
+          44.5,
+          100.5
+        ],
+        [
+          45.5,
+          100.5
+        ],
+        [
+          46.5,
+          100.5
+        ],
+        [
+          35.5,
+          101.5
+        ],
+        [
+          36.5,
+          101.5
+        ],
+        [
+          37.5,
+          101.5
+        ],
+        [
+          38.5,
+          101.5
+        ],
+        [
+          39.5,
+          101.5
+        ],
+        [
+          40.5,
+          101.5
+        ],
+        [
+          41.5,
+          101.5
+        ],
+        [
+          42.5,
+          101.5
+        ],
+        [
+          43.5,
+          101.5
+        ],
+        [
+          44.5,
+          101.5
+        ],
+        [
+          45.5,
+          101.5
+        ],
+        [
+          46.5,
+          101.5
+        ],
+        [
+          35.5,
+          102.5
+        ],
+        [
+          36.5,
+          102.5
+        ],
+        [
+          37.5,
+          102.5
+        ],
+        [
+          38.5,
+          102.5
+        ],
+        [
+          39.5,
+          102.5
+        ],
+        [
+          40.5,
+          102.5
+        ],
+        [
+          41.5,
+          102.5
+        ],
+        [
+          42.5,
+          102.5
+        ],
+        [
+          43.5,
+          102.5
+        ],
+        [
+          44.5,
+          102.5
+        ],
+        [
+          45.5,
+          102.5
+        ],
+        [
+          37.5,
+          103.5
+        ],
+        [
+          38.5,
+          103.5
+        ],
+        [
+          39.5,
+          103.5
+        ],
+        [
+          40.5,
+          103.5
+        ],
+        [
+          41.5,
+          103.5
+        ],
+        [
+          42.5,
+          103.5
+        ],
+        [
+          43.5,
+          103.5
+        ],
+        [
+          44.5,
+          103.5
+        ]
+      ],
+      "reason": "Visible terminal geometry below ankle-width transition, independent of presence of Foot owner",
+      "writes_original": false
+    },
+    {
+      "name": "Left foot proposal",
+      "joint": "LeftFoot",
+      "status": "hypothesis",
+      "source_owner_ids": [
+        7,
+        9
+      ],
+      "pixels": [
+        [
+          64.5,
+          96.5
+        ],
+        [
+          65.5,
+          96.5
+        ],
+        [
+          66.5,
+          96.5
+        ],
+        [
+          67.5,
+          96.5
+        ],
+        [
+          68.5,
+          96.5
+        ],
+        [
+          69.5,
+          96.5
+        ],
+        [
+          70.5,
+          96.5
+        ],
+        [
+          71.5,
+          96.5
+        ],
+        [
+          64.5,
+          97.5
+        ],
+        [
+          65.5,
+          97.5
+        ],
+        [
+          66.5,
+          97.5
+        ],
+        [
+          67.5,
+          97.5
+        ],
+        [
+          68.5,
+          97.5
+        ],
+        [
+          69.5,
+          97.5
+        ],
+        [
+          70.5,
+          97.5
+        ],
+        [
+          71.5,
+          97.5
+        ],
+        [
+          72.5,
+          97.5
+        ],
+        [
+          73.5,
+          97.5
+        ],
+        [
+          64.5,
+          98.5
+        ],
+        [
+          65.5,
+          98.5
+        ],
+        [
+          66.5,
+          98.5
+        ],
+        [
+          67.5,
+          98.5
+        ],
+        [
+          68.5,
+          98.5
+        ],
+        [
+          69.5,
+          98.5
+        ],
+        [
+          70.5,
+          98.5
+        ],
+        [
+          71.5,
+          98.5
+        ],
+        [
+          72.5,
+          98.5
+        ],
+        [
+          73.5,
+          98.5
+        ],
+        [
+          63.5,
+          99.5
+        ],
+        [
+          64.5,
+          99.5
+        ],
+        [
+          65.5,
+          99.5
+        ],
+        [
+          66.5,
+          99.5
+        ],
+        [
+          67.5,
+          99.5
+        ],
+        [
+          68.5,
+          99.5
+        ],
+        [
+          69.5,
+          99.5
+        ],
+        [
+          70.5,
+          99.5
+        ],
+        [
+          71.5,
+          99.5
+        ],
+        [
+          72.5,
+          99.5
+        ],
+        [
+          73.5,
+          99.5
+        ],
+        [
+          74.5,
+          99.5
+        ],
+        [
+          63.5,
+          100.5
+        ],
+        [
+          64.5,
+          100.5
+        ],
+        [
+          65.5,
+          100.5
+        ],
+        [
+          66.5,
+          100.5
+        ],
+        [
+          67.5,
+          100.5
+        ],
+        [
+          68.5,
+          100.5
+        ],
+        [
+          69.5,
+          100.5
+        ],
+        [
+          70.5,
+          100.5
+        ],
+        [
+          71.5,
+          100.5
+        ],
+        [
+          72.5,
+          100.5
+        ],
+        [
+          73.5,
+          100.5
+        ],
+        [
+          74.5,
+          100.5
+        ],
+        [
+          63.5,
+          101.5
+        ],
+        [
+          64.5,
+          101.5
+        ],
+        [
+          65.5,
+          101.5
+        ],
+        [
+          66.5,
+          101.5
+        ],
+        [
+          67.5,
+          101.5
+        ],
+        [
+          68.5,
+          101.5
+        ],
+        [
+          69.5,
+          101.5
+        ],
+        [
+          70.5,
+          101.5
+        ],
+        [
+          71.5,
+          101.5
+        ],
+        [
+          72.5,
+          101.5
+        ],
+        [
+          73.5,
+          101.5
+        ],
+        [
+          74.5,
+          101.5
+        ],
+        [
+          64.5,
+          102.5
+        ],
+        [
+          65.5,
+          102.5
+        ],
+        [
+          66.5,
+          102.5
+        ],
+        [
+          67.5,
+          102.5
+        ],
+        [
+          68.5,
+          102.5
+        ],
+        [
+          69.5,
+          102.5
+        ],
+        [
+          70.5,
+          102.5
+        ],
+        [
+          71.5,
+          102.5
+        ],
+        [
+          72.5,
+          102.5
+        ],
+        [
+          73.5,
+          102.5
+        ],
+        [
+          74.5,
+          102.5
+        ],
+        [
+          65.5,
+          103.5
+        ],
+        [
+          66.5,
+          103.5
+        ],
+        [
+          67.5,
+          103.5
+        ],
+        [
+          68.5,
+          103.5
+        ],
+        [
+          69.5,
+          103.5
+        ],
+        [
+          70.5,
+          103.5
+        ],
+        [
+          71.5,
+          103.5
+        ],
+        [
+          72.5,
+          103.5
+        ]
+      ],
+      "reason": "Visible terminal geometry below ankle-width transition, independent of presence of Foot owner",
+      "writes_original": false
+    }
+  ],
+  "conflicts": [
+    "Left upper/lower boundary is inconsistent with a knee; possible shin pixels labelled upper leg"
+  ]
+}

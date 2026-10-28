@@ -66,9 +66,22 @@ text = "Step >"
 [node name="Step" type="Label" parent="."]
 offset_left = 190.0
 offset_top = 49.0
-offset_right = 1040.0
+offset_right = 990.0
 offset_bottom = 79.0
 text = "Placement"
+[node name="FullSkeleton" type="CheckBox" parent="."]
+offset_left = 1000.0
+offset_top = 49.0
+offset_right = 1190.0
+offset_bottom = 79.0
+text = "Full 77 joints"
+[node name="Evidence" type="CheckBox" parent="."]
+offset_left = 1200.0
+offset_top = 49.0
+offset_right = 1425.0
+offset_bottom = 79.0
+text = "Masks / proposals"
+button_pressed = true
 [node name="Canvas" type="Control" parent="."]
 offset_left = 12.0
 offset_top = 90.0

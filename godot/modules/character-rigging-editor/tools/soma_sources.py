@@ -20,7 +20,6 @@ MAPPING = {
     12: ['LeftForeArm', 'LeftHand'], 13: ['RightForeArm', 'RightHand'],
     14: ['Neck2', 'Head', 'HeadEnd'],
 }
-PROXIMAL = {2: 13, 3: 12, 4: 9, 5: 8, 6: 1, 7: 1, 8: 6, 9: 7, 10: 1, 11: 1, 12: 10, 13: 11, 14: 1}
 EXPECTED = {1: [6, 7, 10, 11, 14], 2: [13], 3: [12], 4: [9], 5: [8], 6: [1, 8], 7: [1, 9], 8: [6, 5], 9: [7, 4], 10: [1, 12], 11: [1, 13], 12: [10, 3], 13: [11, 2], 14: [1]}
 
 
@@ -61,30 +60,20 @@ def analyze(entry, owners, names, review):
         center = points.mean(0)
         _, vectors = np.linalg.eigh(np.cov(points.T) if len(points) > 2 else np.eye(2))
         axis = vectors[:, -1]
-        if i == 1:
-            if axis[1] > 0: axis = -axis  # pelvis -> chest in native image coordinates
-        elif PROXIMAL[i] in centers:
-            if np.dot(axis, centers[PROXIMAL[i]] - center) > 0: axis = -axis
-        else:
-            score *= .5
-            reasons.append('Endpoint orientation has no proximal semantic support')
         along = (points-center) @ axis
         lo, hi = np.quantile(along, [.05, .95])
         width = float(np.quantile(np.abs((points-center) @ np.array([-axis[1], axis[0]])), .85))
+        # PCA describes mask shape only. Its endpoints are NOT anatomical joints.
         ends = [center+axis*lo, center+axis*hi]
-        # These observations are visible-axis intervals, including contour uncertainty.
         radius = max(2., width, (hi-lo)*.16)
-        landmarks = [ends[0].tolist(), ends[1].tolist()]
-        mapping = MAPPING[i]
-        fractions = np.linspace(0, 1, len(mapping)) if len(mapping)>1 else [.5]
-        constraints = [dict(joint=j, target=(ends[0]*(1-t)+ends[1]*t).tolist(), radius_px=radius,
-                            weight=score/len(mapping), source_chunk=i, kind='visible_axis_interval', status='hypothesis') for j,t in zip(mapping,fractions)]
+        landmarks = []
+        constraints = []
         chunks.append(dict(basic, status='reliable' if score>.65 and review['status']=='Accepted' else ('partial' if score>.2 else 'ambiguous'),
                            score=score, reasons=reasons, pixels=len(x), components=int(count), largest_component_fraction=float(largest),
                            original_seed_fraction=seed, inferred_boundary_fraction=flood_border,
                            completeness='visible-only; full segment unknown', contamination='possible' if count>1 else 'not excluded',
                            boundary_quality='model/flood contour; not a joint seam', expected_neighbors=expected, neighbors=neighbors,
-                           landmarks=landmarks, centroid=center.tolist(), visible_span_px=float(hi-lo), width_px=width,
+                           landmarks=landmarks, unoriented_shape_axis=[p.tolist() for p in ends], centroid=center.tolist(), visible_span_px=float(hi-lo), width_px=width,
                            endpoint_radius_px=radius, constraints=constraints))
     return chunks
 
