@@ -16,6 +16,9 @@ var pan:=Vector2(110,40)
 var dragging:=-1
 var full_skeleton:=false
 var show_evidence:=true
+var comparison_source: ImageTexture
+var shoulder_focused:=false
+const SHOULDER_CHAIN: Array[String]=["Chest","LeftShoulder","RightShoulder","LeftArm","RightArm","LeftForeArm","RightForeArm","LeftHand","RightHand"]
 const MAIN: Array[String]=["Hips","Spine1","Spine2","Chest","Neck1","Neck2","Head","HeadEnd","LeftShoulder","LeftArm","LeftForeArm","LeftHand","RightShoulder","RightArm","RightForeArm","RightHand","LeftLeg","LeftShin","LeftFoot","LeftToeBase","LeftToeEnd","RightLeg","RightShin","RightFoot","RightToeBase","RightToeEnd"]
 
 static func point(value: Array) -> Vector2:
@@ -28,6 +31,8 @@ func configure(value: Dictionary, skeleton: Dictionary, edits: Dictionary) -> vo
 	var root: String="res://modules/character-rigging-editor/soma/assets/"+data.key+"/"
 	source=texture(root+"source.png")
 	chunks=texture(root+"chunks.png")
+	if data.has("multiview"):
+		comparison_source=texture(data.multiview.south_comparison.source)
 	zoom=4.0
 	pan=Vector2(80,35)
 	queue_redraw()
@@ -66,21 +71,49 @@ func _draw() -> void:
 					if c.conflict:
 						var index: int=model.joint_names.find(c.joint)
 						draw_line(screen(points[index]),screen(c.target),Color("f35d6b"),2)
-			if layer!=2: draw_3d()
+			if data.has("multiview"): draw_south_comparison()
+			elif layer!=2: draw_3d()
 		for name in patch.get("pins",{}):
 			var pin:=screen(patch.pins[name])
 			draw_line(pin-Vector2(5,0),pin+Vector2(5,0),Color.MAGENTA,2)
 			draw_line(pin-Vector2(0,5),pin+Vector2(0,5),Color.MAGENTA,2)
-	if show_evidence and (layer==2 or layer>=4) and data.has("anatomy"):
+	if show_evidence and (layer==2 or layer>=4) and data.has("anatomy") and not data.has("multiview"):
 		var regions: Array=data.placement[mini(step_index,data.placement.size()-1)].get("recovered_regions",[]) if layer==2 else data.anatomy.regions
 		for region in regions:
 			for pixel in region.pixels:
 				draw_rect(Rect2(screen(pixel)-Vector2.ONE*zoom*.45,Vector2.ONE*zoom*.9),Color(1,.35,.75,.28))
 	draw_string(ThemeDB.fallback_font,Vector2(12,22),"Native image: %d x %d | display zoom %.1fx"%[native.x,native.y,zoom],HORIZONTAL_ALIGNMENT_LEFT,-1,14,Color.WHITE)
-	if layer>=5:
+	if data.has("multiview"):
+		var camera: Dictionary=data.camera
+		draw_string(ThemeDB.fallback_font,Vector2(12,43),"%s | yaw %.2f / pitch %.2f | %.2f px/m"%[data.multiview.stage,data.multiview.camera_degrees.yaw,data.multiview.camera_degrees.pitch,camera.pixels_per_metre],HORIZONTAL_ALIGNMENT_LEFT,-1,13,Color("d5a944"))
+	elif layer>=5:
 		draw_string(ThemeDB.fallback_font,Vector2(12,43),"Shared baseline geometry | camera / pose fitted first | select a bone for residuals",HORIZONTAL_ALIGNMENT_LEFT,-1,13,Color("d5a944"))
 	if data.has("geometry"):
-		draw_string(ThemeDB.fallback_font,Vector2(12,size.y-22),"Main anatomy | pink = recovered region (source masks unchanged) | Full 77: face/finger priors",HORIZONTAL_ALIGNMENT_LEFT,-1,13,Color.WHITE)
+		draw_string(ThemeDB.fallback_font,Vector2(12,size.y-22),"Dashed Chest->Shoulder: kinematic connector. Amber: uncertain interval disagreement." if data.has("multiview") else "Main anatomy | pink = recovered region (source masks unchanged) | Full 77: face/finger priors",HORIZONTAL_ALIGNMENT_LEFT,-1,13,Color.WHITE)
+
+func focus_shoulders(value: bool) -> void:
+	shoulder_focused=value
+	zoom=4.0
+	pan=Vector2(80,35)
+	if value and data.has("multiview"):
+		var low:=Vector2(INF,INF)
+		for name in ["Chest","LeftShoulder","RightShoulder","LeftArm","RightArm","LeftForeArm","RightForeArm","LeftHand","RightHand"]:
+			low=low.min(point(data.projected_joints[model.joint_names.find(name)]))
+		zoom=9.0
+		pan=Vector2(180,110)-low*zoom
+	queue_redraw()
+
+func draw_south_comparison() -> void:
+	var origin:=Vector2(size.x-195,180)
+	var scale:=1.65
+	draw_string(ThemeDB.fallback_font,origin+Vector2(-5,-12),"South: original camera",HORIZONTAL_ALIGNMENT_LEFT,-1,12,Color.WHITE)
+	draw_texture_rect(comparison_source,Rect2(origin,comparison_source.get_size()*scale),false)
+	var points: Array=data.multiview.south_comparison.projected_joints
+	for i in range(77):
+		if not full_skeleton and model.joint_names[i] not in MAIN:continue
+		var parent: int=model.parents[i]
+		if parent>=0:draw_line(origin+point(points[parent])*scale,origin+point(points[i])*scale,anatomical_color(model.joint_names[i]),1)
+	draw_string(ThemeDB.fallback_font,origin+Vector2(-5,210),"Shared changes: "+str(data.multiview.delta_counts.shared),HORIZONTAL_ALIGNMENT_LEFT,-1,12,Color.WHITE)
 
 func anatomical_color(name: String) -> Color:
 	return Color("53d7fa") if name.begins_with("Left") else Color("ffbe63") if name.begins_with("Right") else Color("d2ed7c")
@@ -100,25 +133,35 @@ func draw_placement(step: Dictionary) -> void:
 func draw_skeleton(points: Array, color: Color) -> void:
 	for i in range(points.size()):
 		var name: String=model.joint_names[i]
+		if shoulder_focused and data.has("multiview") and name not in SHOULDER_CHAIN:continue
 		if not full_skeleton and layer!=3 and name not in MAIN and i!=selected_joint: continue
 		var parent: int=model.parents[i]
 		var prior: bool=data.get("joint_status",[]).size()==77 and data.joint_status[i].status=="canonical-prior-only"
 		if prior and not full_skeleton and layer!=3: continue
 		var tint:=Color(.6,.65,.75,.3) if prior else anatomical_color(name) if layer!=3 else color
 		var occluded: bool=data.get("joint_status",[]).size()==77 and data.joint_status[i].status=="occluded-hypothesis"
-		if parent>=0:
-			if occluded and layer!=3:
+		if parent>=0 and not (shoulder_focused and data.has("multiview") and model.joint_names[parent] not in SHOULDER_CHAIN):
+			if (occluded or (data.has("multiview") and name.ends_with("Shoulder"))) and layer!=3:
 				for dash in range(0,10,2):
 					draw_line(screen(points[parent]).lerp(screen(points[i]),dash/10.0),screen(points[parent]).lerp(screen(points[i]),(dash+1)/10.0),tint,1.2)
 			else: draw_line(screen(points[parent]),screen(points[i]),tint,1.4)
 		if not prior: draw_circle(screen(points[i]),2.5,tint)
+		if shoulder_focused and data.has("multiview"):
+			var label_offset:=Vector2(-145,-10) if name.begins_with("Right") else Vector2(8,16)
+			draw_string(ThemeDB.fallback_font,screen(points[i])+label_offset,name,HORIZONTAL_ALIGNMENT_LEFT,-1,13,tint)
 	draw_circle(screen(points[selected_joint]),5,Color.MAGENTA,false,1.5)
 	var selected_name: String=model.joint_names[selected_joint]
-	draw_string(ThemeDB.fallback_font,screen(points[selected_joint])+Vector2(8,-8),selected_name,HORIZONTAL_ALIGNMENT_LEFT,-1,14,Color.WHITE)
+	if not (shoulder_focused and data.has("multiview")):
+		draw_string(ThemeDB.fallback_font,screen(points[selected_joint])+Vector2(8,-8),selected_name,HORIZONTAL_ALIGNMENT_LEFT,-1,14,Color.WHITE)
 	if data.has("joint_status"):
 		var evidence: Dictionary=data.joint_status[selected_joint]
 		if evidence.get("heuristic_radius_px")!=null:
 			draw_arc(screen(points[selected_joint]),float(evidence.heuristic_radius_px)*zoom,0,TAU,32,Color(1,1,1,.4),1)
+	if data.has("multiview"):
+		for row in data.multiview.metrics.joints:
+			if shoulder_focused and row.joint not in SHOULDER_CHAIN:continue
+			if row.outside_interval_px>0:
+				draw_circle(screen(points[model.joint_names.find(row.joint)]),8,Color("f8c45c"),false,1)
 
 func draw_3d() -> void:
 	var points: Array=model.rest_positions_m if layer==3 else data.spatial_joints_m
@@ -150,7 +193,9 @@ func _gui_input(event: InputEvent) -> void:
 					var position: Array=patch.pins.get(model.joint_names[i],data.projected_joints[i])
 					var distance:=screen(position).distance_to(event.position)
 					if distance<best: best=distance; dragging=i
-				if dragging>=0: joint_selected.emit(dragging)
+				if dragging>=0:
+					joint_selected.emit(dragging)
+					if data.has("multiview"):dragging=-1
 			else: dragging=-1
 	elif event is InputEventMouseMotion:
 		if event.button_mask & MOUSE_BUTTON_MASK_MIDDLE:

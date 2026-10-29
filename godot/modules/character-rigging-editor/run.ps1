@@ -1,11 +1,19 @@
 param(
-    [ValidateSet('soma-anatomy-checks','soma-anatomy-inspect','soma-anatomy-hypothesis','soma-build','soma-fit','soma-test','soma-report','soma-editor','soma-proof','prepare-a','prepare-b','prepare-d','prepare-e','import','parse','stage-a','stage-b','stage-d','editor','demo','test','proof','diagnostics','export','video')]
+    [ValidateSet('mv-build','mv-replay','mv-test','mv-report','mv-proof','mv-editor','soma-anatomy-checks','soma-anatomy-inspect','soma-anatomy-hypothesis','soma-build','soma-fit','soma-test','soma-report','soma-editor','soma-proof','prepare-a','prepare-b','prepare-d','prepare-e','import','parse','stage-a','stage-b','stage-d','editor','demo','test','proof','diagnostics','export','video')]
     [string]$Action = 'editor'
 )
 $ErrorActionPreference = 'Stop'
 $repo = (Resolve-Path (Join-Path $PSScriptRoot '../../..')).Path
 $project = Join-Path $repo 'godot'
 $python = Join-Path $repo 'experiments/anatomy-benchmark-v1.0.0/.venv/Scripts/python.exe'
+if ($Action -in @('mv-build','mv-replay','mv-test','mv-report')) {
+    $mvPython = 'C:/Users/Public/motionbricks-runtime/motionbricks/.venv/Scripts/python.exe'
+    if ($Action -in @('mv-build','mv-replay')) { & $mvPython -B (Join-Path $PSScriptRoot 'tools/soma_multiview.py') $Action.Substring(3) }
+    elseif ($Action -eq 'mv-report') { & $mvPython -B (Join-Path $PSScriptRoot 'tools/soma_multiview_report.py') }
+    else { & $mvPython -B (Join-Path $PSScriptRoot 'tools/soma_multiview_tests.py') }
+    if ($LASTEXITCODE -ne 0) { throw 'Multi-view calibration failed; see original error above' }
+    return
+}
 if ($Action -eq 'soma-anatomy-checks') {
     & 'C:/Users/Public/motionbricks-runtime/motionbricks/.venv/Scripts/python.exe' -B (Join-Path $PSScriptRoot 'tools/soma_anatomy_checks.py')
     if ($LASTEXITCODE -ne 0) { throw 'Anatomical control failed; inspect the actual saved overlay and original error above' }
@@ -53,14 +61,15 @@ if ($Action -eq 'parse') { $engineArgs += @('--headless','--check-only','--scrip
 elseif ($Action -eq 'import') { $engineArgs += @('--headless','--editor','--import'); }
 else {
     $engineArgs += 'res://modules/character-rigging-editor/editor.tscn'
-    if ($Action -eq 'soma-editor') { $engineArgs += @('--','--soma') }
+    if ($Action -eq 'mv-editor') { $engineArgs += @('--','--mv-open') }
+    elseif ($Action -eq 'soma-editor') { $engineArgs += @('--','--soma') }
     elseif ($Action -eq 'demo') { $engineArgs += @('--','--demo') }
     elseif ($Action -ne 'editor') { $engineArgs += @('--', ('--'+$Action+'-check')) }
 }
 $stdout = Join-Path $PSScriptRoot ($Action+'-stdout.log')
 $stderr = Join-Path $PSScriptRoot ($Action+'-stderr.log')
 $process = Start-Process -FilePath $engine -ArgumentList $engineArgs -WorkingDirectory $project -WindowStyle Hidden -PassThru -RedirectStandardOutput $stdout -RedirectStandardError $stderr
-if ($Action -in @('editor','demo','soma-editor')) { $process.WaitForExit() }
+if ($Action -in @('editor','demo','soma-editor','mv-editor')) { $process.WaitForExit() }
 else {
     $deadline = [DateTime]::UtcNow.AddMinutes(3)
     while (-not $process.WaitForExit(1000)) {

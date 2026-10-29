@@ -44,6 +44,8 @@ func _ready() -> void:
 	for value in catalog.cases: $Case.add_item(value.key)
 	for name in ["Source","Chunks","Placement","Canonical SOMA","Calibrated SOMA","Pose Difference","View Difference"]:
 		$Layer.add_item(name)
+	for name in ["Baseline Projection","Camera Only","Shared Geometry","Pose Delta","Art Delta","Final Comparison"]:
+		$Layer.add_item("MV: "+name)
 	for name in model.joint_names: $Joint.add_item(name)
 	$Case.item_selected.connect(case_selected)
 	$Layer.item_selected.connect(layer_selected)
@@ -72,12 +74,21 @@ func _ready() -> void:
 		if not refreshing: patch.verified_registration=value; mark_dirty())
 	$Canvas.joint_moved.connect(set_pin)
 	$Canvas.joint_selected.connect(select_joint)
-	$FullSkeleton.toggled.connect(func(value): $Canvas.full_skeleton=value; $Canvas.queue_redraw())
+	$FullSkeleton.toggled.connect(func(value):
+		$Canvas.full_skeleton=value
+		if value: $ShoulderFocus.button_pressed=false
+		$Canvas.queue_redraw())
 	$Evidence.toggled.connect(func(value): $Canvas.show_evidence=value; $Canvas.queue_redraw())
+	$ShoulderFocus.toggled.connect(func(value):
+		if value:$FullSkeleton.button_pressed=false
+		$Canvas.focus_shoulders(value))
 	select_case_key("idle/south")
 	if "--soma" in OS.get_cmdline_user_args() or "--soma-proof-check" in OS.get_cmdline_user_args():
 		call_deferred("activate_mode")
 	if "--soma-proof-check" in OS.get_cmdline_user_args(): call_deferred("proof")
+	if "--mv-open" in OS.get_cmdline_user_args() or "--mv-proof-check" in OS.get_cmdline_user_args():
+		call_deferred("activate_multiview")
+	if "--mv-proof-check" in OS.get_cmdline_user_args():call_deferred("multiview_proof")
 
 func current_key() -> String:
 	return $Case.get_item_text($Case.selected)
@@ -166,6 +177,17 @@ func select_joint(index: int) -> void:
 
 func show_details() -> void:
 	if data.is_empty(): return
+	if data.has("multiview"):
+		var mv: Dictionary=data.multiview
+		var camera: Dictionary=data.camera
+		var text: String="%s\nYaw %.3f / pitch %.3f deg\nScale %.4f px/m | shift %.3f, %.3f\n"%[mv.stage,mv.camera_degrees.yaw,mv.camera_degrees.pitch,camera.pixels_per_metre,camera.tx,camera.ty]
+		text+="Delta counts: "+str(mv.delta_counts)+"\n"+mv.reason+"\nSelected: "+str(model.joint_names[selected_joint])+"\n"
+		text+="South projection change: %.6f px\n"%mv.south_projection_max_change_px
+		for row in mv.metrics.joints:
+			if row.joint==model.joint_names[selected_joint]:text+="Interval disagreement %.3f px (hypothesis, not ground truth)\n"%row.outside_interval_px
+		text+="Chest->Shoulder is a kinematic connector. Hidden roots/depth remain unconfirmed."
+		$Details.text=text
+		return
 	var chunk: Dictionary=data.chunks[selected_chunk]
 	var text: String=chunk.name+"\n"+"\n".join(chunk.reasons)+"\n"
 	if $Layer.selected==2 and not data.get("placement",[]).is_empty():
@@ -192,6 +214,16 @@ func show_details() -> void:
 	$Details.text=text
 
 func layer_selected(index: int) -> void:
+	if index>=7:
+		open_multiview(index-7)
+		return
+	$ShoulderFocus.visible=false
+	$Canvas.shoulder_focused=false
+	if data.has("multiview"):
+		$Case.disabled=false
+		$Refit.disabled=false
+		set_editing_enabled(true)
+		open_case(current_key())
 	if index==5 and data.get("key","")=="idle/south":
 		if dirty and not save_edits(): return
 		select_case_key("walk/south")
@@ -205,6 +237,11 @@ func layer_selected(index: int) -> void:
 	$Canvas.queue_redraw()
 
 func change_step(delta: int) -> void:
+	if data.has("multiview"):
+		var index: int=clampi(int(data.multiview.index)+delta,0,5)
+		$Layer.select(index+7)
+		open_multiview(index)
+		return
 	var steps: Array=data.get("placement",[])
 	if steps.is_empty():
 		$Step.text="No placement yet; run Joint refit"
@@ -375,6 +412,77 @@ func set_editing_enabled(value: bool) -> void:
 		get_node(name).disabled=not value
 	$Mapping.editable=value
 	$ArtReason.editable=value
+
+func activate_multiview() -> void:
+	activate_mode()
+	$Layer.select(8)
+	open_multiview(1)
+
+func open_multiview(index: int) -> void:
+	if process_id>0:
+		$Status.text="Wait for the current refit before switching calibration workflow."
+		$Layer.select($Canvas.layer)
+		return
+	if dirty and not save_edits():return
+	var path:=ROOT+"multiview/stages/%02d.json"%index
+	var staged:=read_json(path)
+	if staged.is_empty():
+		$Canvas.data={}
+		$Canvas.queue_redraw()
+		$Status.text="Multi-view stages unavailable. Run run.ps1 mv-build."
+		return
+	data=staged
+	patch={"pins":{},"mapping":{},"excluded_chunks":[],"art_corrections":{}}
+	dirty=false
+	for i in range($Case.item_count):
+		if $Case.get_item_text(i)=="idle/south-west":$Case.select(i)
+	$Case.disabled=true
+	$Refit.disabled=true
+	set_editing_enabled(false)
+	$ShoulderFocus.visible=true
+	$Canvas.configure(data,model,patch)
+	$Canvas.layer=index+7
+	$Canvas.focus_shoulders($ShoulderFocus.button_pressed)
+	$Chunks.clear()
+	for chunk in data.chunks:$Chunks.add_item("%02d %-17s %-10s %.3f"%[chunk.id,chunk.name,chunk.status,chunk.score])
+	selected_chunk=0
+	select_joint(model.joint_names.find("Chest"))
+	$Step.text=data.multiview.stage+" | changes "+str(data.multiview.delta_counts)
+	$Status.text="Read-only staged projection from immutable South Idle. "+data.multiview.reason
+
+func multiview_proof() -> void:
+	var relative: String="soma/multiview/proof/run-"+str(Time.get_ticks_usec())+"/"
+	var folder: String="res://modules/character-rigging-editor/"+relative
+	DirAccess.make_dir_recursive_absolute(folder)
+	for i in range(6):
+		$Layer.select(i+7)
+		open_multiview(i)
+		assert(data.projected_joints.size()==77)
+		await get_tree().process_frame
+		await get_tree().process_frame
+		assert(get_viewport().get_texture().get_image().save_png(folder+str(i)+".png")==OK)
+	$ShoulderFocus.button_pressed=true
+	await get_tree().process_frame
+	await get_tree().process_frame
+	assert(get_viewport().get_texture().get_image().save_png(folder+"shoulders.png")==OK)
+	$ShoulderFocus.button_pressed=false
+	$FullSkeleton.button_pressed=true
+	await get_tree().process_frame
+	await get_tree().process_frame
+	assert(get_viewport().get_texture().get_image().save_png(folder+"full-77.png")==OK)
+	$FullSkeleton.button_pressed=false
+	change_step(-1)
+	assert(data.multiview.index==4)
+	change_step(1)
+	assert(data.multiview.index==5)
+	$Layer.select(0)
+	layer_selected(0)
+	assert(not data.has("multiview"))
+	assert(not $Case.disabled and not $Refit.disabled)
+	get_parent().mode_changed(0)
+	assert(not visible)
+	assert(write_json(ROOT+"multiview/ui-validation.json",{"success":true,"stages":6,"read_only":true,"return_to_editor":true,"shoulder_focus":true,"full_77":true,"folder":relative}))
+	get_tree().quit()
 
 func confirm_art() -> void:
 	if data.key=="idle/south":
