@@ -13,6 +13,8 @@ var textures: Dictionary={}
 var masks: Dictionary={}
 var projections: Dictionary={}
 var selected:=0
+var paired_joint:=-1
+var editing_mode:="Free"
 var active_view:="south-west"
 var full:=false
 var show_masks:=false
@@ -87,21 +89,24 @@ func _draw() -> void:
 			var p: Array=projections[view]
 			var names: Array=state.canonical.joint_names
 			for i in range(77):
-				if not full and names[i] not in MAIN:continue
+				if not full and names[i] not in MAIN and i!=selected and i!=paired_joint:continue
 				var parent: int=state.canonical.parents[i]
 				var related: bool=i==selected or parent==selected or state.canonical.parents[selected]==i
 				var color:=Color("ffd26b") if related else Color("61d9cd")
+				if i==paired_joint:color=Color("c392ff")
 				if parent>=0:
 					if names[i].ends_with("Shoulder"):draw_dashed_line(p[parent],p[i],color,1.0,2.0)
 					else:draw_line(p[parent],p[i],color,1.1,true)
-				draw_circle(p[i],2.5 if i==selected else 1.3,Color("ff627e") if i==selected else color)
+				var filled: bool=i!=paired_joint or editing_mode!="Free"
+				draw_circle(p[i],2.5 if i==selected or i==paired_joint else 1.3,Color("ff627e") if i==selected else color,filled,-1.0 if filled else 1.0)
 		var a: Dictionary=Model.anchor(state,view)
 		var target:=Vector2(a.target_px[0],a.target_px[1])
 		draw_circle(target,4.0,Color("8bb3ff"),false,1.1)
 		draw_line(target-Vector2(6,0),target+Vector2(6,0),Color("8bb3ff"),.8)
 		draw_line(target-Vector2(0,6),target+Vector2(0,6),Color("8bb3ff"),.8)
 		draw_set_transform_matrix(Transform2D.IDENTITY)
-		draw_string(font,r.position+Vector2(9,r.size.y-9),"%s  |  double click: focus"%state.canonical.joint_names[selected],HORIZONTAL_ALIGNMENT_LEFT,r.size.x-18,12,Color("ffd26b"))
+		var caption: String=state.canonical.joint_names[selected]+(" / "+state.canonical.joint_names[paired_joint] if paired_joint>=0 else "")
+		draw_string(font,r.position+Vector2(9,r.size.y-9),caption,HORIZONTAL_ALIGNMENT_LEFT,r.size.x-18,12,Color("ffd26b"))
 
 func _gui_input(event: InputEvent) -> void:
 	if state.is_empty():return
@@ -128,7 +133,7 @@ func _gui_input(event: InputEvent) -> void:
 			else:
 				var candidates: Array=[]
 				for i in range(77):
-					if (full or state.canonical.joint_names[i] in MAIN) and (image_transform(view)*projections[view][i]).distance_to(event.position)<10:candidates.append(i)
+					if (full or state.canonical.joint_names[i] in MAIN or i==selected or i==paired_joint) and (image_transform(view)*projections[view][i]).distance_to(event.position)<10:candidates.append(i)
 				if not candidates.is_empty():
 					selected=candidates[(candidates.find(last_hit)+1)%candidates.size()];last_hit=selected
 					joint_selected.emit(selected,view)

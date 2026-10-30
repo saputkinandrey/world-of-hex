@@ -2,6 +2,11 @@ extends Panel
 
 const Model=preload("res://modules/character-rigging-editor/soma/rig_model.gd")
 const North=preload("res://modules/character-rigging-editor/soma/rig_north.gd")
+const Pairs=preload("res://modules/character-rigging-editor/soma/rig_pairs.gd")
+const Settings=preload("res://modules/character-rigging-editor/soma/rig_settings.gd")
+var editing_mode:="Free"
+var settings_path:=Settings.PATH
+var joint_pairs: Dictionary={}
 var seed: Dictionary={}
 var state: Dictionary={}
 var history:=UndoRedo.new()
@@ -21,6 +26,18 @@ func _ready() -> void:
 		$Status.text="Missing six-camera seed. Run run.ps1 rig-prepare."
 		return
 	seed=Model.read(Model.SEED)
+	joint_pairs=Pairs.pairing(seed.canonical)
+	if "--pairs-proof-check" in OS.get_cmdline_user_args() or "--pairs-reload-check" in OS.get_cmdline_user_args():
+		var test_folder: String="res://modules/character-rigging-editor/soma/rig-editor/paired-editing/"
+		DirAccess.make_dir_recursive_absolute(test_folder)
+		settings_path=test_folder+"editor-settings.json"
+	editing_mode=Settings.load_mode(settings_path)
+	if "--rig-proof-check" in OS.get_cmdline_user_args() or "--north-proof-check" in OS.get_cmdline_user_args():editing_mode="Free"
+	for mode in Pairs.MODES:
+		get_node("Edit"+mode).toggled.connect(func(value):
+			if value and not updating:select_editing_mode(mode))
+	for name in ["X","Y","Z"]:get_node(name).value_changed.connect(func(_value):
+		if not updating:update_pair_info())
 	state=seed.duplicate(true)
 	if FileAccess.file_exists(save_path):
 		var loaded:=Model.load_session(save_path,seed)
@@ -101,6 +118,9 @@ func _ready() -> void:
 	if "--north-proof-check" in OS.get_cmdline_user_args() or "--north-reload-check" in OS.get_cmdline_user_args():
 		call_deferred("activate")
 		call_deferred("north_proof")
+	if "--pairs-proof-check" in OS.get_cmdline_user_args() or "--pairs-reload-check" in OS.get_cmdline_user_args():
+		call_deferred("activate")
+		call_deferred("pairs_proof")
 
 func activate() -> void:
 	var editor=get_parent().get_parent()
@@ -142,6 +162,8 @@ func refresh() -> void:
 	Model.sync_anchor_targets(state)
 	$Joint.select(selected);$View.select(Model.ORDER.find(view))
 	$Canvas.selected=selected;$Canvas.active_view=view
+	$Canvas.paired_joint=joint_pairs.get(selected,-1)
+	$Canvas.editing_mode=editing_mode
 	$Canvas.configure(state)
 	var scope: int=$Scope.selected
 	$Parameter.set_item_disabled(0,scope==1)
@@ -167,7 +189,7 @@ func refresh() -> void:
 	$Enabled.button_pressed=Model.lens(state,view).enabled
 	$CameraStatus.text="Camera: "+c.status+"\n"+("Reflected source basis: "+c.source_view+"; anatomical names retained" if c.mirror_x else "Independent source image")
 	if Model.linked(state,view):$CameraStatus.text="Camera: linked NorthWest reflection\nEdit NorthWest or explicitly Detach NE"
-	$Details.text="Selected: "+seed.canonical.joint_names[selected]+" | "+$Scope.get_item_text(scope)+"\n"+("Length X: multiplier (1 = base)." if scope==2 else "Geometry length X: metres.")+"\nRotation XYZ: axis-angle degrees. Offset: local metres.\nOrder: offset * length + delta; Qcanonical * Qbase * Qlens.\nBlue cross: anchor. Red: joint. Gold: parent / children.\nWheel: zoom. Middle drag: pan. Double click: focus.\nRepeated clicks cycle overlapping joints."
+	$Details.text="Rotation XYZ: axis-angle degrees, not Euler.\nOffsets: parent-local m. Length: incoming segment.\nRed: selected; violet: pair; blue: image anchor.\nWheel: zoom; middle drag: pan; double click: focus."
 	$Undo.disabled=not history.has_undo();$Redo.disabled=not history.has_redo()
 	$Status.text=("Unsaved changes | " if dirty else "Saved / baseline | ")+view+" | "+str(Model.lens(state,view).joints.size())+" corrected joints"+(" | Linked to NorthWest; edit source or Detach NE" if Model.linked(state,view) else "")
 	$DetachNorth.disabled=not Model.linked(state,"north-east")
@@ -178,27 +200,57 @@ func refresh() -> void:
 	$AnchorJoint.disabled=locked
 	$Enabled.disabled=locked
 	$Canvas.anchor_tool=$AnchorTool.button_pressed and not locked
+	for mode in Pairs.MODES:get_node("Edit"+mode).button_pressed=editing_mode==mode
+	update_pair_info()
 	updating=false
 
-func apply_parameter() -> void:
-	if Model.linked(state,view):$Status.text="Edit NorthWest or explicitly Detach NE first";return
-	var next:=state.duplicate(true)
+func input_value() -> Variant:
 	var parameter: int=$Parameter.selected
-	var scope: int=$Scope.selected
-	if scope==3:return
 	var v: Array=[$X.value,$Y.value,$Z.value]
 	if parameter==0:v=[deg_to_rad(v[0]),deg_to_rad(v[1]),deg_to_rad(v[2])]
-	if scope==0:
-		if parameter==3:next.base_pose.root_translation_m=v
-		else:next.base_pose.local_rotation_vectors[selected]=v
-	elif scope==1:
-		if parameter==1:
-			var offset:=Model.vec(next.geometry.local_offsets_m[selected])
-			if offset.length()<1e-9 or v[0]<=0:$Status.text="ERROR: length requires a nonzero segment and positive metres";return
-			next.geometry.local_offsets_m[selected]=Model.array3(offset.normalized()*float(v[0]))
-		else:next.geometry.local_offsets_m[selected]=v
-	else:Model.put_override(next,view,seed.canonical.joint_names[selected],["rotation_delta","length_multiplier","local_offset_delta"][parameter],v[0] if parameter==1 else v)
-	commit("Edit "+$Scope.get_item_text(scope)+" / "+$Parameter.get_item_text(parameter),next)
+	return v[0] if parameter==1 else v
+
+func select_editing_mode(mode: String) -> void:
+	var error:=Settings.save_mode(settings_path,mode)
+	if error!=OK:
+		refresh();$Status.text="Cannot save editor preference: "+str(error);return
+	editing_mode=mode
+	refresh()
+
+func segment_name(joint: int) -> String:
+	var parent: int=seed.canonical.parents[joint]
+	return (seed.canonical.joint_names[parent] if parent>=0 else "Root")+" -> "+seed.canonical.joint_names[joint]
+
+func update_pair_info() -> void:
+	var other: int=joint_pairs.get(selected,-1)
+	$PairNames.text="No paired joint - editing selected joint only" if other<0 else seed.canonical.joint_names[selected]+" / "+seed.canonical.joint_names[other]+(" | selected only" if editing_mode=="Free" else " | inverse mirrored delta" if editing_mode=="Inverted" else " | mirrored delta")
+	$PairPreview.text=""
+	if $Scope.selected==3:return
+	if $Parameter.selected==3:
+		$PairNames.text="Pose root translation - independent in all modes"
+		return
+	var preview:=Pairs.edit(state,view,$Scope.selected,$Parameter.selected,selected,input_value(),editing_mode)
+	if preview.has("error"):$PairPreview.text=preview.error;return
+	if $Parameter.selected==1:
+		$PairPreview.text=length_summary(state,preview.state,$Scope.selected,other)
+	elif other>=0:
+		var label: String="Mirrored change" if editing_mode=="Symmetric" else "Inverse mirrored change" if editing_mode=="Inverted" else "Paired joint stays unchanged"
+		var after: Array=Pairs.field_value(preview.state,view,$Scope.selected,$Parameter.selected,other)
+		if $Parameter.selected==0:after=after.map(func(x):return rad_to_deg(x))
+		$PairPreview.text=label+"\n"+seed.canonical.joint_names[other]+": (%.3f, %.3f, %.3f)"%after
+
+func length_summary(before: Dictionary, after: Dictionary, scope: int, other: int) -> String:
+	var text: String="%s: %.4f -> %.4f m"%[segment_name(selected),Pairs.segment(before,view,scope,selected).length(),Pairs.segment(after,view,scope,selected).length()]
+	if other>=0:text+="\n%s: %.4f -> %.4f m"%[segment_name(other),Pairs.segment(before,view,scope,other).length(),Pairs.segment(after,view,scope,other).length()]
+	return text
+
+func apply_parameter() -> void:
+	if $Scope.selected==3:return
+	var result:=Pairs.edit(state,view,$Scope.selected,$Parameter.selected,selected,input_value(),editing_mode)
+	if result.has("error"):$Status.text="ERROR: "+result.error;return
+	var summary: String=length_summary(state,result.state,$Scope.selected,result.partner) if $Parameter.selected==1 else ""
+	commit("Edit "+$Scope.get_item_text($Scope.selected)+" / "+$Parameter.get_item_text($Parameter.selected)+" / "+editing_mode,result.state)
+	if not summary.is_empty():$PairPreview.text=summary
 
 func apply_camera() -> void:
 	if Model.linked(state,view):$Status.text="Edit NorthWest or explicitly Detach NE first";return
@@ -244,4 +296,9 @@ func reload_proof() -> void:
 func north_proof() -> void:
 	var proof_script=preload("res://modules/character-rigging-editor/soma/rig_north_proof.gd")
 	if "--north-reload-check" in OS.get_cmdline_user_args():await proof_script.reload_run(self)
+	else:await proof_script.run(self)
+
+func pairs_proof() -> void:
+	var proof_script=preload("res://modules/character-rigging-editor/soma/rig_pairs_proof.gd")
+	if "--pairs-reload-check" in OS.get_cmdline_user_args():await proof_script.reload_run(self)
 	else:await proof_script.run(self)

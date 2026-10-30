@@ -3,9 +3,10 @@ from pathlib import Path
 
 ROOT=Path(__file__).resolve().parents[1]
 R='res://modules/character-rigging-editor/soma/'
-text=f'''[gd_scene load_steps=4 format=3]
+text=f'''[gd_scene load_steps=5 format=3]
 [ext_resource type="Script" path="{R}rig_panel.gd" id="1"]
 [ext_resource type="Script" path="{R}rig_canvas.gd" id="2"]
+[sub_resource type="ButtonGroup" id="EditingModes"]
 [sub_resource type="StyleBoxFlat" id="Background"]
 bg_color = Color(0.075,0.095,0.13,1)
 [node name="RigEditor" type="Panel"]
@@ -40,7 +41,11 @@ button('DetachNorth','Detach NE',1290,8,130)
 for name,label_text,x in [('Full','Full 77',12),('Masks','Masks',120),('Skeleton','Skeleton',220),('AnchorTool','Anchor tool',340)]:
     node(name,'CheckBox',x,44,120,30,f'text = "{label_text}"'+('\nbutton_pressed = true' if name=='Skeleton' else ''))
 button('All','All six',490,44,90);button('Focus','Focus view',590,44,110);button('Center','Center',710,44,90)
-node('Canvas','Control',8,82,1012,710,'script = ExtResource("2")\nclip_contents = true\nmouse_filter = 0')
+label('EditingLabel','Editing:',12,84,65)
+for name,x,w in [('Free',80,75),('Symmetric',161,110),('Inverted',277,100)]:
+    node('Edit'+name,'Button',x,82,w,30,'text = "'+name+'"\ntoggle_mode = true\nbutton_group = SubResource("EditingModes")\ntheme_override_colors/font_pressed_color = Color(1,0.82,0.4,1)'+ ('\nbutton_pressed = true' if name=='Free' else ''))
+label('PairNames','',391,84,625)
+node('Canvas','Control',8,120,1012,672,'script = ExtResource("2")\nclip_contents = true\nmouse_filter = 0')
 node('View','OptionButton',1040,44,380,32)
 node('Joint','OptionButton',1040,85,380,32)
 node('Scope','OptionButton',1040,126,380,32)
@@ -60,6 +65,7 @@ label('AnchorLabel','Sprite Anchor: joint / target pixels',1040,541)
 node('AnchorJoint','OptionButton',1040,568,380,30)
 spin('AnchorX',1040,606,174,step=.1);spin('AnchorY',1230,606,174,step=.1)
 button('ApplyAnchor','Apply anchor X/Y',1040,646,182);button('ResetAnchor','Reset anchor',1230,646,190)
-node('Details','Label',1040,689,380,145,'theme_override_font_sizes/font_size = 11\nautowrap_mode = 2')
+node('Details','Label',1040,689,380,86,'theme_override_font_sizes/font_size = 11\nautowrap_mode = 2')
+node('PairPreview','Label',1040,780,380,54,'theme_override_font_sizes/font_size = 11\nautowrap_mode = 2')
 label('Status','',12,806,1010,28)
 (ROOT/'soma/rig_panel.tscn').write_text(text,encoding='utf-8')
