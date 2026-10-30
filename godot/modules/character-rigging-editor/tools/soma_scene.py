@@ -2,9 +2,10 @@
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]
 R='res://modules/character-rigging-editor/soma/'
-text=f'''[gd_scene load_steps=4 format=3]
+text=f'''[gd_scene load_steps=5 format=3]
 [ext_resource type="Script" path="{R}panel.gd" id="1"]
 [ext_resource type="Script" path="{R}canvas.gd" id="2"]
+[ext_resource type="PackedScene" path="{R}rig_panel.tscn" id="3"]
 [sub_resource type="StyleBoxFlat" id="Background"]
 bg_color = Color(0.11,0.13,0.16,1)
 [node name="Soma" type="Panel"]
@@ -62,4 +63,5 @@ node('ArtConfirm','Button',945,757,230,30,'text = "Confirm art correction"')
 node('ArtClear','Button',1185,757,235,30,'text = "Remove art correction"')
 node('Status','Label',12,800,1408,40,'autowrap_mode = 2\ntheme_override_font_sizes/font_size = 13')
 node('Help','Label',12,840,1408,20,'text = "Wheel: zoom | middle drag: pan | left drag: manual joint pin | right: 3D prior (depth unobserved) | all scores: uncalibrated heuristics"\ntheme_override_font_sizes/font_size = 12')
+text+='[node name="RigEditor" parent="." instance=ExtResource("3")]\nvisible = false\n'
 (ROOT/'soma/panel.tscn').write_text(text,encoding='utf-8')

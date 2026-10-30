@@ -1,0 +1,276 @@
+[gd_scene load_steps=4 format=3]
+[ext_resource type="Script" path="res://modules/character-rigging-editor/soma/rig_panel.gd" id="1"]
+[ext_resource type="Script" path="res://modules/character-rigging-editor/soma/rig_canvas.gd" id="2"]
+[sub_resource type="StyleBoxFlat" id="Background"]
+bg_color = Color(0.075,0.095,0.13,1)
+[node name="RigEditor" type="Panel"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource("1")
+theme_override_styles/panel = SubResource("Background")
+[node name="Back" type="Button" parent="."]
+offset_left = 12.0
+offset_top = 8.0
+offset_right = 122.0
+offset_bottom = 38.0
+text = "Calibration"
+[node name="Title" type="Label" parent="."]
+offset_left = 135.0
+offset_top = 10.0
+offset_right = 655.0
+offset_bottom = 34.0
+text = "SOMA Multi-View Rig Editor | Character1 / Idle"
+theme_override_font_sizes/font_size = 13
+[node name="Undo" type="Button" parent="."]
+offset_left = 670.0
+offset_top = 8.0
+offset_right = 745.0
+offset_bottom = 38.0
+text = "Undo"
+[node name="Redo" type="Button" parent="."]
+offset_left = 750.0
+offset_top = 8.0
+offset_right = 825.0
+offset_bottom = 38.0
+text = "Redo"
+[node name="Save" type="Button" parent="."]
+offset_left = 835.0
+offset_top = 8.0
+offset_right = 935.0
+offset_bottom = 38.0
+text = "Save all"
+[node name="Reload" type="Button" parent="."]
+offset_left = 945.0
+offset_top = 8.0
+offset_right = 1030.0
+offset_bottom = 38.0
+text = "Reload"
+[node name="Full" type="CheckBox" parent="."]
+offset_left = 12.0
+offset_top = 44.0
+offset_right = 132.0
+offset_bottom = 74.0
+text = "Full 77"
+[node name="Masks" type="CheckBox" parent="."]
+offset_left = 120.0
+offset_top = 44.0
+offset_right = 240.0
+offset_bottom = 74.0
+text = "Masks"
+[node name="Skeleton" type="CheckBox" parent="."]
+offset_left = 220.0
+offset_top = 44.0
+offset_right = 340.0
+offset_bottom = 74.0
+text = "Skeleton"
+button_pressed = true
+[node name="AnchorTool" type="CheckBox" parent="."]
+offset_left = 340.0
+offset_top = 44.0
+offset_right = 460.0
+offset_bottom = 74.0
+text = "Anchor tool"
+[node name="All" type="Button" parent="."]
+offset_left = 490.0
+offset_top = 44.0
+offset_right = 580.0
+offset_bottom = 74.0
+text = "All six"
+[node name="Focus" type="Button" parent="."]
+offset_left = 590.0
+offset_top = 44.0
+offset_right = 700.0
+offset_bottom = 74.0
+text = "Focus view"
+[node name="Center" type="Button" parent="."]
+offset_left = 710.0
+offset_top = 44.0
+offset_right = 800.0
+offset_bottom = 74.0
+text = "Center"
+[node name="Canvas" type="Control" parent="."]
+offset_left = 8.0
+offset_top = 82.0
+offset_right = 1020.0
+offset_bottom = 792.0
+script = ExtResource("2")
+clip_contents = true
+mouse_filter = 0
+[node name="View" type="OptionButton" parent="."]
+offset_left = 1040.0
+offset_top = 44.0
+offset_right = 1420.0
+offset_bottom = 76.0
+
+[node name="Joint" type="OptionButton" parent="."]
+offset_left = 1040.0
+offset_top = 85.0
+offset_right = 1420.0
+offset_bottom = 117.0
+
+[node name="Scope" type="OptionButton" parent="."]
+offset_left = 1040.0
+offset_top = 126.0
+offset_right = 1420.0
+offset_bottom = 158.0
+
+[node name="Parameter" type="OptionButton" parent="."]
+offset_left = 1040.0
+offset_top = 168.0
+offset_right = 1420.0
+offset_bottom = 200.0
+
+[node name="XYZ" type="Label" parent="."]
+offset_left = 1040.0
+offset_top = 203.0
+offset_right = 1420.0
+offset_bottom = 227.0
+text = "X / length                      Y                            Z"
+theme_override_font_sizes/font_size = 13
+[node name="X" type="SpinBox" parent="."]
+offset_left = 1040.0
+offset_top = 228.0
+offset_right = 1152.0
+offset_bottom = 260.0
+min_value = -10000.0
+max_value = 10000.0
+step = 0.001
+[node name="Y" type="SpinBox" parent="."]
+offset_left = 1166.0
+offset_top = 228.0
+offset_right = 1278.0
+offset_bottom = 260.0
+min_value = -10000.0
+max_value = 10000.0
+step = 0.001
+[node name="Z" type="SpinBox" parent="."]
+offset_left = 1292.0
+offset_top = 228.0
+offset_right = 1404.0
+offset_bottom = 260.0
+min_value = -10000.0
+max_value = 10000.0
+step = 0.001
+[node name="Apply" type="Button" parent="."]
+offset_left = 1040.0
+offset_top = 269.0
+offset_right = 1420.0
+offset_bottom = 299.0
+text = "Apply joint parameter"
+[node name="Enabled" type="CheckBox" parent="."]
+offset_left = 1040.0
+offset_top = 308.0
+offset_right = 1420.0
+offset_bottom = 336.0
+text = "Enable View Overrides"
+[node name="ResetJoint" type="Button" parent="."]
+offset_left = 1040.0
+offset_top = 342.0
+offset_right = 1222.0
+offset_bottom = 372.0
+text = "Reset joint lens"
+[node name="ResetView" type="Button" parent="."]
+offset_left = 1230.0
+offset_top = 342.0
+offset_right = 1420.0
+offset_bottom = 372.0
+text = "Clear view lenses"
+[node name="CameraLabel" type="Label" parent="."]
+offset_left = 1040.0
+offset_top = 383.0
+offset_right = 1420.0
+offset_bottom = 407.0
+text = "Camera: yaw / pitch (degrees) / scale (px/m)"
+theme_override_font_sizes/font_size = 13
+[node name="Yaw" type="SpinBox" parent="."]
+offset_left = 1040.0
+offset_top = 410.0
+offset_right = 1152.0
+offset_bottom = 442.0
+min_value = -360.0
+max_value = 360.0
+step = 0.1
+[node name="Pitch" type="SpinBox" parent="."]
+offset_left = 1166.0
+offset_top = 410.0
+offset_right = 1278.0
+offset_bottom = 442.0
+min_value = -89.0
+max_value = 89.0
+step = 0.1
+[node name="Scale" type="SpinBox" parent="."]
+offset_left = 1292.0
+offset_top = 410.0
+offset_right = 1404.0
+offset_bottom = 442.0
+min_value = 0.1
+max_value = 1000.0
+step = 0.01
+[node name="ApplyCamera" type="Button" parent="."]
+offset_left = 1040.0
+offset_top = 449.0
+offset_right = 1420.0
+offset_bottom = 479.0
+text = "Apply camera"
+[node name="CameraStatus" type="Label" parent="."]
+offset_left = 1040.0
+offset_top = 485.0
+offset_right = 1420.0
+offset_bottom = 537.0
+autowrap_mode = 2
+theme_override_font_sizes/font_size = 12
+[node name="AnchorLabel" type="Label" parent="."]
+offset_left = 1040.0
+offset_top = 541.0
+offset_right = 1420.0
+offset_bottom = 565.0
+text = "Sprite Anchor: joint / target pixels"
+theme_override_font_sizes/font_size = 13
+[node name="AnchorJoint" type="OptionButton" parent="."]
+offset_left = 1040.0
+offset_top = 568.0
+offset_right = 1420.0
+offset_bottom = 598.0
+
+[node name="AnchorX" type="SpinBox" parent="."]
+offset_left = 1040.0
+offset_top = 606.0
+offset_right = 1214.0
+offset_bottom = 638.0
+min_value = -10000.0
+max_value = 10000.0
+step = 0.1
+[node name="AnchorY" type="SpinBox" parent="."]
+offset_left = 1230.0
+offset_top = 606.0
+offset_right = 1404.0
+offset_bottom = 638.0
+min_value = -10000.0
+max_value = 10000.0
+step = 0.1
+[node name="ApplyAnchor" type="Button" parent="."]
+offset_left = 1040.0
+offset_top = 646.0
+offset_right = 1222.0
+offset_bottom = 676.0
+text = "Apply anchor X/Y"
+[node name="ResetAnchor" type="Button" parent="."]
+offset_left = 1230.0
+offset_top = 646.0
+offset_right = 1420.0
+offset_bottom = 676.0
+text = "Reset anchor"
+[node name="Details" type="Label" parent="."]
+offset_left = 1040.0
+offset_top = 689.0
+offset_right = 1420.0
+offset_bottom = 834.0
+theme_override_font_sizes/font_size = 11
+autowrap_mode = 2
+[node name="Status" type="Label" parent="."]
+offset_left = 12.0
+offset_top = 806.0
+offset_right = 1022.0
+offset_bottom = 834.0
+text = ""
+theme_override_font_sizes/font_size = 13

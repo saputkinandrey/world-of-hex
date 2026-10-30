@@ -1,0 +1,721 @@
+{
+  "frozen_geometry": true,
+  "frozen_local_rotations": true,
+  "frozen_positions_sha256": "0eaf430c4008bff88f1a6bbec37632480782c1e361e11a025600f20b9b997f98",
+  "independent_views": 4,
+  "derived_views": 2,
+  "diagnostics": {
+    "north": {
+      "success": true,
+      "evaluations": 37,
+      "initial": {
+        "yaw": -3.141592653589793,
+        "pitch": 0.0,
+        "pixels_per_metre": 49.24164515518937,
+        "tx": 55.0,
+        "ty": 93.5
+      },
+      "metrics": {
+        "normalized_residual_norm": 4.20119955367019,
+        "mean_outside_interval_px": 0.97417921113289,
+        "mean_raw_mask_distance_px": 0.25016855594409804,
+        "max_alpha_distance_px": 0.11398465725015715,
+        "problem_regions": [],
+        "joints": [
+          {
+            "joint": "Hips",
+            "distance_px": 3.8160779289655973,
+            "radius_px": 3.0,
+            "outside_interval_px": 0.8160779289655973,
+            "point_hypothesis": [
+              55.0,
+              71.5
+            ],
+            "status": "interval hypothesis, not independent ground truth"
+          },
+          {
+            "joint": "Chest",
+            "distance_px": 9.0724365620454,
+            "radius_px": 3.0,
+            "outside_interval_px": 6.0724365620454,
+            "point_hypothesis": [
+              55.0,
+              47.35249999999999
+            ],
+            "status": "interval hypothesis, not independent ground truth"
+          },
+          {
+            "joint": "HeadEnd",
+            "distance_px": 8.7019268702557,
+            "radius_px": 3.0,
+            "outside_interval_px": 5.701926870255701,
+            "point_hypothesis": [
+              46.5,
+              17.189999999999998
+            ],
+            "status": "interval hypothesis, not independent ground truth"
+          },
+          {
+            "joint": "Spine1",
+            "distance_px": 5.565617113934345,
+            "radius_px": 3.0,
+            "outside_interval_px": 2.565617113934345,
+            "point_hypothesis": [
+              55.0,
+              63.450833333333335
+            ],
+            "status": "interval hypothesis, not independent ground truth"
+          },
+          {
+            "joint": "Spine2",
+            "distance_px": 7.3169242769691705,
+            "radius_px": 3.0,
+            "outside_interval_px": 4.3169242769691705,
+            "point_hypothesis": [
+              55.0,
+              55.401666666666664
+            ],
+            "status": "interval hypothesis, not independent ground truth"
+          },
+          {
+            "joint": "LeftForeArm",
+            "distance_px": 4.339639888106664,
+            "radius_px": 4.5,
+            "outside_interval_px": 0.0,
+            "point_hypothesis": [
+              26.75,
+              65.0
+            ],
+            "status": "interval hypothesis, not independent ground truth"
+          },
+          {
+            "joint": "LeftHand",
+            "distance_px": 3.6970550174115595,
+            "radius_px": 4.0,
+            "outside_interval_px": 0.0,
+            "point_hypothesis": [
+              32.0,
+              74.5
+            ],
+            "status": "interval hypothesis, not independent ground truth"
+          },
+          {
+            "joint": "RightForeArm",
+            "distance_px": 2.1197350844043834,
+            "radius_px": 4.5,
+            "outside_interval_px": 0.0,
+            "point_hypothesis": [
+              82.5,
+              62.5
+            ],
+            "status": "interval hypothesis, not independent ground truth"
+          },
+          {
+            "joint": "RightHand",
+            "distance_px": 2.89004994687731,
+            "radius_px": 4.0,
+            "outside_interval_px": 0.0,
+            "point_hypothesis": [
+              79.0,
+              74.0
+            ],
+            "status": "interval hypothesis, not independent ground truth"
+          },
+          {
+            "joint": "LeftLeg",
+            "distance_px": 2.8954934694694345,
+            "radius_px": 3.0,
+            "outside_interval_px": 0.0,
+            "point_hypothesis": [
+              48.0,
+              77.5
+            ],
+            "status": "interval hypothesis, not independent ground truth"
+          },
+          {
+            "joint": "LeftShin",
+            "distance_px": 1.2136850748159491,
+            "radius_px": 3.5,
+            "outside_interval_px": 0.0,
+            "point_hypothesis": [
+              42.5,
+              90.5
+            ],
+            "status": "interval hypothesis, not independent ground truth"
+          },
+          {
+            "joint": "LeftFoot",
+            "distance_px": 2.12543981980083,
+            "radius_px": 2.5,
+            "outside_interval_px": 0.0,
+            "point_hypothesis": [
+              41.75,
+              98.5
+            ],
+            "status": "interval hypothesis, not independent ground truth"
+          },
+          {
+            "joint": "LeftToeBase",
+            "distance_px": 2.1426752058868472,
+            "radius_px": 2.5,
+            "outside_interval_px": 0.0,
+            "point_hypothesis": [
+              41.0875,
+              100.14999999999999
+            ],
+            "status": "interval hypothesis, not independent ground truth"
+          },
+          {
+            "joint": "LeftToeEnd",
+            "distance_px": 3.484780681620477,
+            "radius_px": 2.5,
+            "outside_interval_px": 0.9847806816204772,
+            "point_hypothesis": [
+              40.73076923076923,
+              101.03846153846153
+            ],
+            "status": "interval hypothesis, not independent ground truth"
+          },
+          {
+            "joint": "RightLeg",
+            "distance_px": 1.5942997594799106,
+            "radius_px": 3.0,
+            "outside_interval_px": 0.0,
+            "point_hypothesis": [
+              62.5,
+              78.5
+            ],
+            "status": "interval hypothesis, not independent ground truth"
+          },
+          {
+            "joint": "RightShin",
+            "distance_px": 1.1219718129224114,
+            "radius_px": 3.5,
+            "outside_interval_px": 0.0,
+            "point_hypothesis": [
+              66.75,
+              90.5
+            ],
+            "status": "interval hypothesis, not independent ground truth"
+          },
+          {
+            "joint": "RightFoot",
+            "distance_px": 0.9628789765052781,
+            "radius_px": 2.5,
+            "outside_interval_px": 0.0,
+            "point_hypothesis": [
+              67.75,
+              97.25
+            ],
+            "status": "interval hypothesis, not independent ground truth"
+          },
+          {
+            "joint": "RightToeBase",
+            "distance_px": 0.5908836907640915,
+            "radius_px": 2.5,
+            "outside_interval_px": 0.0,
+            "point_hypothesis": [
+              68.2375,
+              100.6625
+            ],
+            "status": "interval hypothesis, not independent ground truth"
+          },
+          {
+            "joint": "RightToeEnd",
+            "distance_px": 0.6307176100809401,
+            "radius_px": 2.5,
+            "outside_interval_px": 0.0,
+            "point_hypothesis": [
+              68.5,
+              102.5
+            ],
+            "status": "interval hypothesis, not independent ground truth"
+          },
+          {
+            "joint": "LeftArm",
+            "distance_px": 2.7940986428650145,
+            "radius_px": 4.0,
+            "outside_interval_px": 0.0,
+            "point_hypothesis": [
+              34.310807209604185,
+              36.21107386361961
+            ],
+            "status": "interval hypothesis, not independent ground truth"
+          },
+          {
+            "joint": "RightArm",
+            "distance_px": 2.5937303772811577,
+            "radius_px": 4.0,
+            "outside_interval_px": 0.0,
+            "point_hypothesis": [
+              75.68919279039582,
+              36.21107386361962
+            ],
+            "status": "interval hypothesis, not independent ground truth"
+          }
+        ],
+        "segments": [
+          {
+            "start": "Hips",
+            "end": "Chest",
+            "owner_ids": [
+              1
+            ],
+            "mask_mean_distance_px": 0.0,
+            "mask_max_distance_px": 0.0,
+            "alpha_max_distance_px": 0.0,
+            "mask_support_fraction": 1.0,
+            "interpretation": "visible owner support; occlusion/segmentation may disagree with true bone"
+          },
+          {
+            "start": "Head",
+            "end": "HeadEnd",
+            "owner_ids": [
+              14
+            ],
+            "mask_mean_distance_px": 1.565320386554725,
+            "mask_max_distance_px": 1.860023238542804,
+            "alpha_max_distance_px": 0.0,
+            "mask_support_fraction": 0.1111111111111111,
+            "interpretation": "visible owner support; occlusion/segmentation may disagree with true bone"
+          },
+          {
+            "start": "LeftArm",
+            "end": "LeftForeArm",
+            "owner_ids": [
+              10
+            ],
+            "mask_mean_distance_px": 0.0,
+            "mask_max_distance_px": 0.0,
+            "alpha_max_distance_px": 0.0,
+            "mask_support_fraction": 1.0,
+            "interpretation": "visible owner support; occlusion/segmentation may disagree with true bone"
+          },
+          {
+            "start": "LeftForeArm",
+            "end": "LeftHand",
+            "owner_ids": [
+              12
+            ],
+            "mask_mean_distance_px": 0.5567029559994126,
+            "mask_max_distance_px": 2.738587581853608,
+            "alpha_max_distance_px": 0.0,
+            "mask_support_fraction": 0.7777777777777778,
+            "interpretation": "visible owner support; occlusion/segmentation may disagree with true bone"
+          },
+          {
+            "start": "LeftLeg",
+            "end": "LeftShin",
+            "owner_ids": [
+              7
+            ],
+            "mask_mean_distance_px": 0.0,
+            "mask_max_distance_px": 0.0,
+            "alpha_max_distance_px": 0.0,
+            "mask_support_fraction": 1.0,
+            "interpretation": "visible owner support; occlusion/segmentation may disagree with true bone"
+          },
+          {
+            "start": "LeftShin",
+            "end": "LeftFoot",
+            "owner_ids": [
+              9
+            ],
+            "mask_mean_distance_px": 0.030981685322787358,
+            "mask_max_distance_px": 0.2788351679050862,
+            "alpha_max_distance_px": 0.0,
+            "mask_support_fraction": 1.0,
+            "interpretation": "visible owner support; occlusion/segmentation may disagree with true bone"
+          },
+          {
+            "start": "LeftFoot",
+            "end": "LeftToeEnd",
+            "owner_ids": [
+              4
+            ],
+            "mask_mean_distance_px": 0.17640211215698332,
+            "mask_max_distance_px": 1.1000989753284858,
+            "alpha_max_distance_px": 0.11398465725015715,
+            "mask_support_fraction": 1.0,
+            "interpretation": "visible owner support; occlusion/segmentation may disagree with true bone"
+          },
+          {
+            "start": "RightArm",
+            "end": "RightForeArm",
+            "owner_ids": [
+              11
+            ],
+            "mask_mean_distance_px": 0.07406878540919434,
+            "mask_max_distance_px": 0.6666190686827491,
+            "alpha_max_distance_px": 0.0,
+            "mask_support_fraction": 1.0,
+            "interpretation": "visible owner support; occlusion/segmentation may disagree with true bone"
+          },
+          {
+            "start": "RightForeArm",
+            "end": "RightHand",
+            "owner_ids": [
+              13
+            ],
+            "mask_mean_distance_px": 0.11451396529018767,
+            "mask_max_distance_px": 1.030625687611689,
+            "alpha_max_distance_px": 0.0,
+            "mask_support_fraction": 1.0,
+            "interpretation": "visible owner support; occlusion/segmentation may disagree with true bone"
+          },
+          {
+            "start": "RightLeg",
+            "end": "RightShin",
+            "owner_ids": [
+              6
+            ],
+            "mask_mean_distance_px": 0.0,
+            "mask_max_distance_px": 0.0,
+            "alpha_max_distance_px": 0.0,
+            "mask_support_fraction": 1.0,
+            "interpretation": "visible owner support; occlusion/segmentation may disagree with true bone"
+          },
+          {
+            "start": "RightShin",
+            "end": "RightFoot",
+            "owner_ids": [
+              8
+            ],
+            "mask_mean_distance_px": 0.06060086707192969,
+            "mask_max_distance_px": 0.46901569045336144,
+            "alpha_max_distance_px": 0.0,
+            "mask_support_fraction": 1.0,
+            "interpretation": "visible owner support; occlusion/segmentation may disagree with true bone"
+          },
+          {
+            "start": "RightFoot",
+            "end": "RightToeEnd",
+            "owner_ids": [
+              5
+            ],
+            "mask_mean_distance_px": 0.4234319135239566,
+            "mask_max_distance_px": 0.8030691982393421,
+            "alpha_max_distance_px": 0.0,
+            "mask_support_fraction": 1.0,
+            "interpretation": "visible owner support; occlusion/segmentation may disagree with true bone"
+          }
+        ],
+        "is_ground_truth_accuracy": false
+      },
+      "status": "provisional: source masks need review; frozen South pose may differ artistically"
+    },
+    "north-west": {
+      "success": true,
+      "evaluations": 12,
+      "initial": {
+        "yaw": -2.356194490192345,
+        "pitch": 0.0,
+        "pixels_per_metre": 49.24164515518937,
+        "tx": 75.0,
+        "ty": 127.5
+      },
+      "metrics": {
+        "normalized_residual_norm": 5.846457853887973,
+        "mean_outside_interval_px": 2.65785726114615,
+        "mean_raw_mask_distance_px": 1.031579298631408,
+        "max_alpha_distance_px": 2.708563016363314,
+        "problem_regions": [
+          "LeftHand",
+          "LeftToeEnd",
+          "RightForeArm"
+        ],
+        "joints": [
+          {
+            "joint": "Hips",
+            "distance_px": 4.324770478604772,
+            "radius_px": 3.0,
+            "outside_interval_px": 1.3247704786047718,
+            "point_hypothesis": [
+              77.5,
+              95.70000000000005
+            ],
+            "status": "interval hypothesis, not independent ground truth"
+          },
+          {
+            "joint": "Chest",
+            "distance_px": 6.2992513945023925,
+            "radius_px": 3.0,
+            "outside_interval_px": 3.2992513945023925,
+            "point_hypothesis": [
+              77.5,
+              70.87000000000002
+            ],
+            "status": "interval hypothesis, not independent ground truth"
+          },
+          {
+            "joint": "HeadEnd",
+            "distance_px": 5.773463887747238,
+            "radius_px": 3.0,
+            "outside_interval_px": 2.773463887747238,
+            "point_hypothesis": [
+              70.5,
+              32.5
+            ],
+            "status": "interval hypothesis, not independent ground truth"
+          },
+          {
+            "joint": "Spine1",
+            "distance_px": 4.184588987012535,
+            "radius_px": 3.0,
+            "outside_interval_px": 1.1845889870125346,
+            "point_hypothesis": [
+              77.5,
+              87.42333333333337
+            ],
+            "status": "interval hypothesis, not independent ground truth"
+          },
+          {
+            "joint": "Spine2",
+            "distance_px": 4.989057180581148,
+            "radius_px": 3.0,
+            "outside_interval_px": 1.989057180581148,
+            "point_hypothesis": [
+              77.5,
+              79.1466666666667
+            ],
+            "status": "interval hypothesis, not independent ground truth"
+          },
+          {
+            "joint": "RightForeArm",
+            "distance_px": 7.206111613960111,
+            "radius_px": 4.5,
+            "outside_interval_px": 2.706111613960111,
+            "point_hypothesis": [
+              88.0,
+              88.5
+            ],
+            "status": "interval hypothesis, not independent ground truth"
+          },
+          {
+            "joint": "RightHand",
+            "distance_px": 12.601284150249372,
+            "radius_px": 4.0,
+            "outside_interval_px": 8.601284150249372,
+            "point_hypothesis": [
+              82.5,
+              103.5
+            ],
+            "status": "interval hypothesis, not independent ground truth"
+          },
+          {
+            "joint": "LeftLeg",
+            "distance_px": 6.137688372205895,
+            "radius_px": 3.0,
+            "outside_interval_px": 3.1376883722058952,
+            "point_hypothesis": [
+              63.0,
+              101.0
+            ],
+            "status": "interval hypothesis, not independent ground truth"
+          },
+          {
+            "joint": "LeftShin",
+            "distance_px": 2.9775569454628594,
+            "radius_px": 3.5,
+            "outside_interval_px": 0.0,
+            "point_hypothesis": [
+              63.5,
+              108.0
+            ],
+            "status": "interval hypothesis, not independent ground truth"
+          },
+          {
+            "joint": "LeftFoot",
+            "distance_px": 0.7672282475180857,
+            "radius_px": 2.5,
+            "outside_interval_px": 0.0,
+            "point_hypothesis": [
+              65.5,
+              115.0
+            ],
+            "status": "interval hypothesis, not independent ground truth"
+          },
+          {
+            "joint": "LeftToeBase",
+            "distance_px": 3.576663430412051,
+            "radius_px": 2.5,
+            "outside_interval_px": 1.0766634304120508,
+            "point_hypothesis": [
+              60.178125,
+              114.75625000000001
+            ],
+            "status": "interval hypothesis, not independent ground truth"
+          },
+          {
+            "joint": "LeftToeEnd",
+            "distance_px": 5.853683818039643,
+            "radius_px": 2.5,
+            "outside_interval_px": 3.3536838180396433,
+            "point_hypothesis": [
+              57.3125,
+              114.625
+            ],
+            "status": "interval hypothesis, not independent ground truth"
+          },
+          {
+            "joint": "LeftArm",
+            "distance_px": 6.674364201469549,
+            "radius_px": 4.0,
+            "outside_interval_px": 2.6743642014695492,
+            "point_hypothesis": [
+              64.57157475489619,
+              50.79723068431314
+            ],
+            "status": "interval hypothesis, not independent ground truth"
+          },
+          {
+            "joint": "LeftForeArm",
+            "distance_px": 7.48274311416705,
+            "radius_px": 4.5,
+            "outside_interval_px": 2.98274311416705,
+            "point_hypothesis": [
+              59.5,
+              86.0
+            ],
+            "status": "interval hypothesis, not independent ground truth"
+          },
+          {
+            "joint": "LeftHand",
+            "distance_px": 11.422045549386644,
+            "radius_px": 4.0,
+            "outside_interval_px": 7.4220455493866435,
+            "point_hypothesis": [
+              69.95,
+              95.95
+            ],
+            "status": "interval hypothesis, not independent ground truth"
+          },
+          {
+            "joint": "RightArm",
+            "distance_px": 3.874771615018839,
+            "radius_px": 4.0,
+            "outside_interval_px": 0.0,
+            "point_hypothesis": [
+              87.23782543816377,
+              55.839171908597024
+            ],
+            "status": "interval hypothesis, not independent ground truth"
+          }
+        ],
+        "segments": [
+          {
+            "start": "Hips",
+            "end": "Chest",
+            "owner_ids": [
+              1
+            ],
+            "mask_mean_distance_px": 0.1130412313373018,
+            "mask_max_distance_px": 1.0173710820357162,
+            "alpha_max_distance_px": 0.0,
+            "mask_support_fraction": 1.0,
+            "interpretation": "visible owner support; occlusion/segmentation may disagree with true bone"
+          },
+          {
+            "start": "Head",
+            "end": "HeadEnd",
+            "owner_ids": [
+              14
+            ],
+            "mask_mean_distance_px": 0.0,
+            "mask_max_distance_px": 0.0,
+            "alpha_max_distance_px": 0.0,
+            "mask_support_fraction": 1.0,
+            "interpretation": "visible owner support; occlusion/segmentation may disagree with true bone"
+          },
+          {
+            "start": "LeftArm",
+            "end": "LeftForeArm",
+            "owner_ids": [
+              10
+            ],
+            "mask_mean_distance_px": 0.5134092004664222,
+            "mask_max_distance_px": 3.393999567505444,
+            "alpha_max_distance_px": 0.008071435663531966,
+            "mask_support_fraction": 0.8888888888888888,
+            "interpretation": "visible owner support; occlusion/segmentation may disagree with true bone"
+          },
+          {
+            "start": "LeftForeArm",
+            "end": "LeftHand",
+            "owner_ids": [
+              12
+            ],
+            "mask_mean_distance_px": 2.257925102803913,
+            "mask_max_distance_px": 4.949595310903455,
+            "alpha_max_distance_px": 0.0,
+            "mask_support_fraction": 0.3333333333333333,
+            "interpretation": "visible owner support; occlusion/segmentation may disagree with true bone"
+          },
+          {
+            "start": "LeftLeg",
+            "end": "LeftShin",
+            "owner_ids": [
+              7
+            ],
+            "mask_mean_distance_px": 1.796574021077057,
+            "mask_max_distance_px": 3.9091346055325076,
+            "alpha_max_distance_px": 0.0,
+            "mask_support_fraction": 0.4444444444444444,
+            "interpretation": "visible owner support; occlusion/segmentation may disagree with true bone"
+          },
+          {
+            "start": "LeftShin",
+            "end": "LeftFoot",
+            "owner_ids": [
+              9
+            ],
+            "mask_mean_distance_px": 0.0173321046877974,
+            "mask_max_distance_px": 0.1559889421901766,
+            "alpha_max_distance_px": 0.0,
+            "mask_support_fraction": 1.0,
+            "interpretation": "visible owner support; occlusion/segmentation may disagree with true bone"
+          },
+          {
+            "start": "LeftFoot",
+            "end": "LeftToeEnd",
+            "owner_ids": [
+              4
+            ],
+            "mask_mean_distance_px": 0.673047555976437,
+            "mask_max_distance_px": 2.708563016363314,
+            "alpha_max_distance_px": 2.708563016363314,
+            "mask_support_fraction": 0.7777777777777778,
+            "interpretation": "visible owner support; occlusion/segmentation may disagree with true bone"
+          },
+          {
+            "start": "RightArm",
+            "end": "RightForeArm",
+            "owner_ids": [
+              11
+            ],
+            "mask_mean_distance_px": 2.796490044419768,
+            "mask_max_distance_px": 3.652514128041034,
+            "alpha_max_distance_px": 1.0,
+            "mask_support_fraction": 0.1111111111111111,
+            "interpretation": "visible owner support; occlusion/segmentation may disagree with true bone"
+          },
+          {
+            "start": "RightForeArm",
+            "end": "RightHand",
+            "owner_ids": [
+              13
+            ],
+            "mask_mean_distance_px": 1.116394426913975,
+            "mask_max_distance_px": 3.676977559374891,
+            "alpha_max_distance_px": 0.0,
+            "mask_support_fraction": 0.6666666666666666,
+            "interpretation": "visible owner support; occlusion/segmentation may disagree with true bone"
+          }
+        ],
+        "is_ground_truth_accuracy": false
+      },
+      "status": "provisional: source masks need review; frozen South pose may differ artistically"
+    }
+  },
+  "original_south_west_preserved": true
+}

@@ -1,11 +1,25 @@
 param(
-    [ValidateSet('mv-build','mv-replay','mv-test','mv-report','mv-proof','mv-editor','soma-anatomy-checks','soma-anatomy-inspect','soma-anatomy-hypothesis','soma-build','soma-fit','soma-test','soma-report','soma-editor','soma-proof','prepare-a','prepare-b','prepare-d','prepare-e','import','parse','stage-a','stage-b','stage-d','editor','demo','test','proof','diagnostics','export','video')]
+    [ValidateSet('rig-prepare','rig-editor','rig-proof','rig-reload','rig-report','mv-build','mv-replay','mv-test','mv-report','mv-proof','mv-editor','soma-anatomy-checks','soma-anatomy-inspect','soma-anatomy-hypothesis','soma-build','soma-fit','soma-test','soma-report','soma-editor','soma-proof','prepare-a','prepare-b','prepare-d','prepare-e','import','parse','stage-a','stage-b','stage-d','editor','demo','test','proof','diagnostics','export','video')]
     [string]$Action = 'editor'
 )
 $ErrorActionPreference = 'Stop'
 $repo = (Resolve-Path (Join-Path $PSScriptRoot '../../..')).Path
 $project = Join-Path $repo 'godot'
 $python = Join-Path $repo 'experiments/anatomy-benchmark-v1.0.0/.venv/Scripts/python.exe'
+if ($Action -eq 'rig-report') {
+    & 'C:/Users/Public/motionbricks-runtime/motionbricks/.venv/Scripts/python.exe' -B (Join-Path $PSScriptRoot 'tools/soma_rig_report.py')
+    if ($LASTEXITCODE -ne 0) { throw 'Rig report generation failed; see error above' }
+    return
+}
+if ($Action -eq 'rig-prepare') {
+    & 'C:/Users/Public/motionbricks-runtime/motionbricks/.venv/Scripts/python.exe' -B (Join-Path $PSScriptRoot 'tools/soma_rig_prepare.py')
+    if ($LASTEXITCODE -ne 0) { throw 'Rig camera preparation failed; see error above' }
+    & 'C:/Users/Public/motionbricks-runtime/motionbricks/.venv/Scripts/python.exe' -B (Join-Path $PSScriptRoot 'tools/soma_rig_scene.py')
+    if ($LASTEXITCODE -ne 0) { throw 'Rig scene preparation failed; see error above' }
+    & 'C:/Users/Public/motionbricks-runtime/motionbricks/.venv/Scripts/python.exe' -B (Join-Path $PSScriptRoot 'tools/soma_scene.py')
+    if ($LASTEXITCODE -ne 0) { throw 'Rig scene preparation failed; see error above' }
+    return
+}
 if ($Action -in @('mv-build','mv-replay','mv-test','mv-report')) {
     $mvPython = 'C:/Users/Public/motionbricks-runtime/motionbricks/.venv/Scripts/python.exe'
     if ($Action -in @('mv-build','mv-replay')) { & $mvPython -B (Join-Path $PSScriptRoot 'tools/soma_multiview.py') $Action.Substring(3) }
@@ -61,7 +75,9 @@ if ($Action -eq 'parse') { $engineArgs += @('--headless','--check-only','--scrip
 elseif ($Action -eq 'import') { $engineArgs += @('--headless','--editor','--import'); }
 else {
     $engineArgs += 'res://modules/character-rigging-editor/editor.tscn'
-    if ($Action -eq 'mv-editor') { $engineArgs += @('--','--mv-open') }
+    if ($Action -eq 'rig-editor') { $engineArgs += @('--','--rig-open') }
+    elseif ($Action -eq 'rig-reload') { $engineArgs += @('--','--rig-reload-check') }
+    elseif ($Action -eq 'mv-editor') { $engineArgs += @('--','--mv-open') }
     elseif ($Action -eq 'soma-editor') { $engineArgs += @('--','--soma') }
     elseif ($Action -eq 'demo') { $engineArgs += @('--','--demo') }
     elseif ($Action -ne 'editor') { $engineArgs += @('--', ('--'+$Action+'-check')) }
@@ -69,7 +85,7 @@ else {
 $stdout = Join-Path $PSScriptRoot ($Action+'-stdout.log')
 $stderr = Join-Path $PSScriptRoot ($Action+'-stderr.log')
 $process = Start-Process -FilePath $engine -ArgumentList $engineArgs -WorkingDirectory $project -WindowStyle Hidden -PassThru -RedirectStandardOutput $stdout -RedirectStandardError $stderr
-if ($Action -in @('editor','demo','soma-editor','mv-editor')) { $process.WaitForExit() }
+if ($Action -in @('editor','demo','soma-editor','mv-editor','rig-editor')) { $process.WaitForExit() }
 else {
     $deadline = [DateTime]::UtcNow.AddMinutes(3)
     while (-not $process.WaitForExit(1000)) {

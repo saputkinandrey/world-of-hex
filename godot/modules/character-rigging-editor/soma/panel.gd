@@ -46,6 +46,7 @@ func _ready() -> void:
 		$Layer.add_item(name)
 	for name in ["Baseline Projection","Camera Only","Shared Geometry","Pose Delta","Art Delta","Final Comparison"]:
 		$Layer.add_item("MV: "+name)
+	$Layer.add_item("Multi-View Rig Editor")
 	for name in model.joint_names: $Joint.add_item(name)
 	$Case.item_selected.connect(case_selected)
 	$Layer.item_selected.connect(layer_selected)
@@ -214,6 +215,10 @@ func show_details() -> void:
 	$Details.text=text
 
 func layer_selected(index: int) -> void:
+	if index==13:
+		if dirty and not save_edits():return
+		$RigEditor.visible=true
+		return
 	if index>=7:
 		open_multiview(index-7)
 		return

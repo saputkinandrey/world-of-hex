@@ -174,7 +174,7 @@ func catalog_selected() -> void:
 			request_switch(func(): open_pose(meta[0],meta[1]))
 
 func request_switch(action: Callable) -> void:
-	if dirty or not session.changed.is_empty() or $Soma.dirty:
+	if dirty or not session.changed.is_empty() or $Soma.dirty or $Soma/RigEditor.dirty:
 		pending=action
 		$Unsaved.popup_centered()
 	else:
@@ -314,6 +314,7 @@ func reset_bone() -> void:
 	move_joint(selected,Vector2(pose_data.original_joints[selected][0],pose_data.original_joints[selected][1]))
 
 func save_all() -> bool:
+	if $Soma/RigEditor.dirty and not $Soma/RigEditor.save_session():return false
 	if $Soma.dirty and not $Soma.save_edits(): return false
 	session.save_all()
 	dirty=false
