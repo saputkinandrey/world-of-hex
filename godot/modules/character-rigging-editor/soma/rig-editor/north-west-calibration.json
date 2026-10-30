@@ -1,0 +1,333 @@
+{
+  "version": 1,
+  "model_id": "Character1/idle/south@866f848c1b25ded2",
+  "baseline_fingerprint": "a64e9bd86946cdafa13dd1227df15555c29f9651112fe105f865e402c301e000",
+  "chosen_camera": "Camera -130 / 5",
+  "profiles": {
+    "Provisional": {
+      "camera": {
+        "yaw": -2.1335864883050912,
+        "pitch": -0.06403402204659626,
+        "pixels_per_metre": 48.26674697439733,
+        "mirror_x": false,
+        "source_view": "north-west",
+        "status": "provisional: source masks need review; frozen South pose may differ artistically"
+      },
+      "anchor": {
+        "joint": "Hips",
+        "offset_px": [
+          73.38693278537248,
+          143.11190671695334
+        ],
+        "target_px": [
+          73.38693278537248,
+          94.36346800241542
+        ]
+      },
+      "lens": {
+        "enabled": true,
+        "joints": {}
+      }
+    },
+    "Anchor only": {
+      "camera": {
+        "yaw": -2.1335864883050912,
+        "pitch": -0.06403402204659626,
+        "pixels_per_metre": 48.26674697439733,
+        "mirror_x": false,
+        "source_view": "north-west",
+        "status": "provisional: source masks need review; frozen South pose may differ artistically"
+      },
+      "anchor": {
+        "joint": "Hips",
+        "offset_px": [
+          74.0,
+          143.24843871453794
+        ],
+        "target_px": [
+          74.0,
+          94.5
+        ]
+      },
+      "lens": {
+        "enabled": true,
+        "joints": {}
+      }
+    },
+    "Camera -135 / 0": {
+      "camera": {
+        "yaw": -2.356194490192345,
+        "pitch": 0.0,
+        "pixels_per_metre": 48.26674697439733,
+        "mirror_x": false,
+        "source_view": "north-west",
+        "status": "manual visual camera hypothesis"
+      },
+      "anchor": {
+        "joint": "Hips",
+        "target_px": [
+          74.0,
+          94.5
+        ],
+        "offset_px": [
+          74.0,
+          143.348552726563
+        ]
+      },
+      "lens": {
+        "enabled": true,
+        "joints": {}
+      }
+    },
+    "Camera -145 / 5": {
+      "camera": {
+        "yaw": -2.530727415391778,
+        "pitch": 0.08726646259971647,
+        "pixels_per_metre": 48.26674697439733,
+        "mirror_x": false,
+        "source_view": "north-west",
+        "status": "manual visual camera hypothesis"
+      },
+      "anchor": {
+        "joint": "Hips",
+        "target_px": [
+          74.0,
+          94.5
+        ],
+        "offset_px": [
+          74.0,
+          143.16266923565718
+        ]
+      },
+      "lens": {
+        "enabled": true,
+        "joints": {}
+      }
+    },
+    "Camera -130 / 5": {
+      "camera": {
+        "yaw": -2.2689280275926285,
+        "pitch": 0.08726646259971647,
+        "pixels_per_metre": 48.26674697439733,
+        "mirror_x": false,
+        "source_view": "north-west",
+        "status": "manual visual camera hypothesis"
+      },
+      "anchor": {
+        "joint": "Hips",
+        "target_px": [
+          74.0,
+          94.5
+        ],
+        "offset_px": [
+          74.0,
+          143.16266923565718
+        ]
+      },
+      "lens": {
+        "enabled": true,
+        "joints": {}
+      }
+    },
+    "Working": {
+      "camera": {
+        "yaw": -2.2689280275926285,
+        "pitch": 0.08726646259971647,
+        "pixels_per_metre": 48.26674697439733,
+        "mirror_x": false,
+        "source_view": "north-west",
+        "status": "working: visually reviewed NW / linked NE"
+      },
+      "anchor": {
+        "joint": "Hips",
+        "target_px": [
+          74.0,
+          94.5
+        ],
+        "offset_px": [
+          74.0,
+          143.16266923565718
+        ]
+      },
+      "lens": {
+        "enabled": true,
+        "joints": {
+          "LeftArm": {
+            "local_offset_delta": [
+              -0.02974618983061441,
+              -0.049684432286425356,
+              0.06957196029408336
+            ]
+          },
+          "LeftForeArm": {
+            "local_offset_delta": [
+              -0.061744449253181365,
+              0.008033640828241796,
+              -0.018472394980430646
+            ]
+          },
+          "LeftHand": {
+            "local_offset_delta": [
+              0.010691083491232451,
+              0.053605537154351963,
+              -0.07357677575832512
+            ]
+          },
+          "RightArm": {
+            "local_offset_delta": [
+              0.02999807830907813,
+              -0.010332215516971645,
+              -0.07005520199529332
+            ]
+          },
+          "RightForeArm": {
+            "local_offset_delta": [
+              0.10491903180971107,
+              0.047000346866745715,
+              0.06223667149456047
+            ]
+          },
+          "RightHand": {
+            "local_offset_delta": [
+              -0.051419261348718034,
+              -0.027739092090902393,
+              -0.009783110092137632
+            ]
+          },
+          "LeftFoot": {
+            "local_offset_delta": [
+              -0.055815760851593475,
+              -0.010916119958143757,
+              0.014860132692488835
+            ]
+          },
+          "LeftToeBase": {
+            "local_offset_delta": [
+              -0.06609236210412678,
+              -0.00888168828204981,
+              -0.02689779770914162
+            ]
+          },
+          "LeftToeEnd": {
+            "local_offset_delta": [
+              -0.00852478473010261,
+              -0.035073989948574316,
+              0.014270951085813168
+            ]
+          },
+          "RightShin": {
+            "local_offset_delta": [
+              0.04989920120930773,
+              -0.02194001826985917,
+              -0.034011251466839115
+            ]
+          },
+          "RightFoot": {
+            "local_offset_delta": [
+              0.0191112042594593,
+              0.004971376280054857,
+              -0.00224816277748808
+            ]
+          },
+          "RightToeBase": {
+            "local_offset_delta": [
+              0.06597456520045943,
+              -0.0023988942961955736,
+              -0.0797443502343427
+            ]
+          },
+          "RightToeEnd": {
+            "local_offset_delta": [
+              0.0390432202059741,
+              -0.0010360357855360748,
+              -0.04734375083596513
+            ]
+          }
+        }
+      }
+    }
+  },
+  "review": {
+    "version": 1,
+    "view": "north-west",
+    "registration_hips_px": [
+      74.0,
+      94.5
+    ],
+    "camera_candidates": [
+      {
+        "name": "Camera -135 / 0",
+        "yaw_degrees": -135.0,
+        "pitch_degrees": 0.0
+      },
+      {
+        "name": "Camera -145 / 5",
+        "yaw_degrees": -145.0,
+        "pitch_degrees": 5.0
+      },
+      {
+        "name": "Camera -130 / 5",
+        "yaw_degrees": -130.0,
+        "pitch_degrees": 5.0
+      }
+    ],
+    "chosen_camera": "Camera -130 / 5",
+    "manual_points_px": {
+      "LeftArm": [
+        62.8,
+        63.5
+      ],
+      "LeftForeArm": [
+        59.0,
+        82.5
+      ],
+      "LeftHand": [
+        56.5,
+        94.0
+      ],
+      "RightArm": [
+        87.5,
+        60.5
+      ],
+      "RightForeArm": [
+        93.5,
+        76.0
+      ],
+      "RightHand": [
+        90.0,
+        89.0
+      ],
+      "LeftFoot": [
+        64.5,
+        113.0
+      ],
+      "LeftToeBase": [
+        61.5,
+        115.0
+      ],
+      "LeftToeEnd": [
+        57.8,
+        115.2
+      ],
+      "RightShin": [
+        82.0,
+        105.0
+      ],
+      "RightFoot": [
+        82.7,
+        110.5
+      ],
+      "RightToeBase": [
+        83.3,
+        111.3
+      ],
+      "RightToeEnd": [
+        84.0,
+        111.5
+      ]
+    },
+    "interpretation": "Hand-reviewed visible attachment/centreline points, approximate native pixel coordinates. Wrists, not heuristic hand centres in the pelvis. Far foot is partly occluded: compact continuation inside its visible silhouette, not recovered hidden anatomy.",
+    "offset_depth_constraint": "Retain each edited joint's current view depth; convert the reviewed image-plane displacement into parent-local metres. No optimization and no independent 3D skeleton."
+  },
+  "notes": "Sparse hand-reviewed local offsets, composed before FK. Immutable seed and South Base Pose retained. Reflection link is explicit and detachable."
+}

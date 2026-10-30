@@ -1,5 +1,5 @@
 param(
-    [ValidateSet('rig-prepare','rig-editor','rig-proof','rig-reload','rig-report','mv-build','mv-replay','mv-test','mv-report','mv-proof','mv-editor','soma-anatomy-checks','soma-anatomy-inspect','soma-anatomy-hypothesis','soma-build','soma-fit','soma-test','soma-report','soma-editor','soma-proof','prepare-a','prepare-b','prepare-d','prepare-e','import','parse','stage-a','stage-b','stage-d','editor','demo','test','proof','diagnostics','export','video')]
+    [ValidateSet('north-proof','north-reload','rig-prepare','rig-editor','rig-proof','rig-reload','rig-report','mv-build','mv-replay','mv-test','mv-report','mv-proof','mv-editor','soma-anatomy-checks','soma-anatomy-inspect','soma-anatomy-hypothesis','soma-build','soma-fit','soma-test','soma-report','soma-editor','soma-proof','prepare-a','prepare-b','prepare-d','prepare-e','import','parse','stage-a','stage-b','stage-d','editor','demo','test','proof','diagnostics','export','video')]
     [string]$Action = 'editor'
 )
 $ErrorActionPreference = 'Stop'

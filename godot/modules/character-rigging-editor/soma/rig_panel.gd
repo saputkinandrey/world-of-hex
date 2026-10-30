@@ -1,6 +1,7 @@
 extends Panel
 
 const Model=preload("res://modules/character-rigging-editor/soma/rig_model.gd")
+const North=preload("res://modules/character-rigging-editor/soma/rig_north.gd")
 var seed: Dictionary={}
 var state: Dictionary={}
 var history:=UndoRedo.new()
@@ -28,6 +29,15 @@ func _ready() -> void:
 		state=loaded
 	for name in seed.canonical.joint_names:$Joint.add_item(name);$AnchorJoint.add_item(name)
 	for name in Model.ORDER:$View.add_item(name)
+	if FileAccess.file_exists(North.PATH):
+		for name in Model.read(North.PATH).profiles:$NorthProfile.add_item(name)
+	$NorthProfile.item_selected.connect(func(i):
+		view="north-west"
+		commit("Load North pair / "+$NorthProfile.get_item_text(i),North.apply_profile(state,$NorthProfile.get_item_text(i))))
+	$DetachNorth.pressed.connect(func():
+		var next:=state.duplicate(true)
+		Model.detach(next,"north-east")
+		commit("Explicitly detach NorthEast",next))
 	for name in ["Base Pose","Character Geometry","View Override","Camera / Anchor"]:$Scope.add_item(name)
 	for name in ["Rotation (axis-angle vector, degrees)","Length (parent -> selected joint)","Local Offset (metres)","Pose root translation (metres)"]:$Parameter.add_item(name)
 	$Joint.item_selected.connect(func(i):selected=i;refresh())
@@ -88,6 +98,9 @@ func _ready() -> void:
 	if "--rig-open" in OS.get_cmdline_user_args() or "--rig-proof-check" in OS.get_cmdline_user_args() or "--rig-reload-check" in OS.get_cmdline_user_args():call_deferred("activate")
 	if "--rig-proof-check" in OS.get_cmdline_user_args():call_deferred("proof")
 	if "--rig-reload-check" in OS.get_cmdline_user_args():call_deferred("reload_proof")
+	if "--north-proof-check" in OS.get_cmdline_user_args() or "--north-reload-check" in OS.get_cmdline_user_args():
+		call_deferred("activate")
+		call_deferred("north_proof")
 
 func activate() -> void:
 	var editor=get_parent().get_parent()
@@ -116,7 +129,7 @@ func values() -> Array:
 	var scope: int=$Scope.selected
 	if parameter==3:return state.base_pose.root_translation_m
 	if scope==2:
-		var correction: Dictionary=state.overrides["idle/"+view].joints.get(joint,{})
+		var correction: Dictionary=Model.lens(state,view).joints.get(joint,{})
 		if parameter==1:return [correction.get("length_multiplier",1.0),0,0]
 		return correction.get("rotation_delta" if parameter==0 else "local_offset_delta",[0,0,0])
 	if scope==0:return state.base_pose.local_rotation_vectors[selected]
@@ -146,19 +159,29 @@ func refresh() -> void:
 	$Z.editable=$Parameter.selected!=1 and scope!=3
 	$X.editable=scope!=3
 	$Apply.disabled=scope==3
-	var c: Dictionary=state.cameras[view]
+	var c: Dictionary=Model.camera(state,view)
 	$Yaw.value=rad_to_deg(c.yaw);$Pitch.value=rad_to_deg(c.pitch);$Scale.value=c.pixels_per_metre
-	var anchor: Dictionary=state.anchors["idle/"+view]
+	var anchor: Dictionary=Model.anchor(state,view)
 	$AnchorJoint.select(seed.canonical.joint_names.find(anchor.joint))
 	$AnchorX.value=anchor.target_px[0];$AnchorY.value=anchor.target_px[1]
-	$Enabled.button_pressed=state.overrides["idle/"+view].enabled
+	$Enabled.button_pressed=Model.lens(state,view).enabled
 	$CameraStatus.text="Camera: "+c.status+"\n"+("Reflected source basis: "+c.source_view+"; anatomical names retained" if c.mirror_x else "Independent source image")
+	if Model.linked(state,view):$CameraStatus.text="Camera: linked NorthWest reflection\nEdit NorthWest or explicitly Detach NE"
 	$Details.text="Selected: "+seed.canonical.joint_names[selected]+" | "+$Scope.get_item_text(scope)+"\n"+("Length X: multiplier (1 = base)." if scope==2 else "Geometry length X: metres.")+"\nRotation XYZ: axis-angle degrees. Offset: local metres.\nOrder: offset * length + delta; Qcanonical * Qbase * Qlens.\nBlue cross: anchor. Red: joint. Gold: parent / children.\nWheel: zoom. Middle drag: pan. Double click: focus.\nRepeated clicks cycle overlapping joints."
 	$Undo.disabled=not history.has_undo();$Redo.disabled=not history.has_redo()
-	$Status.text=("Unsaved changes | " if dirty else "Saved / baseline | ")+view+" | "+str(state.overrides["idle/"+view].joints.size())+" corrected joints"
+	$Status.text=("Unsaved changes | " if dirty else "Saved / baseline | ")+view+" | "+str(Model.lens(state,view).joints.size())+" corrected joints"+(" | Linked to NorthWest; edit source or Detach NE" if Model.linked(state,view) else "")
+	$DetachNorth.disabled=not Model.linked(state,"north-east")
+	for i in range($NorthProfile.item_count):
+		if $NorthProfile.get_item_text(i)==state.get("north_profile","Provisional"):$NorthProfile.select(i)
+	var locked:=Model.linked(state,view)
+	for name in ["Apply","ApplyCamera","ApplyAnchor","ResetAnchor","ResetJoint","ResetView"]:get_node(name).disabled=locked or (name=="Apply" and scope==3)
+	$AnchorJoint.disabled=locked
+	$Enabled.disabled=locked
+	$Canvas.anchor_tool=$AnchorTool.button_pressed and not locked
 	updating=false
 
 func apply_parameter() -> void:
+	if Model.linked(state,view):$Status.text="Edit NorthWest or explicitly Detach NE first";return
 	var next:=state.duplicate(true)
 	var parameter: int=$Parameter.selected
 	var scope: int=$Scope.selected
@@ -178,6 +201,7 @@ func apply_parameter() -> void:
 	commit("Edit "+$Scope.get_item_text(scope)+" / "+$Parameter.get_item_text(parameter),next)
 
 func apply_camera() -> void:
+	if Model.linked(state,view):$Status.text="Edit NorthWest or explicitly Detach NE first";return
 	var next:=state.duplicate(true)
 	next.cameras[view].yaw=deg_to_rad($Yaw.value)
 	next.cameras[view].pitch=deg_to_rad($Pitch.value)
@@ -186,6 +210,7 @@ func apply_camera() -> void:
 	commit("Edit view camera",next)
 
 func apply_anchor() -> void:
+	if Model.linked(state,view):$Status.text="Edit NorthWest or explicitly Detach NE first";return
 	var next:=state.duplicate(true)
 	Model.set_anchor_target(next,view,Vector2($AnchorX.value,$AnchorY.value))
 	commit("Edit sprite anchor",next)
@@ -215,3 +240,8 @@ func proof() -> void:
 
 func reload_proof() -> void:
 	await preload("res://modules/character-rigging-editor/soma/rig_proof.gd").reload_run(self)
+
+func north_proof() -> void:
+	var proof_script=preload("res://modules/character-rigging-editor/soma/rig_north_proof.gd")
+	if "--north-reload-check" in OS.get_cmdline_user_args():await proof_script.reload_run(self)
+	else:await proof_script.run(self)

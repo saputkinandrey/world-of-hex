@@ -1,0 +1,144 @@
+{
+  "status": "done",
+  "restart_verified": true,
+  "checks": [
+    "shared geometry / Base Pose unchanged",
+    "four unrelated views unchanged",
+    "six camera/registration/lens comparison stages in real Godot UI",
+    "all 77 mirrored NorthEast joints exact",
+    "linked NE editing locked until explicit detach",
+    "lens disable/enable restores both North views without accumulation",
+    "manual joint edit propagates through live reflection link",
+    "detach preserves appearance; subsequent NE edit isolated; undo restores link",
+    "separate working profile and normal session saved / reloaded"
+  ],
+  "profile": "Working",
+  "linked_north_east": true,
+  "corrected_joints": 13,
+  "measurements": {
+    "Provisional": {
+      "LeftHand": {
+        "xy": [
+          60.81073760986328,
+          89.09895324707031
+        ],
+        "alpha_outside_px": 0.0
+      },
+      "RightHand": {
+        "xy": [
+          87.09072875976562,
+          91.76468658447266
+        ],
+        "alpha_outside_px": 0.26468658447265625
+      },
+      "LeftToeEnd": {
+        "xy": [
+          56.09320068359375,
+          120.3502960205078
+        ],
+        "alpha_outside_px": 3.6885659872356245
+      },
+      "RightToeEnd": {
+        "xy": [
+          72.7364273071289,
+          122.03851318359376
+        ],
+        "alpha_outside_px": 5.520407296675295
+      }
+    },
+    "Anchor only": {
+      "LeftHand": {
+        "xy": [
+          61.423805236816406,
+          89.23548889160156
+        ],
+        "alpha_outside_px": 0.0
+      },
+      "RightHand": {
+        "xy": [
+          87.70379638671875,
+          91.9012222290039
+        ],
+        "alpha_outside_px": 0.40122222900390625
+      },
+      "LeftToeEnd": {
+        "xy": [
+          56.706268310546875,
+          120.48683166503906
+        ],
+        "alpha_outside_px": 3.5034795969607537
+      },
+      "RightToeEnd": {
+        "xy": [
+          73.34949493408203,
+          122.175048828125
+        ],
+        "alpha_outside_px": 6.052678554006323
+      }
+    },
+    "Camera -130 / 5": {
+      "LeftHand": {
+        "xy": [
+          58.68853759765625,
+          92.27049255371094
+        ],
+        "alpha_outside_px": 0.0
+      },
+      "RightHand": {
+        "xy": [
+          90.34913635253906,
+          88.98196411132812
+        ],
+        "alpha_outside_px": 0.0
+      },
+      "LeftToeEnd": {
+        "xy": [
+          55.84823226928711,
+          121.36920166015624
+        ],
+        "alpha_outside_px": 4.701953965417568
+      },
+      "RightToeEnd": {
+        "xy": [
+          75.89901733398438,
+          119.28656005859376
+        ],
+        "alpha_outside_px": 6.657019172908103
+      }
+    },
+    "Working": {
+      "LeftHand": {
+        "xy": [
+          56.50000762939453,
+          94.00000762939452
+        ],
+        "alpha_outside_px": 0.0
+      },
+      "RightHand": {
+        "xy": [
+          90.0,
+          89.0
+        ],
+        "alpha_outside_px": 0.0
+      },
+      "LeftToeEnd": {
+        "xy": [
+          57.79999542236328,
+          115.20001220703124
+        ],
+        "alpha_outside_px": 0.0
+      },
+      "RightToeEnd": {
+        "xy": [
+          84.0,
+          111.50000762939452
+        ],
+        "alpha_outside_px": 0.0
+      }
+    }
+  },
+  "geometry_changed": false,
+  "base_pose_changed": false,
+  "protected_source_files": 13,
+  "proof_folder": "res://modules/character-rigging-editor/soma/rig-editor/north-west/proof-2147/"
+}

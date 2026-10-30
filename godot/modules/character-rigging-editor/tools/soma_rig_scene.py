@@ -35,6 +35,8 @@ button('Back','Calibration',12,8,110)
 label('Title','SOMA Multi-View Rig Editor | Character1 / Idle',135,10,520)
 button('Undo','Undo',670,8,75);button('Redo','Redo',750,8,75)
 button('Save','Save all',835,8,100);button('Reload','Reload',945,8,85)
+node('NorthProfile','OptionButton',1040,8,245,30,'tooltip_text = "Load preserved North-pair comparison profile (undoable)"')
+button('DetachNorth','Detach NE',1290,8,130)
 for name,label_text,x in [('Full','Full 77',12),('Masks','Masks',120),('Skeleton','Skeleton',220),('AnchorTool','Anchor tool',340)]:
     node(name,'CheckBox',x,44,120,30,f'text = "{label_text}"'+('\nbutton_pressed = true' if name=='Skeleton' else ''))
 button('All','All six',490,44,90);button('Focus','Focus view',590,44,110);button('Center','Center',710,44,90)

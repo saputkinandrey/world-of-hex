@@ -37,6 +37,10 @@ static func validate(s: Dictionary, seed: Dictionary) -> String:
 	if s.get("schema")!="soma-multiview-rig/1" or s.get("model_id")!=seed.model_id or s.get("baseline_fingerprint")!=seed.baseline_fingerprint: return "Wrong schema or South baseline identity"
 	if s.get("character")!="Character1" or s.get("pose")!="idle":return "Only Character1 / Idle has calibrated inputs"
 	if s.get("canonical")!=seed.canonical or s.get("images")!=seed.images: return "Immutable SOMA hierarchy or image inventory changed"
+	var links: Variant=s.get("view_links",{})
+	if not links is Dictionary:return "Invalid view links"
+	for view in links:
+		if view!="north-east" or links[view]!="north-west":return "Unsupported derived-view link"
 	if not s.get("geometry",{}).get("local_offsets_m") is Array or not s.get("base_pose",{}).get("local_rotation_vectors") is Array:return "Missing geometry or pose"
 	if s.geometry.local_offsets_m.size()!=77 or s.base_pose.local_rotation_vectors.size()!=77:return "SOMA requires 77 joints"
 	if not valid_vector(s.base_pose.get("root_translation_m"),3):return "Invalid Base Pose root translation"
@@ -64,13 +68,42 @@ static func validate(s: Dictionary, seed: Dictionary) -> String:
 				else:return "Unsupported override parameter: "+field
 	return ""
 
+static func linked(s: Dictionary, view: String) -> bool:
+	return s.get("view_links",{}).has(view)
+
+static func lens(s: Dictionary, view: String) -> Dictionary:
+	return s.overrides["idle/"+s.get("view_links",{}).get(view,view)]
+
+static func camera(s: Dictionary, view: String) -> Dictionary:
+	if not linked(s,view):return s.cameras[view]
+	var result: Dictionary=s.cameras[s.view_links[view]].duplicate(true)
+	result.mirror_x=true
+	result.source_view=s.view_links[view]
+	result.status="linked reflection: "+result.status
+	return result
+
+static func anchor(s: Dictionary, view: String) -> Dictionary:
+	if not linked(s,view):return s.anchors["idle/"+view]
+	var result: Dictionary=s.anchors["idle/"+s.view_links[view]].duplicate(true)
+	var width: float=s.images[view].native_size[0]
+	result.offset_px[0]=width-result.offset_px[0]
+	result.target_px[0]=width-result.target_px[0]
+	return result
+
+static func detach(s: Dictionary, view: String) -> void:
+	assert(linked(s,view),"No reflection link to detach")
+	s.cameras[view]=camera(s,view)
+	s.anchors["idle/"+view]=anchor(s,view)
+	s.overrides["idle/"+view]=lens(s,view).duplicate(true)
+	s.view_links.erase(view)
+
 static func world(s: Dictionary, view: String, use_lens: bool=true) -> Array:
 	var m: Dictionary=s.canonical
-	var lens: Dictionary=s.overrides["idle/"+view]
+	var active_lens: Dictionary=lens(s,view)
 	var points: Array=[]
 	var bases: Array=[]
 	for i in range(77):
-		var correction: Dictionary=lens.joints.get(m.joint_names[i],{}) if use_lens and lens.enabled else {}
+		var correction: Dictionary=active_lens.joints.get(m.joint_names[i],{}) if use_lens and active_lens.enabled else {}
 		var offset := vec(s.geometry.local_offsets_m[i])*float(correction.get("length_multiplier",1.0))+vec(correction.get("local_offset_delta",[0,0,0]))
 		var q: Array=m.local_quaternions_xyzw[i]
 		var local := (Quaternion(q[0],q[1],q[2],q[3])*rot(s.base_pose.local_rotation_vectors[i])*rot(correction.get("rotation_delta",[0,0,0]))).normalized()
@@ -91,18 +124,20 @@ static func project_world(points: Array, cam: Dictionary) -> Array:
 	return out
 
 static func projection(s: Dictionary, view: String) -> Array:
-	var points := project_world(world(s,view),s.cameras[view])
-	var a: Array=s.anchors["idle/"+view].offset_px
+	var points := project_world(world(s,view),camera(s,view))
+	var a: Array=anchor(s,view).offset_px
 	for i in range(points.size()):points[i]+=Vector2(a[0],a[1])
 	return points
 
 static func sync_anchor_targets(s: Dictionary) -> void:
 	for view in ORDER:
+		if linked(s,view):continue
 		var a: Dictionary=s.anchors["idle/"+view]
 		var p: Vector2=projection(s,view)[s.canonical.joint_names.find(a.joint)]
 		a.target_px=[p.x,p.y]
 
 static func set_anchor_target(s: Dictionary, view: String, target: Vector2) -> void:
+	assert(not linked(s,view),"Detach the derived view before independent anchor editing")
 	var a: Dictionary=s.anchors["idle/"+view]
 	var p: Vector2=project_world(world(s,view),s.cameras[view])[s.canonical.joint_names.find(a.joint)]
 
@@ -110,6 +145,7 @@ static func set_anchor_target(s: Dictionary, view: String, target: Vector2) -> v
 	a.target_px=[target.x,target.y]
 
 static func put_override(s: Dictionary, view: String, joint: String, field: String, value: Variant) -> void:
+	assert(not linked(s,view),"Detach the derived view before independent lens editing")
 	var joints: Dictionary=s.overrides["idle/"+view].joints
 	var item: Dictionary=joints.get(joint,{})
 	var neutral: bool=is_equal_approx(float(value),1.0) if field=="length_multiplier" else vec(value).length()<1e-12
@@ -123,6 +159,10 @@ static func save(path: String, state: Dictionary, seed: Dictionary) -> String:
 	if not message.is_empty():return message
 	var payload:=state.duplicate(true)
 	sync_anchor_targets(payload)
+	for view in payload.get("view_links",{}):
+		payload.cameras[view]=camera(payload,view)
+		payload.anchors["idle/"+view]=anchor(payload,view)
+		payload.overrides["idle/"+view]={"enabled":true,"joints":{}}
 	payload.erase("canonical")
 	payload.erase("images")
 	var file:=FileAccess.open(path+".tmp",FileAccess.WRITE)

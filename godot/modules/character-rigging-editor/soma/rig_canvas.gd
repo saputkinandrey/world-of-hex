@@ -73,8 +73,9 @@ func _draw() -> void:
 		draw_rect(r,Color("1d2633"))
 		draw_rect(r,Color("6cd4fa") if view==active_view else Color("39495b"),false,2)
 		var image: Dictionary=state.images[view]
-		var lens: Dictionary=state.overrides[image.id]
-		var status: String="derived" if not image.independent else "provisional" if "provisional" in state.cameras[view].status else "manual" if state.cameras[view].status=="manually adjusted" else "calibrated"
+		var lens: Dictionary=Model.lens(state,view)
+		var cam: Dictionary=Model.camera(state,view)
+		var status: String="linked NW" if Model.linked(state,view) else "derived" if not image.independent else "provisional" if "provisional" in cam.status else "working" if "working" in cam.status else "manual" if "manual" in cam.status else "calibrated"
 		var header: String=view+" | "+status
 		draw_string(font,r.position+Vector2(9,20),header,HORIZONTAL_ALIGNMENT_LEFT,-1,14,Color("cee4f5"))
 		draw_string(font,r.position+Vector2(9,40),"Lens %s: %d joint(s)"%["ON" if lens.enabled else "OFF",lens.joints.size()],HORIZONTAL_ALIGNMENT_LEFT,-1,12,Color("a9b7c8"))
@@ -94,7 +95,7 @@ func _draw() -> void:
 					if names[i].ends_with("Shoulder"):draw_dashed_line(p[parent],p[i],color,1.0,2.0)
 					else:draw_line(p[parent],p[i],color,1.1,true)
 				draw_circle(p[i],2.5 if i==selected else 1.3,Color("ff627e") if i==selected else color)
-		var a: Dictionary=state.anchors[image.id]
+		var a: Dictionary=Model.anchor(state,view)
 		var target:=Vector2(a.target_px[0],a.target_px[1])
 		draw_circle(target,4.0,Color("8bb3ff"),false,1.1)
 		draw_line(target-Vector2(6,0),target+Vector2(6,0),Color("8bb3ff"),.8)
@@ -118,6 +119,7 @@ func _gui_input(event: InputEvent) -> void:
 		if event.button_index==MOUSE_BUTTON_MIDDLE and event.pressed:panning=view;accept_event()
 		if event.button_index==MOUSE_BUTTON_LEFT and event.pressed:
 			active_view=view;view_selected.emit(view)
+			if Model.linked(state,view):anchor_tool=false
 			if event.double_click and not anchor_tool:
 				focused="" if focused==view else view;queue_redraw();accept_event();return
 			var native: Vector2=image_transform(view).affine_inverse()*event.position

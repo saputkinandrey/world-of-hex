@@ -1,0 +1,28 @@
+{
+  "version": 1,
+  "view": "north-west",
+  "registration_hips_px": [74.0, 94.5],
+  "camera_candidates": [
+    {"name": "Camera -135 / 0", "yaw_degrees": -135.0, "pitch_degrees": 0.0},
+    {"name": "Camera -145 / 5", "yaw_degrees": -145.0, "pitch_degrees": 5.0},
+    {"name": "Camera -130 / 5", "yaw_degrees": -130.0, "pitch_degrees": 5.0}
+  ],
+  "chosen_camera": "Camera -130 / 5",
+  "manual_points_px": {
+    "LeftArm": [62.8, 63.5],
+    "LeftForeArm": [59.0, 82.5],
+    "LeftHand": [56.5, 94.0],
+    "RightArm": [87.5, 60.5],
+    "RightForeArm": [93.5, 76.0],
+    "RightHand": [90.0, 89.0],
+    "LeftFoot": [64.5, 113.0],
+    "LeftToeBase": [61.5, 115.0],
+    "LeftToeEnd": [57.8, 115.2],
+    "RightShin": [82.0, 105.0],
+    "RightFoot": [82.7, 110.5],
+    "RightToeBase": [83.3, 111.3],
+    "RightToeEnd": [84.0, 111.5]
+  },
+  "interpretation": "Hand-reviewed visible attachment/centreline points, approximate native pixel coordinates. Wrists, not heuristic hand centres in the pelvis. Far foot is partly occluded: compact continuation inside its visible silhouette, not recovered hidden anatomy.",
+  "offset_depth_constraint": "Retain each edited joint's current view depth; convert the reviewed image-plane displacement into parent-local metres. No optimization and no independent 3D skeleton."
+}
